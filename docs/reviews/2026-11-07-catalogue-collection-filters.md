@@ -40,8 +40,15 @@ Remaining scope: nested/LFS adapters and transitive consumers are unindexed;
 metadata agreement does not verify payload presence or decoded media equality.
 
 Verification: full locked workspace tests passed before the continuation;
-continuation adds focused Rust catalogue/CLI tests and four automated frontend
+continuation adds focused Rust catalogue/CLI tests and five automated frontend
 controller tests for toggles, combined states, shared links, stale responses,
 coverage and zero results. Strict all-target/all-feature Clippy and standalone
 no-default-features checks are required on this final patch. Browser validation
 remains pending permission; no claim of final visual acceptance is made here.
+
+Permission subsequently granted: producer-run browser tasks at 5bb0c39 passed
+single-total filtering, project-pair selection, exact commit labels, category
+filtering, shared-byte totals and opening linked record inspectors. Testing found
+summary redraw lost keyboard focus. This follow-up restores focus to the newly
+rendered total and adds a controller assertion; keyboard validation follows
+against the rebuilt candidate. No private project data is retained in source.

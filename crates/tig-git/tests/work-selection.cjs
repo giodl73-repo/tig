@@ -8,10 +8,10 @@ function fixture(){
   {id:'one',label:'One',count_label:'Accepted one',count_state:'Accepted'},
   {id:'two',label:'Two',count_label:'Ready two',count_state:'Ready'}]}],
   project:'p',category:'',workCollections:[],mode:'works',workState:'',facet:'',q:'',generation:0,rows:[]};
- const element=(tag='',cls='',text='')=>({tag,className:cls,textContent:text,children:[],value:'',setAttribute(){},append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;}});
+ const element=(tag='',cls='',text='')=>({tag,className:cls,textContent:text,children:[],attributes:{},dataset:{},value:'',focus(){this.focused=true;},setAttribute(k,v){this.attributes[k]=v;},append(...items){this.children.push(...items);},replaceChildren(...items){this.children=items;}});
  const elements=new Map();const $=id=>{if(!elements.has(id))elements.set(id,element());return elements.get(id);};
  let requests=[];
- const context=vm.createContext({state,$,document:{querySelector:$},notice(message){$('notice').textContent=message;},node:element,fmt:new Intl.NumberFormat(),
+ const context=vm.createContext({state,$,document:{querySelector:$,querySelectorAll:()=>$('.stats').children.filter(c=>c.className==='summary-filter')},notice(message){$('notice').textContent=message;},node:element,fmt:new Intl.NumberFormat(),
   bytes:n=>n+' B',projectLabel:id=>id,inspect(){},close(){},
   api:async(path,params)=>{requests.push({path,params});return {snapshots:{p:'abc'},items:[],total:0};}});
  vm.runInContext(source,context);
@@ -27,6 +27,26 @@ test('ordinary, Ctrl and Meta clicks select, union and clear',()=>{
  context.chooseCollection('two');assert.equal(state.workCollections.length,0);assert.equal(state.category,'');
  context.chooseCollection('one');context.chooseCollection('');assert.equal(state.workCollections.length,0);
  assert.equal($('search-scope').value,'collection');
+});
+
+test('rendered totals are accessible toggles and shared navigation supplies labelled selectors',()=>{
+ const f=fixture(),p=f.state.projects[0];Object.assign(p,{label:'First',refs:[],categories:{photo:3},records:3,work_count:3});
+ p.collections.forEach(c=>Object.assign(c,{count_value:2,count:3,states:{Accepted:2},facets:{},label:c.id}));
+ f.context.Option=function(text,value){this.textContent=text;this.value=value;};
+ f.context.navButton=(_,count,active,click)=>{const b=f.context.node('button');b.onclick=click;return b;};
+ f.context.drawWorkNavigation();const totals=f.$('.stats').children;
+ assert.equal(totals[0].tag,'button');assert.equal(totals[0].attributes['aria-pressed'],'false');
+ f.context.drawNavigation=()=>f.context.drawWorkNavigation();
+ totals[0].onclick({currentTarget:totals[0]});assert.equal(f.$('.stats').children[0].attributes['aria-pressed'],'true');
+ assert.equal(f.$('.stats').children[0].focused,true);
+ f.$('.stats').children[1].onclick({ctrlKey:true});assert.equal(f.state.workCollections.length,2);
+ f.state.projects.push({id:'q',label:'Second',commit:'def',categories:{photo:2},work_count:2});
+ vm.runInContext("sharedView.left='p';sharedView.right='q'",f.context);f.context.drawSharedNavigation();
+ const controls=f.$('work-controls').children;
+ assert.equal(controls[0].children[0].attributes['aria-label'],'First comparison project');
+ assert.equal(controls[1].children[0].attributes['aria-label'],'Second comparison project');
+ assert.equal(controls[2].children[0].attributes['aria-label'],'Shared asset category');
+ assert.equal(f.$('.toolbar').hidden,true);
 });
 
 test('shared view compares exact pair, links references and refuses stale snapshots',async()=>{

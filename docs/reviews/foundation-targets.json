@@ -1494,8 +1494,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/web/works.js",
-      "bytes": 12315,
-      "sha256": "422d28285dba69dee1a133872e053041a69ecd085aa013401d67395b60dd2540"
+      "bytes": 12517,
+      "sha256": "84a3ff2eb3baf9d8828dc74e143fc153535bbe826f82da0ba8d264d25c640acd"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/browse.js",
@@ -1639,13 +1639,13 @@
     },
     {
       "path": "crates/tig-git/tests/work-selection.cjs",
-      "bytes": 5276,
-      "sha256": "61e7d2f6bc13b1668a103bf47cf7b07f2e9f73af2833696d062a63250ed662c8"
+      "bytes": 7039,
+      "sha256": "27471ca0a61d2149bcc29c5dcf23a000ce09f22607a5470dfdb1d3b8d76aed88"
     },
     {
       "path": "docs/reviews/2026-11-07-catalogue-collection-filters.md",
-      "bytes": 3206,
-      "sha256": "1b953c4f50be020b41bfb595d9d43ccd878520cf08076b1b9c55046a5581e043"
+      "bytes": 3678,
+      "sha256": "a248584eae55ef76bfb76dc889d886d8deca3d2f81381aa26a9399115d369e61"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/shared.js",
