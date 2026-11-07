@@ -37,6 +37,7 @@ Dropping a reference **does not authorize deletion**.
 | Local storage | Bounded publication, capacity admission, source journals, retention and recovery primitives |
 | Optional typed assets | Schema admission, declared graphs, sparse variants, production contexts and revision/delivery history |
 | Local catalogue | Multi-project works, child navigation, search, versions, metadata coverage and storage comparison |
+| Agent queries | Discoverable JSON interface for find, compare, shared bytes, direct bindings and explained transitive impact |
 | Storage review | Named copy observations, placement preferences, explicit verification and held dry runs |
 
 These components are not a complete autonomous storage service. Full dependency/job
@@ -81,6 +82,14 @@ other streams remain outside this comparison. Zero matches is scoped evidence,
 not proof that two entire projects share no media. Output never overwrites a file.
 For direct selected/named-stream reference lookup and the distinction between
 byte equality and dependency changes, see [meta operations](docs/META-OPERATIONS.md).
+
+Agents can use one versioned interface for these operations:
+
+    target/debug/tig-query describe
+    target/debug/tig-query run /absolute/path/to/request.json
+
+See [agent queries](docs/AGENT-QUERIES.md) for request shapes, coverage, exit codes,
+snapshot/interpretation fencing and the Rust library interface.
 
 On Windows append .exe to the binary and supply an absolute Windows path.
 Open http://127.0.0.1:8799/; stop the foreground process to stop the viewer.

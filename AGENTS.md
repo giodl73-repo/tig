@@ -26,3 +26,6 @@ implementation; producer review is not independent or human approval.
   Rust fmt/locked tests/Clippy become required when Rust implementation is added.
 - No Cargo dependencies on TRACKER-relative paths. Reuse existing providers through
   adapters after fixtures; do not create another project-specific cache engine.
+- For asset find/compare/where-used tasks, start with tig-query describe and
+  docs/AGENT-QUERIES.md. Preserve coverage/basis checks; extend admitted adapters
+  rather than introducing per-project media scanners or comparison scripts.

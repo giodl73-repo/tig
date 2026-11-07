@@ -1,0 +1,24 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "title":"Tig agent query result experimental-1",
+  "type":"object",
+  "required":["schema","status","authorizes_eviction"],
+  "properties":{
+    "schema":{"const":"tig.query-result.experimental-1"},
+    "status":{"enum":["complete","partial","error"]},
+    "operation":{"enum":["projects","find","shared","references","compare","impact"]},
+    "request":{"$ref":"#/$defs/object"},
+    "basis":{"type":"object","additionalProperties":{"type":"object","required":["commit","checkpoint","records","definitions","interpretation"]}},
+    "basis_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
+    "paging":{"type":["object","null"],"required":["offset","returned","total_known","next_offset"],"properties":{"offset":{"type":"integer","minimum":0},"returned":{"type":"integer","minimum":0,"maximum":100},"total_known":{"type":"integer","minimum":0},"next_offset":{"type":["integer","null"],"minimum":0}}},
+    "coverage":{"type":"object","required":["complete_declared_scope","complete_project_scope","payloads_opened","exclusions"],"properties":{"complete_declared_scope":{"type":"boolean"},"complete_project_scope":{"const":false},"payloads_opened":{"const":0},"exclusions":{"type":"array","items":{"type":"string"}}}},
+    "data":{"type":"object"},
+    "report_written":{"const":true},
+    "error":{"type":"object","required":["code"],"properties":{"code":{"type":"string"}}},
+    "authorizes_eviction":{"const":false}
+  },
+  "if":{"properties":{"status":{"const":"error"}}},
+  "then":{"required":["error"]},
+  "else":{"required":["operation","request","basis","basis_sha256","coverage","paging"],"oneOf":[{"required":["data"]},{"required":["report_written"]}]},
+  "$defs":{"object":{"type":"object","required":["sha256","bytes"],"additionalProperties":false,"properties":{"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"bytes":{"type":"integer","minimum":0}}}}
+}
