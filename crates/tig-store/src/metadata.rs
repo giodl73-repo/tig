@@ -1,4 +1,5 @@
-//! Owned immutable metadata NodeStore. No media ingest, deletion or census.
+//! Owned immutable metadata NodeStore. No media ingest, deletion or discovery.
+pub mod copy;
 use crate::local;
 use rusqlite::{Connection, OpenFlags, OptionalExtension, TransactionBehavior, params};
 use serde::{Deserialize, Serialize};
@@ -27,7 +28,8 @@ pub struct Limits {
     pub min_free_bytes: u64,
 }
 impl Limits {
-    fn validate(&self) -> Result<()> {
+    /// Check the provider's fixed supported resource bounds without creating it.
+    pub fn validate(&self) -> Result<()> {
         if self.nodes == 0
             || self.nodes > 2_000_000
             || self.bytes == 0

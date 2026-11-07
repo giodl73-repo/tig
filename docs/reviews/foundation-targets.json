@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 49687,
-      "sha256": "9f903b5070d434dd0803ddaa181efc31b33ba0d1285b5ff6647e52f91bd37730"
+      "bytes": 50398,
+      "sha256": "685848850a3e8e3d0cb516ece38893868f44b668fa3241f07389cfbd65b1105f"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 83747,
-      "sha256": "12d2bc64ce9ed8288067c64f04937f9deb4fbb1f6e3f4486a13256ce025d30d0"
+      "bytes": 84223,
+      "sha256": "c64ff237c099dfdc5e53364fcbb99e4f56640144af162e7833db1c404ab0be8e"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 28170,
-      "sha256": "d9fa122e2ab1b2309e2ede84b08e04ddb7db2e273cde0b7f4a80a7ac3a7d6494"
+      "bytes": 28571,
+      "sha256": "170773c99fae84a7e70d0f4f4205b0d00938f0fd80b14fb73d9ec694b095fbb0"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -814,8 +814,8 @@
     },
     {
       "path": "crates/tig-store/src/metadata.rs",
-      "bytes": 19577,
-      "sha256": "705f335c8021f9d684309f5cfc49fccf598212404c37d75a6e5f9cf018a5af38"
+      "bytes": 19680,
+      "sha256": "8a00f288df8be7299147cdbecdb99f85fabcf3a122358859d32b2724d68a5eb2"
     },
     {
       "path": "crates/tig-store/tests/metadata.rs",
@@ -1606,6 +1606,31 @@
       "path": ".github/PULL_REQUEST_TEMPLATE.md",
       "bytes": 485,
       "sha256": "abeceb8a2c424dd23494f169a2fd83c78042e70159e26216d1a702966c7bb759"
+    },
+    {
+      "path": "crates/tig-store/src/metadata/copy.rs",
+      "sha256": "b0f49e03bc9678a1d61db36bdc1c82ec6bab8910051467c2681bda81c7da637f",
+      "bytes": 9596
+    },
+    {
+      "path": "crates/tig-store/src/metadata/copy/tests.rs",
+      "sha256": "8800dfbba619316092fd4ef49e68e015167edc004f7a7a8556dcb8919894966c",
+      "bytes": 9720
+    },
+    {
+      "path": "crates/tig-store/src/bin/tig-metadata.rs",
+      "sha256": "61911dafe7236b6d2a3a1cbfa486093a664a361c76cb096ee250db871ca0be3a",
+      "bytes": 10574
+    },
+    {
+      "path": "crates/tig-store/tests/metadata_copy_cli.rs",
+      "sha256": "1ca37dff2decf3c313520ccd7d38a0f2fb95b0d70f8d1afc97e466f0955a8907",
+      "bytes": 6144
+    },
+    {
+      "path": "specs/METADATA-PROVIDER-COPY.md",
+      "sha256": "78e373db31c9cfec115f67a77305204a64741b4f06d9b15e926161401ec93ce4",
+      "bytes": 1816
     }
   ]
 }

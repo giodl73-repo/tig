@@ -1074,3 +1074,10 @@ prefixes and replayed outcomes do not grant new IO. Disposition pass_with_risk:
 namespace collisions fail closed, journal limits/compaction and external latest-
 witness authority remain separate constraints. Consumer rollout is not this
 component's validation or proof of complete artifact retention.
+
+EVID-083 producer review (input0ceade): identity verifies exact snapshots/all nodes;
+placement requires explicit distinct providers; storage retains source and failed
+target; concurrency refuses drift without long transactions; privacy uses only
+synthetic fixtures and redacts summaries; adoption stays caller-owned.
+Pass_with_risk: partial/publication failure leaves an unselected target. No
+independent/human approval, capacity reservation, custody or hosted qualification.
