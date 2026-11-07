@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible Tig problem using synthetic data.
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private enrollment, prompts, assets or raw receipts. Use SECURITY.md for sensitive reports.
+  - type: input
+    id: version
+    attributes:
+      label: Tig commit and platform
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Include commands and redacted diagnostics. Do not test destructive behavior against a live store.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true

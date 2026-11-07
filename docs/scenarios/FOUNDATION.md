@@ -1,6 +1,8 @@
 # Tig foundation scenarios
 
-All cases are designed only. No runtime test has been executed.
+This ledger remains design-only; none of its rows is closed by component tests
+alone. Scoped runtime tests are recorded separately in
+[the evidence register](../vtrace/EVIDENCE.md). Full-system acceptance remains open.
 
 | ID | Trigger | Expected outcome |
 | --- | --- | --- |

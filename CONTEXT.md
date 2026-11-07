@@ -22,9 +22,11 @@ Read AGENTS.md and the active wave/pulse. docs/vtrace/README.md routes controls
 and evidence. Preserve stable IDs and distinguish historical results, current
 code and target behavior. Roles are producer checklists, not independent reviewers.
 
-Public preparation archived consumer-specific notes privately and generalized
-current summaries. Historical source and hosting metadata require separate privacy
-review before changing visibility. No publication or history rewrite is implied.
+The public repository began with a clean source snapshot. Private consumer notes,
+original history and hosting context remain outside this repository. Historical
+evidence SHAs in documentation identify original checkpoints; they are not
+promises that those commits exist in public history. Port reviewed generic
+patches rather than importing private ancestry. See docs/PUBLIC-RELEASE.md.
 
 Source/docs remain below 3.5 MiB, individual files below 128 KiB. No media, builds,
 runtime databases, inventories, raw receipts or private fixtures in Git.
