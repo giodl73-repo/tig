@@ -577,3 +577,13 @@ and all-feature suites pass (465 listed Windows all-feature entries); fmt,
 all-target all-feature warnings-denied Clippy and standalone Git check pass.
 Limits are unchanged. Native journal compaction, application deployment, payload
 custody and full-system acceptance are not claimed; current-head CI is pending.
+
+EVID-083: checked metadata copy, input0ceade2a16de1c1ed6cc27e48675e7945d7b61df.
+Eight API and four separate-process CLI tests pass on Windows: 2,300-node paged
+copy/readback, old-root reopen, target growth/source preservation, drift without
+long transactions, partial failure, corruption, path/plan/budget refusal and
+source-offline verification. Initial CLI borrow compile failure corrected.
+Locked all-feature workspace tests, strict Clippy, fmt, structure and standalone
+Git check passed locally. Final CLI cases pass again after temp-owner fix.
+Hosted qualification, physical admission, private adoption and custody stay open.
+Synthetic providers only; no real provider copy. See METADATA-PROVIDER-COPY.md.

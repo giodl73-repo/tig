@@ -395,3 +395,10 @@ CAPACITY-RETIREMENT.md -> capacity.rs / ledger.rs and pure/SQLite/process fixtur
 -> EVID-KRY-01. Existing event encodings/prefixes and authority are preserved;
 explicit RetireClosed requires a compatible reader. No payload removal,
 reservation expiry, journal pruning or expanded resource limit follows.
+
+Checked metadata copy: WP-001/008/009, REQ-001/005/007/009 ->
+SPEC-002/005/006/008, IF-002/005/008, PKG-002/003/008 ->
+METADATA-PROVIDER-COPY.md -> metadata/copy.rs, tig-metadata.rs,
+metadata/copy/tests.rs and metadata_copy_cli.rs -> EVID-083.
+Exact provider snapshot verification is separate from capacity admission,
+source-journal authority, provider adoption, latest-source coverage and custody.
