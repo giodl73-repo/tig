@@ -73,6 +73,16 @@ pub struct Schema {
     policy: Object,
     policy_bytes: Vec<u8>,
 }
+
+/// Validate an explicitly supplied JSON document with the same offline compiler
+/// used for authored assets. This grants no asset identity or policy authority.
+pub fn check_document(raw_schema: &[u8], dialect: Dialect, value: &Value) -> Result<(), Error> {
+    if raw_schema.len() > MAX_RECORD_BYTES {
+        return Err(Error::Json);
+    }
+    let schema = parse_json(raw_schema).map_err(|_| Error::Json)?;
+    check_value(&compile_value(&schema, dialect)?, value)
+}
 impl Schema {
     pub fn compile(
         definition: &Parsed<Definition>,

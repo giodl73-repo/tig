@@ -2,7 +2,7 @@
 use super::*;
 use regex::{Regex, RegexBuilder};
 
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Matcher {
     #[serde(default)]
@@ -17,7 +17,7 @@ pub struct Matcher {
 fn id_pointer() -> String {
     "/id".into()
 }
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Stage {
     pub label: String,
@@ -26,13 +26,13 @@ pub struct Stage {
     #[serde(default)]
     pub selected_slot_prefix: Option<String>,
 }
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Facet {
     pub label: String,
     pub pattern: String,
 }
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Collection {
     pub id: String,

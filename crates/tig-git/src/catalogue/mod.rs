@@ -19,6 +19,7 @@ use tig_assets::{
 use tig_core::{LogicalPath, Object, identity::parse_json};
 use tig_store::existing::{ByteSource, Profile as ByteProfile, ReadCache};
 pub mod http;
+pub mod query;
 pub mod shared;
 pub mod storage;
 pub mod works;
@@ -38,7 +39,7 @@ pub struct ResolverProfile {
     #[serde(default)]
     pub byte_source: Option<ByteProfile>,
 }
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct DisplayRule {
     #[serde(default)]
@@ -369,6 +370,7 @@ impl Project {
                 .collect::<BTreeSet<_>>()
                 .len()
         );
+        summary["dependency_profiles"] = json!(self.enrollment.graph_profiles.len());
         summary
     }
     pub fn change_snapshot(&mut self, commit: &str) -> Result<()> {

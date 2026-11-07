@@ -64,3 +64,8 @@ required-features = ["schema"]
 name = "tig-catalogue"
 path = "src/bin/tig-catalogue.rs"
 required-features = ["schema"]
+
+[[bin]]
+name = "tig-query"
+path = "src/bin/tig-query.rs"
+required-features = ["schema"]

@@ -41,8 +41,10 @@ pointers outside enrolled native records require a separate source extraction
 adapter; none is silently substituted. Query coverage and custody are separate.
 Changing categories or observing zero known references never authorizes eviction.
 
-Remaining work includes admitted nested/LFS query adapters, transitive where-used
-with graph/profile coverage, and UI access to full graph comparison. Reuse the
+The [agent interface](AGENT-QUERIES.md) unifies find, shared, references, record/
+stream comparison and explained transitive impact through admitted graph profiles.
+Remaining work includes admitted nested/LFS query adapters, cross-project semantic
+dependencies and UI access to full graph comparison. Reuse the
 native graph and source extraction mechanisms rather than adding project scripts
 or a second hash database. Persisted indexes must be derived from exact snapshot
 identities and invalidated when their source or admitted rules change.
