@@ -7,6 +7,34 @@ service and bundled frontend, gated by tig-git/schema. No daemon installation.
 ` tig-catalogue serve ABSOLUTE_ENROLLMENT [PORT] ` explicitly serves loopback
 (default 8799). Stop the process to stop the viewer.
 
+`tig-catalogue shared ENROLLMENT LEFT RIGHT NEW_REPORT [CATEGORY]` compares
+selected object identities in two explicit pinned projects. Only those project
+profiles are opened. Identity is SHA-256 plus length; conflicting lengths refuse.
+Shared bytes count unique objects once; each side lists all matching asset IDs,
+definitions and admitted categories. Categories are external presentation rules,
+not inferred MIME or media semantics. The create-new absolute report path is
+operator-owned, capped at 16 MiB; stdout contains totals and coverage flags only.
+Reports name commits, record scopes, category counts and absent selections.
+Named streams, nested inventories, unregistered files and other LFS pointers
+are excluded. Payload presence, decoded equivalence, custody and eviction are
+not established. No media is opened, rehashed or moved.
+
+The authenticated `/api/shared?left=ID&right=ID&category=LABEL&offset=N`
+uses those same captured snapshots. It pages 100 objects and at most 100
+references per side/object, retaining full reference totals. The Shared assets
+view names both pinned commits, excluded scopes and missing selections.
+Matching categories need not represent the same media type across projects;
+their meaning remains externally admitted. A zero result is scoped evidence.
+
+`tig-catalogue references ENROLLMENT SHA256 NEW_REPORT [PROJECT] [OFFSET]`
+lists direct selected and named-stream bindings, 100/page, across all enrolled
+projects or one explicit project. `/api/references` accepts sha/project/offset
+with the same calculation. Reports distinguish selected bindings and stream
+slot/role/group, include captured commits, and reject invalid hashes, unknown
+projects, conflicting lengths or offset above 1,000,000. These are byte bindings,
+not transitive semantic consumers. Neither operation scans caches or infers
+safe deletion from missing references. Private CLI report rules above apply.
+
 ## Enrollment and presentation
 
 Machine-local schema tig.catalogue-enrollment.experimental-1 has projects
@@ -44,6 +72,14 @@ GET /api/projects, /api/works, /api/work and technical /api/assets, /api/asset,
 Snapshot changes never checkout/fetch; failed capture preserves the prior view.
 Details/checks require the displayed commit. Pages include snapshot identities;
 refresh redraws captured data. Restart to enroll newer refs/profiles.
+
+Summary totals are toggle buttons. Ordinary click selects one collection's
+configured count-state; clicking the only active total again clears selection.
+Ctrl/Meta-click toggles collections together. The works endpoint accepts a
+comma-separated `collections` union (1–32 unique admitted IDs); each retains
+its own count-state. Combining that parameter with collection/state/facet refuses.
+The union preserves search, deterministic order, snapshot fencing and 100-row
+paging. One collection's status must not be applied to another collection.
 
 Exact loopback Host, foreign-Origin refusal and per-process unpredictable
 X-Tig-Session admission protect APIs. Bootstrap supplies the token in its page,

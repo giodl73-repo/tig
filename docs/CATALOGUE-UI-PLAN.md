@@ -39,6 +39,13 @@ paging. Explicit private acceptance may inspect metadata; no private assets,
 prompts, voices, enrollment or screenshots enter source or public examples.
 A grouped catalog count is not proof of delivery, freshness, custody or eviction.
 
+Collection totals now toggle filters; Ctrl/Meta-click combines their configured
+statuses. Shared assets compares two pinned projects through the same Rust
+selected-object query used by the CLI. Direct object-reference lookup includes
+selected and named streams. See [meta operations](META-OPERATIONS.md) for scope
+and remaining nested/LFS/transitive query adapters. Browser qualification of
+these new controls is separate from automated controller/API checks.
+
 Storage now admits retained observations and explicit registered-object metadata
 refresh. A colored size map, cache/family/work/status filters and work/version/
 object pivots share unique summary accounting. Historical review estimates stay

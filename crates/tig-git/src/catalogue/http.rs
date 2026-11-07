@@ -18,6 +18,7 @@ const STORAGE_GLOBAL_JS: &str = include_str!("web/storage-global.js");
 const STORAGE_OBJECTS_JS: &str = include_str!("web/storage-objects.js");
 const REVIEW_JS: &str = include_str!("web/review.js");
 const BROWSE_JS: &str = include_str!("web/browse.js");
+const SHARED_JS: &str = include_str!("web/shared.js");
 pub struct Host {
     pub catalogue: Mutex<Catalogue>,
     secret: String,
@@ -211,6 +212,25 @@ impl Host {
         }
         let mut c = self.catalogue.lock().map_err(|_| "Catalogue unavailable")?;
         match route {
+            "/api/shared" => c.shared_page(
+                get("left"),
+                get("right"),
+                get("category"),
+                if get("offset").is_empty() {
+                    0
+                } else {
+                    get("offset").parse().map_err(|_| "Invalid offset")?
+                },
+            ),
+            "/api/references" => c.object_references(
+                get("sha"),
+                get("project"),
+                if get("offset").is_empty() {
+                    0
+                } else {
+                    get("offset").parse().map_err(|_| "Invalid offset")?
+                },
+            ),
             "/api/storage/coverage" => c.coverage(
                 get("project"),
                 get("collection"),
@@ -322,6 +342,24 @@ impl Host {
                     get("offset").parse().map_err(|_| "Invalid offset")?
                 },
             ),
+            "/api/works" if q.contains_key("collections") => {
+                if !get("collection").is_empty()
+                    || !get("state").is_empty()
+                    || !get("facet").is_empty()
+                {
+                    return Err("Ambiguous collection filters".into());
+                }
+                c.work_selection(
+                    get("project"),
+                    get("collections"),
+                    get("q"),
+                    if get("offset").is_empty() {
+                        0
+                    } else {
+                        get("offset").parse().map_err(|_| "Invalid offset")?
+                    },
+                )
+            }
             "/api/works" => c.work_list(
                 (get("project"), get("collection")),
                 get("state"),
@@ -421,6 +459,11 @@ impl Host {
                 200,
                 "text/javascript; charset=utf-8",
                 BROWSE_JS.as_bytes().to_vec(),
+            ),
+            "/shared.js" => (
+                200,
+                "text/javascript; charset=utf-8",
+                SHARED_JS.as_bytes().to_vec(),
             ),
             "/app.js" => (
                 200,

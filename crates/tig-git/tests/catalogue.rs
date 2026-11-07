@@ -25,6 +25,168 @@ struct Fixture {
     first: String,
     second: String,
 }
+
+#[test]
+fn shared_selected_is_exact_deduplicated_scoped_and_payload_free() {
+    use tig_git::catalogue::shared::compare;
+    let f = Fixture::new();
+    let load = || Config::load(&f.config).unwrap();
+    let report = compare(load(), "alpha", "beta", "").unwrap();
+    assert_eq!(report["shared_objects"], 1);
+    assert_eq!(report["items"][0]["left"].as_array().unwrap().len(), 3);
+    assert_eq!(report["items"][0]["right"].as_array().unwrap().len(), 3);
+    assert_eq!(
+        report["shared_unique_bytes"],
+        Object::from_bytes(b"deliberately not stored anywhere").bytes
+    );
+    assert_eq!(report["coverage"][0]["commit"], f.first);
+    assert_eq!(report["payloads_opened"], 0);
+    assert_eq!(report["complete_project_comparison"], false);
+    assert!(!report.to_string().contains("NEVER_EXPOSE"));
+    let filtered = compare(load(), "alpha", "beta", "Photographs").unwrap();
+    assert_eq!(filtered["shared_objects"], 0);
+    assert_eq!(filtered["coverage"][1]["matched_records"], 0);
+    assert!(compare(load(), "alpha", "alpha", "").is_err());
+    assert!(compare(load(), "alpha", "missing", "").is_err());
+    let mut config = load();
+    let mut unrelated = config.projects[0].clone();
+    unrelated.id = "unavailable".into();
+    unrelated.profile = f.temp.path().join("missing.json");
+    config.projects.push(unrelated);
+    assert!(compare(config, "alpha", "beta", "").is_ok());
+
+    // The CLI writes an explicit report, never overwrites it, and emits only totals.
+    let output = f.temp.path().join("report.json");
+    let run = || {
+        std::process::Command::new(env!("CARGO_BIN_EXE_tig-catalogue"))
+            .arg("shared")
+            .arg(&f.config)
+            .args(["alpha", "beta"])
+            .arg(&output)
+            .output()
+            .unwrap()
+    };
+    let result = run();
+    assert!(result.status.success(), "{:?}", result);
+    let stdout: Value = serde_json::from_slice(&result.stdout).unwrap();
+    assert_eq!(stdout["shared_objects"], 1);
+    let saved = fs::read(&output).unwrap();
+    assert!(!run().status.success());
+    assert_eq!(fs::read(&output).unwrap(), saved);
+
+    let repo = f.temp.path().join("beta");
+    let mut record: Value =
+        serde_json::from_slice(&fs::read(repo.join("records/0.tig")).unwrap()).unwrap();
+    record["selected"] = Value::Null;
+    write(&repo, "records/0.tig", &record);
+    let pin_profile = |head: String| {
+        let path = f.temp.path().join("beta.json");
+        let mut profile: Value = serde_json::from_slice(&fs::read(&path).unwrap()).unwrap();
+        profile["commit"] = json!(head);
+        fs::write(path, serde_json::to_vec(&profile).unwrap()).unwrap();
+    };
+    pin_profile(commit(&repo));
+    let missing = compare(load(), "alpha", "beta", "").unwrap();
+    assert_eq!(missing["coverage"][1]["without_selected_object"], 1);
+    let object = Object::from_bytes(b"deliberately not stored anywhere");
+    record["selected"] = json!({"sha256":object.sha256,"bytes":object.bytes+1});
+    write(&repo, "records/0.tig", &record);
+    pin_profile(commit(&repo));
+    assert!(compare(load(), "alpha", "beta", "").is_err());
+}
+
+#[test]
+fn collection_union_retains_each_configured_state_and_search() {
+    let f = Fixture::new();
+    let mut config: Value = serde_json::from_slice(&fs::read(&f.config).unwrap()).unwrap();
+    config["projects"][0]["collections"] = json!([
+        {"id":"one","label":"One","icon":"document","roots":[{"pattern":"^asset/([01])$","key":"asset/${1}"}],"stages":[{"label":"Accepted","pointer":"/id","pattern":"^asset/0$"}],"count_state":"Accepted"},
+        {"id":"two","label":"Two","icon":"document","roots":[{"pattern":"^asset/2$","key":"asset/2"}]}
+    ]);
+    fs::write(&f.config, serde_json::to_vec(&config).unwrap()).unwrap();
+    let c = f.load();
+    let union = c.work_selection("alpha", "one,two", "", 0).unwrap();
+    assert_eq!(union["total"], 2);
+    assert_eq!(c.work_selection("alpha", "two,one", "", 0).unwrap(), union);
+    assert_eq!(
+        c.work_selection("alpha", "one,two", "item 2", 0).unwrap()["total"],
+        1
+    );
+    assert_eq!(
+        c.work_selection("alpha", "one,two", "", 1).unwrap()["items"]
+            .as_array()
+            .unwrap()
+            .len(),
+        1
+    );
+    assert!(c.work_selection("alpha", "one,two", "", 1_000_001).is_err());
+}
+
+#[test]
+fn reference_lookup_distinguishes_selected_and_named_bindings_and_pages() {
+    let f = Fixture::new();
+    let repo = f.temp.path().join("beta");
+    let mut record: Value =
+        serde_json::from_slice(&fs::read(repo.join("records/0.tig")).unwrap()).unwrap();
+    let old = Object::from_bytes(b"retained fixture bytes");
+    record["streams"] = json!([{"slot":"old","role":"result","group":"retained","object":old}]);
+    write(&repo, "records/0.tig", &record);
+    for n in 3..105 {
+        record["id"] = json!(format!("asset/{n}"));
+        record["streams"] = json!([]);
+        write(&repo, &format!("records/{n}.tig"), &record);
+    }
+    let head = commit(&repo);
+    let path = f.temp.path().join("beta.json");
+    let mut profile: Value = serde_json::from_slice(&fs::read(&path).unwrap()).unwrap();
+    profile["commit"] = json!(head);
+    fs::write(path, serde_json::to_vec(&profile).unwrap()).unwrap();
+    let c = f.load();
+    let sha = Object::from_bytes(b"deliberately not stored anywhere").sha256;
+    let all = c.object_references(sha.as_str(), "all", 0).unwrap();
+    assert_eq!(all["total"], 108);
+    assert_eq!(all["items"].as_array().unwrap().len(), 100);
+    assert_eq!(
+        c.object_references(sha.as_str(), "all", 100).unwrap()["items"]
+            .as_array()
+            .unwrap()
+            .len(),
+        8
+    );
+    assert_eq!(
+        c.object_references(sha.as_str(), "alpha", 0).unwrap()["total"],
+        3
+    );
+    let retained = c.object_references(old.sha256.as_str(), "all", 0).unwrap();
+    assert_eq!(retained["total"], 1);
+    assert_eq!(retained["items"][0]["binding"], "stream");
+    assert_eq!(retained["items"][0]["slot"], "old");
+    assert_eq!(retained["items"][0]["group"], "retained");
+    assert_eq!(retained["payloads_opened"], 0);
+    assert_eq!(retained["complete_project_comparison"], false);
+    assert!(c.object_references("not-a-hash", "all", 0).is_err());
+    assert!(c.object_references(sha.as_str(), "missing", 0).is_err());
+    assert!(c.object_references(sha.as_str(), "all", 1_000_001).is_err());
+    let shared = c.shared_page("alpha", "beta", "", 0).unwrap();
+    assert_eq!(shared["items"][0]["right_total"], 105);
+    assert_eq!(shared["items"][0]["right"].as_array().unwrap().len(), 100);
+    assert!(c.shared_page("alpha", "alpha", "", 0).is_err());
+    assert!(c.shared_page("alpha", "beta", "", 1_000_001).is_err());
+    let output = f.temp.path().join("references.json");
+    let result = std::process::Command::new(env!("CARGO_BIN_EXE_tig-catalogue"))
+        .args(["references"])
+        .arg(&f.config)
+        .arg(old.sha256.as_str())
+        .arg(output)
+        .args(["beta", "0"])
+        .output()
+        .unwrap();
+    assert!(result.status.success(), "{:?}", result);
+    assert_eq!(
+        serde_json::from_slice::<Value>(&result.stdout).unwrap()["total"],
+        1
+    );
+}
 impl Fixture {
     fn new() -> Self {
         let temp = tempfile::tempdir().unwrap();
@@ -1056,6 +1218,13 @@ fn work_counts_ignore_renditions_orphans_and_same_byte_runs() {
     let summary = c.projects["alpha"].summary();
     assert_eq!(summary["work_count"], 3);
     assert_eq!(summary["collections"][0]["count_value"], 1);
+    assert_eq!(
+        c.work_selection("alpha", "works", "", 0).unwrap()["total"],
+        1
+    );
+    for bad in ["", "unknown", "works,works", "works,"] {
+        assert!(c.work_selection("alpha", bad, "", 0).is_err());
+    }
     let rows = c
         .work_list(("alpha", "works"), "Accepted", "First", "", 0)
         .unwrap();
