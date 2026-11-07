@@ -52,8 +52,8 @@ qualification toolchain; no minimum supported Rust version is fixed yet.
 Windows and Linux run in CI. Install Git LFS before integration tests.
 No crates.io package or prebuilt installer is published by this repository.
 
-    git clone https://github.com/giodl73-repo/tig-public.git
-    cd tig-public
+    git clone https://github.com/giodl73-repo/tig.git
+    cd tig
     cargo build --workspace --all-features --bins --locked
     cargo test -p tig-git --features schema --test catalogue --locked
 

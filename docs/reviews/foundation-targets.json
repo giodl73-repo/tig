@@ -84,8 +84,8 @@
     },
     {
       "path": "Cargo.toml",
-      "bytes": 351,
-      "sha256": "8231d82ab7d9219c30c8e0a2e3dd400811d7aaf051aa6b676c10d63597e310f9"
+      "bytes": 344,
+      "sha256": "6831a7cec3872dccc32608943783ccafd3a624103336af7423b63a28712c3fcf"
     },
     {
       "path": "CONTEXT.md",
@@ -414,8 +414,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5903,
-      "sha256": "0af7d36fd196615705b367c7fb1ac7e3934718ed2c41097dd3ca4223dbe82b8d"
+      "bytes": 5889,
+      "sha256": "728bcdf02ac2076ffa80737140696843efede31e43b50123fda391b3505bdcd4"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
