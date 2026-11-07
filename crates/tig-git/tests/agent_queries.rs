@@ -1,4 +1,6 @@
 #![cfg(feature = "schema")]
+#[path = "agent_queries/admission_cases.rs"]
+mod admission_cases;
 mod common;
 use common::{git, git_executable};
 use serde_json::{Value, json};
