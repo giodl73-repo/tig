@@ -57,7 +57,7 @@ pub struct DisplayRule {
     #[serde(default)]
     pub icon: Option<String>,
 }
-#[derive(Clone, Deserialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct Field {
     pub label: String,

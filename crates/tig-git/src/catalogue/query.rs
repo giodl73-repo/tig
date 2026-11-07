@@ -2,6 +2,7 @@
 use super::*;
 use serde::{Deserialize, Serialize};
 
+mod admission;
 mod impact;
 pub const REQUEST_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY.schema.json");
 pub const RESULT_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY-RESULT.schema.json");
@@ -16,6 +17,16 @@ pub struct Asset {
 #[serde(tag = "operation", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Operation {
     Projects,
+    Inspect {
+        project: String,
+        asset: String,
+    },
+    Admission {
+        project: String,
+        kinds: BTreeSet<graph::EdgeKind>,
+        #[serde(default)]
+        definition: String,
+    },
     Find {
         project: String,
         text: String,
@@ -75,7 +86,10 @@ impl Request {
         if !self.enrollment.is_absolute() || self.offset > 1_000_000 {
             return Err("invalid_request".into());
         }
-        if matches!(self.query, Operation::Projects | Operation::Compare { .. }) && self.offset != 0
+        if matches!(
+            self.query,
+            Operation::Projects | Operation::Compare { .. } | Operation::Inspect { .. }
+        ) && self.offset != 0
         {
             return Err("invalid_request".into());
         }
@@ -109,6 +123,12 @@ impl Request {
             {
                 return Err("invalid_request".into());
             }
+            Operation::Inspect { asset, project } if !bounded(asset, 256) || project == "all" => {
+                return Err("invalid_request".into());
+            }
+            Operation::Admission { definition, .. } if !bounded(definition, 256) => {
+                return Err("invalid_request".into());
+            }
             _ => {}
         }
         Ok(())
@@ -118,6 +138,8 @@ impl Operation {
     pub fn name(&self) -> &'static str {
         match self {
             Self::Projects => "projects",
+            Self::Inspect { .. } => "inspect",
+            Self::Admission { .. } => "admission",
             Self::Find { .. } => "find",
             Self::Shared { .. } => "shared",
             Self::References { .. } => "references",
@@ -130,6 +152,8 @@ impl Operation {
             Self::Projects => BTreeSet::from(["all"]),
             Self::Find { project, .. }
             | Self::References { project, .. }
+            | Self::Inspect { project, .. }
+            | Self::Admission { project, .. }
             | Self::Impact { project, .. } => BTreeSet::from([project.as_str()]),
             Self::Shared { left, right, .. } => BTreeSet::from([left.as_str(), right.as_str()]),
             Self::Compare { left, right } => {
@@ -179,7 +203,7 @@ impl Catalogue {
         let mut basis = BTreeMap::new();
         for id in snapshots.keys() {
             let p = &self.projects[id];
-            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles});
+            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"fields":p.enrollment.fields,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles});
             let interpretation =
                 Object::from_bytes(&serde_json::to_vec(&projection).map_err(|_| "query_refused")?);
             basis.insert(id.clone(),json!({"commit":p.commit,"checkpoint":p.snapshot.checkpoint(),"records":p.profile.records,"definitions":p.profile.definitions,"interpretation":interpretation}));
@@ -196,6 +220,21 @@ impl Catalogue {
         let mut complete = true;
         let (data, total) = match &request.query {
             Operation::Projects => (self.summaries(), None),
+            Operation::Inspect { project, asset } => {
+                let p = self.projects.get(project).ok_or("unknown_project")?;
+                let d = p.inspect(asset).map_err(|_| "unknown_asset")?;
+                (d, None)
+            }
+            Operation::Admission {
+                project,
+                kinds,
+                definition,
+            } => {
+                let d = self.admission_query(project, kinds, definition, request.offset)?;
+                complete = d["complete_requested_admission"] == true;
+                let total = d["total"].as_u64();
+                (d, total)
+            }
             Operation::Find {
                 project,
                 text,

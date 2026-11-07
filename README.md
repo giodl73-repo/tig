@@ -37,7 +37,7 @@ Dropping a reference **does not authorize deletion**.
 | Local storage | Bounded publication, capacity admission, source journals, retention and recovery primitives |
 | Optional typed assets | Schema admission, declared graphs, sparse variants, production contexts and revision/delivery history |
 | Local catalogue | Multi-project works, child navigation, search, versions, metadata coverage and storage comparison |
-| Agent queries | Discoverable JSON interface for find, compare, shared bytes, direct bindings and explained transitive impact |
+| Agent queries | Discoverable JSON interface for inspect/admission, find, compare, shared bytes, direct bindings and explained transitive impact |
 | Storage review | Named copy observations, placement preferences, explicit verification and held dry runs |
 
 These components are not a complete autonomous storage service. Full dependency/job

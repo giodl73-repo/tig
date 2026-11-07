@@ -38,13 +38,15 @@ source Git. Windows paths can use forward slashes in JSON.
 | Operation | Query fields | Result |
 | --- | --- | --- |
 | projects | none | Enrolled IDs, exact commits and category summaries |
+| inspect | project, asset | Exact record/definition pins, selected object, named streams and owner-admitted inspector fields |
+| admission | project, kinds; optional definition ID filter | Used definition revisions, property/schema pins, admitted rules/classes and missing kind coverage |
 | find | project, text; optional category | Registered IDs/titles/types; empty text lists the scope |
 | shared | left/right project IDs; optional category | Unique shared selected objects and their record bindings |
 | references | project, sha256 | Direct selected and named-stream bindings, including retained streams |
 | compare | left/right objects with project and id | Record, definition and selected-byte equality; stream additions/removals/changes; changed authored field names |
 | impact / where_used | project, asset, kinds | Potential direct/transitive consumers with exact revision paths |
 
-Find and references accept project `all`. Other selectors name explicit projects.
+Find, references and admission accept project `all`. Other selectors name explicit projects.
 Compare can span projects. Impact traverses one project's admitted namespace;
 cross-project semantic links are excluded. Edge kinds are explicit so an agent
 does not confuse production, composition, publication, evidence and authority.
@@ -52,8 +54,14 @@ Projects reports the admitted dependency-profile count. Partial impact results
 list unadmitted definition pins and affected record counts. Admit profiles from
 the project's authoritative schema into its external enrollment; do not infer
 references from text or filenames. Re-query with a fresh basis after admission.
-No raw authored values, prompts, credentials or physical cache paths are returned.
-Asset IDs and structural dependency-map keys can themselves be private.
+Admission reports separate revisions even when their definition IDs match. Exit
+0 means valid profiles declare the requested coverage for used definitions;
+instance edges remain unevaluated. Use the [graph contract](../specs/NATIVE-GRAPH.md)
+when reviewing classes, pointers and binding modes, then run impact.
+Only explicitly admitted display/inspector values are exposed by those views.
+Asset IDs, inspector fields and structural dependency-map keys can themselves be
+private. Inspect reuses the owner's existing inspector admission; raw authored
+maps, definition defaults and schema examples are not exported.
 
 An impact path runs from consumer to the queried selected record revision. A
 diamond yields one consumer with a deterministic shortest witness. Frozen older
@@ -65,6 +73,8 @@ remains a renderer/adapter operation.
 
 1. Describe and validate the supported request/result schemas.
 2. Query projects/find to obtain the real IDs; do not invent names or hash files.
+   Use inspect for a record. Use admission to discover exact definition revisions
+   and reviewed extraction rules before interpreting a missing-profile impact gap.
 3. Compare records or ask impact with admitted edge kinds.
 4. Inspect status, coverage, gaps and pagination before acting on a zero count.
 5. For another page, set offset to paging.next_offset and expected_basis to the

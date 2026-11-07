@@ -498,15 +498,8 @@ pub fn primary_change(old: &Graph, new: &Graph) -> Result<PrimaryChange> {
     })
 }
 
-pub fn resolve(source: &mut impl Source, query: &Query, profiles: &[Profile]) -> Result<Graph> {
-    query.limits.validate()?;
-    require(
-        !query.roots.is_empty()
-            && query.roots.len() <= query.limits.nodes
-            && !query.kinds.is_empty()
-            && profiles.len() <= 1024,
-        "invalid graph query",
-    )?;
+fn admitted(profiles: &[Profile]) -> Result<(BTreeMap<&Object, &Profile>, Vec<u8>)> {
+    require(profiles.len() <= 1024, "profile count budget")?;
     let mut admitted = BTreeMap::new();
     for profile in profiles {
         profile.validate()?;
@@ -519,6 +512,24 @@ pub fn resolve(source: &mut impl Source, query: &Query, profiles: &[Profile]) ->
         "schema":"tig.native-profile-set.experimental-1",
         "profiles":admitted.values().collect::<Vec<_>>()
     }))?;
+    Ok((admitted, admission_document))
+}
+
+/// Validate and fingerprint the same bounded profile set used by traversal.
+/// This checks admission structure, never instance edges or semantic truth.
+pub fn profile_admission(profiles: &[Profile]) -> Result<Digest> {
+    Ok(Digest::blob(&admitted(profiles)?.1))
+}
+
+pub fn resolve(source: &mut impl Source, query: &Query, profiles: &[Profile]) -> Result<Graph> {
+    query.limits.validate()?;
+    require(
+        !query.roots.is_empty()
+            && query.roots.len() <= query.limits.nodes
+            && !query.kinds.is_empty(),
+        "invalid graph query",
+    )?;
+    let (admitted, admission_document) = admitted(profiles)?;
     let admission = Digest::blob(&admission_document);
     let mut graph = Graph {
         checkpoint: query.checkpoint.clone(),

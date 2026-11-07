@@ -31,6 +31,17 @@ facilities. tig-assets/schema adds its JSON Schema-backed contracts. Low-level
 placement and byte access do not depend on typed assets, a renderer or project
 checkout. Crates are publish=false while interfaces are experimental.
 
+The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
+native metadata, catalogue projections and the graph engine. Machine-readable
+request/result schemas cover inspect/admission, find, comparison and impact.
+Admission diagnostics group exact definition revisions, expose contract field
+names/schema pins and reuse the graph's bounded profile validation/fingerprint.
+They omit definition defaults and schema examples; instance edge evaluation
+remains a separate impact query. Owner-admitted inspector fields are shared with
+the UI. The fenced basis includes those field rules. No second asset registry,
+query database, media scan or mutation engine is introduced. See
+[agent queries](AGENT-QUERIES.md).
+
 ## Authored state, bytes and operational state
 
 ```text

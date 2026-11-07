@@ -6,7 +6,7 @@
   "properties":{
     "schema":{"const":"tig.query-result.experimental-1"},
     "status":{"enum":["complete","partial","error"]},
-    "operation":{"enum":["projects","find","shared","references","compare","impact"]},
+    "operation":{"enum":["projects","inspect","admission","find","shared","references","compare","impact"]},
     "request":{"$ref":"#/$defs/object"},
     "basis":{"type":"object","additionalProperties":{"type":"object","required":["commit","checkpoint","records","definitions","interpretation"]}},
     "basis_sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},
