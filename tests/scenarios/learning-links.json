@@ -1,0 +1,2478 @@
+{
+  "schema": "tig.scenario-learnings.design-1",
+  "links": [
+    {
+      "id": "T01",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T02",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T03",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T04",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T05",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T06",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T07",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T08",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T09",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T10",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T11",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T12",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T13",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T14",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T15",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T16",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T17",
+      "pitfalls": [
+        "TIG-F-10"
+      ],
+      "principles": [
+        "TIG-P-04",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R07"
+      ],
+      "mitigation": "M10",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T18",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T19",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T20",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T21",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T22",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T23",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T24",
+      "pitfalls": [
+        "TIG-F-05"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-07",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R04"
+      ],
+      "mitigation": "M05",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "T25",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL01",
+      "pitfalls": [
+        "TIG-F-10"
+      ],
+      "principles": [
+        "TIG-P-04",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R07"
+      ],
+      "mitigation": "M10",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL02",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL03",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL04",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL05",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL06",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL07",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL08",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL09",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CL10",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW01",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW02",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW03",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW04",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW05",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW06",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW07",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW08",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW09",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW10",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW11",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW12",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW13",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW14",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "GW15",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR01",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR02",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR03",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR04",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR05",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR06",
+      "pitfalls": [
+        "TIG-F-05"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-07",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R04"
+      ],
+      "mitigation": "M05",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR07",
+      "pitfalls": [
+        "TIG-F-05"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-07",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R04"
+      ],
+      "mitigation": "M05",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR08",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR09",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "CR10",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW01",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW02",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW03",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW04",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW05",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW06",
+      "pitfalls": [
+        "TIG-F-05"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-07",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R04"
+      ],
+      "mitigation": "M05",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW07",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW08",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW09",
+      "pitfalls": [
+        "TIG-F-04"
+      ],
+      "principles": [
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-03",
+        "TIG-I-07"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R07"
+      ],
+      "mitigation": "M04",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "RW10",
+      "pitfalls": [
+        "TIG-F-05"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-06",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-07",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R04"
+      ],
+      "mitigation": "M05",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF01",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF02",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF03",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF04",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF05",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF06",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF07",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF08",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF09",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LF10",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP01",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP02",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP03",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP04",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP05",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP06",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP07",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP08",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP09",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "SP10",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN01",
+      "pitfalls": [
+        "TIG-F-10"
+      ],
+      "principles": [
+        "TIG-P-04",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R07"
+      ],
+      "mitigation": "M10",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN02",
+      "pitfalls": [
+        "TIG-F-10"
+      ],
+      "principles": [
+        "TIG-P-04",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R07"
+      ],
+      "mitigation": "M10",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN03",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN04",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN05",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN06",
+      "pitfalls": [
+        "TIG-F-09"
+      ],
+      "principles": [
+        "TIG-P-07"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R06"
+      ],
+      "mitigation": "M09",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN07",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN08",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN09",
+      "pitfalls": [
+        "TIG-F-11"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-09",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R05",
+        "TIG-R06"
+      ],
+      "mitigation": "M11",
+      "owner": "provider-privacy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "BN10",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC01",
+      "pitfalls": [
+        "TIG-F-03"
+      ],
+      "principles": [
+        "TIG-P-05",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-05",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R04",
+        "TIG-R09"
+      ],
+      "mitigation": "M03",
+      "owner": "concurrency-recovery",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC02",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC03",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC04",
+      "pitfalls": [
+        "TIG-F-08"
+      ],
+      "principles": [
+        "TIG-P-07",
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-06",
+        "TIG-I-11",
+        "TIG-I-12"
+      ],
+      "requirements": [
+        "TIG-R08",
+        "TIG-R09"
+      ],
+      "mitigation": "M08",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC05",
+      "pitfalls": [
+        "TIG-F-07"
+      ],
+      "principles": [
+        "TIG-P-01",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02",
+        "TIG-I-06"
+      ],
+      "requirements": [
+        "TIG-R03",
+        "TIG-R07"
+      ],
+      "mitigation": "M07",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC06",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC07",
+      "pitfalls": [
+        "TIG-F-01"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-04",
+        "TIG-P-09"
+      ],
+      "invariants": [
+        "TIG-I-01",
+        "TIG-I-02"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R03"
+      ],
+      "mitigation": "M01",
+      "owner": "placement-policy",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC08",
+      "pitfalls": [
+        "TIG-F-12"
+      ],
+      "principles": [
+        "TIG-P-03",
+        "TIG-P-05"
+      ],
+      "invariants": [
+        "TIG-I-02",
+        "TIG-I-03",
+        "TIG-I-11"
+      ],
+      "requirements": [
+        "TIG-R02",
+        "TIG-R09"
+      ],
+      "mitigation": "M12",
+      "owner": "git-adoption",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC09",
+      "pitfalls": [
+        "TIG-F-02"
+      ],
+      "principles": [
+        "TIG-P-08"
+      ],
+      "invariants": [
+        "TIG-I-04",
+        "TIG-I-10"
+      ],
+      "requirements": [
+        "TIG-R05"
+      ],
+      "mitigation": "M02",
+      "owner": "storage-custody",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    },
+    {
+      "id": "LC10",
+      "pitfalls": [
+        "TIG-F-06"
+      ],
+      "principles": [
+        "TIG-P-02",
+        "TIG-P-04"
+      ],
+      "invariants": [
+        "TIG-I-08",
+        "TIG-I-09"
+      ],
+      "requirements": [
+        "TIG-R01",
+        "TIG-R06"
+      ],
+      "mitigation": "M06",
+      "owner": "identity-namespace",
+      "mitigation_status": "planned",
+      "execution_evidence": []
+    }
+  ]
+}

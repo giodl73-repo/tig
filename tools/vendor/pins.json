@@ -1,0 +1,33 @@
+{
+  "purpose": "Unmodified pinned development-only canonical checkers and notices; no runtime dependency",
+  "files": [
+    {
+      "path": "tools/vendor/roles/check_roles.py",
+      "sha256": "87020fa84a86d53ad0cad96351affcaa4cc105a0ca7e62b7e17ea67563624bbd",
+      "source": "https://github.com/giodl73-repo/ROLES",
+      "revision": "1c4770bc0f3e1f086aea3f589d17230405d9dd77",
+      "source_path": "tools/check_roles.py"
+    },
+    {
+      "path": "tools/vendor/roles/LICENSE.upstream",
+      "sha256": "1894459416502046fa213d8d02448468b30575b52669e4b863ad0b8f81911a33",
+      "source": "https://github.com/giodl73-repo/ROLES",
+      "revision": "1c4770bc0f3e1f086aea3f589d17230405d9dd77",
+      "source_path": "LICENSE"
+    },
+    {
+      "path": "tools/vendor/pitfall/check_pitfall.py",
+      "sha256": "b9843c1d060875b1ca26f07c4c7b896b5824928cbb379cab123428f8035d4607",
+      "source": "https://github.com/giodl73-repo/PITFALL",
+      "revision": "24d9d05626056aee143a0439f3f7db11c588da04",
+      "source_path": "tools/check_pitfall.py"
+    },
+    {
+      "path": "tools/vendor/pitfall/LICENSE.upstream",
+      "sha256": "ea9e81bc2d37f6ea5cadfeb461f68500d8cc29bcc4fdd3053b532129387ce1c8",
+      "source": "https://github.com/giodl73-repo/PITFALL",
+      "revision": "24d9d05626056aee143a0439f3f7db11c588da04",
+      "source_path": "LICENSE"
+    }
+  ]
+}

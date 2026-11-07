@@ -1,0 +1,205 @@
+{
+  "schema": "tig.scenarios.design-1",
+  "cases": [
+    {
+      "id": "T01",
+      "name": "same-object",
+      "trigger": "Two bundles share one object",
+      "expectation": "One verified copy per required place; no per-bundle duplication",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T02",
+      "name": "five-replacements",
+      "trigger": "Five objects are replaced in current",
+      "expectation": "Acquire new, retain required history, assess surplus only after fresh checks",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T03",
+      "name": "shared-history",
+      "trigger": "Old object remains used by another current bundle",
+      "expectation": "Protect its working-place obligation",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T04",
+      "name": "path-version",
+      "trigger": "Same path differs across snapshots",
+      "expectation": "Resolve by exact snapshot and path; never latest-path substitution",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T05",
+      "name": "rename",
+      "trigger": "Logical path renamed with identical bytes",
+      "expectation": "Manifest update can require zero payload transfer",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T06",
+      "name": "policy-label",
+      "trigger": "Admitted lifecycle label changes",
+      "expectation": "Pinned policy changes desired placement; descriptive labels do nothing",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T07",
+      "name": "archive-present",
+      "trigger": "Required archive already verified present",
+      "expectation": "No redundant transfer; revalidate admissible custody before eviction",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T08",
+      "name": "archive-offline",
+      "trigger": "Only alleged archive is offline",
+      "expectation": "Required custody remains unknown/blocked unless explicit admissible evidence policy applies",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T09",
+      "name": "corrupt-copy",
+      "trigger": "Destination has right name/size but wrong bytes",
+      "expectation": "Reject complete observation; preserve good source",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T10",
+      "name": "same-domain",
+      "trigger": "Two aliases resolve to the same disk",
+      "expectation": "Do not count as independent retained copies",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T11",
+      "name": "missed-event",
+      "trigger": "Merge event missed or duplicated",
+      "expectation": "Catch-up exact refs; idempotent convergent reconciliation",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T12",
+      "name": "stale-plan",
+      "trigger": "New protection claim arrives after planning",
+      "expectation": "Fence/replan conflicting removal; preserve valid completed copies",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T13",
+      "name": "parallel-add",
+      "trigger": "Two sessions add content while eviction runs",
+      "expectation": "Scoped coordination; no global pause; deduplicate safe promotion",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T14",
+      "name": "crash-copy",
+      "trigger": "Crash during cross-volume copy",
+      "expectation": "Partial destination not complete; resume/retry with source protected",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T15",
+      "name": "full-disk",
+      "trigger": "Scratch/capacity exhausted",
+      "expectation": "Bounded refusal/recovery; no full duplicate staging",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T16",
+      "name": "missing-capability",
+      "trigger": "Provider cannot fence or verify retention",
+      "expectation": "Expose unsupported action rather than a fabricated pass",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T17",
+      "name": "large-tree",
+      "trigger": "One entry changes in a huge index",
+      "expectation": "Reuse unaffected chunks; measure metadata and physical write amplification",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T18",
+      "name": "pack-pinning",
+      "trigger": "Dropped object shares a pack with a protected one",
+      "expectation": "May reclaim zero; explicit budgeted compaction is separate",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T19",
+      "name": "sparse-claim",
+      "trigger": "Destination constraints partially specified",
+      "expectation": "Plan stays unresolved until defaults/assignment are explicit",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T20",
+      "name": "conflict",
+      "trigger": "Two policies impose incompatible locations/budgets",
+      "expectation": "Declared precedence or unsatisfied obligations; no last-writer choice",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T21",
+      "name": "untrusted-path",
+      "trigger": "Malicious tree or torrent path escapes root",
+      "expectation": "Reject before IO; normalize with explicit cross-platform rules",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T22",
+      "name": "torrent-reuse",
+      "trigger": "New checkpoint reuses most shard torrents",
+      "expectation": "Acquire missing shards only; prove client local reuse/no duplicate staging",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T23",
+      "name": "peer-loss",
+      "trigger": "Seeder leaves after a successful download",
+      "expectation": "Availability observation changes; retained custody independently assessed",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T24",
+      "name": "expired-claim",
+      "trigger": "Draft claim expires while a job uses its objects",
+      "expectation": "Active admitted job remains protected; expiry does not erase other claims",
+      "status": "designed",
+      "evidence": []
+    },
+    {
+      "id": "T25",
+      "name": "non-media",
+      "trigger": "Synthetic document bundles use remote and local stores",
+      "expectation": "No episode/language/golden assumptions; same generic placement rules",
+      "status": "designed",
+      "evidence": []
+    }
+  ]
+}

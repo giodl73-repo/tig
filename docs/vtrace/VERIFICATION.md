@@ -1,0 +1,476 @@
+# Verification record
+
+EVID-076: all 35 publication cases pass (1.03 s), including six new cases and
+the extended explicit CLI fixture. The baseline reproduces six failures with
+the previous policy reader. Default selected-subject admission stays strict;
+default report shape is unchanged. Explicit stream mode binds the retained
+subject without rewriting selection and reports equality separately. Full
+workspace, Clippy, standalone and hosted checks are recorded separately.
+
+EVID-076 full local checks pass: 689 workspace test entries including subprocess
+helpers, strict all-target/all-feature Clippy (54.32 s), standalone Git/LFS check
+(17.69 s), foundation, formatting and whitespace. No complete consumer or custody
+acceptance follows; exact-head hosted qualification remains required.
+
+EVID-075: all 29 publication cases pass (0.73 s), including five new singleton
+cases and four-shape compiled CLI/privacy checking. Root/nested/empty-member
+selectors, explicit opaque targets, nonobject/overlap/member-key refusal and
+strict parsed-evidence budgets are exercised. Full workspace/lint/standalone,
+hosted qualification and actual consumer gates are recorded separately.
+
+EVID-075 full locked all-feature workspace tests pass; strict all-target,
+all-feature workspace Clippy passes (54.30 s); standalone Git/LFS check passes
+(14.44 s). Exact-head hosted qualification and actual consumer adoption remain
+separate gates.
+
+EVID-074: 42 project tests pass (24.37 s), including nine new partial-inspection
+cases. Synthetic real Git and actual CLI exercise scoped bounded metadata reads,
+missing roots, stale-plan/mode refusal, Windows junctions/Unix symlinks, active
+writers, interrupted restore/retry and byte preservation. Full workspace/lint,
+hosted qualification and actual consumer adoption remain separate gates.
+
+Subsequent EVID-074 full locked all-feature workspace tests pass; strict all-target
+all-feature Clippy passes (19.09 s), standalone Git/LFS check passes (4.43 s).
+These local runs do not close the exact-head hosted or consumer adoption gates.
+
+EVID-073: 33 project restore tests pass (20.14 s), including five new handoff
+cases for explicit aliases/selectors, unverified external pins with zero extra
+IO, changed-plan rejection, strict bounds/duplicates, partial outcomes and the
+frozen non-HEAD CLI source. Full workspace/lint, exact-head hosted qualification
+and actual consumer adoption are separate gates. See the producer review.
+
+Subsequent EVID-073 full locked all-feature workspace tests pass; strict all-target
+all-feature Clippy passes (24.13 s), standalone Git/LFS check passes (6.00 s).
+The remaining exact-source hosted and consumer gates are not closed by these runs.
+
+EVID-072: 24 publication tests pass (0.93 s), including four new opaque-locator
+cases and the three-shape CLI/privacy case. Full locked all-feature workspace
+tests, strict all-target all-feature Clippy (11.89 s) and standalone Git/LFS
+check (0.28 s) pass. No test was removed, ignored or weakened. Exact-source hosted
+qualification and consumer receipt checks are separate; see the producer review.
+
+EVID-071: 20 publication tests pass (0.61 s), including four new member-key
+cases and the existing CLI/privacy case exercised under both row shapes. Full
+locked all-feature workspace tests pass; strict workspace/all-feature/all-target
+Clippy passes (19.42 s); standalone Git/LFS check passes (1.21 s). Actual consumer
+acceptance, final structural checks and exact-head hosted qualification remain
+separate gates. No tests were removed, ignored or weakened.
+
+EVID-070: 28 project cases pass (22.02 s), including eight host/space additions;
+all eight restore regressions pass (6.48 s), and four library tests pass. Initial
+out-of-domain integer fixtures were corrected without relaxing canonical parsing.
+Full locked all-feature workspace tests pass, strict workspace/all-feature/
+all-target Clippy passes (24.08 s), and standalone Git/LFS check passes (0.96 s).
+Subsequent exact-head Windows/Linux run 41229037948 passed; PR55 main
+`3ff0b24` has the identical whole tree `06e234fc2635157f651201bd3d51ffb9c8172aa6`.
+Actual host environment/render adoption and custody stay separate.
+
+EVID-069: final affected suites pass: 20 project harness tests (19.88 s), eight
+existing restore cases (6.83 s) and four library tests (2.50 s), including the
+new read-only progress-sink failure seam. Strict workspace/all-feature/all-target
+Clippy passes (12.73 s); standalone no-feature Git/LFS check passes (2.48 s).
+The full locked all-feature workspace suite passed before the final random
+attempt-ID and write-failure-unit additions; the affected suites were rerun after
+those additions. Subsequent exact-head hosted full workspace checks passed on
+Windows/Linux in run 41226010966; PR54 main `eb482ee` has the identical whole
+tree `a5f98058963ed9d225d7768bfac95b9ac9c73988`. No tests were removed or ignored.
+Actual runtime adoption remains separate.
+
+EVID-068: project restore 13/13 and existing restore 8/8 pass; full locked
+all-feature workspace tests pass, strict Clippy passes (9.05 s), standalone
+Git/LFS check passes (1.57 s). The Windows existing-parent failure was corrected
+without relaxing no-replace or directory checks. Actual consumer operation and
+persistent interruption receipts remain separate gates.
+
+EVID-067: 16 focused publication fixtures pass (0.53 s); full locked all-feature
+workspace tests pass, strict workspace/all-target/all-feature Clippy passes
+(11.75 s), standalone Git/LFS check passes (8.61 s). Private external metadata
+acceptance covers 79 consumer anchors; no media/provider operations occur.
+Hosted qualification and actual runtime adoption remain separate.
+
+EVID-066: all eight Windows restore CLI cases pass (3.28 s); strict locked
+workspace/all-target/all-feature Clippy passes (38.15 s). This extends the
+EVID-065 synthetic scope to explicit selected-only primaries. Actual consumer
+dry runs, hosted qualification and installed-runtime adoption are separate.
+
+## Native metadata archive verification
+
+Entry 0855e7a; EVID-040. `cargo test -p tig-assets -p tig-git --all-features
+--locked`: 116 Windows component entries pass. The final non-media replay
+extension reruns all 24 native-source cases. Workspace all-target/all-feature
+Clippy with warnings denied passes. Exact provider reopen, detached Git metadata,
+frozen/current selection replay, sparse sharing and bounded refusal cases cover
+the candidate archive seam only. No full store/500k suite is newly claimed locally;
+full current-head Windows/Linux CI remains the merge obligation.
+
+Foundation command: pwsh -NoProfile -File tools/validate.ps1.
+Local Windows foundation checks passed on 2026-10-25: scenario inventory,
+local links, reviewed file hashes and pinned ROLES/PITFALL checkers.
+Scope: repository/link/scenario structure and pinned ROLES/PITFALL checkers only.
+No provider tests, custody proofs, transfer benchmarks or actual reclaim have run.
+All 110 scenarios remain designed and all TIG-R requirements remain OPEN.
+The two integration suites have explicit JSON ledgers checked alongside the
+foundation cases. Producer-applied design review found durable protection,
+OID-only context and physical-copy accounting gaps; their corrections are
+requirements for future fixtures, not verified runtime solutions.
+
+Pure handoff slice, 2026-10-25, Windows Rust 1.98.0: 13 synthetic tests pass;
+formatting and locked all-target Clippy with warnings denied pass. Source:
+crates/tig-core/src/lib.rs and crates/tig-core/tests/handoff.rs; scope:
+specs/HANDOFF-PROTOTYPE.md. The caller supplies alleged verified copies/coverage.
+No real content hashing, freshness/custody validation, durable transaction or
+eviction execution is proven. Branch/main/history and active-job safeguards are
+partial mechanism evidence only; full requirements remain OPEN.
+
+Scenario pressure review: 60 new design walkthroughs plus the prior 50 total 110.
+Each has an expected outcome and a link to principle/invariant/pitfall/mitigation,
+accountable role and requirement. The structural validator checks unique complete
+coverage and referenced doctrine/owners. The 12 mitigation targets remain planned;
+no fake-provider, LFS or fault-recovery execution is claimed. Nine principles and
+12 OPEN invariants/pitfalls retain the resulting obligations. Rust mechanism test
+count remains 13; this documentation review does not add 110 passing tests.
+
+Three local negative structural checks reject a missing scenario link, an unknown
+principle ID and a fabricated execution-evidence claim. Original fixture bytes
+were restored before the final successful validation. These prove validator
+rejection paths only; they are not storage or lifecycle behavior tests.
+
+## Full-baseline verification plan
+
+The evidence ledger identifies actual results; the following obligations are
+OPEN. Each package freezes concrete fixture names and quantitative workloads
+before its implementation closes. Profile commands alone cannot prove coverage.
+
+| Requirement | Component/right-side evidence required | Integration/system evidence required | Current disposition |
+| --- | --- | --- | --- |
+| REQ-001 | Raw/semantic hash vectors and bounded tree/path negatives | Exact cross-platform materialization and native record parity | Pure vectors/tree scope verified; EVID-007/008 partial; materialization open |
+| REQ-002 | Union/constraint/coverage/owner transitions | Concurrent branch/job/retained-copy policy behavior | Pure assigned union/candidates only; EVID-001 partial |
+| REQ-003 | Acknowledgement ordering and byte recovery under faults | Independent custody and provider-effective final-release proof | EVID-010/017/018/019/020 local restart, private discard, replicas, retention and owned handoff subsets passed; full claim/recovery authority/provider-durable/full custody/final-object removal OPEN |
+| REQ-004 | Replay/ABA/lease/read-fence counterexamples | Unrelated-writer progress and valid-read protection under provider faults | EVID-001/009/013 partial; local OS exclusion tested; full claim/remote/recovery fences OPEN |
+| REQ-005 | Checked arithmetic, explicit resource limits | Peak allocated scratch/duplicate bytes and actual reclaim measured | EVID-001/008/012/014/015/016 partial; admitted publication, measured file data and local free-space samples; native domain enrollment/full volume enforcement OPEN |
+| REQ-006 | Capability/access/path/redaction negatives | Standalone generic consumer and private-artifact audit | EVID-002/004/006 inspection only |
+| REQ-007 | Catalog generations, misses and recovery | Declared warm/cold lookup budgets with no routine census | EVID-014/028/029 bounded journals and 500,000-binding metadata lookup passed; complete catalog coverage/native integration OPEN |
+| REQ-008 | Pointer/transfer parser and unsupported-transform cases | Pinned real Git/LFS client/server temp workflows and prune boundaries | OPEN; no LFS agent |
+| REQ-009 | Private/sealed/selected state transitions | Interrupted Git-index/ref handoff, dirty/conflicted views and catch-up | EVID-001/009 pure transitions and EVID-024/025 scoped real Git extraction/authorization passed; durable Git/index claim adoption open |
+| REQ-010 | Art canonical/model/graph/variant parity | Generic typed/native build/review/delivery and no typed dependency for LFS | Canonical subset EVID-007 passed; typed semantics OPEN |
+
+Use DOCS/RUST/PROVIDER/GIT/INTEGRATION/UI profiles as applicable. Provider tests
+inject failure at every persistence/publication/retirement boundary and assert
+recoverable bytes and durable protection, not just return codes. They do not
+automatically prove all physical-power-loss or site/key-loss assumptions; name
+the actual platform, backend, fault model and admitted failure domains.
+
+## Stage review
+
+Producer-applied six-role lenses: pass_with_risk for verification planning.
+V-01: current component results could be used to close full safety requirements.
+Resolved by per-requirement partial/open dispositions and missing right-side
+proof. All full requirements/invariants remain OPEN; no new runtime test count.
+
+## Download-only LFS compatibility checkpoint
+
+Input c68d7fad00b7fa6da528255f9b242a42e4dcb048; WP-005, REQ-006/008/009,
+SPEC-005/007, IF-005/008/009, PKG-004. Controlled scope and entry/exit:
+specs/LFS-CACHE-INTEROP.md. EVID-022 adds 12 Windows component entries;
+EVID-023 adds three actual-client temporary-repo fixtures. Windows total 261;
+Linux adds a Unix cross-filesystem entry, conditional on /dev/shm availability.
+L0 structure/fmt/VTRACE; L1 locked workspace tests/all-target Clippy; L2 current
+and historical checkout, two simultaneous clients, corruption and repaired retry.
+No private caches or consumer configuration changed. Full WP-005, requirements,
+validation, staged/ref adoption, upload and complete accounting remain OPEN.
+
+## Exact Git source checkpoint
+
+Input 07cfa97ce60a0d74f5923aaa96cdad8aad0e994b; WP-005, REQ-001/006/008/009,
+SPEC-006/007, IF-008/009, PKG-004. GIT-SOURCE-EXTRACTION.md controls scope.
+EVID-024 adds 16 temporary Git fixtures; EVID-025 connects exact source selection
+through a complete OID tree to actual LFS transfer authorization. L0 structure/
+fmt/VTRACE; L1 locked workspace/Clippy; L2 partial/conflicted staging, linked/bare
+repos, missing/corrupt Git objects, disabled promisor hydration and historical
+checkout. Windows total 278; Linux adds its Unix cross-filesystem entry. Complete
+coverage is limited to explicit prefixes. Durable old/new claim handoff, global
+attribute-aware extraction, large metadata scale and native adoption stay OPEN.
+
+## Persistent source-root checkpoint
+
+Input 5411e2be0521aef0e3722e508f31ff6355b8a66f; WP-008/009, REQ-002/004/007/009,
+SPEC-005/006/007/008, IF-004/006/008, PKG-003/004. SOURCE-CLAIM-JOURNAL.md
+controls scope and L0/L1/L2: structure/fmt/VTRACE, locked tests/Clippy, actual Git
+root handoff plus six child exits. EVID-026 adds 19 journal entries including
+helper; EVID-027 adds two Git/context fixtures. Full command cap replay executes,
+not inventory-scale proof. Total 299 Windows / 300 Linux entries. Owner/revision
+transitions preserve old/new roots; exact retries remain historical. Returned
+obligations deny global completeness. Root closure, full source/job coverage,
+final-removal fencing, restore authority, compaction and native adoption stay OPEN.
+
+## Persistent metadata and scale checkpoint
+
+Input 29e21c7673c4a50acade32228612ed849ac0ca3f; WP-001/008/009,
+REQ-001/005/007/009, SPEC-002/005/006/008, IF-002/005/008/009, PKG-002/003/004.
+PERSISTENT-METADATA.md controls L0 structure/fmt/VTRACE, L1 locked tests/Clippy,
+and L2 persistent 500,000-binding synthetic scale plus actual LFS integration.
+EVID-028: 14 provider entries including helper/three child exits. EVID-029: one
+scale case, 13 edits adding 391 nodes / 212,992 database bytes, old root retained.
+EVID-030: two core/integration cases. Total 316 Windows / 317 Linux entries.
+Bounds are explicit; large-tree refusal is Budget. Full custody/admission,
+compaction, complete native graph/source/job coverage and cutover stay OPEN.
+
+## Native envelope intake verification
+
+EVID-031: cargo test -p tig-assets --test native --locked passed 12 cases.
+EVID-032: cargo test -p tig-assets --test cli --locked passed three actual CLI
+cases, including scene and invoice consumers. Pin edits, null/missing shape,
+budgets, stream conflicts and redaction refuse or report incomplete as specified.
+Full workspace commands remain mandatory before commit; schema/rule semantics,
+Art model/graph/variant parity and live consumer operation remain unverified.
+
+The Windows full workspace run passed 331 test entries, followed by a focused
+15-test intake/CLI rerun and warnings-denied Clippy after the cross-pin size
+check was tightened. Linux remains a current-head CI obligation. Canonical
+VTRACE and repository structural validation passed. No full-system gate closes.
+
+## Native graph verification
+
+EVID-033: cargo test -p tig-assets --test graph --locked passed 34 cases.
+The 1,011-node hierarchy resolves 1,000 primary payloads with 1,010 edges and
+one lookup per exact revision. A stable parent follows its logical cel ID within
+the chosen view; old snapshots/frozen pins restore old selection. Other roots
+retain shared bytes. Explicit payload streams exclude history/review/manifest
+bytes unless admitted. Missing/ambiguous/changed-view/cycle/budget cases remain
+incomplete. A binding digest is not a consumed-projection producer fingerprint.
+
+Final local Windows full workspace run passed 365 test entries, including the
+500,000-binding persistent metadata case, with workspace warnings-denied Clippy.
+Current-head cross-platform CI remains a separate merge obligation. Public test
+fixtures remain synthetic and no real native consumer/custody gate is closed.
+
+## Native Git/consumer verification
+
+EVID-034: cargo test -p tig-git --features assets --test native_source --locked
+passes 13 real-Git/CLI cases, including 1,000 records across multiple bounded
+batches. After capture, detaching the Git directory leaves ID lookup working.
+Day-two edits affect only the cel file; old commits and captured indexes retain
+exact bytes. Duplicate IDs, conflicts, bad modes/definitions and budgets refuse.
+Consumer tests cover planned/missing slots, ordered non-media streams and default
+redaction with authored text still accessible through the Rust port.
+
+Local full all-feature workspace run passed 379 entries (default Git/asset base
+plus 13 native provider cases). A final Git all-feature rerun passed 49 entries
+after adding immutable authored-field access and default Debug redaction. Workspace
+all-feature Clippy and standalone no-default-feature Git compilation pass.
+
+## Existing byte-reader verification
+
+EVID-036: cargo test -p tig-store --test existing --locked passes ten Windows
+entries including a helper and one actual child exit. Read/seek, ordered layouts,
+corruption refusal, bounds/permit release, Windows sharing/ancestor protection,
+cooperative aliases and other-object progress are exercised. Unix has an explicit
+mandatory-protection refusal and an additional symlink case; CI must execute them.
+EVID-037: two native ID/CLI-to-byte tests plus one actual LFS coexistence case pass.
+
+Final Windows all-feature workspace run passes 392 entries, followed by workspace
+all-feature Clippy and standalone no-default-feature Git compilation. Linux has
+two additional platform-specific entries and remains a current-head CI obligation.
+No native renderer, complete custody or final eviction gate closes.
+
+## Consumer status-map verification
+
+Entry 12757c2, EVID-038: cargo test -p tig-assets -p tig-git --all-features --locked
+passes 102 Windows entries, including 16 native-source tests and the new
+snapshot-status/redaction case. Workspace all-target/all-feature warnings-denied
+Clippy passes. This scoped rerun does not replace the previous full store/metadata
+qualification; current-head complete Windows/Linux CI remains the merge gate.
+
+CI on e5e0187 exposed a newer-toolchain deprecation of AtomicU32::fetch_update
+under warnings-denied Clippy. The reader now uses compare_exchange with the same
+live-reader bound; targeted reader/integration tests and Clippy are rerun after
+that correction. Full Windows/Linux current-head CI remains required.
+
+## Explicit map-reference verification
+
+Entry 85e4938; EVID-039. RUST/GIT L1/L2: cargo test -p tig-assets -p tig-git
+--all-features --locked passes 110 Windows entries (40 graph, 18 native source).
+All earlier single/array and Git/LFS regressions remain in that scope. Workspace
+all-target/all-feature Clippy with warnings denied passes. The separate 1,000-map
+case returns 1,001 nodes/1,000 edges with one selection/record lookup per target
+and remains within its declared metadata response budget. This is not measured
+500k native graph scale, private rendering or physical IO/custody proof. Full
+current-head Windows/Linux CI remains the merge obligation.
+
+Cooperative reader follow-up (EVID-041): cargo test -p tig-store --lib --test
+existing --locked passes 143 Windows entries; workspace all-target/all-feature
+Clippy passes. The Linux duplicate-descriptor case is not executed on Windows.
+Full current-head Linux/Windows CI must qualify the updated guard. Previous
+Linux same-head success does not qualify this new source change.
+
+## Declared production requirements
+
+Entry 5a35f5a; EVID-042. cargo test -p tig-assets -p tig-git --all-features --locked
+passes 123 Windows entries; 46 graph / 25 native-source. Workspace all-target/all-
+feature warnings-denied Clippy passes. Exact selected/named controls, metadata
+identity, size contradictions, missing/unsupported selections, output roots,
+non-production/gapped queries and control-only replacement are checked. The
+synthetic native source/archive/journal fixture replays exact requirements while
+another source owns the old job root. This is not media retention, process-crash
+provider durability, global coverage or an eviction gate. Full CI stays required.
+
+## Frozen native production context
+
+Entry e7d2bde; EVID-043. cargo test -p tig-assets -p tig-git --all-features --locked
+passes 130 Windows entries; final native-source rerun covers 32 cases after the
+expanded corrupt/substitution/readback checks. Workspace all-target/all-feature
+warnings-denied Clippy passes. Readonly exact context replay, owner root
+independence, archived source interpretation, current/frozen pins, sparse sharing
+and negative/bounded construction are exercised. Full current-head Windows/Linux
+CI is required; no new full store/500k local qualification or live adoption claim.
+
+## Declared consumed-input recipes
+
+Entry e504cf3; EVID-044. cargo test -p tig-assets -p tig-git --all-features --locked
+passes 147 Windows entries; 61 graph, 34 native-source. Workspace all-target/all-
+feature warnings-denied Clippy passes. Behavior vectors adapt the exact Art donor
+model tests without copying its record format or claiming hash parity. Additional
+slot-swap, recursive frozen-wiring and raw-root-order cases protect native graph
+semantics. A 1,001-node synthetic report exercises streamed fanout and scoped
+budgets, not 500k native scale. Native temporary Git/archive replay covers metadata,
+consumed-text and payload replacements. Full current-head CI remains required.
+
+Parameter amendment: eight language/profile/encoding combinations share node
+fingerprints but have distinct recipe fingerprints. Inconsistent operation/graph
+pins refuse before extra source IO. Actual frozen-descriptor SQLite finish/reopen
+and archived source replay preserve parameter bytes with Git metadata unavailable.
+No media reads/rendering occur; opaque parameters remain caller-admitted semantics.
+
+## Claimed produced-output correspondence
+
+Entry77a7e14; EVID-045. cargo test -p tig-assets -p tig-git --all-features --locked
+passes163 Windows entries (75graph,36native-source). Workspace all-feature/all-
+target warnings-denied Clippy and standalone no-feature Git check pass. Fourteen
+pure cases cover exact subject binding, old provenance/current recipe comparison,
+missing history evidence, changed inputs/parameters/producer, candidate distinction,
+strict unknown/duplicate fields, bounds and immutable output admission. Two actual
+temporary Git cases replay SQLite-owned context after reopen and metadata removal,
+reject unadmitted producer before store reads, wrong params/context/provenance/
+policy, readonly-store writes and conflicting output/input sizes. These are
+metadata-only claims, not output-byte integrity or actual producer proof.
+## Canonical existing-cache roots
+
+Entry84136b5; EVID-046. Locked Windows tests: tig-store existing 13, tig-git
+client 6 and source 18, all pass. Workspace all-target/all-feature Clippy with
+-D warnings, fmt and standalone no-default-feature Git check pass. Complete
+root admission precedes metadata lookup; the component walker skips incomplete
+prefixes without skipping the actual drive root or ancestor protection.
+Current-head cross-platform CI remains required before merge.
+
+## Frozen job resource contexts
+
+Entry9617787; EVID-047. Six new optional-native cases plus existing native-source
+regressions pass (42 total). Locked workspace all-target/all-feature Clippy with
+warnings denied, standalone no-default-feature Git check and fmt pass. Job headers
+reference original source context rather than copying its inventory. Declared
+runtime and checked unsigned output claim/evidence pins have distinct roles.
+Four injected new-metadata write boundaries preserve old context and exact retry;
+strict readonly replay checks every job tree/header/claim byte and entry. The
+caller separately replays its original production context; this API is not full
+transitive metadata/byte availability, job execution or global enrollment proof.
+
+EVID-047 CI follow-up: three cache admission cases and all six real LFS clients
+pass locally. Nine consecutive transient conflicts now recover on a fresh attempt;
+real budget rejection does not retry, exhausted contention is Busy, corruption is
+State and per-wait delays stay bounded/distinct between operation IDs. The real
+concurrent-client fixture now awaits both children before assertions. Linux PR
+matrix cancellation followed Windows failure; its completed tests were not a
+separate code failure. Final-head full CI is required after this adapter repair.
+
+EVID-048 verifies exact-base Git proposals through13 test entries. Standard Git
+cherry-pick handles disjoint/same-file changes; dirty HEAD/index/worktree are
+unchanged by proposing. Two concurrent proposals converge, foreign/symbolic refs
+are refused, inherited routing cannot redirect writes and an actually active
+rejecting hook is disabled for proposal commands. One changed record adds exactly
+six Git objects; retries add none, and preflight refusals add none. This verifies
+small Git metadata handoff, not native semantics or media retention/adoption.
+
+EVID-049 adds five actual CLI fixtures using the same checked-request capability
+for read-only check and explicit create. Three layouts and ordered roots preserve
+provider integrity rules; exact small-buffer rehashing and one-reader/request
+deduplication pass. Both commands reject stale/cache/profile failures before Git
+writes. The484-entry all-feature workspace,18 standalone CLI/library entries,
+Clippy and format pass. A serialized check result cannot construct the library
+capability; each CLI create repeats the checks. No native claim is inferred.
+
+EVID-050 verifies explicit scoped catch-up assessment through existing immutable
+plans, admitted subjects and originally checked claims. Initial workspace491
+entries pass. Desired checkpoint drift, foreign claims and missing evidence remain
+blocked; a logical cel/cue merge yields one stale candidate without rendering.
+Final post-review tests cover explicit unavailable observations and detached
+real-Git/archive replay. See the package review for executed final results;
+complete producer semantics, managed scheduling and all acceptance remain OPEN.
+
+EVID-051 verifies native current-source claim discovery and replay through the
+existing resolver/metadata ports. Ten focused native cases pass, with bounded
+locations/pins, exact subject/checkpoint/definition, typed missing/corrupt states,
+old versus desired producer admission and actual detached-source/store reopen.
+The adapter makes no provider writes. Full qualification is recorded in the
+package review; schema/producer/variant semantics, global coverage and lifecycle
+acceptance remain OPEN.
+
+EVID-052 verifies optional exact authored-schema execution and immutable native
+validation, preserving the existing metadata-only intake contract. Tests cover
+five admitted dialects, constraints/refs, bounded offline policy, formats, exact
+pins, no defaults/source mutation, privacy and all current/retained records.
+The1,001-record case shares compiled schemas by exact definition; detached-source
+archive replay uses the existing provider. Full local/hosted results are in the
+package review. Remaining stream/native rules and full VAL gates stay OPEN.
+
+EVID-053 verifies explicitly declared stream and whole-record assertions under
+the existing offline interpreter. Five pure/three native focused cases pass,
+including correct mixed-version handling and replay after metadata reopen/Git
+unavailability. Invalid retained history refuses the native local-contract view.
+Full/CLI results are recorded separately in the package review; complete native
+semantics, private adoption and all full intended-use gates remain OPEN.
+
+EVID-054 verifies native sparse selection and consumed-axis projection with exact
+owner/definition/index/space/semantics admission. Initial15 pure and two native
+cases pass; Git leaf changes preserve unrelated English audio/recipe and alter
+its source provenance. Direct native requirements contain selected English bytes,
+not other languages or index controls as audio. Explicit interpretation controls
+need separate retention/admission. Full results, context refinement and remaining
+consumer/producer/custody requirements are recorded in the package review.
+
+EVID-055 checks retained variant packets and optional version2 job linkage under
+external admission. Nine focused native tests pass: exact control replay with Git
+offline, persistent metadata/journal reopen, foreign/missing/corrupt controls,
+policy changes, extra entries, exact selected-language payloads, unused-context
+provenance versus recipe, frozen old records and per-record coverage despite
+shared bytes. Resource refusals and read-only replay are explicit. Full workspace
+and hosted qualification are recorded separately in the package review.
+
+EVID-056 checks consumed payload projection separately from captured graph
+requirements. Definition coverage/pins/slots/preflight, structural membership
+despite identical byte Objects, preserved stream order/role/group and exact
+source/context/claim replay are exercised. Projected and legacy admission modes
+must refuse each other's claims. Complete native production and custody remain
+outside these scoped tests; final execution is in the package review.
+
+EVID-057 verifies reader/writer configured-limit agreement, detached values,
+readonly provider bytes and ordinary bounded writes after reopen. The complete
+metadata suite (16 tests) and locked workspace Clippy pass; producer review records
+the scope. No filesystem quota or reservation is inferred from numeric limits.
+
+EVID-065: five Windows explicit-restore CLI fixtures and three Python path fixtures pass. Full workspace: 595 tests pass before the final focused junction/readback rerun; all-target all-feature Clippy passes. Synthetic fixtures do not establish private consumer restoration or custody. See specs/EXPLICIT-RESTORE.md.
+
+
+Historical qualification from capacity branch 712639b; integration qualification is recorded separately.
+
+
+
+## Closed reservation retirement
+
+EVID-KRY-01 / CAPACITY-RETIREMENT.md: cargo test -p tig-core --test capacity
+--locked passes 21 entries; cargo test -p tig-store --lib --locked ledger::tests
+passes 26. Ten entries are new. Full default workspace and all-feature runs,
+all-feature/all-target Clippy with warnings denied, fmt and standalone no-feature
+Git check pass. Tests cover the actual full working-set bound, exact old receipts,
+unchanged old SQL rows and accounting, peer synchronization, read-only historic
+provider dispositions, pre/post-commit failures and two child exits. This is
+synthetic temporary-root qualification, not live consumer or full-disk recovery.

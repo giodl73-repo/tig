@@ -1,0 +1,66 @@
+[package]
+name = "tig-git"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[features]
+assets = ["dep:tig-assets"]
+schema = ["assets", "tig-assets/schema", "dep:regex", "dep:flate2"]
+
+[dependencies]
+tig-core = { path = "../tig-core" }
+tig-store = { path = "../tig-store" }
+tig-assets = { path = "../tig-assets", optional = true }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+sha1 = "=0.11.0"
+getrandom = "=0.4.3"
+fs2 = "=0.4.3"
+regex = { version = "=1.13.1", optional = true }
+flate2 = { version = "=1.1.9", optional = true }
+
+
+[dev-dependencies]
+tempfile = "=3.27.0"
+
+[[bin]]
+name = "tig-lfs"
+path = "src/bin/tig-lfs.rs"
+
+[[bin]]
+name = "tig-propose"
+path = "src/bin/tig-propose.rs"
+
+[[bin]]
+name = "tig-resolve"
+path = "src/bin/tig-resolve.rs"
+required-features = ["assets"]
+
+[[bin]]
+name = "tig-graph"
+path = "src/bin/tig-graph.rs"
+required-features = ["assets"]
+
+[[bin]]
+name = "tig-restore"
+path = "src/bin/tig-restore.rs"
+required-features = ["assets"]
+
+[[bin]]
+name = "tig-project"
+path = "src/bin/tig-project.rs"
+required-features = ["assets"]
+
+[[bin]]
+name = "tig-history"
+path = "src/bin/tig-history.rs"
+required-features = ["schema"]
+
+[[bin]]
+name = "tig-catalogue"
+path = "src/bin/tig-catalogue.rs"
+required-features = ["schema"]

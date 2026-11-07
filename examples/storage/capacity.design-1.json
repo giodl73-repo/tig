@@ -1,0 +1,158 @@
+{
+  "schema": "tig.capacity-example.design-1",
+  "scope": "synthetic-arithmetic-not-runtime-policy-or-live-observation",
+  "unit": "decimal-GB",
+  "bytes_per_gb": 1000000000,
+  "enrolled_worktrees": 6,
+  "idle_worktrees": 2,
+  "places": [
+    {
+      "id": "fast-a",
+      "capacity_domain": "fast-a",
+      "capacity_gb": 4000,
+      "managed_gb": 2600,
+      "scratch_gb": 100,
+      "materialized_gb": 150,
+      "other_gb": 150,
+      "free_gb": 1000,
+      "floor_gb": 400
+    },
+    {
+      "id": "fast-b",
+      "capacity_domain": "fast-b",
+      "capacity_gb": 2000,
+      "managed_gb": 1300,
+      "scratch_gb": 60,
+      "materialized_gb": 80,
+      "other_gb": 90,
+      "free_gb": 470,
+      "floor_gb": 200
+    },
+    {
+      "id": "retained",
+      "capacity_domain": "retained",
+      "capacity_gb": 4000,
+      "managed_gb": 3000,
+      "scratch_gb": 50,
+      "materialized_gb": 100,
+      "other_gb": 150,
+      "free_gb": 700,
+      "floor_gb": 400
+    },
+    {
+      "id": "archive",
+      "capacity_domain": "archive",
+      "capacity_gb": 8000,
+      "managed_gb": 5200,
+      "scratch_gb": 0,
+      "materialized_gb": 0,
+      "other_gb": 100,
+      "free_gb": 2700,
+      "floor_gb": 800
+    }
+  ],
+  "active_jobs": [
+    {
+      "id": "alpha-preview",
+      "place": "fast-a",
+      "scratch_allocated_gb": 40,
+      "remaining_scratch_gb": 60,
+      "remaining_output_gb": 20
+    },
+    {
+      "id": "alpha-export",
+      "place": "fast-a",
+      "scratch_allocated_gb": 20,
+      "remaining_scratch_gb": 80,
+      "remaining_output_gb": 25
+    },
+    {
+      "id": "beta-preview",
+      "place": "fast-b",
+      "scratch_allocated_gb": 25,
+      "remaining_scratch_gb": 35,
+      "remaining_output_gb": 12
+    },
+    {
+      "id": "beta-export",
+      "place": "fast-b",
+      "scratch_allocated_gb": 10,
+      "remaining_scratch_gb": 10,
+      "remaining_output_gb": 5
+    }
+  ],
+  "proposals": [
+    {
+      "id": "alpha-batch",
+      "place": "fast-a",
+      "missing_input_gb": 30,
+      "output_gb": 60,
+      "additional_scratch_gb": 140,
+      "publication_gb": 10,
+      "expected_additional_peak_gb": 240,
+      "expected_available_gb": 415,
+      "expected_admit": true
+    },
+    {
+      "id": "beta-batch",
+      "place": "fast-b",
+      "missing_input_gb": 20,
+      "output_gb": 15,
+      "additional_scratch_gb": 180,
+      "publication_gb": 10,
+      "expected_additional_peak_gb": 225,
+      "expected_available_gb": 208,
+      "expected_admit": false
+    }
+  ],
+  "daily_observations": [
+    {
+      "day": 1,
+      "place": "fast-b",
+      "managed_gb": 1300,
+      "scratch_gb": 60,
+      "materialized_gb": 80,
+      "other_gb": 90,
+      "free_gb": 470
+    },
+    {
+      "day": 2,
+      "place": "fast-b",
+      "managed_gb": 1312,
+      "scratch_gb": 70,
+      "materialized_gb": 85,
+      "other_gb": 93,
+      "free_gb": 440
+    },
+    {
+      "day": 3,
+      "place": "fast-b",
+      "managed_gb": 1332,
+      "scratch_gb": 95,
+      "materialized_gb": 95,
+      "other_gb": 98,
+      "free_gb": 380
+    },
+    {
+      "day": 4,
+      "place": "fast-b",
+      "managed_gb": 1362,
+      "scratch_gb": 155,
+      "materialized_gb": 115,
+      "other_gb": 108,
+      "free_gb": 260
+    }
+  ],
+  "day4_scratch_breakdown_gb": {
+    "active": 55,
+    "completed": 60,
+    "unknown": 40
+  },
+  "expected_three_day_growth_gb": {
+    "total": 210,
+    "managed": 62,
+    "scratch": 95,
+    "materialized": 35,
+    "other": 18
+  }
+}

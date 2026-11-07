@@ -1,0 +1,828 @@
+{
+  "schema": "tig.integration-scenarios.design-1",
+  "suites": [
+    {
+      "prefix": "CL",
+      "document": "specs/CACHE-AND-LFS.md",
+      "cases": [
+        {
+          "id": "CL01",
+          "trigger": "Warm object lookup with many bundles/places",
+          "expectation": "Bounded indexed lookup; measure reads, latency and memory; no census",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL02",
+          "trigger": "Cached miss followed by another writer publishing the object",
+          "expectation": "Generation-aware invalidation; new verified copy becomes discoverable",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL03",
+          "trigger": "Watched external cache disconnects or overflows event queue",
+          "expectation": "Mark affected scope stale/unknown; bounded recovery, no false absence",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL04",
+          "trigger": "Two worktrees ingest identical bytes concurrently",
+          "expectation": "One immutable publication per place; both get accurate observations",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL05",
+          "trigger": "Crash between physical publication and catalog update",
+          "expectation": "Recover completed bytes without false completion or orphan data loss",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL06",
+          "trigger": "Reader acquires object while eviction is planned",
+          "expectation": "Fresh active-use protection fences removal at object/place scope",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL07",
+          "trigger": "Plain pointer, malformed OID, wrong size or unsupported extension",
+          "expectation": "Correct exact identity or explicit rejection; no arbitrary path lookup",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL08",
+          "trigger": "LFS agent upload/download retries and parallel requests",
+          "expectation": "Protocol-correct idempotent results; bounded concurrency and truthful completion",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL09",
+          "trigger": "LFS local store plus hydrated worktree plus Tig cache",
+          "expectation": "Measure all allocated copies; do not claim logical dedup means zero physical cost",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CL10",
+          "trigger": "Generic Git-only repo replaces an LFS file and merges",
+          "expectation": "Tig derives old/new object claims without Art, preserves other users and plans placement",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "GW",
+      "document": "specs/GIT-WORKFLOW.md",
+      "cases": [
+        {
+          "id": "GW01",
+          "trigger": "Enroll a Git/LFS repo without Art",
+          "expectation": "Plan from exact pointers and local policy; no full hydration/census",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW02",
+          "trigger": "Same object requested by two unrelated repos",
+          "expectation": "Share permitted bytes; retain independent claims and access scope",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW03",
+          "trigger": "Catalog lost but durable job/claim records remain",
+          "expectation": "Rebuild conservatively; no removal before protection recovery",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW04",
+          "trigger": "Both catalog and an authoritative protection journal are missing",
+          "expectation": "Block removal; do not invent empty protection from branch heads",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW05",
+          "trigger": "Producer completes before staging or committing",
+          "expectation": "Durable ingest/job protection covers the gap; new bytes are not garbage",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW06",
+          "trigger": "LFS clean runs outside Tig and creates a new local LFS object",
+          "expectation": "Reconcile explicit source/index and admit protection; no assumed Tig write event",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW07",
+          "trigger": "Transfer-agent request supplies only OID and size",
+          "expectation": "Resolve exact object, not an invented branch or lifecycle status",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW08",
+          "trigger": "Merge conflicts leave three index stages",
+          "expectation": "Protect known alternatives; unresolved state is not a merged snapshot",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW09",
+          "trigger": "Partial staging, detached HEAD and dirty worktree coexist",
+          "expectation": "Separate views and protections; never overwrite user edits",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW10",
+          "trigger": "Branch rename/delete/rebase and remote prune occur",
+          "expectation": "Authorized source transition; preserve other claims and unknown remote scope",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW11",
+          "trigger": "Attributes change which tracked paths represent LFS content",
+          "expectation": "Invalidate affected extraction context; no stale inventory shrink",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW12",
+          "trigger": "Git merge succeeds while archive is offline",
+          "expectation": "Desired checkpoint advances; placement visibly pending; retain needed local bytes",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW13",
+          "trigger": "Thin and hydrated worktrees consume the same object",
+          "expectation": "Same byte identity; distinct materialization cost and mutation safety",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW14",
+          "trigger": "Demotion needs headroom on a full destination",
+          "expectation": "Budget peak and batch safely or block; no unsafe source deletion",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "GW15",
+          "trigger": "Hook is disabled and a new ref arrives",
+          "expectation": "Explicit catch-up converges from exact refs without a daemon or duplicate claims",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "CR",
+      "document": "docs/scenarios/CR.md",
+      "cases": [
+        {
+          "id": "CR01",
+          "trigger": "Publication succeeds but its acknowledgement is lost",
+          "steps": [
+            "Retry the same operation after restart"
+          ],
+          "expectation": "Recognize the prior object publication; do not publish twice or shrink protection",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR02",
+          "trigger": "Power loss occurs after destination bytes are written but before verified publication",
+          "steps": [
+            "Replay the durable ingest intent"
+          ],
+          "expectation": "Revalidate destination bytes before exposing completion; keep source protected",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR03",
+          "trigger": "A protection journal ends with a torn record",
+          "steps": [
+            "Restart and rebuild indexes"
+          ],
+          "expectation": "Mark the uncertain suffix incomplete; recover authoritative state before removal",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR04",
+          "trigger": "Only an older protection backup can be restored",
+          "steps": [
+            "Replay known later operations and compare source generations"
+          ],
+          "expectation": "Do not assume absent later job records expired; block destructive work until scope is recovered",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR05",
+          "trigger": "Two workers restore the same coordinator identity from a backup",
+          "steps": [
+            "Both attempt conflicting generation advances"
+          ],
+          "expectation": "Fence stale authority; avoid a pair of independent destructive writers",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR06",
+          "trigger": "Wall clock moves backwards while a job lease approaches expiry",
+          "steps": [
+            "Observe old and new clock values during renewal"
+          ],
+          "expectation": "Anomalous time cannot prove that protection ended; follow declared clock policy",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR07",
+          "trigger": "A reader cannot renew while coordinator connectivity is lost",
+          "steps": [
+            "Attempt planned removal of its object"
+          ],
+          "expectation": "Require an effective reader fence/recovery contract; timeout alone is not permission",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR08",
+          "trigger": "Claim handoff crashes between old and new checkpoint records",
+          "steps": [
+            "Recover the interrupted transition"
+          ],
+          "expectation": "Protect the union until durable transition outcome is known",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR09",
+          "trigger": "An archive drive is detached and a different drive reuses its mount path",
+          "steps": [
+            "Resolve a pending archive operation"
+          ],
+          "expectation": "Reject the stale place identity; the replacement is not the verified archive",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "CR10",
+          "trigger": "A release intent exists but its provider result was never recorded",
+          "steps": [
+            "Restart and retry the release transaction"
+          ],
+          "expectation": "Inspect exact object/place state; report absent versus present without inventing a complete retained copy",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "RW",
+      "document": "docs/scenarios/RW.md",
+      "cases": [
+        {
+          "id": "RW01",
+          "trigger": "A reader arrives after a plan marks an object surplus",
+          "steps": [
+            "Acquire a read while removal tries to start"
+          ],
+          "expectation": "Serialize the conflicting scope so a granted read remains protected",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW02",
+          "trigger": "An object path is removed and reused between validation and deletion",
+          "steps": [
+            "Apply the earlier removal intent"
+          ],
+          "expectation": "Fence exact object identity and provider generation, not the reused path",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW03",
+          "trigger": "Two publishers reserve the same remaining free space",
+          "steps": [
+            "Attempt two bounded ingests concurrently"
+          ],
+          "expectation": "Admission accounts for both reservations; do not oversubscribe capacity",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW04",
+          "trigger": "A branch is deleted while its renderer is still using old objects",
+          "steps": [
+            "Retire branch claims and continue the job"
+          ],
+          "expectation": "The independent admitted job claim continues to protect its inputs",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW05",
+          "trigger": "Two projects share bytes but require incompatible placement/privacy rules",
+          "steps": [
+            "Reconcile both claim sets"
+          ],
+          "expectation": "Share only permitted copies and report unsatisfied constraints; no last-writer rule",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW06",
+          "trigger": "A user loses removal authority after producing a dry run",
+          "steps": [
+            "Attempt apply under the old token"
+          ],
+          "expectation": "Recheck current authority; refuse the stale destructive action",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW07",
+          "trigger": "A claim generation counter would overflow",
+          "steps": [
+            "Attempt the next transition"
+          ],
+          "expectation": "Reject explicitly rather than wrap and admit stale work",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW08",
+          "trigger": "A remote provider cannot enforce the required stale-writer fence",
+          "steps": [
+            "Plan an automatic removal"
+          ],
+          "expectation": "Leave the operation unsupported/blocked until an adequate backend protocol exists",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW09",
+          "trigger": "An idempotency key is reused for a different object payload",
+          "steps": [
+            "Retry the altered request"
+          ],
+          "expectation": "Reject conflicting operation identity; never replay a success for different bytes",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "RW10",
+          "trigger": "A shelved draft expires while another branch adopts one of its objects",
+          "steps": [
+            "Release the draft claim"
+          ],
+          "expectation": "Preserve adoption/active claims; expire only the owning draft obligation",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "LF",
+      "document": "docs/scenarios/LF.md",
+      "cases": [
+        {
+          "id": "LF01",
+          "trigger": "A clone uses pointer-only checkout and requests one file",
+          "steps": [
+            "Resolve one OID through Tig"
+          ],
+          "expectation": "Acquire only the explicitly requested object under budget; no branch-wide hydration",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF02",
+          "trigger": "Git LFS local storage is configured outside the common Git directory",
+          "steps": [
+            "Enroll admitted repository places"
+          ],
+          "expectation": "Account for the actual configured local-store identity; avoid an invented duplicate default",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF03",
+          "trigger": "A remote reports authorization failure rather than missing content",
+          "steps": [
+            "Attempt an object acquisition"
+          ],
+          "expectation": "Expose denied access distinctly; do not rewrite it as absence or try unadmitted sources",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF04",
+          "trigger": "An upload process exits after a partial destination write",
+          "steps": [
+            "Receive a nominal success indication and inspect transfer completion"
+          ],
+          "expectation": "Require exact destination-contract verification; partial bytes do not satisfy upload",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF05",
+          "trigger": "A pointer uses an unsupported extension/transform",
+          "steps": [
+            "Build its object inventory"
+          ],
+          "expectation": "Block the affected mapping; do not equate transformed bytes with a plain OID",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF06",
+          "trigger": "A Git LFS prune would touch storage shared with another enrolled worktree",
+          "steps": [
+            "Preview cleanup"
+          ],
+          "expectation": "Require coordinated all-consumer protection; Tig claims do not make an external pruner safe automatically",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF07",
+          "trigger": "A change to attributes changes pointer interpretation for many unchanged files",
+          "steps": [
+            "Use an incremental tree cache"
+          ],
+          "expectation": "Invalidate affected interpretation context and rescan only admitted scope with coverage",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF08",
+          "trigger": "Git garbage collection expires reflogs that once named a retained release",
+          "steps": [
+            "Reconcile configured historical retention"
+          ],
+          "expectation": "Preserve admitted release objects independently of reflog lifetime",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF09",
+          "trigger": "A ref is force-pushed while an LFS upload is still in flight",
+          "steps": [
+            "Complete upload and derive branch placement"
+          ],
+          "expectation": "Keep verified ingest useful but bind adoption to the actual new ref, not transfer timing",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LF10",
+          "trigger": "A repository supplies a custom transfer executable or credential-bearing URL",
+          "steps": [
+            "Open/enroll the repository"
+          ],
+          "expectation": "Require trusted local admission; never execute or export it merely because it is committed",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "SP",
+      "document": "docs/scenarios/SP.md",
+      "cases": [
+        {
+          "id": "SP01",
+          "trigger": "A sparse file reports a large logical size but occupies few blocks",
+          "steps": [
+            "Estimate transfer and source-space reclaim"
+          ],
+          "expectation": "Distinguish logical transfer size from measured allocation; do not invent savings",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP02",
+          "trigger": "Two paths are hard links to the same underlying data",
+          "steps": [
+            "Count copies and edit one path"
+          ],
+          "expectation": "Do not count independent custody; prevent mutation of shared immutable content",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP03",
+          "trigger": "Compacting a shared pack requires more temporary space than is free",
+          "steps": [
+            "Plan removal of obsolete members"
+          ],
+          "expectation": "Keep pack pinned and report blocked capacity or a separately budgeted compaction",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP04",
+          "trigger": "An encrypted object changes storage keys without changing plaintext",
+          "steps": [
+            "Rotate representation while retaining old readers"
+          ],
+          "expectation": "Preserve plaintext identity and key/representation access until protected readers finish",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP05",
+          "trigger": "A cross-volume copy is interrupted before source retirement",
+          "steps": [
+            "Restart transfer with a partially allocated destination"
+          ],
+          "expectation": "Resume/revalidate within budget; source remains until destination obligations are satisfied",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP06",
+          "trigger": "Case folding or Unicode normalization makes two logical paths collide",
+          "steps": [
+            "Materialize a bundle on a less expressive filesystem"
+          ],
+          "expectation": "Reject or use a declared reversible mapping; no silent overwrite",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP07",
+          "trigger": "An object becomes corrupt after a prior integrity observation",
+          "steps": [
+            "Request it or consider using it as retained custody"
+          ],
+          "expectation": "Invalidate the stale observation, reacquire if permitted, and preserve other good copies",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP08",
+          "trigger": "Another application consumes disk space after Tig reserves capacity",
+          "steps": [
+            "Attempt the next write"
+          ],
+          "expectation": "Handle provider full-disk safely; reservations are admission controls, not guarantees about external writers",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP09",
+          "trigger": "A producer exceeds its output estimate halfway through writing",
+          "steps": [
+            "Request more admitted capacity"
+          ],
+          "expectation": "Bound or pause the operation; renegotiate explicitly rather than fill the entire cache",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "SP10",
+          "trigger": "An unregistered hot object is classified for archive-only retention",
+          "steps": [
+            "Admit an explicit archive claim and reconcile"
+          ],
+          "expectation": "Verify archive requirements before releasing the hot copy; no last-copy deletion",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "BN",
+      "document": "docs/scenarios/BN.md",
+      "cases": [
+        {
+          "id": "BN01",
+          "trigger": "A bundle manifest is small but expands into excessive descendants",
+          "steps": [
+            "Resolve it within declared read budgets"
+          ],
+          "expectation": "Return explicit incomplete scope when limits are exhausted; no unbounded traversal",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN02",
+          "trigger": "Imported manifests contain a cycle or inconsistent child identity",
+          "steps": [
+            "Resolve exact bundle paths"
+          ],
+          "expectation": "Reject malformed graph/identity before materialization; do not trust root naming alone",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN03",
+          "trigger": "A moving bundle reference advances while a reader opens a file",
+          "steps": [
+            "Resolve and acquire the requested snapshot"
+          ],
+          "expectation": "Pin one exact snapshot; never mix old metadata with new byte selection",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN04",
+          "trigger": "A partial place profile leaves two eligible destinations with no tie-break policy",
+          "steps": [
+            "Build an executable placement plan"
+          ],
+          "expectation": "Keep the assignment unresolved or use an explicitly pinned deterministic rule",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN05",
+          "trigger": "One digest is advertised with conflicting sizes in two inventories",
+          "steps": [
+            "Combine branch bundle membership"
+          ],
+          "expectation": "Reject the inconsistency instead of choosing whichever report arrived last",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN06",
+          "trigger": "Torrent metadata would expose confidential file names to unadmitted peers",
+          "steps": [
+            "Prepare a distribution descriptor"
+          ],
+          "expectation": "Use an admitted opaque/encrypted mapping and privacy review; private discovery flags alone are insufficient",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN07",
+          "trigger": "All seeds disappear halfway through a download",
+          "steps": [
+            "Retry with verified partial pieces"
+          ],
+          "expectation": "Keep partial state, report unavailable sources, and do not count an independent complete replica",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN08",
+          "trigger": "A file root is known but supporting piece data are unavailable",
+          "steps": [
+            "Try to materialize the file"
+          ],
+          "expectation": "Identity knowledge does not imply byte availability; acquisition stays pending",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN09",
+          "trigger": "A minor edit causes a compressed output to share almost no byte chunks",
+          "steps": [
+            "Estimate version storage using content similarity"
+          ],
+          "expectation": "Use measured byte-level reuse rather than visual similarity or an assumed delta ratio",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "BN10",
+          "trigger": "A backup client without Art submits overlapping immutable bundles",
+          "steps": [
+            "Reconcile with existing Git-project claims"
+          ],
+          "expectation": "Apply the same object/place rules and independent claim ownership without media assumptions",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    },
+    {
+      "prefix": "LC",
+      "document": "docs/scenarios/LC.md",
+      "cases": [
+        {
+          "id": "LC01",
+          "trigger": "A producer writes a new large file into an admitted Tig working directory",
+          "steps": [
+            "Seal the completed write and bind the logical path"
+          ],
+          "expectation": "Protect partial/new ingest; publish exact immutable bytes only after completion and validation",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC02",
+          "trigger": "A new file has one local copy while backup replication is pending",
+          "steps": [
+            "Keep editing before the first commit"
+          ],
+          "expectation": "Admit bounded draft protection and expose pending redundancy rather than claim a complete backup",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC03",
+          "trigger": "The local Git commit contains the new LFS pointer",
+          "steps": [
+            "Advance local committed source claims"
+          ],
+          "expectation": "Keep exact bytes available locally; commit success does not fabricate remote custody",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC04",
+          "trigger": "Git push succeeds for a branch containing only small pointer changes",
+          "steps": [
+            "Reconcile remote-pushed lifecycle policy"
+          ],
+          "expectation": "Schedule configured replica obligations; pointer push does not prove payload upload or independent backup",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC05",
+          "trigger": "A pull request requires two independent retained copies",
+          "steps": [
+            "Evaluate the exact candidate and custody evidence"
+          ],
+          "expectation": "Gate only the configured transition; count real failure domains, not aliases or directories",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC06",
+          "trigger": "A branch merges to main with already replicated working bytes",
+          "steps": [
+            "Durably hand off draft/current/history obligations"
+          ],
+          "expectation": "Reuse existing copies and retain other jobs; no new physical directory or second content merge",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC07",
+          "trigger": "A current version becomes previous under a two-copy retention policy",
+          "steps": [
+            "Demote its inactive hot objects"
+          ],
+          "expectation": "Verify required history/archive copies across independent failure domains before hot release",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC08",
+          "trigger": "A user checks out an older retained version in a new branch",
+          "steps": [
+            "Create its active working-set claim"
+          ],
+          "expectation": "Acquire missing hot copies under budget without discarding newer retained versions",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC09",
+          "trigger": "Another worktree starts on the same project and consumes existing bytes",
+          "steps": [
+            "Register its distinct claim source"
+          ],
+          "expectation": "Share permitted cached objects, preserve job ownership and account for editable materializations",
+          "status": "designed",
+          "evidence": []
+        },
+        {
+          "id": "LC10",
+          "trigger": "A repository is moved locally while its Tig namespace remains enrolled",
+          "steps": [
+            "Rebind trusted local root and reconcile source identity"
+          ],
+          "expectation": "Preserve logical paths/owned claims without treating the new filesystem path as a new backup",
+          "status": "designed",
+          "evidence": []
+        }
+      ]
+    }
+  ]
+}

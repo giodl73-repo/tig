@@ -1,0 +1,7 @@
+/target/
+/.local/
+*.log
+.env
+.env.*
+!.env.example
+/.private/

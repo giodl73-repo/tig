@@ -1,0 +1,150 @@
+# Current architecture
+
+This describes the implemented experimental workspace. The
+[engineering architecture](vtrace/ARCHITECTURE.md) also allocates target components;
+its boxes are not a claim that every service/provider already exists.
+
+## Packages and dependency direction
+
+```text
+                         tig-git
+                   Git/LFS adapters + CLIs
+                  /          |            \
+                 v           | optional    v
+             tig-store       +--------> tig-assets
+                 |                          |
+                 +------------+-------------+
+                              v
+                           tig-core
+```
+
+| Crate | Implemented responsibilities |
+| --- | --- |
+| tig-core | Immutable object/tree identity, canonical records, binding views, claims, placement and pure worktree operations |
+| tig-store | Local publication, guarded existing-byte reads, capacity/operation ledgers, immutable metadata, source claims, replica verification and retention |
+| tig-assets | Optional native records/resolver port, declared graphs, sparse variants; schema-gated contracts, revisions, deliveries, edits and publication checks |
+| tig-git | Exact commit/index capture, Git identity/pointers, download-only LFS adapter, native resolution, project restore, sparse proposals, history and local catalogue |
+
+The basic tig-git build uses tig-core and tig-store. Its **assets** feature adds
+tig-assets; **schema** adds assets plus schema validation, catalogue and history
+facilities. tig-assets/schema adds its JSON Schema-backed contracts. Low-level
+placement and byte access do not depend on typed assets, a renderer or project
+checkout. Crates are publish=false while interfaces are experimental.
+
+## Authored state, bytes and operational state
+
+```text
+Git: small records, definitions, schema/policy references, LFS pointers
+  |
+  +-> exact captured snapshot -> admitted definitions / record IDs
+  |                                  |
+  |                           optional semantic resolution
+  |                                  |
+  +----------------------- exact byte object / tree
+                                     |
+                     explicit provider or existing-store profile
+                                     |
+                               guarded bytes
+
+Outside Git: payloads, large immutable indexes/history, local enrollment,
+             credentials, ledgers, claims, observations, private evidence
+```
+
+Git blob identity, canonical record identity and raw payload SHA-256 are different
+domains. Resolve an ID within one exact snapshot; never substitute the newest
+file in a directory. Small native records can reference larger immutable history
+documents without rewriting a growing inventory on every edit.
+
+Providers own physical layout. Existing-byte readers admit flat, Git LFS and
+CAS layouts, verify the named object and retain the declared read protection.
+Strict Windows protection and cooperative immutable mode have different guarantees.
+See [existing-byte contract](../specs/EXISTING-BYTE-READ.md).
+
+## Selection, production and delivery
+
+The optional asset layer separates authored metadata, declared dependencies,
+selected revisions, production contexts, result evidence and delivery history.
+Changing a selection need not render immediately. A producer consumes an exact
+resolved context; result currency and delivery currency are separate questions.
+Project status vocabulary, language/style dimensions, accepted profiles and
+production semantics come from admitted definitions/adapters.
+
+Graphs distinguish production, composition, evidence and authority relationships.
+Declared graph resolution is not complete extraction of opaque native formats
+or proof of the producer's actual consumed inputs. Revision history, publication
+evidence and external targets do not independently authorize storage retirement.
+
+## Local catalogue data flow
+
+```text
+external enrollment -> resolver profiles -> captured Git metadata
+                                            |
+                                 admitted presentation rules
+                                            |
+                            project / collection / work / child
+                                            |
+                     versions, deliveries, search, direct byte objects
+                                            |
+explicit JSON expansion -> bounded nested descriptors and provenance
+explicit observation   -> named file attributes / capacity observations
+explicit verification  -> guarded hash-and-length check
+                                            |
+                       comparison / preferences / held dry-run review
+```
+
+The Rust application bundles static HTML/CSS/JavaScript and serves loopback HTTP.
+There is no build-time web service or installed daemon. Requests are session-bound;
+configured display fields are projected rather than exposing raw authored records.
+The loopback service is a local tool, not a remotely hosted multi-user application.
+
+Work grouping is a presentation projection, not another asset registry. Counters
+use project-admitted selectors/status interpretation. Different IDs or languages
+do not automatically become extra deliverables. Nested descriptors inherit the
+admitted work memberships of their referencing records; shared bytes remain shared.
+
+Coverage means configured paths were expanded, not complete production closure.
+Comparison distinguishes unique declared content from observed copy bytes.
+Work totals can overlap. No observed copy is not proof of absence in unprobed
+stores. Removed version members do not establish zero demand or deprecation.
+
+Reads, selectors, expansion depth, associations and responses are bounded.
+Metadata IO for expansion/comparison runs outside the catalogue mutex. Snapshot
+and coverage-basis checks reject stale results/mixed pagination. Loaded expansion
+and observations are process memory, cleared on restart; no hidden metadata read
+repopulates them. See [catalogue contract](../specs/CATALOGUE.md).
+
+## Storage safety boundary
+
+Desired placement, operational plans, observations, retained protection and
+removal authority remain separate. There is no cross-system transaction spanning
+Git, local files and remote providers. Bounded local protocols use scoped intent,
+safe acknowledgement ordering and restart recovery. No global shared-cache lock
+is a prerequisite for unrelated writers.
+
+The library contains local provider/ledger/retention primitives; the catalogue
+does not attach a generic eviction executor. Full active-job/dependency coverage,
+independent custody, fresh provider fences and authorization remain prerequisites
+for safe retirement. Complete remote transport and automatic Git-hook lifecycle
+management are future integration, not hidden behavior in the viewer.
+
+## Entry points
+
+| Binary | Gate | Purpose |
+| --- | --- | --- |
+| tig-source | tig-store basic | Explicit source-authority inspection and durable source-claim transitions |
+| tig-lfs | basic | Explicit existing-cache Git LFS transfer agent |
+| tig-propose | basic | Prepare bounded verified byte-to-Git proposals |
+| tig-resolve / tig-graph | assets | Resolve IDs / inspect admitted declared graphs |
+| tig-restore / tig-project | assets | Explicit named/project restore, preview and guarded application |
+| tig-history | schema | Inspect/prepare/publish history through an explicit local host profile |
+| tig-catalogue | schema | Validate enrollment or run the local viewer |
+| tig-record | tig-assets basic | Inspect an explicitly supplied native record/stream; schema options use schema feature |
+| tig-publication | tig-assets/schema | Inspect explicitly supplied publication evidence |
+
+Flags and authority differ by command; follow the relevant spec rather than
+treating the catalogue's read-only boundary as a promise for every CLI.
+The older Python restore helper is compatibility orchestration; new integrations
+use the Rust project API. Python checker scripts are development tooling.
+
+The [roadmap](../PRODUCT_PLAN.md), [adoption gates](CONSUMER-ADOPTION.md) and
+[evidence register](vtrace/EVIDENCE.md) describe outstanding system obligations.
