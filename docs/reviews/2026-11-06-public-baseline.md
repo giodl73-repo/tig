@@ -47,6 +47,11 @@ Stable requirements/invariants and the 110-case design ledger remain open at
 their declared full-system scope; no scenario row is silently promoted to tested.
 No independent validation or acceptance is claimed.
 
+CI annotations also exposed deprecated Node 20 checkout/Python actions. Replace
+them with official stable Node 24 releases pinned to verified commits; hosted
+validation must pass those exact pins before merge. This is build tooling, not
+a runtime/dependency update to Tig.
+
 Review: producer-applied identity, placement, custody, concurrency, privacy and
 adoption checks completed. No open high finding is accepted for public exposure.
 Remaining product limits: full active-job/consumption coverage, independent

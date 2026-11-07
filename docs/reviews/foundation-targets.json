@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 2752,
-      "sha256": "c6a17cdba3ca94b778fbe57f83f79c80a6605a4576d26b3b7b9eeb9f5349d273"
+      "bytes": 2791,
+      "sha256": "b65453424523d9d34060ce5b8e2f14a1fe22e523ae9152d5a048be0a55aa0ee7"
     },
     {
       "path": ".gitignore",
@@ -1589,8 +1589,8 @@
     },
     {
       "path": "docs/reviews/2026-11-06-public-baseline.md",
-      "bytes": 5381,
-      "sha256": "3074880d6a2305e422be60a54393ae8ec52a46c8b5f31decaeba5c55a13eae2b"
+      "bytes": 5655,
+      "sha256": "134c8a15278fc5fa3f264e10959f3e7baa0f43b2e854a92401191c8705efb77f"
     },
     {
       "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
