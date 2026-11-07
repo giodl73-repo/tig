@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 2233,
-      "sha256": "c00b71bb0e770cbb9ab6a64ed014e2841f45eccf3944a3b1bec07cbe4a5c2dad"
+      "bytes": 2791,
+      "sha256": "b65453424523d9d34060ce5b8e2f14a1fe22e523ae9152d5a048be0a55aa0ee7"
     },
     {
       "path": ".gitignore",
@@ -39,33 +39,33 @@
     },
     {
       "path": ".roles/parliament/concurrency-recovery.md",
-      "bytes": 636,
-      "sha256": "369f88764f0de5544389a0329a02bccef02f7c53a2c9fa2e6ba81a13b5c63e60"
+      "bytes": 693,
+      "sha256": "c29e1ceed69b676b85ec29c8a0477332dc99453d2bdbfe8fae274dd5c1011ced"
     },
     {
       "path": ".roles/parliament/git-adoption.md",
-      "bytes": 603,
-      "sha256": "ae78da2cd9e647a4146cbead6d0e1166b3aa603423b09e6d6c2a57dea697099d"
+      "bytes": 660,
+      "sha256": "f6857950e7d47f11f8767f78a25551744d0f75ab779cf2089fe1716d19380387"
     },
     {
       "path": ".roles/parliament/identity-namespace.md",
-      "bytes": 623,
-      "sha256": "9fd5efbfc5d95205960154ca7b82206934a26943f73a3db3348db23cd18d1e6f"
+      "bytes": 680,
+      "sha256": "fa7163cf4ab76973ef26e28713fb9e648f1bacc488fd88d78f10c6e07a24596a"
     },
     {
       "path": ".roles/parliament/placement-policy.md",
-      "bytes": 611,
-      "sha256": "6e3f7b4084632499be350ce3e3336da2bb1268bb5ad1988f920b7c188f2b70db"
+      "bytes": 668,
+      "sha256": "53f615403bb37ec1d049f5829dfdb86192894cf10505b9de9d6808d25d99f4f1"
     },
     {
       "path": ".roles/parliament/provider-privacy.md",
-      "bytes": 622,
-      "sha256": "9e4e7252ceaa16ef199ebb2b1085b2da9e7701bc25e452f089c1214dcc81ce39"
+      "bytes": 679,
+      "sha256": "cfd65cace1b570ea67460fe23f31c9a0472576fb3154c1d6da3da1a95903d0fe"
     },
     {
       "path": ".roles/parliament/storage-custody.md",
-      "bytes": 585,
-      "sha256": "1a2e53327d84b01b678c17150c118df78809bad788420d084ed0a4a1d5876a07"
+      "bytes": 642,
+      "sha256": "010aa56905008dd4e00dd8e374c417ca55998a40907a713d7a53b728a203a1d2"
     },
     {
       "path": ".roles/ROLE.md",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 2138,
-      "sha256": "e4c1f928e1e406a6c4e78a02bfba792af7838e966b2fe83b525e33fbfe24e85a"
+      "bytes": 2284,
+      "sha256": "d2393457d26325a43f04db88b433b9d8e6055404d95965f6f1077df45418fd02"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -114,13 +114,13 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
-      "bytes": 6104,
-      "sha256": "cc991589f3bfdfbbbdc60bc6b8212072e5f4d7c2570091df5adce5f4d919ef4e"
+      "bytes": 6105,
+      "sha256": "f22bf85c9997a2128447c7fd29312f0c4577a5e866c918a27acc3b9b08ed228c"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/WAVE.md",
-      "bytes": 845,
-      "sha256": "9770e22b207e1f8a445cc43cf4323a3ed4efae23075733bd9986826f227c8010"
+      "bytes": 908,
+      "sha256": "136fc06fb7d773fe2c35eb2110d1a31f0d1f1447088ab1d113700dd97ba3cfcf"
     },
     {
       "path": "context/waves/PHASES.md",
@@ -154,8 +154,8 @@
     },
     {
       "path": "docs/doctrine/INVARIANTS.md",
-      "bytes": 3297,
-      "sha256": "2d81088a347c70f897d4ed1452327bc476cb6f14ee39b8f4e5c480d6b1f550c1"
+      "bytes": 3391,
+      "sha256": "a511e3f76b74ac3a11dd9c754a41c105fa13de12c41af8c1b3e40ba17f228479"
     },
     {
       "path": "docs/doctrine/PITFALLS.md",
@@ -224,8 +224,8 @@
     },
     {
       "path": "docs/scenarios/FOUNDATION.md",
-      "bytes": 3317,
-      "sha256": "45066e96abfe649a29fb4dfe06f0734b2429ba176b48796499ba3c239b05d2d9"
+      "bytes": 3472,
+      "sha256": "eb4210733ea1fbc081529345f541677c6aba45b5262d577b2f89c7f9feb8faa9"
     },
     {
       "path": "docs/scenarios/LC.md",
@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 7535,
-      "sha256": "733b0fcb430290ed8406fe9823353a125c1b8313813af4a3e87ed7d916481fc6"
+      "bytes": 7562,
+      "sha256": "15e3556f81d222b5a57d0697e8129fdfb3417916970a8ef962d135bfb401c930"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -394,8 +394,8 @@
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
-      "bytes": 48259,
-      "sha256": "fa49b5e502cfcb6d308faa5f48eb62664d54b9905b093b8aa928bb4b1fa69698"
+      "bytes": 48619,
+      "sha256": "8af90da4d5cfac9f6653bc16a748f564cfe888ea63c6401c58aa466085142419"
     },
     {
       "path": "LICENSE",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 2646,
-      "sha256": "e6f1f114969ffff45b10be70fe5e5aa04c6dcdec5f7f0db44aeaba0187477f54"
+      "bytes": 2735,
+      "sha256": "b46ac2c6d492155631a7a7b6ba7ee124092e571e67ba3d3c550b1441b445cebf"
     },
     {
       "path": "README.md",
-      "bytes": 5889,
-      "sha256": "728bcdf02ac2076ffa80737140696843efede31e43b50123fda391b3505bdcd4"
+      "bytes": 5985,
+      "sha256": "4d1bec33b78b98fe3e4754d645622a6237f9ad54878528a3db436a97249118d7"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -1568,19 +1568,14 @@
       "sha256": "533bd59e1408a3842f0f0e3457a4920568e44d01050626a9d301fa79c138bb4a"
     },
     {
-      "path": ".gitleaksignore",
-      "bytes": 166,
-      "sha256": "c06016c21c13dd6c4c9654661f7f161b428cf78fea7fcb53d986d2e5eddb0ff4"
-    },
-    {
       "path": "CONTRIBUTING.md",
       "bytes": 2397,
       "sha256": "dca2863ca90ec8cdccaca906d890a682a48414ca5210dec35324a2bcf5a5a407"
     },
     {
       "path": "SECURITY.md",
-      "bytes": 1170,
-      "sha256": "c881932e92afcff36e4237542ffca586c7636707fb5740038c506090bcddc104"
+      "bytes": 1217,
+      "sha256": "16dba19998d62f0bc7dde388209140d44f108dcbb61e38ef82a30f35e6eaf35a"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -1589,8 +1584,28 @@
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
-      "bytes": 4730,
-      "sha256": "c7aa9fe046430f77d3866f82cfdb791925efda5aba4b2ce27534463907d5b8f4"
+      "bytes": 3583,
+      "sha256": "f201957a87eb9d658d19a63c43134331258955b0e14749fbd1401baeaa382f5b"
+    },
+    {
+      "path": "docs/reviews/2026-11-06-public-baseline.md",
+      "bytes": 5655,
+      "sha256": "134c8a15278fc5fa3f264e10959f3e7baa0f43b2e854a92401191c8705efb77f"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
+      "bytes": 772,
+      "sha256": "c5c7c98fe0d9c85d419d314a719f0a552850d60f56d77bec31140cf7264e37ef"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/feature_request.yml",
+      "bytes": 583,
+      "sha256": "5a920f2d67d7e76ee86f014bad097fdb6a191b35c50f7a5ed1342dd6256b7659"
+    },
+    {
+      "path": ".github/PULL_REQUEST_TEMPLATE.md",
+      "bytes": 485,
+      "sha256": "abeceb8a2c424dd23494f169a2fd83c78042e70159e26216d1a702966c7bb759"
     }
   ]
 }

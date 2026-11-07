@@ -9,8 +9,9 @@ slices are implemented; complete typed/provider/consumer adoption remains open.
 See docs/ARCHITECTURE.md for current scope. Private consumer checkpoints and
 runtime bindings remain owner-managed; docs/CONSUMER-ADOPTION.md defines generic
 gates. Registration and component tests do not close production or custody.
+
 Validation: pwsh -NoProfile -File tools/validate.ps1; git diff --check.
-When implementation exists, add fmt/locked Rust tests/Clippy and exact focused
+For implementation changes, run fmt/locked Rust tests/Clippy and exact focused
 failure fixtures before closing the pulse. Update docs/vtrace/REVIEW.md with
 producer/independent method and exact evidence scope.
 

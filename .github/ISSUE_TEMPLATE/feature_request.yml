@@ -1,0 +1,19 @@
+name: Feature request
+description: Describe a generic workflow or missing capability.
+body:
+  - type: markdown
+    attributes:
+      value: Keep project names, paths and private evidence out of the request. Prefer synthetic examples.
+  - type: textarea
+    id: need
+    attributes:
+      label: User need and example
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome and acceptance criteria
+      description: Distinguish requested behavior from features already implemented.
+    validations:
+      required: true

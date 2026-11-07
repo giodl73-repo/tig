@@ -4,6 +4,10 @@ Tig connects small Git-authored references to immutable bytes and explicit stora
 obligations. It remains usable for Git/LFS without typed asset schemas, and across
 unrelated projects without built-in media or cache policy.
 
+The experimental source baseline is public. Its six-role review and ongoing
+release checks are recorded in [public release](docs/PUBLIC-RELEASE.md).
+This is source availability, not a stable product or full storage acceptance.
+
 ## Implemented experimental slices
 
 - Pure identity/trees, bindings, claim handoff and bounded placement arithmetic.
@@ -26,7 +30,6 @@ certifying full requirements or every consumer.
 
 | Milestone | Exit condition |
 | --- | --- |
-| Public source readiness | Generic docs/examples, license/provenance review, privacy audits and explicitly approved publication history |
 | Consumer completeness | Explainable declared versus consumed inputs, opaque gaps, active jobs and exact profile/source coverage |
 | Lifecycle reconciliation | Durable scoped demands and idempotent plans across Git changes, interruption and concurrent work |
 | Guarded execution | Independent retained custody, provider revalidation and authority before retirement; physical reclaim measured in isolated fixtures |

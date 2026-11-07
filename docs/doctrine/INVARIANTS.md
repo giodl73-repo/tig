@@ -1,7 +1,8 @@
 # Tig invariants
 
-Full-system invariants remain OPEN. The 13 passing pure tests provide only the
-limited mechanism evidence recorded in specs/HANDOFF-PROTOTYPE.md.
+Full-system invariants remain OPEN. Pure and bounded runtime component evidence
+is recorded in [the evidence register](../vtrace/EVIDENCE.md); those results do
+not establish system-wide custody, retirement authority or consumer acceptance.
 
 | ID | Invariant | Status | Notes |
 | --- | --- | --- | --- |

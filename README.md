@@ -110,6 +110,7 @@ do not make every Git operation trigger transfers or eviction.
 - [Catalogue](specs/CATALOGUE.md), [Git LFS](specs/LFS-CACHE-INTEROP.md) and
   [existing-byte reads](specs/EXISTING-BYTE-READ.md): implemented contracts.
 - [Engineering evidence](docs/vtrace/README.md): scope and limits of verification.
+- [Public source review](docs/PUBLIC-RELEASE.md): six-role findings and ongoing release checks.
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md).
 
 Original Tig code and ordinary technical documentation are MIT licensed.

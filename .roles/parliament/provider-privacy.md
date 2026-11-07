@@ -19,7 +19,8 @@ Challenge path escapes, unsupported semantics, credentials, private peers and pr
 ## Evidence
 
 Read specs/MODEL.md, specs/SAFETY.md and docs/scenarios/FOUNDATION.md.
-All runtime evidence remains open. Flag unsupported safety/adoption claims.
+Use exact-source component evidence; full-system safety/adoption remains open.
+Flag claims that exceed the named verification scope.
 
 ## Output
 
