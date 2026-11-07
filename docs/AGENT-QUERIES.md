@@ -40,6 +40,7 @@ source Git. Windows paths can use forward slashes in JSON.
 | projects | none | Enrolled IDs, exact commits and category summaries |
 | inspect | project, asset | Exact record/definition pins, selected object, named streams and owner-admitted inspector fields |
 | admission | project, kinds; optional definition ID filter | Used definition revisions, property/schema pins, admitted rules/classes and missing kind coverage |
+| preview_admission | project, asset, kinds, profiles; required expected_basis on request | Simulated full profile-set replacement, baseline/candidate impact and paged consumer/witness changes |
 | find | project, text; optional category | Registered IDs/titles/types; empty text lists the scope |
 | shared | left/right project IDs; optional category | Unique shared selected objects and their record bindings |
 | references | project, sha256 | Direct selected and named-stream bindings, including retained streams |
@@ -68,6 +69,34 @@ diamond yields one consumer with a deterministic shortest witness. Frozen older
 record pins remain distinct. A path expresses possible impact; production recipe
 and delivery checks determine whether work is required. Decoded media equivalence
 remains a renderer/adapter operation.
+
+## Preview profile changes
+
+```text
+admission -> reviewed profile set -> preview_admission -> owner enrollment update
+                                                           |
+                                                     fresh impact query
+```
+
+Preview requires a current expected_basis from a query for the same project.
+Profiles is the complete proposed set, including unchanged profiles. The tool
+validates and simulates it against the captured native namespace without editing
+the owner's enrollment. Invalid candidates refuse with invalid_proposal. An
+invalid baseline can be repaired in simulation and remains explicitly unavailable.
+
+The result names baseline/proposed admission digests, both coverage/gap reports,
+known consumer counts and delta rows: newly_known, no_longer_known and
+witness_changed. Witness fingerprints describe deterministic shortest dependency
+paths, not complete graph/production recipe identity. Paths can disappear because
+an interpretation lost coverage; even a complete comparison grants no retirement
+or admission authority. A partial baseline with a complete candidate returns
+exit 3 because the comparison remains incomplete; inspect candidate coverage.
+
+Delta rows page across the full known result; baseline/candidate witness details
+show their first 100 consumers. Keep candidate profiles, target and kinds fixed
+across pages and check proposed_admission_sha256. Review before editing enrollment;
+then query again with a fresh basis. Each of the two graphs uses the normal impact
+limits. Preview creates no durable query index or configuration change.
 
 ## Agent decision loop
 

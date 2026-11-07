@@ -98,6 +98,7 @@ fn run(args: &[String]) -> Result<(Value, u8), &'static str> {
         "unknown_asset" => "unknown_asset",
         "source_unavailable" => "source_unavailable",
         "conflicting_identity" => "conflicting_identity",
+        "invalid_proposal" => "invalid_proposal",
         "graph_budget_exceeded" => "graph_budget_exceeded",
         _ => "query_refused",
     })?;
