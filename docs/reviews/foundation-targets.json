@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 28571,
-      "sha256": "170773c99fae84a7e70d0f4f4205b0d00938f0fd80b14fb73d9ec694b095fbb0"
+      "bytes": 28570,
+      "sha256": "2631b406bd1362d51ab4a0b578b61f08b3b3086ea292e0e79a1ee342482ac721"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
