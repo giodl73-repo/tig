@@ -52,6 +52,8 @@ jobs:
         run: ./tools/validate.ps1
       - name: Check explicit restore orchestration paths
         run: python -B tools/test_restore_project.py
+      - name: Check catalogue collection interactions
+        run: node --test crates/tig-git/tests/work-selection.cjs
       - name: Rust format, handoff tests and Clippy
         shell: pwsh
         run: |

@@ -69,6 +69,19 @@ outside the source repository. Then run:
     target/debug/tig-catalogue check /absolute/path/to/enrollment.json
     target/debug/tig-catalogue serve /absolute/path/to/enrollment.json 8799
 
+Compare recorded selected objects across two enrolled projects without rehashing
+media or running the server:
+
+    target/debug/tig-catalogue shared /absolute/path/to/enrollment.json project-a project-b /absolute/path/to/new-report.json
+
+The private report groups shared SHA-256/length identities with their asset IDs
+and pinned commits. An optional final category argument narrows the query.
+It covers enrolled native selections; unregistered files, nested inventories and
+other streams remain outside this comparison. Zero matches is scoped evidence,
+not proof that two entire projects share no media. Output never overwrites a file.
+For direct selected/named-stream reference lookup and the distinction between
+byte equality and dependency changes, see [meta operations](docs/META-OPERATIONS.md).
+
 On Windows append .exe to the binary and supply an absolute Windows path.
 Open http://127.0.0.1:8799/; stop the foreground process to stop the viewer.
 Startup loads configured Git metadata. Nested document expansion, copy observation

@@ -28,7 +28,7 @@ evidence SHAs in documentation identify original checkpoints; they are not
 promises that those commits exist in public history. Port reviewed generic
 patches rather than importing private ancestry. See docs/PUBLIC-RELEASE.md.
 
-Source/docs remain below 3.5 MiB, individual files below 128 KiB. No media, builds,
+Source/docs remain below 3.6 MiB, individual files below 128 KiB. No media, builds,
 runtime databases, inventories, raw receipts or private fixtures in Git.
 Use explicit build/temp roots. No portfolio/renderer checkout is a runtime
 dependency. Vendored checkers retain source pins/licenses; see docs/INTAKE.md

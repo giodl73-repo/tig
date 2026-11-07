@@ -325,17 +325,59 @@ impl Catalogue {
         search: &str,
         offset: usize,
     ) -> Result<Value> {
+        self.work_rows(scope, state, facet, search, offset, false)
+    }
+    /// Union of admitted collection totals, each retaining its configured state.
+    pub fn work_selection(
+        &self,
+        project: &str,
+        collections: &str,
+        search: &str,
+        offset: usize,
+    ) -> Result<Value> {
+        self.work_rows((project, collections), "", "", search, offset, true)
+    }
+    fn work_rows(
+        &self,
+        scope: (&str, &str),
+        state: &str,
+        facet: &str,
+        search: &str,
+        offset: usize,
+        counted: bool,
+    ) -> Result<Value> {
         let (project, collection) = scope;
         if offset > 1_000_000 || search.len() > 256 || facet.len() > 120 || state.len() > 120 {
             return Err("Work-list budget exceeded".into());
         }
         let p = self.projects.get(project).ok_or("Choose one project")?;
+        let mut selected = BTreeMap::new();
+        if counted {
+            if collection.len() > 2591 {
+                return Err("Collection selection budget exceeded".into());
+            }
+            for id in collection.split(',') {
+                let c = p
+                    .enrollment
+                    .collections
+                    .iter()
+                    .find(|c| c.id == id)
+                    .ok_or("Unknown collection")?;
+                if selected.insert(id, c.count_state.as_deref()).is_some() || selected.len() > 32 {
+                    return Err("Invalid collection selection".into());
+                }
+            }
+        }
         let q = search.to_lowercase();
         let rows: Vec<_> = p
             .works
             .iter()
             .filter(|w| {
-                (if collection.is_empty() {
+                (if counted {
+                    selected
+                        .get(w.collection.as_str())
+                        .is_some_and(|s| s.is_none_or(|s| s == w.state))
+                } else if collection.is_empty() {
                     w.top_level
                 } else {
                     w.collection == collection

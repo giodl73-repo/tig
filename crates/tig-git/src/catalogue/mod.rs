@@ -19,6 +19,7 @@ use tig_assets::{
 use tig_core::{LogicalPath, Object, identity::parse_json};
 use tig_store::existing::{ByteSource, Profile as ByteProfile, ReadCache};
 pub mod http;
+pub mod shared;
 pub mod storage;
 pub mod works;
 
