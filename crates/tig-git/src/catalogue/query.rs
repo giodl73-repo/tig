@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 mod admission;
 mod impact;
+mod preview;
 pub const REQUEST_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY.schema.json");
 pub const RESULT_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY-RESULT.schema.json");
 
@@ -26,6 +27,12 @@ pub enum Operation {
         kinds: BTreeSet<graph::EdgeKind>,
         #[serde(default)]
         definition: String,
+    },
+    PreviewAdmission {
+        project: String,
+        asset: String,
+        kinds: BTreeSet<graph::EdgeKind>,
+        profiles: Vec<graph::Profile>,
     },
     Find {
         project: String,
@@ -129,6 +136,11 @@ impl Request {
             Operation::Admission { definition, .. } if !bounded(definition, 256) => {
                 return Err("invalid_request".into());
             }
+            Operation::PreviewAdmission { project, asset, .. }
+                if project == "all" || !bounded(asset, 256) || self.expected_basis.is_none() =>
+            {
+                return Err("invalid_request".into());
+            }
             _ => {}
         }
         Ok(())
@@ -140,6 +152,7 @@ impl Operation {
             Self::Projects => "projects",
             Self::Inspect { .. } => "inspect",
             Self::Admission { .. } => "admission",
+            Self::PreviewAdmission { .. } => "preview_admission",
             Self::Find { .. } => "find",
             Self::Shared { .. } => "shared",
             Self::References { .. } => "references",
@@ -154,6 +167,7 @@ impl Operation {
             | Self::References { project, .. }
             | Self::Inspect { project, .. }
             | Self::Admission { project, .. }
+            | Self::PreviewAdmission { project, .. }
             | Self::Impact { project, .. } => BTreeSet::from([project.as_str()]),
             Self::Shared { left, right, .. } => BTreeSet::from([left.as_str(), right.as_str()]),
             Self::Compare { left, right } => {
@@ -232,6 +246,17 @@ impl Catalogue {
             } => {
                 let d = self.admission_query(project, kinds, definition, request.offset)?;
                 complete = d["complete_requested_admission"] == true;
+                let total = d["total"].as_u64();
+                (d, total)
+            }
+            Operation::PreviewAdmission {
+                project,
+                asset,
+                kinds,
+                profiles,
+            } => {
+                let d = self.preview_admission(project, asset, kinds, profiles, request.offset)?;
+                complete = d["complete_comparison"] == true;
                 let total = d["total"].as_u64();
                 (d, total)
             }

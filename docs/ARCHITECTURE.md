@@ -42,6 +42,11 @@ the UI. The fenced basis includes those field rules. No second asset registry,
 query database, media scan or mutation engine is introduced. See
 [agent queries](AGENT-QUERIES.md).
 
+Profile previews pass an explicit candidate set to the same impact resolver and
+compare full known consumer sets and shortest-witness fingerprints. Neither
+candidate nor baseline enrollment is temporarily mutated. The request must fence
+the current source/interpretation basis; partial knowledge remains explicit.
+
 ## Authored state, bytes and operational state
 
 ```text

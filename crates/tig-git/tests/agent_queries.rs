@@ -2,6 +2,8 @@
 #[path = "agent_queries/admission_cases.rs"]
 mod admission_cases;
 mod common;
+#[path = "agent_queries/preview_cases.rs"]
+mod preview_cases;
 use common::{git, git_executable};
 use serde_json::{Value, json};
 use std::{
