@@ -41,6 +41,8 @@ exact-head hosted results remain required before merge. Earlier UI task testing
 does not establish full consumer or eviction acceptance.
 
 Trace: this change closes public-facing documentation/hosting findings only.
+Work-package states explicitly refer to full target scope; bounded catalogue and
+asset implementations do not silently close proposed packages or prerequisites.
 Stable requirements/invariants and the 110-case design ledger remain open at
 their declared full-system scope; no scenario row is silently promoted to tested.
 No independent validation or acceptance is claimed.

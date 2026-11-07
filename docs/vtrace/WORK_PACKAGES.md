@@ -3,6 +3,11 @@
 Seventeen bounded packages, including one explicit discovery package. These are
 product capabilities and their proof obligations, not a process-framework backlog.
 
+Statuses track each full target scope and its admitted entry/exit, not whether
+any component code exists. Proposed packages can contain bounded implementations
+whose evidence does not close their prerequisites or full acceptance. See
+[current architecture](../ARCHITECTURE.md) for implemented slices.
+
 | ID | Objective | Parent IDs | Entry Criteria | Exit Criteria | L0 / L1 / L2 | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | WP-000 | Choose a placement backend with demonstrated local/offline fit | REQ-006; SPEC-002/SPEC-003/SPEC-004/SPEC-005/SPEC-009 | Bounded backend questions and synthetic workload agreed | Recorded iRODS/Rucio/minimal-Rust capability, footprint, recovery and portability findings; choose or defer each capability explicitly | L0: DOCS/format; L1: DOCS profile; L2: not required, discovery only | discovery-recorded |
@@ -366,7 +371,7 @@ under an explicit metadata budget. Offline coverage stays unknown.
 - Requirements/specs: REQ-006/REQ-007/REQ-010; SPEC-014.
 - Architecture/interfaces/design: ARCH-008; IF-013; DES-012; CR-001..CR-008.
 - Allowed boundaries: PKG-008; profile UI; integration follows INTEGRATION_PLAN.md.
-- Product surfaces: planned CLI inspector and optional WASM viewer; synthetic browser fixtures. Other runtime packages/private inputs are out of scope.
+- Product surfaces: bounded native Rust CLI/catalogue implemented with synthetic browser fixtures; optional WASM/full native parity remains target scope. Other runtime packages/private inputs are out of scope.
 - Prerequisites: WP-008/WP-009/WP-010. Entry: Read-only view/bundle contracts, auth/export and native/WASM boundaries accepted.
 - Exit: Synthetic branch/profile/coverage/budget reports share native semantics and show blocked states without private artifacts.
 - Verification commands: tools/validate.ps1 and git diff --check; cargo fmt --all -- --check; cargo test --workspace --locked; cargo clippy --workspace --all-targets --locked -- -D warnings; exact targeted fixture commands pinned at entry.

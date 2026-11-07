@@ -1,6 +1,6 @@
 # Controlled interfaces
 
-Full target interfaces remain proposals. Bounded experimental core/store/Git
+Full target interfaces remain proposals. Bounded experimental core/store/Git/asset
 subsets are implemented and scoped in EVIDENCE.md; none is a released complete
 product contract. Versioning/canonicalization/path/error/limit rules
 must be frozen with vectors before any new persistent format is accepted.
@@ -19,7 +19,7 @@ must be frozen with vectors before any new persistent format is accepted.
 | IF-010 | Typed assets / PKG-006 | Definition/record/variant/native source pins -> exact semantic/result/dependency view | Preserve Art identity/test vectors before import; no duplicate authored reference list |
 | IF-011 | Evaluation/build/delivery / PKG-006/007 | Consumed subject/producer/policy + admitted operation -> produced evidence or observed target state | No score implies authority; source edits/withdrawals and remote drift/retry fixtures |
 | IF-012 | Provider/transport / PKG-002/007 | Explicit roots/capabilities/credentials/representation maps -> bounded operations and evidence | Cloud/local/LFS/BitTorrent capabilities evaluated separately; deletion may be unsupported |
-| IF-013 | Application/UI / PKG-008 | Explicit source/view and read/execute scope -> explanation or admitted operation | Proposed CLI only; WASM native-parity and private-data boundaries |
+| IF-013 | Application/UI / PKG-008 | Explicit source/view and read/execute scope -> explanation or admitted operation | Native CLI/catalogue subsets; full WASM parity and private-data boundaries remain open |
 
 ## Compatibility and failure contract
 

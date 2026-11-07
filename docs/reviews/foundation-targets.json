@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 7535,
-      "sha256": "733b0fcb430290ed8406fe9823353a125c1b8313813af4a3e87ed7d916481fc6"
+      "bytes": 7562,
+      "sha256": "15e3556f81d222b5a57d0697e8129fdfb3417916970a8ef962d135bfb401c930"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -394,8 +394,8 @@
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
-      "bytes": 48259,
-      "sha256": "fa49b5e502cfcb6d308faa5f48eb62664d54b9905b093b8aa928bb4b1fa69698"
+      "bytes": 48619,
+      "sha256": "8af90da4d5cfac9f6653bc16a748f564cfe888ea63c6401c58aa466085142419"
     },
     {
       "path": "LICENSE",
@@ -1574,8 +1574,8 @@
     },
     {
       "path": "SECURITY.md",
-      "bytes": 1170,
-      "sha256": "c881932e92afcff36e4237542ffca586c7636707fb5740038c506090bcddc104"
+      "bytes": 1217,
+      "sha256": "16dba19998d62f0bc7dde388209140d44f108dcbb61e38ef82a30f35e6eaf35a"
     },
     {
       "path": "docs/ARCHITECTURE.md",
@@ -1589,8 +1589,8 @@
     },
     {
       "path": "docs/reviews/2026-11-06-public-baseline.md",
-      "bytes": 5220,
-      "sha256": "38957cb76be30298411470c1aae072deb027c1da563166c6eed8225b21fe4397"
+      "bytes": 5381,
+      "sha256": "3074880d6a2305e422be60a54393ae8ec52a46c8b5f31decaeba5c55a13eae2b"
     },
     {
       "path": ".github/ISSUE_TEMPLATE/bug_report.yml",
