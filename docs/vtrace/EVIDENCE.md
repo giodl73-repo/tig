@@ -675,3 +675,28 @@ or authentication. Epoch handoff, complete restore authority, custody and
 authorized-absence/incarnation removal recovery remain open. No deletion API.
 PR #18 remains draft for current-head hosted qualification; implementationbe6f946
 has green hosted Linux/secrets and a running Windows job at this checkpoint.
+
+EVID-087 hosted follow-up: PR #18 headfcb7009 passes Windows (40m43s), Linux
+(3m47s) and secrets (6s), and is ready for review. Component scope is unchanged.
+
+EVID-088: managed replica retirement, implementation
+fe88c7cb9277d5e2d1c93935cd98932a0d153984; inputfcb7009. Twenty-four focused Windows
+entries (one helper) pass, including eight actual child exits at binding, intent,
+unlink, completion, settlement, reacquisition birth and both cancellation phases.
+Actual temporary-store unlink preserves independently retained bytes under declared
+domain enrollment; explicit new-operation restore survives old deletion/publication
+retries. A two-namespace main/job fixture publishes a replacement and backup,
+preserves two unchanged inputs, holds old working bytes while the job needs them,
+then evicts and restores the previous revision. Existing retention handoff composes
+with managed eviction. Empty/multibuffer, active reader/claim/retention, stale context,
+wrong authority/authorization, alias/domain/custody, missing evidence and known
+provider-prefix rollback cases refuse unsafe actions. Concurrent unrelated actual
+publication and source admission progress while target fences remain held.
+Cancellation preserves original publication identity; partial metadata and history
+exhaustion refuse silent reset. Final locked default/all-feature workspace suites,
+strict all-feature/all-target Clippy, fmt, standalone no-feature Git and portable
+L0 pass. No live assets/providers were used. Native independence,
+full-store restore authority, power loss, large media, dynamic epoch adoption,
+CLI/agent retirement, Git automation, last-copy deletion and metadata expiry remain
+unqualified. All 110 full workflows and full requirements remain open.
+PR #19 remains draft for hosted current-head Windows/Linux/secrets qualification.

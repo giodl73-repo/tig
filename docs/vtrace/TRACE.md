@@ -434,3 +434,13 @@ shared admission work budget and actual orchestration contract/generation checks
 15 focused entries/one actual child plus legacy/provider regressions -> EVID-087,
 implementationbe6f946. IF-003 explicitly covers the opt-in marker compatibility.
 Full work packages and live adoption/removal/custody/epoch gates remain open.
+
+Managed retirement: WP-003/004/006/007/008/009,
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009,
+IF-002/003/004/005/006/008/012, PKG-002/003 ->
+MANAGED-REPLICA-RETIREMENT.md -> local design-7 lifecycle, retirement::Execution/
+Reacquisition, accounted admission/binding and existing protection/retention ports
+-> 24 focused entries/eight actual child exits, real unlink/restore and legacy
+regressions -> EVID-088, implementationfe88c7c. Scoped verification, intended-use
+validation and producer review are separate. No full WP/REQ/VAL or designed
+scenario is closed; live/current-authority and remaining roadmap gates persist.

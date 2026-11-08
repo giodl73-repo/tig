@@ -528,3 +528,14 @@ random filename does not become owned when `create_new` refuses; dropping a
 pre-armed path guard can remove somebody else's existing file. Force a collision
 in a synthetic fixture and check the original path and bytes remain. Successful
 creation must still clean its own unacknowledged partial on ordinary copy failure.
+
+### Retirement replay and provider restore refinement
+
+A settled allocation does not permit repeating physical removal when provider
+intent/completion evidence is missing. Hold the restored prefix for recovery;
+do not interpret a missing terminal record as an unstarted action. An old deletion
+binds an exact placement incarnation, not every future copy of the same hash.
+Cancellation before unlink preserves bytes/publication identity and leaves a
+terminal abort; explicit reacquisition advances incarnation. EVID-088 checks actual
+unlink, same-hash restore, partial provider-prefix loss and child exits. Full
+authority/backup restore, epoch continuation and receipt expiry remain separate.

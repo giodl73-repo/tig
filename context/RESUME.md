@@ -32,15 +32,24 @@ source changes into running tools as a side effect. No startup cache operations.
   pass and it is ready for review. Twenty
   admission entries include a helper and three actual child processes. EVID-086
   separates verification/review from implementation. No removal or store binding.
-- PR #18 (draft), feat/store-protection-boundary, implementationbe6f946: fresh opt-in local
+- PR #18, feat/store-protection-boundary, implementationbe6f946: fresh opt-in local
   design-6 stores pin immutable namespace/place roster, boundary identity and
   generation. Assessment requires every enrolled guarded namespace plus the
   provider's existing exclusive object guard and shared aggregate work budget.
   Fifteen focused entries include one real child process; actual copy/accounting/
   retention works with the new contract. Final default/all-feature workspace,
-  strict Clippy, fmt, standalone Git and L0 pass. Hosted qualification remains
-  separate; implementation Linux/secrets pass, Windows was still running. EVID-087
+  strict Clippy, fmt, standalone Git and L0 pass. Hosted Windows/Linux/secrets
+  pass and it is ready for review. EVID-087
   keeps verification/review separate. No physical removal or live enrollment.
+- PR #19 (draft), feat/managed-replica-retirement, implementationfe88c7c: opt-in
+  design-7 stores add actual ordinary replica unlink, owner cancellation and explicit
+  new-operation reacquisition with incarnation-bound publication/replay. Existing
+  accounted/retention/handoff and all-namespace/provider fences are reused. Twenty-
+  four focused entries include eight actual child exits and a main/job/replacement/
+  backup/unlink/restore lifecycle. Final default/all-feature workspace, Clippy, fmt,
+  standalone Git and L0 pass locally; hosted qualification remains separate.
+  EVID-088 separates mechanism verification/review from implementation. No live
+  stores, final-copy deletion, expiry or automatic Git action is enabled.
 - Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
   handoff and store/namespace/epoch authority handoff requirements. These remain
   implementation gates, not merely documentation acceptance.
@@ -54,19 +63,25 @@ Check current-head local/hosted qualification and PR state. The store binding
 covers its explicit immutable first roster; it does not implement epoch migration,
 external-client discovery or full restore authority. Preserve that distinction.
 
-Implement authorized-absence/publication recovery and incarnation fencing:
-old deletion retries must not remove a new same-hash placement. Only after these
-and retained-custody/current-authority gates implement guarded ordinary eviction.
-The next slice must progress to an actual bounded managed retirement/reacquisition
-protocol and temporary-store unlink/retry/restore fixture, not another read-only
-summary. Bind intent and publication replay to an exact placement incarnation;
-distinguish intentional absence from missing/corrupt acknowledged bytes. Persist
-authorized intent before unlink, reserve completion/recovery metadata, hold source
-assessment plus independent retained custody, and fence stale deletion against
-explicit new-operation reacquisition. Old retries must neither recreate retired
-bytes nor remove a newly ingested identical hash. Older/unmanaged writers must
-refuse any provider mode that permits retirement. Keep actual private stores and
-consumer deployment outside these synthetic mechanism fixtures.
+Implement the shared operator/agent retirement interface using the existing new
+library, not another read-only protection layer. Expose versioned plan/apply/status/
+resume/cancel/reacquire over explicit existing managed roots and admitted metadata
+readers. Private profiles must independently admit owner/context, minimum survivor
+coverage, place assignments, enrolled domains and finite budgets before minting a
+scope token; portable plans cannot grant themselves broader policy. Status must
+distinguish fresh observations, historical retired/cancelled outcomes, pending and
+missing recovery evidence without recreating guards from JSON. Add actual CLI
+process fixtures for unlink/restart/restore and refusals. Do not initialize caches
+or deploy binaries/consumers implicitly. Keep all effects in synthetic roots.
+
+Then continue roadmap priorities: one qualified remote/upload adapter, Git/LFS
+upload and explicitly enabled exact-ref lifecycle convergence; finite-backup bulk
+retirement/final deletion and eventual metadata forgetting remain required. Large-
+file/native-provider qualification and journal/history continuation are prerequisites
+for sustained/private use. The reference profile remains 8 MiB, sixteen object
+action slots and cooperative process restart only. Unexplained bootstrap anchors,
+partial metadata and full-store/authority restore need explicit recovery/adoption;
+never silently repair/reset their prefixes.
 Define/implement acknowledged authority/policy epoch handoff before enabling roster
 changes: freeze old removal permissions, adopt surviving demand and refuse unresolved
 legacy/unmanaged boundaries. A fresh epoch does not transfer claims or revoke an

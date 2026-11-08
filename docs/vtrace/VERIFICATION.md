@@ -535,3 +535,19 @@ all-target Clippy, standalone no-feature Git, fmt and L0 pass. Explicit external
 build/temp roots only. These are cooperative
 local process/restart results, not epoch migration, authorized removal or live
 consumer validation. Hosted checks remain separate.
+
+## Managed replica retirement/reacquisition
+
+EVID-088 / MANAGED-REPLICA-RETIREMENT.md, implementationfe88c7c: `cargo test -p
+tig-store --lib --locked retirement::tests` passes 24 entries in 14.79s, including
+one helper and eight actual child exits. These inspect real absent/present paths
+and restored exact bytes, not only a success flag. The source object remains when
+claims/readers/retention or keeper authority prevent unlink; known settled-journal/
+missing-provider evidence holds repeat IO. Fifteen retirement/reacquisition cycles
+reach the finite history boundary; another retirement refuses while bytes remain.
+The module reuses existing accounted publication, retention/handoff, metadata
+allocations and OS fences. Final default/all-feature workspace, strict all-feature/
+all-target Clippy, standalone no-feature Git, fmt and L0 pass. Synthetic fixtures
+use explicit external build/temp roots. Hosted
+qualification, whole-volume reclaim, full restore/power-loss and live adoption
+remain separate; the first profile is ordinary replica retirement only.

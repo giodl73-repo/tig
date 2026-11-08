@@ -380,3 +380,13 @@ fences while respecting readers and local retained claims. It grants no removal
 authority. The first roster is immutable; acknowledged epoch/roster handoff,
 authorized-absence/incarnation recovery and retained custody remain necessary
 execution gates. Existing stores are not migrated or enrolled implicitly.
+
+The [managed local retirement profile](specs/MANAGED-REPLICA-RETIREMENT.md) now
+executes bounded ordinary replica unlink under all-namespace/provider fences and
+fresh retained-survivor verification. Durable intent, cancellation, exact retries
+and explicit new-operation reacquisition fence later same-hash placements. The
+synthetic lifecycle publishes replacement/backup, holds old active job use, then
+evicts/restores exact prior bytes. This advances the local mechanism in priority 4;
+its CLI/agent/UI contract, large-file/native qualification and live adoption are
+still required. No automatic merge action, remote upload, final-copy deletion,
+metadata expiry or dynamic epoch adoption follows from this component.

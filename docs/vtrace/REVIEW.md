@@ -1301,3 +1301,39 @@ Failure memory: compilation caught an omitted protection field in the internal
 LocalAttempt store clone. It now preserves the exact binding; the new accounted
 copy/retention integration case exercises that path. The first retention fixture
 also attempted a private limit field; it uses the existing required_peak accessor.
+
+## Managed ordinary retirement producer review
+
+Inputfcb7009f82b725e16e35eb1f2d1a8deaebe328e1;
+implementationfe88c7cb9277d5e2d1c93935cd98932a0d153984. Controls:
+WP-003/004/006/007/008/009; REQ-001/002/003/004/005/006/007/009;
+SPEC-002/003/004/005/006/008/009; IF-002/003/004/005/006/008/012;
+PKG-002/003, RUST/PROVIDER profiles. Entry/exit and L0/L1/L2 are in
+specs/MANAGED-REPLICA-RETIREMENT.md. Scope: fresh synthetic managed stores,
+ordinary replica unlink/cancellation and explicit reacquisition. Method: one
+producer applies all six .roles checklists against model/safety, foundation
+T01/02/03/07/08/09/10/12/13/14/15/16/20/24/25 and the storage roadmap. Owner of
+each finding: Tig maintainer. No independent or human approval is implied.
+
+| Finding / lens | Severity and disposition | Remaining qualification |
+| --- | --- | --- |
+| MR-01 Identity | High: hash-wide deletion evidence could remove a later same-hash placement or resurrect old publication receipts. New records bind physical incarnation; cancellation advances only action metadata, while reacquisition also advances placement. Old terminal retries are historical only. Forged index/version/instance and spent operation refuse. | Full restore/latest-authority fencing and eventual receipt expiry; no per-object prefix is discarded here. |
+| MR-02 Placement | High: a dropped label or old dry run is insufficient. Actual all-namespace/place absence is held through the step; live readers/claims and retained source commitments block it. Execution compares private context/domain enrollments, and explicit plan authorization adopts its requested coverage. | A policy selector/controller must independently derive/admit constraints before automatic apply. Opaque/native completeness, mixed-root subset retirement and final-copy authority remain open. |
+| MR-03 Custody | High: a keeper may become unavailable after initial verification. Retained guards span removal and actual keeper authority/bytes are reverified after intent, immediately before unlink. Same-domain, missing/foreign or insufficient custody refuses. Allocation-before, logical unlink and historical replay remain separate from whole-volume reclaim. | Native domain independence, device/site/key failures, real full-disk/quota and large-file provider qualification. |
+| MR-04 Concurrency/recovery | High: persisted intent precedes unlink; exact recovery after absent bytes performs metadata only. Eight actual child exits cover the boundaries. New demand before unlink can cancel and preserve original receipts. Settled ledger plus missing terminal provider evidence holds instead of repeating old IO. Unrelated physical publication and source commit progress under target fences, with no SQL transaction spanning IO. | Whole-authority restore, journal continuation, partial-attempt cleanup/adoption and dynamic epoch/roster handoff; current per-object history exhausts safely. |
+| MR-05 Provider/privacy | High: older writers cannot know intentional absence. Explicit fresh design-7 markers reject them; bare managed mutation refuses, and lifecycle metadata is budgeted through existing allocations. Missing known anchors are not repaired by ordinary reads/writes. Names/records are bounded and private profiles stay external. | Initial unacknowledged bootstrap interruption can need owner recovery; hostile filesystem and power-loss guarantees are not offered. |
+| MR-06 Git/adoption | Medium: merging source or opening a repo must not activate removal. The new executor is an explicit library profile; current copy CLI only reports distinct absence/recovery errors. No native consumer, cache, daemon, runner or workflow is attached or migrated. The byte rehearsal publishes replacement/backup, holds old job use, evicts and restores exact previous bytes. | Shared CLI/agent retirement surface, Git event convergence/trusted policy admission, remote upload, user UX and private adoption. |
+
+Disposition: pass_with_risk for scoped cooperative local mechanism verification.
+EVID-088 separates executed/pending checks from implementation; full work packages,
+requirements, all 110 designed workflows, intended-use acceptance and independent
+review remain open. Scope tokens do not authenticate callers. This is not final
+deletion, metadata forgetting, automatic policy selection or production readiness.
+
+Failure memory: compile checks caught an over-constrained keeper borrow lifetime;
+executor and keeper borrows now have independent lifetimes. A forged maximum index
+reached canonical JSON before validation; shape bounds now precede hashing and a
+negative case confirms no admission. On Windows held reader handles prevented
+renaming an entire keeper directory, so the fault fixture withdraws its authority
+marker and claims that narrower failure only. Provider-prefix replay review added
+the settled-ledger/missing-terminal refusal and an actual restored-prefix case.

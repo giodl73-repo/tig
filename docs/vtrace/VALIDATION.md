@@ -270,3 +270,11 @@ mappings. A held assessment excludes overlapping demand/read changes while an
 unrelated source enrolls; read-only status cannot reconstruct its guards. This
 is not owner acceptance of a live source registry, epoch handoff, independent
 custody, merge-triggered eviction, bulk final deletion or metadata retirement.
+
+EVID-088 contributes an actual local byte lifecycle to VAL-002/003: a generic main
+selection advances while another admitted job still needs old bytes; the old
+working copy becomes removable only after that use ends and retained survivors
+remain. A prior selection is then explicitly restored and old deletion retries
+preserve the new incarnation. This is synthetic intended-use rehearsal and
+mechanism verification, not user UX acceptance, producer/opaque dependency
+completeness, cloud/GitHub automation, final deletion or operational lifetime proof.
