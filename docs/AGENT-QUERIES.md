@@ -42,8 +42,10 @@ source Git. Windows paths can use forward slashes in JSON.
 | admission | project, kinds; optional definition ID filter | Used definition revisions, property/schema pins, admitted rules/classes and missing kind coverage |
 | preview_admission | project, asset, kinds, profiles; required expected_basis on request | Simulated full profile-set replacement, baseline/candidate impact and paged consumer/witness changes |
 | find | project, text; optional category | Registered IDs/titles/types; empty text lists the scope |
+| works | project; optional collection, text, state, facet | Owner-admitted work IDs for explicit manifest scope selection |
 | shared | left/right project IDs; optional category | Unique shared selected objects and their record bindings |
 | references | project, sha256 | Direct selected and named-stream bindings, including retained streams |
+| manifest_references | project, collection, work, sha256; required expected_basis on request | Byte associations inside explicitly admitted JSON manifests, with containing-document provenance |
 | compare | left/right objects with project and id | Record, definition and selected-byte equality; stream additions/removals/changes; changed authored field names |
 | impact / where_used | project, asset, kinds | Potential direct/transitive consumers with exact revision paths |
 
@@ -97,6 +99,35 @@ show their first 100 consumers. Keep candidate profiles, target and kinds fixed
 across pages and check proposed_admission_sha256. Review before editing enrollment;
 then query again with a fresh basis. Each of the two graphs uses the normal impact
 limits. Preview creates no durable query index or configuration change.
+
+## Explicit manifest references
+
+Use works to obtain the real collection/work IDs and basis_sha256. Set that basis
+as expected_basis on a manifest_references request. The query reads only named
+metadata objects through the owner's existing nested adapters and admitted byte
+sources, including Git LFS cache layouts. It never opens referenced media leaves.
+This operation performs byte IO; native references remains metadata-only.
+
+Rows identify the root asset/slot/object, containing document, adapter and exact
+JSON pointer. They describe direct byte associations, not semantic production
+consumers. Unknown scopes, missing adapters and failed documents cannot establish
+absence. A failed root contributes no partial associations; successful roots can
+still yield a partial report. Unrequested scopes remain unknown.
+
+For another page, keep the query fixed, pass the same expected_basis and set
+expected_content to data.content_sha256 from the previous result. This content
+fence is required for offset pages. Changed extraction content or availability
+refuses with stale_content after bounded reads; changed source/adapter admission
+refuses with stale_basis before byte IO. Neither query adopts a persistent index.
+
+Owner limits are further capped at 256 roots/documents, 4 MiB/document, 16 MiB
+total declared metadata bytes, 10,000 references and depth 8. Verification uses
+at most 5 seconds per reader operation, within the traversal's 60-second deadline.
+Metadata read attempts and decoded-document counts are separate. They do not
+measure exact physical handles or allocation. coverage.payloads_opened is null
+for this operation because that count is unknown; media_leaves_opened stays zero.
+Raw Git LFS pointer extraction and nested semantic-impact bridging remain separate
+adapter work. No scan, hydration, cache creation, transfer or deletion is implied.
 
 ## Agent decision loop
 

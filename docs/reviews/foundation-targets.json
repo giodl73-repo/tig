@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 84223,
-      "sha256": "c64ff237c099dfdc5e53364fcbb99e4f56640144af162e7833db1c404ab0be8e"
+      "bytes": 84701,
+      "sha256": "0030c90e6ea47e9170c0a1221e4a1c9a82ea141cd51445efe6fcfd89a727702f"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 2967,
-      "sha256": "4c091e20eb42585a990f868f422240026d6ad50a65c9c0f40b9ca7f194c2e68f"
+      "bytes": 3114,
+      "sha256": "354df4d3da0fe08c7e58b08f1df12361238552d1b4db17e9f3c6d7b31b138d4b"
     },
     {
       "path": "README.md",
-      "bytes": 7266,
-      "sha256": "36326673f6c6d14c4cc5eeba2ba9d3deb46d5cfb463f5bf4489e46e096438b06"
+      "bytes": 7497,
+      "sha256": "f316d030642f100663856d795ab072917a50486a6da8a71883aea3b0ce751055"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -1544,8 +1544,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/storage/nested.rs",
-      "bytes": 32993,
-      "sha256": "e6fdeea14fa4b99ce4ca8dbbed2ffce86918684d7038178cb36d53de8ea38448"
+      "bytes": 34260,
+      "sha256": "18da83651d8dfed754b340e6fab7bdc215ebef56a278152e3ba0befb937e1a1c"
     },
     {
       "path": "docs/reviews/2026-10-27-consumer-checkpoint.md",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 9239,
-      "sha256": "025b7338b0600958e82421a000fda552ce83b8aacc80eacb196b82a47157dfd2"
+      "bytes": 9719,
+      "sha256": "3bde8b85961da49361fbad6142eaefcaca4f62fcf82ce1861dd0cc2976e22599"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1654,18 +1654,18 @@
     },
     {
       "path": "docs/META-OPERATIONS.md",
-      "bytes": 3341,
-      "sha256": "ead346cf2b569b9cbe9b532d45b44d4495005c2b7abe18a7dada37d8f1a25a99"
+      "bytes": 3831,
+      "sha256": "165b21bb105787059bf69379f94131f7211c5f5ed34b040af6d47b0a45e2b4e0"
     },
     {
       "path": "crates/tig-git/src/bin/tig-query.rs",
-      "sha256": "b55e90898235e5111303c88ef3b67796ae90ef120571647f1a9d134bf8a8e3a6",
-      "bytes": 5710
+      "sha256": "fc44bcf6179b65a5b6e79009fc27aa7e2e97d8242e9648c64beebc38467e3b16",
+      "bytes": 6397
     },
     {
       "path": "crates/tig-git/src/catalogue/query.rs",
-      "sha256": "57bb4159209567bc90f4d3f5170e9c8fad7e60cfbe78b23ec65c5f212e6e5190",
-      "bytes": 15445
+      "sha256": "59d1df61eedc99f8c74f1cce9f13180dde8abfff5b2f994d85d71fe0b15b4604",
+      "bytes": 18510
     },
     {
       "path": "crates/tig-git/src/catalogue/query/impact.rs",
@@ -1674,13 +1674,13 @@
     },
     {
       "path": "crates/tig-git/tests/agent_queries.rs",
-      "sha256": "acd14a3dd7ce781ec199550c41996ae3be7c453ced0cc7f81b422e6ba25bf360",
-      "bytes": 18935
+      "sha256": "cdc39be6894244c5bcf3f1ac3510198f94a5125f862bf6472d763c88f039f0ee",
+      "bytes": 18999
     },
     {
       "path": "docs/AGENT-QUERIES.md",
-      "sha256": "324cc911b1a4d1bd018cc8c1243be7c528de6ab4fb5ca0766465bacad7ed3e17",
-      "bytes": 7579
+      "sha256": "d81da879a26fe28936760693dd50dc619d9622f976afc069caff4779fc2301d8",
+      "bytes": 9764
     },
     {
       "path": "docs/reviews/2026-11-07-agent-queries.md",
@@ -1689,13 +1689,13 @@
     },
     {
       "path": "specs/AGENT-QUERY.schema.json",
-      "sha256": "fc66d8687e6585608744d0609734b6092e9fd6b3867cd7245e44a68c776c9b8e",
-      "bytes": 6335
+      "sha256": "0537221178dd0eeb5fae3d8a1a2b6d6bfe72f44a89a8ee8fbf747e740045588a",
+      "bytes": 7451
     },
     {
       "path": "specs/AGENT-QUERY-RESULT.schema.json",
-      "sha256": "8c4ce1bc88dae671eddbbe3ca455e835f2508fb9fa628fd5e492d2003ecb0164",
-      "bytes": 1980
+      "sha256": "960b55e9004c165bde607b509cbb6e56969d02fae8bc2a8ce8613fcf2d2c4322",
+      "bytes": 2072
     },
     {
       "bytes": 4337,
@@ -1726,6 +1726,21 @@
       "bytes": 2148,
       "path": "docs/reviews/2026-11-07-profile-preview.md",
       "sha256": "625fabb2a00b2e4dc710f8775196b845c738b8df7f81cdb2d672ae05abee731c"
+    },
+    {
+      "path": "crates/tig-git/src/catalogue/query/manifests.rs",
+      "bytes": 4251,
+      "sha256": "fc8ad0844b7ba70968a64408b9b0dc552aaad26713a2aa102107f7a8e5089327"
+    },
+    {
+      "path": "crates/tig-git/tests/agent_queries/manifest_cases.rs",
+      "bytes": 10727,
+      "sha256": "3cd42f24848bdf3580b0e95ec14bdf659a97ccbfdd5722eb5588d4f5ace541d5"
+    },
+    {
+      "path": "docs/reviews/2026-11-07-manifest-queries.md",
+      "bytes": 3302,
+      "sha256": "81df98842a37fcf0503bb393711faffa9cf886cb46919f7b77ff604e898c7c41"
     }
   ]
 }

@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 mod admission;
 mod impact;
+mod manifests;
 mod preview;
 pub const REQUEST_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY.schema.json");
 pub const RESULT_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY-RESULT.schema.json");
@@ -18,6 +19,25 @@ pub struct Asset {
 #[serde(tag = "operation", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Operation {
     Projects,
+    Works {
+        project: String,
+        #[serde(default)]
+        collection: String,
+        #[serde(default)]
+        text: String,
+        #[serde(default)]
+        state: String,
+        #[serde(default)]
+        facet: String,
+    },
+    ManifestReferences {
+        project: String,
+        collection: String,
+        work: String,
+        sha256: String,
+        #[serde(default)]
+        expected_content: Option<tig_core::Digest>,
+    },
     Inspect {
         project: String,
         asset: String,
@@ -136,6 +156,34 @@ impl Request {
             Operation::Admission { definition, .. } if !bounded(definition, 256) => {
                 return Err("invalid_request".into());
             }
+            Operation::Works {
+                project,
+                collection,
+                text,
+                state,
+                facet,
+            } if project == "all"
+                || !bounded(collection, 80)
+                || !bounded(text, 256)
+                || !bounded(state, 120)
+                || !bounded(facet, 120) =>
+            {
+                return Err("invalid_request".into());
+            }
+            Operation::ManifestReferences {
+                project,
+                collection,
+                work,
+                expected_content,
+                ..
+            } if project == "all"
+                || !bounded(collection, 80)
+                || !bounded(work, 256)
+                || self.expected_basis.is_none()
+                || (self.offset > 0 && expected_content.is_none()) =>
+            {
+                return Err("invalid_request".into());
+            }
             Operation::PreviewAdmission { project, asset, .. }
                 if project == "all" || !bounded(asset, 256) || self.expected_basis.is_none() =>
             {
@@ -150,6 +198,8 @@ impl Operation {
     pub fn name(&self) -> &'static str {
         match self {
             Self::Projects => "projects",
+            Self::Works { .. } => "works",
+            Self::ManifestReferences { .. } => "manifest_references",
             Self::Inspect { .. } => "inspect",
             Self::Admission { .. } => "admission",
             Self::PreviewAdmission { .. } => "preview_admission",
@@ -164,6 +214,8 @@ impl Operation {
         match self {
             Self::Projects => BTreeSet::from(["all"]),
             Self::Find { project, .. }
+            | Self::Works { project, .. }
+            | Self::ManifestReferences { project, .. }
             | Self::References { project, .. }
             | Self::Inspect { project, .. }
             | Self::Admission { project, .. }
@@ -217,7 +269,7 @@ impl Catalogue {
         let mut basis = BTreeMap::new();
         for id in snapshots.keys() {
             let p = &self.projects[id];
-            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"fields":p.enrollment.fields,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles});
+            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"fields":p.enrollment.fields,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles,"manifest_interpretation":manifests::interpretation(p)});
             let interpretation =
                 Object::from_bytes(&serde_json::to_vec(&projection).map_err(|_| "query_refused")?);
             basis.insert(id.clone(),json!({"commit":p.commit,"checkpoint":p.snapshot.checkpoint(),"records":p.profile.records,"definitions":p.profile.definitions,"interpretation":interpretation}));
@@ -234,6 +286,43 @@ impl Catalogue {
         let mut complete = true;
         let (data, total) = match &request.query {
             Operation::Projects => (self.summaries(), None),
+            Operation::Works {
+                project,
+                collection,
+                text,
+                state,
+                facet,
+            } => {
+                let p = self.projects.get(project).ok_or("unknown_project")?;
+                if !collection.is_empty()
+                    && !p.enrollment.collections.iter().any(|c| c.id == *collection)
+                {
+                    return Err("unknown_collection".into());
+                }
+                let d =
+                    self.work_list((project, collection), state, facet, text, request.offset)?;
+                let total = d["total"].as_u64();
+                (d, total)
+            }
+            Operation::ManifestReferences {
+                project,
+                collection,
+                work,
+                sha256,
+                expected_content,
+            } => {
+                let d = self.manifest_references(
+                    project,
+                    collection,
+                    work,
+                    sha256,
+                    expected_content.as_ref(),
+                    request.offset,
+                )?;
+                complete = d["complete_extraction"] == true;
+                let total = d["total"].as_u64();
+                (d, total)
+            }
             Operation::Inspect { project, asset } => {
                 let p = self.projects.get(project).ok_or("unknown_project")?;
                 let d = p.inspect(asset).map_err(|_| "unknown_asset")?;
@@ -307,7 +396,7 @@ impl Catalogue {
         Ok(
             json!({"schema":"tig.query-result.experimental-1","operation":request.query.name(),
             "status":if complete{"complete"}else{"partial"},"request":request_object,"basis":basis,"basis_sha256":basis_digest,"paging":paging,
-            "coverage":{"complete_declared_scope":complete,"complete_project_scope":false,"payloads_opened":0,
+            "coverage":{"complete_declared_scope":complete,"complete_project_scope":false,"payloads_opened":if matches!(request.query,Operation::ManifestReferences{..}){Value::Null}else{json!(0)},"media_leaves_opened":0,
                 "exclusions":["unregistered files","unadmitted nested inventories","other Git LFS pointers","cross-project semantic dependencies","active jobs and custody"]},
             "data":data,"authorizes_eviction":false}),
         )

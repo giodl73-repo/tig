@@ -23,6 +23,8 @@ This is source availability, not a stable product or full storage acceptance.
   work/version/object comparisons. Movement/removal remains a held review.
 - Agent queries: versioned JSON discovery, inspection, admission diagnostics,
   search, byte/record comparison and explained impact through admitted graphs.
+  Explicit work-scoped manifest references reuse nested adapters and verified
+  readers, with source/content fences and document/field provenance.
   Missing semantic profiles and excluded inventories remain explicit gaps.
 
 Current contracts and [architecture](docs/ARCHITECTURE.md) limit each claim.

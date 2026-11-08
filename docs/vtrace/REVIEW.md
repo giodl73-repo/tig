@@ -1081,3 +1081,10 @@ target; concurrency refuses drift without long transactions; privacy uses only
 synthetic fixtures and redacts summaries; adoption stays caller-owned.
 Pass_with_risk: partial/publication failure leaves an unselected target. No
 independent/human approval, capacity reservation, custody or hosted qualification.
+
+Agent manifest-query producer review (input0f292ba): identity, provider/privacy,
+Git/adoption and concurrency lenses apply to explicit work-scoped named JSON
+reads, document provenance and source/content paging fences. See the exact scope
+and fixture evidence in [the review](../reviews/2026-11-07-manifest-queries.md).
+Disposition pass_with_risk: associations do not establish semantic consumers,
+full project coverage or eviction authority. No independent/human acceptance.
