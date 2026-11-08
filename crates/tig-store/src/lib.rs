@@ -7,6 +7,7 @@ pub mod local;
 pub mod local_capacity;
 pub mod metadata;
 pub mod orchestration;
+pub mod protection;
 pub mod replica;
 pub mod retention;
 pub mod source_claims;

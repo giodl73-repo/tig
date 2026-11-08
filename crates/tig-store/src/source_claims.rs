@@ -470,6 +470,31 @@ impl SourceJournal {
             sources: selected,
         })
     }
+    /// Observe every registered source in one bounded replay. This detects
+    /// unexpected sources omitted from a caller's enrollment; no global scope
+    /// or new source-admission fence is implied.
+    pub fn observe_all(
+        root: &Path,
+        witness: &Checkpoint,
+        max_sources: usize,
+    ) -> Result<BatchObservation> {
+        if max_sources == 0 || max_sources > MAX_SOURCES {
+            return Err(Error::Budget);
+        }
+        let journal = Self::open_mode(root, witness, true)?;
+        if journal.state.sources.len() > max_sources {
+            return Err(Error::Budget);
+        }
+        Ok(BatchObservation {
+            checkpoint: journal.state.head.clone(),
+            sources: journal
+                .state
+                .sources
+                .into_iter()
+                .map(|(id, source)| (id, Some(source)))
+                .collect(),
+        })
+    }
     fn open_mode(root: &Path, witness: &Checkpoint, read_only: bool) -> Result<Self> {
         local::check_root_spelling(root)?;
         local::directory(root)?;
