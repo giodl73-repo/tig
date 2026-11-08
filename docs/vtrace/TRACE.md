@@ -455,3 +455,13 @@ implementation19346c4. PKG-009 covers explicit cross-artifact CI qualification a
 external build/temp roots. Verification, validation rehearsal and producer review
 are separate; full requirements, adoption, event convergence and remaining roadmap
 milestones remain open.
+
+S3 publication: WP-003/005/006/007/014/015,
+REQ-001/003/004/005/006/007/009 -> SPEC-002/003/004/007/008/009/013,
+IF-002/003/004/005/006/012/013, PKG-002/003/004/008 -> S3-PUBLICATION.md ->
+optional s3::Client/Plan/Execution/status, existing accounted local witness and
+guarded reader ports, explicit tig-storage s3 -> 15 HTTP/process cases with
+conditional/readback, lost-reply restart, exact-peer contention, unrelated-job
+progress and refusal tests -> EVID-090, implementation4fc3060. Verification,
+synthetic validation and six-role producer review close separately. Full cloud/
+LFS/provider/adoption requirements and remaining roadmap milestones remain open.

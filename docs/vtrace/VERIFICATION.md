@@ -572,3 +572,24 @@ required by both hosted targets. Final default/all-feature workspace, strict
 all-feature/all-target Clippy, fmt, standalone Git and portable L0 pass locally.
 Hosted verification is separate. No full native/large-file/epoch/restore/lifetime,
 live-store or automatic lifecycle guarantee follows from these fixtures.
+
+## Source-preserving S3 publication
+
+EVID-090 / S3-PUBLICATION.md, implementation4fc3060: `cargo test -p tig-store
+--all-features --test s3_publication --locked` passes 15 cases. Actual HTTP headers,
+checksum/body and full readback are checked; source remains present and guarded.
+CLI process tests cover plan/peak/apply/status/resume and lost-reply restart.
+Concurrent peers and an unrelated job check scoped admission/progress with existing
+accounted witnesses; no SQL transaction spans remote IO. Fresh status preserves
+command counts, including source offline, while acknowledged remote loss or damaged
+witness evidence refuses repair/re-upload. Authentication refresh, bad/expired
+access, selector changes, malformed plans, bounds, unsupported guarantees, absent
+roots, conditional winners, corruption and cancellation are exercised.
+
+Final corrected-source default/all-feature workspace suites, strict all-feature/
+all-target Clippy, standalone Git, fmt/L0 and the separately invoked pending-
+cancellation retirement qualification pass locally. Both broad suites were rerun
+after the operation-guard/sampling correction; no stale pre-correction pass is
+used for closure. Hosted current-head qualification is separate. Loopback HTTP
+conformance does not prove real AWS IAM/TLS, retained custody, remote quota,
+large-file/native or complete operational lifetime guarantees.

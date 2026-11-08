@@ -732,3 +732,43 @@ transferred or removed. This closes the explicit bounded local interface, not
 dynamic epoch/restore authority, large-file/native qualification, automatic Git
 reconciliation, remote/LFS upload, bulk final deletion or metadata expiry. All
 full requirements and 110 designed workflows retain their separate open gates.
+
+EVID-088 hosted follow-up: PR #19 head3e300ca passes Windows (40m56s), Linux
+(3m29s) and secrets (6s); it is ready for review. EVID-089 hosted follow-up:
+PR #20 head3fd9918 passes Windows (12m39s), Linux (3m55s) and secrets (6s),
+including explicit pending-cancellation CLI qualification; it is ready for review.
+These hosted results preserve the original component scope and do not close
+independent review, human acceptance or live adoption.
+
+EVID-090: optional source-preserving S3 publication, implementation
+4fc3060c9c6ecb262cd1b964146ea5087af9a397; input3fd9918. Fifteen HTTP/process cases
+pass in the final all-feature workspace run (1.96s). A real loopback server checks
+conditional PUT, expected checksum and actual body; full GET verifies hash/length.
+Actual CLI processes plan/peak/apply/status/resume, recover a lost PUT reply without
+re-upload and inspect completed metadata with source offline. Concurrent peers
+contend on the exact operation; another job uploads while that scope is held.
+Existing guarded source and accounted local metadata witnesses/allocations are
+reused; no alternate journal/cache engine is introduced.
+
+Negative cases cover wrong/expired access, redirect refusal, existing/winning wrong
+bytes, corrupt/missing readback, acknowledged remote loss, stale context, changed
+operation binding, byte/request/time/capacity limits, cancellation after intent,
+unsupported retention fields, absent roots and missing settled witness bytes.
+Source bytes remain verified; no status adds capacity commands or repairs evidence.
+Credentials/URLs are absent from plans/receipts; authentication refresh preserves
+identity, while version/multipart/unknown/duplicate selectors refuse. Empty and
+multi-buffer payloads preserve exact bytes. Receipts explicitly deny retained
+custody and removal authority; payload_io_bytes is application IO, not NIC billing.
+
+Final corrected-source locked default/all-feature workspace suites, strict
+all-feature/all-target Clippy, fmt, standalone no-feature Git, explicit retirement
+CLI qualification and portable L0 pass locally on Windows. The first broad pass
+preceded the concurrency correction; both workspace suites were rerun afterward.
+The ordinary ignored cross-artifact retirement entry is not counted as proof;
+its separate exact command passes. External build/temp roots contain all generated
+data. Hosted S3 current-head qualification remains separate pending publication.
+No cloud account, real credentials, live assets/store, consumer or service was
+configured. Actual AWS IAM/TLS/account, provider durability/retention, remote quota,
+large files/native adoption and lifetime remain unqualified. Git LFS upload,
+trusted Git event convergence, bulk final deletion and metadata expiry remain
+required work. No full requirement, priority-5 milestone or designed workflow closes.

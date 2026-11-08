@@ -1368,3 +1368,35 @@ records executed local checks separately from hosted qualification, validation
 rehearsal, trace and review. All full requirements, independent review and live
 adoption remain open, as do remote/LFS upload, trusted Git lifecycle convergence,
 bulk final deletion, metadata expiry and operational lifetime qualification.
+
+## Source-preserving S3 producer review
+
+Input3fd9918; implementation4fc3060c9c6ecb262cd1b964146ea5087af9a397.
+WP-003/005/006/007/014/015; REQ-001/003/004/005/006/007/009;
+SPEC-002/003/004/007/008/009/013; IF-002/003/004/005/006/012/013;
+PKG-002/003/004/008, RUST/PROVIDER profiles. Allowed scope and entry/exit/L0/L1/L2
+are in [S3-PUBLICATION](../../specs/S3-PUBLICATION.md). One producer reapplied all
+six parliament checklists to model/safety/publication/ledger/orchestration contracts;
+[S3-01..06](../reviews/2026-11-08-s3-publication.md) record exact findings,
+dispositions and remaining qualification. Owner: Tig maintainer; no independent
+or human approval is implied.
+
+Review required explicit private target/access admission, scoped operation/source
+guards, bounded metadata and transport, conditional no-clobber and full readback,
+with source preserved and no retention/removal claim. It caught semantic query
+selectors hidden by credential exclusion and a concurrent writer/status sampling
+gap. Known authentication fields alone may vary; existing completion-attempt
+admission now spans remote IO and stale provider/ledger samples are rechecked.
+Actual peer contention and another job's progress verify that correction. The
+fixture's inherited Windows nonblocking mode was fixed rather than adding a
+production retry loop to mask connection aborts. Optional HTTP/TLS dependencies
+stay outside default Git/LFS, and private access is neither serialized into plans
+nor exposed in errors/Client Debug. Library hosts must disable sensitive transport
+trace logging; the CLI installs none.
+
+Disposition: pass_with_risk for bounded source-preserving S3 protocol delivery.
+EVID-090 records final corrected-source local tests and separates hosted checks,
+verification, intended-use rehearsal and trace. Actual cloud IAM/TLS/account,
+provider retained custody/durability/quota, large-file/native/lifetime qualification,
+independent review and live adoption remain open, as do LFS upload and subsequent
+Git convergence, bulk final-deletion and metadata-retirement milestones.

@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 60861,
-      "sha256": "b4ac8e5d934dc5f8603ef5f11be1f5146c61e97cbdf435850c14ff315d231dc2"
+      "bytes": 63703,
+      "sha256": "f1f1fefc6df48481d65ab578b55e3de21067431fe5a64e872f9409d2b9309da3"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 110526,
-      "sha256": "06d91e26b197c9cc7f50a6fc29bfa6d684fa1db3fc708108658c4cc5d66c5ae6"
+      "bytes": 112602,
+      "sha256": "8160148df4d859d039ef6f3651b06cb2ced0d76ebcb74dd76b7240a7290a625c"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 32145,
-      "sha256": "260da143c5712b644d246a49f8a8d50c47a431571ced31ca70781ebdeb4af1b5"
+      "bytes": 32808,
+      "sha256": "c607713e7faeedb067a169c5184462928a57e0bdda4d41d39cc5111d5bc93c15"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 18793,
-      "sha256": "154732f2d2f57073587f86ab08d2a12cf5f6b866a3d3ee3beafd22603192074e"
+      "bytes": 19452,
+      "sha256": "1818101478eff2da3789472c01b74511747de87fcee380161e562652824e11b7"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 37910,
-      "sha256": "36c2f6b382b5fecd09182e11a23d7f596d921c6830fd10d1b8ca33b7ce2ade34"
+      "bytes": 39289,
+      "sha256": "857d251917c95965b97e48cc958006ef10ada5b00ae3fe032188b7039c066fd6"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 9514,
+      "bytes": 9712,
       "path": "context/RESUME.md",
-      "sha256": "113835100d35315f1f59e63019c63bb7d8a434b31e25bb8d493ed0823dd58237"
+      "sha256": "af4b21026fb4987e6096c0c5df7055b984ea5bffc1a49bc400461f20a2102551"
     },
     {
       "bytes": 16453,
@@ -1991,6 +1991,11 @@
       "path": "specs/S3-PUBLICATION.md",
       "bytes": 10107,
       "sha256": "cefa7f8f7426efa021b77abb2ebb940da769b05ed34689820ea999382ec0b226"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-s3-publication.md",
+      "bytes": 5791,
+      "sha256": "d8e76edb5b133cd2f0bf37706eb4fe596c80d2c5d4139638d70b3cd6979efae9"
     }
   ]
 }

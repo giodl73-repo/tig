@@ -64,13 +64,14 @@ source changes into running tools as a side effect. No startup cache operations.
   passes hosted Windows (12m39s), Linux (3m55s) and secrets (6s), and is ready for
   review. No real cache,
   initialization, final deletion or automation.
-- feat/s3-publication, based on3fd9918: optional source-preserving S3 conditional
+- feat/s3-publication, implementation4fc3060, based on3fd9918: optional source-preserving S3 conditional
   PUT/full GET readback and explicit CLI reuse accounted local intent/completion.
   Fifteen focused HTTP/process cases, final locked default/all-feature workspace
   suites, strict Clippy, standalone Git and retirement CLI qualification pass.
   Actual peers contend only on the exact operation; another job uploads while
-  its guard is held. Separate EVID-090 closeout and hosted qualification remain
-  to be recorded/checked. Private access is absent from plans; receipts deny
+  its guard is held. EVID-090 separately records verification, validation rehearsal,
+  trace and six-role producer review. Hosted current-head qualification remains
+  separate; derive PR state live. Private access is absent from plans; receipts deny
   retained custody/removal. No real account, service or cloud store is attached.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
@@ -89,9 +90,10 @@ pending-cancellation fixture requires a freshly built binary via TIG_RETIREMENT_
 and an explicit --ignored --exact invocation; its ordinary-suite ignored entry is
 not executed evidence. Both hosted platforms include that qualification.
 
-Finish current S3 qualification and separate EVID-090 verification/validation/
-trace/review closeout, then continue Git LFS upload through existing exact-source,
-transfer and guarded-reader ports. Preserve source and distinguish uploaded/
+Check hosted S3 qualification, then continue Git LFS upload through existing
+exact-source, transfer and guarded-reader ports; local qualification and separate
+EVID-090 closeout are complete. Read current LFS provider/protocol contracts before
+changing the download-only adapter. Preserve source and distinguish uploaded/
 verified availability from independent retained custody. The S3 loopback protocol
 fixture is not actual AWS IAM/TLS/account, remote quota or retention qualification.
 Do not install services, connect real stores or copy private credentials as startup

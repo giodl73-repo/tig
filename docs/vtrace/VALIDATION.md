@@ -287,3 +287,12 @@ Historical retirement remains visible beside freshly present reacquired bytes;
 damaged acknowledged bytes never masquerade as authorized absence. These synthetic
 cases do not close user UX acceptance, remote provider custody, trusted Git event
 convergence, bulk final deletion, metadata expiry or full operational lifetime.
+
+EVID-090 contributes source-preserving remote-upload rehearsal to VAL-002/003/004.
+Synthetic opaque bytes move through actual conditional HTTP PUT and verified GET;
+lost replies recover in a fresh CLI process and another job progresses while an
+operation scope is held. Denial, corruption, missing acknowledged data and unknown
+local witnesses preserve source instead of granting custody or deleting copies.
+This is a protocol/component rehearsal, not actual AWS/account/operator acceptance,
+retained backup or end-to-end Git lifecycle validation. LFS upload, full policy/
+claim coverage, live providers, bulk final deletion and metadata lifetime stay open.
