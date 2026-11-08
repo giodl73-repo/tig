@@ -1165,3 +1165,12 @@ planned proof](../reviews/2026-11-08-storage-roadmap-roles.md). Pass_with_risk f
 prose only. L0 structure/hash/link/diff checks apply; L1/L2 are not runtime claims.
 Implementation, verification, validation and trace remain open separately; no
 independent or human acceptance, live deletion or deployment follows.
+
+Second six-role roadmap pass (input7979190): rechecked all .roles against exact
+source, model/safety/source-journal contracts and foundation cases. RR-01..06
+correct same-hash re-ingest fencing, owned historical-claim settlement, truthful
+provider deletion scope, pre-removal evidence budget, trusted Action/policy
+admission and lifetime/audit sequencing. See [findings and remaining gates](../reviews/2026-11-08-storage-roadmap-roles.md).
+Producer disposition: pass_with_risk for planning only; runtime implementation,
+verification, validation and trace closure remain separate and open. No
+independent review or live-operation approval. DOCS L0 required; no L1/L2 claim.

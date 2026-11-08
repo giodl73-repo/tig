@@ -39,3 +39,10 @@ content deletion and eventual metadata retirement, separate from cache eviction.
 First define coverage authority/invalidation, cross-store retirement fencing,
 publication replay after authorized absence, large-object qualification and
 journal lifetime. No new runtime behavior or live deletion is authorized here.
+
+Second six-role pass on input7979190 clarifies owner-authorized claim settlement,
+trusted merge-trigger/policy admission, same-hash re-ingest versus stale deletion,
+pre-removal durable intent and recovery budget, provider-version deletion scope,
+and audit-window/aggregate-fence compatibility before metadata forgetting.
+Journal lifetime design starts in priority 2; do not defer safe exhaustion until
+priority 8. These are planned acceptance conditions, not implemented guarantees.

@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 90149,
-      "sha256": "4bdb850a317d6b9690e16def8cfeafc5938c0567fb9108625926752f8ef93399"
+      "bytes": 90823,
+      "sha256": "a105db7b8c24cebfcfc5620938a1a17619c256962843c9c09b1d470089138ce8"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 19996,
-      "sha256": "a4f3377eeceedb1a5b8e0ea93dc821ad321b14a31f402324dc7de6b2de1cccee"
+      "bytes": 22604,
+      "sha256": "497b936d5a6cfe67e77800f73ea2f9d0915d89945b125d0557a63f3e4cbb0b5c"
     },
     {
       "path": "README.md",
@@ -1848,14 +1848,14 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 2637,
+      "bytes": 3121,
       "path": "context/RESUME.md",
-      "sha256": "d15ad27cb10832550f61580e86759aa0f5167356c0092e1d79b50937770926b7"
+      "sha256": "c755f4ca47c331dfb60354708684b708586c10292c2fd7829ce86a95b158758c"
     },
     {
-      "bytes": 8429,
+      "bytes": 12356,
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
-      "sha256": "b869fd7af0fc13765b67abe4adc368c1151cba0e475a732422bfd5106808dcfd"
+      "sha256": "5c2422426cbee840111f4081c4635746ac11cf220d595a0b97c5aa4582f5e929"
     }
   ]
 }

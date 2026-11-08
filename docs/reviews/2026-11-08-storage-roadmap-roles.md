@@ -77,3 +77,37 @@ Follow-up L0 result: tools/validate.ps1 passes structure, local links, budgets,
 reviewed target hashes and synthetic arithmetic; git diff --check passes.
 No Rust/controller suite rerun for these documentation-only edits. Hosted CI,
 executable lifecycle fixtures and independent acceptance remain unclaimed.
+
+## Second six-role pass after lifecycle feedback
+
+Input 79791904f5490ede00f5ac9811538cc0d5992fae. Targets: PRODUCT_PLAN.md,
+context/RESUME.md and their consistency with specs/MODEL.md, specs/SAFETY.md,
+specs/SOURCE-CLAIM-JOURNAL.md, docs/SAFETY-PROMISE.md and foundation scenarios.
+Same DOCS controls as the lifecycle follow-up, with REQ-006 for provider/privacy
+and adoption. Scope excludes runtime code, formats, live stores and deployment.
+Entry: revised merge/eviction/final-deletion/metadata roadmap. Exit: challenge
+counterexamples, correct planning gaps, preserve explicit implementation gates.
+Method: one producer reapplying all six .roles checklists; no delegated or
+independent reviewers. Owner of each finding: Tig maintainer, with its named lens.
+
+| Finding / role | Severity | Counterexample and correction | Remaining proof |
+| --- | --- | --- | --- |
+| RR-01 Identity and Namespace | High | A hash-wide tombstone could reject legitimate new identical content, or an old deletion could remove it. Bind retirement to operations/authority generations and fence new placement against stale removal. | Same-hash new ingest survives old deletion retry; revert reports absent exact bytes honestly. |
+| RR-02 Placement Policy | High | Selected history may protect itself forever, or a batch might withdraw another owner's claim. Add explicit recoverable owner-authorized settlement of selected historical obligations; other/non-releasable protection remains. | Own eligible claims can retire; foreign/shared/held claims refuse; crashes between claim and payload steps preserve truthful state. |
+| RR-03 Storage and Custody | Medium | Namespace unlink can leave provider versions/trash or free zero bytes. Separate managed removal, retained representations and measured reclaim; do not imply secure erasure. | Provider versions/locks and shared representations remain visible; no universal or secure-erasure claim. |
+| RR-04 Concurrency and Recovery | High | A full journal after removal could prevent durable evidence. Require admitted metadata budget and durable authorized intent before destructive IO, with completion/recovery capacity. | Exhaustion holds before removal; child exit after unlink recovers the exact intended action; new claims stay fenced. |
+| RR-05 Provider and Privacy | High | Merged workflow/policy content could attempt to grant itself storage authority. Authenticate the trigger and independently admit policy/credentials; untrusted PR execution receives neither. | Wrong repo/ref/event, unadmitted policy upgrade and untrusted workflow cannot authorize provider IO. |
+| RR-06 Git and Adoption | Medium | Listing lifetime at priority 8 could defer safe exhaustion, and forgetting tombstones could conflict with required audit retention. Bring budget design into priority 2; require audit-window and persistent aggregate-fence compatibility before metadata retirement. | Sustained operation/continuation retains witnesses and old receipts; expired asset detail cannot revive old peers; audit requirements remain satisfied. |
+
+All six design corrections are incorporated in the roadmap and resume handoff.
+Disposition: pass_with_risk for revised planning only. Before final-deletion code,
+freeze owner claim-settlement and intentional-absence semantics; before metadata
+retirement, freeze audit retention and rollback-resistant authority fencing under
+controlled specs. These implementation entry gates remain open. No new runtime
+tests or evidence counts, full requirement closure, independent review, human
+acceptance or live-operation authority are claimed. L0 structure/link/budget/hash
+and diff checks apply; L1/L2 are not applicable to this prose-only revision.
+
+Second-pass L0 result: tools/validate.ps1 and git diff --check pass on the
+corrected prose, including reviewed hashes, local links and source budgets.
+Rust/controller suites were not rerun; hosted CI remains a separate check.

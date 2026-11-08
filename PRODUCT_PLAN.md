@@ -84,7 +84,11 @@ The configured executor must reach enrolled stores; a hosted Action does not
 itself gain access to local disks. No runner, hook or daemon is installed by this
 plan. Duplicate, delayed and missed events must converge; an old event cannot
 override a newer admitted selection. This is a target capability, not implemented
-automatic reconciliation.
+automatic reconciliation. The executor authenticates the repository/ref/event
+and applies independently admitted policy/authority. Merged project content or
+workflow code cannot grant itself broader deletion permissions; untrusted PR jobs
+receive no storage credentials or execution authority. Policy upgrades require
+explicit trusted adoption, including when authored policy lives in Git.
 
 ### Bulk final deletion and eventual metadata retirement
 
@@ -99,6 +103,12 @@ states come from admitted definitions. Age filters use a recorded supersession/
 retirement event and explicit clock policy, never file modification time. Unknown
 age holds age-based eligibility; restored/current use invalidates eligibility,
 and retention deadlines follow explicit policy. Age permits review, not deletion.
+The retirement plan explicitly settles the selected owners' exact historical
+retention claims under their authority before payload deletion becomes eligible.
+It cannot withdraw another owner's protection or override non-releasable holds.
+A pointer remaining in Git history is not itself a permanent byte-retention claim;
+which historical revisions stay protected is explicit admitted policy. These
+claim/source transitions and deletion are recoverable steps, not one transaction.
 
 Preview binds exact versions, object identities and source/policy/claim basis.
 Show eligible and held items with reasons, sharing outside the batch, affected
@@ -115,7 +125,14 @@ Partial progress, held/failed/uncertain outcomes, cancellation and restart remai
 visible; no implicit all-or-nothing batch promise. Offline or unenrolled stores
 remain unresolved, not reported deleted. Provider retention locks can hold removal
 even after authorization. The first eviction executor still excludes final deletion;
-priority 7 requires separate entry/exit and qualification.
+priority 7 requires separate entry/exit and qualification. Persist exact authorized
+retirement intent before destructive IO and reserve metadata capacity for intent,
+completion and recovery first. New protection admission and removal share the
+same effective fence; a crash cannot leave a deletion with no recoverable intent.
+If evidence cannot be durably recorded at the required level, hold removal.
+Report removal from the admitted namespace separately from provider-version,
+snapshot or trash retention and actual capacity release. Unlinking is not secure
+erasure and does not prove deletion of unknown copies outside managed scope.
 
 Current authored .tig records can be removed through explicit source adoption;
 old Git commits may retain pointers without retaining payloads forever. Keep a
@@ -128,7 +145,14 @@ no longer act. Define an enforceable authority/epoch or equivalent replay fence
 before forgetting tombstones; elapsed time alone is insufficient. Old peers and
 restored backups must not revive retired writes. Permanent per-asset records are
 not required, and Git history/old receipts are not rewritten. The final protocol
-and encoding remain to be designed and verified.
+and encoding remain to be designed and verified. Tombstones fence exact retired
+operations/authority generations, not a permanent ban on a content hash. Fresh
+explicit ingest of identical bytes may create new protection; old deletion retries
+must not remove that new placement. A Git revert after final deletion reports
+unavailable content until explicit reacquisition succeeds, never silently choosing
+other bytes. Define the required audit window against SAFETY-PROMISE.md before
+metadata retirement is implemented. A compact trusted authority/epoch fence may
+outlive per-asset records; forgetting all replay protection is not promised.
 
 ### Storage orchestration contract
 
@@ -205,7 +229,10 @@ recovery. Raising a cap alone is insufficient. Before sustained operation, desig
 journal continuation/checkpoint compatibility: closed working-set retirement does
 not remove command/byte lifetime bounds. Preserve authority, witnesses, generations,
 original receipts and conflicting-retry fences across continuation, including
-interrupted transitions and old-peer refusal.
+interrupted transitions and old-peer refusal. Lifetime budgets and safe exhaustion
+behavior belong in priority 2; implement continuation before sustained operation
+even though metadata retirement is listed later. A full journal must never force
+an unrecorded destructive step or a ledger reset.
 
 ### Fixtures already present and the missing end-to-end proof
 
@@ -252,7 +279,12 @@ unknown age, reactivated versions, retention lock and interrupted last-copy
 removal; metadata expiry with old peers or restored backups; and journal
 continuation pre/post-commit failures. Prove surviving protection for held content
 and truthful intentional loss for authorized final deletion. Pin representative
-large-object memory, latency and peak-byte limits. All remain designed fixtures.
+large-object memory, latency and peak-byte limits. Also test same-hash re-ingest
+against an old deletion retry, unauthorized claim release, journal exhaustion
+before removal, trusted-trigger/policy denial and retained provider versions.
+Implement the lifecycle fixture in stages: source-preserving copy first, guarded
+eviction only after its gates, final deletion only under its separate contract.
+All remain designed fixtures.
 
 Trace: priorities 2-4 map to WP-003/004/006/007/008, priority 5 to WP-005/013,
 priority 6 to WP-009/011/012, priorities 7-8 to WP-003/004/006/007/008/009/013/015,
