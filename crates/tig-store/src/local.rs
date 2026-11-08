@@ -178,6 +178,16 @@ impl LocalStore {
     pub(crate) fn completed_receipt(&self, request: &Request) -> Result<Option<Receipt>> {
         Ok(self.completed_reader(request)?.map(|(receipt, _)| receipt))
     }
+    /// Query a possibly never-started operation without creating a byte anchor.
+    /// A caller with a settled allocation must separately require Some evidence.
+    #[cfg(feature = "s3")]
+    pub(crate) fn optional_completed_receipt(&self, request: &Request) -> Result<Option<Receipt>> {
+        self.guard()?;
+        if !path_present(&self.op_path(&request.operation, "done"))? {
+            return Ok(None);
+        }
+        self.completed_receipt(request)
+    }
     /// One bounded hash pass with a guard spanning records, bytes and rechecks.
     pub(crate) fn completed_reader(
         &self,

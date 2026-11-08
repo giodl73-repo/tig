@@ -11,6 +11,8 @@ pub mod protection;
 pub mod replica;
 pub mod retention;
 pub mod retirement;
+#[cfg(feature = "s3")]
+pub mod s3;
 pub mod source_claims;
 pub mod store_protection;
 

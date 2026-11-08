@@ -58,6 +58,12 @@ roots, reserved capacity and independently admitted private profiles are require
 eviction, cancellation and reacquisition are separately disabled by default.
 Historical retirement and current byte availability are reported separately.
 
+An optional [S3 upload interface](specs/S3-PUBLICATION.md) uses private presigned
+access, conditional PUT and full hash/length readback while preserving the local
+source. Build with the tig-store `s3` feature and start with `tig-storage s3 describe`.
+Local intent/completion reuse existing accounted publication. Verified remote
+availability does not establish retained backup custody or source-eviction authority.
+
 ## Build and try it
 
 Contributors and coding agents: follow [development startup](docs/DEVELOPMENT.md)

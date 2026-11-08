@@ -400,3 +400,13 @@ it is not the automatic Git lifecycle policy selector. Fresh status and historic
 outcomes remain separate, including after same-hash reacquisition. Catalogue apply,
 remote/LFS upload, trusted exact-ref event convergence, bulk final deletion,
 metadata expiry and operational lifetime gates remain required roadmap work.
+
+Priority-5 first backend: the optional [S3 publication adapter](specs/S3-PUBLICATION.md)
+now composes existing guarded local reads and accounted intent/completion witnesses
+with conditional PUT/full readback. The explicit CLI uses independently admitted
+private access and bounded operation identities. Actual loopback protocol/process
+fixtures exercise retry, lost reply, denial, collisions, corrupt/missing readback,
+budget/cancellation and source preservation. This establishes the bounded protocol
+adapter, not real-cloud custody/retention, remote-quota enforcement, large-file
+qualification or the full priority-5 exit. Git LFS upload and the remaining exact-ref
+lifecycle, bulk final-deletion and metadata-lifetime requirements remain open.

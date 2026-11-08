@@ -102,3 +102,10 @@ copy commands/wires remain compatible. Private owner/context, actual enrollment,
 survivor grants/domains and place coverage gate creation of a live execution token;
 portable status is never removal authority. This is explicit ordinary local
 retirement/reacquisition only, with no provider initialization or consumer switch.
+
+IF-002/003/004/005/006/012/013 S3 extension, input3fd9918:
+[S3-PUBLICATION](../../specs/S3-PUBLICATION.md) defines optional source-preserving
+conditional transfer, strict private admission, bounded canonical plans and redacted
+status/receipts. Existing accounted local publication stores small intent/completion
+witnesses; no new journal/caching engine or cloud retention proof is introduced.
+The standalone Git/LFS/default build has no dependency on the optional HTTP stack.

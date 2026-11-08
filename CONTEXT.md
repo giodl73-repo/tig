@@ -37,6 +37,15 @@ portable plans; all three execution permissions default to disabled. Status
 separates historical outcomes from freshly verified present/absent/unproven bytes.
 This does not attach a catalogue action or enable automatic lifecycle execution.
 
+Optional tig-store feature s3 adds a source-preserving conditional S3 PUT/full GET
+readback adapter and explicit tig-storage s3 plan/peak/status/apply/resume. Small
+intent/completion witnesses reuse existing accounted local publication/ledger;
+presigned URLs remain private and absent from portable plans. The synthetic HTTP
+fixture covers collisions, lost replies, corrupt/missing readback, denied access,
+bounded cancellation and source preservation. It grants no retained custody or
+removal authority. See specs/S3-PUBLICATION.md; real cloud/IAM/TLS/provider and
+remote quota qualification, LFS upload and remaining roadmap gates stay separate.
+
 Read AGENTS.md and the active wave/pulse. docs/vtrace/README.md routes controls
 and evidence. Preserve stable IDs and distinguish historical results, current
 code and target behavior. Roles are producer checklists, not independent reviewers.

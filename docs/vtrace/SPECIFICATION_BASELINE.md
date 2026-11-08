@@ -179,3 +179,9 @@ input3e300ca. Canonical portable plans never replace private policy admission;
 status reports historical state separately from fresh byte evidence. Existing
 copy CLI schemas remain compatible. Final deletion, native/provider adoption and
 automatic Git lifecycle execution retain separate gates.
+
+The optional S3 adapter extends SPEC-002/003/004/007/008/009/013 under
+[S3-PUBLICATION](../../specs/S3-PUBLICATION.md), input3fd9918. Conditional upload and
+full readback reuse existing guarded local source and accounted witness ports.
+Private access is excluded from portable plans; verified remote availability is
+explicitly separate from retained custody, durability and removal authority.

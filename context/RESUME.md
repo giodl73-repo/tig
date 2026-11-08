@@ -41,27 +41,37 @@ source changes into running tools as a side effect. No startup cache operations.
   strict Clippy, fmt, standalone Git and L0 pass. Hosted Windows/Linux/secrets
   pass and it is ready for review. EVID-087
   keeps verification/review separate. No physical removal or live enrollment.
-- PR #19 (draft), feat/managed-replica-retirement, implementationfe88c7c: opt-in
+- PR #19, feat/managed-replica-retirement, implementationfe88c7c: opt-in
   design-7 stores add actual ordinary replica unlink, owner cancellation and explicit
   new-operation reacquisition with incarnation-bound publication/replay. Existing
   accounted/retention/handoff and all-namespace/provider fences are reused. Twenty-
   four focused entries include eight actual child exits and a main/job/replacement/
   backup/unlink/restore lifecycle. Final default/all-feature workspace, Clippy, fmt,
-  standalone Git and L0 pass locally; hosted qualification remains separate.
+  standalone Git and L0 pass locally. Head3e300ca passes hosted Windows (40m56s),
+  Linux (3m29s) and secrets (6s), and is ready for review.
   EVID-088 separates mechanism verification/review from implementation. No live
   stores, final-copy deletion, expiry or automatic Git action is enabled.
 - Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
   handoff and store/namespace/epoch authority handoff requirements. These remain
   implementation gates, not merely documentation acceptance.
-- feat/retirement-agent-cli, implementation19346c4, based on3e300ca: explicit tig-storage retire
+- PR #20, feat/retirement-agent-cli, implementation19346c4, based on3e300ca: explicit tig-storage retire
   plan/status/apply/resume/cancel/reacquire uses existing managed retirement and
   private owner/context/domain/grant/role/budget admission. Eight CLI process
   cases and the separate real-child pending-intent CLI cancellation qualification
   pass locally. Final locked default/all-feature workspace suites, strict Clippy,
   fmt, standalone Git and portable L0 pass. EVID-089 separately records verification,
-  synthetic validation, trace and all six producer-review lenses. Hosted current-
-  head qualification remains separate; derive PR state live. No real cache,
+  synthetic validation, trace and all six producer-review lenses. Head3fd9918
+  passes hosted Windows (12m39s), Linux (3m55s) and secrets (6s), and is ready for
+  review. No real cache,
   initialization, final deletion or automation.
+- feat/s3-publication, based on3fd9918: optional source-preserving S3 conditional
+  PUT/full GET readback and explicit CLI reuse accounted local intent/completion.
+  Fifteen focused HTTP/process cases, final locked default/all-feature workspace
+  suites, strict Clippy, standalone Git and retirement CLI qualification pass.
+  Actual peers contend only on the exact operation; another job uploads while
+  its guard is held. Separate EVID-090 closeout and hosted qualification remain
+  to be recorded/checked. Private access is absent from plans; receipts deny
+  retained custody/removal. No real account, service or cloud store is attached.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
@@ -72,20 +82,21 @@ Check current-head local/hosted qualification and PR state. The store binding
 covers its explicit immutable first roster; it does not implement epoch migration,
 external-client discovery or full restore authority. Preserve that distinction.
 
-Check current-head hosted qualification for the managed-retirement and CLI lanes;
-inspect actual jobs before retrying. A polling timeout is not failure. Local CLI
-qualification and separate evidence closeout are complete. The cross-artifact
+Check current-head qualification for the S3 lane before duplicating or restarting
+work. A polling timeout is not failure. Managed-retirement and CLI qualification
+and separate evidence closeout pass locally and on both hosted platforms. The cross-artifact
 pending-cancellation fixture requires a freshly built binary via TIG_RETIREMENT_CLI
 and an explicit --ignored --exact invocation; its ordinary-suite ignored entry is
 not executed evidence. Both hosted platforms include that qualification.
 
-Continue the first remote/upload provider slice from the existing publication/
-orchestration ports. Select one concrete backend, freeze its admitted capability,
-acknowledgement, retry/readback and credential boundaries, then use isolated
-protocol/provider fixtures. Preserve source and distinguish uploaded/verified
-availability from independent retained custody. Do not install services, connect
-real stores or copy private credentials as startup behavior. Keep native media,
-automatic Git lifecycle and last-copy deletion out of the generic provider port.
+Finish current S3 qualification and separate EVID-090 verification/validation/
+trace/review closeout, then continue Git LFS upload through existing exact-source,
+transfer and guarded-reader ports. Preserve source and distinguish uploaded/
+verified availability from independent retained custody. The S3 loopback protocol
+fixture is not actual AWS IAM/TLS/account, remote quota or retention qualification.
+Do not install services, connect real stores or copy private credentials as startup
+behavior. Native media, automatic Git lifecycle and last-copy deletion retain their
+separate boundaries and remain required later roadmap work.
 
 Then continue roadmap priorities: one qualified remote/upload adapter, Git/LFS
 upload and explicitly enabled exact-ref lifecycle convergence; finite-backup bulk
