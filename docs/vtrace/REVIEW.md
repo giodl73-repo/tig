@@ -1131,3 +1131,19 @@ same-card request isolation, exact response sources, pending action clearing and
 dependency render isolation. See [scope and regression evidence](../reviews/2026-11-08-record-inspector-fences.md).
 Pass_with_risk: fixtures check shipped controllers and native API integration;
 browser, live-project, complete coverage and custody acceptance remain open.
+
+Storage roadmap producer review (inputf742abf): DOCS profile, WP-003/004/005/
+006/007/008/009/011/012/013/015/016, applicable source/storage/catalogue
+contracts. Scope: PRODUCT_PLAN.md next-delivery sequence, current-fixture matrix
+and proposed local/provider lifecycle fixture. Identity lens requires immutable
+objects and exact source/policy basis; provider/privacy requires explicit scopes,
+capabilities and isolated fixtures; adoption reuses existing Rust mechanisms;
+concurrency requires scoped revalidation, reader/claim races and restart recovery.
+No blocking design finding within this planning scope; owner: Tig maintainer.
+Pass_with_risk: this is producer review of a plan, not implementation approval,
+independent review or live operation authority. Runtime exits remain unproven.
+L0 source/hash/link/diff checks required; L1/L2 not applicable to prose changes.
+Existing replica and retention-handoff tests were rerun to verify the inventory
+of component evidence; their 20 and 16 entries pass, including helper entries.
+All six real Git LFS client cases also pass in temporary repositories. No cloud
+upload, final-payload eviction or complete orchestration proof follows.
