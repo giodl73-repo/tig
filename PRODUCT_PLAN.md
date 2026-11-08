@@ -75,6 +75,14 @@ Abstract roles map to enrolled stores outside Git:
 | Superseded with no remaining active use | History + retained backup |
 | Required by another selection, branch, draft or job | Union of all admitted placement/retention demands |
 
+Resolve lifecycle preferences before taking that union. Under the example policy,
+history proximity applies only when an object has no active use: unchanged bytes
+shared with the new release, or old bytes still needed by a job, do not acquire a
+history-store requirement merely because a predecessor root mentions them.
+Explicit hard retention/location obligations remain additive and cannot be
+suppressed by active-use precedence. Configure and explain this distinction;
+another project may deliberately choose additive history placement instead.
+
 Acquire and verify new copies, establish required retention, then recheck current
 protection and evict eligible old working copies. Routine eviction can execute
 without per-copy confirmation under an explicitly enabled bounded policy. Merge
@@ -109,6 +117,13 @@ It cannot withdraw another owner's protection or override non-releasable holds.
 A pointer remaining in Git history is not itself a permanent byte-retention claim;
 which historical revisions stay protected is explicit admitted policy. These
 claim/source transitions and deletion are recoverable steps, not one transaction.
+
+A selected block can be only part of a protected root. Before retiring that root's
+obligation, resolve and acknowledge a replacement that protects its unselected or
+held members, with exact source-revision fencing. Never withdraw a whole mixed
+root to make one selected leaf eligible. Interruption may leave extra protection;
+it must not leave surviving members unprotected. This subset handoff needs its
+own implementation before bulk retirement can use whole-root journal transitions.
 
 Preview binds exact versions, object identities and source/policy/claim basis.
 Show eligible and held items with reasons, sharing outside the batch, affected
@@ -195,6 +210,15 @@ Admission names who can register new demand, what invalidates complete coverage,
 and how unavailable authorities block removal. Simultaneous retirements in two
 stores cannot each rely on the other's copy: required surviving custody remains
 protected through the destructive step under effective provider-specific fences.
+
+Bind each removable store scope/generation to every authority namespace that can
+protect it; absence in one guarded journal is insufficient when another namespace
+can admit demand for the same copy. Define authority/policy epoch handoff before
+enabling removal: fence old removal permissions, preserve acknowledged demands
+through the successor's adoption, and refuse deletion during an unresolved handoff.
+Creating a fresh epoch does not transfer protection or invalidate old executors
+by itself. Qualify the transition without a global cache lock, including old-peer
+replay and a new claim arriving through either authority at the boundary.
 
 Define precedence for conflicting proximity/retention demands and report
 unsatisfied constraints. Reserve source/destination metadata, payload and scratch
@@ -285,6 +309,12 @@ before removal, trusted-trigger/policy denial and retained provider versions.
 Implement the lifecycle fixture in stages: source-preserving copy first, guarded
 eviction only after its gates, final deletion only under its separate contract.
 All remain designed fixtures.
+
+Additional review cases: unchanged objects shared by current/predecessor roots
+avoid unnecessary history placement under the configured precedence; a live job
+keeps its old bytes active while hard history retention remains additive; mixed-
+root subset handoff survives interruption without dropping held members; and
+namespace/epoch migration refuses stale removal while preserving new admissions.
 
 Trace: priorities 2-4 map to WP-003/004/006/007/008, priority 5 to WP-005/013,
 priority 6 to WP-009/011/012, priorities 7-8 to WP-003/004/006/007/008/009/013/015,

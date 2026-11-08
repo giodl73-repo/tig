@@ -111,3 +111,39 @@ and diff checks apply; L1/L2 are not applicable to this prose-only revision.
 Second-pass L0 result: tools/validate.ps1 and git diff --check pass on the
 corrected prose, including reviewed hashes, local links and source budgets.
 Rust/controller suites were not rerun; hosted CI remains a separate check.
+
+## Current architecture re-review
+
+Input 355aad7fc6ab964527b46492cdb6f98a395f58c1. Targets: PRODUCT_PLAN.md,
+specs/MODEL.md, specs/SAFETY.md, specs/SOURCE-CLAIM-JOURNAL.md,
+specs/PROTECTION-DEMAND-SNAPSHOT.md and docs/SAFETY-PROMISE.md. Method:
+one producer reapplying all six parliament checklists in .roles/ROLE.md;
+no delegation, independent approval or live-operation authority.
+Controls: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009;
+SPEC-002/003/004/005/006/008/009/013/014;
+IF-002/003/004/005/006/008/012/013; PKG-001/002/003/004/007/008/009.
+DOCS profile: allowed scope is roadmap clarification and this review record;
+no code, persistent format, provider operation or implementation closeout.
+Entry: existing lifecycle roadmap and scoped copy/protection evidence.
+Exit: explicit counterexamples, dispositions and required future tests.
+L0: portable validation, reviewed target hashes and diff check. L1/L2 are not
+required for prose; the runtime cases below remain unexecuted design obligations.
+Owner of every finding: Tig maintainer using the named checklist.
+
+| Finding / role | Severity | Counterexample and disposition | Required proof |
+| --- | --- | --- | --- |
+| AR-01 Identity and Namespace | High | A store copy can be protected by more than one namespace. A single journal's absence fact cannot cover the others. Added store-scope/generation binding to every applicable protection authority. | Another namespace's claim blocks removal; unknown enrollment holds. Exact bytes and incarnation remain bound to the authorized action. |
+| AR-02 Placement Policy | Medium | Unioning current and predecessor placements can send every unchanged byte to history, defeating the user's inactive-only history policy. Added configurable active-use precedence over advisory history proximity; hard retention/location obligations remain additive. | Shared unchanged bytes avoid unnecessary history requirements; a job retains old working bytes; explicit hard history retention survives precedence. |
+| AR-03 Storage and Custody | High | Whole-root retirement for one selected leaf can drop protection for unselected/held siblings. Added acknowledged retained-subset replacement before broad-root retirement. | Mixed eligible/held/shared block and crashes before/after replacement adoption preserve every surviving obligation. Payload removal remains independently authorized. |
+| AR-04 Concurrency and Recovery | High | A fresh authority epoch has different fences; an old executor may miss new demand even when both epochs are internally correct. Added explicit handoff, old-removal fencing and conservative refusal while unresolved. | Old/new authorities race claim admission and removal, restart mid-handoff and replay old peers without losing protection; unrelated work continues. |
+| AR-05 Provider and Privacy | High, retained gate | Drive letters, upload acknowledgements and namespace unlink still establish neither independent custody nor physical reclaim. Existing provider/custody gates remain mandatory; no new correction needed. | Alias/offline/locked/versioned providers, actual restore, large-object resource limits and measured allocation results. |
+| AR-06 Git and Adoption | Medium, retained gate | A successful merge cannot prove storage convergence or grant workflow-authored deletion authority. Existing trusted-event/policy/executor separation remains appropriate. | Duplicate/delayed/missed events, wrong ref/repository, offline backup and policy escalation preserve bounded authority and report pending work. |
+
+Disposition: pass_with_risk for the corrected roadmap. AR-01/03/04 remain
+implementation entry gates for the affected removal paths; this prose closes
+neither those mechanisms nor full requirements. Scoped copy and read-only
+protection projection do not prove eviction readiness. Final-copy deletion and
+metadata forgetting retain their separate authority, audit and replay gates.
+The in-progress admission implementation in another worktree was not modified
+or qualified by this plan review. No runtime evidence count is added.

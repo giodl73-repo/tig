@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 23851,
-      "sha256": "7c19b04e0020e55b0f2b627b1f34a0520255efc996f35638dfe9a844fc89c325"
+      "bytes": 25931,
+      "sha256": "1e9d150a91c3380c112a3b6b92b084da0d7c96cc3bf28294c8ac31296c6b51f0"
     },
     {
       "path": "README.md",
@@ -1853,9 +1853,9 @@
       "sha256": "cfd6ffbe9915e5f23f3315cb0290209d7610e22dc79f5310f907227767ac7a35"
     },
     {
-      "bytes": 12356,
+      "bytes": 16453,
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
-      "sha256": "5c2422426cbee840111f4081c4635746ac11cf220d595a0b97c5aa4582f5e929"
+      "sha256": "e4f5d3688892fbe18347a423c02732e4081ef947d8aca0d93fbdc6f4d4b81d54"
     },
     {
       "path": "specs/STORAGE-ORCHESTRATION.md",
