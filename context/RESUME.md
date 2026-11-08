@@ -86,8 +86,27 @@ source changes into running tools as a side effect. No startup cache operations.
   workspace suites, all 15 S3 regressions, strict Clippy, fmt, standalone Git/
   dependency graph, explicit retirement CLI qualification and portable L0 pass.
   EVID-091 separately records verification, synthetic validation, trace and six
-  producer lenses. Hosted current-head checks remain separate; derive PR state
-  live. No actual server/TLS/account, remote quota, custody or live store is attached.
+  producer lenses. PR #22 head d81cabe passes hosted Windows (8m18s), Linux
+  (3m2s) and secrets (6s), and is ready for review; derive PR state live.
+  No actual server/TLS/account, remote quota, custody or live store is attached.
+- feat/git-lifecycle, implementationfc3c57f, based on d81cabe: exact enrolled
+  committed-ref selection and tig-lifecycle plan/status/apply/resume compose
+  finished/readback metadata with an atomic pair of existing Prepare/Adopt events.
+  Source encodings and one-command callers remain compatible. Six added pair
+  cases bring active admission entries to 26, including three actual child exits
+  and the 16,383-event last-slot edge. Nine real Git/library/CLI cases cover
+  merge/revert, stale/catch-up/no-op, active jobs, exact/Unicode refs, drift and
+  offline historical status. Existing journal regressions pass all 35 entries.
+  Both broad workspace suites pass; the final status/discovery correction followed
+  their builds, then all nine lifecycle cases and strict all-target/all-feature
+  Clippy reran. Other package implementations were unchanged. Explicit retirement
+  CLI and pinned pre-pair source-reader qualifications pass. The latter requires
+  TIG_BASELINE_SOURCE_CLI and an explicit ignored/exact invocation; normal-suite
+  ignored output is not proof. CI separately builds pinned inputd81cabe's reader
+  on both hosts. EVID-092 separates verification, validation rehearsal, trace and
+  six producer lenses. Hosted current-head qualification remains separate.
+  This is selection only: storage convergence is unknown, and no provider
+  copy/eviction or authenticated GitHub receiver is enabled.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
@@ -105,15 +124,25 @@ pending-cancellation fixture requires a freshly built binary via TIG_RETIREMENT_
 and an explicit --ignored --exact invocation; its ordinary-suite ignored entry is
 not executed evidence. Both hosted platforms include that qualification.
 
-Check hosted LFS upload qualification and actual PR state before duplicating the
-upload lane. Local EVID-090/091 closeouts are complete, and S3 hosted checks pass.
-Next implement trusted exact-ref Git lifecycle convergence over existing source
-admission, plans and managed retirement, with explicit private executor authority.
-No second cache engine or automatic runner installation. Duplicate/delayed/missed
-events must converge to the currently admitted ref; preserve drafts/jobs and report
-pending work separately from merge success. An exact Git revert is a new desired
-selection, not permission to resurrect retired operations. Read GIT-WORKFLOW.md,
-mandatory admission and current retirement contracts before changing that seam.
+Check current Git lifecycle selection branch/PR qualification before duplicating
+that lane. S3 and LFS upload hosted checks pass and both PRs are ready for review.
+Next compose actual copy/retention/ordinary eviction from fresh admitted namespace
+demands and provider observations. Selection-only/no-op Git results cannot skip
+storage work caused by job withdrawal or destination recovery. Reuse exact existing
+publication/grant provenance rather than creating another claim/copy per merge.
+The copy helper retains destinations: working ingest retention needs the existing
+owner-authorized handoff to independent backup before working eviction. Retention
+required for a keeper remains through conflicting removal. No metadata-file deletion
+or accounting reset may bypass that sequence. Extend the generic three-store
+merge/job/offline-backup/unlink/restore fixture through the actual new selector.
+
+Then integrate an independently authenticated trusted trigger and configured
+branch withdrawal/draft/index lifecycle. No second cache engine or automatic runner
+installation. Duplicate/delayed/missed events must converge to the currently
+admitted ref; preserve drafts/jobs and report pending work separately from merge
+success. A Git revert selects exact earlier bytes under a new source revision,
+not permission to resurrect retired operations. Read GIT-WORKFLOW.md,
+GIT-LIFECYCLE-RECONCILIATION.md, mandatory admission and retirement contracts.
 Preserve source and distinguish uploaded/verified availability from independently
 retained custody. Loopback protocol fixtures qualify neither actual AWS/LFS TLS/
 authentication/account nor remote quota/retention capabilities.

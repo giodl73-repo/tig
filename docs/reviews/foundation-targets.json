@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 66500,
-      "sha256": "0ed4eb4490e66dfd39b5055bd7d911cffef61483f536d6ad77c1800c64782d1b"
+      "bytes": 69837,
+      "sha256": "754674a14cc2c9bd8d853c9a59c36dd7035ffdc0bdb60f64a00f53af426aa1ad"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 113893,
-      "sha256": "13d153693d939cdf90bd03ac8897c34adf313a4a942b6b87a6a4558a7f80296b"
+      "bytes": 115291,
+      "sha256": "fe519de4edd33ad25901e7c1edbfed620e371897cccd52283c75236f45ff378b"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 33509,
-      "sha256": "aa6db4067a69bac4b4be68fc319af025cb420b0a1b04b9b2b9d6622e1196c4b7"
+      "bytes": 34211,
+      "sha256": "103a6054092ce74bdee501585147734f9cfb8d419a7c6db881896a5fd493d884"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 19869,
-      "sha256": "838dbfc81e3376fb1fcef250da01a7d4f8732bc7e91b73e271063dd82dbdd7f0"
+      "bytes": 20352,
+      "sha256": "d2f76d94b87f4220a3f3e87a938bf16b0ec878caa24358f258a7d632502bb321"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 40599,
-      "sha256": "4f6d25c9904b4f7894a8d6842d22484e7fe05d525ee153be832882f2d3316de1"
+      "bytes": 42053,
+      "sha256": "e6dd3eab5c83474897e0eebbf42950e7cd98480f938f23b0c033567eee54b9cc"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 11359,
+      "bytes": 13548,
       "path": "context/RESUME.md",
-      "sha256": "524aad1bd24d75af3a0e19dc4da2e061ab6a82f193a8befc7fd711cad452c38a"
+      "sha256": "f7b6c43adf9a99f877e7de6ee2fd20cafa7c826f2688fc1bd7f70c723287985d"
     },
     {
       "bytes": 16453,
@@ -2046,6 +2046,11 @@
       "path": "specs/GIT-LIFECYCLE-RECONCILIATION.md",
       "bytes": 10540,
       "sha256": "7fb58c0d6bb338542614a60c680ed0de35176ae8edfed9418b01ccc23f7f7913"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-git-lifecycle-selection.md",
+      "bytes": 5106,
+      "sha256": "d4a7505880197cb92e1c3e6457ad48a8b9b9d313b1f54fb48d0589fac44aedd7"
     }
   ]
 }

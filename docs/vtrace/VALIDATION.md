@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-092 contributes exact-ref selection to VAL-001/002/004: actual synthetic
+merge/revert and job/history protection, interrupted atomic adoption, old-reader
+compatibility and explicit CLI replay. The operator grants authority independently
+of the request. Physical storage convergence is unknown; trusted GitHub trigger,
+copy/retention/eviction and complete consumer workflows remain required. This
+prerequisite accepts no full validation, private migration or live runner/store.
+
 EVID-091 contributes a bounded Git-only upload/recovery rehearsal to VAL-001/002/004:
 actual temporary Git LFS push, private admission, verified source preservation,
 lost replies, killed uploader, scoped peer refusal and another job's progress.

@@ -812,3 +812,51 @@ qualification, independent/human acceptance and live adoption remain open. Recei
 deny retained custody/removal authority. Trusted Git lifecycle convergence, bulk
 final deletion with retained-subset handoff, authority migration and eventual
 metadata retirement remain required plan work; no full milestone or requirement closes.
+
+Hosted follow-up for EVID-091: head d81cabe, PR #22, run42528988457 passes
+Windows (8m18s), Linux (3m2s) and secrets (6s); ready for review. Scope remains
+source-preserving bounded protocol fixtures, not actual server/custody acceptance.
+
+EVID-092: committed-ref lifecycle selection prerequisite, implementation
+fc3c57f6f17f1711b27131b75911d72a6c644e72; inputd81cabe. Nine real Git/library/CLI
+integration cases pass. Exact enrolled ref and complete pointer scope produce
+canonical input-bound plans; persisted metadata is read through a fresh reader
+before desired claim adoption. Actual merge/revert/catch-up and no-op duplicate,
+active job/unchanged-byte precedence, stale event/source, drift before/after
+admission, Unicode/exact ref, disabled/wrong enrollment, missing metadata and
+offline historical status are exercised. No no-op or status appends commands.
+Storage convergence is explicitly unknown, not an inferred provider result.
+
+Six new atomic pair cases extend active source-admission entries from 20 to 26.
+Existing Prepare/Adopt event bodies, hashes, sequences and operation bindings
+commit together under one namespace transaction and existing scoped fences.
+Readers observe old or fully adopted state. Three added actual child exits cover
+between appends, before commit and after commit; retries recover both or neither
+command without a pending half. An independently encoded 16,383-event history
+refuses a two-event pair while preserving its last single-command slot. Partial
+recorded pairs and conflicting/stale identities refuse. Missing closure/reader
+fences and unrelated progress remain covered by existing admission regressions.
+
+Thirty-five existing source-journal regression entries pass. Locked default and
+all-feature workspace suites pass, including metadata scale, LFS/S3/retirement
+regressions. The final lifecycle status/discovery representation changed after
+the broad-suite builds; all nine lifecycle tests (10.46s) and strict all-feature/
+all-target Clippy reran successfully afterward. Other package implementations
+were unchanged. Standalone Git, fmt, explicit retirement CLI qualification and
+portable L0 pass. Hosted current-head full-suite verification remains separate.
+
+The pre-pair tig-source binary is built from exact inputd81cabe into an isolated
+external target. It successfully inspects newly written pair history and recovers
+both original command receipts. The compatibility test was explicitly executed
+both directly from the all-feature test artifact (0.39s) and through the exact
+ignored Cargo command (0.16s). Its ordinary ignored entry is not proof. Both
+hosted targets now build that pinned source and invoke the explicit qualification.
+No persistent format migration, history rewrite, prefix reset or second journal
+engine is introduced. Source commands still have their original lifetime limits.
+
+All repositories, data, providers and process faults are synthetic/external-temp.
+This establishes exact committed-ref desired selection, not automatic physical
+copy/retention/eviction, a trusted GitHub receiver, full branch/draft/index/native
+coverage, independently retained custody, user acceptance or live adoption.
+Full priority 6 and later bulk final deletion/subset handoff, authority migration,
+metadata expiry, large-file and journal continuation gates remain required.

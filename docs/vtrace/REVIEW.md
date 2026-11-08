@@ -1420,3 +1420,25 @@ EVID-091 separately records local verification, synthetic validation and trace.
 Disposition: pass_with_risk for this 8 MiB experimental adapter only; hosted checks,
 actual server/custody/large-file/lifetime, trusted Git convergence, bulk final
 deletion, metadata retirement and private adoption remain separate obligations.
+
+## Committed-ref selection producer review
+
+Inputd81cabe; implementationfc3c57f6f17f1711b27131b75911d72a6c644e72.
+Controls/scope/entry/exit and GIT/PROVIDER L0/L1/L2 are in
+[GIT-LIFECYCLE-RECONCILIATION](../../specs/GIT-LIFECYCLE-RECONCILIATION.md).
+One producer reapplied all six checklists; [GS-01..06](../reviews/2026-11-08-git-lifecycle-selection.md)
+record severity, owner/disposition and remaining qualification. These are review
+lenses, not independent people, user acceptance or live-operation authority.
+
+Review required exact before-state/revision and private source/policy admission,
+metadata finish/readback, atomic existing-command composition and separate current
+ref observations. It corrected storage convergence to unknown rather than
+asserting an unobserved outcome. A no-op selection may still need physical work
+when jobs/providers change; copy-created working retention needs authorized
+handoff before eviction. Those integration obligations remain explicit. Existing
+event encodings are preserved and a pinned pre-pair binary reads/replays new pairs.
+
+EVID-092 separately records local verification, synthetic validation and trace.
+Disposition: pass_with_risk for committed-ref selection only. Full automatic
+copy/retention/eviction, authenticated trigger, branch/draft/index/native/provider
+adoption and large-file/lifetime/subset/authority/final-deletion work remain open.

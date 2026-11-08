@@ -475,3 +475,13 @@ cases plus 15 S3 compatibility regressions -> EVID-091, implementation2f1173b.
 Verification, synthetic intended-use rehearsal and all six producer lenses close
 separately. Actual custody/server/large-file/lifetime qualification and subsequent
 Git lifecycle, bulk final-deletion and metadata-retirement delivery remain open.
+
+Committed-ref lifecycle selection: WP-003/004/005/006/008/009/011/012/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/008/009 ->
+GIT-LIFECYCLE-RECONCILIATION.md -> lifecycle library/tig-lifecycle, existing
+Namespace::select/Prepare/Adopt and finished metadata reader -> nine real Git/CLI
+cases, six added admission pair cases and separate pinned pre-pair reader test ->
+EVID-092, implementationfc3c57f. Verification, synthetic intended-use rehearsal
+and six producer lenses close separately. Full priority-6 provider/trigger and
+branch/draft/index integration plus later roadmap milestones remain open.

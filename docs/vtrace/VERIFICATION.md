@@ -613,3 +613,25 @@ after the broad suites. Fmt, standalone Git/dependency independence, explicit
 retirement CLI qualification, restore/catalogue checks and portable L0 also pass.
 Hosted current-head verification remains separate. No actual server/TLS/custody,
 remote quota, large-file/native, full authority restore or lifetime claim follows.
+
+## Committed-ref desired selection
+
+EVID-092 / GIT-LIFECYCLE-RECONCILIATION.md, implementationfc3c57f: nine
+`cargo test -p tig-git --test lifecycle --locked` integration cases pass against
+actual Git merges/reverts, exact/Unicode refs, catch-up/stale/no-op requests,
+active jobs, private enrollment, ref drift, real CLI and offline status. Metadata
+finishes and fresh readback precedes admission; status acknowledges no provider
+convergence. Six added pair cases bring active admission entries to 26, with
+three actual child exits and a full-history last-slot test. Existing journal
+regressions pass all 35 entries. Before/after scoped admission and one transaction
+protect pair visibility, replay and partial/collision refusal.
+
+The separate pre-pair reader qualification builds exact inputd81cabe's tig-source
+and executes the ignored compatibility test explicitly. It reads new pair history
+and recovers both command receipts. The ordinary ignored entry proves nothing.
+CI builds the pinned old reader separately on both platforms. Default/all-feature
+workspace suites, standalone Git, explicit retirement CLI and L0 pass locally;
+the final lifecycle status/discovery adjustment was followed by all nine focused
+cases and strict all-target/all-feature Clippy. Other package implementations
+were unchanged. Hosted current-head suites and complete physical lifecycle,
+trigger authentication, native/provider/large-file/lifetime acceptance remain open.
