@@ -327,3 +327,10 @@ exit or the roadmap as a whole. Catalogue apply, complete claim admission,
 guarded eviction, remote upload, automatic lifecycle reconciliation, bulk final
 deletion and metadata retirement remain required subsequent work. Journal lifetime
 and representative large-file qualification retain their earlier entry gates.
+
+Priority-2 prerequisite: [protection demand snapshots](specs/PROTECTION-DEMAND-SNAPSHOT.md)
+now compare all registered versus admitted sources and derive exact assigned demand
+from declared flat binding trees. This replaces no source authority or provider;
+unknown native/opaque closure remains a gap. Snapshot freshness is not a lease,
+and the View adapter holds removal. Effective source-admission/object-removal
+fencing and intentional-absence recovery remain the next executor gates.

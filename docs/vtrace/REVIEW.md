@@ -1191,3 +1191,42 @@ expanded. Pass_with_risk for bounded implementation: focused fixtures, default/
 all-feature regressions, strict Clippy, fmt, standalone Git and L0 checks pass;
 no independent review, consumer acceptance or full WP closure. See
 [contract and required tests](../../specs/STORAGE-ORCHESTRATION.md).
+
+Protection-demand snapshot review, inputd18afba: WP-004/006/008/009;
+REQ-001/002/004/005/007/009; SPEC-002/004/005/006/008;
+IF-002/004/005/006/008; PKG-001/003. One producer applied all six .roles lenses
+against model/safety contracts and foundation T01/02/03/08/11/12/15/17/20/24/25.
+Owner: Tig maintainer. Scope is exact observed demand; no removal implementation.
+
+| Lens | Finding / disposition | Remaining proof |
+| --- | --- | --- |
+| Identity | Bind profile, source owners/kinds, root interpretation, all journal checkpoints and shared demand provenance; normalized ordering and hash/size conflicts checked. | Frozen admission capabilities and stale-operation fencing before removal. |
+| Placement | Selected source queries could omit other registered jobs/branches. Added bounded read-only observe_all and expected/actual comparison; all root roles contribute. | Enforced registration for new sources and policy/constraint adoption. |
+| Custody | Resolved metadata is not byte custody. Summary and View always deny complete protection/removal; local replica grants remain provider obligations. | Independent retained copies and effective destructive fences. |
+| Concurrency | Metadata IO cannot hold a SQL transaction. Close observation first, then recheck heads; mutation during NodeStore reads becomes a gap. | A recheck is not a lease; effective admission/removal guard still required. |
+| Provider/privacy | Opaque/missing/corrupt roots, unknown clients, replaced/rolled-back journals and foreign owners stay gaps; metadata reads and summaries bounded. | Admitted native extraction, latest-witness authority and hostile-provider qualification. |
+| Git/adoption | Explicitly retired sources can stay registered with no roots; retained jobs keep their own demand. Large snapshot-to-View conversion refuses existing limits instead of truncating. | Source/runtime adoption and scalable executor integration. |
+
+Producer disposition: pass_with_risk for this read-only prerequisite. No new
+journal command or persistent schema; no consumer deployment, independent review,
+full requirement validation or permission to remove bytes. Focused and workspace
+verification is recorded separately under EVID-085 after final checks.
+
+Final resource review found a missing elapsed-time bound in the new projection.
+Added a 1..600,000 ms cooperative budget checked between/after calls and before
+return, with explicit slow-provider and invalid-window cases. It does not promise
+interruption of a blocked provider. Ordinary fixtures use 60 seconds; the 33,000-
+binding case uses 180 seconds. All sixteen focused cases pass on the correction.
+
+Input bounds now precede profile cloning/sorting, and oversized View projections
+refuse before expanding placement copies. Valid snapshot identities are unchanged;
+the existing budget/large-view fixtures exercise refusal without truncation.
+
+Identity follow-up: identical historical/current roots must not collapse distinct
+source selections. Origin identity now includes the exact selected revision or
+pending prepare reference; a repeated identical-root fixture checks both versions.
+This is the first unshipped projection format, not a change to journal encodings.
+
+The selection-provenance change initially missed the predecessor tuple constructor;
+compilation refused it before tests. Corrected to carry the same exact revision
+shape as current selections. The repeated-root regression covers that constructor.

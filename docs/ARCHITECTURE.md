@@ -197,3 +197,9 @@ plan/peak/status/apply/resume JSON operations; source-preserving local copying
 uses an already admitted capacity job and has no optional typed-asset dependency.
 It adds no cache engine, source/job registry, eviction, automatic Git event
 installation or final deletion. See [scope and protocol](../specs/STORAGE-ORCHESTRATION.md).
+
+The tig-store::protection projection observes all registered sources in explicitly
+enrolled journals and resolves admitted flat byte-binding roots through existing
+Tree/NodeStore ports. It joins current/pending/predecessor demands with owner and
+kind provenance; missing/opaque/changing scope remains a bounded gap. Its View
+adapter keeps complete protection false. See [scope and limits](../specs/PROTECTION-DEMAND-SNAPSHOT.md).

@@ -249,3 +249,10 @@ exits, retained destination inspection and explicit partial-batch resumption. It
 is mechanism verification, not an owner-run live storage workflow or independent
 acceptance. Complete source/job coverage, catalogue application, merge automation,
 eviction, large media/provider scale and final deletion remain unvalidated.
+
+EVID-085 contributes exact source-root demand to VAL-003: branch/draft/job/
+retention roots retain old/current/pending declared bytes, shared obligations
+combine and missing coverage holds the pure planner. One temporary-store copy
+uses the actual snapshot basis and refuses a changed-context retry. This is not
+actual producer-consumption closure, enforced source admission, physical custody,
+Git-triggered orchestration, live adoption or final-deletion acceptance.

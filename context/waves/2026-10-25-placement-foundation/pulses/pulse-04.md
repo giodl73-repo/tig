@@ -123,3 +123,9 @@ plan/local copy slice composes accounted publication and retention; EVID-084
 records focused process/retry/source-preservation checks. Full protection registry,
 eviction, cloud/upload, lifecycle events, bulk final deletion and metadata retirement
 remain open. See specs/STORAGE-ORCHESTRATION.md for RUST/PROVIDER scope and levels.
+
+Protection demand checkpoint: inputd18afba, WP-004/006/008/009;
+REQ-001/002/004/005/007/009, SPEC-002/004/005/006/008;
+IF-002/004/005/006/008, PKG-001/003. EVID-085 records bounded actual journal/root
+projection and snapshot-to-copy integration. The View adapter still holds removal;
+effective mandatory admission and intentional-absence recovery remain open.

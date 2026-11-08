@@ -490,3 +490,19 @@ Current-head hosted Windows/Linux qualification and the full roadmap remain open
 
 EVID-084 implementation source: 390ac4a. Verification/validation/trace and
 producer review are recorded separately from that implementation commit.
+
+## Protection demand snapshot
+
+EVID-085 / PROTECTION-DEMAND-SNAPSHOT.md: `cargo test -p tig-store --lib --locked
+protection::tests` passes 17 Windows entries, including a 33,000-binding resource
+boundary and actual snapshot-to-copy integration. `cargo test -p tig-store --test
+source_claims --locked` passes all 35 existing journal entries. Default workspace
+regression passes, including a final default run. Final all-feature workspace
+regression also passes after the deadline and exact-selection-provenance fixes.
+The repeated-root case additionally checks two identical predecessor roots. Strict
+all-feature/all-target Clippy, standalone no-feature tig-git check and fmt pass.
+Explicit external build/temp roots only. No runtime file/payload removals are
+performed by this slice; hosted qualification remains separate.
+
+EVID-085 implementation source: 55a21e4. Verification, intended-use validation,
+trace and producer review closeout are separate from the implementation commit.

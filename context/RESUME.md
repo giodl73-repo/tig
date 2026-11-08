@@ -1,62 +1,67 @@
 # Tig resume state
 
-Current focus: finish catalogue qualification and build generic Rust storage
-orchestration. PRODUCT_PLAN.md is the ordered roadmap; its six-role review is
-docs/reviews/2026-11-08-storage-roadmap-roles.md. Live Git/PR status overrides
-historical handoff text. Do not depend on any prior consumer-repository session.
+Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
+bulk final deletion and eventual metadata retirement. The full goal is not done.
+Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.
+Derive branch/worktree/PR status from Git/GitHub; do not trust old chat or deploy
+source changes into running tools as a side effect. No startup cache operations.
 
-Recent source slices: object-to-owner Overview/Compare/Impact navigation and
-record-inspector/dependency request isolation. Relevant reviews are in
-docs/reviews/2026-11-08-object-record-workflows.md and
-docs/reviews/2026-11-08-record-inspector-fences.md. Their fixture evidence is
-scoped; source merge and running viewer deployment are separate operations.
-User intends to test UX separately; do not start browser automation on resume.
+## Current delivery state
 
-Next engine task: define the input-bound plan/operation and provider contract,
-including complete scoped protection admission before any removal. Then implement
-recoverable copy-only orchestration across temporary local stores using existing
-tig-store publication/retention/ledger primitives. Follow with guarded eviction,
-then remote/LFS upload adapters; no second cache engine or project-specific script.
-Inspect existing code/tests first. The roadmap's lifecycle fixture is proposed,
-not implemented; component tests do not qualify end-to-end removal.
+- PR #14: reviewed storage roadmap, finite-backup/bulk-retirement requirements
+  and direct startup. Source/merge status must be checked live.
+- PR #15, feat/storage-orchestration-contract, d18afba: bounded immutable storage
+  plans and tig-storage plan/peak/status/apply/resume through existing accounted
+  publication/retention. Local checks and hosted Windows/Linux/secrets pass;
+  marked ready for review. Optional publication context preserves legacy None
+  encoding; old readers refuse new context-bearing records. No removal API.
+- feat/protection-demand-snapshot, based on d18afba, implementation 55a21e4: actual read-only journal/root
+  demand projection, exact selected revisions/pending references, and copy-basis
+  integration. Seventeen focused fixtures plus 35 source-journal cases qualify
+  this prerequisite; local default/all-feature, Clippy, fmt, standalone Git and
+  L0 checks pass, recorded under EVID-085. Hosted checks are separate. Declared flat
+  binding trees only; opaque/native context roots remain gaps. The View adapter
+  always sets complete_claim_coverage=false. This does not complete admission.
+- Catalogue record/owner/impact/compare slices remain separate. User intends to
+  test UX; do not start browser automation on resume. Viewer deployment, source
+  merge, producer review, independent review and human acceptance are distinct.
 
-Known boundary: catalogue storage actions are held previews; download-only LFS
-exists. Cloud upload, generic payload eviction and full automatic Git lifecycle
-reconciliation remain open. Unknown source/job coverage blocks destructive work,
-while copy-only progress can continue. No global cache/render lock.
+## Next executor entry
 
-Use docs/DEVELOPMENT.md for startup/check commands, .roles/ROLE.md for all six
-producer checklists and docs/vtrace/README.md for package controls. Public source
-stays generic and small. Machine enrollment, runtime bindings, logs, credentials,
-inventories and build/temp roots stay outside Git.
+Implement effective mandatory scoped claim admission before eviction. Existing
+SourceJournal::apply is unfenced and cannot become safe through an optional
+caller wrapper. Define an enrolled managed namespace and safe refusal of legacy/
+unmanaged writers. Claim mutation and removal need compatible object-scoped
+fences independent of payload-store availability, with registry/authority epochs
+and exact before/after root demands. No SQL transaction spans metadata/payload IO;
+unrelated admissions must continue. Snapshot rechecks are not leases. Candidate
+membership checks must tolerate unrelated head changes when the target's demands
+are unchanged; do not turn a whole-snapshot identity into a global lock.
 
-User feedback expands the target: merge-to-main reconciliation under an enabled
-policy puts new released bytes at working/backup roles, superseded unused bytes
-at history/backup roles, then automatically evicts eligible working copies.
-Golden/category vocabulary and store bindings remain external configuration.
-Backup retention is finite: roadmap priorities 7-8 add block/age-based final
-content deletion and eventual metadata retirement, separate from cache eviction.
-First define coverage authority/invalidation, cross-store retirement fencing,
-publication replay after authorized absence, large-object qualification and
-journal lifetime. No new runtime behavior or live deletion is authorized here.
+Then define authorized-absence/publication recovery and incarnation fencing:
+old deletion retries must not remove a new same-hash placement. Only after these
+gates implement guarded ordinary eviction. Full private/provider adoption stays
+separate; remote/LFS upload, automatic merge reconciliation, final deletion and
+metadata retirement remain required later milestones, not waived requirements.
 
-Second six-role pass on input7979190 clarifies owner-authorized claim settlement,
-trusted merge-trigger/policy admission, same-hash re-ingest versus stale deletion,
-pre-removal durable intent and recovery budget, provider-version deletion scope,
-and audit-window/aggregate-fence compatibility before metadata forgetting.
-Journal lifetime design starts in priority 2; do not defer safe exhaustion until
-priority 8. These are planned acceptance conditions, not implemented guarantees.
+## Product and safety constraints to retain
 
-Storage implementation lane: feat/storage-orchestration-contract, based on
-bb51c5a; implementation commit 390ac4a. tig-store::orchestration and tig-storage now implement the first shared
-plan/local copy slice through existing accounted publication/retention. Context
-identity is optional on PublicationPlan; legacy None encoding stays unchanged,
-while old readers reject new context-bearing records. No new journal command.
-Focused tests cover canonical identities, changed-context conflicts, actual
-process exits, partial batches, source preservation and fresh status without
-journal commands. Use specs/STORAGE-ORCHESTRATION.md for exact scope/checks.
-Local default/all-feature regression, focused fixtures, strict Clippy, fmt,
-standalone Git and portable L0 pass. Hosted CI remains separate. Full plan delivery
-remains active. Next: complete priority-2 scoped protection admission and
-publication-retirement semantics before any eviction code. UI execution, automatic merge reconciliation,
-remote/LFS upload, final deletion and metadata retirement remain unimplemented.
+Released/golden and category vocabulary is project configuration. Enabled merge
+actions should put released bytes at working/backup roles, superseded unused bytes
+at history/backup roles, then automatically evict eligible working copies.
+Retention on backup is finite. Users need exact block/category/age selection for
+final deletion, held/shared-byte explanations, resumable outcomes and honest
+reclaim. Age uses admitted lifecycle events, not file mtime. Final-copy deletion
+has separate authority from cache eviction; low space grants neither.
+
+A mixed source root may contain selected and held assets. A retained-subset
+replacement/root handoff must be acknowledged before withdrawing the broader
+obligation; never retire a whole root just to delete one selected leaf. Exact
+selection revisions distinguish same-byte historical uses. Required audit windows
+and rollback-resistant replay/authority fences precede metadata forgetting.
+Journal continuation and large-object qualification remain explicit gates.
+
+Use synthetic, explicit external build/temp roots and scoped check commands.
+Keep private bindings, credentials, inventories, payloads and runtime evidence
+outside Git. Preserve existing consumers and running tools. .roles are producer
+checklists, not independent people or live-operation authority.

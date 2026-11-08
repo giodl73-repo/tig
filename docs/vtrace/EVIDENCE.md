@@ -609,3 +609,22 @@ See [controlled scope](../../specs/STORAGE-ORCHESTRATION.md).
 
 EVID-084 implementation source: 390ac4a. Verification/validation/trace and
 producer review are recorded separately from that implementation commit.
+
+EVID-085: protection demand snapshot, inputd18afba336f48f8b982ffe83c5b609d1f903c9f7.
+Seventeen focused Windows entries pass: actual temporary source journals enumerate
+all registered sources, all current/pending/predecessor roots contribute, and
+shared placement demand retains exact owner/kind/root provenance. Missing,
+unexpected, foreign-owner, opaque, changed and rolled-back scope remains unknown;
+corrupt/missing binding roots contribute no partial demand. Aggregate time/read/byte/
+root/association budgets refuse excess; a 33,000-binding fixture resolves demand
+but the existing pure View budget refuses without truncation. Bounded summaries
+sample gaps while retaining their total count. Explicit owner retirement leaves
+an empty registered opaque source without inventing a payload obligation; other
+jobs remain protected. Snapshot-derived Basis drives actual copy/retention, and
+changed claims reject operation reuse. All 35 existing source-journal fixtures
+pass. Final default/all-feature workspace regressions and portable L0 pass. Strict all-feature/
+all-target Clippy and standalone Git check pass. No effective admission fence,
+complete claim registry, byte custody, eviction or full-system acceptance follows.
+
+EVID-085 implementation source: 55a21e4. Verification, intended-use validation,
+trace and producer review closeout are separate from the implementation commit.

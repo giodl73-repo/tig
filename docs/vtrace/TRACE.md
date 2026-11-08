@@ -410,3 +410,10 @@ context binding, exact ledger/retention inspection and tig-storage -> 15 library
 entries / five process CLI fixtures -> EVID-084. Scoped verification and intended-use
 validation dispositions are separate. Full packages and complete removal authority
 remain open; no added dependency on optional typed assets.
+
+Protection demand: WP-004/006/008/009, REQ-001/002/004/005/007/009 ->
+SPEC-002/004/005/006/008, IF-002/004/005/006/008, PKG-001/003 ->
+PROTECTION-DEMAND-SNAPSHOT.md -> SourceJournal::observe_all and protection.rs ->
+17 focused projection/copy tests plus 35 source-journal regression entries ->
+EVID-085. Metadata resolution, complete protection admission, effective removal
+fences, independent custody and intended-use acceptance remain distinct.
