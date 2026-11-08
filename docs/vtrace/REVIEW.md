@@ -1110,3 +1110,10 @@ identities, exact snapshot/progress, sample disclosures and four stale-response
 guards. See [scope, reproductions and evidence](../reviews/2026-11-08-fixture-ux-flows.md).
 Pass_with_risk: synthetic DOM/fetch fixtures supplement native API checks and
 cannot establish browser layout, live-project or custody acceptance.
+
+Catalogue record-comparison producer review (input4129764): identity, privacy/
+provider, adoption and concurrency lenses cover two exact source snapshots,
+agent-operation parity, an ephemeral baseline, independent comparison facts and
+stale-response fences. See [scope and fixtures](../reviews/2026-11-08-catalogue-record-compare.md).
+Pass_with_risk: no historical resolver, retention claim, decoded equivalence,
+complete source/job/custody or independent browser acceptance is established.

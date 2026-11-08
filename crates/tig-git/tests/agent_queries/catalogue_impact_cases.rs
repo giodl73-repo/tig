@@ -6,7 +6,7 @@ use std::{
     time::Duration,
 };
 
-struct Server {
+pub(super) struct Server {
     child: Child,
     address: String,
     token: String,
@@ -18,7 +18,7 @@ impl Drop for Server {
     }
 }
 impl Server {
-    fn new(f: &Fixture) -> Self {
+    pub(super) fn new(f: &Fixture) -> Self {
         let child = Command::new(env!("CARGO_BIN_EXE_tig-catalogue"))
             .args(["serve", f.enrollment.to_str().unwrap(), "0"])
             .stdout(Stdio::piped())
@@ -59,7 +59,7 @@ impl Server {
             .into();
         server
     }
-    fn get(&self, path: &str, session: bool) -> (u16, String) {
+    pub(super) fn get(&self, path: &str, session: bool) -> (u16, String) {
         let mut stream =
             TcpStream::connect_timeout(&self.address.parse().unwrap(), Duration::from_secs(5))
                 .unwrap();
@@ -90,7 +90,7 @@ impl Server {
         assert!(!body.contains("DO_NOT_EXPORT"));
         (code, body.into())
     }
-    fn json(&self, path: &str) -> (u16, Value) {
+    pub(super) fn json(&self, path: &str) -> (u16, Value) {
         let (code, body) = self.get(path, true);
         (code, serde_json::from_str(&body).unwrap())
     }

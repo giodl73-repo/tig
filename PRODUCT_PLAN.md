@@ -23,6 +23,8 @@ This is source availability, not a stable product or full storage acceptance.
   work/version/object comparisons. Movement/removal remains a held review.
   Record impact exposes admitted consumer paths, coverage gaps and exact selected
   navigation through explicit relationship selection and source-fenced paging.
+  Record comparison uses an exact in-memory baseline across projects, exposing
+  independent identity/field/slot differences without opening payloads.
 - Agent queries: versioned JSON discovery, inspection, admission diagnostics,
   search, byte/record comparison and explained impact through admitted graphs.
   Explicit work-scoped manifest references reuse nested adapters and verified
