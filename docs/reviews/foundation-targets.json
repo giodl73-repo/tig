@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 89358,
-      "sha256": "6062ce5e8ea12e26dd8b1f26f36df1ef4c8e0c57be2f46a169e7176e6b6e406f"
+      "bytes": 90149,
+      "sha256": "4bdb850a317d6b9690e16def8cfeafc5938c0567fb9108625926752f8ef93399"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 12825,
-      "sha256": "e8af4822d084ab39db6cb7cf3111b789d8633aed2953c9d42c5941528c726af5"
+      "bytes": 19996,
+      "sha256": "a4f3377eeceedb1a5b8e0ea93dc821ad321b14a31f402324dc7de6b2de1cccee"
     },
     {
       "path": "README.md",
@@ -1479,8 +1479,8 @@
     },
     {
       "path": "docs/CATALOGUE-UI-PLAN.md",
-      "bytes": 6619,
-      "sha256": "ccc57ed555292a595c8eb1cce03b0348b9c5af48a19435ce0a890cf83dbc54f5"
+      "bytes": 7258,
+      "sha256": "d9f5ad35d04ad24e07aad9f9a88fb2af4beada09101bee6a0051a4df1826d67a"
     },
     {
       "path": "docs/reviews/2026-11-05-catalogue-ui.md",
@@ -1848,14 +1848,14 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 1932,
+      "bytes": 2637,
       "path": "context/RESUME.md",
-      "sha256": "6320b8ec0b37063b9ffa7f1cc9b9c438d3712167e0c641424ca1a6dea088c4b0"
+      "sha256": "d15ad27cb10832550f61580e86759aa0f5167356c0092e1d79b50937770926b7"
     },
     {
-      "bytes": 4745,
+      "bytes": 8429,
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
-      "sha256": "fc4fc020e0c4e2471e0b6391ada5db136a6da95c58591f40dfa0f88f4e780683"
+      "sha256": "b869fd7af0fc13765b67abe4adc368c1151cba0e475a732422bfd5106808dcfd"
     }
   ]
 }

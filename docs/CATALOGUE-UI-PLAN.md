@@ -97,3 +97,12 @@ separate from safe reclaim, which remains unknown. Source timestamp, incomplete
 scope, absent observations and allocation alias gaps remain visible. Tests use
 synthetic shared objects, aliases, selected/history overlap, corrupt inventory,
 budget refusals and actual temporary Git/store refresh. No automatic eviction.
+
+Planned bulk retirement: select blocks or filter admitted categories and age from
+recorded lifecycle events, then freeze exact asset/version/object scope for a
+shared CLI/UI plan. Preview eligible/held items, external sharing, affected stores,
+loss of historical recoverability and estimated versus measured reclaim. Final
+backup deletion needs distinct authority from cache eviction; stale scope and
+unknown coverage hold removal. Partial batches and restart have explicit outcomes.
+See [the storage sequence](../PRODUCT_PLAN.md). These controls are not implemented;
+no selection or size-map gesture grants deletion authority by itself.

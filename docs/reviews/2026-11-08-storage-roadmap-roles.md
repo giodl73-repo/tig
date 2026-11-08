@@ -40,3 +40,40 @@ worktrees/PRs; read resume state and ordered roadmap; select an unowned bounded
 slice; configure external build/temp roots; run its checks; update handoff when
 priorities change. Machine-local checkout paths are deliberately not in public
 source. Canonical source can therefore be relocated without rewriting this guide.
+
+## Lifecycle feedback follow-up
+
+Input 43adabd5077123165a00895ef1c4ae99c9fd4a38. Scope: PRODUCT_PLAN.md,
+context/RESUME.md and docs/CATALOGUE-UI-PLAN.md; planning only. Controls:
+WP-003/004/006/007/008/009/013/015; REQ-001/002/003/004/005/007/009;
+SPEC-002/003/004/005/006/008/009/013/014; IF-002/003/004/005/006/008/012/013;
+PKG-001/002/003/004/007/008/009. No persistent format or runtime contract changes.
+Entry: user's merge/placement, finite-backup and bulk-deletion requirements plus
+architecture review feedback. Exit: named target capabilities, separate authority
+boundaries, scoped fixtures and resumable planning context. DOCS L0: structure,
+links, source budget, target hashes and diff checks. L1/L2 do not apply to prose;
+implementation, verification, intended-use validation and trace closure remain
+separate future obligations. No runtime evidence count is added.
+
+Method: one producer applying all six checklists, not independent reviewers.
+Owner for every row: Tig maintainer using the named lens. Findings below are
+incorporated in the plan; the executable proof remains required.
+
+| Finding / role | Severity | Design disposition | Required implementation proof |
+| --- | --- | --- | --- |
+| LF-01 Identity and Namespace | High | Distinguish authorized absence from corruption and old publication replay; separately gate metadata forgetting with authority/epoch fencing. | Old retry, restored backup and historical pointer cannot revive retired operations or falsely promise availability. |
+| LF-02 Placement Policy | High | Merge-triggered released/history/backup roles are configured policy; bulk age/category selection binds exact versions and checks all surviving demands. | Shared/current/branch/job-protected bytes survive; unknown age and stale selection hold; reactivation invalidates eligibility. |
+| LF-03 Storage and Custody | High | Separate replica eviction from authorized final-copy loss; prevent two stores retiring against each other; show honest reclaim. | Simultaneous retirement preserves required custody; eligible final deletion truthfully reports intentional loss; mixed batches preserve held items. |
+| LF-04 Concurrency and Recovery | High | Name coverage authority/invalidation and resumable partial outcomes; require journal continuation before sustained use. | Authority outage, lost replies, cancellation, continuation faults and old-peer retries retain fencing and historical receipts. |
+| LF-05 Provider and Privacy | High | Qualify large objects beyond the 8 MiB reference proof; respect retention locks/offline scope; keep all places/categories generic. | Bounded memory/peak IO, disk full, cancellation, locked/offline stores and measured physical effects; no private bindings in source. |
+| LF-06 Git and Adoption | Medium | Enabled Action targets an exact merged commit via an enrolled executor; routine eviction needs no per-copy confirmation under admitted policy. | Duplicate/delayed/missed events converge, newer selections prevail, offline backup holds safe progress, no implicit runner deployment. |
+
+Disposition: pass_with_risk for planning only. Final deletion and metadata
+retirement are explicit later milestones; the first executor stays copy-only,
+then guarded replica eviction. No implementation, full requirement verification,
+consumer validation, independent review or live-operation acceptance is closed.
+
+Follow-up L0 result: tools/validate.ps1 passes structure, local links, budgets,
+reviewed target hashes and synthetic arithmetic; git diff --check passes.
+No Rust/controller suite rerun for these documentation-only edits. Hosted CI,
+executable lifecycle fixtures and independent acceptance remain unclaimed.

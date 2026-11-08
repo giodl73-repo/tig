@@ -29,3 +29,13 @@ Use docs/DEVELOPMENT.md for startup/check commands, .roles/ROLE.md for all six
 producer checklists and docs/vtrace/README.md for package controls. Public source
 stays generic and small. Machine enrollment, runtime bindings, logs, credentials,
 inventories and build/temp roots stay outside Git.
+
+User feedback expands the target: merge-to-main reconciliation under an enabled
+policy puts new released bytes at working/backup roles, superseded unused bytes
+at history/backup roles, then automatically evicts eligible working copies.
+Golden/category vocabulary and store bindings remain external configuration.
+Backup retention is finite: roadmap priorities 7-8 add block/age-based final
+content deletion and eventual metadata retirement, separate from cache eviction.
+First define coverage authority/invalidation, cross-store retirement fencing,
+publication replay after authorized absence, large-object qualification and
+journal lifetime. No new runtime behavior or live deletion is authorized here.

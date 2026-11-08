@@ -1154,3 +1154,14 @@ design omissions and one medium adoption omission are corrected in the plan;
 see [findings, dispositions and remaining proof](../reviews/2026-11-08-storage-roadmap-roles.md).
 Pass_with_risk for revised prose only. Executor/remote/eviction proof remains
 open; no independent review, live operation or runtime deployment is authorized.
+
+Lifecycle feedback follow-up (input43adabd): DOCS profile; WP-003/004/006/007/
+008/009/013/015. The roadmap and catalogue/resume plans now cover policy-enabled
+merge reconciliation/eviction, finite backup retention, bulk final deletion and
+eventual metadata retirement. All six producer lenses additionally require
+cross-store custody fencing, coverage invalidation, authorized-absence replay,
+large-object qualification and journal lifetime. See [LF-01..06 dispositions and
+planned proof](../reviews/2026-11-08-storage-roadmap-roles.md). Pass_with_risk for
+prose only. L0 structure/hash/link/diff checks apply; L1/L2 are not runtime claims.
+Implementation, verification, validation and trace remain open separately; no
+independent or human acceptance, live deletion or deployment follows.

@@ -52,13 +52,83 @@ action is authorized by this roadmap; fixture work uses isolated temporary roots
 | 4 | Guarded local eviction | Require complete scoped source/job/draft claims from priority 2; hold overlapping protection through revalidation/removal, retain required independent domains, and prove exact-copy recovery; report file/allocation results separately |
 | 5 | Explicit cloud and Git LFS upload adapters | One selected remote provider first, then LFS upload; retry, failed/lost acknowledgement, corrupt/missing readback, credentials and unsupported retention capabilities exercised; no remote retirement from mere upload success |
 | 6 | Git-driven lifecycle reconciliation | Commit/branch/merge/revert produce idempotent desired-placement deltas; protect drafts/jobs and retained revisions; event replay and missed events converge without global locks |
-| 7 | Scale, onboarding and release | Derived incremental indexes keyed to exact sources/rules, measured warm lookup and sparse updates, generic sample enrollment and operator/agent examples; rebuild survives deleted derived state |
+| 7 | Bulk asset retirement and final deletion | Block/age/category selection of exact superseded versions; preview shared/protected content and affected stores; separately authorize eligible last-copy deletion; resume batches and measure reclaim |
+| 8 | Metadata retirement and operational lifetime | Bounded deletion receipts and retention windows; authority/replay fences permit eventual record retirement; journal continuation preserves witnesses, generations and original retry outcomes |
+| 9 | Scale, onboarding and release | Derived incremental indexes keyed to exact sources/rules, measured warm lookup and sparse updates, generic sample enrollment and operator/agent examples; rebuild survives deleted derived state |
 
 UX testing can run in parallel with priorities 2-3. Storage selection should show
 unique content, copy bytes, scratch peak, retained obligations, estimated eligible
 bytes and measured results separately. Add grouping/filter changes only when they
 help answer a concrete task such as why one work grew or what blocks reclamation.
 Never count prospective eviction as free space for an admitted job.
+
+### Merge-driven placement and automatic eviction
+
+Target: a merge to main selects a new released version and an explicitly enabled
+GitHub Action requests reconciliation of that exact commit and admitted policy.
+Project terms such as golden are configuration, not built-in lifecycle enums.
+Abstract roles map to enrolled stores outside Git:
+
+| Admitted lifecycle state | Example required roles |
+| --- | --- |
+| Current released selection | Working + retained backup |
+| Superseded with no remaining active use | History + retained backup |
+| Required by another selection, branch, draft or job | Union of all admitted placement/retention demands |
+
+Acquire and verify new copies, establish required retention, then recheck current
+protection and evict eligible old working copies. Routine eviction can execute
+without per-copy confirmation under an explicitly enabled bounded policy. Merge
+success and storage convergence are separate: unavailable stores produce pending
+or held work while preserving protection. Retries resume stable operation IDs.
+The configured executor must reach enrolled stores; a hosted Action does not
+itself gain access to local disks. No runner, hook or daemon is installed by this
+plan. Duplicate, delayed and missed events must converge; an old event cannot
+override a newer admitted selection. This is a target capability, not implemented
+automatic reconciliation.
+
+### Bulk final deletion and eventual metadata retirement
+
+Backup capacity is finite. Distinguish replica eviction, asset/version retirement,
+final content deletion and metadata retirement. Superseding a selection does not
+end another consumer's demand. Final deletion deliberately ends recoverability
+for authorized exact content; it is not demotion or a consequence of low space.
+
+Users can select a block of old assets/versions in the catalogue, or supply the
+same bounded selection through CLI/agent operations. Categories and lifecycle
+states come from admitted definitions. Age filters use a recorded supersession/
+retirement event and explicit clock policy, never file modification time. Unknown
+age holds age-based eligibility; restored/current use invalidates eligibility,
+and retention deadlines follow explicit policy. Age permits review, not deletion.
+
+Preview binds exact versions, object identities and source/policy/claim basis.
+Show eligible and held items with reasons, sharing outside the batch, affected
+stores, loss of historical recoverability, and estimated versus measured reclaim.
+Separate asset counts, unique bytes, copy bytes and allocated bytes. Shared objects
+remain while any surviving admitted obligation protects them. Incomplete scope
+holds deletion. A capacity shortfall can propose retirement but cannot silently
+shorten retention or grant final-deletion authority.
+
+Explicit batch authorization, or a separately enabled bounded final-deletion
+policy, permits only the eligible exact scope, including last retained backup
+copies. Revalidate authority/protection under effective final fences per action.
+Partial progress, held/failed/uncertain outcomes, cancellation and restart remain
+visible; no implicit all-or-nothing batch promise. Offline or unenrolled stores
+remain unresolved, not reported deleted. Provider retention locks can hold removal
+even after authorization. The first eviction executor still excludes final deletion;
+priority 7 requires separate entry/exit and qualification.
+
+Current authored .tig records can be removed through explicit source adoption;
+old Git commits may retain pointers without retaining payloads forever. Keep a
+compact exact deletion receipt/tombstone for the admitted audit/recovery window;
+detailed evidence stays outside Git under its own budget. Historical lookup reports
+deliberate retirement when evidence supports it, otherwise unknown/unavailable;
+a pointer never promises recoverability. Metadata retirement is separately
+permitted after dependencies and required retention end and stale operations can
+no longer act. Define an enforceable authority/epoch or equivalent replay fence
+before forgetting tombstones; elapsed time alone is insufficient. Old peers and
+restored backups must not revive retired writes. Permanent per-asset records are
+not required, and Git history/old receipts are not rewritten. The final protocol
+and encoding remain to be designed and verified.
 
 ### Storage orchestration contract
 
@@ -97,6 +167,10 @@ that scope before automatic Git reconciliation in priority 6. Gaps hold removal;
 copy-only progress can continue. Claim publication and removal must share an
 effective scoped fence, including the final destructive step; a check followed
 by an unprotected delete is insufficient. Unrelated additions remain concurrent.
+Admission names who can register new demand, what invalidates complete coverage,
+and how unavailable authorities block removal. Simultaneous retirements in two
+stores cannot each rely on the other's copy: required surviving custody remains
+protected through the destructive step under effective provider-specific fences.
 
 Define precedence for conflicting proximity/retention demands and report
 unsatisfied constraints. Reserve source/destination metadata, payload and scratch
@@ -115,6 +189,23 @@ status/cancellation/recovery. Cancellation stops future destructive work while
 preserving valid copies and unsettled protection. Credentials and private root
 paths stay in machine-local profiles; portable exports omit secrets. Reject
 symlink/path escapes and replaced store roots before provider IO.
+
+### Replay, large-object and journal lifetime gates
+
+Before eviction implementation, reconcile publication replay with intentional
+absence: the existing publication contract treats missing acknowledged objects
+as integrity failures. Durable authorized retirement evidence must distinguish
+absence from damage, fence stale retries and prevent silent resurrection. Specify
+explicit reacquisition/new-operation behavior separately.
+
+The reference publication adapter's 8 MiB cap is bounded component proof. Before
+large-file provider adoption, qualify representative large synthetic objects with
+finite memory, throughput/verification budgets, cancellation and disk-full
+recovery. Raising a cap alone is insufficient. Before sustained operation, design
+journal continuation/checkpoint compatibility: closed working-set retirement does
+not remove command/byte lifetime bounds. Preserve authority, witnesses, generations,
+original receipts and conflicting-retry fences across continuation, including
+interrupted transitions and old-peer refusal.
 
 ### Fixtures already present and the missing end-to-end proof
 
@@ -153,8 +244,19 @@ Then repeat the same contract suite against a local remote-provider test server
 and real LFS client fixtures. Explicit opt-in provider qualification follows;
 synthetic remote success alone does not qualify a cloud service.
 
+Extend the planned suite with simultaneous cross-store retirement, protection
+authority outage and coverage invalidation; duplicate/out-of-order merge events
+and merge while backup is offline; historical lookup/retry after authorized
+eviction and final deletion; mixed eligible/held/shared objects in a bulk batch;
+unknown age, reactivated versions, retention lock and interrupted last-copy
+removal; metadata expiry with old peers or restored backups; and journal
+continuation pre/post-commit failures. Prove surviving protection for held content
+and truthful intentional loss for authorized final deletion. Pin representative
+large-object memory, latency and peak-byte limits. All remain designed fixtures.
+
 Trace: priorities 2-4 map to WP-003/004/006/007/008, priority 5 to WP-005/013,
-priority 6 to WP-009/011/012 and priorities 1/7 to WP-008/015/016. Each slice
+priority 6 to WP-009/011/012, priorities 7-8 to WP-003/004/006/007/008/009/013/015,
+and priorities 1/9 to WP-008/015/016. Each slice
 requires exact-source controls, focused failures and protected checks. Optional
 torrent transport, broad WASM parity and additional presentation features follow
 the working local orchestration slice; they are not prerequisites for it.
@@ -169,6 +271,7 @@ design corrections and the implementation proof still required.
 | Consumer completeness | Explainable declared versus consumed inputs, opaque gaps, active jobs and exact profile/source coverage |
 | Lifecycle reconciliation | Durable scoped demands and idempotent plans across Git changes, interruption and concurrent work |
 | Guarded execution | Independent retained custody, provider revalidation and authority before retirement; physical reclaim measured in isolated fixtures |
+| Final deletion and metadata lifetime | Exact bulk scope, protected shared content, explicit last-copy authority, resumable outcomes and eventual metadata retirement with stale-replay fencing |
 | Catalogue usability | Comparable coverage, shared bytes, versions and primary subtypes; explicit enrollment and tool handoff |
 | Providers/transfers | Capability/operational/license review and separate recovery/custody proof for remote or optional torrent adapters |
 
