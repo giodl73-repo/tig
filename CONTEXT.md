@@ -1,5 +1,10 @@
 # Tig maintainer context
 
+This repository is the development source of truth. A new session can start here
+without an older consumer-repository conversation. Follow docs/DEVELOPMENT.md and
+context/RESUME.md; PRODUCT_PLAN.md orders the next product slices. Git/PR checks
+determine what actually merged. Source availability does not deploy a running UI.
+
 Tig is generic experimental Rust infrastructure. Machine-local enrollment,
 cache paths, credentials, producer bindings and private acceptance evidence belong
 outside this repository. docs/ARCHITECTURE.md maps the implementation;

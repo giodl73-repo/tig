@@ -1,0 +1,31 @@
+# Tig resume state
+
+Current focus: finish catalogue qualification and build generic Rust storage
+orchestration. PRODUCT_PLAN.md is the ordered roadmap; its six-role review is
+docs/reviews/2026-11-08-storage-roadmap-roles.md. Live Git/PR status overrides
+historical handoff text. Do not depend on any prior consumer-repository session.
+
+Recent source slices: object-to-owner Overview/Compare/Impact navigation and
+record-inspector/dependency request isolation. Relevant reviews are in
+docs/reviews/2026-11-08-object-record-workflows.md and
+docs/reviews/2026-11-08-record-inspector-fences.md. Their fixture evidence is
+scoped; source merge and running viewer deployment are separate operations.
+User intends to test UX separately; do not start browser automation on resume.
+
+Next engine task: define the input-bound plan/operation and provider contract,
+including complete scoped protection admission before any removal. Then implement
+recoverable copy-only orchestration across temporary local stores using existing
+tig-store publication/retention/ledger primitives. Follow with guarded eviction,
+then remote/LFS upload adapters; no second cache engine or project-specific script.
+Inspect existing code/tests first. The roadmap's lifecycle fixture is proposed,
+not implemented; component tests do not qualify end-to-end removal.
+
+Known boundary: catalogue storage actions are held previews; download-only LFS
+exists. Cloud upload, generic payload eviction and full automatic Git lifecycle
+reconciliation remain open. Unknown source/job coverage blocks destructive work,
+while copy-only progress can continue. No global cache/render lock.
+
+Use docs/DEVELOPMENT.md for startup/check commands, .roles/ROLE.md for all six
+producer checklists and docs/vtrace/README.md for package controls. Public source
+stays generic and small. Machine enrollment, runtime bindings, logs, credentials,
+inventories and build/temp roots stay outside Git.

@@ -1,5 +1,11 @@
 # Tig agent instructions
 
+Start in this repository's actual checkout/worktree. Do not inherit another
+project's working directory or rely on prior chat history. Follow
+[development startup](docs/DEVELOPMENT.md) and [resume state](context/RESUME.md)
+before choosing the next slice. Check branch, dirty state, worktrees and open PRs;
+do not duplicate an active lane or reset another session's changes.
+
 Read CONTEXT.md, README.md, PRODUCT_PLAN.md, context/waves/PHASES.md and the
 active wave/pulse. Before contract changes read specs/, docs/vtrace/, .pitfall/
 and applicable .roles checklists.
@@ -20,6 +26,9 @@ implementation; producer review is not independent or human approval.
   protection and independently retained custody before authorized removal.
 - No global cache lock. Use scoped resource admission and stale-operation fencing.
 - Keep records bounded; expanding inventories/journals/receipts belong asset-side.
+- Set explicit build and temporary roots outside the repository before running
+  Cargo/tests. Preserve configured shared tool/runtime bindings; do not replace
+  a running viewer or deploy a new binary as a side effect of source development.
 - Do not copy private assets, prompts, credentials, screenshots or voice credits.
 - Roles are producer checklists, not independent people or publication authority.
 - Run pwsh -NoProfile -File tools/validate.ps1 and git diff --check before commits.
@@ -29,3 +38,6 @@ implementation; producer review is not independent or human approval.
 - For asset find/compare/where-used tasks, start with tig-query describe and
   docs/AGENT-QUERIES.md. Preserve coverage/basis checks; extend admitted adapters
   rather than introducing per-project media scanners or comparison scripts.
+- Before stopping, update context/RESUME.md when priorities or entry criteria
+  change. Record exact evidence and unresolved work; derive live PR/branch status
+  from Git/GitHub rather than treating a stale handoff as current truth.

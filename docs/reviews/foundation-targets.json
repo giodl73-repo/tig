@@ -74,8 +74,8 @@
     },
     {
       "path": "AGENTS.md",
-      "bytes": 2125,
-      "sha256": "640dd04479c0430cc767b05efc1babb35cb230ea60679d4d4519e4f2496597b8"
+      "bytes": 2974,
+      "sha256": "da0fad5d3d1fe037b3241fe667fa3fcab5fccc2887e61e027be86cc7b5485676"
     },
     {
       "path": "Cargo.lock",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 2282,
-      "sha256": "82664aee816a7320455d02d0ee18b210a1372f93bb095e33f4be54eb697973cf"
+      "bytes": 2609,
+      "sha256": "612cc9aff297e54ba4fe6d45877be0cde54f39c24be130485b2011b9739dc674"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 88863,
-      "sha256": "33e551b40f9943977afb9c83e2ea7696b55b9dd91eb3675026a5855e2dfdf6e7"
+      "bytes": 89358,
+      "sha256": "6062ce5e8ea12e26dd8b1f26f36df1ef4c8e0c57be2f46a169e7176e6b6e406f"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 10209,
-      "sha256": "3d2753e692d6cb9eb6385020342305d6906c8d9cc3b3a0939886d023e3970581"
+      "bytes": 12825,
+      "sha256": "e8af4822d084ab39db6cb7cf3111b789d8633aed2953c9d42c5941528c726af5"
     },
     {
       "path": "README.md",
-      "bytes": 8065,
-      "sha256": "1058579ccd1b3ddcab44a54af7f1ebef81deffc1ac8eb37b6d751030acab661c"
+      "bytes": 8307,
+      "sha256": "38b91c9a5a87073c37779bbb19b6bf8e1e8376a25576991b190a612800d04f4e"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -1841,6 +1841,21 @@
       "path": "docs/reviews/2026-11-08-record-inspector-fences.md",
       "bytes": 2268,
       "sha256": "f88d93a15337e25a6cc82460269e28b6fa347b7314b63a53565393ed302099ec"
+    },
+    {
+      "bytes": 3072,
+      "path": "docs/DEVELOPMENT.md",
+      "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
+    },
+    {
+      "bytes": 1932,
+      "path": "context/RESUME.md",
+      "sha256": "6320b8ec0b37063b9ffa7f1cc9b9c438d3712167e0c641424ca1a6dea088c4b0"
+    },
+    {
+      "bytes": 4745,
+      "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
+      "sha256": "fc4fc020e0c4e2471e0b6391ada5db136a6da95c58591f40dfa0f88f4e780683"
     }
   ]
 }

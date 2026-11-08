@@ -47,9 +47,9 @@ action is authorized by this roadmap; fixture work uses isolated temporary roots
 | Priority | Deliverable | Demonstrable exit |
 | --- | --- | --- |
 | 1 | Finish current catalogue changes and user UX test | Protected checks pass; user can find a work, compare versions, trace an owner and return without losing context; task failures become regression fixtures |
-| 2 | Unified storage plan and agent contract | Explicit source/target scopes, immutable object set, policy/source basis, copy/retain/remove dependencies, budgets, reasons and holds; same plan data powers CLI and UI |
+| 2 | Unified storage plan and agent contract | Immutable plan/operation identities, enrolled place generations, object set, source/policy/claim basis, capabilities, budgets, authority and holds; explicit complete protection scope before removal; same plan powers CLI and UI |
 | 3 | Recoverable local copy orchestration | Plan/apply/status/resume in temporary stores; bounded streaming, destination staging, hash/length readback, retained destination and restart-safe acknowledgement; source preserved |
-| 4 | Guarded local eviction | Recheck current claims, active use, source/policy and retained destination before removing an exact copy; concurrent claim or stale evidence blocks that object; actual file/allocation results reported separately |
+| 4 | Guarded local eviction | Require complete scoped source/job/draft claims from priority 2; hold overlapping protection through revalidation/removal, retain required independent domains, and prove exact-copy recovery; report file/allocation results separately |
 | 5 | Explicit cloud and Git LFS upload adapters | One selected remote provider first, then LFS upload; retry, failed/lost acknowledgement, corrupt/missing readback, credentials and unsupported retention capabilities exercised; no remote retirement from mere upload success |
 | 6 | Git-driven lifecycle reconciliation | Commit/branch/merge/revert produce idempotent desired-placement deltas; protect drafts/jobs and retained revisions; event replay and missed events converge without global locks |
 | 7 | Scale, onboarding and release | Derived incremental indexes keyed to exact sources/rules, measured warm lookup and sparse updates, generic sample enrollment and operator/agent examples; rebuild survives deleted derived state |
@@ -83,11 +83,38 @@ verifiable, retainable, removable, and enforceable protection where supported.
 Unsupported guarantees produce explicit holds. Keep operational journals and
 large plans outside Git; bounded source definitions and policies remain in Git.
 
+Plan identity binds exact enrolled store instances/generations, object hash and
+length, source snapshots, policy/claim checkpoints, provider contract and finite
+budgets. Stable operation IDs bind retries to their admitted action; conflicting
+reuse refuses. Changed inputs require a new plan without discarding verified
+useful copies. Capability admission records acknowledgement strength, integrity
+proof, retention enforceability and failure-domain provenance, not just booleans.
+
+Priority 2 must establish bounded complete protection scope for the first local
+executor: all admitted branches, drafts, jobs and retention claims, with explicit
+handling of unmanaged writers/pruners. Manual explicit enrollment can provide
+that scope before automatic Git reconciliation in priority 6. Gaps hold removal;
+copy-only progress can continue. Claim publication and removal must share an
+effective scoped fence, including the final destructive step; a check followed
+by an unprotected delete is insufficient. Unrelated additions remain concurrent.
+
+Define precedence for conflicting proximity/retention demands and report
+unsatisfied constraints. Reserve source/destination metadata, payload and scratch
+peak without borrowing prospective reclaim. Retain the required replica count
+across admitted independent failure domains; aliases cannot satisfy redundancy.
+Verified availability alone does not qualify retained custody.
+
 Cache, remote object store and Git LFS endpoint are separate provider roles.
 Publishing a Git pointer does not prove its bytes reached a remote; successful
 transfer does not establish an independently retained backup. Removing one cache
 copy differs from deleting an object's final archive. Both use exact byte
 identity, but have different obligations and authority.
+The first executor excludes final-archive deletion. Operator-enabled apply is
+bounded to the admitted plan/provider policy, defaults to dry run, and supports
+status/cancellation/recovery. Cancellation stops future destructive work while
+preserving valid copies and unsettled protection. Credentials and private root
+paths stay in machine-local profiles; portable exports omit secrets. Reject
+symlink/path escapes and replaced store roots before provider IO.
 
 ### Fixtures already present and the missing end-to-end proof
 
@@ -115,6 +142,13 @@ writer; changed Git/policy basis; reverted selection; partial/unknown dependency
 coverage; partial batch progress; retained destination going offline; and restart
 after removal but before completion acknowledgement. Each case names the exact
 permitted effects and proves surviving bytes, not only a reported success flag.
+Also test conflicting policy/claim precedence, duplicate operation-ID mismatch,
+stale or replaced store identity, credential denial, path/symlink escape,
+understated scratch peak, shared-pack zero reclaim, cancellation between steps
+and retention-domain aliasing. Pin finite workload/latency/peak-byte limits before
+each implementation slice. Keep an append-only operation trail outside Git; a
+fresh process must distinguish done, partial, held and uncertain outcomes without
+blindly repeating destructive actions.
 Then repeat the same contract suite against a local remote-provider test server
 and real LFS client fixtures. Explicit opt-in provider qualification follows;
 synthetic remote success alone does not qualify a cloud service.
@@ -124,6 +158,9 @@ priority 6 to WP-009/011/012 and priorities 1/7 to WP-008/015/016. Each slice
 requires exact-source controls, focused failures and protected checks. Optional
 torrent transport, broad WASM parity and additional presentation features follow
 the working local orchestration slice; they are not prerequisites for it.
+
+The [six-role review](docs/reviews/2026-11-08-storage-roadmap-roles.md) records
+design corrections and the implementation proof still required.
 
 ## Full outstanding obligations
 

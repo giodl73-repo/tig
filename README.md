@@ -48,6 +48,10 @@ Read the [safety promise](docs/SAFETY-PROMISE.md).
 
 ## Build and try it
 
+Contributors and coding agents: follow [development startup](docs/DEVELOPMENT.md)
+and [resume state](context/RESUME.md) to continue from this repo without prior
+project-session history. The [roadmap](PRODUCT_PLAN.md) orders the next slices.
+
 Use current stable Rust, Git and Git LFS. Rust 1.98.0 is the recorded local
 qualification toolchain; no minimum supported Rust version is fixed yet.
 Windows and Linux run in CI. Install Git LFS before integration tests.

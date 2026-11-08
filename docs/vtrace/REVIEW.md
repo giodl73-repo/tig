@@ -1147,3 +1147,10 @@ Existing replica and retention-handoff tests were rerun to verify the inventory
 of component evidence; their 20 and 16 entries pass, including helper entries.
 All six real Git LFS client cases also pass in temporary repositories. No cloud
 upload, final-payload eviction or complete orchestration proof follows.
+
+Six-role roadmap follow-up (input44b7dab): all parliament checklists applied to
+the storage sequence and self-contained development startup. Five high-severity
+design omissions and one medium adoption omission are corrected in the plan;
+see [findings, dispositions and remaining proof](../reviews/2026-11-08-storage-roadmap-roles.md).
+Pass_with_risk for revised prose only. Executor/remote/eviction proof remains
+open; no independent review, live operation or runtime deployment is authorized.
