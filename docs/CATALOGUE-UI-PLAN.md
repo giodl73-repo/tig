@@ -39,7 +39,7 @@ samples are explicit. These fixtures supplement real Rust API tests and do not
 claim browser layout, keyboard or live-project acceptance. Run them with:
 
 ```text
-node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs
+node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs
 ```
 
 Record Compare adds an in-memory exact baseline across project navigation and
@@ -49,6 +49,15 @@ definitions/slots, cross-project snapshots, baseline races, retry and privacy.
 Run them with `node --test crates/tig-git/tests/compare-flows.cjs`. The baseline
 does not reserve storage or silently resolve an older revision after a project
 changes snapshots. Full browser/provider acceptance remains separate.
+
+Object workflows connect registered byte bindings to the declaring owner's
+Overview, Compare and Impact tabs, preserving the captured object scope and
+references tab on return. Integrated fixtures cover shared bytes across projects,
+retained/nested evidence, explicit unknown owners, sampled bindings, source and
+identity refusals, same-object request races, retry and late held-review replies.
+These shortcuts inspect owner records; they do not infer production edges from
+byte associations or authorize eviction. Synthetic controller/API checks do not
+establish visual/browser acceptance.
 
 | Milestone | Product | Status |
 | --- | --- | --- |
