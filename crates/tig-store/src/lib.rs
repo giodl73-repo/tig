@@ -10,6 +10,7 @@ pub mod orchestration;
 pub mod protection;
 pub mod replica;
 pub mod retention;
+pub mod retirement;
 pub mod source_claims;
 pub mod store_protection;
 
@@ -104,6 +105,9 @@ pub enum Error {
     InvalidRoot,
     Busy,
     Retained,
+    AuthorizedAbsence,
+    ReacquisitionRequired,
+    NeedsRecovery,
     Io(io::ErrorKind, String),
 }
 impl From<io::Error> for Error {

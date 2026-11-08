@@ -93,3 +93,11 @@ rechecked before execution and destination peak computation. Old design-5 plan
 identities remain unchanged. Older clients reject the unknown provider contract.
 This supported copy profile does not grant removal or implement namespace/epoch
 migration. Machine-local paths and authority witnesses remain caller-owned.
+
+Fresh design-7 stores expose a distinct managed-incarnation copy contract. Initial
+copy/retention uses existing accounted primitives with additional bounded lifecycle
+metadata budget. A previously retired hash requires the explicit library
+[reacquisition protocol](MANAGED-REPLICA-RETIREMENT.md); ordinary copy never silently
+revives it. tig-storage errors distinguish authorized_absence, reacquisition_required
+and needs_recovery. The copy CLI still exposes no removal/reacquisition command;
+the new guarded retirement executor is a separate explicit library interface.

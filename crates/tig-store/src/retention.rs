@@ -172,6 +172,24 @@ pub fn coverage(
         eviction_authority: false,
     })
 }
+/// Caller has freshly verified the source under its exclusive provider fence.
+pub(crate) fn coverage_subject(
+    object: &tig_core::Object,
+    source: &Digest,
+    retained: &[RetainedReplica],
+    enrollments: &[replica::ReplicaEnrollment],
+    required_domains: usize,
+    ack: AckLevel,
+) -> Result<bool> {
+    if retained.iter().any(|r| !r.valid) {
+        return Err(RetentionError::Invalidated);
+    }
+    let live = retained.iter().map(|r| &r.replica).collect::<Vec<_>>();
+    Ok(
+        replica::coverage_subject(object, source, &live, enrollments, required_domains, ack)?
+            .meets_declared_coverage(),
+    )
+}
 pub fn plan(store: &LocalStore, request: &RetentionRequest) -> Result<RetentionPlan> {
     store.capabilities().check(&request.publication)?;
     if request.minimum_ack > request.publication.required {

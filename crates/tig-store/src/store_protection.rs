@@ -160,7 +160,7 @@ impl Enrollment {
         Ok(())
     }
 }
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Checked {
     pub namespace: Digest,
     pub checkpoint: Checkpoint,
@@ -185,6 +185,9 @@ pub struct Assessment<'a> {
     _provider: ExclusiveObject,
 }
 impl Assessment<'_> {
+    pub(crate) fn provider(&self) -> &ExclusiveObject {
+        &self._provider
+    }
     pub fn summary(&self) -> Summary<'_> {
         Summary {
             schema: "tig.store-protection-assessment.design-1",

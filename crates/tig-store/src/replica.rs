@@ -163,7 +163,8 @@ pub fn verify(store: &LocalStore, publication: &Request) -> Result<VerifiedRepli
 }
 
 /// Explicit trusted mapping, not automatic proof of native failure independence.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct ReplicaEnrollment {
     pub store: Digest,
     pub failure_domain: Key,
@@ -202,6 +203,24 @@ pub fn coverage(
     required_domains: usize,
     required_ack: AckLevel,
 ) -> Result<ReplicaCoverage> {
+    source.fresh()?;
+    coverage_subject(
+        &source.observation.publication.object,
+        &source.observation.store,
+        retained,
+        enrollments,
+        required_domains,
+        required_ack,
+    )
+}
+pub(crate) fn coverage_subject(
+    object: &tig_core::Object,
+    source: &Digest,
+    retained: &[&VerifiedReplica],
+    enrollments: &[ReplicaEnrollment],
+    required_domains: usize,
+    required_ack: AckLevel,
+) -> Result<ReplicaCoverage> {
     if retained.len() > MAX_REPLICAS
         || enrollments.len() > MAX_REPLICAS + 1
         || required_domains == 0
@@ -209,7 +228,6 @@ pub fn coverage(
     {
         return Err(ReplicaError::Budget);
     }
-    source.fresh()?;
     let mut mapping = BTreeMap::new();
     for enrollment in enrollments {
         if mapping
@@ -219,14 +237,12 @@ pub fn coverage(
             return Err(ReplicaError::ConflictingEnrollment);
         }
     }
-    let source_domain = mapping
-        .get(&source.observation.store)
-        .ok_or(ReplicaError::MissingEnrollment)?;
-    let mut stores = BTreeSet::from([&source.observation.store]);
+    let source_domain = mapping.get(source).ok_or(ReplicaError::MissingEnrollment)?;
+    let mut stores = BTreeSet::from([source]);
     let mut domains = BTreeSet::new();
     for replica in retained {
         replica.fresh()?;
-        if replica.observation.publication.object != source.observation.publication.object {
+        if replica.observation.publication.object != *object {
             return Err(ReplicaError::ObjectMismatch);
         }
         if replica.observation.level < required_ack {

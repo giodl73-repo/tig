@@ -42,9 +42,14 @@ Dropping a reference **does not authorize deletion**.
 
 These components are not a complete autonomous storage service. Full dependency/job
 coverage, end-to-end custody, automatic lifecycle reconciliation, remote transfer
-providers and safe payload eviction remain open. The catalogue cannot move or
+providers and production eviction qualification remain open. The catalogue cannot move or
 delete assets. Registration does not prove a remote copy exists.
 Read the [safety promise](docs/SAFETY-PROMISE.md).
+
+The opt-in [managed local library](specs/MANAGED-REPLICA-RETIREMENT.md) now
+supports bounded ordinary replica retirement, cancellation and explicit
+reacquisition with retained-survivor and incarnation fences in synthetic stores.
+It does not enable live caches, automatic merge actions or final-copy deletion.
 
 ## Build and try it
 

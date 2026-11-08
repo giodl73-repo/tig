@@ -123,8 +123,13 @@ fn plan_with_context(
             .ok_or(AccountedError::InvalidPlan)
     };
     let payload = round(request.object.bytes)?;
+    let lifecycle_files = if store.supports_retirement() {
+        crate::local::lifecycle::MAX_FILES as u64
+    } else {
+        0
+    };
     let metadata = round(65_536)?
-        .checked_mul(MAX_SCOPE_FILES as u64 + 4)
+        .checked_mul(MAX_SCOPE_FILES as u64 + 4 + lifecycle_files)
         .ok_or(AccountedError::InvalidPlan)?;
     let limit = payload
         .checked_mul(2)
@@ -147,6 +152,47 @@ pub fn publish_accounted(
     source: &mut dyn Read,
 ) -> Result<AccountedReceipt> {
     publish_hook(ledger, store, job, plan, source, |_| Ok(()))
+}
+pub(crate) fn admit(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &PublicationPlan,
+) -> Result<JournalRef> {
+    let current = plan_with_context(store, &planned.request, planned.context.clone())?;
+    if encode(&current)? != encode(planned)? {
+        return Err(AccountedError::InvalidPlan);
+    }
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    let identity = Digest::blob(&encode(&(store.identity(), &planned.request.operation))?);
+    Ok(ledger
+        .begin_publication(
+            Key::parse(&format!("publish-{}", identity.as_str()))?,
+            job,
+            planned.request.owner.clone(),
+            binding,
+            planned.limit,
+        )?
+        .reference()
+        .clone())
+}
+pub(crate) fn prepare(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &PublicationPlan,
+    allocation: &JournalRef,
+) -> Result<crate::local::LocalAttempt> {
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    ledger.publication_status(allocation, &binding)?;
+    let attempt = store.attempt(&planned.request)?;
+    attempt.bind(&Binding {
+        schema: "tig.accounted-publication.design-1",
+        plan: planned,
+        job,
+        allocation,
+    })?;
+    Ok(attempt)
 }
 fn publish_hook(
     ledger: &mut CapacityLedger,

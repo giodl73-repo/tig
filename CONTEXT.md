@@ -21,9 +21,12 @@ Existing-byte readers and explicit local publication/restore/retention primitive
 have bounded fixture evidence. The first tig-store orchestration slice composes
 input-bound plans and source-preserving copy/retention with an explicit tig-storage
 CLI; specs/STORAGE-ORCHESTRATION.md limits its scope. Protection completeness remains
-caller-declared and all removal stays held. Full live-project custody, active-job/dependency
-coverage and payload eviction remain open. Catalogue alignment/older-copy actions
-are held previews; there is no removal executor. No cache initialization, scan,
+caller-declared for that copy-only CLI. The opt-in managed local library now adds
+bounded ordinary replica retirement/cancellation and explicit reacquisition under
+specs/MANAGED-REPLICA-RETIREMENT.md. It requires scoped protection, retained
+survivors and incarnation-bound recovery in synthetic stores. Full live-project
+custody, native dependency coverage and production eviction remain open. Catalogue
+alignment/older-copy actions are held previews. No cache initialization, scan,
 hydration, daemon or hook installation on resume.
 
 Read AGENTS.md and the active wave/pulse. docs/vtrace/README.md routes controls

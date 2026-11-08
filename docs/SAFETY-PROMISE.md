@@ -3,7 +3,9 @@
 This is Tig's governing design principle and acceptance obligation, not a claim
 that production storage safety is already implemented. The pure core performs
 no IO; a bounded local publication adapter is tested in explicit temporary roots.
-There is no eviction implementation. Full-system invariant TIG-I-01 remains OPEN.
+An opt-in [managed local profile](../specs/MANAGED-REPLICA-RETIREMENT.md) adds
+bounded ordinary replica eviction/cancellation and explicit reacquisition in
+synthetic fixtures. Production adoption and full-system invariant TIG-I-01 remain OPEN.
 
 **Tig must not silently overwrite or make acknowledged managed content
 unrecoverable through its own publication, replacement, movement, cleanup or

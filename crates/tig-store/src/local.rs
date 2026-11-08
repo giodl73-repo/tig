@@ -10,6 +10,7 @@ use std::{
     sync::atomic::{AtomicU64, Ordering},
 };
 use tig_core::{Digest, identity};
+pub(crate) mod lifecycle;
 
 pub const MAX_OBJECT_BYTES: u64 = 8 * 1024 * 1024;
 static NEXT: AtomicU64 = AtomicU64::new(0);
@@ -22,12 +23,16 @@ struct Manifest {
     instance: Digest,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     protection: Option<crate::store_protection::Binding>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    retirement: Option<String>,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Record {
     schema: String,
     request: Request,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    incarnation: Option<Digest>,
 }
 
 pub struct LocalStore {
@@ -35,12 +40,13 @@ pub struct LocalStore {
     place: Key,
     instance: Digest,
     protection: Option<crate::store_protection::Binding>,
+    managed: bool,
     staging: Option<PathBuf>,
 }
 impl LocalStore {
     /// Creates a fresh explicit root only. Never enrolls an existing directory.
     pub fn create(root: &Path, place: Key) -> Result<Self> {
-        Self::create_mode(root, place, None)
+        Self::create_mode(root, place, None, false)
     }
     /// Explicit fresh store only; no migration or discovery of existing clients.
     pub fn create_protected(
@@ -51,12 +57,23 @@ impl LocalStore {
         if !protection.valid() {
             return Err(Error::InvalidRequest);
         }
-        Self::create_mode(root, place, Some(protection))
+        Self::create_mode(root, place, Some(protection), false)
+    }
+    pub fn create_managed(
+        root: &Path,
+        place: Key,
+        protection: crate::store_protection::Binding,
+    ) -> Result<Self> {
+        if !protection.valid() {
+            return Err(Error::InvalidRequest);
+        }
+        Self::create_mode(root, place, Some(protection), true)
     }
     fn create_mode(
         root: &Path,
         place: Key,
         protection: Option<crate::store_protection::Binding>,
+        managed: bool,
     ) -> Result<Self> {
         check_root_spelling(root)?;
         fs::create_dir(root)?;
@@ -70,6 +87,9 @@ impl LocalStore {
         ] {
             fs::create_dir(root.join(name))?;
         }
+        if managed {
+            fs::create_dir(root.join("lifecycle"))?;
+        }
         let mut nonce = [0u8; 32];
         getrandom::fill(&mut nonce).map_err(|_| Error::InvalidRoot)?;
         let store = Self {
@@ -77,6 +97,7 @@ impl LocalStore {
             place,
             instance: Digest::blob(&nonce),
             protection,
+            managed,
             staging: None,
         };
         store.write_record(
@@ -86,6 +107,7 @@ impl LocalStore {
                 place: store.place.clone(),
                 instance: store.instance.clone(),
                 protection: store.protection.clone(),
+                retirement: store.managed.then(|| lifecycle::SCHEMA.to_owned()),
             },
         )?;
         Ok(store)
@@ -103,6 +125,7 @@ impl LocalStore {
             place: manifest.place,
             instance: manifest.instance,
             protection: manifest.protection,
+            managed: manifest.retirement.is_some(),
             staging: None,
         };
         store.guard()?;
@@ -117,8 +140,13 @@ impl LocalStore {
     pub fn protection(&self) -> Option<&crate::store_protection::Binding> {
         self.protection.as_ref()
     }
+    pub fn supports_retirement(&self) -> bool {
+        self.managed
+    }
     fn schema(&self) -> &str {
-        if self.protection.is_some() {
+        if self.managed {
+            "tig.local-store.design-7"
+        } else if self.protection.is_some() {
             "tig.local-store.design-6"
         } else {
             "tig.local-store.design-5"
@@ -251,6 +279,7 @@ impl LocalStore {
                 place: self.place.clone(),
                 instance: self.instance.clone(),
                 protection: self.protection.clone(),
+                managed: self.managed,
                 staging: Some(scope.clone()),
             },
             scope,
@@ -286,8 +315,22 @@ impl LocalStore {
         file.try_lock_shared().map_err(lock_error)?;
         Ok(SharedObject { _file: file })
     }
+    fn existing_shared(&self, object: &Object) -> Result<SharedObject> {
+        self.guard()?;
+        let path = self.root.join("fences").join(object.sha256.as_str());
+        regular(&path)?;
+        let file = OpenOptions::new().read(true).write(true).open(path)?;
+        if file.metadata()?.len() != 0 {
+            return Err(Error::CorruptRecord);
+        }
+        file.try_lock_shared().map_err(lock_error)?;
+        Ok(SharedObject { _file: file })
+    }
     /// Exclusion only; not retirement authority, claim coverage or custody proof.
     pub fn try_exclusive_object(&self, object: &Object) -> Result<ExclusiveObject> {
+        if self.managed {
+            return self.existing_exclusive_object(object);
+        }
         let file = self.anchor(object)?;
         file.try_lock().map_err(lock_error)?;
         let guard = ExclusiveObject {
@@ -478,7 +521,14 @@ impl LocalStore {
     }
     /// Read-only byte access with a shared guard held for the returned handle's life.
     pub fn read_object(&self, object: &Object) -> Result<ObjectRead> {
-        let lease = self.shared(object)?;
+        if self.managed {
+            self.lifecycle_readable(object)?;
+        }
+        let lease = if self.managed {
+            self.existing_shared(object)?
+        } else {
+            self.shared(object)?
+        };
         let path = self.object_path(object);
         regular(&path)?;
         let mut file = File::open(path)?;
@@ -495,6 +545,9 @@ impl LocalStore {
     }
     fn guard(&self) -> Result<()> {
         directory(&self.root)?;
+        if self.managed {
+            directory(&self.root.join("lifecycle"))?;
+        }
         for name in [
             "objects",
             "operations",
@@ -509,6 +562,7 @@ impl LocalStore {
         if !valid_manifest(&manifest)
             || (manifest.place != self.place || manifest.instance != self.instance)
             || manifest.protection != self.protection
+            || manifest.retirement != self.managed.then(|| lifecycle::SCHEMA.to_owned())
         {
             return Err(Error::CorruptRecord);
         }
@@ -573,14 +627,20 @@ impl LocalStore {
         if record.request != *request {
             return Err(Error::OperationConflict);
         }
+        self.check_incarnation(request, record.incarnation.as_ref())?;
         Ok(())
     }
 }
 
 fn valid_manifest(manifest: &Manifest) -> bool {
-    match (&*manifest.schema, &manifest.protection) {
-        ("tig.local-store.design-5", None) => true,
-        ("tig.local-store.design-6", Some(binding)) => binding.valid(),
+    match (
+        &*manifest.schema,
+        &manifest.protection,
+        manifest.retirement.as_deref(),
+    ) {
+        ("tig.local-store.design-5", None, None) => true,
+        ("tig.local-store.design-6", Some(binding), None) => binding.valid(),
+        ("tig.local-store.design-7", Some(binding), Some(lifecycle::SCHEMA)) => binding.valid(),
         _ => false,
     }
 }
@@ -863,6 +923,9 @@ impl LocalAttempt {
             self.store.op_path(&request.operation, "intent"),
             self.store.op_path(&request.operation, "done"),
         ]);
+        if self.store.managed {
+            paths.extend(self.store.lifecycle_files(&request.object)?);
+        }
         let mut total = 0u64;
         for path in paths {
             regular(&path)?;
@@ -881,9 +944,37 @@ impl PublicationBackend for LocalStore {
         }
     }
     fn publication_guard(&mut self, object: &Object) -> Result<Box<dyn PublicationGuard>> {
+        self.require_accounted_managed()?;
+        if self.managed {
+            self.guard()?;
+            if object.bytes > MAX_OBJECT_BYTES {
+                return Err(Error::Budget);
+            }
+            if self.has_lifecycle_metadata(object)? {
+                return Ok(Box::new(self.existing_shared(object)?));
+            }
+            let path = self.root.join("fences").join(object.sha256.as_str());
+            let file = match OpenOptions::new()
+                .read(true)
+                .write(true)
+                .create_new(true)
+                .open(path)
+            {
+                Ok(file) => file,
+                Err(e) if e.kind() == io::ErrorKind::AlreadyExists => {
+                    return Err(Error::NeedsRecovery);
+                }
+                Err(e) => return Err(e.into()),
+            };
+            file.try_lock_shared().map_err(lock_error)?;
+            let guard = SharedObject { _file: file };
+            self.bootstrap_incarnation(object)?;
+            return Ok(Box::new(guard));
+        }
         Ok(Box::new(self.shared(object)?))
     }
     fn protect(&mut self, request: &Request) -> Result<State> {
+        self.require_accounted_managed()?;
         self.capabilities().check(request)?;
         let _guard = self.shared(&request.object)?;
         self.guard()?;
@@ -898,11 +989,13 @@ impl PublicationBackend for LocalStore {
         if path_present(&intent)? {
             self.check_record(&intent, request, "tig.publication-intent.design-1")?;
         } else {
+            let incarnation = self.ensure_incarnation(request)?;
             self.write_record(
                 &intent,
                 &Record {
                     schema: "tig.publication-intent.design-1".into(),
                     request: request.clone(),
+                    incarnation,
                 },
             )?;
         }
@@ -913,6 +1006,9 @@ impl PublicationBackend for LocalStore {
         }
     }
     fn verified_object(&mut self, object: &Object) -> Result<bool> {
+        if self.managed {
+            self.lifecycle_readable(object)?;
+        }
         let _guard = self.shared(object)?;
         self.guard()?;
         if object.bytes > MAX_OBJECT_BYTES {
@@ -931,6 +1027,7 @@ impl PublicationBackend for LocalStore {
         Ok(true)
     }
     fn publish_object(&mut self, request: &Request, source: &mut dyn Read) -> Result<()> {
+        self.require_accounted_managed()?;
         self.capabilities().check(request)?;
         let _guard = self.shared(&request.object)?;
         self.guard()?;
@@ -960,6 +1057,7 @@ impl PublicationBackend for LocalStore {
         Ok(())
     }
     fn commit(&mut self, request: &Request) -> Result<()> {
+        self.require_accounted_managed()?;
         self.capabilities().check(request)?;
         let _guard = self.shared(&request.object)?;
         self.guard()?;
@@ -976,6 +1074,7 @@ impl PublicationBackend for LocalStore {
             &Record {
                 schema: "tig.publication-completion.design-1".into(),
                 request: request.clone(),
+                incarnation: self.ensure_incarnation(request)?,
             },
         )
     }

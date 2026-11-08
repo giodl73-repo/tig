@@ -71,6 +71,18 @@ fn code(error: orchestration::Error) -> &'static str {
         Error::Budget => "budget",
         Error::StaleAdmission => "stale_admission",
         Error::WrongStore => "wrong_store",
+        Error::Store(tig_store::Error::AuthorizedAbsence)
+        | Error::Publication(AccountedError::Store(tig_store::Error::AuthorizedAbsence)) => {
+            "authorized_absence"
+        }
+        Error::Store(tig_store::Error::ReacquisitionRequired)
+        | Error::Publication(AccountedError::Store(tig_store::Error::ReacquisitionRequired)) => {
+            "reacquisition_required"
+        }
+        Error::Store(tig_store::Error::NeedsRecovery)
+        | Error::Publication(AccountedError::Store(tig_store::Error::NeedsRecovery)) => {
+            "needs_recovery"
+        }
         Error::Ledger(LedgerError::Conflict)
         | Error::Publication(AccountedError::Ledger(LedgerError::Conflict)) => "operation_conflict",
         Error::Ledger(LedgerError::Budget)
