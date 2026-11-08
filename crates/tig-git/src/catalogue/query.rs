@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 
 mod admission;
 mod impact;
+mod manifest_impact;
 mod manifests;
 mod preview;
 pub const REQUEST_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY.schema.json");
@@ -35,6 +36,15 @@ pub enum Operation {
         collection: String,
         work: String,
         sha256: String,
+        #[serde(default)]
+        expected_content: Option<tig_core::Digest>,
+    },
+    ManifestImpact {
+        project: String,
+        collection: String,
+        work: String,
+        sha256: String,
+        kinds: BTreeSet<graph::EdgeKind>,
         #[serde(default)]
         expected_content: Option<tig_core::Digest>,
     },
@@ -176,6 +186,13 @@ impl Request {
                 work,
                 expected_content,
                 ..
+            }
+            | Operation::ManifestImpact {
+                project,
+                collection,
+                work,
+                expected_content,
+                ..
             } if project == "all"
                 || !bounded(collection, 80)
                 || !bounded(work, 256)
@@ -200,6 +217,7 @@ impl Operation {
             Self::Projects => "projects",
             Self::Works { .. } => "works",
             Self::ManifestReferences { .. } => "manifest_references",
+            Self::ManifestImpact { .. } => "manifest_impact",
             Self::Inspect { .. } => "inspect",
             Self::Admission { .. } => "admission",
             Self::PreviewAdmission { .. } => "preview_admission",
@@ -216,6 +234,7 @@ impl Operation {
             Self::Find { project, .. }
             | Self::Works { project, .. }
             | Self::ManifestReferences { project, .. }
+            | Self::ManifestImpact { project, .. }
             | Self::References { project, .. }
             | Self::Inspect { project, .. }
             | Self::Admission { project, .. }
@@ -323,6 +342,12 @@ impl Catalogue {
                 let total = d["total"].as_u64();
                 (d, total)
             }
+            Operation::ManifestImpact { .. } => {
+                let d = self.manifest_impact_query(request)?;
+                complete = d["complete_declared_coverage"] == true;
+                let total = d["total_known"].as_u64();
+                (d, total)
+            }
             Operation::Inspect { project, asset } => {
                 let p = self.projects.get(project).ok_or("unknown_project")?;
                 let d = p.inspect(asset).map_err(|_| "unknown_asset")?;
@@ -396,7 +421,7 @@ impl Catalogue {
         Ok(
             json!({"schema":"tig.query-result.experimental-1","operation":request.query.name(),
             "status":if complete{"complete"}else{"partial"},"request":request_object,"basis":basis,"basis_sha256":basis_digest,"paging":paging,
-            "coverage":{"complete_declared_scope":complete,"complete_project_scope":false,"payloads_opened":if matches!(request.query,Operation::ManifestReferences{..}){Value::Null}else{json!(0)},"media_leaves_opened":0,
+            "coverage":{"complete_declared_scope":complete,"complete_project_scope":false,"payloads_opened":if matches!(request.query,Operation::ManifestReferences{..}|Operation::ManifestImpact{..}){Value::Null}else{json!(0)},"media_leaves_opened":0,
                 "exclusions":["unregistered files","unadmitted nested inventories","other Git LFS pointers","cross-project semantic dependencies","active jobs and custody"]},
             "data":data,"authorizes_eviction":false}),
         )

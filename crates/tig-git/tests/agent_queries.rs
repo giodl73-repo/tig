@@ -4,6 +4,8 @@ mod admission_cases;
 mod common;
 #[path = "agent_queries/manifest_cases.rs"]
 mod manifest_cases;
+#[path = "agent_queries/manifest_impact_cases.rs"]
+mod manifest_impact_cases;
 #[path = "agent_queries/preview_cases.rs"]
 mod preview_cases;
 use common::{git, git_executable};

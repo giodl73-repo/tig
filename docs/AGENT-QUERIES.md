@@ -46,6 +46,7 @@ source Git. Windows paths can use forward slashes in JSON.
 | shared | left/right project IDs; optional category | Unique shared selected objects and their record bindings |
 | references | project, sha256 | Direct selected and named-stream bindings, including retained streams |
 | manifest_references | project, collection, work, sha256; required expected_basis on request | Byte associations inside explicitly admitted JSON manifests, with containing-document provenance |
+| manifest_impact | manifest_references fields plus explicit kinds | Potential native consumers if matching manifest-bearing records change; association and graph coverage reported separately |
 | compare | left/right objects with project and id | Record, definition and selected-byte equality; stream additions/removals/changes; changed authored field names |
 | impact / where_used | project, asset, kinds | Potential direct/transitive consumers with exact revision paths |
 
@@ -126,8 +127,40 @@ at most 5 seconds per reader operation, within the traversal's 60-second deadlin
 Metadata read attempts and decoded-document counts are separate. They do not
 measure exact physical handles or allocation. coverage.payloads_opened is null
 for this operation because that count is unknown; media_leaves_opened stays zero.
-Raw Git LFS pointer extraction and nested semantic-impact bridging remain separate
-adapter work. No scan, hydration, cache creation, transfer or deletion is implied.
+Raw Git LFS pointer extraction and typed semantic extraction from manifest
+contents remain separate adapter work. No scan, hydration, cache creation,
+transfer or deletion is implied.
+
+## From inventory evidence to potential consumers
+
+```text
+byte hash -> admitted manifest association -> exact selected owner record
+                 evidence only                         |
+                                           admitted semantic edges
+                                                       |
+                                              potential consumers
+```
+
+manifest_impact composes explicit manifest reads with the existing native impact
+engine. Pass the same scope/SHA and source basis as manifest_references, plus
+explicit edge kinds. All matching owners seed one graph query before paging;
+a consumer reached from several owners appears once with one deterministic
+shortest witness. data.targets lists the exact selected owner records separately;
+data.items lists other consumers. Each path ends at its row's target.
+
+The result is conditional on a manifest-bearing selected record changing. A
+manifest association is never inserted as a production edge. Retained bindings
+can also match; they do not prove current production use, a stale render or a
+need to regenerate. Use manifest_references with the same content token for the
+complete paged document/field/slot provenance. The content token is shared by
+both operations; keep scope, SHA, kinds and basis fixed across consumer pages.
+
+complete_manifest_extraction and complete_native_coverage remain separate;
+either gap makes the combined result partial. An old frozen pin unavailable
+within the admitted snapshot stays a gap and is never substituted with the
+current owner revision. Zero known consumers with gaps is unknown coverage.
+The existing manifest and graph limits both apply. No custody or eviction
+decision follows from these conditional paths.
 
 ## Agent decision loop
 

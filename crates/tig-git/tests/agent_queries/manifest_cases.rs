@@ -1,15 +1,15 @@
 use super::*;
 use tig_store::existing::Layout;
 
-struct Manifest {
-    f: Fixture,
-    cache: std::path::PathBuf,
-    layout: Layout,
-    root: Object,
-    leaf: Object,
+pub(super) struct Manifest {
+    pub(super) f: Fixture,
+    pub(super) cache: std::path::PathBuf,
+    pub(super) layout: Layout,
+    pub(super) root: Object,
+    pub(super) leaf: Object,
 }
 impl Manifest {
-    fn new(layout: Layout, document: Value) -> Self {
+    pub(super) fn new(layout: Layout, document: Value) -> Self {
         let f = Fixture::new();
         let cache = f.temp.path().join("existing-cache");
         fs::create_dir(&cache).unwrap();
@@ -39,7 +39,7 @@ impl Manifest {
             leaf: leaf(),
         }
     }
-    fn put(&self, value: &Value) -> Object {
+    pub(super) fn put(&self, value: &Value) -> Object {
         let raw = serde_json::to_vec(value).unwrap();
         let o = Object::from_bytes(&raw);
         let path = self.layout.object_path(&self.cache, &o.sha256);
@@ -47,11 +47,11 @@ impl Manifest {
         fs::write(path, raw).unwrap();
         o
     }
-    fn request(&self) -> Value {
+    pub(super) fn request(&self) -> Value {
         request(&self.f, &self.leaf)
     }
 }
-fn leaf() -> Object {
+pub(super) fn leaf() -> Object {
     Object::from_bytes(b"media leaf deliberately not stored")
 }
 fn request(f: &Fixture, leaf: &Object) -> Value {
@@ -63,7 +63,7 @@ fn request(f: &Fixture, leaf: &Object) -> Value {
     request["expected_basis"] = works["basis_sha256"].clone();
     request
 }
-fn edit(f: &Fixture, change: impl FnOnce(&mut Value)) {
+pub(super) fn edit(f: &Fixture, change: impl FnOnce(&mut Value)) {
     let mut c: Value = serde_json::from_slice(&fs::read(&f.enrollment).unwrap()).unwrap();
     change(&mut c);
     fs::write(&f.enrollment, serde_json::to_vec(&c).unwrap()).unwrap();

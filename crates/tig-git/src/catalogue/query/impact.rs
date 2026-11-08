@@ -29,6 +29,23 @@ pub(super) fn resolved_impact(
         .map_err(|_| "unknown_asset")?
         .reference()
         .clone();
+    let (mut report, consumers) =
+        resolved_targets(p, BTreeSet::from([target.clone()]), kinds, profiles, offset)?;
+    report
+        .as_object_mut()
+        .ok_or("graph_refused")?
+        .remove("targets");
+    report["target"] = json!(target);
+    Ok((report, consumers))
+}
+
+pub(super) fn resolved_targets(
+    p: &mut Project,
+    targets: BTreeSet<graph::Reference>,
+    kinds: &BTreeSet<graph::EdgeKind>,
+    profiles: &[graph::Profile],
+    offset: usize,
+) -> Result<(Value, BTreeMap<graph::Reference, tig_core::Digest>)> {
     let mut missing = BTreeMap::<graph::Reference, usize>::new();
     for asset in p.snapshot.selected_records() {
         if !profiles.iter().any(|profile| {
@@ -62,9 +79,9 @@ pub(super) fn resolved_impact(
     for e in g.edges() {
         reverse.entry(&e.target).or_default().push(e);
     }
-    let mut distances = BTreeMap::from([(target.clone(), 0usize)]);
+    let mut distances: BTreeMap<_, _> = targets.iter().map(|r| (r.clone(), 0usize)).collect();
     let mut witness = BTreeMap::new();
-    let mut pending = VecDeque::from([target.clone()]);
+    let mut pending: VecDeque<_> = targets.iter().cloned().collect();
     let mut depth_limited = false;
     while let Some(current) = pending.pop_front() {
         let distance = distances[&current];
@@ -81,7 +98,10 @@ pub(super) fn resolved_impact(
             pending.push_back(edge.from.clone());
         }
     }
-    let mut ordered: Vec<_> = distances.iter().filter(|(r, _)| **r != target).collect();
+    let mut ordered: Vec<_> = distances
+        .iter()
+        .filter(|(r, _)| !targets.contains(*r))
+        .collect();
     ordered.sort_by(|(a, da), (b, db)| da.cmp(db).then_with(|| a.cmp(b)));
     let fingerprint = |value: Value| -> Result<tig_core::Digest> {
         Ok(Object::from_bytes(
@@ -89,10 +109,13 @@ pub(super) fn resolved_impact(
         )
         .sha256)
     };
-    let mut consumers = BTreeMap::from([(
-        target.clone(),
-        fingerprint(json!(["tig.impact-witness.experimental-1", target]))?,
-    )]);
+    let mut consumers = BTreeMap::new();
+    for target in &targets {
+        consumers.insert(
+            target.clone(),
+            fingerprint(json!(["tig.impact-witness.experimental-1", target]))?,
+        );
+    }
     for (reference, _) in &ordered {
         let edge = witness.get(*reference).ok_or("graph_refused")?;
         let next = consumers.get(&edge.target).ok_or("graph_refused")?;
@@ -101,7 +124,9 @@ pub(super) fn resolved_impact(
             fingerprint(json!(["tig.impact-witness.experimental-1", edge, next]))?,
         );
     }
-    consumers.remove(&target);
+    for target in &targets {
+        consumers.remove(target);
+    }
     let items = ordered
         .iter()
         .skip(offset)
@@ -112,15 +137,15 @@ pub(super) fn resolved_impact(
             while let Some(edge) = witness.get(&current) {
                 path.push(*edge);
                 current = edge.target.clone();
-                if current == target {
+                if targets.contains(&current) {
                     break;
                 }
             }
-            json!({"asset":r,"distance":d,"class":g.nodes().get(*r).map(|n|n.class),"path":path,"witness_sha256":consumers.get(*r)})
+            json!({"asset":r,"distance":d,"class":g.nodes().get(*r).map(|n|n.class),"path":path,"target":current,"witness_sha256":consumers.get(*r)})
         })
         .collect::<Vec<_>>();
     Ok((
-        json!({"target":target,"kinds":kinds,"checkpoint":g.checkpoint(),"admission_sha256":g.admission(),
+        json!({"targets":targets,"kinds":kinds,"checkpoint":g.checkpoint(),"admission_sha256":g.admission(),
             "binding_sha256":g.binding_digest(),"registered_roots":query.roots.len(),"nodes":g.nodes().len(),"edges":g.edges().len(),
             "total_known":ordered.len(),"items":items,"gaps":g.gaps().iter().take(100).collect::<Vec<_>>(),"gap_count":g.gaps().len(),
             "unadmitted_definitions":missing.iter().take(100).map(|(definition,count)|json!({"definition":definition,"registered_records":count})).collect::<Vec<_>>(),"unadmitted_definition_count":missing.len(),
