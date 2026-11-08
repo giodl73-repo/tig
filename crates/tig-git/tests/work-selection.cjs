@@ -19,6 +19,14 @@ function fixture(){
  vm.runInContext('drawNavigation=()=>{};load=()=>{}',context);
  return {state,context,$,requests};
 }
+
+test('work source can open Impact and preserves back-to-work after record inspection starts',()=>{
+ const f=fixture(),work={id:'work'},card={id:'source'};let inspected,returned;
+ f.state.selected={work};f.context.inspect=(item,tab)=>{inspected={item,tab};f.$('back-work').hidden=true;};
+ f.context.inspectWork=item=>{returned=item;};f.context.openWorkMember(card,'Impact');
+ assert.equal(inspected.item,card);assert.equal(inspected.tab,'Impact');
+ assert.equal(f.$('back-work').hidden,false);f.$('back-work').onclick();assert.equal(returned,work);
+});
 test('ordinary, Ctrl and Meta clicks select, union and clear',()=>{
  const {state,context,$}=fixture();
  context.chooseCollection('one');assert.deepEqual(Array.from(state.workCollections),['one']);assert.equal(state.workState,'Accepted');

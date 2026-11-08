@@ -1,6 +1,8 @@
 #![cfg(feature = "schema")]
 #[path = "agent_queries/admission_cases.rs"]
 mod admission_cases;
+#[path = "agent_queries/catalogue_impact_cases.rs"]
+mod catalogue_impact_cases;
 mod common;
 #[path = "agent_queries/manifest_cases.rs"]
 mod manifest_cases;

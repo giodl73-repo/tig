@@ -7,6 +7,7 @@ mod impact;
 mod manifest_impact;
 mod manifests;
 mod preview;
+mod view;
 pub const REQUEST_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY.schema.json");
 pub const RESULT_SCHEMA: &[u8] = include_bytes!("../../../../specs/AGENT-QUERY-RESULT.schema.json");
 
@@ -267,6 +268,26 @@ pub fn execute(mut config: Config, request: &Request) -> Result<Value> {
 }
 
 impl Catalogue {
+    pub(super) fn query_basis(
+        &self,
+        ids: &BTreeSet<&str>,
+    ) -> Result<(BTreeMap<String, Value>, tig_core::Digest)> {
+        let mut basis = BTreeMap::new();
+        for (id, p) in self
+            .projects
+            .iter()
+            .filter(|(id, _)| ids.contains("all") || ids.contains(id.as_str()))
+        {
+            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"fields":p.enrollment.fields,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles,"manifest_interpretation":manifests::interpretation(p)});
+            let interpretation =
+                Object::from_bytes(&serde_json::to_vec(&projection).map_err(|_| "query_refused")?);
+            basis.insert(id.clone(),json!({"commit":p.commit,"checkpoint":p.snapshot.checkpoint(),"records":p.profile.records,"definitions":p.profile.definitions,"interpretation":interpretation}));
+        }
+        let digest =
+            Object::from_bytes(&serde_json::to_vec(&basis).map_err(|_| "query_refused")?).sha256;
+        Ok((basis, digest))
+    }
+
     pub fn agent_query(&mut self, request: &Request) -> Result<Value> {
         request.validate()?;
         let ids = request.query.projects();
@@ -285,16 +306,7 @@ impl Catalogue {
         if !request.expected_snapshots.is_empty() && request.expected_snapshots != snapshots {
             return Err("stale_snapshot".into());
         }
-        let mut basis = BTreeMap::new();
-        for id in snapshots.keys() {
-            let p = &self.projects[id];
-            let projection = json!({"query_schema":Object::from_bytes(REQUEST_SCHEMA),"display":p.enrollment.display,"fields":p.enrollment.fields,"collections":p.enrollment.collections,"graph_profiles":p.enrollment.graph_profiles,"manifest_interpretation":manifests::interpretation(p)});
-            let interpretation =
-                Object::from_bytes(&serde_json::to_vec(&projection).map_err(|_| "query_refused")?);
-            basis.insert(id.clone(),json!({"commit":p.commit,"checkpoint":p.snapshot.checkpoint(),"records":p.profile.records,"definitions":p.profile.definitions,"interpretation":interpretation}));
-        }
-        let basis_digest =
-            Object::from_bytes(&serde_json::to_vec(&basis).map_err(|_| "query_refused")?).sha256;
+        let (basis, basis_digest) = self.query_basis(&ids)?;
         if request
             .expected_basis
             .as_ref()

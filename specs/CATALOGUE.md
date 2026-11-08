@@ -7,6 +7,24 @@ service and bundled frontend, gated by tig-git/schema. No daemon installation.
 ` tig-catalogue serve ABSOLUTE_ENROLLMENT [PORT] ` explicitly serves loopback
 (default 8799). Stop the process to stop the viewer.
 
+The record inspector's Impact tab traces potential consumers using owner-admitted
+relationship rules. A work's Overview links directly to its source record's
+Impact tab. Choose relationship kinds and explicitly Trace consumers. Counts,
+exact witness paths, unresolved relationships and missing definition-pin rules
+remain separate. Current record links preserve return navigation; a historical
+revision is displayed without silently opening its newer selected record.
+
+The authenticated `/api/impact` GET accepts only project, id, snapshot, kinds,
+offset and basis. One exact project/snapshot and a nonempty comma-separated set
+of distinct production/composition/publication/evidence/authority kinds are
+required. It reuses native agent impact and source-basis framing. Pages contain
+at most 25 consumers; nonzero offsets require the previous basis_sha256 as basis.
+Snapshot/basis drift refuses before graph traversal. The response reports scoped
+status, coverage, paging and native data; navigation cards are supplied only for
+the exact selected revision. HTTP response limits remain 4 MiB. No general agent
+query, profile admission or manifest/byte reading is exposed through this route.
+Missing coverage is unknown, never absence, regeneration or eviction authority.
+
 `tig-catalogue shared ENROLLMENT LEFT RIGHT NEW_REPORT [CATEGORY]` compares
 selected object identities in two explicit pinned projects. Only those project
 profiles are opened. Identity is SHA-256 plus length; conflicting lengths refuse.

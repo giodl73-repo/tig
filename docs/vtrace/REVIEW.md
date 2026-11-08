@@ -1095,3 +1095,11 @@ to one admitted native graph. See [scope and fixtures](../reviews/2026-11-07-man
 Pass_with_risk: potential consumers remain conditional on owner-record changes;
 retained associations do not become production edges. Exact old pins and missing
 coverage stay distinct. No independent/human acceptance or retirement authority.
+
+Catalogue impact producer review (input520531b): identity, privacy/provider,
+Git/adoption and concurrency lenses applied to a metadata-only authenticated
+impact endpoint and inspector controls. Exact selected navigation, explicit kinds,
+source-fenced pages, stale/late reply handling and unknown coverage are covered
+by [scoped fixtures and review](../reviews/2026-11-08-catalogue-impact.md).
+Pass_with_risk; visual/browser qualification and complete project/job/custody
+coverage remain open. No independent/human acceptance or eviction authority.

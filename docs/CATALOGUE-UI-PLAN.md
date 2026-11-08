@@ -21,6 +21,15 @@ volume or other project groupings. Plain records stay in Technical records.
 Work grouping is a presentation projection; it never changes asset identity,
 authoritative dependencies, selected bytes, approval or placement claims.
 
+Record Impact now has explicit relationship choices, 25-consumer pages and exact
+expandable paths. Work Overview offers a source-record shortcut. Known counts,
+graph gaps and missing definition-pin rules are visible; source/basis changes
+refuse mixed pages. Selected consumers open their exact current record, with
+return navigation; historical revisions are labelled without a newer-record
+substitution. This metadata-only UI does not expand inventory bytes. Conditional
+manifest impact remains available through the agent CLI. Browser qualification
+is separate from controller and authenticated loopback API fixtures.
+
 | Milestone | Product | Status |
 | --- | --- | --- |
 | U1 | Native multi-project intake, search, paging, exact refs and inspector | Implemented; initial flat view retained for technical inspection |
