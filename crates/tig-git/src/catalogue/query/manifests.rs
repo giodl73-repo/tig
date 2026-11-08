@@ -2,6 +2,13 @@
 use super::*;
 use crate::catalogue::storage::nested;
 
+pub(super) struct Matches {
+    pub refs: Vec<nested::Association>,
+    pub summary: Value,
+    pub content: tig_core::Digest,
+    pub complete: bool,
+}
+
 pub(super) fn interpretation(p: &Project) -> Value {
     let storage=p.enrollment.storage.as_ref().map(|s|json!({"nested":s.nested_content,
         "places":s.places.iter().map(|p|json!({"index":p.place_index,"read_allowed":p.live_probe})).collect::<Vec<_>>()}));
@@ -20,6 +27,26 @@ impl Catalogue {
         expected: Option<&tig_core::Digest>,
         offset: usize,
     ) -> Result<Value> {
+        let matched = self.manifest_matches(project, collection, work, sha, expected)?;
+        let total = matched.refs.len();
+        let items=matched.refs.iter().skip(offset).take(100).map(|r|json!({"project":project,"collection":collection,"work":work,"binding":"manifest","reference":r})).collect::<Vec<_>>();
+        let summary = matched.summary;
+        Ok(
+            json!({"project":project,"commit":self.projects[project].commit,"collection":collection,"work":work,"sha256":sha,
+            "items":items,"total":total,"content_sha256":matched.content,"extraction":summary,"complete_extraction":matched.complete,
+            "metadata_read_attempts":summary["read_attempts"],"metadata_documents_decoded":summary["documents_read"],
+            "semantics":"Direct byte associations in this explicitly requested admitted manifest scope. Containing documents and root bindings are provenance, not inferred production edges. Unrequested scopes, raw LFS pointers and semantic consumers remain unknown.","authorizes_eviction":false}),
+        )
+    }
+
+    pub(super) fn manifest_matches(
+        &self,
+        project: &str,
+        collection: &str,
+        work: &str,
+        sha: &str,
+        expected: Option<&tig_core::Digest>,
+    ) -> Result<Matches> {
         let digest = tig_core::Digest::parse(sha).map_err(|_| "invalid_request")?;
         let p = self.projects.get(project).ok_or("unknown_project")?;
         if !p
@@ -35,7 +62,7 @@ impl Catalogue {
             .as_ref()
             .is_some_and(|s| s.nested_content.is_some())
             && p.profile.byte_source.is_some();
-        let (items, total, summary) = if available {
+        let (refs, summary) = if available {
             let request = self
                 .nested_request(project, &p.commit, collection, work)
                 .map_err(|_| "manifest_scope_refused")?
@@ -54,14 +81,12 @@ impl Catalogue {
                 .associations()
                 .iter()
                 .filter(|r| r.object.sha256 == digest)
+                .cloned()
                 .collect();
-            let total = rows.len();
-            let items=rows.into_iter().skip(offset).take(100).map(|r|json!({"project":project,"collection":collection,"work":work,"binding":"manifest","reference":r})).collect::<Vec<_>>();
-            (items, total, loaded.read_summary().clone())
+            (rows, loaded.read_summary().clone())
         } else {
             (
                 Vec::new(),
-                0,
                 json!({"roots":0,"successful_roots":0,"failures":[{"reason":"manifest adapters or byte sources are not enrolled"}],"read_attempts":0,"documents_read":0,"metadata_bytes":0}),
             )
         };
@@ -72,11 +97,11 @@ impl Catalogue {
         let complete = available
             && summary["failures"].as_array().is_some_and(|v| v.is_empty())
             && summary["successful_roots"] == summary["roots"];
-        Ok(
-            json!({"project":project,"commit":p.commit,"collection":collection,"work":work,"sha256":sha,
-            "items":items,"total":total,"content_sha256":content,"extraction":summary,"complete_extraction":complete,
-            "metadata_read_attempts":summary["read_attempts"],"metadata_documents_decoded":summary["documents_read"],
-            "semantics":"Direct byte associations in this explicitly requested admitted manifest scope. Containing documents and root bindings are provenance, not inferred production edges. Unrequested scopes, raw LFS pointers and semantic consumers remain unknown.","authorizes_eviction":false}),
-        )
+        Ok(Matches {
+            refs,
+            summary,
+            content,
+            complete,
+        })
     }
 }

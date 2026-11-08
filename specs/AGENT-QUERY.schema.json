@@ -14,6 +14,7 @@
       {"type": "object", "additionalProperties": false, "required": ["operation"], "properties": {"operation": {"const": "projects"}}},
       {"type":"object","additionalProperties":false,"required":["operation","project"],"properties":{"operation":{"const":"works"},"project":{"type":"string","not":{"const":"all"}},"collection":{"type":"string","maxLength":80},"text":{"type":"string","maxLength":256},"state":{"type":"string","maxLength":120},"facet":{"type":"string","maxLength":120}}},
       {"type":"object","additionalProperties":false,"required":["operation","project","collection","work","sha256"],"properties":{"operation":{"const":"manifest_references"},"project":{"type":"string","not":{"const":"all"}},"collection":{"type":"string","minLength":1,"maxLength":80},"work":{"type":"string","minLength":1,"maxLength":256},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"expected_content":{"type":["string","null"],"pattern":"^[0-9a-f]{64}$"}}},
+      {"type":"object","additionalProperties":false,"required":["operation","project","collection","work","sha256","kinds"],"properties":{"operation":{"const":"manifest_impact"},"project":{"type":"string","not":{"const":"all"}},"collection":{"type":"string","minLength":1,"maxLength":80},"work":{"type":"string","minLength":1,"maxLength":256},"sha256":{"type":"string","pattern":"^[0-9a-f]{64}$"},"kinds":{"$ref":"#/$defs/kinds"},"expected_content":{"type":["string","null"],"pattern":"^[0-9a-f]{64}$"}}},
       {"type":"object","additionalProperties":false,"required":["operation","project","asset"],"properties":{"operation":{"const":"inspect"},"project":{"type":"string","not":{"const":"all"}},"asset":{"type":"string","minLength":1,"maxLength":256}}},
       {"type":"object","additionalProperties":false,"required":["operation","project","kinds"],"properties":{"operation":{"const":"admission"},"project":{"type":"string"},"definition":{"type":"string","maxLength":256},"kinds":{"type":"array","minItems":1,"maxItems":5,"uniqueItems":true,"items":{"enum":["production","composition","publication","evidence","authority"]}}}},
       {"type":"object","additionalProperties":false,"required":["operation","project","asset","kinds","profiles"],"properties":{"operation":{"const":"preview_admission"},"project":{"type":"string","not":{"const":"all"}},"asset":{"type":"string","minLength":1,"maxLength":256},"kinds":{"$ref":"#/$defs/kinds"},"profiles":{"type":"array","maxItems":128,"items":{"$ref":"#/$defs/profile"}}}},
@@ -25,8 +26,8 @@
     ]}
   },
   "allOf":[
-    {"if":{"properties":{"query":{"properties":{"operation":{"enum":["preview_admission","manifest_references"]}}}}},"then":{"required":["expected_basis"],"properties":{"expected_basis":{"type":"string"}}}},
-    {"if":{"required":["offset"],"properties":{"offset":{"minimum":1},"query":{"properties":{"operation":{"const":"manifest_references"}}}}},"then":{"properties":{"query":{"required":["expected_content"],"properties":{"expected_content":{"type":"string"}}}}}}
+    {"if":{"properties":{"query":{"properties":{"operation":{"enum":["preview_admission","manifest_references","manifest_impact"]}}}}},"then":{"required":["expected_basis"],"properties":{"expected_basis":{"type":"string"}}}},
+    {"if":{"required":["offset"],"properties":{"offset":{"minimum":1},"query":{"properties":{"operation":{"enum":["manifest_references","manifest_impact"]}}}}},"then":{"properties":{"query":{"required":["expected_content"],"properties":{"expected_content":{"type":"string"}}}}}}
   ],
   "$defs": {
     "asset": {"type": "object", "additionalProperties": false, "required": ["project", "id"], "properties": {"project": {"type": "string"}, "id": {"type": "string", "minLength": 1, "maxLength": 256}}},

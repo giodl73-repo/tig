@@ -25,6 +25,8 @@ This is source availability, not a stable product or full storage acceptance.
   search, byte/record comparison and explained impact through admitted graphs.
   Explicit work-scoped manifest references reuse nested adapters and verified
   readers, with source/content fences and document/field provenance.
+  Manifest impact joins all matching owners to one admitted graph, separating
+  association evidence from conditional native consumers and coverage gaps.
   Missing semantic profiles and excluded inventories remain explicit gaps.
 
 Current contracts and [architecture](docs/ARCHITECTURE.md) limit each claim.

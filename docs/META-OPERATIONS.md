@@ -9,6 +9,7 @@ Cache paths and filenames do not establish equality.
 | Do these projects share selected bytes? | Catalogue: Shared assets; CLI: shared | Same recorded SHA-256 and exact length, grouped with each project's asset IDs |
 | Which records bind this object? | CLI: references | Direct selected and named-stream references, including retained streams |
 | Where is it referenced inside an inventory? | CLI: works then manifest_references | Explicit admitted JSON scope; root, document and JSON-pointer provenance |
+| Who could be affected if that inventory owner changes? | CLI: manifest_impact | Conditional native consumers from all matching owners; association evidence stays distinct from semantic edges |
 | What changed in declared version content? | Work -> Versions -> Compare declared bytes | Added/shared/removed declarations in admitted version manifests; coverage remains explicit |
 | What changed in declared dependencies? | tig-graph inspect/compare | Caller-admitted graph/profile semantics; see [graph inspection](../specs/NATIVE-GRAPH.md) |
 | Are two videos perceptually equivalent? | Renderer/media adapter | Requires decoded media semantics; equal filenames or similar previews are insufficient |
@@ -48,7 +49,10 @@ Explicit manifest_references reuses admitted nested adapters and verified byte
 readers, including Git LFS layouts, with source and content fences for paging.
 It reads named metadata documents; media leaves remain unopened. It does not
 turn byte associations into production edges or authorize retirement.
-Remaining work includes raw LFS source extraction, nested semantic-impact bridging, cross-project semantic
+manifest_impact joins these associations to potential native consumers if their
+owner records change. It builds one graph, deduplicates consumers and preserves
+separate extraction/graph gaps. Retained associations do not imply production use.
+Remaining work includes raw LFS source extraction, typed semantic extraction from manifests, cross-project semantic
 dependencies and UI access to full graph comparison. Reuse the
 native graph and source extraction mechanisms rather than adding project scripts
 or a second hash database. Persisted indexes must be derived from exact snapshot

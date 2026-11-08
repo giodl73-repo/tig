@@ -93,6 +93,8 @@ snapshot/interpretation fencing and the Rust library interface.
 Use works to discover admitted scopes, then manifest_references for explicit
 inventory byte references with document/field provenance. This reads bounded
 named JSON metadata through enrolled readers, never referenced media leaves.
+manifest_impact traces potential native consumers if matching owner records
+change, keeping inventory evidence separate from semantic dependency paths.
 
 On Windows append .exe to the binary and supply an absolute Windows path.
 Open http://127.0.0.1:8799/; stop the foreground process to stop the viewer.

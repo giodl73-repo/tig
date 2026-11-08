@@ -1088,3 +1088,10 @@ reads, document provenance and source/content paging fences. See the exact scope
 and fixture evidence in [the review](../reviews/2026-11-07-manifest-queries.md).
 Disposition pass_with_risk: associations do not establish semantic consumers,
 full project coverage or eviction authority. No independent/human acceptance.
+
+Manifest impact producer review (input954af65): identity, provider/privacy,
+Git/adoption and concurrency lenses cover explicit association evidence joined
+to one admitted native graph. See [scope and fixtures](../reviews/2026-11-07-manifest-impact.md).
+Pass_with_risk: potential consumers remain conditional on owner-record changes;
+retained associations do not become production edges. Exact old pins and missing
+coverage stay distinct. No independent/human acceptance or retirement authority.

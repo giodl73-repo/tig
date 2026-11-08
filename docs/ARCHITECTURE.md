@@ -49,6 +49,12 @@ paths are hashed into interpretation identity without being exported. Named JSON
 reads yield document/pointer associations, not semantic production edges. Media
 leaves remain unopened; missing roots remain unknown and grant no eviction rights.
 
+Manifest impact uses the same extraction and a multi-root reverse traversal of
+one native graph. Association owners are exact selected records; paths traverse
+only admitted semantic edges. Owners and other consumers are separate, with
+deterministic shortest witnesses and independent extraction/graph coverage.
+Retained byte associations remain conditional evidence, never production edges.
+
 Profile previews pass an explicit candidate set to the same impact resolver and
 compare full known consumer sets and shortest-witness fingerprints. Neither
 candidate nor baseline enrollment is temporarily mutated. The request must fence
