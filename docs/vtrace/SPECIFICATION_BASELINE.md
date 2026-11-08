@@ -192,3 +192,11 @@ source bytes and default download compatibility while adding Basic Batch/PUT/
 verify/readback and existing accounted witnesses. Private action credentials are
 explicitly scoped; no automatic discovery/helper or implicit Batch-token forwarding.
 Real server/custody/large-file qualification and Git event integration remain open.
+
+Committed-ref lifecycle selection extends SPEC-002/003/004/005/006/007/008/009/013
+under [GIT-LIFECYCLE-RECONCILIATION](../../specs/GIT-LIFECYCLE-RECONCILIATION.md),
+inputd81cabe. Current selection admission reuses existing source event encodings;
+new experimental plan/profile/status documents remain distinct. Atomic adoption
+is desired protection, never byte/custody/convergence acknowledgement. Old-reader
+qualification uses a pinned pre-pair artifact separately from ordinary tests.
+The full Git lifecycle/provider execution and trigger boundary remain open.

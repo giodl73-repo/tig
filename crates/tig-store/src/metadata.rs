@@ -223,6 +223,13 @@ impl MetadataStore {
     pub fn checkpoint(&self) -> Checkpoint {
         self.checkpoint.clone()
     }
+    /// Fresh read-only provider view after explicit finish; never flushes writes.
+    pub fn finished_reader(&self) -> Result<MetadataReader> {
+        if self.poisoned || !self.pending.is_empty() {
+            return Err(Error::NeedsRecovery);
+        }
+        MetadataReader::open(&self.root, &self.checkpoint)
+    }
     /// Validated configured bounds at open. Not observed space or a reservation.
     pub fn limits(&self) -> Limits {
         self.config.limits

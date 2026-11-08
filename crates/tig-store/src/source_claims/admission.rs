@@ -157,6 +157,65 @@ impl Permit {
         Ok(authority == &self.authority && Digest::blob(&super::encode(request)?) == self.request)
     }
 }
+pub(super) struct PairPermit {
+    authority: Digest,
+    requests: Digest,
+    _locks: Locks,
+}
+impl PairPermit {
+    pub(super) fn matches(
+        &self,
+        authority: &Digest,
+        requests: &[super::Request; 2],
+    ) -> super::Result<bool> {
+        Ok(
+            authority == &self.authority
+                && Digest::blob(&super::encode(requests)?) == self.requests,
+        )
+    }
+}
+/// An atomic composition of the existing Prepare and Adopt commands.
+/// This changes desired protection only, never byte availability or custody.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Select {
+    pub prepare: Key,
+    pub adopt: Key,
+    pub source: Key,
+    pub owner: Key,
+    pub expected_revision: u64,
+    pub selection: super::Selection,
+}
+impl Select {
+    fn requests(&self, authority: &Digest) -> super::Result<[super::Request; 2]> {
+        Ok([
+            super::Request {
+                operation: self.prepare.clone(),
+                command: Command::Prepare {
+                    source: self.source.clone(),
+                    owner: self.owner.clone(),
+                    expected_revision: self.expected_revision,
+                    selection: self.selection.clone(),
+                },
+            },
+            super::Request {
+                operation: self.adopt.clone(),
+                command: Command::Adopt {
+                    source: self.source.clone(),
+                    owner: self.owner.clone(),
+                    expected_revision: self
+                        .expected_revision
+                        .checked_add(1)
+                        .ok_or(super::Error::Budget)?,
+                    prepared: super::Reference {
+                        journal: authority.clone(),
+                        operation: self.prepare.clone(),
+                    },
+                },
+            },
+        ])
+    }
+}
 pub struct SubjectFence {
     authority: Digest,
     object: Object,
@@ -358,6 +417,75 @@ impl Namespace {
         limits: &Limits,
     ) -> Result<Receipt> {
         self.apply_hook(operation, command, nodes, limits, |_| Ok(()))
+    }
+    /// Exact historical recovery; no commands are appended and no tree IO occurs.
+    pub fn selection_status(&mut self, selection: &Select) -> Result<Option<Receipt>> {
+        self.journal.check_guarded_marker()?;
+        let requests = selection.requests(self.identity())?;
+        match self.journal.apply_requests(&requests, true, |_| Ok(())) {
+            Ok(mut receipts) => Ok(receipts.pop()),
+            Err(super::Error::Missing) => Ok(None),
+            Err(e) => Err(e.into()),
+        }
+    }
+    pub fn select(
+        &mut self,
+        selection: &Select,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+    ) -> Result<Receipt> {
+        self.select_hook(selection, nodes, limits, |_| Ok(()))
+    }
+    fn select_hook(
+        &mut self,
+        selection: &Select,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+        hook: impl FnMut(Stage) -> super::Result<()>,
+    ) -> Result<Receipt> {
+        let start = Instant::now();
+        limits.validate().map_err(|_| Error::Budget)?;
+        self.journal.check_guarded_marker()?;
+        self.journal.sync()?;
+        let requests = selection.requests(self.identity())?;
+        if let Some(receipt) = self.selection_status(selection)? {
+            return Ok(receipt);
+        }
+        let mut after = self.journal.state.clone();
+        let before = after.sources.get(selection.source.as_str()).cloned();
+        for request in &requests {
+            after.transition(request)?;
+        }
+        let after = after
+            .sources
+            .get(selection.source.as_str())
+            .ok_or(super::Error::Corrupt)?;
+        let mut work = Work::new(nodes, limits, start)?;
+        let before = match before {
+            Some(source) => work.source(&source, self.policy())?,
+            None => BTreeMap::new(),
+        };
+        let after = work.source(after, self.policy())?;
+        let mut parts = BTreeSet::new();
+        for id in before.keys().chain(after.keys()) {
+            if before.get(id) != after.get(id) {
+                parts.insert(partition(id)?);
+            }
+        }
+        work.timed()?;
+        let held = locks(&self.journal.root, &parts, false)?;
+        work.timed()?;
+        self.journal.check_guarded_marker()?;
+        let permit = PairPermit {
+            authority: self.identity().clone(),
+            requests: Digest::blob(&super::encode(&requests)?),
+            _locks: held,
+        };
+        self.journal
+            .apply_atomic_admitted(&requests, &permit, hook)?
+            .pop()
+            .ok_or(super::Error::Corrupt)
+            .map_err(Into::into)
     }
     fn apply_hook(
         &mut self,

@@ -38,6 +38,15 @@ composition without changing its wire identities. Only the optional HTTP adapter
 enable the maintained TLS client. Default Git/LFS downloads remain independent
 of HTTP and typed-asset features. Remote availability grants no retained custody.
 
+The default `tig-lifecycle` CLI and `lifecycle` library connect an exact enrolled
+committed Git ref to the existing guarded source namespace. Immutable metadata
+finishes and is read through a fresh reader before one transactional Prepare/Adopt
+pair publishes desired protection. Existing event encodings and roles are reused.
+No-op duplicates append no commands; historical replay cannot replace a newer
+selection. Current ref observations are separate from admitted state. This is
+the selection prerequisite; provider copy/retention/eviction composition and
+trusted external trigger integration remain required. No service starts on resume.
+
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable
 request/result schemas cover inspect/admission, find, comparison and impact.

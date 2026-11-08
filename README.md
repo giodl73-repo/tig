@@ -46,6 +46,13 @@ providers and production eviction qualification remain open. The catalogue canno
 delete assets. Registration does not prove a remote copy exists.
 Read the [safety promise](docs/SAFETY-PROMISE.md).
 
+The [Git lifecycle selection interface](specs/GIT-LIFECYCLE-RECONCILIATION.md)
+adds `tig-lifecycle describe`, then explicit plan/status/apply/resume for an
+enrolled committed ref. It verifies persisted immutable metadata before atomic
+desired-claim adoption, preserves predecessors, and separates historical receipts
+from current ref observations. Storage convergence remains unknown; automatic
+copy/retention/eviction composition and a trusted GitHub trigger remain required.
+
 The optional `tig-git/upload` feature adds [Git LFS upload](specs/LFS-UPLOAD.md)
 through `tig-lfs upload describe` and an explicitly configured standalone agent.
 It authorizes exact OIDs, preserves verified local source bytes and uses bounded

@@ -421,3 +421,14 @@ an 8 MiB experimental protocol adapter; real-server/provider qualification,
 remote quota, custody and large-file/lifetime gates remain open. Next required
 product slice is trusted exact-ref lifecycle convergence, followed by bulk final
 deletion with retained-subset handoff and eventual metadata retirement.
+
+Priority-6 selection prerequisite: [Git lifecycle reconciliation](specs/GIT-LIFECYCLE-RECONCILIATION.md)
+now binds an exact enrolled committed ref, policy and expected source revision to
+verified persistent metadata and atomic desired-root adoption. Existing
+Prepare/Adopt commands commit together with no format change. Explicit library/
+CLI plan/status/apply/resume handles no-op duplicates, stale events, reverts,
+active jobs and historical receipts; observations do not assert provider convergence.
+The remaining priority-6 exit still requires automatic copy/retention/ordinary
+eviction composition, independently trusted trigger integration, configured branch
+withdrawal/draft/index lifecycle and end-to-end provider failure fixtures. This
+prerequisite does not replace those deliverables or complete the milestone.

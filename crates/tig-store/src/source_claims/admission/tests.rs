@@ -894,6 +894,41 @@ fn admission_child() {
             ("unchanged", Object::from_bytes(b"common")),
         ],
     );
+    if mode.starts_with("pair-") {
+        let Command::Prepare {
+            source,
+            owner,
+            expected_revision,
+            selection,
+        } = input.command
+        else {
+            panic!("prepare input required")
+        };
+        let select = Select {
+            prepare: key("child-prepare"),
+            adopt: key("child-adopt"),
+            source,
+            owner,
+            expected_revision,
+            selection,
+        };
+        let mut appends = 0;
+        namespace
+            .select_hook(&select, &nodes, &limits(), |stage| {
+                if stage == Stage::BeforeAppend {
+                    appends += 1;
+                }
+                if (mode == "pair-between" && stage == Stage::BeforeAppend && appends == 2)
+                    || (mode == "pair-before" && stage == Stage::BeforeCommit)
+                    || (mode == "pair-after" && stage == Stage::AfterCommit)
+                {
+                    std::process::exit(75);
+                }
+                Ok(())
+            })
+            .unwrap();
+        panic!("pair child missed boundary");
+    }
     let stop = match mode.as_str() {
         "before" => Stage::BeforeCommit,
         "after" => Stage::AfterCommit,
@@ -983,4 +1018,333 @@ fn another_process_blocks_overlapping_admission_until_actual_exit() {
             .pending
             .is_some()
     );
+}
+
+fn select(f: &mut Fixture, label: &str, selection: Selection) -> Select {
+    Select {
+        prepare: key(&format!("pair-prepare-{label}")),
+        adopt: key(&format!("pair-adopt-{label}")),
+        source: key("main"),
+        owner: key("owner"),
+        expected_revision: f.namespace.source(&key("main")).unwrap().unwrap().revision,
+        selection,
+    }
+}
+#[test]
+fn atomic_selection_is_visible_as_old_or_fully_adopted_and_replays_existing_commands() {
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    f.selected("main", f.old.clone());
+    let old = f.namespace.source(&key("main")).unwrap().unwrap();
+    let before = f.namespace.checkpoint();
+    let selection = f.new.clone();
+    let request = select(&mut f, "new", selection);
+    assert!(f.namespace.selection_status(&request).unwrap().is_none());
+    let root = f.root();
+    let mut callbacks = 0;
+    let receipt = f
+        .namespace
+        .select_hook(&request, &f.nodes, &limits(), |stage| {
+            if stage == Stage::BeforeAppend || stage == Stage::BeforeCommit {
+                let observed = SourceJournal::observe(&root, &before, &key("main")).unwrap();
+                assert_eq!(observed.source.as_ref(), Some(&old));
+                assert_eq!(observed.checkpoint, before);
+                callbacks += 1;
+            }
+            Ok(())
+        })
+        .unwrap();
+    assert_eq!(callbacks, 3);
+    let state = f.namespace.source(&key("main")).unwrap().unwrap();
+    assert!(state.pending.is_none());
+    assert_eq!(state.current.unwrap().selection, f.new);
+    assert_eq!(state.predecessors[0].selection, f.old);
+    assert_eq!(receipt.checkpoint.sequence(), before.sequence() + 2);
+    let commands = request.requests(f.namespace.identity()).unwrap();
+    for command in commands {
+        let recovered =
+            SourceJournal::acknowledge(&root, &before, command.operation, command.command).unwrap();
+        assert!(recovered.replayed);
+    }
+    let saved = f.namespace.checkpoint();
+    let replay = f.namespace.select(&request, &Missing, &limits()).unwrap();
+    assert!(replay.replayed);
+    assert_eq!(replay.checkpoint, receipt.checkpoint);
+    assert_eq!(f.namespace.checkpoint(), saved);
+}
+#[test]
+fn atomic_selection_respects_subject_fences_and_stale_source_revisions() {
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    f.selected("main", f.old.clone());
+    let selection = f.new.clone();
+    let request = select(&mut f, "winner", selection);
+    let mut loser = request.clone();
+    loser.prepare = key("loser-prepare");
+    loser.adopt = key("loser-adopt");
+    let fence = f.namespace.fence(&f.b).unwrap();
+    let before = f.namespace.checkpoint();
+    assert_eq!(
+        f.namespace.select(&request, &f.nodes, &limits()),
+        Err(Error::Busy)
+    );
+    assert_eq!(f.namespace.checkpoint(), before);
+    f.enroll("unrelated", Kind::Job);
+    drop(fence);
+    f.namespace.select(&request, &f.nodes, &limits()).unwrap();
+    let saved = f.namespace.checkpoint();
+    assert_eq!(
+        f.namespace.select(&loser, &f.nodes, &limits()),
+        Err(Error::Journal(super::super::Error::Stale))
+    );
+    assert_eq!(f.namespace.checkpoint(), saved);
+    assert!(
+        f.namespace
+            .source(&key("main"))
+            .unwrap()
+            .unwrap()
+            .pending
+            .is_none()
+    );
+}
+#[test]
+fn partial_pair_or_conflicting_operation_refuses_without_finishing_it() {
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    let selection = f.old.clone();
+    let request = select(&mut f, "partial", selection);
+    let first = request.requests(f.namespace.identity()).unwrap()[0].clone();
+    f.namespace
+        .apply(first.operation, first.command, &f.nodes, &limits())
+        .unwrap();
+    let saved = f.namespace.checkpoint();
+    assert_eq!(
+        f.namespace.select(&request, &f.nodes, &limits()),
+        Err(Error::Journal(super::super::Error::NeedsRecovery))
+    );
+    assert_eq!(f.namespace.checkpoint(), saved);
+    let mut changed = request.clone();
+    changed.selection = f.new.clone();
+    assert_eq!(
+        f.namespace.selection_status(&changed),
+        Err(Error::Journal(super::super::Error::Conflict))
+    );
+    assert!(
+        f.namespace
+            .source(&key("main"))
+            .unwrap()
+            .unwrap()
+            .current
+            .is_none()
+    );
+}
+#[test]
+fn atomic_selection_faults_before_commit_roll_back_both_and_after_commit_recover_both() {
+    for stop in [Stage::BeforeAppend, Stage::BeforeCommit, Stage::AfterCommit] {
+        let mut f = Fixture::new(true);
+        f.enroll("main", Kind::Branch);
+        let selection = f.old.clone();
+        let request = select(&mut f, "fault", selection);
+        let before = f.namespace.checkpoint();
+        let mut appends = 0;
+        assert!(
+            f.namespace
+                .select_hook(&request, &f.nodes, &limits(), |stage| {
+                    if stage == Stage::BeforeAppend {
+                        appends += 1;
+                    }
+                    if stage == stop && (stop != Stage::BeforeAppend || appends == 2) {
+                        return Err(super::super::Error::Injected);
+                    }
+                    Ok(())
+                })
+                .is_err()
+        );
+        let mut reopened = Namespace::open(&f.root(), &before).unwrap();
+        let state = reopened.source(&key("main")).unwrap().unwrap();
+        assert!(state.pending.is_none());
+        assert_eq!(state.current.is_some(), stop == Stage::AfterCommit);
+        let receipt = reopened.select(&request, &f.nodes, &limits()).unwrap();
+        assert_eq!(receipt.replayed, stop == Stage::AfterCommit);
+        assert_eq!(reopened.checkpoint().sequence(), before.sequence() + 2);
+    }
+}
+#[test]
+fn actual_exit_between_or_around_atomic_commands_never_leaves_a_pending_half() {
+    for mode in ["pair-between", "pair-before", "pair-after"] {
+        let mut f = Fixture::new(true);
+        f.enroll("main", Kind::Branch);
+        child_input(&f);
+        let before = f.namespace.checkpoint();
+        let mut child = spawn(&f.root(), mode);
+        assert_eq!(child.0.wait().unwrap().code(), Some(75));
+        let mut reopened = Namespace::open(&f.root(), &before).unwrap();
+        let state = reopened.source(&key("main")).unwrap().unwrap();
+        assert!(state.pending.is_none());
+        assert_eq!(state.current.is_some(), mode == "pair-after");
+        drop(reopened.fence(&f.a).unwrap());
+        let request = Select {
+            prepare: key("child-prepare"),
+            adopt: key("child-adopt"),
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 1,
+            selection: f.old.clone(),
+        };
+        let receipt = reopened.select(&request, &f.nodes, &limits()).unwrap();
+        assert_eq!(receipt.replayed, mode == "pair-after");
+        assert_eq!(reopened.checkpoint().sequence(), before.sequence() + 2);
+    }
+}
+#[test]
+fn atomic_pair_needs_two_remaining_slots_and_cannot_consume_the_last_single_slot() {
+    use rusqlite::params;
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    let minimum = f.namespace.checkpoint();
+    let mut connection = rusqlite::Connection::open(f.root().join("claims.sqlite")).unwrap();
+    let tx = connection.transaction().unwrap();
+    let (mut previous, mut bytes): (String, i64) = tx
+        .query_row("SELECT hash,bytes FROM meta WHERE id=1", [], |r| {
+            Ok((r.get(0)?, r.get(1)?))
+        })
+        .unwrap();
+    // Materialize an independently encoded valid history, then exercise the
+    // actual public compiler/writer at its bounded edge.
+    for n in 2..super::super::MAX_COMMANDS {
+        let operation = key(&format!("fill-{n}"));
+        let command = if n % 2 == 0 {
+            Command::Prepare {
+                source: key("main"),
+                owner: key("owner"),
+                expected_revision: n - 1,
+                selection: f.old.clone(),
+            }
+        } else {
+            Command::Abort {
+                source: key("main"),
+                owner: key("owner"),
+                expected_revision: n - 1,
+                prepared: super::super::Reference {
+                    journal: f.namespace.identity().clone(),
+                    operation: key(&format!("fill-{}", n - 1)),
+                },
+            }
+        };
+        let request = serde_json::json!({"operation":operation,"command":command});
+        let body = tig_core::identity::canonical_json(&request).unwrap();
+        let hash=Digest::blob(&tig_core::identity::canonical_json(&serde_json::json!({"schema":"tig.source-event.design-1","sequence":n,"previous":previous,"request":request})).unwrap());
+        tx.execute(
+            "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
+            params![n as i64, operation.as_str(), body, previous, hash.as_str()],
+        )
+        .unwrap();
+        bytes += body.len() as i64;
+        previous = hash.as_str().to_owned();
+    }
+    tx.execute(
+        "UPDATE meta SET sequence=?1,hash=?2,bytes=?3 WHERE id=1",
+        params![(super::super::MAX_COMMANDS - 1) as i64, previous, bytes],
+    )
+    .unwrap();
+    tx.commit().unwrap();
+    drop(connection);
+    f.namespace = Namespace::open(&f.root(), &minimum).unwrap();
+    let saved = f.namespace.checkpoint();
+    let selection = f.old.clone();
+    let request = select(&mut f, "last-slot", selection);
+    assert_eq!(
+        f.namespace.select(&request, &f.nodes, &limits()),
+        Err(Error::Journal(super::super::Error::Budget))
+    );
+    assert_eq!(f.namespace.checkpoint(), saved);
+    assert!(
+        f.namespace
+            .source(&key("main"))
+            .unwrap()
+            .unwrap()
+            .pending
+            .is_none()
+    );
+    let first = request.requests(f.namespace.identity()).unwrap()[0].clone();
+    f.namespace
+        .apply(first.operation, first.command, &f.nodes, &limits())
+        .unwrap();
+    assert_eq!(
+        f.namespace.checkpoint().sequence(),
+        super::super::MAX_COMMANDS
+    );
+    assert!(
+        f.namespace
+            .source(&key("main"))
+            .unwrap()
+            .unwrap()
+            .pending
+            .is_some()
+    );
+}
+#[test]
+#[ignore = "requires TIG_BASELINE_SOURCE_CLI built from pinned pre-pair source"]
+fn baseline_cli_replays_atomic_pairs_without_format_migration() {
+    let executable =
+        std::env::var_os("TIG_BASELINE_SOURCE_CLI").expect("explicit baseline artifact required");
+    assert!(Path::new(&executable).is_absolute());
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    f.selected("main", f.old.clone());
+    let minimum = f.namespace.checkpoint();
+    let selection = f.new.clone();
+    let request = select(&mut f, "compatibility", selection);
+    f.namespace.select(&request, &f.nodes, &limits()).unwrap();
+    let current = f.namespace.source(&key("main")).unwrap().unwrap();
+    let profile = f.temp.path().join("baseline-profile.json");
+    fs::write(&profile,serde_json::to_vec(&serde_json::json!({"schema":"tig.source-observation-profile.experimental-1","journal_root":f.root(),"minimum":minimum,"source":"main"})).unwrap()).unwrap();
+    let report = f.temp.path().join("baseline-report.json");
+    let output = Process::new(&executable)
+        .arg("inspect")
+        .arg(&profile)
+        .arg(&report)
+        .env("PATH", "")
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let value: serde_json::Value = serde_json::from_slice(&fs::read(&report).unwrap()).unwrap();
+    let old_reader_source: super::super::Source =
+        serde_json::from_value(value["source"].clone()).unwrap();
+    assert_eq!(old_reader_source, current);
+    assert_eq!(
+        value["checkpoint"],
+        serde_json::to_value(f.namespace.checkpoint()).unwrap()
+    );
+    for (index, command) in request
+        .requests(f.namespace.identity())
+        .unwrap()
+        .into_iter()
+        .enumerate()
+    {
+        let profile = f.temp.path().join(format!("baseline-ack-{index}.json"));
+        let report = f
+            .temp
+            .path()
+            .join(format!("baseline-ack-report-{index}.json"));
+        fs::write(&profile,serde_json::to_vec(&serde_json::json!({"schema":"tig.source-acknowledgment-profile.experimental-1","journal_root":f.root(),"minimum":minimum,"operation":command.operation,"command":command.command})).unwrap()).unwrap();
+        let output = Process::new(&executable)
+            .arg("acknowledge")
+            .arg(profile)
+            .arg(&report)
+            .env("PATH", "")
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        let value: serde_json::Value = serde_json::from_slice(&fs::read(report).unwrap()).unwrap();
+        assert_eq!(value["replayed"], true);
+    }
 }

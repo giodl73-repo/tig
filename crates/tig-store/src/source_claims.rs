@@ -823,13 +823,46 @@ impl SourceJournal {
         operation: Key,
         command: Command,
         recorded_only: bool,
-        mut hook: impl FnMut(Stage) -> Result<()>,
+        hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
+        self.apply_requests(&[Request { operation, command }], recorded_only, hook)?
+            .pop()
+            .ok_or(Error::Corrupt)
+    }
+    fn apply_atomic_admitted(
+        &mut self,
+        requests: &[Request; 2],
+        permit: &admission::PairPermit,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
+        self.check_guarded_marker()?;
+        if !permit.matches(self.identity(), requests)? {
+            return Err(Error::AdmissionRequired);
+        }
+        let result = self.apply_requests(requests, false, hook);
+        self.mark_uncertain(&result);
+        result
+    }
+    /// One or two existing commands; no new event encoding or journal engine.
+    fn apply_requests(
+        &mut self,
+        requests: &[Request],
+        recorded_only: bool,
+        mut hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
         if self.poisoned {
             return Err(Error::NeedsRecovery);
         }
-        let request = Request { operation, command };
-        let body = encode(&request).map_err(|_| Error::InvalidReference)?;
+        if requests.is_empty()
+            || requests.len() > 2
+            || requests.len() == 2 && requests[0].operation == requests[1].operation
+        {
+            return Err(Error::Conflict);
+        }
+        let bodies = requests
+            .iter()
+            .map(|request| encode(request).map_err(|_| Error::InvalidReference))
+            .collect::<Result<Vec<_>>>()?;
         let tx = self.conn.transaction_with_behavior(if recorded_only {
             TransactionBehavior::Deferred
         } else {
@@ -837,50 +870,77 @@ impl SourceJournal {
         })?;
         let mut state = self.state.clone();
         catch_up(&tx, &mut state)?;
-        if let Some(receipt) = recorded_receipt(&tx, &state, &request, &body)? {
+        let recorded = requests
+            .iter()
+            .zip(&bodies)
+            .map(|(request, body)| recorded_receipt(&tx, &state, request, body))
+            .collect::<Result<Vec<_>>>()?;
+        let count = recorded.iter().filter(|r| r.is_some()).count();
+        if count != 0 && count != requests.len() {
+            return Err(Error::NeedsRecovery);
+        }
+        if count == requests.len() {
             tx.commit()?;
             self.state = state;
-            return Ok(receipt);
+            return Ok(recorded.into_iter().flatten().collect());
         }
         if recorded_only {
             return Err(Error::Missing);
         }
-        let bytes = growth_bytes(&state, body.len())?;
-        let revision = state.transition(&request)?;
-        let sequence = state.head.sequence.checked_add(1).ok_or(Error::Budget)?;
-        let hash = event_hash(sequence, &state.head.hash, &request)?;
-        hook(Stage::BeforeAppend).map_err(|_| Error::Injected)?;
-        tx.execute(
-            "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
-            params![
-                number(sequence)?,
-                request.operation.as_str(),
-                body,
-                state.head.hash.as_str(),
-                hash.as_str()
-            ],
-        )?;
-        tx.execute(
-            "UPDATE meta SET sequence=?1,hash=?2,bytes=?3 WHERE id=1",
-            params![number(sequence)?, hash.as_str(), number(bytes)?],
-        )?;
+        // Admit the complete group before its first append. One remaining event
+        // slot is not room for an atomic Prepare/Adopt pair.
+        if state
+            .head
+            .sequence
+            .checked_add(requests.len() as u64)
+            .ok_or(Error::Budget)?
+            > MAX_COMMANDS
+        {
+            return Err(Error::Budget);
+        }
+        let body_bytes = bodies.iter().try_fold(0usize, |total, b| {
+            total.checked_add(b.len()).ok_or(Error::Budget)
+        })?;
+        growth_bytes(&state, body_bytes)?;
+        let mut receipts = Vec::new();
+        for (request, body) in requests.iter().zip(bodies) {
+            let bytes = growth_bytes(&state, body.len())?;
+            let revision = state.transition(request)?;
+            let sequence = state.head.sequence.checked_add(1).ok_or(Error::Budget)?;
+            let hash = event_hash(sequence, &state.head.hash, request)?;
+            hook(Stage::BeforeAppend).map_err(|_| Error::Injected)?;
+            tx.execute(
+                "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
+                params![
+                    number(sequence)?,
+                    request.operation.as_str(),
+                    body,
+                    state.head.hash.as_str(),
+                    hash.as_str()
+                ],
+            )?;
+            tx.execute(
+                "UPDATE meta SET sequence=?1,hash=?2,bytes=?3 WHERE id=1",
+                params![number(sequence)?, hash.as_str(), number(bytes)?],
+            )?;
+            state.head.sequence = sequence;
+            state.head.hash = hash;
+            state.bytes = bytes;
+            receipts.push(Receipt {
+                reference: Reference {
+                    journal: state.head.genesis.clone(),
+                    operation: request.operation.clone(),
+                },
+                checkpoint: state.head.clone(),
+                source_revision: revision,
+                replayed: false,
+            });
+        }
         hook(Stage::BeforeCommit).map_err(|_| Error::Injected)?;
         tx.commit()?;
         hook(Stage::AfterCommit).map_err(|_| Error::Injected)?;
-        state.head.sequence = sequence;
-        state.head.hash = hash;
-        state.bytes = bytes;
-        let receipt = Receipt {
-            reference: Reference {
-                journal: state.head.genesis.clone(),
-                operation: request.operation,
-            },
-            checkpoint: state.head.clone(),
-            source_revision: revision,
-            replayed: false,
-        };
         self.state = state;
-        Ok(receipt)
+        Ok(receipts)
     }
 }
 fn growth_bytes(state: &State, body_len: usize) -> Result<u64> {

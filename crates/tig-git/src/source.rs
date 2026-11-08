@@ -79,7 +79,8 @@ impl GitId {
         Ok(())
     }
 }
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct Limits {
     pub listing_bytes: usize,
     pub entries: usize,
@@ -289,6 +290,24 @@ pub struct Repository {
     limits: Limits,
 }
 impl Repository {
+    /// Resolve exactly one full local ref. No fetch, checkout, hooks or prefix match.
+    pub fn named_commit(&self, name: &str) -> Result<GitId> {
+        if !name.starts_with("refs/")
+            || name.len() > 512
+            || name.bytes().any(|b| b < 33 || b == 127)
+            || name.chars().any(char::is_control)
+        {
+            return Err(Error::Invalid);
+        }
+        self.run(&["check-ref-format", name], Vec::new(), 0)?;
+        let raw = self.run(
+            &["rev-parse", "--verify", &format!("{name}^{{commit}}")],
+            Vec::new(),
+            131,
+        )?;
+        let text = std::str::from_utf8(&raw).map_err(|_| Error::Invalid)?;
+        GitId::parse(text.strip_suffix('\n').ok_or(Error::Invalid)?)
+    }
     /// Local branch/tag commit observations only. No checkout, fetch or hooks.
     pub fn named_commits(&self) -> Result<Vec<(String, GitId)>> {
         let raw = self.run(&["for-each-ref", "--format=%(refname)%09%(objecttype)%09%(objectname)%09%(*objecttype)%09%(*objectname)", "refs/heads", "refs/remotes", "refs/tags"], Vec::new(), 1024 * 1024)?;

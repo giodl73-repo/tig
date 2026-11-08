@@ -17,6 +17,15 @@ schemas drive optional resolution, graphs, contexts, revisions and deliveries.
 The catalogue provides works, search, children, coverage and storage comparison.
 Project meaning remains external configuration.
 
+The explicit tig-lifecycle CLI/library connects an enrolled exact committed ref
+to verified persistent metadata and atomically adopted desired claims. Duplicate,
+stale, revert and active-job/history behavior have synthetic Git fixtures. Source
+journals reuse existing Prepare/Adopt event bytes in one transaction; status
+preserves historical receipts independently of Git/metadata availability.
+Physical convergence and an authenticated GitHub trigger remain required. See
+specs/GIT-LIFECYCLE-RECONCILIATION.md; provider integration, bulk final deletion,
+authority handoff and lifetime remain required plan work.
+
 Existing-byte readers and explicit local publication/restore/retention primitives
 have bounded fixture evidence. The first tig-store orchestration slice composes
 input-bound plans and source-preserving copy/retention with an explicit tig-storage

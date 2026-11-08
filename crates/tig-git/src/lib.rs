@@ -5,6 +5,7 @@ pub mod cache;
 pub mod catalogue;
 #[cfg(feature = "schema")]
 pub mod history_command;
+pub mod lifecycle;
 pub mod pointer;
 #[cfg(feature = "assets")]
 pub mod project;

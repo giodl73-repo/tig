@@ -79,3 +79,24 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo check -p tig-git --no-default-features --locked
           exit $LASTEXITCODE
+      - name: Qualify pre-pair source reader compatibility
+        shell: pwsh
+        run: |
+          $baseline = 'd81cabe662e0efb976f9ac1c230a1de2ace8e23f'
+          $baselineRoot = Join-Path $env:RUNNER_TEMP 'tig-source-baseline'
+          $baselineBuild = Join-Path $env:RUNNER_TEMP 'tig-source-baseline-build'
+          $env:GIT_LFS_SKIP_SMUDGE = '1'
+          git -c core.hooksPath=NUL fetch --no-tags --depth=1 origin $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -c core.hooksPath=NUL worktree add --detach $baselineRoot $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          cargo build --manifest-path "$baselineRoot/crates/tig-store/Cargo.toml" --target-dir $baselineBuild --bin tig-source --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_BASELINE_SOURCE_CLI = Join-Path $baselineBuild "debug/tig-source$suffix"
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          cargo test -p tig-store --lib --locked source_claims::admission::tests::baseline_cli_replays_atomic_pairs_without_format_migration -- --ignored --exact
+          exit $LASTEXITCODE

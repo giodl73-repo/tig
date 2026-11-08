@@ -117,3 +117,12 @@ private origin/path/header scopes and default-disabled writes remain independent
 of portable plans. Shared upload witnesses reuse existing accounted publication;
 the S3 records/keys/context and default download-only path stay compatible.
 Remote byte availability is neither retained custody nor removal permission.
+
+IF-002/003/004/005/006/008/009/012/013 Git lifecycle selection, inputd81cabe:
+[GIT-LIFECYCLE-RECONCILIATION](../../specs/GIT-LIFECYCLE-RECONCILIATION.md) binds an
+enrolled committed ref, complete pointer scope and expected source state to
+verified persistent metadata and atomic desired-root adoption. Namespace::select
+composes existing Prepare/Adopt event bodies under scoped admission and one SQL
+transaction. Exact historical status needs no Git/metadata provider; current Git
+samples remain separate. This adds no persistent source command/schema or removal
+authority. Default-disabled operator profiles do not authenticate external events.

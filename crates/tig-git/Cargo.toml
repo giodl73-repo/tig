@@ -30,6 +30,10 @@ ureq = { version = "=3.5.1", default-features = false, features = ["rustls"], op
 tempfile = "=3.27.0"
 
 [[bin]]
+name = "tig-lifecycle"
+path = "src/bin/tig-lifecycle.rs"
+
+[[bin]]
 name = "tig-lfs"
 path = "src/bin/tig-lfs.rs"
 

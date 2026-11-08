@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 3593,
-      "sha256": "5be6a686c5bda61fae5325e75eedfe5778d2f773cc173f84150a47d4aed980df"
+      "bytes": 4954,
+      "sha256": "7cd44bd7644bdd9c95b0d32b99b17b87cdb3c9b4b17b48bfdcf5fb09739941cf"
     },
     {
       "path": ".gitignore",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 4873,
-      "sha256": "db56c98411950a9bb95f1f2077f823b7abfee22dd2ce80330288a4e47024fc9b"
+      "bytes": 5487,
+      "sha256": "6c8663ca5fd13d5971cd11420875e22e6b40f6bfbfdd55cd9915f231cacb477c"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 9159,
-      "sha256": "2fbad00886570e5f273af4493fe833477919a1d9d06fcdd65707b449523a07e2"
+      "bytes": 9806,
+      "sha256": "44c43919d6deb6c0ec2a34ebbfbcc435c41b4d3cb5da9e9381e8544933b16a2b"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -334,8 +334,8 @@
     },
     {
       "path": "docs/vtrace/PACKAGE_BOUNDARIES.md",
-      "bytes": 3752,
-      "sha256": "e5a8f5f58c36924f7590e82bfd69f0338ee364f3484719cd726014d9e9cbc918"
+      "bytes": 3806,
+      "sha256": "8807663e0855452a0c3da8c8aa0190abe1b4d5db5dcffaa12efb9dc6974a5e53"
     },
     {
       "path": "docs/vtrace/PROCESS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 14843,
-      "sha256": "dd5d1aa6f9f5c5a30736dace56a9de0e6405a5575f679de39cb39063b87eb972"
+      "bytes": 15408,
+      "sha256": "83f53c330f4f14234132ae095ca8bad57062f506324579b6d594d7482f79bb08"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 30011,
-      "sha256": "3faad2a091b5f57e21b6c5a2b54fa8389ea7f10b1d517f8f00d850942a5e293c"
+      "bytes": 30833,
+      "sha256": "523cebd917a77ff280dddbffa01dedca45355296d9d02802599929d4ae1eda50"
     },
     {
       "path": "README.md",
-      "bytes": 10009,
-      "sha256": "5b575a7657914fed6c5cc70b9160196a49eaeb7c01507c677ecefe5922d628c5"
+      "bytes": 10487,
+      "sha256": "a6ed442c4f0cdf546de077e81fa5437b7cf2623ef6c072a3fc9a7f648ef5ea4a"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -734,8 +734,8 @@
     },
     {
       "path": "crates/tig-git/Cargo.toml",
-      "bytes": 1569,
-      "sha256": "6f125a7bbcf918a73d9564b38428f675ccf9104e108cd5f6fa265e5c6238ac00"
+      "bytes": 1635,
+      "sha256": "5a4d625f3d7631c149a83c1716e273e660c4c30ba26cfd03b715c248bbc5f582"
     },
     {
       "path": "crates/tig-git/src/bin/tig-lfs.rs",
@@ -749,8 +749,8 @@
     },
     {
       "path": "crates/tig-git/src/lib.rs",
-      "bytes": 405,
-      "sha256": "a8681794d76361f6e328d247d0c155b5b112465e48588ac57a9b1e866f01f169"
+      "bytes": 424,
+      "sha256": "dafeedfc1a2fda2f4cf25cacd32caf9e15872fa8b08a5e895e10efa84cfb1b73"
     },
     {
       "path": "crates/tig-git/src/pointer.rs",
@@ -784,8 +784,8 @@
     },
     {
       "path": "crates/tig-git/src/source.rs",
-      "bytes": 22633,
-      "sha256": "0174ee91abb77beea13e2e40dbc66c3d8edb968780f1dc6352a02d7b4642886b"
+      "bytes": 23451,
+      "sha256": "e9b55b09e6e5d1588d350155ae6e47285444654e6e79b3bdf93f9b62f4e2919c"
     },
     {
       "path": "crates/tig-git/tests/source.rs",
@@ -799,8 +799,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims.rs",
-      "bytes": 35785,
-      "sha256": "a83e55cb7fa93d90d55747404b1eb9b3304ff98cdcf41494f8397fe5afb57905"
+      "bytes": 38088,
+      "sha256": "7c8b3857f24c7230fb772f2777715303323af71442dedaf255867d9efe60313d"
     },
     {
       "path": "crates/tig-store/tests/source_claims.rs",
@@ -814,8 +814,8 @@
     },
     {
       "path": "crates/tig-store/src/metadata.rs",
-      "bytes": 19680,
-      "sha256": "8a00f288df8be7299147cdbecdb99f85fabcf3a122358859d32b2724d68a5eb2"
+      "bytes": 20001,
+      "sha256": "046f2f019474cc2904b957b681a71e26aeb412cb65af7a334919248ac294b1f7"
     },
     {
       "path": "crates/tig-store/tests/metadata.rs",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 12335,
-      "sha256": "9b1ee05a46672e16a7092c62bccb5e8ece2601f0c19dc99a17e3031102450ac0"
+      "bytes": 12978,
+      "sha256": "60f91547ecf054b626b0dfbe1b2d6542bea7ed5120fd5c245ed6cf5753fda5e5"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1899,13 +1899,13 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission.rs",
-      "bytes": 16376,
-      "sha256": "d77f37cc539a7e4a17d40e4493fdd4c2cc20db04ebc718e6953a6fb2a1f18350"
+      "bytes": 20919,
+      "sha256": "806f9b20a065f938ddcb6e1aebf294a720d12265af12f083e6bad71463a81423"
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/tests.rs",
-      "bytes": 31907,
-      "sha256": "bab28645088dfef2d8b707174dd0febe5f4c64ed32690faf9d638764e39c6d14"
+      "bytes": 46118,
+      "sha256": "0c0090e2d58a8c33c472de5637565516c6e4a05d6987eb3dcbce37bf57184490"
     },
     {
       "path": "specs/MANDATORY-SOURCE-ADMISSION.md",
@@ -2026,6 +2026,26 @@
       "path": "docs/reviews/2026-11-08-lfs-upload.md",
       "bytes": 5108,
       "sha256": "b0786b4dbdeb841962662cacc5b5f7a2046cfe513abaa15bca429f529a804f77"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-lifecycle.rs",
+      "bytes": 6500,
+      "sha256": "861cf191de38ff967313151a34c766f919cdb53a10dd23a82f6ec6f804f4088f"
+    },
+    {
+      "path": "crates/tig-git/src/lifecycle.rs",
+      "bytes": 15519,
+      "sha256": "29119e7bc82c9a137d25e78a35fb16db8acb75ad135882d2a6af992ae2e75f85"
+    },
+    {
+      "path": "crates/tig-git/tests/lifecycle.rs",
+      "bytes": 19608,
+      "sha256": "d1c56390d25dd6dd17a50c9bce00ed7b77550c883729b2875266248bd1d405a0"
+    },
+    {
+      "path": "specs/GIT-LIFECYCLE-RECONCILIATION.md",
+      "bytes": 10540,
+      "sha256": "7fb58c0d6bb338542614a60c680ed0de35176ae8edfed9418b01ccc23f7f7913"
     }
   ]
 }
