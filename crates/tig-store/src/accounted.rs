@@ -44,6 +44,10 @@ pub struct PublicationPlan {
     quantum: u64,
     limit: u64,
     basis: String,
+    /// Optional admitted orchestration identity. Omitted legacy plans retain
+    /// their exact encoding and replay binding; older readers reject this field.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    context: Option<Digest>,
 }
 impl PublicationPlan {
     pub fn required_peak(&self) -> u64 {
@@ -94,6 +98,22 @@ enum Stage {
 }
 
 pub fn plan(store: &LocalStore, request: &Request) -> Result<PublicationPlan> {
+    plan_with_context(store, request, None)
+}
+/// Bind a higher-level immutable plan into the existing allocation/replay fence.
+/// The context is an identity, not authentication or removal authority.
+pub fn plan_bound(
+    store: &LocalStore,
+    request: &Request,
+    context: Digest,
+) -> Result<PublicationPlan> {
+    plan_with_context(store, request, Some(context))
+}
+fn plan_with_context(
+    store: &LocalStore,
+    request: &Request,
+    context: Option<Digest>,
+) -> Result<PublicationPlan> {
     store.capabilities().check(request)?;
     let quantum = store.allocation_quantum()?;
     let round = |n: u64| {
@@ -116,6 +136,7 @@ pub fn plan(store: &LocalStore, request: &Request) -> Result<PublicationPlan> {
         quantum,
         limit,
         basis: "conservative-allocated-file-data-footprint".into(),
+        context,
     })
 }
 pub fn publish_accounted(
@@ -135,7 +156,7 @@ fn publish_hook(
     source: &mut dyn Read,
     mut hook: impl FnMut(Stage) -> Result<()>,
 ) -> Result<AccountedReceipt> {
-    let current = plan(store, &planned.request)?;
+    let current = plan_with_context(store, &planned.request, planned.context.clone())?;
     if encode(&current)? != encode(planned)? {
         return Err(AccountedError::InvalidPlan);
     }

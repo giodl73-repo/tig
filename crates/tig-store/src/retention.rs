@@ -209,6 +209,35 @@ fn keys(planned: &RetentionPlan) -> Result<(Key, Key)> {
         Key::parse(&format!("retained-{}", id.as_str()))?,
     ))
 }
+/// Inspect an exact retention request after restart, without admitting or
+/// repairing anything. A returned replica has fresh byte verification/protection.
+pub(crate) fn inspect(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &RetentionPlan,
+) -> Result<Option<RetainedReplica>> {
+    validate(store, planned)?;
+    let (operation, _) = keys(planned)?;
+    let Some(allocation) = ledger.allocation_reference(&operation, true)? else {
+        return Ok(None);
+    };
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    if ledger.retention_status(&allocation, &binding)?.is_none() {
+        return Ok(None);
+    }
+    let record = RetentionRecord {
+        schema: SCHEMA.into(),
+        plan: planned.clone(),
+        job: job.clone(),
+        allocation,
+    };
+    let grant = RetentionGrant {
+        sha256: Digest::blob(&encode(&record)?),
+        record,
+    };
+    Ok(Some(verify(ledger, store, &grant)?))
+}
 pub fn verify(
     ledger: &mut CapacityLedger,
     store: &LocalStore,

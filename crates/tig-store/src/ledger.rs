@@ -601,6 +601,27 @@ impl CapacityLedger {
             _ => Err(LedgerError::Corrupt),
         }
     }
+    /// Read-only exact-operation lookups; absence never implies absent demand.
+    pub(crate) fn allocation_reference(
+        &mut self,
+        op: &Key,
+        retention: bool,
+    ) -> Result<Option<JournalRef>> {
+        self.sync()?;
+        let Some(output) = self.outputs.get(op.as_str()) else {
+            return Ok(None);
+        };
+        if !matches!(
+            (retention, output),
+            (true, Output::Retention { .. }) | (false, Output::Publication { .. })
+        ) {
+            return Err(LedgerError::Conflict);
+        }
+        Ok(Some(JournalRef {
+            genesis: self.checkpoint.genesis.clone(),
+            operation: op.clone(),
+        }))
+    }
     pub(crate) fn publication_reference(&mut self, op: Key) -> Result<JournalRef> {
         self.sync()?;
         if !matches!(
