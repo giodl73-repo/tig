@@ -59,6 +59,12 @@ These shortcuts inspect owner records; they do not infer production edges from
 byte associations or authorize eviction. Synthetic controller/API checks do not
 establish visual/browser acceptance.
 
+Record-inspector fixtures additionally reproduce repeated-card response races,
+stale errors, pending/failed action clearing, wrong response identities, enrollment
+snapshot changes and dependency-tab reentry. Inspection and detail-render tokens
+isolate those requests without locks or extra API calls. Escape and existing
+work/object/consumer return flows remain covered.
+
 | Milestone | Product | Status |
 | --- | --- | --- |
 | U1 | Native multi-project intake, search, paging, exact refs and inspector | Implemented; initial flat view retained for technical inspection |

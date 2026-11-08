@@ -90,16 +90,3 @@ test('Changed snapshot, target pin or paging basis refuses mixed results',async(
   f.context.api=async()=>r;await f.trace(change==='basis');assert.equal(f.asset.impactView.rows.length,0);assert.ok(f.asset.impactView.error);
  }
 });
-
-test('A late record-inspection error cannot overwrite a newer consumer inspector',async()=>{
- const f=fixture(),pending=[];f.state.projects=[{id:'p',commit:'a'.repeat(40)}];
- f.context.projectLabel=id=>id;f.context.api=()=>new Promise((resolve,reject)=>pending.push({resolve,reject}));
- f.context.drawDetail=()=>f.$('detail').replaceChildren(f.context.node('p','','Current consumer'));
- const inspectSource=readFileSync(join(__dirname,'../src/catalogue/web/app.js'),'utf8').split('\n').find(line=>line.startsWith('async function inspect('));
- vm.runInContext(inspectSource,f.context);
- const old={project:'p',id:'old',title:'Old',category:'items'},current={project:'p',id:'current',title:'Current',category:'items'};
- const first=f.context.inspect(old),second=f.context.inspect(current);
- pending[1].resolve({card:{status:{},selected:null}});await second;
- pending[0].reject(Error('Late old failure'));await first;
- assert.equal(f.state.selected,current);assert.equal(f.$('detail').children[0].textContent,'Current consumer');
-});

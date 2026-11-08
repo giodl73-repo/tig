@@ -4,6 +4,65 @@ const {catalogueFixture,deferred}=require('./ux/catalogue-fixture.cjs');
 async function openImpact(f){await f.settle();await f.click('Open Fixture sequence');await f.click('Trace impact of source record');}
 const calls=(f,path)=>f.seen.filter(r=>r.path===path);
 
+test('reopening the same record rejects an older successful inspection',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();const asset=f.card('source');let n=0;
+ f.override('/api/asset',q=>++n===1?pending.promise:{...f.reply('/api/asset',q),fields:[{section:'source',label:'Marker',value:'New response'}]});
+ const old=f.context.inspect(asset);await f.settle();await f.context.inspect(asset);await f.settle();
+ pending.resolve({...f.reply('/api/asset',{project:'atlas',id:'source'}),fields:[{section:'source',label:'Marker',value:'Old response'}]});await old;
+ assert.match(f.text(),/New response/);assert.doesNotMatch(f.text(),/Old response/);
+});
+
+test('an older same-record error cannot replace a newer successful inspection',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();const asset=f.card('source');let n=0;
+ f.override('/api/asset',q=>++n===1?pending.promise:f.reply('/api/asset',q));
+ const old=f.context.inspect(asset);await f.settle();await f.context.inspect(asset);await f.settle();pending.reject(Error('Old inspection failed'));await old;
+ assert.match(f.text(),/Source & identity/);assert.doesNotMatch(f.text(),/Old inspection failed/);
+});
+
+test('a late record error cannot overwrite a different project inspector',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();f.override('/api/asset',q=>q.project==='atlas'?pending.promise:f.reply('/api/asset',q));
+ const old=f.context.inspect(f.card('source'));await f.settle();await f.context.inspect(f.card('source','boreal'));
+ pending.reject(Error('Old Atlas failure'));await old;assert.equal(f.state().selected.project,'boreal');
+ assert.match(f.text(),new RegExp('b'.repeat(40)));assert.doesNotMatch(f.text(),/Old Atlas failure/);
+});
+
+test('a pending or failed record load removes previous tabs and actions',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();const asset=f.card('source');await f.context.inspect(asset,'Compare');
+ assert.ok(f.button('Use this record as baseline'));f.override('/api/asset',()=>pending.promise);
+ const load=f.context.inspect(asset);await f.settle();assert.equal(f.get('tabs').children.length,0);assert.equal(asset.details,undefined);
+ assert.match(f.text(),/Reading this exact asset revision/);pending.reject(Error('Inspection failed'));await load;
+ assert.equal(f.get('tabs').children.length,0);assert.equal(asset.details,undefined);assert.match(f.text(),/Inspection failed/);
+});
+
+test('record inspection refuses mismatched project snapshot and logical identities',async()=>{
+ for(const change of [d=>{d.commit='f'.repeat(40);},d=>{d.record.id='other';},d=>{d.card.id='other';},d=>{d.card.project='boreal';}]){
+  const f=catalogueFixture();await f.settle();f.override('/api/asset',q=>{const d=f.reply('/api/asset',q);change(d);return d;});
+  await f.context.inspect(f.card('source'));assert.match(f.text(),/Record source changed/);assert.equal(f.get('tabs').children.length,0);
+  assert.equal(f.state().selected.details,undefined);
+ }
+});
+
+test('an enrolled snapshot change during inspection refuses the older response',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();f.override('/api/asset',()=>pending.promise);
+ const load=f.context.inspect(f.card('source'));await f.settle();f.state().projects.find(p=>p.id==='atlas').commit='f'.repeat(40);
+ pending.resolve(f.reply('/api/asset',{project:'atlas',id:'source'}));await load;assert.match(f.text(),/Record source changed/);
+ assert.equal(f.get('tabs').children.length,0);
+});
+
+test('dependency tab reentry ignores the earlier render response',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();await f.context.inspect(f.card('source'));let n=0;
+ f.override('/api/dependencies',()=>++n===1?pending.promise:{supported:true,complete_declared_coverage:true,edges:[],gaps:[]});
+ await f.click('Dependencies');await f.click('Overview');await f.click('Dependencies');
+ pending.resolve({supported:true,complete_declared_coverage:false,edges:[{kind:'stale relationship',from:{id:'source'},target:{id:'old'}}],gaps:[]});await f.settle();
+ assert.match(f.text(),/Declared dependency coverage resolved/);assert.doesNotMatch(f.text(),/stale relationship/);
+});
+
+test('Escape fences a pending record response and keeps its details unadopted',async()=>{
+ const f=catalogueFixture(),pending=deferred();await f.settle();const asset=f.card('source');f.override('/api/asset',()=>pending.promise);
+ const load=f.context.inspect(asset);await f.settle();f.document.dispatchEvent({type:'keydown',key:'Escape'});
+ pending.resolve(f.reply('/api/asset',{project:'atlas',id:'source'}));await load;assert.equal(f.state().selected,null);assert.equal(asset.details,undefined);
+});
+
 test('shipped page bootstraps into admitted works without media or implicit impact IO',async()=>{
  const f=catalogueFixture();await f.settle();assert.equal(f.state().project,'atlas');assert.equal(f.state().mode,'works');
  assert.match(f.text('result-count'),/^1 accepted sequences$/);assert.equal(f.get('assets').children.length,1);

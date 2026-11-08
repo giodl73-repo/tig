@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 87248,
-      "sha256": "aa727eb3687582bc985a3be11f4a0ec9f82b2c323b28ee0eda54624622e0063e"
+      "bytes": 87678,
+      "sha256": "e56baeac9aa67f8ac51eb41027d0bf6e85acb6ea838f2b0025a90d3d0bfc6ff8"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -1454,8 +1454,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/web/app.js",
-      "bytes": 14983,
-      "sha256": "ac834fdb90ff3c1ff378661960fc5c92976aa5dece7b3144d856916346efb22b"
+      "bytes": 15639,
+      "sha256": "92edc02e667addf8e757e7cd4748dfe624744d787a57f8a1ccab93fe4e0a6d9d"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/app.css",
@@ -1474,13 +1474,13 @@
     },
     {
       "path": "specs/CATALOGUE.md",
-      "bytes": 28331,
-      "sha256": "7611ad0b4d341a027f0d5a23561a3fda2b27582b4784da6e8b3e696acfaa493e"
+      "bytes": 28803,
+      "sha256": "42e9d4806349c1e032ca3dbc48e045d3aa87f46baf076f4fffc60d9205b81d55"
     },
     {
       "path": "docs/CATALOGUE-UI-PLAN.md",
-      "bytes": 6247,
-      "sha256": "7656106d67852091850eed87c8222bce894572eeb98c16baf72d10e69e676b4c"
+      "bytes": 6619,
+      "sha256": "ccc57ed555292a595c8eb1cce03b0348b9c5af48a19435ce0a890cf83dbc54f5"
     },
     {
       "path": "docs/reviews/2026-11-05-catalogue-ui.md",
@@ -1768,8 +1768,8 @@
       "path": "crates/tig-git/src/catalogue/web/impact.js"
     },
     {
-      "bytes": 9336,
-      "sha256": "21fc21271d295f9a3b2f44f7a929f35ce313c0add20cfe93a5f343f46f0bd76f",
+      "bytes": 8304,
+      "sha256": "93517c4a182c45b1a81e3cf7b90152361edf41d40f1f4db9f308187903cece64",
       "path": "crates/tig-git/tests/impact.cjs"
     },
     {
@@ -1783,9 +1783,9 @@
       "path": "docs/reviews/2026-11-08-catalogue-impact.md"
     },
     {
-      "sha256": "cc7b4ebea52096764a1696e3f579b3e0942a5de300badf45581662d52f5b9323",
+      "sha256": "e0ba5ecf12c4e64c0dd743c901d611c5eccb3910c0480cedb0b0a44badf9c1e9",
       "path": "crates/tig-git/tests/ux-flows.cjs",
-      "bytes": 9518
+      "bytes": 14268
     },
     {
       "sha256": "5fb3cf602c6d740fe8f13abf35bde58b037958086a2d2d47164183137c329296",
@@ -1828,14 +1828,19 @@
       "path": "docs/reviews/2026-11-08-catalogue-record-compare.md"
     },
     {
-      "bytes": 10401,
-      "sha256": "727c29cb1d62e5c4f3a3716000eee56b3dcd846560be83d1919f43380bdd1526",
+      "bytes": 10395,
+      "sha256": "3bfe3083c7793f2f147829df3a59376060ab20ec619bbd164879286c0a32f2b7",
       "path": "crates/tig-git/tests/object-flows.cjs"
     },
     {
       "bytes": 2940,
       "sha256": "24c8f211b286b7a73600883f3fbaec5b67b15187b94dfe82f931138ceefb1a59",
       "path": "docs/reviews/2026-11-08-object-record-workflows.md"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-record-inspector-fences.md",
+      "bytes": 2268,
+      "sha256": "f88d93a15337e25a6cc82460269e28b6fa347b7314b63a53565393ed302099ec"
     }
   ]
 }

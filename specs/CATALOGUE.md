@@ -32,6 +32,13 @@ metadata refresh discard stale successes/errors rather than overriding a newer
 selection. Controller fixtures check the shipped scripts together; their DOM
 double makes no browser-layout or provider-behavior claim.
 
+Every record inspection has a unique request token even when reopening the same
+card. Pending or failed inspections expose no earlier details/actions. Responses
+must match the requested logical ID, project and captured enrolled snapshot
+before admission; missing enrollment or source changes require refresh. Dependency
+responses also belong to one detail render, so leaving and reentering the same
+tab cannot append an earlier request's relationships to the newer view.
+
 ## Record comparison
 
 Open a record's Compare tab, choose Use this record as baseline, then navigate

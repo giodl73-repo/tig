@@ -1125,3 +1125,9 @@ See [scope, regression and fixture evidence](../reviews/2026-11-08-object-record
 Pass_with_risk: retained/nested byte associations are not production dependencies;
 browser, complete coverage and custody acceptance remain open. No independent
 review or eviction authority is established.
+
+Record-inspector producer review (input5710677): four producer lenses cover
+same-card request isolation, exact response sources, pending action clearing and
+dependency render isolation. See [scope and regression evidence](../reviews/2026-11-08-record-inspector-fences.md).
+Pass_with_risk: fixtures check shipped controllers and native API integration;
+browser, live-project, complete coverage and custody acceptance remain open.
