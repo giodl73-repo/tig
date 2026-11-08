@@ -8,6 +8,7 @@ Cache paths and filenames do not establish equality.
 | --- | --- | --- |
 | Do these projects share selected bytes? | Catalogue: Shared assets; CLI: shared | Same recorded SHA-256 and exact length, grouped with each project's asset IDs |
 | Which records bind this object? | CLI: references | Direct selected and named-stream references, including retained streams |
+| Where is it referenced inside an inventory? | CLI: works then manifest_references | Explicit admitted JSON scope; root, document and JSON-pointer provenance |
 | What changed in declared version content? | Work -> Versions -> Compare declared bytes | Added/shared/removed declarations in admitted version manifests; coverage remains explicit |
 | What changed in declared dependencies? | tig-graph inspect/compare | Caller-admitted graph/profile semantics; see [graph inspection](../specs/NATIVE-GRAPH.md) |
 | Are two videos perceptually equivalent? | Renderer/media adapter | Requires decoded media semantics; equal filenames or similar previews are insufficient |
@@ -43,7 +44,11 @@ Changing categories or observing zero known references never authorizes eviction
 
 The [agent interface](AGENT-QUERIES.md) unifies find, shared, references, record/
 stream comparison and explained transitive impact through admitted graph profiles.
-Remaining work includes admitted nested/LFS query adapters, cross-project semantic
+Explicit manifest_references reuses admitted nested adapters and verified byte
+readers, including Git LFS layouts, with source and content fences for paging.
+It reads named metadata documents; media leaves remain unopened. It does not
+turn byte associations into production edges or authorize retirement.
+Remaining work includes raw LFS source extraction, nested semantic-impact bridging, cross-project semantic
 dependencies and UI access to full graph comparison. Reuse the
 native graph and source extraction mechanisms rather than adding project scripts
 or a second hash database. Persisted indexes must be derived from exact snapshot

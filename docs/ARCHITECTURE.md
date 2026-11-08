@@ -42,6 +42,13 @@ the UI. The fenced basis includes those field rules. No second asset registry,
 query database, media scan or mutation engine is introduced. See
 [agent queries](AGENT-QUERIES.md).
 
+Explicit manifest queries reuse admitted work projections, nested adapters and
+verified byte readers. A source basis fences configuration before IO; a content
+token fences bounded extraction results between pages. Physical byte-source
+paths are hashed into interpretation identity without being exported. Named JSON
+reads yield document/pointer associations, not semantic production edges. Media
+leaves remain unopened; missing roots remain unknown and grant no eviction rights.
+
 Profile previews pass an explicit candidate set to the same impact resolver and
 compare full known consumer sets and shortest-witness fingerprints. Neither
 candidate nor baseline enrollment is temporarily mutated. The request must fence

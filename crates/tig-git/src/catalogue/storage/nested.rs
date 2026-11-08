@@ -349,6 +349,7 @@ pub struct Association {
     pub adapter: String,
     pub pointer: String,
 }
+#[derive(Clone)]
 pub struct Request {
     project: String,
     commit: String,
@@ -364,6 +365,34 @@ pub struct Loaded {
     pub(super) content: Object,
     pub(super) refs: BTreeSet<Association>,
     pub(super) summary: Value,
+}
+impl Request {
+    /// A temporary, stricter agent read scope. It cannot be adopted as the
+    /// original interactive scope because its basis includes the query limits.
+    pub(crate) fn agent_bounded(mut self) -> Result<Self> {
+        if self.roots.len() > 256 {
+            return Err("Manifest root budget exceeded".into());
+        }
+        self.profile.max_documents = self.profile.max_documents.min(256);
+        self.profile.max_document_bytes = self.profile.max_document_bytes.min(4 * 1024 * 1024);
+        self.profile.max_total_bytes = self.profile.max_total_bytes.min(16 * 1024 * 1024);
+        self.profile.max_references = self.profile.max_references.min(10_000);
+        self.profile.max_depth = self.profile.max_depth.min(8);
+        self.source.limits.verify_millis = self.source.limits.verify_millis.min(5000);
+        self.basis = Object::from_bytes(
+            &serde_json::to_vec(&json!({"enrolled_basis":self.basis,"agent_limits":self.profile}))
+                .map_err(|_| "Manifest basis refused")?,
+        );
+        Ok(self)
+    }
+}
+impl Loaded {
+    pub(crate) fn associations(&self) -> &BTreeSet<Association> {
+        &self.refs
+    }
+    pub(crate) fn read_summary(&self) -> &Value {
+        &self.summary
+    }
 }
 // Asset-side JSON is larger than identity records and may contain unrelated
 // floating-point fields. Reject duplicate keys without canonicalizing those fields.

@@ -64,7 +64,9 @@ fn run(args: &[String]) -> Result<(Value, u8), &'static str> {
             "request_schema":serde_json::from_str::<Value>(include_str!("../../../../specs/AGENT-QUERY.schema.json")).map_err(|_|"internal_error")?,
             "response_schema":serde_json::from_slice::<Value>(query::RESULT_SCHEMA).map_err(|_|"internal_error")?,"statuses":["complete","partial","error"],
             "exit_codes":{"0":"complete within declared scope","3":"partial declared coverage; inspect gaps","2":"refused or invalid request; no successful report"},
-            "limits":{"request_bytes":65536,"report_bytes":LIMIT,"page_rows":100,"impact_nodes":10000,"impact_edges":40000,"impact_depth":64},
+            "limits":{"request_bytes":65536,"report_bytes":LIMIT,"page_rows":100,"impact_nodes":10000,"impact_edges":40000,"impact_depth":64,
+            "manifest_roots":256,"manifest_documents":256,"manifest_document_bytes":4194304,"manifest_total_bytes":16777216,"manifest_references":10000,"manifest_depth":8},
+            "manifest_reads":"Explicit admitted metadata objects only; source basis required, content token required for offset pages; physical opens unknown, media leaves never opened",
             "complete_project_scope":false,"payloads_opened":0,"authorizes_eviction":false}),
             0,
         ));
@@ -99,6 +101,12 @@ fn run(args: &[String]) -> Result<(Value, u8), &'static str> {
         "source_unavailable" => "source_unavailable",
         "conflicting_identity" => "conflicting_identity",
         "invalid_proposal" => "invalid_proposal",
+        "unknown_collection" => "unknown_collection",
+        "unknown_work" => "unknown_work",
+        "manifest_scope_refused" => "manifest_scope_refused",
+        "manifest_budget_exceeded" => "manifest_budget_exceeded",
+        "manifest_read_refused" => "manifest_read_refused",
+        "stale_content" => "stale_content",
         "graph_budget_exceeded" => "graph_budget_exceeded",
         _ => "query_refused",
     })?;
