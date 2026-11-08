@@ -21,6 +21,8 @@ This is source availability, not a stable product or full storage acceptance.
 - Local catalogue: work counts, nested navigation, search, versions, guarded
   metadata expansion, coverage, copy observations, placement preferences and
   work/version/object comparisons. Movement/removal remains a held review.
+  Record impact exposes admitted consumer paths, coverage gaps and exact selected
+  navigation through explicit relationship selection and source-fenced paging.
 - Agent queries: versioned JSON discovery, inspection, admission diagnostics,
   search, byte/record comparison and explained impact through admitted graphs.
   Explicit work-scoped manifest references reuse nested adapters and verified

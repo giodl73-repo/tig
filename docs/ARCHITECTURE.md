@@ -55,6 +55,11 @@ only admitted semantic edges. Owners and other consumers are separate, with
 deterministic shortest witnesses and independent extraction/graph coverage.
 Retained byte associations remain conditional evidence, never production edges.
 
+The catalogue Impact tab uses a fixed metadata-only authenticated endpoint over
+the same native impact resolver and basis framing. It pages 25 consumers, keeps
+gaps/admission diagnostics visible and supplies navigation cards only for exact
+selected revisions. It exposes no general agent-query or byte-read endpoint.
+
 Profile previews pass an explicit candidate set to the same impact resolver and
 compare full known consumer sets and shortest-witness fingerprints. Neither
 candidate nor baseline enrollment is temporarily mutated. The request must fence

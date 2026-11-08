@@ -19,6 +19,7 @@ const STORAGE_OBJECTS_JS: &str = include_str!("web/storage-objects.js");
 const REVIEW_JS: &str = include_str!("web/review.js");
 const BROWSE_JS: &str = include_str!("web/browse.js");
 const SHARED_JS: &str = include_str!("web/shared.js");
+const IMPACT_JS: &str = include_str!("web/impact.js");
 pub struct Host {
     pub catalogue: Mutex<Catalogue>,
     secret: String,
@@ -212,6 +213,7 @@ impl Host {
         }
         let mut c = self.catalogue.lock().map_err(|_| "Catalogue unavailable")?;
         match route {
+            "/api/impact" => c.impact_view(&q),
             "/api/shared" => c.shared_page(
                 get("left"),
                 get("right"),
@@ -469,6 +471,11 @@ impl Host {
                 200,
                 "text/javascript; charset=utf-8",
                 JS.as_bytes().to_vec(),
+            ),
+            "/impact.js" => (
+                200,
+                "text/javascript; charset=utf-8",
+                IMPACT_JS.as_bytes().to_vec(),
             ),
             "/review.js" => (
                 200,
