@@ -521,3 +521,17 @@ Windows/Linux qualification remains separate from these local Windows results.
 Builds, logs and temporary stores use explicit external development roots.
 This verifies cooperative process-restart behavior in the declared namespace,
 not physical removal, power-loss durability, cross-namespace closure or adoption.
+
+## Store-bound protection assessment
+
+EVID-087 / STORE-PROTECTION-BOUNDARY.md, implementationbe6f946: `cargo test -p
+tig-store --lib --locked store_protection::tests` passes 15 entries including a
+helper and one actual child process. Two guarded namespaces, mapped place aliases,
+provider readers/retention, exact enrollment/contract, failed marker revalidation,
+aggregate limits/deadline and read-only missing-anchor refusal are exercised.
+An actual accounted copy installs/verifies retention using the new provider marker.
+Final locked default/all-feature workspace regressions, strict all-feature/
+all-target Clippy, standalone no-feature Git, fmt and L0 pass. Explicit external
+build/temp roots only. These are cooperative
+local process/restart results, not epoch migration, authorized removal or live
+consumer validation. Hosted checks remain separate.

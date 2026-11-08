@@ -1268,3 +1268,36 @@ Failure memory: the initial Enroll field named kind conflicted with serde's
 internally tagged command discriminator. Compilation refused the derive; the
 field is class, preserving the existing kind discriminator. Focused tests cover
 new marker/command compatibility, immutable enrollment and legacy encoding.
+
+## Store-bound protection producer review
+
+Input83d3ec950e3145f0d0a8b358ff4480dd943aafe8;
+implementationbe6f946cc48c0ca72da641a72b55a86190985bba. Controls:
+WP-003/004/006/008/009; REQ-001/002/003/004/005/006/007/009;
+SPEC-002/003/004/005/006/008/009; IF-002/003/004/005/006/008/012;
+PKG-002/003; RUST/PROVIDER profiles. Scope/entry/exit and L0/L1/L2 are in
+specs/STORE-PROTECTION-BOUNDARY.md. IF-003 is explicit for new marker compatibility.
+Method: one producer applying all six parliament checklists against model/safety,
+foundation T01/03/08/10/12/13/15/16/20/24/25 and the reviewed storage roadmap.
+Owner of each disposition: Tig maintainer. No independent review or live-operation
+authority is asserted. No source-budget or runtime-cap increase.
+
+| Lens | Counterexample and disposition | Remaining qualification |
+| --- | --- | --- |
+| Identity/namespace | An absence fact in one journal can omit another project. The actual store marker now pins every enrolled namespace and assigned place alias; exact roster, provider instance, generation and binding identity are checked. Omitted/foreign/duplicate namespaces refuse. | Latest-authority recovery and object incarnation before removal; identical restored metadata is not automatically current. |
+| Placement | Checking only the first alias could miss history or backup demand at the same provider. Every mapped alias contributes after each namespace's admitted precedence. One namespace's current claim cannot erase another's hard obligation. | Native closure, external actor enrollment, policy/namespace handoff and mixed-root retained-subset retirement. |
+| Custody | An all-namespace absence result still says nothing about surviving independent bytes. Existing local reader/retention guards participate, and summary removal authority stays false. | Actual retained independent-domain custody, authorized intent and physical remove/reclaim verification. |
+| Concurrency/recovery | All subject fences are acquired in authority order, nonblocking, then the existing object guard; failures unwind all acquisitions. Work shares one aggregate budget outside SQL transactions. Child process termination and failed revalidation exercise actual guard lifetime; unrelated enrollment progresses. | Epoch transitions with old-executor fencing and authorized-absence/incarnation recovery before physical retirement. |
+| Provider/privacy | Missing anchors must not cause inspection to allocate metadata. The provider uses an existing-anchor exclusive path and exact cached binding checks. Strict bounds precede creation; errors omit private paths and malformed/unknown state refuses. | Hostile filesystem, unmanaged pruning, full restore authority and provider power-loss guarantees. |
+| Git/adoption | A new manifest must not silently migrate running stores or impersonate the old provider contract. Only explicit fresh-store creation uses design-6; old bytes remain unchanged and old readers reject it. Actual copy descriptors bind its contract/generation and reuse existing accounting/retention. | Live project enrollment, trusted Git lifecycle execution and dynamic roster/policy/epoch adoption remain separate. |
+
+Disposition: pass_with_risk for the bounded cooperative store-enrollment/assessment
+slice. EVID-087 records actual versus pending verification. Full requirements,
+work packages, 110 intended workflows, independent review and human acceptance
+remain open. Immutable first enrollment is not epoch handoff; no marker replacement,
+deletion API, implicit migration or custody permission is offered as a substitute.
+
+Failure memory: compilation caught an omitted protection field in the internal
+LocalAttempt store clone. It now preserves the exact binding; the new accounted
+copy/retention integration case exercises that path. The first retention fixture
+also attempted a private limit field; it uses the existing required_peak accessor.

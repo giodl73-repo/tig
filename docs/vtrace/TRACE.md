@@ -426,3 +426,11 @@ class/projection and legacy regressions -> EVID-086, implementation0b75664.
 PKG-009 controls the reviewed 5 MiB source/docs budget; runtime limits are unchanged.
 Store/namespace binding, authority epoch handoff, intentional absence/incarnation,
 custody and removal remain separate entry gates. No full WP/REQ is closed.
+
+Store boundary: WP-003/004/006/008/009, REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009, IF-002/003/004/005/006/008/012, PKG-002/003 ->
+STORE-PROTECTION-BOUNDARY.md -> local design-6 binding, store_protection::assess,
+shared admission work budget and actual orchestration contract/generation checks ->
+15 focused entries/one actual child plus legacy/provider regressions -> EVID-087,
+implementationbe6f946. IF-003 explicitly covers the opt-in marker compatibility.
+Full work packages and live adoption/removal/custody/epoch gates remain open.

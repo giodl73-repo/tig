@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 54891,
-      "sha256": "328057f2615d2aad82746849ca55bea525bb5327de06961ca9689ecb0abd49a3"
+      "bytes": 56763,
+      "sha256": "492514e2827c4b7ea34ac5ef90453009105ed0facb8d351d75f75c8211c631f1"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 99732,
-      "sha256": "27828947d66fab45119acb83f24ebcc37661a37efb93cd682947f0dd93444238"
+      "bytes": 103634,
+      "sha256": "4b8a2173af8d7b9ff528e77621d1290be84146f86364d2de98480eee2861a5ca"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 30198,
-      "sha256": "041cc6c3868c93cd14144a147dbd57e449ec813f3be9b469fa3e4d9e1f8e88db"
+      "bytes": 30766,
+      "sha256": "6d080fb40b730a40bed9b3fe213e7cb4051cb138f6f1af691e0fb9e2cd546a75"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 17112,
-      "sha256": "b5fa72c0c2b42dd22f7c346c20b9f742651aa8bb26fac04d4819a3c6b81ee5a2"
+      "bytes": 17590,
+      "sha256": "3b7dbb47c1478859243eabea055257906ea6d07bce283d2e68cc844c27d976d1"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 34537,
-      "sha256": "2c74158c414d41bb27288de3422a078dd88084ae23fd276cfc5a88b1092ec0e2"
+      "bytes": 35396,
+      "sha256": "68e7551b45054277c49d3a37ce9652ee4e50da065c0ad2e5cb49ca4661f69819"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 26490,
-      "sha256": "2c6baa57bd668be5517d1d020d18839d3a44aecbd01a5580872beecab20c4f61"
+      "bytes": 27048,
+      "sha256": "7bc35ab4da208fe242499db92243c4acc43c5cd43547ba71889656dcb5108f33"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 4989,
+      "bytes": 6664,
       "path": "context/RESUME.md",
-      "sha256": "1ff68b6a2ebd53bbe1cc64da11c876cd66cfcd257c7adc01ca5d183b4e7fba17"
+      "sha256": "f5560375405ab2d56ec243aeb3cac0457b8a1749eb18ce8f33472216a02e5a11"
     },
     {
       "bytes": 16453,
@@ -1924,8 +1924,8 @@
     },
     {
       "path": "specs/STORE-PROTECTION-BOUNDARY.md",
-      "bytes": 4733,
-      "sha256": "1da4c36675791e9b31cf41451871b91b383c91bbc4c659eb241ff85e1cc5666e"
+      "bytes": 4737,
+      "sha256": "ec79bd7e0aa53fb3bbe4228e47a5995bdc9a864927729293291b6d2eca83fef4"
     }
   ]
 }

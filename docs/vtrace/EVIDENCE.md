@@ -649,3 +649,29 @@ epoch handoff, independent custody, hostile/full-restore fencing or power-loss
 guarantee is established. Full requirements and all 110 workflows remain open.
 Hosted Windows/Linux/secrets qualification of PR #17 remains separate; the
 previous snapshot PR #16 has green hosted checks and is ready for review.
+
+EVID-086 hosted follow-up: PR #17 head83d3ec9 passes Windows (22m39s), Linux
+(2m42s) and secrets (6s), and is ready for review. This qualifies the admitted
+local component on those hosts; it does not close full workflow/adoption gates.
+
+EVID-087: store-bound protection assessment, implementation
+be6f946cc48c0ca72da641a72b55a86190985bba; input83d3ec9. Fifteen focused Windows
+entries (including one subprocess helper) pass. Explicit fresh design-6 stores
+pin exact namespace/place rosters and enrollment generation. Both namespaces and
+every mapped alias contribute; omitted/duplicate/foreign rosters, wrong generation,
+unknown place, conflicting size, missing closure/anchor and replaced markers
+refuse. One aggregate resource/deadline budget spans namespaces. Existing readers
+and persistent retention block assessment; failure releases acquired guards, while
+failed revalidation preserves an already returned assessment's guards. A real
+child process holds both namespace fences and the provider fence, blocks claim
+admission/readers, allows unrelated enrollment, then actual termination releases
+them and fresh handles reassess. Existing accounted copy/retention works with the
+new provider contract; stale actual contract refuses before ledger commands.
+Legacy marker encoding remains unchanged. Final default/all-feature workspace
+suites, strict all-feature/all-target Clippy, standalone no-feature Git, fmt and
+L0 pass. No live stores, credentials or consumer adoption.
+The roster/boundary is explicit trusted enrollment, not external-client discovery
+or authentication. Epoch handoff, complete restore authority, custody and
+authorized-absence/incarnation removal recovery remain open. No deletion API.
+PR #18 remains draft for current-head hosted qualification; implementationbe6f946
+has green hosted Linux/secrets and a running Windows job at this checkpoint.

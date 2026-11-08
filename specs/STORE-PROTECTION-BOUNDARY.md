@@ -2,7 +2,7 @@
 
 Input 83d3ec950e3145f0d0a8b358ff4480dd943aafe8.
 WP-003/004/006/008/009; REQ-001/002/003/004/005/006/007/009;
-SPEC-002/003/004/005/006/008/009; IF-002/004/005/006/008/012;
+SPEC-002/003/004/005/006/008/009; IF-002/003/004/005/006/008/012;
 PKG-002/003. RUST/PROVIDER profiles. Allowed scope: explicit synthetic local
 stores, existing guarded namespaces/provider fences and bounded assessment.
 Entry: mandatory per-subject namespace admission and existing local read/retention

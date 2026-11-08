@@ -372,3 +372,11 @@ it does not cover other authorities or attach a byte provider. Store-scope bindi
 and authority handoff, intentional-absence/incarnation recovery and retained
 custody remain required before guarded eviction. Full workflow delivery remains
 open; see the separate EVID-086 verification and producer-review scope.
+
+[Store protection binding](specs/STORE-PROTECTION-BOUNDARY.md) now pins an explicit
+namespace/place roster and generation in fresh local stores. Assessment requires
+every enrolled namespace, shares aggregate budgets, and holds all subject/provider
+fences while respecting readers and local retained claims. It grants no removal
+authority. The first roster is immutable; acknowledged epoch/roster handoff,
+authorized-absence/incarnation recovery and retained custody remain necessary
+execution gates. Existing stores are not migrated or enrolled implicitly.

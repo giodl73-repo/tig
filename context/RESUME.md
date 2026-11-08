@@ -23,15 +23,24 @@ source changes into running tools as a side effect. No startup cache operations.
   marked ready for review. Declared flat
   binding trees only; opaque/native context roots remain gaps. The View adapter
   always sets complete_claim_coverage=false. This does not complete admission.
-- PR #17 (draft), feat/mandatory-source-admission, implementation0b75664: guarded design-2 journal
+- PR #17, feat/mandatory-source-admission, implementation0b75664: guarded design-2 journal
   gates every generic mutation, enrolls immutable source classes and compiles
   exact before/after raw demands into live shared partition permits. Exclusive
   subject assessment tolerates unrelated head changes. Active/history precedence
   and additive retention are explicit. Final default/all-feature workspace suites,
-  strict Clippy, fmt, standalone Git and L0 pass; hosted qualification remains
-  separate. Twenty
+  strict Clippy, fmt, standalone Git and L0 pass; hosted Windows/Linux/secrets
+  pass and it is ready for review. Twenty
   admission entries include a helper and three actual child processes. EVID-086
   separates verification/review from implementation. No removal or store binding.
+- PR #18 (draft), feat/store-protection-boundary, implementationbe6f946: fresh opt-in local
+  design-6 stores pin immutable namespace/place roster, boundary identity and
+  generation. Assessment requires every enrolled guarded namespace plus the
+  provider's existing exclusive object guard and shared aggregate work budget.
+  Fifteen focused entries include one real child process; actual copy/accounting/
+  retention works with the new contract. Final default/all-feature workspace,
+  strict Clippy, fmt, standalone Git and L0 pass. Hosted qualification remains
+  separate; implementation Linux/secrets pass, Windows was still running. EVID-087
+  keeps verification/review separate. No physical removal or live enrollment.
 - Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
   handoff and store/namespace/epoch authority handoff requirements. These remain
   implementation gates, not merely documentation acceptance.
@@ -41,16 +50,28 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Next executor entry
 
-Check hosted qualification/source status without treating a single guarded
-namespace as provider-wide coverage. Next bind each enrolled store scope/
-generation to all authorities that can protect it, define acknowledged authority/
-policy epoch handoff and refuse unresolved/legacy/unmanaged boundaries. A fresh
-epoch does not transfer claims or revoke an old removal executor by itself.
-Preserve per-subject admission and unrelated progress; no global cache lock.
+Check current-head local/hosted qualification and PR state. The store binding
+covers its explicit immutable first roster; it does not implement epoch migration,
+external-client discovery or full restore authority. Preserve that distinction.
 
-Define authorized-absence/publication recovery and incarnation fencing:
+Implement authorized-absence/publication recovery and incarnation fencing:
 old deletion retries must not remove a new same-hash placement. Only after these
-gates implement guarded ordinary eviction. Full private/provider adoption stays
+and retained-custody/current-authority gates implement guarded ordinary eviction.
+The next slice must progress to an actual bounded managed retirement/reacquisition
+protocol and temporary-store unlink/retry/restore fixture, not another read-only
+summary. Bind intent and publication replay to an exact placement incarnation;
+distinguish intentional absence from missing/corrupt acknowledged bytes. Persist
+authorized intent before unlink, reserve completion/recovery metadata, hold source
+assessment plus independent retained custody, and fence stale deletion against
+explicit new-operation reacquisition. Old retries must neither recreate retired
+bytes nor remove a newly ingested identical hash. Older/unmanaged writers must
+refuse any provider mode that permits retirement. Keep actual private stores and
+consumer deployment outside these synthetic mechanism fixtures.
+Define/implement acknowledged authority/policy epoch handoff before enabling roster
+changes: freeze old removal permissions, adopt surviving demand and refuse unresolved
+legacy/unmanaged boundaries. A fresh epoch does not transfer claims or revoke an
+old executor by itself. Preserve unrelated progress; no global cache lock.
+Full private/provider adoption stays
 separate; remote/LFS upload, automatic merge reconciliation, final deletion and
 metadata retirement remain required later milestones, not waived requirements.
 

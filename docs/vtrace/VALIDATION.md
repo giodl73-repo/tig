@@ -263,3 +263,10 @@ concurrent admission under actual local process locks. It does not attach a
 consumer, execute a Git-triggered merge lifecycle, bind all provider protection
 authorities or delete payloads. Full intended-use validation remains OPEN,
 including restore after eviction, finite-backup bulk retirement and metadata expiry.
+
+EVID-087 contributes store-level all-namespace assessment to VAL-003. Synthetic
+independent project namespaces protect one provider through exact configured place
+mappings. A held assessment excludes overlapping demand/read changes while an
+unrelated source enrolls; read-only status cannot reconstruct its guards. This
+is not owner acceptance of a live source registry, epoch handoff, independent
+custody, merge-triggered eviction, bulk final deletion or metadata retirement.
