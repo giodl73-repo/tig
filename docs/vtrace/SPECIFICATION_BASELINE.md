@@ -172,3 +172,10 @@ Consumed payload policy extends SPEC-005/010/011 under
 entry81965c7. A distinct opt-in identity hashes an explicit structural subset of
 captured payloads; full requirements/provenance and legacy calls stay unchanged.
 Native claim replay requires independent original policy, not inferred downgrade.
+
+The explicit retirement operator/agent interface extends SPEC-002/003/004/005/
+006/007/008/009/013 under [RETIREMENT-AGENT-CLI](../../specs/RETIREMENT-AGENT-CLI.md),
+input3e300ca. Canonical portable plans never replace private policy admission;
+status reports historical state separately from fresh byte evidence. Existing
+copy CLI schemas remain compatible. Final deletion, native/provider adoption and
+automatic Git lifecycle execution retain separate gates.

@@ -29,6 +29,14 @@ custody, native dependency coverage and production eviction remain open. Catalog
 alignment/older-copy actions are held previews. No cache initialization, scan,
 hydration, daemon or hook installation on resume.
 
+The explicit `tig-storage retire` interface now composes that library over existing
+managed stores and private policy profiles: plan/apply/status/resume/cancel and
+new-operation reacquisition. See specs/RETIREMENT-AGENT-CLI.md. Survivor grants,
+domains, role assignments and finite budgets are admitted independently from
+portable plans; all three execution permissions default to disabled. Status
+separates historical outcomes from freshly verified present/absent/unproven bytes.
+This does not attach a catalogue action or enable automatic lifecycle execution.
+
 Read AGENTS.md and the active wave/pulse. docs/vtrace/README.md routes controls
 and evidence. Preserve stable IDs and distinguish historical results, current
 code and target behavior. Roles are producer checklists, not independent reviewers.

@@ -18,6 +18,7 @@ use tig_core::{Digest, tree::NodeStore};
 
 const INTENT: &str = "tig.replica-retirement-intent.design-1";
 const DONE: &str = "tig.replica-retirement-completion.design-1";
+pub mod status;
 #[derive(Debug)]
 pub enum Error {
     InvalidPlan,
@@ -93,6 +94,27 @@ pub struct Plan {
     limit: u64,
 }
 impl Plan {
+    pub fn request(&self) -> &Request {
+        &self.request
+    }
+    pub fn enrollment(&self) -> &Enrollment {
+        &self.enrollment
+    }
+    pub fn to_json(&self) -> Result<Vec<u8>> {
+        self.id()?;
+        Ok(lifecycle::encode(self)?)
+    }
+    pub fn from_json(raw: &[u8]) -> Result<Self> {
+        if raw.len() > 48 * 1024 {
+            return Err(Error::InvalidPlan);
+        }
+        let value = tig_core::identity::parse_json(raw).map_err(|_| Error::InvalidPlan)?;
+        let plan: Self = serde_json::from_value(value).map_err(|_| Error::InvalidPlan)?;
+        if plan.to_json()? != raw {
+            return Err(Error::InvalidPlan);
+        }
+        Ok(plan)
+    }
     pub fn id(&self) -> Result<Digest> {
         if self.schema != "tig.replica-retirement-plan.design-1"
             || self.request.keepers.len() > 16
@@ -708,6 +730,58 @@ pub struct ReacquisitionPlan {
     capacity: Digest,
 }
 impl ReacquisitionPlan {
+    pub fn publication(&self) -> &Publication {
+        &self.publication
+    }
+    pub fn enrollment(&self) -> &Enrollment {
+        &self.enrollment
+    }
+    pub fn context(&self) -> &Digest {
+        &self.context
+    }
+    pub fn capacity(&self) -> &Digest {
+        &self.capacity
+    }
+    fn validate(&self, store: &LocalStore) -> Result<()> {
+        self.enrollment.check(store)?;
+        self.id()?;
+        if self.limit != metadata_peak(store)? {
+            return Err(Error::InvalidPlan);
+        }
+        let expected = accounted::plan_bound(
+            store,
+            &self.publication,
+            lifecycle::digest(&("reacquire", &self.birth, &self.context))?,
+        )?;
+        if lifecycle::encode(&expected)? != lifecycle::encode(&self.payload)? {
+            return Err(Error::InvalidPlan);
+        }
+        Ok(())
+    }
+    pub fn id(&self) -> Result<Digest> {
+        if self.schema != "tig.replica-reacquisition-plan.design-1"
+            || self.birth.index == 0
+            || self.birth.index >= lifecycle::MAX_BIRTHS
+        {
+            return Err(Error::InvalidPlan);
+        }
+        Ok(lifecycle::digest(self)?)
+    }
+    pub fn to_json(&self) -> Result<Vec<u8>> {
+        self.id()?;
+        Ok(lifecycle::encode(self)?)
+    }
+    pub fn from_json(raw: &[u8]) -> Result<Self> {
+        if raw.len() > 65536 {
+            return Err(Error::InvalidPlan);
+        }
+        let value = tig_core::identity::parse_json(raw).map_err(|_| Error::InvalidPlan)?;
+        let plan: Self = serde_json::from_value(value).map_err(|_| Error::InvalidPlan)?;
+        if plan.to_json()? != raw {
+            return Err(Error::InvalidPlan);
+        }
+        Ok(plan)
+    }
     pub fn required_peak(&self) -> Result<u64> {
         self.limit
             .checked_add(self.payload.required_peak())
@@ -776,10 +850,7 @@ impl Reacquisition<'_> {
         source: &mut dyn std::io::Read,
         mut hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<AccountedReceipt> {
-        plan.enrollment.check(self.store)?;
-        if plan.schema != "tig.replica-reacquisition-plan.design-1" {
-            return Err(Error::InvalidPlan);
-        }
+        plan.validate(self.store)?;
         if self.ledger.identity() != &plan.capacity {
             return Err(Error::InvalidPlan);
         }
@@ -789,14 +860,6 @@ impl Reacquisition<'_> {
             || plan.birth.index >= lifecycle::MAX_BIRTHS
         {
             return Err(Error::WrongAuthorization);
-        }
-        let expected = accounted::plan_bound(
-            self.store,
-            &plan.publication,
-            lifecycle::digest(&("reacquire", &plan.birth, &plan.context))?,
-        )?;
-        if lifecycle::encode(&expected)? != lifecycle::encode(&plan.payload)? {
-            return Err(Error::InvalidPlan);
         }
         let (operation, settle) = keys(self.store, &plan.publication.operation, "reacquire")?;
         let binding = lifecycle::digest(&(plan, self.job))?;

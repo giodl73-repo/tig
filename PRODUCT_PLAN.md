@@ -390,3 +390,13 @@ evicts/restores exact prior bytes. This advances the local mechanism in priority
 its CLI/agent/UI contract, large-file/native qualification and live adoption are
 still required. No automatic merge action, remote upload, final-copy deletion,
 metadata expiry or dynamic epoch adoption follows from this component.
+
+The [operator/agent retirement interface](specs/RETIREMENT-AGENT-CLI.md) now
+exposes plan/status/apply/resume/cancel/reacquire over that local mechanism.
+Private profiles independently pin owner/context, survivor grants/domains, role
+assignments and finite budgets. Execution permissions default independently to
+disabled. The first policy conservatively retains every configured survivor;
+it is not the automatic Git lifecycle policy selector. Fresh status and historical
+outcomes remain separate, including after same-hash reacquisition. Catalogue apply,
+remote/LFS upload, trusted exact-ref event convergence, bulk final deletion,
+metadata expiry and operational lifetime gates remain required roadmap work.

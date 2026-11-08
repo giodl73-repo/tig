@@ -51,6 +51,13 @@ supports bounded ordinary replica retirement, cancellation and explicit
 reacquisition with retained-survivor and incarnation fences in synthetic stores.
 It does not enable live caches, automatic merge actions or final-copy deletion.
 
+The explicit [retirement CLI/agent interface](specs/RETIREMENT-AGENT-CLI.md)
+exposes the same mechanism through `tig-storage retire describe`, then
+plan/status/apply/resume/cancel and explicit reacquisition. Existing managed
+roots, reserved capacity and independently admitted private profiles are required;
+eviction, cancellation and reacquisition are separately disabled by default.
+Historical retirement and current byte availability are reported separately.
+
 ## Build and try it
 
 Contributors and coding agents: follow [development startup](docs/DEVELOPMENT.md)

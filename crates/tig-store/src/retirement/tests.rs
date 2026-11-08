@@ -947,6 +947,16 @@ fn real_child_exits_resume_intent_unlink_and_completion_without_blind_deletion()
         f.ledger =
             CapacityLedger::open(&f.root.path().join("capacity"), &f.ledger.checkpoint()).unwrap();
         assert_eq!(f.object_path().exists(), matches!(mode, "bound" | "intent"));
+        let sequence = f.ledger.checkpoint();
+        let status = super::status::inspect(&f.store, &mut f.ledger, &f.job, &retired).unwrap();
+        assert!(matches!(
+            status.phase,
+            super::status::Phase::Admitted
+                | super::status::Phase::Pending
+                | super::status::Phase::Retired
+        ));
+        assert!(!status.removal_authority);
+        assert_eq!(f.ledger.checkpoint(), sequence);
         if mode == "unlink" {
             let selection = tree(
                 &mut f.nodes,
@@ -1011,6 +1021,15 @@ fn new_demand_after_pending_intent_can_cancel_without_losing_bytes_or_publicatio
     ));
     let cancelled = f.cancel(&abandoned).unwrap();
     assert!(cancelled.cancelled);
+    let before = f.ledger.checkpoint();
+    let status = super::status::inspect(&f.store, &mut f.ledger, &f.job, &abandoned).unwrap();
+    assert!(matches!(status.phase, super::status::Phase::Cancelled));
+    assert!(matches!(
+        status.observed,
+        super::status::Observation::VerifiedPresent
+    ));
+    assert!(status.historical_outcome);
+    assert_eq!(f.ledger.checkpoint(), before);
     assert_eq!(cancelled.logical_bytes, 0);
     assert!(f.object_path().exists());
     accounted::publish_accounted(
@@ -1289,12 +1308,23 @@ fn settled_authority_with_restored_provider_prefix_refuses_repeat_destructive_io
         .join(f.publication.object.sha256.as_str());
     fs::remove_file(dir.join("01.birth.json")).unwrap();
     fs::remove_file(dir.join("00.done.json")).unwrap();
+    let status = super::status::inspect(&f.store, &mut f.ledger, &f.job, &retired).unwrap();
+    assert!(matches!(
+        status.phase,
+        super::status::Phase::RecoveryRequired
+    ));
+    assert!(!status.historical_outcome);
     assert!(matches!(
         f.apply(&retired),
         Err(Error::Store(crate::Error::NeedsRecovery))
     ));
     assert!(f.object_path().exists());
     fs::remove_file(dir.join("00.intent.json")).unwrap();
+    let status = super::status::inspect(&f.store, &mut f.ledger, &f.job, &retired).unwrap();
+    assert!(matches!(
+        status.phase,
+        super::status::Phase::RecoveryRequired
+    ));
     assert!(matches!(
         f.apply(&retired),
         Err(Error::Store(crate::Error::NeedsRecovery))
@@ -1319,6 +1349,79 @@ fn versioned_keeper_order_is_canonical_and_changed_plan_schema_refuses_before_ad
     assert!(f.apply(&invalid).is_err());
     assert_eq!(f.ledger.checkpoint(), before);
     assert!(f.object_path().exists());
+}
+
+/// Explicit L2 qualification: build tig-storage first and supply its absolute
+/// path. A library-only Cargo invocation cannot supply Cargo's integration-bin
+/// artifact, so this cross-artifact fixture is run separately, never silently skipped.
+#[test]
+#[ignore = "requires TIG_RETIREMENT_CLI pointing to the freshly built tig-storage binary"]
+fn explicit_cli_pending_cancellation_qualification() {
+    let binary =
+        PathBuf::from(std::env::var_os("TIG_RETIREMENT_CLI").expect("explicit test binary"));
+    assert!(binary.is_absolute() && binary.is_file());
+    let f = Fixture::new();
+    let p = f.plan();
+    let mut child = spawn(&f, &p, "intent", None);
+    assert_eq!(child.0.wait().unwrap().code(), Some(75));
+    let mut metadata = crate::metadata::MetadataStore::create(
+        &f.root.path().join("metadata"),
+        crate::metadata::Limits {
+            nodes: 100,
+            bytes: 1024 * 1024,
+            database_bytes: 1024 * 1024,
+            min_free_bytes: 65536,
+        },
+    )
+    .unwrap();
+    let minimum = metadata.finish().unwrap();
+    let profile = serde_json::json!({"schema":"tig.storage-retirement-profile.design-1",
+        "source_root":f.root.path().join("working"),"enrollment":p.enrollment,"ledger_root":f.root.path().join("capacity"),
+        "minimum":f.ledger.checkpoint(),"job":f.job,"source":f.enrollment,
+        "metadata":{"root":f.root.path().join("offline-metadata"),"minimum":minimum},
+        "namespaces":f.namespaces.iter().enumerate().map(|(i,n)|serde_json::json!({"root":f.root.path().join(format!("offline-namespace-{i}")),"minimum":n.checkpoint()})).collect::<Vec<_>>(),
+        "backups":f.keepers.iter().map(|k|serde_json::json!({"root":f.root.path().join("offline-keeper"),"ledger_root":f.root.path().join("offline-keeper-ledger"),
+            "minimum":k.ledger.checkpoint(),"enrollment":k.enrollment,"grant":k.grant,
+            "places":f.namespaces.iter().flat_map(|n|["backup","history"].map(|s|serde_json::json!({"namespace":n.identity(),"place":s}))).collect::<Vec<_>>()})).collect::<Vec<_>>(),
+        "limits":limits(),"policy":{"owner":"owner","context":f.context,"minimum_domains":1,"max_object_bytes":1024,"max_peak_bytes":128*1024*1024,
+            "allow_eviction":false,"allow_reacquisition":false,"allow_cancellation":true}});
+    let profile_path = f.root.path().join("profile.json");
+    let plan_path = f.root.path().join("plan.json");
+    fs::write(&profile_path, serde_json::to_vec(&profile).unwrap()).unwrap();
+    fs::write(&plan_path, p.to_json().unwrap()).unwrap();
+    let run = |action: &str| {
+        let output = Process::new(&binary)
+            .args(["retire", action])
+            .arg(&profile_path)
+            .arg(&plan_path)
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stdout)
+        );
+        assert!(output.stderr.is_empty());
+        serde_json::from_slice::<serde_json::Value>(&output.stdout).unwrap()
+    };
+    assert_eq!(run("status")["phase"], "pending");
+    assert_eq!(run("cancel")["cancelled"], true);
+    let status = run("status");
+    assert_eq!(status["phase"], "cancelled");
+    assert_eq!(status["observed"], "verified_present");
+    assert_eq!(run("cancel")["cancelled"], true);
+    assert!(f.object_path().exists());
+    // The original publication remains valid after cancellation's action-slot advance.
+    let mut ledger =
+        CapacityLedger::open(&f.root.path().join("capacity"), &f.ledger.checkpoint()).unwrap();
+    accounted::publish_accounted(
+        &mut ledger,
+        &f.store,
+        &f.job,
+        &f.original,
+        &mut Cursor::new(b"target"),
+    )
+    .unwrap();
 }
 
 #[test]

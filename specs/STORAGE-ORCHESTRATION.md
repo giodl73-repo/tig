@@ -82,6 +82,10 @@ Process exit releases live read guards; durable retention stays in existing stor
 records. The catalogue can reuse this library plan later, but no UI apply/removal
 binding or provider deployment is added by this slice.
 
+The separate [retirement namespace](RETIREMENT-AGENT-CLI.md) now uses the opt-in
+managed provider and independently admitted private policy. Its existence does
+not grant removal to these original copy commands or change their plan encoding.
+
 ## Explicitly bound local stores
 
 The later [store protection boundary](STORE-PROTECTION-BOUNDARY.md) adds an opt-in

@@ -94,3 +94,11 @@ coalescing before admission does not promise to undo renders already started.
 This follow-up preserves truthful history and user-resolved bindings while
 requiring exact schema/semantic validation at the configured transition. No
 native format release, automatic render scheduler or merge driver is implemented.
+
+IF-002/003/004/005/006/008/012/013 retirement CLI extension, input3e300ca:
+[RETIREMENT-AGENT-CLI](../../specs/RETIREMENT-AGENT-CLI.md) defines strict versioned
+private profiles, canonical library plans and bounded redacted responses. Existing
+copy commands/wires remain compatible. Private owner/context, actual enrollment,
+survivor grants/domains and place coverage gate creation of a live execution token;
+portable status is never removal authority. This is explicit ordinary local
+retirement/reacquisition only, with no provider initialization or consumer switch.

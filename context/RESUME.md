@@ -53,6 +53,14 @@ source changes into running tools as a side effect. No startup cache operations.
 - Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
   handoff and store/namespace/epoch authority handoff requirements. These remain
   implementation gates, not merely documentation acceptance.
+- feat/retirement-agent-cli, based on3e300ca: explicit tig-storage retire
+  plan/status/apply/resume/cancel/reacquire uses existing managed retirement and
+  private owner/context/domain/grant/role/budget admission. Eight CLI process
+  cases and the separate real-child pending-intent CLI cancellation qualification
+  pass locally. Final locked default/all-feature workspace suites, strict Clippy,
+  fmt, standalone Git and portable L0 pass. Separate EVID-089 closeout and hosted
+  qualification remain to be recorded/checked at this source checkpoint. No real
+  cache, initialization, final deletion or automation.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
@@ -63,16 +71,13 @@ Check current-head local/hosted qualification and PR state. The store binding
 covers its explicit immutable first roster; it does not implement epoch migration,
 external-client discovery or full restore authority. Preserve that distinction.
 
-Implement the shared operator/agent retirement interface using the existing new
-library, not another read-only protection layer. Expose versioned plan/apply/status/
-resume/cancel/reacquire over explicit existing managed roots and admitted metadata
-readers. Private profiles must independently admit owner/context, minimum survivor
-coverage, place assignments, enrolled domains and finite budgets before minting a
-scope token; portable plans cannot grant themselves broader policy. Status must
-distinguish fresh observations, historical retired/cancelled outcomes, pending and
-missing recovery evidence without recreating guards from JSON. Add actual CLI
-process fixtures for unlink/restart/restore and refusals. Do not initialize caches
-or deploy binaries/consumers implicitly. Keep all effects in synthetic roots.
+Finish qualification and separate verification/validation/trace/review closeout
+for the existing operator/agent retirement lane. Inspect the actual running
+Cargo/session and PR jobs before restarting anything; a polling timeout is not
+failure. The cross-artifact pending-cancellation fixture requires a freshly built
+binary via TIG_RETIREMENT_CLI and an explicit --ignored --exact invocation; its
+ordinary-suite ignored entry is not executed evidence. Both hosted platforms
+now include that qualification. Keep all effects in synthetic roots.
 
 Then continue roadmap priorities: one qualified remote/upload adapter, Git/LFS
 upload and explicitly enabled exact-ref lifecycle convergence; finite-backup bulk

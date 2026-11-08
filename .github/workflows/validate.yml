@@ -61,11 +61,19 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           git lfs version
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
           cargo fmt --all -- --check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo build --workspace --all-features --bins --locked
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo test --workspace --all-features --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_RETIREMENT_CLI = Join-Path $env:CARGO_TARGET_DIR "debug/tig-storage$suffix"
+          cargo test -p tig-store --lib --locked retirement::tests::explicit_cli_pending_cancellation_qualification -- --ignored --exact
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo clippy --workspace --all-features --all-targets --locked -- -D warnings
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
