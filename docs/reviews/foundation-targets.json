@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 63703,
-      "sha256": "f1f1fefc6df48481d65ab578b55e3de21067431fe5a64e872f9409d2b9309da3"
+      "bytes": 66500,
+      "sha256": "0ed4eb4490e66dfd39b5055bd7d911cffef61483f536d6ad77c1800c64782d1b"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 112602,
-      "sha256": "8160148df4d859d039ef6f3651b06cb2ced0d76ebcb74dd76b7240a7290a625c"
+      "bytes": 113893,
+      "sha256": "13d153693d939cdf90bd03ac8897c34adf313a4a942b6b87a6a4558a7f80296b"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 32808,
-      "sha256": "c607713e7faeedb067a169c5184462928a57e0bdda4d41d39cc5111d5bc93c15"
+      "bytes": 33509,
+      "sha256": "aa6db4067a69bac4b4be68fc319af025cb420b0a1b04b9b2b9d6622e1196c4b7"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 19452,
-      "sha256": "1818101478eff2da3789472c01b74511747de87fcee380161e562652824e11b7"
+      "bytes": 19869,
+      "sha256": "838dbfc81e3376fb1fcef250da01a7d4f8732bc7e91b73e271063dd82dbdd7f0"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 39289,
-      "sha256": "857d251917c95965b97e48cc958006ef10ada5b00ae3fe032188b7039c066fd6"
+      "bytes": 40599,
+      "sha256": "4f6d25c9904b4f7894a8d6842d22484e7fe05d525ee153be832882f2d3316de1"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 9712,
+      "bytes": 11359,
       "path": "context/RESUME.md",
-      "sha256": "af4b21026fb4987e6096c0c5df7055b984ea5bffc1a49bc400461f20a2102551"
+      "sha256": "524aad1bd24d75af3a0e19dc4da2e061ab6a82f193a8befc7fd711cad452c38a"
     },
     {
       "bytes": 16453,
@@ -2021,6 +2021,11 @@
       "path": "specs/LFS-UPLOAD.md",
       "bytes": 9224,
       "sha256": "5213fbecfd9406ac77f84b7ef49dbb9739b7357c3ffefaae707b66652d830fa3"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-lfs-upload.md",
+      "bytes": 5108,
+      "sha256": "b0786b4dbdeb841962662cacc5b5f7a2046cfe513abaa15bca429f529a804f77"
     }
   ]
 }

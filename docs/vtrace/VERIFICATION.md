@@ -593,3 +593,23 @@ after the operation-guard/sampling correction; no stale pre-correction pass is
 used for closure. Hosted current-head qualification is separate. Loopback HTTP
 conformance does not prove real AWS IAM/TLS, retained custody, remote quota,
 large-file/native or complete operational lifetime guarantees.
+
+## Standalone Git LFS upload
+
+EVID-091 / LFS-UPLOAD.md, implementation2f1173b: `cargo test -p tig-git
+--features upload --test upload --locked` passes 13 integration cases. Actual Git
+LFS 3.4.0 push and real CLI/HTTP fixtures verify exact bytes, optional verify
+notification, lost-reply retry, private scope/credential admission and source
+preservation. A killed uploader holds its exact peer while another job progresses;
+fresh resume sends no second PUT. Wrong/unknown roots, stale/disabled authority,
+scope/header confusion, expiry/deadlines, unsupported transfer, corrupt/missing
+readback and missing settled evidence refuse without initialization or repair.
+Status creates no capacity commands and works without the source payload.
+
+Locked default/all-feature workspace suites pass, including 15 S3 shared-witness
+regressions. Final test-only missing-root assertions reran in the 13-case focused
+suite, followed by strict all-feature/all-target Clippy. Product code was unchanged
+after the broad suites. Fmt, standalone Git/dependency independence, explicit
+retirement CLI qualification, restore/catalogue checks and portable L0 also pass.
+Hosted current-head verification remains separate. No actual server/TLS/custody,
+remote quota, large-file/native, full authority restore or lifetime claim follows.

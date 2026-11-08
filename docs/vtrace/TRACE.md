@@ -465,3 +465,13 @@ conditional/readback, lost-reply restart, exact-peer contention, unrelated-job
 progress and refusal tests -> EVID-090, implementation4fc3060. Verification,
 synthetic validation and six-role producer review close separately. Full cloud/
 LFS/provider/adoption requirements and remaining roadmap milestones remain open.
+
+Standalone LFS upload: WP-003/005/006/007/014/015,
+REQ-001/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/007/008 -> LFS-UPLOAD.md ->
+optional tig-git upload backend, standard upload protocol/CLI, existing verified
+reader and shared accounted witnesses -> 13 HTTP/actual Git LFS/CLI/killed-process
+cases plus 15 S3 compatibility regressions -> EVID-091, implementation2f1173b.
+Verification, synthetic intended-use rehearsal and all six producer lenses close
+separately. Actual custody/server/large-file/lifetime qualification and subsequent
+Git lifecycle, bulk final-deletion and metadata-retirement delivery remain open.

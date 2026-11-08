@@ -1400,3 +1400,23 @@ verification, intended-use rehearsal and trace. Actual cloud IAM/TLS/account,
 provider retained custody/durability/quota, large-file/native/lifetime qualification,
 independent review and live adoption remain open, as do LFS upload and subsequent
 Git convergence, bulk final-deletion and metadata-retirement milestones.
+
+## Standalone LFS upload producer review
+
+Input9b8a689; implementation2f1173bd2991af429911b251ceaa173916077ee3.
+Scope/control entry/exit and GIT/PROVIDER L0/L1/L2 are in
+[LFS-UPLOAD](../../specs/LFS-UPLOAD.md). One producer reapplied all six parliament
+checklists; [LU-01..06](../reviews/2026-11-08-lfs-upload.md) record severity,
+disposition, exact evidence and remaining qualification. Owner: Tig maintainer.
+This is not independent review or human/live-operation approval.
+
+Review caught readable-but-unregistered content skipping a required verify on
+retry; unfinished operations now perform upload admission/verify and fresh full
+readback. Explicit action credentials replace any implicit Batch-token forwarding,
+and duplicate/conflicting/routing/media headers, expiry and ambiguous scopes hold.
+Shared accounted witnesses preserve S3 wires and scoped progress. Actual process
+exit/retry and source-preserving real Git LFS push qualify the bounded client seam.
+EVID-091 separately records local verification, synthetic validation and trace.
+Disposition: pass_with_risk for this 8 MiB experimental adapter only; hosted checks,
+actual server/custody/large-file/lifetime, trusted Git convergence, bulk final
+deletion, metadata retirement and private adoption remain separate obligations.

@@ -1,5 +1,11 @@
 # Intended-use validation
 
+EVID-091 contributes a bounded Git-only upload/recovery rehearsal to VAL-001/002/004:
+actual temporary Git LFS push, private admission, verified source preservation,
+lost replies, killed uploader, scoped peer refusal and another job's progress.
+This validates the synthetic client seam only. Full placement/custody, trusted Git
+events, actual consumer/UX acceptance and all five complete validations remain planned.
+
 EVID-076 exercises retained-subject selection and separate target bindings with
 synthetic API/CLI inputs. It accepts no actual consumer migration, remote
 publication, source/job lifecycle, custody, runtime switch or full VAL-005 run.

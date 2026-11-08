@@ -70,9 +70,24 @@ source changes into running tools as a side effect. No startup cache operations.
   suites, strict Clippy, standalone Git and retirement CLI qualification pass.
   Actual peers contend only on the exact operation; another job uploads while
   its guard is held. EVID-090 separately records verification, validation rehearsal,
-  trace and six-role producer review. Hosted current-head qualification remains
-  separate; derive PR state live. Private access is absent from plans; receipts deny
+  trace and six-role producer review. Head9b8a689, PR #21, passes hosted Windows
+  (12m29s), Linux (2m49s) and secrets (6s), and is ready for review; derive current
+  PR state live. Private access is absent from plans; receipts deny
   retained custody/removal. No real account, service or cloud store is attached.
+- feat/lfs-upload, implementation2f1173b, based on9b8a689: optional standalone
+  Basic upload and tig-lfs upload plan/peak/status/apply/resume reuse existing OID
+  authorization, guarded Git LFS readers and shared accounted local witnesses.
+  Thirteen HTTP/actual Git LFS 3.4.0/CLI cases pass, including killed-process
+  recovery, peer refusal and another job's progress without re-upload. Full
+  readback plus optional verify notification precede completion; readable bytes
+  cannot skip unfinished verify. Private action credentials are explicitly scoped
+  and absent from plans. Final missing-root assertions reran after the broad-suite
+  build; the product implementation was unchanged. Locked default/all-feature
+  workspace suites, all 15 S3 regressions, strict Clippy, fmt, standalone Git/
+  dependency graph, explicit retirement CLI qualification and portable L0 pass.
+  EVID-091 separately records verification, synthetic validation, trace and six
+  producer lenses. Hosted current-head checks remain separate; derive PR state
+  live. No actual server/TLS/account, remote quota, custody or live store is attached.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
@@ -90,18 +105,24 @@ pending-cancellation fixture requires a freshly built binary via TIG_RETIREMENT_
 and an explicit --ignored --exact invocation; its ordinary-suite ignored entry is
 not executed evidence. Both hosted platforms include that qualification.
 
-Check hosted S3 qualification, then continue Git LFS upload through existing
-exact-source, transfer and guarded-reader ports; local qualification and separate
-EVID-090 closeout are complete. Read current LFS provider/protocol contracts before
-changing the download-only adapter. Preserve source and distinguish uploaded/
-verified availability from independent retained custody. The S3 loopback protocol
-fixture is not actual AWS IAM/TLS/account, remote quota or retention qualification.
+Check hosted LFS upload qualification and actual PR state before duplicating the
+upload lane. Local EVID-090/091 closeouts are complete, and S3 hosted checks pass.
+Next implement trusted exact-ref Git lifecycle convergence over existing source
+admission, plans and managed retirement, with explicit private executor authority.
+No second cache engine or automatic runner installation. Duplicate/delayed/missed
+events must converge to the currently admitted ref; preserve drafts/jobs and report
+pending work separately from merge success. An exact Git revert is a new desired
+selection, not permission to resurrect retired operations. Read GIT-WORKFLOW.md,
+mandatory admission and current retirement contracts before changing that seam.
+Preserve source and distinguish uploaded/verified availability from independently
+retained custody. Loopback protocol fixtures qualify neither actual AWS/LFS TLS/
+authentication/account nor remote quota/retention capabilities.
 Do not install services, connect real stores or copy private credentials as startup
 behavior. Native media, automatic Git lifecycle and last-copy deletion retain their
 separate boundaries and remain required later roadmap work.
 
-Then continue roadmap priorities: one qualified remote/upload adapter, Git/LFS
-upload and explicitly enabled exact-ref lifecycle convergence; finite-backup bulk
+Then continue roadmap priorities: real-provider qualification and explicitly
+enabled exact-ref lifecycle convergence; finite-backup bulk
 retirement/final deletion and eventual metadata forgetting remain required. Large-
 file/native-provider qualification and journal/history continuation are prerequisites
 for sustained/private use. The reference profile remains 8 MiB, sixteen object
@@ -113,7 +134,7 @@ changes: freeze old removal permissions, adopt surviving demand and refuse unres
 legacy/unmanaged boundaries. A fresh epoch does not transfer claims or revoke an
 old executor by itself. Preserve unrelated progress; no global cache lock.
 Full private/provider adoption stays
-separate; remote/LFS upload, automatic merge reconciliation, final deletion and
+separate; full provider adoption, automatic merge reconciliation, final deletion and
 metadata retirement remain required later milestones, not waived requirements.
 
 ## Product and safety constraints to retain

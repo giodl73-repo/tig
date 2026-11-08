@@ -772,3 +772,43 @@ configured. Actual AWS IAM/TLS/account, provider durability/retention, remote qu
 large files/native adoption and lifetime remain unqualified. Git LFS upload,
 trusted Git event convergence, bulk final deletion and metadata expiry remain
 required work. No full requirement, priority-5 milestone or designed workflow closes.
+
+Hosted follow-up for EVID-090: head9b8a689, PR #21, run42524984347 passes
+Windows (12m29s), Linux (2m49s) and secrets (6s). The PR is ready for review;
+this preserves the original protocol-fixture scope and adds no live-cloud claim.
+
+EVID-091: optional standalone Git LFS Basic upload, implementation
+2f1173bd2991af429911b251ceaa173916077ee3; input9b8a689. Thirteen actual HTTP/
+Git/CLI integration cases pass, including installed Git LFS 3.4.0 push of two
+objects, existing-byte reuse, independent verify registration and source retention.
+Lost PUT/verify replies and denied verify recover without re-upload or skipping
+notification. A real process killed after remote storage but before its reply
+leaves durable intent; a peer holds, another job progresses through the same
+ledger/store, and fresh-process resume completes without another PUT.
+
+Exact init remote, source OID/size/path, canonical plans, private scope/header
+credentials and finite object/session/HTTP/body/time bounds are checked. Negative
+cases cover disabled/stale/unauthorized profiles, absent source/witness/ledger roots,
+unsafe scope/routing/media headers, duplicate/conflicting credentials, wrong OID,
+unsupported transfer, denial/redirect/expiry, corrupt/missing readback and damaged
+settled witnesses. Sources remain present. Status creates no capacity commands,
+needs no source payload, and distinguishes acknowledged loss without re-upload.
+Credentials refresh without changing plans and are absent from plan identity.
+
+Existing accounted publication stores the two bounded witnesses; no new journal
+or cache engine is introduced. Shared extraction preserves S3 body/key/context
+formulas; all 15 S3 regressions pass in the all-feature run. Locked default and
+all-feature workspace suites, strict all-feature/all-target Clippy, fmt, standalone
+Git check/dependency graph, separately invoked retirement CLI qualification,
+three restore helper and 66 catalogue interaction tests, and portable L0 pass.
+After the broad-suite build, final missing-root assertions were added; all 13
+upload cases reran successfully (24.71s), as did strict Clippy. Product code was
+unchanged. Hosted current-head qualification remains separate pending publication.
+
+Only explicit synthetic repositories, payloads and literal-loopback HTTP servers
+participated. The source cap is 8 MiB. Actual TLS/server/account/authentication,
+provider no-clobber/retention/durability, remote quota, native/large-file/lifetime
+qualification, independent/human acceptance and live adoption remain open. Receipts
+deny retained custody/removal authority. Trusted Git lifecycle convergence, bulk
+final deletion with retained-subset handoff, authority migration and eventual
+metadata retirement remain required plan work; no full milestone or requirement closes.
