@@ -30,6 +30,18 @@ substitution. This metadata-only UI does not expand inventory bytes. Conditional
 manifest impact remains available through the agent CLI. Browser qualification
 is separate from controller and authenticated loopback API fixtures.
 
+Integrated controller fixtures now load the shipped scripts in HTML order with
+two synthetic projects and a bounded DOM/fetch double. They exercise work/source/
+impact/consumer return flows, duplicate titles, 63-consumer paging, 128 missing
+definition rules, cross-project stale replies and scoped zero results. Impact
+shows stable IDs, the pinned snapshot and shown/known counts; truncated rule
+samples are explicit. These fixtures supplement real Rust API tests and do not
+claim browser layout, keyboard or live-project acceptance. Run them with:
+
+```text
+node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs
+```
+
 | Milestone | Product | Status |
 | --- | --- | --- |
 | U1 | Native multi-project intake, search, paging, exact refs and inspector | Implemented; initial flat view retained for technical inspection |

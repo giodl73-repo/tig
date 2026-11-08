@@ -1103,3 +1103,10 @@ source-fenced pages, stale/late reply handling and unknown coverage are covered
 by [scoped fixtures and review](../reviews/2026-11-08-catalogue-impact.md).
 Pass_with_risk; visual/browser qualification and complete project/job/custody
 coverage remain open. No independent/human acceptance or eviction authority.
+
+Integrated UX fixture producer review (inputf072d1b): identity, privacy/provider,
+adoption and concurrency lenses cover shipped-script controller flows, stable
+identities, exact snapshot/progress, sample disclosures and four stale-response
+guards. See [scope, reproductions and evidence](../reviews/2026-11-08-fixture-ux-flows.md).
+Pass_with_risk: synthetic DOM/fetch fixtures supplement native API checks and
+cannot establish browser layout, live-project or custody acceptance.

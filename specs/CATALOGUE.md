@@ -25,6 +25,13 @@ the exact selected revision. HTTP response limits remain 4 MiB. No general agent
 query, profile admission or manifest/byte reading is exposed through this route.
 Missing coverage is unknown, never absence, regeneration or eviction authority.
 
+Impact progress names both shown and known counts and the exact pinned snapshot.
+Consumer labels include stable IDs even when display titles collide. Missing-rule
+samples disclose omitted definitions. Work inspection, work lists, search and
+metadata refresh discard stale successes/errors rather than overriding a newer
+selection. Controller fixtures check the shipped scripts together; their DOM
+double makes no browser-layout or provider-behavior claim.
+
 `tig-catalogue shared ENROLLMENT LEFT RIGHT NEW_REPORT [CATEGORY]` compares
 selected object identities in two explicit pinned projects. Only those project
 profiles are opened. Identity is SHA-256 plus length; conflicting lengths refuse.
