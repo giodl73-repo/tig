@@ -1,16 +1,17 @@
 //! Explicit source-preserving S3 conditional PUT/full-readback composition.
 //! Local intent/completion reuse accounted publication. No retained custody.
 use crate::{
-    AckLevel, Key, Request, accounted,
+    AckLevel, Key, Request,
     ledger::{CapacityLedger, JournalRef},
     local::{LocalStore, MAX_OBJECT_BYTES},
     orchestration::Place,
+    upload_witness,
 };
 use base64::{Engine as _, engine::general_purpose::STANDARD};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest as _, Sha256};
 use std::{
-    io::{self, Cursor, Read},
+    io::{self, Read},
     time::{Duration, Instant},
 };
 use tig_core::{Digest, Object, identity};
@@ -63,23 +64,13 @@ fn store_error(e: crate::Error) -> Error {
         _ => Error::NeedsRecovery,
     }
 }
-fn accounted_error(e: accounted::AccountedError) -> Error {
+fn witness_error(e: upload_witness::Error) -> Error {
     match e {
-        accounted::AccountedError::Store(e) => store_error(e),
-        accounted::AccountedError::Ledger(e) => ledger_error(e),
-        _ => Error::NeedsRecovery,
-    }
-}
-fn ledger_error(e: crate::ledger::LedgerError) -> Error {
-    match e {
-        crate::ledger::LedgerError::Conflict => Error::Conflict,
-        crate::ledger::LedgerError::Busy => Error::Busy,
-        crate::ledger::LedgerError::Budget => Error::Budget,
-        crate::ledger::LedgerError::Capacity(
-            tig_core::capacity::CapacityError::Insufficient
-            | tig_core::capacity::CapacityError::Budget,
-        ) => Error::Budget,
-        _ => Error::NeedsRecovery,
+        upload_witness::Error::InvalidPlan => Error::InvalidPlan,
+        upload_witness::Error::Budget => Error::Budget,
+        upload_witness::Error::Conflict => Error::Conflict,
+        upload_witness::Error::Busy => Error::Busy,
+        upload_witness::Error::NeedsRecovery => Error::NeedsRecovery,
     }
 }
 fn encode(v: &impl Serialize) -> Result<Vec<u8>> {
@@ -216,10 +207,7 @@ impl Plan {
     }
     pub fn required_peak(&self, witness: &LocalStore) -> Result<u64> {
         let docs = Documents::new(self, witness)?;
-        docs.intent_plan
-            .required_peak()
-            .checked_add(docs.done_plan.required_peak())
-            .ok_or(Error::Budget)
+        docs.packet.required_peak().map_err(witness_error)
     }
 }
 
@@ -511,12 +499,7 @@ impl<R: Read> Read for Counted<'_, '_, io::Take<R>> {
     }
 }
 struct Documents {
-    intent: Request,
-    intent_bytes: Vec<u8>,
-    intent_plan: accounted::PublicationPlan,
-    done: Request,
-    done_bytes: Vec<u8>,
-    done_plan: accounted::PublicationPlan,
+    packet: upload_witness::Packet,
 }
 impl Documents {
     fn new(p: &Plan, w: &LocalStore) -> Result<Self> {
@@ -544,16 +527,23 @@ impl Documents {
         };
         let intent = request("intent", &intent_bytes)?;
         let done = request("done", &done_bytes)?;
-        let intent_plan = accounted::plan_bound(w, &intent, id.clone()).map_err(accounted_error)?;
-        let done_plan = accounted::plan_bound(w, &done, id).map_err(accounted_error)?;
-        Ok(Self {
-            intent,
-            intent_bytes,
-            intent_plan,
-            done,
-            done_bytes,
-            done_plan,
-        })
+        let packet = upload_witness::Packet::new(
+            w,
+            &id,
+            &p.owner,
+            [
+                upload_witness::Document {
+                    operation: intent.operation,
+                    bytes: intent_bytes,
+                },
+                upload_witness::Document {
+                    operation: done.operation,
+                    bytes: done_bytes,
+                },
+            ],
+        )
+        .map_err(witness_error)?;
+        Ok(Self { packet })
     }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -574,41 +564,6 @@ pub struct Status {
     pub retained_custody: bool,
     pub removal_authority: bool,
 }
-fn evidence(
-    witness: &LocalStore,
-    ledger: &mut CapacityLedger,
-    job: &JournalRef,
-    request: &Request,
-    plan: &accounted::PublicationPlan,
-) -> Result<(bool, bool)> {
-    let id = digest(&(witness.identity(), &request.operation))?;
-    let op = Key::parse(&format!("publish-{}", id.as_str())).map_err(store_error)?;
-    let mut recorded = witness
-        .optional_completed_receipt(request)
-        .map_err(store_error)?
-        .is_some();
-    let allocation = ledger
-        .allocation_reference(&op, false)
-        .map_err(ledger_error)?;
-    let settled = match &allocation {
-        Some(a) => ledger
-            .publication_status(a, &digest(&(plan, job))?)
-            .map_err(ledger_error)?
-            .is_some(),
-        None => false,
-    };
-    // A completion can arrive between provider and settlement samples.
-    if settled && !recorded {
-        recorded = witness
-            .optional_completed_receipt(request)
-            .map_err(store_error)?
-            .is_some();
-    }
-    if settled && !recorded || recorded && allocation.is_none() {
-        return Err(Error::NeedsRecovery);
-    }
-    Ok((recorded, settled))
-}
 pub fn status(
     witness: &LocalStore,
     ledger: &mut CapacityLedger,
@@ -621,11 +576,11 @@ pub fn status(
     }
     client.check(p)?;
     let docs = Documents::new(p, witness)?;
-    let (done, done_settled) = evidence(witness, ledger, job, &docs.done, &docs.done_plan)?;
-    let (intent, intent_settled) = evidence(witness, ledger, job, &docs.intent, &docs.intent_plan)?;
-    if done && !intent {
-        return Err(Error::NeedsRecovery);
-    }
+    let state = docs
+        .packet
+        .inspect(witness, ledger, job)
+        .map_err(witness_error)?;
+    let done = state.completion;
     let mut cancel = || false;
     let mut work = Work::new(&p.budget, &mut cancel);
     let observed = client.observe(&mut work)?;
@@ -633,8 +588,8 @@ pub fn status(
         schema: "tig.s3-upload-status.design-1",
         plan: p.id()?,
         historical_completion: done,
-        intent_recorded: intent,
-        accounting_settled: done_settled && intent_settled,
+        intent_recorded: state.intent,
+        accounting_settled: state.settled,
         requires_recovery: done && observed == Observation::Absent,
         observed,
         retained_custody: false,
@@ -685,75 +640,11 @@ impl Execution<'_> {
             .map_err(store_error)?
             .ok_or(Error::NeedsRecovery)?
             .1;
-        evidence(
-            self.witness,
-            self.ledger,
-            self.job,
-            &docs.done,
-            &docs.done_plan,
-        )?;
-        evidence(
-            self.witness,
-            self.ledger,
-            self.job,
-            &docs.intent,
-            &docs.intent_plan,
-        )?;
-        // Reserve both paths, then hold the existing completion-attempt guard
-        // through remote IO. Same-operation actors acquire completion before
-        // intent; unrelated operations retain their own scopes.
-        let intent_allocation =
-            accounted::admit(self.ledger, self.witness, self.job, &docs.intent_plan)
-                .map_err(accounted_error)?;
-        let done_allocation =
-            accounted::admit(self.ledger, self.witness, self.job, &docs.done_plan)
-                .map_err(accounted_error)?;
-        let done_guard = accounted::prepare(
-            self.ledger,
-            self.witness,
-            self.job,
-            &docs.done_plan,
-            &done_allocation,
-        )
-        .map_err(accounted_error)?;
-        if done_guard.has_partials().map_err(store_error)? {
-            return Err(Error::NeedsRecovery);
-        }
-        {
-            let intent_guard = accounted::prepare(
-                self.ledger,
-                self.witness,
-                self.job,
-                &docs.intent_plan,
-                &intent_allocation,
-            )
-            .map_err(accounted_error)?;
-            if intent_guard.has_partials().map_err(store_error)? {
-                return Err(Error::NeedsRecovery);
-            }
-        }
-        let (done, _) = evidence(
-            self.witness,
-            self.ledger,
-            self.job,
-            &docs.done,
-            &docs.done_plan,
-        )?;
-        evidence(
-            self.witness,
-            self.ledger,
-            self.job,
-            &docs.intent,
-            &docs.intent_plan,
-        )?;
-        accounted::publish_accounted(
-            self.ledger,
-            self.witness,
-            self.job,
-            &docs.intent_plan,
-            &mut Cursor::new(&docs.intent_bytes),
-        )
-        .map_err(accounted_error)?;
+        let pending = docs
+            .packet
+            .begin(self.witness, self.ledger, self.job)
+            .map_err(witness_error)?;
+        let done = pending.state.completion;
         work.check()?;
         let observed = self.client.observe(&mut work)?;
         if done && observed == Observation::Absent {
@@ -766,15 +657,7 @@ impl Execution<'_> {
             }
         }
         work.check()?;
-        drop(done_guard);
-        accounted::publish_accounted(
-            self.ledger,
-            self.witness,
-            self.job,
-            &docs.done_plan,
-            &mut Cursor::new(&docs.done_bytes),
-        )
-        .map_err(accounted_error)?;
+        pending.complete().map_err(witness_error)?;
         Ok(Receipt {
             schema: "tig.s3-upload-receipt.design-1",
             plan: p.id()?,

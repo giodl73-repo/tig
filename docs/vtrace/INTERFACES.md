@@ -109,3 +109,11 @@ conditional transfer, strict private admission, bounded canonical plans and reda
 status/receipts. Existing accounted local publication stores small intent/completion
 witnesses; no new journal/caching engine or cloud retention proof is introduced.
 The standalone Git/LFS/default build has no dependency on the optional HTTP stack.
+
+IF-002/003/004/005/006/008/009/012/013 LFS upload extension, input9b8a689:
+[LFS-UPLOAD](../../specs/LFS-UPLOAD.md) defines the optional upload-only standalone
+protocol and explicit operator/agent JSON commands. Exact OID authorization,
+private origin/path/header scopes and default-disabled writes remain independent
+of portable plans. Shared upload witnesses reuse existing accounted publication;
+the S3 records/keys/context and default download-only path stay compatible.
+Remote byte availability is neither retained custody nor removal permission.

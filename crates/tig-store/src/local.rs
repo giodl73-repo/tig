@@ -180,7 +180,7 @@ impl LocalStore {
     }
     /// Query a possibly never-started operation without creating a byte anchor.
     /// A caller with a settled allocation must separately require Some evidence.
-    #[cfg(feature = "s3")]
+    #[cfg(feature = "upload-witness")]
     pub(crate) fn optional_completed_receipt(&self, request: &Request) -> Result<Option<Receipt>> {
         self.guard()?;
         if !path_present(&self.op_path(&request.operation, "done"))? {

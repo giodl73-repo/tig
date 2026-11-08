@@ -15,6 +15,8 @@ pub mod retirement;
 pub mod s3;
 pub mod source_claims;
 pub mod store_protection;
+#[cfg(feature = "upload-witness")]
+pub mod upload_witness;
 
 use serde::{Deserialize, Deserializer, Serialize, de};
 use std::io::{self, Read};

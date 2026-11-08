@@ -79,8 +79,8 @@
     },
     {
       "path": "Cargo.lock",
-      "bytes": 35137,
-      "sha256": "2b7004bb4bf4c393f4fdcaa06687d14d4d5c5be7018c3003630599e96dbc20d0"
+      "bytes": 35146,
+      "sha256": "5f0e6d9dd5e20a2bd69e71a032e5f85aa0ada24610f7e23d7111f20df9b2123e"
     },
     {
       "path": "Cargo.toml",
@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 4312,
-      "sha256": "1470d34ce496648e9f31a37fe94a41c65adf1a2ed8e88455be74f7ca48bb3d6c"
+      "bytes": 4873,
+      "sha256": "db56c98411950a9bb95f1f2077f823b7abfee22dd2ce80330288a4e47024fc9b"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 8607,
-      "sha256": "83c709de73542f40a0f396abcbd96337ff1c0f5f9b81d42337c298e5ba7d2c92"
+      "bytes": 9159,
+      "sha256": "2fbad00886570e5f273af4493fe833477919a1d9d06fcdd65707b449523a07e2"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 14354,
-      "sha256": "e0f375695d524247cfc1cf468a84c791c89cba2f6b558386e39d0d01a3195729"
+      "bytes": 14843,
+      "sha256": "dd5d1aa6f9f5c5a30736dace56a9de0e6405a5575f679de39cb39063b87eb972"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 29227,
-      "sha256": "ea92a0873c9f26c019dc06bcda2280c2b10f8ae13582ae3e0dcc917b77330bce"
+      "bytes": 30011,
+      "sha256": "3faad2a091b5f57e21b6c5a2b54fa8389ea7f10b1d517f8f00d850942a5e293c"
     },
     {
       "path": "README.md",
-      "bytes": 9508,
-      "sha256": "8db9b058ca427581f7563e4efa858fc555295258d8e6791c2b17024a1ca981c5"
+      "bytes": 10009,
+      "sha256": "5b575a7657914fed6c5cc70b9160196a49eaeb7c01507c677ecefe5922d628c5"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -579,18 +579,18 @@
     },
     {
       "path": "crates/tig-store/Cargo.toml",
-      "bytes": 592,
-      "sha256": "36b56473cd45ec699ffc09cc90934012e68dabf9cdd7d989a68c3528fe43ee28"
+      "bytes": 630,
+      "sha256": "ef1233fc1a3cb1b2704a5ed1751437589cd619834f1b2e345fb43e98533de0d7"
     },
     {
       "path": "crates/tig-store/src/lib.rs",
-      "bytes": 5468,
-      "sha256": "e4bd3490e69d981877d2146bcc9246204e875e9e91ee155b96933078725e358e"
+      "bytes": 5527,
+      "sha256": "a61dea6a0f3bb32fc83cdaec357a8c62c84dd2a9d61af6211ec6b449546fc3be"
     },
     {
       "path": "crates/tig-store/src/local.rs",
-      "bytes": 45073,
-      "sha256": "26ff9ae9400134e31176dd4e6d8f551d73ccc02d4eec31ae3e65f2141ab2cbf4"
+      "bytes": 45085,
+      "sha256": "b4345050128fb8e72fdc56fd802e28036d29aa3fc96fd8b7927db71158dd5664"
     },
     {
       "path": "crates/tig-store/tests/publication.rs",
@@ -734,23 +734,23 @@
     },
     {
       "path": "crates/tig-git/Cargo.toml",
-      "bytes": 1423,
-      "sha256": "b1bf230823b015aca126871a19d6568c4d3279a2878a81b97ae76c7b1adcc7d6"
+      "bytes": 1569,
+      "sha256": "6f125a7bbcf918a73d9564b38428f675ccf9104e108cd5f6fa265e5c6238ac00"
     },
     {
       "path": "crates/tig-git/src/bin/tig-lfs.rs",
-      "bytes": 890,
-      "sha256": "1bbdff87566e8082075b6dc88012ad68491f925891aee39b63ae5b1dc50eca9d"
+      "bytes": 1629,
+      "sha256": "8f115cd75500add898be6eddbb8f988597fe3498978765b873b26041411ed050"
     },
     {
       "path": "crates/tig-git/src/cache.rs",
-      "bytes": 18442,
-      "sha256": "eb97275f8d14db2c06fe34006dbf20e9282452ded15428afa15d3d939d311704"
+      "bytes": 19258,
+      "sha256": "5f5df777073720e7dfbea0fad8158a571a022761cc39c7726764900a757400cb"
     },
     {
       "path": "crates/tig-git/src/lib.rs",
-      "bytes": 362,
-      "sha256": "3f7223d82c561d5b7e87445ca60cebf59a8c48cd7ee36888dd2cda189e1a2897"
+      "bytes": 405,
+      "sha256": "a8681794d76361f6e328d247d0c155b5b112465e48588ac57a9b1e866f01f169"
     },
     {
       "path": "crates/tig-git/src/pointer.rs",
@@ -759,8 +759,8 @@
     },
     {
       "path": "crates/tig-git/src/protocol.rs",
-      "bytes": 5451,
-      "sha256": "d0a60b148815d5aa55f58d81135009ffc970bfcd75f25e1d62e6f4f7a95aaf78"
+      "bytes": 9368,
+      "sha256": "117912f74bf34efca4dee424b17aca70eac1525572af7796975159ccd4a92343"
     },
     {
       "path": "crates/tig-git/tests/client.rs",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 11827,
-      "sha256": "79f4768ad857930a6b30e12ef2d26aaabd9a93077626b90fc34713d73e2141ca"
+      "bytes": 12335,
+      "sha256": "9b1ee05a46672e16a7092c62bccb5e8ece2601f0c19dc99a17e3031102450ac0"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1979,8 +1979,8 @@
     },
     {
       "path": "crates/tig-store/src/s3.rs",
-      "bytes": 25344,
-      "sha256": "1d81f099fc8e705e6fdafced8e8c7fd70da0d00a0df8ae946c013d956748621b"
+      "bytes": 21417,
+      "sha256": "e425e43cfeafc5419135a35d37736f6befc4df1f304c062d6479947a5b2f6f4e"
     },
     {
       "path": "crates/tig-store/tests/s3_publication.rs",
@@ -1996,6 +1996,31 @@
       "path": "docs/reviews/2026-11-08-s3-publication.md",
       "bytes": 5791,
       "sha256": "d8e76edb5b133cd2f0bf37706eb4fe596c80d2c5d4139638d70b3cd6979efae9"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-lfs/upload.rs",
+      "bytes": 3317,
+      "sha256": "abbc7aac060f3c051630a98285bb94db4c913f85b5452cd74fe2d7b85b47174b"
+    },
+    {
+      "path": "crates/tig-git/src/upload.rs",
+      "bytes": 35813,
+      "sha256": "8d22b7db14ad280fbcdd310f3c2e9c6d1bffc5b8dba1fa299f0b878bec06096d"
+    },
+    {
+      "path": "crates/tig-git/tests/upload.rs",
+      "bytes": 33765,
+      "sha256": "fa70cd3f488a3d2a4e47306ca0055b371c0981705ac33868079cb9196d4d0bda"
+    },
+    {
+      "path": "crates/tig-store/src/upload_witness.rs",
+      "bytes": 7199,
+      "sha256": "547b9deb7ec0789f813c24a3da8367b78233094d3043d0cb5dcda44cc176f3e6"
+    },
+    {
+      "path": "specs/LFS-UPLOAD.md",
+      "bytes": 9224,
+      "sha256": "5213fbecfd9406ac77f84b7ef49dbb9739b7357c3ffefaae707b66652d830fa3"
     }
   ]
 }

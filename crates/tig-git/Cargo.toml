@@ -9,6 +9,7 @@ publish = false
 [features]
 assets = ["dep:tig-assets"]
 schema = ["assets", "tig-assets/schema", "dep:regex", "dep:flate2"]
+upload = ["tig-store/upload-witness", "dep:ureq"]
 
 [dependencies]
 tig-core = { path = "../tig-core" }
@@ -22,6 +23,7 @@ getrandom = "=0.4.3"
 fs2 = "=0.4.3"
 regex = { version = "=1.13.1", optional = true }
 flate2 = { version = "=1.1.9", optional = true }
+ureq = { version = "=3.5.1", default-features = false, features = ["rustls"], optional = true }
 
 
 [dev-dependencies]

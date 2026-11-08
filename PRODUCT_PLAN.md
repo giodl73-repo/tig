@@ -410,3 +410,14 @@ budget/cancellation and source preservation. This establishes the bounded protoc
 adapter, not real-cloud custody/retention, remote-quota enforcement, large-file
 qualification or the full priority-5 exit. Git LFS upload and the remaining exact-ref
 lifecycle, bulk final-deletion and metadata-lifetime requirements remain open.
+
+Priority-5 Git LFS adapter: optional [standalone upload](specs/LFS-UPLOAD.md)
+now composes the existing exact OID authorization and verified reader with Basic
+Batch/conditional PUT/optional verify/full download readback. Explicit operator
+commands and real Git LFS push fixtures exercise bounded private admission,
+lost replies, failed verify, credential scopes, interrupted processes and source
+preservation. Shared accounted witnesses retain S3 wire compatibility. This is
+an 8 MiB experimental protocol adapter; real-server/provider qualification,
+remote quota, custody and large-file/lifetime gates remain open. Next required
+product slice is trusted exact-ref lifecycle convergence, followed by bulk final
+deletion with retained-subset handoff and eventual metadata retirement.

@@ -33,7 +33,7 @@ Dropping a reference **does not authorize deletion**.
 | --- | --- |
 | Identity and metadata | Immutable objects/trees, bounded persistent metadata and exact Git snapshots |
 | Existing stores | Guarded verified reads from configured flat, CAS and Git LFS layouts |
-| Git LFS | Explicit download-only existing-cache transfer adapter; no initialization or upload |
+| Git LFS | Explicit existing-cache download adapter; optional bounded standalone Basic upload with full readback |
 | Local storage | Bounded publication, capacity admission, source journals, retention and recovery primitives |
 | Optional typed assets | Schema admission, declared graphs, sparse variants, production contexts and revision/delivery history |
 | Local catalogue | Multi-project works, child navigation, search, versions, metadata coverage and storage comparison |
@@ -45,6 +45,13 @@ coverage, end-to-end custody, automatic lifecycle reconciliation, remote transfe
 providers and production eviction qualification remain open. The catalogue cannot move or
 delete assets. Registration does not prove a remote copy exists.
 Read the [safety promise](docs/SAFETY-PROMISE.md).
+
+The optional `tig-git/upload` feature adds [Git LFS upload](specs/LFS-UPLOAD.md)
+through `tig-lfs upload describe` and an explicitly configured standalone agent.
+It authorizes exact OIDs, preserves verified local source bytes and uses bounded
+Batch/PUT/verify/full-download readback with existing accounted witnesses.
+Private scopes admit credentials; plans contain none. Uploaded availability is
+separate from retained backup custody. No live configuration or hooks are installed.
 
 The opt-in [managed local library](specs/MANAGED-REPLICA-RETIREMENT.md) now
 supports bounded ordinary replica retirement, cancellation and explicit

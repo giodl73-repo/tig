@@ -7,7 +7,8 @@ repository.workspace = true
 publish = false
 
 [features]
-s3 = ["dep:ureq", "dep:base64"]
+upload-witness = []
+s3 = ["upload-witness", "dep:ureq", "dep:base64"]
 
 [dependencies]
 tig-core = { path = "../tig-core" }

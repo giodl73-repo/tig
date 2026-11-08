@@ -7,9 +7,25 @@ use tig_git::{
     cache::{CacheBackend, Profile},
     protocol::{self, AgentError},
 };
+#[cfg(feature = "upload")]
+#[path = "tig-lfs/upload.rs"]
+mod upload;
 fn main() {
     let result = (|| {
         let args: Vec<_> = std::env::args_os().skip(1).collect();
+        #[cfg(feature = "upload")]
+        if args.first().is_some_and(|a| a == "upload") {
+            return upload::cli(&args[1..]);
+        }
+        #[cfg(feature = "upload")]
+        if args.len() == 2 && args[0] == "--upload-profile" {
+            let path = PathBuf::from(&args[1]);
+            let profile = tig_git::upload::Profile::from_json(&upload::read(&path)?)
+                .map_err(|_| AgentError::InvalidProfile)?;
+            let mut backend =
+                tig_git::upload::Backend::new(profile).map_err(|_| AgentError::InvalidProfile)?;
+            return protocol::serve_upload(io::stdin().lock(), io::stdout().lock(), &mut backend);
+        }
         if args.len() != 2 || args[0] != "--profile" {
             return Err(AgentError::InvalidProfile);
         }

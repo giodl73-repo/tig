@@ -23,13 +23,20 @@ its boxes are not a claim that every service/provider already exists.
 | tig-core | Immutable object/tree identity, canonical records, binding views, claims, placement and pure worktree operations |
 | tig-store | Local publication, guarded existing-byte reads, capacity/operation ledgers, immutable metadata, source claims, replica verification and retention |
 | tig-assets | Optional native records/resolver port, declared graphs, sparse variants; schema-gated contracts, revisions, deliveries, edits and publication checks |
-| tig-git | Exact commit/index capture, Git identity/pointers, download-only LFS adapter, native resolution, project restore, sparse proposals, history and local catalogue |
+| tig-git | Exact commit/index capture, Git identity/pointers, existing-cache LFS download and optional Basic upload, native resolution, project restore, sparse proposals, history and local catalogue |
 
 The basic tig-git build uses tig-core and tig-store. Its **assets** feature adds
 tig-assets; **schema** adds assets plus schema validation, catalogue and history
 facilities. tig-assets/schema adds its JSON Schema-backed contracts. Low-level
 placement and byte access do not depend on typed assets, a renderer or project
 checkout. Crates are publish=false while interfaces are experimental.
+
+The independent **upload** feature enables the explicit standalone LFS upload
+agent and operator commands. It uses tig-store's network-free **upload-witness**
+feature over existing accounted publication; **s3** also reuses that witness
+composition without changing its wire identities. Only the optional HTTP adapters
+enable the maintained TLS client. Default Git/LFS downloads remain independent
+of HTTP and typed-asset features. Remote availability grants no retained custody.
 
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable

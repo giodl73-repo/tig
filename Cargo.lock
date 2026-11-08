@@ -1045,6 +1045,7 @@ dependencies = [
  "tig-assets",
  "tig-core",
  "tig-store",
+ "ureq",
 ]
 
 [[package]]

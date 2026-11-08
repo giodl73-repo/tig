@@ -12,3 +12,5 @@ pub mod protocol;
 #[cfg(feature = "assets")]
 pub mod restore;
 pub mod source;
+#[cfg(feature = "upload")]
+pub mod upload;

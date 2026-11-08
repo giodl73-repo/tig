@@ -185,3 +185,10 @@ The optional S3 adapter extends SPEC-002/003/004/007/008/009/013 under
 full readback reuse existing guarded local source and accounted witness ports.
 Private access is excluded from portable plans; verified remote availability is
 explicitly separate from retained custody, durability and removal authority.
+
+The optional standalone LFS upload extends SPEC-002/003/004/005/007/008/009/013
+under [LFS-UPLOAD](../../specs/LFS-UPLOAD.md), input9b8a689. It preserves exact
+source bytes and default download compatibility while adding Basic Batch/PUT/
+verify/readback and existing accounted witnesses. Private action credentials are
+explicitly scoped; no automatic discovery/helper or implicit Batch-token forwarding.
+Real server/custody/large-file qualification and Git event integration remain open.

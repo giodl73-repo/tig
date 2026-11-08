@@ -29,6 +29,14 @@ custody, native dependency coverage and production eviction remain open. Catalog
 alignment/older-copy actions are held previews. No cache initialization, scan,
 hydration, daemon or hook installation on resume.
 
+Optional tig-git feature upload adds an explicit standalone Git LFS Basic upload
+agent and tig-lfs upload plan/peak/status/apply/resume over existing OID authority,
+guarded source readers and accounted local witnesses. Full remote hash/length
+readback and optional verify notification precede completion. Private action
+credentials are explicitly scoped and excluded from plans; upload defaults off.
+See specs/LFS-UPLOAD.md. This is bounded 8 MiB source-preserving transfer, not
+retained backup custody, remote quota or automatic Git lifecycle reconciliation.
+
 The explicit `tig-storage retire` interface now composes that library over existing
 managed stores and private policy profiles: plan/apply/status/resume/cancel and
 new-operation reacquisition. See specs/RETIREMENT-AGENT-CLI.md. Survivor grants,
