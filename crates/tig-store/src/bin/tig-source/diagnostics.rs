@@ -5,6 +5,10 @@ use tig_store::source_claims::Error as JournalError;
 pub(super) fn explain(error: &(dyn Error + 'static)) -> (&'static str, &'static str) {
     if let Some(error) = error.downcast_ref::<JournalError>() {
         return match error {
+            JournalError::AdmissionRequired => (
+                "source-admission-required",
+                "Use the explicitly enrolled guarded namespace; direct source mutation is unavailable.",
+            ),
             JournalError::Stale => (
                 "source-stale",
                 "Inspect current source state and review a new plan; preserve the original request for reconciliation.",
@@ -72,6 +76,7 @@ mod tests {
     #[test]
     fn typed_journal_categories_have_bounded_static_guidance() {
         for (error, code) in [
+            (JournalError::AdmissionRequired, "source-admission-required"),
             (JournalError::Stale, "source-stale"),
             (JournalError::Owner, "source-owner-mismatch"),
             (JournalError::Conflict, "operation-conflict"),

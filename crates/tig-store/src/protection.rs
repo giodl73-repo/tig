@@ -30,26 +30,12 @@ impl std::fmt::Display for Error {
 }
 impl std::error::Error for Error {}
 pub type Result<T> = std::result::Result<T, Error>;
-#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
-#[serde(rename_all = "snake_case")]
-pub enum Kind {
-    Branch,
-    Draft,
-    Job,
-    Retention,
-}
+pub use crate::source_claims::{Kind, Places};
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum Format {
     FlatBindings,
     Opaque,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-pub struct Places {
-    pub current: Vec<Key>,
-    pub pending: Vec<Key>,
-    pub predecessor: Vec<Key>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -75,6 +61,26 @@ pub struct Limits {
     pub associations: usize,
     pub reads: usize,
     pub read_bytes: usize,
+}
+impl Limits {
+    pub fn validate(&self) -> Result<()> {
+        if self.millis == 0
+            || self.millis > 600_000
+            || self.roots == 0
+            || self.roots > 4096
+            || self.bindings == 0
+            || self.bindings > 500_000
+            || self.associations == 0
+            || self.associations > 500_000
+            || self.reads == 0
+            || self.reads > 2_000_000
+            || self.read_bytes == 0
+            || self.read_bytes > 512 * 1024 * 1024
+        {
+            return Err(Error::Budget);
+        }
+        Ok(())
+    }
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -125,6 +131,7 @@ pub enum Gap {
     UnexpectedSource { journal: Digest, source: String },
     MissingSource { journal: Digest, source: Key },
     ForeignOwner { journal: Digest, source: Key },
+    ConflictingKind { journal: Digest, source: Key },
     UnsupportedClosure { journal: Digest, source: Key },
     UnresolvedRoot { root: Object },
     ChangedJournal { journal: Digest },
@@ -355,14 +362,22 @@ impl Profile {
         Ok(h.finish())
     }
 }
-struct BudgetNodes<'a, S> {
+pub(crate) struct BudgetNodes<'a, S> {
     inner: &'a S,
     limits: &'a Limits,
     used: Cell<(usize, usize)>,
     start: Instant,
 }
-impl<S> BudgetNodes<'_, S> {
-    fn timed(&self) -> TreeResult<()> {
+impl<'a, S> BudgetNodes<'a, S> {
+    pub(crate) fn new(inner: &'a S, limits: &'a Limits, start: Instant) -> Self {
+        Self {
+            inner,
+            limits,
+            start,
+            used: Cell::new((0, 0)),
+        }
+    }
+    pub(crate) fn timed(&self) -> TreeResult<()> {
         if self.start.elapsed() > Duration::from_millis(self.limits.millis) {
             Err(TreeError::Budget)
         } else {
@@ -491,6 +506,13 @@ pub fn capture(
             };
             if state.owner != source.owner {
                 snapshot.gap(Gap::ForeignOwner {
+                    journal: journal.identity.clone(),
+                    source: source.key.clone(),
+                });
+                continue;
+            }
+            if state.kind.as_ref().is_some_and(|kind| kind != &source.kind) {
+                snapshot.gap(Gap::ConflictingKind {
                     journal: journal.identity.clone(),
                     source: source.key.clone(),
                 });

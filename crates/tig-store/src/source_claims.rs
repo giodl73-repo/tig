@@ -6,10 +6,28 @@ use std::{
     collections::BTreeMap,
     fs::{self, OpenOptions},
     io::Write,
-    path::Path,
+    path::{Path, PathBuf},
     time::Duration,
 };
 use tig_core::{Digest, Object, identity};
+
+pub mod admission;
+
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Kind {
+    Branch,
+    Draft,
+    Job,
+    Retention,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Places {
+    pub current: Vec<Key>,
+    pub pending: Vec<Key>,
+    pub predecessor: Vec<Key>,
+}
 
 pub const MAX_SOURCES: usize = 1024;
 pub const MAX_PREDECESSORS: usize = 64;
@@ -32,6 +50,7 @@ pub enum Error {
     Budget,
     NeedsRecovery,
     Injected,
+    AdmissionRequired,
 }
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -76,6 +95,8 @@ struct Config {
     project: Key,
     epoch: Key,
     instance: Digest,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    admission: Option<admission::Policy>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -120,6 +141,8 @@ pub struct Pending {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Source {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub kind: Option<Kind>,
     pub owner: Key,
     pub revision: u64,
     pub current: Option<Version>,
@@ -200,6 +223,11 @@ pub enum PreviewDisposition {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Command {
+    Enroll {
+        source: Key,
+        owner: Key,
+        class: Kind,
+    },
     Prepare {
         source: Key,
         owner: Key,
@@ -233,7 +261,8 @@ pub enum Command {
 impl Command {
     fn source(&self) -> &Key {
         match self {
-            Self::Prepare { source, .. }
+            Self::Enroll { source, .. }
+            | Self::Prepare { source, .. }
             | Self::Adopt { source, .. }
             | Self::Abort { source, .. }
             | Self::Retire { source, .. }
@@ -255,6 +284,7 @@ pub enum Stage {
 }
 #[derive(Clone)]
 struct State {
+    guarded: bool,
     sources: BTreeMap<String, Source>,
     outcomes: BTreeMap<String, u64>,
     head: Checkpoint,
@@ -262,6 +292,39 @@ struct State {
 }
 impl State {
     fn transition(&mut self, request: &Request) -> Result<u64> {
+        if let Command::Enroll {
+            source,
+            owner,
+            class,
+        } = &request.command
+        {
+            if !self.guarded {
+                return Err(Error::AdmissionRequired);
+            }
+            if let Some(existing) = self.sources.get(source.as_str()) {
+                return Err(if &existing.owner == owner {
+                    Error::Conflict
+                } else {
+                    Error::Owner
+                });
+            }
+            if self.sources.len() >= MAX_SOURCES {
+                return Err(Error::Budget);
+            }
+            self.sources.insert(
+                source.as_str().into(),
+                Source {
+                    kind: Some(class.clone()),
+                    owner: owner.clone(),
+                    revision: 1,
+                    current: None,
+                    pending: None,
+                    predecessors: Vec::new(),
+                },
+            );
+            self.outcomes.insert(request.operation.as_str().into(), 1);
+            return Ok(1);
+        }
         let (id, owner, expected) = match &request.command {
             Command::Prepare {
                 source,
@@ -292,8 +355,12 @@ impl State {
                 owner,
                 expected_revision,
             } => (source, owner, *expected_revision),
+            Command::Enroll { .. } => return Err(Error::AdmissionRequired),
         };
         let new_source = !self.sources.contains_key(id.as_str());
+        if self.guarded && new_source {
+            return Err(Error::AdmissionRequired);
+        }
         if new_source && !matches!(request.command, Command::Prepare { .. }) {
             return Err(Error::Missing);
         }
@@ -301,6 +368,7 @@ impl State {
             return Err(Error::Budget);
         }
         let mut source = self.sources.get(id.as_str()).cloned().unwrap_or(Source {
+            kind: None,
             owner: owner.clone(),
             revision: 0,
             current: None,
@@ -315,6 +383,7 @@ impl State {
         }
         let revision = source.revision.checked_add(1).ok_or(Error::Budget)?;
         match &request.command {
+            Command::Enroll { .. } => return Err(Error::AdmissionRequired),
             Command::Prepare { selection, .. } => {
                 if selection.root.bytes == 0 || selection.root.bytes > 65_536 {
                     return Err(Error::InvalidReference);
@@ -386,6 +455,8 @@ impl State {
     }
 }
 pub struct SourceJournal {
+    root: PathBuf,
+    config: Config,
     conn: Connection,
     state: State,
     poisoned: bool,
@@ -393,11 +464,25 @@ pub struct SourceJournal {
 impl SourceJournal {
     /// Explicit runtime-metadata creation only; caller owns root and disk budget.
     pub fn create(root: &Path, project: Key, epoch: Key) -> Result<Self> {
+        Self::create_mode(root, project, epoch, None)
+    }
+    fn create_mode(
+        root: &Path,
+        project: Key,
+        epoch: Key,
+        admission: Option<admission::Policy>,
+    ) -> Result<Self> {
         local::check_root_spelling(root)?;
         let mut nonce = [0; 32];
         getrandom::fill(&mut nonce).map_err(|_| Error::Io)?;
         let config = Config {
-            schema: "tig.source-claims.design-1".into(),
+            schema: if admission.is_some() {
+                "tig.source-claims.design-2"
+            } else {
+                "tig.source-claims.design-1"
+            }
+            .into(),
+            admission,
             project,
             epoch,
             instance: Digest::blob(&nonce),
@@ -405,6 +490,9 @@ impl SourceJournal {
         let bytes = encode(&config)?;
         let genesis = Digest::blob(&bytes);
         fs::create_dir(root)?;
+        if config.admission.is_some() {
+            admission::create_anchors(root)?;
+        }
         let mut marker = OpenOptions::new()
             .write(true)
             .create_new(true)
@@ -499,8 +587,10 @@ impl SourceJournal {
         local::check_root_spelling(root)?;
         local::directory(root)?;
         let config: Config = local::read_record(&root.join("claims.json"))?;
-        if config.schema != "tig.source-claims.design-1" {
-            return Err(Error::Corrupt);
+        match (&config.schema[..], &config.admission) {
+            ("tig.source-claims.design-1", None) => (),
+            ("tig.source-claims.design-2", Some(policy)) if policy.valid() => (),
+            _ => return Err(Error::Corrupt),
         }
         let genesis = Digest::blob(&encode(&config)?);
         if genesis != witness.genesis {
@@ -513,8 +603,11 @@ impl SourceJournal {
             connect(&root.join("claims.sqlite"))?
         };
         let mut journal = Self {
+            root: root.to_owned(),
+            config: config.clone(),
             conn,
             state: State {
+                guarded: config.admission.is_some(),
                 sources: BTreeMap::new(),
                 outcomes: BTreeMap::new(),
                 head: Checkpoint {
@@ -628,7 +721,19 @@ impl SourceJournal {
         operation: Key,
         command: Command,
     ) -> Result<Preview> {
+        Self::preview_mode(root, minimum, operation, command, false)
+    }
+    fn preview_mode(
+        root: &Path,
+        minimum: &Checkpoint,
+        operation: Key,
+        command: Command,
+        admitted: bool,
+    ) -> Result<Preview> {
         let mut journal = Self::open_mode(root, minimum, true)?;
+        if journal.config.admission.is_some() && !admitted {
+            return Err(Error::AdmissionRequired);
+        }
         let request = Request { operation, command };
         let body = encode(&request).map_err(|_| Error::InvalidReference)?;
         let tx = journal
@@ -674,9 +779,44 @@ impl SourceJournal {
         command: Command,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
+        if self.config.admission.is_some() {
+            return Err(Error::AdmissionRequired);
+        }
         let result = self.apply_once(operation, command, false, hook);
         self.mark_uncertain(&result);
         result
+    }
+    fn apply_admitted(
+        &mut self,
+        operation: Key,
+        command: Command,
+        permit: &admission::Permit,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Receipt> {
+        self.check_guarded_marker()?;
+        if !permit.matches(
+            self.identity(),
+            &Request {
+                operation: operation.clone(),
+                command: command.clone(),
+            },
+        )? {
+            return Err(Error::AdmissionRequired);
+        }
+        let result = self.apply_once(operation, command, false, hook);
+        self.mark_uncertain(&result);
+        result
+    }
+    fn check_guarded_marker(&self) -> Result<()> {
+        if self.config.admission.is_none() {
+            return Err(Error::AdmissionRequired);
+        }
+        local::directory(&self.root)?;
+        let actual: Config = local::read_record(&self.root.join("claims.json"))?;
+        if actual != self.config {
+            return Err(Error::InvalidReference);
+        }
+        Ok(())
     }
     fn apply_once(
         &mut self,
