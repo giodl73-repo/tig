@@ -242,3 +242,10 @@ control/primary/output graph retains its full job requirements while an admitted
 producer excludes raw control bytes from its recipe. This does not qualify a
 real native semantic projector or actual media production. Full intended-use
 validation, global source/job protection and reversible private adoption stay OPEN.
+
+EVID-084 contributes bounded source-preserving copy/restart scenarios to VAL-002/
+003: generic CAD/report-like byte fixtures, shared plan/CLI identity, actual child
+exits, retained destination inspection and explicit partial-batch resumption. It
+is mechanism verification, not an owner-run live storage workflow or independent
+acceptance. Complete source/job coverage, catalogue application, merge automation,
+eviction, large media/provider scale and final deletion remain unvalidated.

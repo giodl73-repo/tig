@@ -1174,3 +1174,20 @@ admission and lifetime/audit sequencing. See [findings and remaining gates](../r
 Producer disposition: pass_with_risk for planning only; runtime implementation,
 verification, validation and trace closure remain separate and open. No
 independent review or live-operation approval. DOCS L0 required; no L1/L2 claim.
+
+Storage orchestration implementation review, inputbb51c5a: WP-003/004/006/007/
+008; REQ-001/002/003/004/005/007/009; SPEC-002/003/004/005/008/009;
+IF-002/003/004/005/006/012; PKG-002/003, plus PKG-008 CLI adapter.
+Producer-applied six lenses: identity requires canonical exact request/context
+binding; policy exposes unknown protection/removal holds; custody preserves source
+and verifies retained destination; recovery uses existing journal commands and
+fresh status; provider/privacy limits local process-restart and redacts paths;
+adoption preserves legacy None context bytes while old readers reject new fields.
+During implementation, review caught cleanup validation losing the new context;
+corrected to preserve it. Resume uses destination recovery without requiring a
+new source byte read when publication is already complete. Existing provider
+power-loss, hostile path mutation, global coverage and removal guarantees are not
+expanded. Pass_with_risk for bounded implementation: focused fixtures, default/
+all-feature regressions, strict Clippy, fmt, standalone Git and L0 checks pass;
+no independent review, consumer acceptance or full WP closure. See
+[contract and required tests](../../specs/STORAGE-ORCHESTRATION.md).

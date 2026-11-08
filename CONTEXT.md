@@ -18,7 +18,10 @@ The catalogue provides works, search, children, coverage and storage comparison.
 Project meaning remains external configuration.
 
 Existing-byte readers and explicit local publication/restore/retention primitives
-have bounded fixture evidence. Full live-project custody, active-job/dependency
+have bounded fixture evidence. The first tig-store orchestration slice composes
+input-bound plans and source-preserving copy/retention with an explicit tig-storage
+CLI; specs/STORAGE-ORCHESTRATION.md limits its scope. Protection completeness remains
+caller-declared and all removal stays held. Full live-project custody, active-job/dependency
 coverage and payload eviction remain open. Catalogue alignment/older-copy actions
 are held previews; there is no removal executor. No cache initialization, scan,
 hydration, daemon or hook installation on resume.

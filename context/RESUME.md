@@ -46,3 +46,17 @@ pre-removal durable intent and recovery budget, provider-version deletion scope,
 and audit-window/aggregate-fence compatibility before metadata forgetting.
 Journal lifetime design starts in priority 2; do not defer safe exhaustion until
 priority 8. These are planned acceptance conditions, not implemented guarantees.
+
+Storage implementation lane: feat/storage-orchestration-contract, based on
+bb51c5a; implementation commit 390ac4a. tig-store::orchestration and tig-storage now implement the first shared
+plan/local copy slice through existing accounted publication/retention. Context
+identity is optional on PublicationPlan; legacy None encoding stays unchanged,
+while old readers reject new context-bearing records. No new journal command.
+Focused tests cover canonical identities, changed-context conflicts, actual
+process exits, partial batches, source preservation and fresh status without
+journal commands. Use specs/STORAGE-ORCHESTRATION.md for exact scope/checks.
+Local default/all-feature regression, focused fixtures, strict Clippy, fmt,
+standalone Git and portable L0 pass. Hosted CI remains separate. Full plan delivery
+remains active. Next: complete priority-2 scoped protection admission and
+publication-retirement semantics before any eviction code. UI execution, automatic merge reconciliation,
+remote/LFS upload, final deletion and metadata retirement remain unimplemented.

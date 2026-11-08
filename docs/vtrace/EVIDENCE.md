@@ -587,3 +587,25 @@ Locked all-feature workspace tests, strict Clippy, fmt, structure and standalone
 Git check passed locally. Final CLI cases pass again after temp-owner fix.
 Hosted qualification, physical admission, private adoption and custody stay open.
 Synthetic providers only; no real provider copy. See METADATA-PROVIDER-COPY.md.
+
+EVID-084: first storage orchestration slice, inputbb51c5a13e1277c1b76e1bcdd2d865800595e733.
+Fifteen focused library entries (including a child helper) and five separate-process
+CLI fixtures pass on Windows/Rust 1.98.0 using explicitly configured external
+build/temp roots. Two abrupt child exits exercise publication/retention recovery.
+Three-object partial batches preserve source, recover exact destination retention,
+and inspect without new journal commands. Changed plan context, root/ledger/basis,
+operation conflicts, insufficient peak/reservation, missing/corrupt bytes and
+explicit private-cleanup cancellation refuse safely. A held source blocks its
+exclusive scope while another object remains accessible. CLI plan/discovery are
+provider-free, errors omit root paths and resume is exact. Legacy None context
+encoding stays unchanged; existing cleanup retains the optional new context.
+An initial fixture failed NeedsProbe after reopening; corrected by a fresh explicit
+probe, not by weakening admission. All-feature workspace regression, strict
+all-target/all-feature Clippy, fmt, standalone Git check and locked default
+workspace regression pass. No full WP/VAL closure,
+complete protection registry, UI execution, eviction, large-object qualification,
+remote upload, automatic lifecycle or final-deletion/metadata-retirement claim.
+See [controlled scope](../../specs/STORAGE-ORCHESTRATION.md).
+
+EVID-084 implementation source: 390ac4a. Verification/validation/trace and
+producer review are recorded separately from that implementation commit.

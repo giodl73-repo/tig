@@ -170,6 +170,7 @@ management are future integration, not hidden behavior in the viewer.
 
 | Binary | Gate | Purpose |
 | --- | --- | --- |
+| tig-storage | tig-store basic | Explicit bounded plan/peak/status/apply/resume for source-preserving local copy and retention |
 | tig-source | tig-store basic | Explicit source-authority inspection and durable source-claim transitions |
 | tig-lfs | basic | Explicit existing-cache Git LFS transfer agent |
 | tig-propose | basic | Prepare bounded verified byte-to-Git proposals |
@@ -187,3 +188,12 @@ use the Rust project API. Python checker scripts are development tooling.
 
 The [roadmap](../PRODUCT_PLAN.md), [adoption gates](CONSUMER-ADOPTION.md) and
 [evidence register](vtrace/EVIDENCE.md) describe outstanding system obligations.
+
+## Storage orchestration entry
+
+The experimental tig-store::orchestration module binds a bounded exact plan to
+existing accounted publication and retention. `tig-storage` supplies explicit
+plan/peak/status/apply/resume JSON operations; source-preserving local copying
+uses an already admitted capacity job and has no optional typed-asset dependency.
+It adds no cache engine, source/job registry, eviction, automatic Git event
+installation or final deletion. See [scope and protocol](../specs/STORAGE-ORCHESTRATION.md).

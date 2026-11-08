@@ -115,3 +115,11 @@ entries pass, with full local suites/Clippy/format. Metadata-only retirement
 preserves old events/receipts and accounting while admitting past a filled
 working window. No payload IO, service deployment, compaction or complete
 restore authority is claimed; current-head CI remains pending.
+
+Storage orchestration checkpoint: inputbb51c5a; WP-003/004/006/007/008,
+REQ-001/002/003/004/005/007/009, SPEC-002/003/004/005/008/009,
+IF-002/003/004/005/006/012, PKG-002/003 and CLI PKG-008. The first shared
+plan/local copy slice composes accounted publication and retention; EVID-084
+records focused process/retry/source-preservation checks. Full protection registry,
+eviction, cloud/upload, lifecycle events, bulk final deletion and metadata retirement
+remain open. See specs/STORAGE-ORCHESTRATION.md for RUST/PROVIDER scope and levels.

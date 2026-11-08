@@ -315,3 +315,15 @@ remain distinct.
 The [17 work packages](docs/vtrace/WORK_PACKAGES.md),
 [catalogue roadmap](docs/CATALOGUE-UI-PLAN.md) and
 [adoption gates](docs/CONSUMER-ADOPTION.md) provide finer allocation.
+
+## Storage implementation checkpoint
+
+The [first orchestration slice](specs/STORAGE-ORCHESTRATION.md) adds the shared
+bounded plan and explicit local CLI/library copy/retention path, built on existing
+publication/ledger/retention. Exact source/policy/claim/authority basis and caller
+admission are bound into replay. Protection completeness remains an assertion;
+all removal stays held. This advances parts of priorities 2-3, not their full
+exit or the roadmap as a whole. Catalogue apply, complete claim admission,
+guarded eviction, remote upload, automatic lifecycle reconciliation, bulk final
+deletion and metadata retirement remain required subsequent work. Journal lifetime
+and representative large-file qualification retain their earlier entry gates.

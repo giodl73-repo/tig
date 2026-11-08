@@ -402,3 +402,11 @@ METADATA-PROVIDER-COPY.md -> metadata/copy.rs, tig-metadata.rs,
 metadata/copy/tests.rs and metadata_copy_cli.rs -> EVID-083.
 Exact provider snapshot verification is separate from capacity admission,
 source-journal authority, provider adoption, latest-source coverage and custody.
+
+Storage orchestration: WP-003/004/006/007/008, REQ-001/002/003/004/005/007/009 ->
+SPEC-002/003/004/005/008/009, IF-002/003/004/005/006/012, PKG-002/003 plus
+PKG-008 CLI -> STORAGE-ORCHESTRATION.md -> orchestration.rs, optional accounted
+context binding, exact ledger/retention inspection and tig-storage -> 15 library
+entries / five process CLI fixtures -> EVID-084. Scoped verification and intended-use
+validation dispositions are separate. Full packages and complete removal authority
+remain open; no added dependency on optional typed assets.

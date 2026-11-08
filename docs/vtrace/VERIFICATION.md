@@ -474,3 +474,19 @@ Git check pass. Tests cover the actual full working-set bound, exact old receipt
 unchanged old SQL rows and accounting, peer synchronization, read-only historic
 provider dispositions, pre/post-commit failures and two child exits. This is
 synthetic temporary-root qualification, not live consumer or full-disk recovery.
+
+## First storage orchestration slice
+
+EVID-084 / STORAGE-ORCHESTRATION.md: `cargo test -p tig-store --lib --locked
+orchestration::tests` passes 15 entries; `cargo test -p tig-store --test storage_cli
+--locked` passes five actual CLI process fixtures. The source-held/unrelated-scope
+assertion additionally passes its exact targeted case after review. Locked
+all-feature workspace regression, all-feature/all-target warnings-denied Clippy,
+fmt and standalone no-default-feature tig-git check pass. External synthetic roots
+only. Locked default workspace regression also passes.
+Read-only status means no journal commands, not an OS read-only SQLite connection.
+The reference provider still caps objects at 8 MiB and process-restart durability.
+Current-head hosted Windows/Linux qualification and the full roadmap remain open.
+
+EVID-084 implementation source: 390ac4a. Verification/validation/trace and
+producer review are recorded separately from that implementation commit.
