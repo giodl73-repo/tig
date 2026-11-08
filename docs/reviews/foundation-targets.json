@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 2976,
-      "sha256": "e1ba50aa1c5416a4e77fc4cdfbede1045dd6e3e2a15ecb53c8fb92ce52ca1e8a"
+      "bytes": 3015,
+      "sha256": "2f9275217c0c747ab885c03c3ff5d43ff27ec05c38ac2cb0388afe86a8e2f107"
     },
     {
       "path": ".gitignore",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 86226,
-      "sha256": "18670dc3370f614c297dabcb92b27f5215d6696210abbb0cd4e554d43e4934fb"
+      "bytes": 86718,
+      "sha256": "78c102cece0f449b507ac8229169cdc955863bcf432e9a0df80dc7c6d51ad25c"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 3429,
-      "sha256": "c21eb2e4e800df17f47f11211edbcd5b88ca606231550933a7a97119dee23146"
+      "bytes": 3580,
+      "sha256": "9dad2143c84603069a38a54aedd5c0fd5194bc3118c139707833c0b312cfdc11"
     },
     {
       "path": "README.md",
-      "bytes": 7834,
-      "sha256": "45cbc30e800df14c2ce4d8060d89681adcb8e4fd2111b928ab64056ce289feee"
+      "bytes": 8065,
+      "sha256": "1058579ccd1b3ddcab44a54af7f1ebef81deffc1ac8eb37b6d751030acab661c"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -1449,13 +1449,13 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/http.rs",
-      "bytes": 22595,
-      "sha256": "8543ce7f4dce2701f9a8a04f75461db4fb102472a474d40950c9eafc8d422de9"
+      "bytes": 22867,
+      "sha256": "2a4aac555305aa1000dfe3949fd72f492f18624f2af4164b5319cf5e31480d2c"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/app.js",
-      "bytes": 14917,
-      "sha256": "4b447b68f4c4341160d8cc21aa81a87a6331fd4ab8dc258abf7ca0c0d5022c58"
+      "bytes": 14983,
+      "sha256": "ac834fdb90ff3c1ff378661960fc5c92976aa5dece7b3144d856916346efb22b"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/app.css",
@@ -1464,8 +1464,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/web/index.html",
-      "bytes": 4124,
-      "sha256": "e6c8ad66de16f783e63b735a84777b5fe60f87ca8bd9f8233f708f3044510c0e"
+      "bytes": 4165,
+      "sha256": "d56c626e7568c001ed9f51388821287bd7b678aca0803c957d04c2a24bb515ba"
     },
     {
       "path": "crates/tig-git/tests/catalogue.rs",
@@ -1474,13 +1474,13 @@
     },
     {
       "path": "specs/CATALOGUE.md",
-      "bytes": 25861,
-      "sha256": "1257f6c847aa68b432516e8e26fc96f30e8f120d211cb07cb9b3b1a5eb3116a5"
+      "bytes": 27387,
+      "sha256": "0b68f130feb37daedd6ad93cbef6c549391df6b671415951646e61bbaea01adb"
     },
     {
       "path": "docs/CATALOGUE-UI-PLAN.md",
-      "bytes": 5040,
-      "sha256": "738d02d5e1ceb0c42f3bb12110cbb812e7adc7dbf570e6a3504c07b1651c4b8e"
+      "bytes": 5578,
+      "sha256": "76ef947cfe6b2adabf0c5a132d32d315c85ecea7958d38817e0035d6f48c3a2f"
     },
     {
       "path": "docs/reviews/2026-11-05-catalogue-ui.md",
@@ -1494,8 +1494,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/web/works.js",
-      "bytes": 12789,
-      "sha256": "cea1655c22136d08d0b34b59c4dba143da3914090aa3b1d1dd7072cc9751c806"
+      "bytes": 12935,
+      "sha256": "d6b70ef42297c2320bef1f5cea5c3144d3c06175d88a1733935360ee130a3cff"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/browse.js",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 10429,
-      "sha256": "4c872ca3527f464f4400643c8a988e5ca8b43fff18cd2472325888cf0fa00a34"
+      "bytes": 10746,
+      "sha256": "a2caed956205bfe5751fab1256a09a11fdd3d853b334cd0c05ab36ad5698f445"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1664,8 +1664,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/query.rs",
-      "sha256": "cbef1dc49e5f706a39502af7daa5c6e9e380550a748fa101e4b13e980ca1b17b",
-      "bytes": 19703
+      "sha256": "437e25bb863de7e202b68443f278a6d68620b2770518acd0bc2a9deab21af0b3",
+      "bytes": 19721
     },
     {
       "path": "crates/tig-git/src/catalogue/query/impact.rs",
@@ -1674,8 +1674,8 @@
     },
     {
       "path": "crates/tig-git/tests/agent_queries.rs",
-      "sha256": "f94497d381da1089e4c3273a1e680fb39de7d1484ecd50552a688249d1b9beb3",
-      "bytes": 19157
+      "sha256": "3e27df8c7671865b1338985d4739262adec483262e608cfd847f85992f8c3ff9",
+      "bytes": 19239
     },
     {
       "path": "docs/AGENT-QUERIES.md",
@@ -1773,8 +1773,8 @@
       "path": "crates/tig-git/tests/impact.cjs"
     },
     {
-      "bytes": 6848,
-      "sha256": "dbea62af7d5d591f40b783fb2b0e3736d888bded605c85d67e5bf0ab3ef2f36e",
+      "bytes": 6892,
+      "sha256": "46eef4d03bd8abd4fb16b9bb9cb645794129f1c5ba62c4f195229ff8cf25443b",
       "path": "crates/tig-git/tests/agent_queries/catalogue_impact_cases.rs"
     },
     {
@@ -1793,14 +1793,39 @@
       "bytes": 3813
     },
     {
-      "sha256": "4e92b00a3da2cb3ab2cf085cf6abf78a32b50ab83de249e2e8e5b43a11a21b29",
+      "sha256": "b375a41dc0facad0569705e8b2cabcf436966e02bcde4a6ff35027f737e9de1b",
       "path": "crates/tig-git/tests/ux/catalogue-fixture.cjs",
-      "bytes": 6396
+      "bytes": 7445
     },
     {
       "sha256": "fdc90df2866bce14546056876f8ed65d0b6fc2a154d26a0b7ef48043b84857a7",
       "path": "docs/reviews/2026-11-08-fixture-ux-flows.md",
       "bytes": 3030
+    },
+    {
+      "sha256": "f5ea2bce78bb1d34711009e390a47924da1229743511ea3bc68e7926873c2cb2",
+      "bytes": 2384,
+      "path": "crates/tig-git/src/catalogue/query/compare_view.rs"
+    },
+    {
+      "sha256": "e0e3fca8b245439688d7520b9a51ab8ac59975d4c5778b416a7ec395e3959e86",
+      "bytes": 6362,
+      "path": "crates/tig-git/src/catalogue/web/compare.js"
+    },
+    {
+      "sha256": "165c2bb3764abc3a8a5a81163d3bbddaf7cfe28fdfeb010a4be6eef24daa4bd1",
+      "bytes": 6794,
+      "path": "crates/tig-git/tests/agent_queries/catalogue_compare_cases.rs"
+    },
+    {
+      "sha256": "8549ada275ce28dfd9a8032ede38ee5fab8968075fe065afac6bb41a55e93f96",
+      "bytes": 8167,
+      "path": "crates/tig-git/tests/compare-flows.cjs"
+    },
+    {
+      "sha256": "d2f19130673cf918ee56ae3aa360a493ba5801681b67a3610ee9a56d986c0226",
+      "bytes": 3180,
+      "path": "docs/reviews/2026-11-08-catalogue-record-compare.md"
     }
   ]
 }

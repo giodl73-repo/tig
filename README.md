@@ -98,6 +98,9 @@ change, keeping inventory evidence separate from semantic dependency paths.
 In the catalogue, open a record's Impact tab, choose relationships and Trace
 consumers to explore exact paths and coverage gaps. Work Overview links to its
 source record's impact view.
+The Compare tab lets you choose a baseline and compare another registered record
+across projects: selected bytes, record/definition identity and field/stream
+changes stay separate. Missing selections remain explicitly unavailable.
 
 On Windows append .exe to the binary and supply an absolute Windows path.
 Open http://127.0.0.1:8799/; stop the foreground process to stop the viewer.

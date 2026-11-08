@@ -32,6 +32,30 @@ metadata refresh discard stale successes/errors rather than overriding a newer
 selection. Controller fixtures check the shipped scripts together; their DOM
 double makes no browser-layout or provider-behavior claim.
 
+## Record comparison
+
+Open a record's Compare tab, choose Use this record as baseline, then navigate
+to another record and Compare with baseline. Work Overview has a source-record
+shortcut. The in-memory baseline captures project, asset ID, exact record pin
+and snapshot; it is a UI selection, not a retention claim or historical resolver.
+Both source snapshots must still be captured by their enrolled projects.
+
+The fixed authenticated `/api/compare` GET accepts left_project, left_id,
+left_snapshot, right_project, right_id, right_snapshot and optional basis. Both
+snapshots are required; project all, unknown fields and stale source/basis refuse.
+The endpoint uses the agent's compare_assets and basis framing, returns snapshots,
+coverage and data under tig.catalogue-compare.experimental-1, and performs no
+payload IO. Existing HTTP limits and host/origin/session protections apply.
+
+The UI independently checks both selectors, record pins and snapshot identities.
+Changing/clearing the baseline or leaving the selection prevents late results
+from being displayed. Equal selected bytes, record bytes and definitions are
+reported separately. A missing selected object is unavailable, including when
+both records lack one. Authored diffs include names only. Named streams report
+additions/removals and before/after role/group/object changes, baseline to current.
+Decoded media, transitive dependencies, producer currency and retained custody
+remain separate; equality never establishes regeneration or eviction authority.
+
 `tig-catalogue shared ENROLLMENT LEFT RIGHT NEW_REPORT [CATEGORY]` compares
 selected object identities in two explicit pinned projects. Only those project
 profiles are opened. Identity is SHA-256 plus length; conflicting lengths refuse.

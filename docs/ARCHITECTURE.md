@@ -60,6 +60,11 @@ the same native impact resolver and basis framing. It pages 25 consumers, keeps
 gaps/admission diagnostics visible and supplies navigation cards only for exact
 selected revisions. It exposes no general agent-query or byte-read endpoint.
 
+The fixed catalogue comparison endpoint calls the same compare_assets operation
+as the agent CLI, checking both captured project snapshots and optional basis.
+The frontend baseline retains exact record identity and generation-fences its
+results; it does not become a retention claim or a historical-source provider.
+
 Profile previews pass an explicit candidate set to the same impact resolver and
 compare full known consumer sets and shortest-witness fingerprints. Neither
 candidate nor baseline enrollment is temporarily mutated. The request must fence

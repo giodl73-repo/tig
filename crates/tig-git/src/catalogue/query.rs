@@ -3,6 +3,7 @@ use super::*;
 use serde::{Deserialize, Serialize};
 
 mod admission;
+mod compare_view;
 mod impact;
 mod manifest_impact;
 mod manifests;
