@@ -12,6 +12,7 @@ use tig_core::{Digest, identity};
 pub const MAX_ACTIONS: usize = 32;
 const SCHEMA: &str = "tig.storage-plan.design-1";
 const LOCAL_CONTRACT: &[u8] = b"tig.local-store.design-5/process-restart/copy-retain/v1";
+const PROTECTED_CONTRACT: &[u8] = b"tig.local-store.design-6/process-restart/copy-retain/v1";
 
 #[derive(Debug)]
 pub enum Error {
@@ -67,14 +68,27 @@ impl Place {
             return Err(Error::InvalidPlan);
         }
         store.check_identity()?;
+        if store
+            .protection()
+            .is_some_and(|binding| binding.generation() != generation)
+        {
+            return Err(Error::StaleAdmission);
+        }
         Ok(Self {
             instance: store.identity().clone(),
             generation,
-            contract: Digest::blob(LOCAL_CONTRACT),
+            contract: Digest::blob(if store.protection().is_some() {
+                PROTECTED_CONTRACT
+            } else {
+                LOCAL_CONTRACT
+            }),
         })
     }
     fn validate(&self) -> Result<()> {
-        if self.generation == 0 || self.contract != Digest::blob(LOCAL_CONTRACT) {
+        if self.generation == 0
+            || (self.contract != Digest::blob(LOCAL_CONTRACT)
+                && self.contract != Digest::blob(PROTECTED_CONTRACT))
+        {
             return Err(Error::InvalidPlan);
         }
         Ok(())
@@ -269,6 +283,11 @@ impl Plan {
         if destination.identity() != &self.request.destination.instance {
             return Err(Error::WrongStore);
         }
+        if Place::local(destination, self.request.destination.generation)?
+            != self.request.destination
+        {
+            return Err(Error::StaleAdmission);
+        }
         let mut peak = 0u64;
         for index in 0..self.request.copies.len() {
             let (publication, retention) = self.plans(destination, index)?;
@@ -333,6 +352,12 @@ impl LocalExecution<'_> {
             || self.ledger.identity() != &plan.request.capacity
         {
             return Err(Error::WrongStore);
+        }
+        if Place::local(self.source, plan.request.source.generation)? != plan.request.source
+            || Place::local(self.destination, plan.request.destination.generation)?
+                != plan.request.destination
+        {
+            return Err(Error::StaleAdmission);
         }
         plan.local_peak(self.destination)?;
         Ok(())

@@ -217,7 +217,7 @@ impl Demand {
             || ((!policy.prefer_active || self.active.is_empty()) && self.history.contains(place))
     }
 }
-struct Work<'a, S> {
+pub(crate) struct Work<'a, S> {
     nodes: BudgetNodes<'a, S>,
     limits: &'a Limits,
     roots: usize,
@@ -225,7 +225,7 @@ struct Work<'a, S> {
     associations: usize,
 }
 impl<'a, S: NodeStore> Work<'a, S> {
-    fn new(nodes: &'a S, limits: &'a Limits, start: Instant) -> Result<Self> {
+    pub(crate) fn new(nodes: &'a S, limits: &'a Limits, start: Instant) -> Result<Self> {
         limits.validate().map_err(|_| Error::Budget)?;
         Ok(Self {
             nodes: BudgetNodes::new(nodes, limits, start),
@@ -235,7 +235,7 @@ impl<'a, S: NodeStore> Work<'a, S> {
             associations: 0,
         })
     }
-    fn timed(&self) -> Result<()> {
+    pub(crate) fn timed(&self) -> Result<()> {
         self.nodes.timed().map_err(|_| Error::Budget)
     }
     fn source(&mut self, source: &Source, policy: &Policy) -> Result<BTreeMap<Digest, Demand>> {
@@ -315,6 +315,9 @@ pub struct Namespace {
     journal: SourceJournal,
 }
 impl Namespace {
+    pub(crate) fn check_marker(&self) -> Result<()> {
+        Ok(self.journal.check_guarded_marker()?)
+    }
     pub fn create(root: &Path, project: Key, epoch: Key, policy: Policy) -> Result<Self> {
         let policy = policy.normalized()?;
         Ok(Self {
@@ -433,24 +436,46 @@ impl Namespace {
         nodes: &impl NodeStore,
         limits: &Limits,
     ) -> Result<Option<ScopedAbsence<'a>>> {
-        let start = Instant::now();
+        let mut work = Work::new(nodes, limits, Instant::now())?;
+        let Some(checkpoint) = self.absent_places(fence, std::slice::from_ref(place), &mut work)?
+        else {
+            return Ok(None);
+        };
+        Ok(Some(ScopedAbsence {
+            fence,
+            place: place.clone(),
+            checkpoint,
+        }))
+    }
+    /// Used by store-wide assessment to share one aggregate budget and avoid
+    /// traversing identical namespace roots separately for each place alias.
+    pub(crate) fn absent_places(
+        &mut self,
+        fence: &SubjectFence,
+        places: &[Key],
+        work: &mut Work<'_, impl NodeStore>,
+    ) -> Result<Option<Checkpoint>> {
         self.journal.check_guarded_marker()?;
         if fence.authority != *self.identity() {
             return Err(Error::WrongAuthority);
         }
-        if !self.policy().classes.values().any(|p| {
-            p.current
-                .iter()
-                .chain(&p.pending)
-                .chain(&p.predecessor)
-                .any(|k| k == place)
-        }) {
+        if places.is_empty()
+            || places.len() > 16
+            || !places.iter().all(|place| {
+                self.policy().classes.values().any(|p| {
+                    p.current
+                        .iter()
+                        .chain(&p.pending)
+                        .chain(&p.predecessor)
+                        .any(|k| k == place)
+                })
+            })
+        {
             return Err(Error::InvalidPolicy);
         }
         self.journal.sync()?;
         let state = self.journal.state.clone();
         let policy = self.policy();
-        let mut work = Work::new(nodes, limits, start)?;
         let mut subject = Demand {
             bytes: fence.object.bytes,
             ..Demand::default()
@@ -461,16 +486,15 @@ impl Namespace {
                 subject.extend(demand)?;
             }
         }
-        work.timed()?;
         self.journal.check_guarded_marker()?;
-        if subject.required(policy, place.as_str()) {
+        work.timed()?;
+        if places
+            .iter()
+            .any(|place| subject.required(policy, place.as_str()))
+        {
             return Ok(None);
         }
-        Ok(Some(ScopedAbsence {
-            fence,
-            place: place.clone(),
-            checkpoint: state.head,
-        }))
+        Ok(Some(state.head))
     }
 }
 #[cfg(test)]

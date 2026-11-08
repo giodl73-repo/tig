@@ -94,3 +94,10 @@ provider-durable backend was tested.
 Commands: `cargo test -p tig-store --locked` (24 entries),
 `cargo test --workspace --locked` (154 total), fmt and all-target Clippy.
 EVID-010 records this scope; WP-003 remains in progress, not fully verified.
+
+The later [store protection boundary](STORE-PROTECTION-BOUNDARY.md) adds explicit
+creation of design-6 local stores with an immutable namespace/place roster.
+Ordinary design-5 creation and wire bytes remain unchanged; old readers reject
+the new marker. Publication, attempt accounting, reads and retention use the same
+provider primitives, with exact binding checks on each provider guard. No live
+root is migrated and no completed-object deletion is introduced by this mode.

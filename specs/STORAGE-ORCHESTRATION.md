@@ -81,3 +81,15 @@ and adds no journal commands; it is not an OS-enforced read-only connection.
 Process exit releases live read guards; durable retention stays in existing store
 records. The catalogue can reuse this library plan later, but no UI apply/removal
 binding or provider deployment is added by this slice.
+
+## Explicitly bound local stores
+
+The later [store protection boundary](STORE-PROTECTION-BOUNDARY.md) adds an opt-in
+local design-6 provider marker for fresh synthetic stores. Copy/retention behavior
+and acknowledgement limits remain those of the existing local adapter. Place
+descriptors use a distinct design-6 contract identity and must match the actual
+bound enrollment generation; actual provider contract/instance/generation are
+rechecked before execution and destination peak computation. Old design-5 plan
+identities remain unchanged. Older clients reject the unknown provider contract.
+This supported copy profile does not grant removal or implement namespace/epoch
+migration. Machine-local paths and authority witnesses remain caller-owned.

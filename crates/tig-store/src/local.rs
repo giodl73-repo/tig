@@ -20,6 +20,8 @@ struct Manifest {
     schema: String,
     place: Key,
     instance: Digest,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    protection: Option<crate::store_protection::Binding>,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -32,11 +34,30 @@ pub struct LocalStore {
     root: PathBuf,
     place: Key,
     instance: Digest,
+    protection: Option<crate::store_protection::Binding>,
     staging: Option<PathBuf>,
 }
 impl LocalStore {
     /// Creates a fresh explicit root only. Never enrolls an existing directory.
     pub fn create(root: &Path, place: Key) -> Result<Self> {
+        Self::create_mode(root, place, None)
+    }
+    /// Explicit fresh store only; no migration or discovery of existing clients.
+    pub fn create_protected(
+        root: &Path,
+        place: Key,
+        protection: crate::store_protection::Binding,
+    ) -> Result<Self> {
+        if !protection.valid() {
+            return Err(Error::InvalidRequest);
+        }
+        Self::create_mode(root, place, Some(protection))
+    }
+    fn create_mode(
+        root: &Path,
+        place: Key,
+        protection: Option<crate::store_protection::Binding>,
+    ) -> Result<Self> {
         check_root_spelling(root)?;
         fs::create_dir(root)?;
         for name in [
@@ -55,14 +76,16 @@ impl LocalStore {
             root: fs::canonicalize(root)?,
             place,
             instance: Digest::blob(&nonce),
+            protection,
             staging: None,
         };
         store.write_record(
             &store.root.join("store.json"),
             &Manifest {
-                schema: "tig.local-store.design-5".into(),
+                schema: store.schema().into(),
                 place: store.place.clone(),
                 instance: store.instance.clone(),
+                protection: store.protection.clone(),
             },
         )?;
         Ok(store)
@@ -72,13 +95,14 @@ impl LocalStore {
         directory(root)?;
         let root = fs::canonicalize(root)?;
         let manifest: Manifest = read_record(&root.join("store.json"))?;
-        if manifest.schema != "tig.local-store.design-5" {
+        if !valid_manifest(&manifest) {
             return Err(Error::CorruptRecord);
         }
         let store = Self {
             root,
             place: manifest.place,
             instance: manifest.instance,
+            protection: manifest.protection,
             staging: None,
         };
         store.guard()?;
@@ -89,6 +113,16 @@ impl LocalStore {
     }
     pub fn identity(&self) -> &Digest {
         &self.instance
+    }
+    pub fn protection(&self) -> Option<&crate::store_protection::Binding> {
+        self.protection.as_ref()
+    }
+    fn schema(&self) -> &str {
+        if self.protection.is_some() {
+            "tig.local-store.design-6"
+        } else {
+            "tig.local-store.design-5"
+        }
     }
     pub(crate) fn allocation_quantum(&self) -> Result<u64> {
         self.guard()?;
@@ -216,6 +250,7 @@ impl LocalStore {
                 root: self.root.clone(),
                 place: self.place.clone(),
                 instance: self.instance.clone(),
+                protection: self.protection.clone(),
                 staging: Some(scope.clone()),
             },
             scope,
@@ -261,14 +296,27 @@ impl LocalStore {
             place: self.place.clone(),
             instance: self.instance.clone(),
         };
-        // Construct the guard before reading metadata so every failure unlocks.
+        self.check_unretained(object)?;
+        Ok(guard)
+    }
+    /// Existing anchors only; inspection must not allocate provider metadata.
+    pub(crate) fn existing_exclusive_object(&self, object: &Object) -> Result<ExclusiveObject> {
+        if object.bytes > MAX_OBJECT_BYTES {
+            return Err(Error::Budget);
+        }
+        let guard = self.handoff_fence(object)?;
+        self.check_unretained(object)?;
+        Ok(guard)
+    }
+    fn check_unretained(&self, object: &Object) -> Result<()> {
+        // Caller constructs its guard before metadata reads so failure unlocks.
         for path in self.retention_files(object)? {
             let record: crate::retention::RetentionRecord = read_record(&path)?;
             if !self.retention_released(&record)? {
                 return Err(Error::Retained);
             }
         }
-        Ok(guard)
+        Ok(())
     }
     fn retention_dir(&self, object: &Object) -> PathBuf {
         self.root.join("retentions").join(object.sha256.as_str())
@@ -458,8 +506,9 @@ impl LocalStore {
             directory(&self.root.join(name))?;
         }
         let manifest: Manifest = read_record(&self.root.join("store.json"))?;
-        if manifest.schema != "tig.local-store.design-5"
+        if !valid_manifest(&manifest)
             || (manifest.place != self.place || manifest.instance != self.instance)
+            || manifest.protection != self.protection
         {
             return Err(Error::CorruptRecord);
         }
@@ -525,6 +574,14 @@ impl LocalStore {
             return Err(Error::OperationConflict);
         }
         Ok(())
+    }
+}
+
+fn valid_manifest(manifest: &Manifest) -> bool {
+    match (&*manifest.schema, &manifest.protection) {
+        ("tig.local-store.design-5", None) => true,
+        ("tig.local-store.design-6", Some(binding)) => binding.valid(),
+        _ => false,
     }
 }
 

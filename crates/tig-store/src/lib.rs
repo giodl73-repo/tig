@@ -11,6 +11,7 @@ pub mod protection;
 pub mod replica;
 pub mod retention;
 pub mod source_claims;
+pub mod store_protection;
 
 use serde::{Deserialize, Deserializer, Serialize, de};
 use std::io::{self, Read};
