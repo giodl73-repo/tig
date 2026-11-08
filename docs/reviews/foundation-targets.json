@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 58591,
-      "sha256": "50293ac72a2af20267efd495541ba6e2e3f534a0e5ab996371e8710b8103945c"
+      "bytes": 60861,
+      "sha256": "b4ac8e5d934dc5f8603ef5f11be1f5146c61e97cbdf435850c14ff315d231dc2"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 108541,
-      "sha256": "719fb7ff50d46c75e278a2e9d8ddab72225a770a7d31d77525857281ca17a8cc"
+      "bytes": 110526,
+      "sha256": "06d91e26b197c9cc7f50a6fc29bfa6d684fa1db3fc708108658c4cc5d66c5ae6"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 31417,
-      "sha256": "0a474a7020b4502f738ee72d30fbe5113ecdb4ef5a8e513907df4c903bd9fc01"
+      "bytes": 32145,
+      "sha256": "260da143c5712b644d246a49f8a8d50c47a431571ced31ca70781ebdeb4af1b5"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 18144,
-      "sha256": "f7b92e24104270dea362f07b9398bcba13abf479f701f0a04a3077b295bc6f07"
+      "bytes": 18793,
+      "sha256": "154732f2d2f57073587f86ab08d2a12cf5f6b866a3d3ee3beafd22603192074e"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 36459,
-      "sha256": "66bda03e80952dcec97c9ec76cd42e0b8802feed8fff34d08ac5818aa1456657"
+      "bytes": 37910,
+      "sha256": "36c2f6b382b5fecd09182e11a23d7f596d921c6830fd10d1b8ca33b7ce2ade34"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 8099,
+      "bytes": 8692,
       "path": "context/RESUME.md",
-      "sha256": "debb04b062f3d46e3c802947fc7f1e16671b660e1c9fd6fb0b6950e149d7e2b5"
+      "sha256": "0362c4a6548562829cc9b95effbb352b2af387401b03cc9c11857f3fc86ef534"
     },
     {
       "bytes": 16453,
@@ -1966,6 +1966,11 @@
       "path": "specs/RETIREMENT-AGENT-CLI.md",
       "bytes": 7428,
       "sha256": "d2d8d2e5f9ee36f4a70a6b298b6753dc3168f1aa3e6baa61326839b9ea544aa1"
+    },
+    {
+      "path": "docs/reviews/2026-11-08-retirement-agent-cli.md",
+      "bytes": 4766,
+      "sha256": "92156c0936ebc6905ff4815ad8b544ee9bed7ea4ed39d652f8e9a5e4027c39c6"
     }
   ]
 }

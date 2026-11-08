@@ -444,3 +444,14 @@ Reacquisition, accounted admission/binding and existing protection/retention por
 regressions -> EVID-088, implementationfe88c7c. Scoped verification, intended-use
 validation and producer review are separate. No full WP/REQ/VAL or designed
 scenario is closed; live/current-authority and remaining roadmap gates persist.
+
+Retirement operator/agent: WP-003/004/006/007/008/009/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008 -> RETIREMENT-AGENT-CLI.md ->
+tig-storage retire and retirement::status/canonical plans -> eight CLI process
+cases, 24 kernel regression entries with additional status assertions and separately
+executed real-child pending-intent CLI cancellation -> EVID-089,
+implementation19346c4. PKG-009 covers explicit cross-artifact CI qualification and
+external build/temp roots. Verification, validation rehearsal and producer review
+are separate; full requirements, adoption, event convergence and remaining roadmap
+milestones remain open.

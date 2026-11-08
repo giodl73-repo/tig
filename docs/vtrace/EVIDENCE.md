@@ -700,3 +700,35 @@ full-store restore authority, power loss, large media, dynamic epoch adoption,
 CLI/agent retirement, Git automation, last-copy deletion and metadata expiry remain
 unqualified. All 110 full workflows and full requirements remain open.
 PR #19 remains draft for hosted current-head Windows/Linux/secrets qualification.
+
+EVID-089: explicit retirement CLI/agent interface, implementation
+19346c45930b575c1bbda5a7ee618fb4101d9d98; input3e300ca. Eight actual CLI process
+cases pass in 1.65s over synthetic managed stores, retained backups, persistent
+metadata and capacity/source journals. They cover plan/status/apply/resume,
+physical unlink, exact-byte new-operation reacquisition and old eviction replay
+preserving the new copy. Private owner/context/grants/domains/roles and byte/peak
+limits independently admit execution; disabled defaults, stale/forged plans,
+unmapped roles, missing keeper, active reader/claim, strict/oversized documents
+and missing roots refuse. Status appends no source capacity commands, needs no
+keeper/tree/namespace availability, and separates historical retirement from
+present integrity. Corrupt/missing acknowledged restored bytes remain unproven/
+recovery_required without repair or authorized-absence fabrication.
+
+The 24 existing retirement kernel entries pass with new status assertions at
+real-child interruption boundaries, cancellation and known settled-provider-prefix
+rollback. A separate explicit cross-artifact L2 test passes in 0.55s: a real child
+exits after durable intent, then actual CLI status/cancel/retry processes preserve
+bytes and original publication identity with keeper/tree/namespace roots offline.
+That test is intentionally ignored in a library-only suite and explicitly run
+with a freshly built TIG_RETIREMENT_CLI artifact; both CI platforms require it.
+Do not count the ordinary ignored entry as executed evidence.
+
+Final locked default/all-feature workspace suites, strict all-feature/all-target
+Clippy, fmt, standalone no-feature Git and portable L0 pass on Windows using
+external build/temp roots. Verification, synthetic intended-use rehearsal, trace
+and producer review are separate records. Hosted current-head qualification
+remains pending publication. No real cache or consumer was attached, initialized,
+transferred or removed. This closes the explicit bounded local interface, not
+dynamic epoch/restore authority, large-file/native qualification, automatic Git
+reconciliation, remote/LFS upload, bulk final deletion or metadata expiry. All
+full requirements and 110 designed workflows retain their separate open gates.

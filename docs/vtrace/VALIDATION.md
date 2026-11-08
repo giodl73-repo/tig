@@ -278,3 +278,12 @@ remain. A prior selection is then explicitly restored and old deletion retries
 preserve the new incarnation. This is synthetic intended-use rehearsal and
 mechanism verification, not user UX acceptance, producer/opaque dependency
 completeness, cloud/GitHub automation, final deletion or operational lifetime proof.
+
+EVID-089 contributes operator/agent rehearsal to VAL-002/003: separate processes
+plan, unlink, inspect, resume and restore exact bytes under independently admitted
+local policy. Another actual CLI cancels pending intent after a child exits,
+preserving current bytes without needing available keeper/source-tree authorities.
+Historical retirement remains visible beside freshly present reacquired bytes;
+damaged acknowledged bytes never masquerade as authorized absence. These synthetic
+cases do not close user UX acceptance, remote provider custody, trusted Git event
+convergence, bulk final deletion, metadata expiry or full operational lifetime.

@@ -1337,3 +1337,34 @@ negative case confirms no admission. On Windows held reader handles prevented
 renaming an entire keeper directory, so the fault fixture withdraws its authority
 marker and claims that narrower failure only. Provider-prefix replay review added
 the settled-ledger/missing-terminal refusal and an actual restored-prefix case.
+
+## Retirement CLI/agent producer review
+
+Input3e300ca; implementation19346c45930b575c1bbda5a7ee618fb4101d9d98.
+WP-003/004/006/007/008/009/015; REQ-001/002/003/004/005/006/007/008/009;
+SPEC-002/003/004/005/006/007/008/009/013;
+IF-002/003/004/005/006/008/012/013; PKG-002/003/008, with PKG-009 CI qualification.
+Entry/exit, allowed scope and RUST/PROVIDER L0/L1/L2 are in
+[the contract](../../specs/RETIREMENT-AGENT-CLI.md). One producer reapplied all six
+.roles checklists against source/model/safety contracts and foundation scenarios;
+[RC-01..06](../reviews/2026-11-08-retirement-agent-cli.md) record findings,
+dispositions and remaining gates. Owner: Tig maintainer. No independent or human
+approval is implied.
+
+Review required independent private survivor/domain/context/role/budget admission,
+separate execution flags, canonical input-bound plans and no implicit provider
+initialization. Status separates historical outcome from fresh integrity and
+cannot reconstruct removal authority. The review caught missing lifecycle-side
+allocation checks in reacquisition status; both lifecycle and payload bindings
+are now validated, sharing the library's payload-shape validation. Cancellation
+uses the existing kernel without depending on available keeper/tree/namespaces.
+The explicit L2 case runs actual CLI processes after a real child interruption;
+CI builds the artifact and invokes it deliberately on Windows/Linux rather than
+claiming the ordinary ignored library entry passed. Original copy commands and
+wire encodings stay compatible; no catalogue/runner/consumer is deployed.
+
+Disposition: pass_with_risk for this bounded explicit local interface. EVID-089
+records executed local checks separately from hosted qualification, validation
+rehearsal, trace and review. All full requirements, independent review and live
+adoption remain open, as do remote/LFS upload, trusted Git lifecycle convergence,
+bulk final deletion, metadata expiry and operational lifetime qualification.

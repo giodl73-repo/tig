@@ -53,14 +53,15 @@ source changes into running tools as a side effect. No startup cache operations.
 - Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
   handoff and store/namespace/epoch authority handoff requirements. These remain
   implementation gates, not merely documentation acceptance.
-- feat/retirement-agent-cli, based on3e300ca: explicit tig-storage retire
+- feat/retirement-agent-cli, implementation19346c4, based on3e300ca: explicit tig-storage retire
   plan/status/apply/resume/cancel/reacquire uses existing managed retirement and
   private owner/context/domain/grant/role/budget admission. Eight CLI process
   cases and the separate real-child pending-intent CLI cancellation qualification
   pass locally. Final locked default/all-feature workspace suites, strict Clippy,
-  fmt, standalone Git and portable L0 pass. Separate EVID-089 closeout and hosted
-  qualification remain to be recorded/checked at this source checkpoint. No real
-  cache, initialization, final deletion or automation.
+  fmt, standalone Git and portable L0 pass. EVID-089 separately records verification,
+  synthetic validation, trace and all six producer-review lenses. Hosted current-
+  head qualification remains separate; derive PR state live. No real cache,
+  initialization, final deletion or automation.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
@@ -71,13 +72,20 @@ Check current-head local/hosted qualification and PR state. The store binding
 covers its explicit immutable first roster; it does not implement epoch migration,
 external-client discovery or full restore authority. Preserve that distinction.
 
-Finish qualification and separate verification/validation/trace/review closeout
-for the existing operator/agent retirement lane. Inspect the actual running
-Cargo/session and PR jobs before restarting anything; a polling timeout is not
-failure. The cross-artifact pending-cancellation fixture requires a freshly built
-binary via TIG_RETIREMENT_CLI and an explicit --ignored --exact invocation; its
-ordinary-suite ignored entry is not executed evidence. Both hosted platforms
-now include that qualification. Keep all effects in synthetic roots.
+Check current-head hosted qualification for the managed-retirement and CLI lanes;
+inspect actual jobs before retrying. A polling timeout is not failure. Local CLI
+qualification and separate evidence closeout are complete. The cross-artifact
+pending-cancellation fixture requires a freshly built binary via TIG_RETIREMENT_CLI
+and an explicit --ignored --exact invocation; its ordinary-suite ignored entry is
+not executed evidence. Both hosted platforms include that qualification.
+
+Continue the first remote/upload provider slice from the existing publication/
+orchestration ports. Select one concrete backend, freeze its admitted capability,
+acknowledgement, retry/readback and credential boundaries, then use isolated
+protocol/provider fixtures. Preserve source and distinguish uploaded/verified
+availability from independent retained custody. Do not install services, connect
+real stores or copy private credentials as startup behavior. Keep native media,
+automatic Git lifecycle and last-copy deletion out of the generic provider port.
 
 Then continue roadmap priorities: one qualified remote/upload adapter, Git/LFS
 upload and explicitly enabled exact-ref lifecycle convergence; finite-backup bulk

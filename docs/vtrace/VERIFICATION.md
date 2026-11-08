@@ -551,3 +551,24 @@ all-target Clippy, standalone no-feature Git, fmt and L0 pass. Synthetic fixture
 use explicit external build/temp roots. Hosted
 qualification, whole-volume reclaim, full restore/power-loss and live adoption
 remain separate; the first profile is ordinary replica retirement only.
+
+## Explicit retirement CLI/agent interface
+
+EVID-089 / RETIREMENT-AGENT-CLI.md, implementation19346c4:
+`cargo test -p tig-store --test retirement_cli --locked` passes eight process
+cases. Actual temporary object paths disappear after apply and exact bytes return
+after explicit reacquisition; old resume preserves that newer copy. Private policy
+forgery/default flags, unknown role, missing keeper, source reader/claim, malformed/
+oversized documents, unknown roots, acknowledged corruption and no-command status
+are exercised. The 24 kernel retirement entries retain actual interruption/restore
+proof and add status checks at pending/terminal/cancelled/restored-prefix states.
+
+After building the CLI, set TIG_RETIREMENT_CLI to its absolute artifact and run
+`cargo test -p tig-store --lib --locked retirement::tests::explicit_cli_pending_cancellation_qualification -- --ignored --exact`.
+That separately executed case passes: actual child exit after intent followed by
+CLI status/cancel/retry, offline keeper/tree/namespaces and original receipt replay.
+The ordinary-suite ignored entry is not the proof; this explicit command is also
+required by both hosted targets. Final default/all-feature workspace, strict
+all-feature/all-target Clippy, fmt, standalone Git and portable L0 pass locally.
+Hosted verification is separate. No full native/large-file/epoch/restore/lifetime,
+live-store or automatic lifecycle guarantee follows from these fixtures.
