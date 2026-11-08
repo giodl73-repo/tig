@@ -1230,3 +1230,41 @@ This is the first unshipped projection format, not a change to journal encodings
 The selection-provenance change initially missed the predecessor tuple constructor;
 compilation refused it before tests. Corrected to carry the same exact revision
 shape as current selections. The repeated-root regression covers that constructor.
+
+## Mandatory admission producer review
+
+Input355aad7fc6ab964527b46492cdb6f98a395f58c1; roadmap review85ac433;
+implementation0b75664e63ca3807096fb9e1dfdafd7faac275ce. Controls and RUST/PROVIDER
+entry/exit/L0/L1/L2 scope are in specs/MANDATORY-SOURCE-ADMISSION.md. Method:
+one producer applying all six .roles checklists against model/safety contracts,
+T01/02/03/08/11/12/13/15/20/24/25 and the corrected storage roadmap. Owner of
+each disposition: Tig maintainer. Independent review and human acceptance remain
+separate. This is admission qualification, not authority for live provider IO.
+
+| Lens | Finding and disposition | Remaining qualification |
+| --- | --- | --- |
+| Identity/namespace | Guarded marker design-2 binds immutable placement policy to a fresh authority identity. Owner/class enrollment is immutable; exact operation replay and source revisions bind the compiled permit. Legacy design-1 omits new fields and refuses Enroll. | Store-scope binding across every applicable namespace, epoch handoff, latest-authority and rollback-resistant restore. |
+| Placement | Fence raw active/history/retained bucket changes, including role-only changes. Configurable active precedence avoids unnecessary history copies; retention-class obligations remain additive. The older snapshot collector remains an additive copy-oriented projection and cannot stand in for effective namespace policy. | Provider constraints, namespace-wide ownership admission and mixed-root retained-subset handoff before final retirement. |
+| Custody | Scoped absence borrows a live subject fence and always denies removal authority. No custody or physical availability is inferred from roots or places. | Independent retained destination, store binding and physical removal/reclaim tests. |
+| Concurrency/recovery | Generic guarded mutations and preview refuse bypass. Shared admission/exclusive assessment use 256 ordered nonblocking partitions; collisions can conservatively contend. No SQL spans tree reads. Changed source revision refuses stale compilation; unrelated heads can advance during subject assessment. Actual child exit releases OS locks and exact receipts recover. | Epoch transitions and intentional-absence/incarnation protocol before any payload unlink; hostile anchor/root replacement remains outside the cooperative filesystem contract. |
+| Provider/privacy | Missing/corrupt closure, wrong sizes, marker changes, missing anchors and finite work/deadline limits refuse. Static errors omit private paths. No live source/store is opened by resume. | Native/opaque extraction and external writer/pruner boundary admission; power-loss/provider-specific guarantees. |
+| Git/adoption | Legacy journals remain usable without migration. Guarded sources require explicit enrollment; no hooks, daemon, consumer switch or automatic merge workflow is installed. | Trusted Git event integration, branch/job registration and bounded recovery under actual intended use. |
+
+Disposition: pass_with_risk for the cooperative local namespace prerequisite.
+Implementation, scoped verification, intended-use validation, trace and this
+producer review are distinct records; full work packages and all 110 scenario
+statuses remain open/designed. EVID-086 records executed versus pending checks.
+
+Source budget review, PKG-009: the 4 MiB ceiling was nearly exhausted by generic
+implementation/tests (4,165,590 bytes at the input checkpoint). Admit 5 MiB for
+this code and synthetic fault/process fixtures. Identity keeps persistent runtime
+encodings/limits separate; placement/custody grant no extra cache capacity;
+concurrency retains bounded journals/work; provider/privacy keeps every private,
+media/binary/runtime exclusion; Git/adoption retains 128 KiB per file and excludes
+generated logs/builds/databases. This changes no runtime storage/resource limit.
+The validator measures 4,231,791 ordinary bytes before this prose closeout.
+
+Failure memory: the initial Enroll field named kind conflicted with serde's
+internally tagged command discriminator. Compilation refused the derive; the
+field is class, preserving the existing kind discriminator. Focused tests cover
+new marker/command compatibility, immutable enrollment and legacy encoding.

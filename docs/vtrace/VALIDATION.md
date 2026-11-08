@@ -256,3 +256,10 @@ combine and missing coverage holds the pure planner. One temporary-store copy
 uses the actual snapshot basis and refuses a changed-context retry. This is not
 actual producer-consumption closure, enforced source admission, physical custody,
 Git-triggered orchestration, live adoption or final-deletion acceptance.
+
+EVID-086 adds guarded source mutation and live subject assessment toward VAL-003.
+Synthetic branches/jobs/retention exercise active versus inactive history and
+concurrent admission under actual local process locks. It does not attach a
+consumer, execute a Git-triggered merge lifecycle, bind all provider protection
+authorities or delete payloads. Full intended-use validation remains OPEN,
+including restore after eviction, finite-backup bulk retirement and metadata expiry.

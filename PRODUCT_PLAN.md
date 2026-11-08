@@ -364,3 +364,11 @@ from declared flat binding trees. This replaces no source authority or provider;
 unknown native/opaque closure remains a gap. Snapshot freshness is not a lease,
 and the View adapter holds removal. Effective source-admission/object-removal
 fencing and intentional-absence recovery remain the next executor gates.
+
+[Mandatory source admission](specs/MANDATORY-SOURCE-ADMISSION.md) now provides an
+explicit guarded-journal mode with immutable source classes/policy and compatible
+scoped claim/subject fences. This is a cooperative single-namespace prerequisite;
+it does not cover other authorities or attach a byte provider. Store-scope binding
+and authority handoff, intentional-absence/incarnation recovery and retained
+custody remain required before guarded eviction. Full workflow delivery remains
+open; see the separate EVID-086 verification and producer-review scope.

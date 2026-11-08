@@ -417,3 +417,12 @@ PROTECTION-DEMAND-SNAPSHOT.md -> SourceJournal::observe_all and protection.rs ->
 17 focused projection/copy tests plus 35 source-journal regression entries ->
 EVID-085. Metadata resolution, complete protection admission, effective removal
 fences, independent custody and intended-use acceptance remain distinct.
+
+Mandatory admission: WP-004/006/008/009, REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009, IF-002/004/005/006/008/012, PKG-002/003 ->
+MANDATORY-SOURCE-ADMISSION.md -> source_claims::admission and guarded journal
+mutation gate -> 20 admission entries, three actual child processes, guarded
+class/projection and legacy regressions -> EVID-086, implementation0b75664.
+PKG-009 controls the reviewed 5 MiB source/docs budget; runtime limits are unchanged.
+Store/namespace binding, authority epoch handoff, intentional absence/incarnation,
+custody and removal remain separate entry gates. No full WP/REQ is closed.

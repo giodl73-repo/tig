@@ -15,30 +15,40 @@ source changes into running tools as a side effect. No startup cache operations.
   publication/retention. Local checks and hosted Windows/Linux/secrets pass;
   marked ready for review. Optional publication context preserves legacy None
   encoding; old readers refuse new context-bearing records. No removal API.
-- feat/protection-demand-snapshot, based on d18afba, implementation 55a21e4: actual read-only journal/root
+- PR #16, feat/protection-demand-snapshot, implementation55a21e4: actual read-only journal/root
   demand projection, exact selected revisions/pending references, and copy-basis
   integration. Seventeen focused fixtures plus 35 source-journal cases qualify
   this prerequisite; local default/all-feature, Clippy, fmt, standalone Git and
-  L0 checks pass, recorded under EVID-085. Hosted checks are separate. Declared flat
+  L0 checks pass, recorded under EVID-085. Hosted Windows/Linux/secrets pass;
+  marked ready for review. Declared flat
   binding trees only; opaque/native context roots remain gaps. The View adapter
   always sets complete_claim_coverage=false. This does not complete admission.
+- PR #17 (draft), feat/mandatory-source-admission, implementation0b75664: guarded design-2 journal
+  gates every generic mutation, enrolls immutable source classes and compiles
+  exact before/after raw demands into live shared partition permits. Exclusive
+  subject assessment tolerates unrelated head changes. Active/history precedence
+  and additive retention are explicit. Final default/all-feature workspace suites,
+  strict Clippy, fmt, standalone Git and L0 pass; hosted qualification remains
+  separate. Twenty
+  admission entries include a helper and three actual child processes. EVID-086
+  separates verification/review from implementation. No removal or store binding.
+- Six-role roadmap re-review85ac433 records precedence, mixed-root retained-subset
+  handoff and store/namespace/epoch authority handoff requirements. These remain
+  implementation gates, not merely documentation acceptance.
 - Catalogue record/owner/impact/compare slices remain separate. User intends to
   test UX; do not start browser automation on resume. Viewer deployment, source
   merge, producer review, independent review and human acceptance are distinct.
 
 ## Next executor entry
 
-Implement effective mandatory scoped claim admission before eviction. Existing
-SourceJournal::apply is unfenced and cannot become safe through an optional
-caller wrapper. Define an enrolled managed namespace and safe refusal of legacy/
-unmanaged writers. Claim mutation and removal need compatible object-scoped
-fences independent of payload-store availability, with registry/authority epochs
-and exact before/after root demands. No SQL transaction spans metadata/payload IO;
-unrelated admissions must continue. Snapshot rechecks are not leases. Candidate
-membership checks must tolerate unrelated head changes when the target's demands
-are unchanged; do not turn a whole-snapshot identity into a global lock.
+Check hosted qualification/source status without treating a single guarded
+namespace as provider-wide coverage. Next bind each enrolled store scope/
+generation to all authorities that can protect it, define acknowledged authority/
+policy epoch handoff and refuse unresolved/legacy/unmanaged boundaries. A fresh
+epoch does not transfer claims or revoke an old removal executor by itself.
+Preserve per-subject admission and unrelated progress; no global cache lock.
 
-Then define authorized-absence/publication recovery and incarnation fencing:
+Define authorized-absence/publication recovery and incarnation fencing:
 old deletion retries must not remove a new same-hash placement. Only after these
 gates implement guarded ordinary eviction. Full private/provider adoption stays
 separate; remote/LFS upload, automatic merge reconciliation, final deletion and

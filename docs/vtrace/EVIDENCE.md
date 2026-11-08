@@ -628,3 +628,24 @@ complete claim registry, byte custody, eviction or full-system acceptance follow
 
 EVID-085 implementation source: 55a21e4. Verification, intended-use validation,
 trace and producer review closeout are separate from the implementation commit.
+
+EVID-086: mandatory scoped source admission, implementation
+0b75664e63ca3807096fb9e1dfdafd7faac275ce; input355aad7, reviewed roadmap85ac433.
+Twenty admission entries (including one subprocess helper) pass within the locked
+default Windows workspace suite. Three actual child processes exercise held
+exclusive subject locks, parent termination, and abrupt exit before/after SQL
+commit. Restart distinguishes uncommitted intent from a committed historical
+receipt; exact replay requires no old tree nodes. Direct generic mutation and
+preview refuse guarded journals; legacy journals keep their existing encoding.
+Changed owner/class/operation, stale compilation, foreign fences, missing closure,
+resource limits and replaced markers/anchors refuse. Unrelated partitions and
+registry-only enrollment progress under a held subject fence. Active/history
+precedence shares unchanged bytes while explicit retained demand stays additive.
+The read-only projection rejects conflicting guarded source classification.
+Final default/all-feature workspace suites, strict all-feature/all-target Clippy,
+fmt, standalone no-feature Git and portable L0 pass. Logs and generated
+fixtures remain outside source. No provider removal, namespace/store adoption,
+epoch handoff, independent custody, hostile/full-restore fencing or power-loss
+guarantee is established. Full requirements and all 110 workflows remain open.
+Hosted Windows/Linux/secrets qualification of PR #17 remains separate; the
+previous snapshot PR #16 has green hosted checks and is ready for review.

@@ -506,3 +506,18 @@ performed by this slice; hosted qualification remains separate.
 
 EVID-085 implementation source: 55a21e4. Verification, intended-use validation,
 trace and producer review closeout are separate from the implementation commit.
+
+## Mandatory scoped source admission
+
+EVID-086 / MANDATORY-SOURCE-ADMISSION.md, implementation0b75664: the locked default
+workspace suite passes, including 20 admission entries, existing journal/CLI,
+actual Git/LFS, provider and 500,000-binding regressions. Three real admission
+child processes cover cross-process contention/termination and exits immediately
+before/after commit. Exact retry, stale compiler refusal, active/history precedence,
+hard retained demand, direct-bypass refusal and legacy compatibility are checked.
+Final full default/all-feature suites, strict all-feature/all-target Clippy,
+standalone no-feature Git, fmt and L0 validate/diff pass. Hosted PR #17
+Windows/Linux qualification remains separate from these local Windows results.
+Builds, logs and temporary stores use explicit external development roots.
+This verifies cooperative process-restart behavior in the declared namespace,
+not physical removal, power-loss durability, cross-namespace closure or adoption.
