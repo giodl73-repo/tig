@@ -420,3 +420,17 @@ Storage work grouping applies family and work filters to the same membership
 pair. Nested objects inherit the admitted work memberships of their referencing
 records. Shared bytes retain multiple owners; membership grants no lifecycle
 approval or removal authority.
+
+The object References & versions tab offers explicit Open, Compare and Impact
+shortcuts to each declaring owner at the captured project snapshot. Retained
+slots and nested document/pointer associations remain evidence; opening the owner
+does not resolve a historical record or establish current production use. Missing
+owners and unindexed consumers remain unknown. Sampled bindings are disclosed.
+
+Navigation checks the captured owner snapshot and returned record identity.
+Back to object restores the references tab and captured scope. Each object load
+has a unique selection token, clears previous actions while pending and checks
+returned hash, length and project snapshots before exposing actions. Empty,
+failed and changed-source responses offer explicit recovery. Late object or
+held-review responses cannot replace another inspector or tab. Reviews use the
+captured scope; none of these shortcuts grants movement or removal authority.

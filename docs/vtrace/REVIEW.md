@@ -1117,3 +1117,11 @@ agent-operation parity, an ephemeral baseline, independent comparison facts and
 stale-response fences. See [scope and fixtures](../reviews/2026-11-08-catalogue-record-compare.md).
 Pass_with_risk: no historical resolver, retention claim, decoded equivalence,
 complete source/job/custody or independent browser acceptance is established.
+
+Object-to-record producer review (input2894138): identity, privacy/provider,
+adoption and concurrency lenses cover explicit declaring-owner shortcuts,
+captured source/scope, return navigation and object/review request fencing.
+See [scope, regression and fixture evidence](../reviews/2026-11-08-object-record-workflows.md).
+Pass_with_risk: retained/nested byte associations are not production dependencies;
+browser, complete coverage and custody acceptance remain open. No independent
+review or eviction authority is established.
