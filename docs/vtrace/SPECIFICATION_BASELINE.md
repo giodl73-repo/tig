@@ -225,3 +225,9 @@ new index plan/profile/status documents are experimental and separately versione
 same source/Git/placement controls with bounded transactional revision predicates,
 exact local ref absence and owned current-to-predecessor withdrawal. Event bytes
 remain unchanged; historical receipt, current source/Git and custody are distinct.
+
+[RETAINED-SUBSET](../../specs/RETAINED-SUBSET.md), input63f2c96, extends
+SPEC-002/004/005/006/008/009/014 with owner-authorized exact partial historical
+root settlement. Existing tree edits and Enroll/Prepare/Adopt/Withdraw/Retire
+encodings preserve the unselected set under the same immutable policy class.
+New experimental plan/profile/status records grant no payload deletion authority.

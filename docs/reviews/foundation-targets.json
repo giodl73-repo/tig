@@ -24,8 +24,8 @@
     },
     {
       "path": ".github/workflows/validate.yml",
-      "bytes": 5061,
-      "sha256": "022b493e6cfabebcec27892f488381bba9ebf19e903a4d030f475b0e927b35e4"
+      "bytes": 5282,
+      "sha256": "d8ffc2a481766390cb6b6aac8c6996b2c47912940932956e49107fc798e3e11a"
     },
     {
       "path": ".gitignore",
@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 9806,
-      "sha256": "44c43919d6deb6c0ec2a34ebbfbcc435c41b4d3cb5da9e9381e8544933b16a2b"
+      "bytes": 10342,
+      "sha256": "897dfb9193d1aa7b6b7df2feabb1c5d69c54fdec1de2d0376eaa9e0a557aac0e"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 17088,
-      "sha256": "3a849cea527307d7544d6d468c1a1673965410f616ab05e67da7614b18124c7b"
+      "bytes": 17479,
+      "sha256": "9d4a4645b4aa008d230803a45336fb3de8863e8d6c346e483b554c571e7e8cc7"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -414,8 +414,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 11627,
-      "sha256": "a522449c0866344ec6963e2f5be61c6eda154f3709c42896b35b6149a857dc8a"
+      "bytes": 11904,
+      "sha256": "a85fa6b4cc097b80025b1a8618902d89fc1e0d374cf180081fb7104d33e41c6e"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -799,8 +799,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims.rs",
-      "bytes": 38846,
-      "sha256": "f7eff49546610a70b37fd1c62f8a4f779e21f2c745d0fbd77dcfc9261089b387"
+      "bytes": 38862,
+      "sha256": "ddc23db8d18c04475a734177f11c6237dd25f1c3e14e40f9f5312e5f8fb7ebf4"
     },
     {
       "path": "crates/tig-store/tests/source_claims.rs",
@@ -1384,8 +1384,8 @@
     },
     {
       "path": "crates/tig-store/src/bin/tig-source.rs",
-      "bytes": 9384,
-      "sha256": "e4e290a00837d4497655998d2f6f87894258e7fdeb02bbbfdc5ff4f8bb0b4b91"
+      "bytes": 9693,
+      "sha256": "07e5dd3cc0341017560d3a405ebcf28b88c40e2377dd5a050f2959e11dc2bf28"
     },
     {
       "path": "crates/tig-store/tests/source_observation_cli.rs",
@@ -2216,6 +2216,31 @@
       "bytes": 4086,
       "path": "docs/reviews/2026-11-09-source-settlement.md",
       "sha256": "f7a5add555b0fc6adcf166ed07d4e244268c75fa6306afb68318c68a253a89bb"
+    },
+    {
+      "path": "crates/tig-store/src/source_claims/subset.rs",
+      "bytes": 19967,
+      "sha256": "e79f85196f57965f019cc7bed4d94602bc7345af95df8ba6b2dd3dcda215b8b9"
+    },
+    {
+      "path": "crates/tig-store/src/source_claims/subset/tests.rs",
+      "bytes": 22902,
+      "sha256": "0058513af467faf7ccf720963ebdf4ae7691ac5b3dfb94377bf5f4ce2ba6db48"
+    },
+    {
+      "path": "crates/tig-store/src/bin/tig-source/subset.rs",
+      "bytes": 2899,
+      "sha256": "950d3965e3798b0304fc5ee0fe7f4221f55e292de5a3d899bc4f30e24efbb4fa"
+    },
+    {
+      "path": "crates/tig-store/tests/subset_cli.rs",
+      "bytes": 8823,
+      "sha256": "e02310e6c4d59ef7fb4a59c17c06d739581f67663fa569583c2aea26c3903f94"
+    },
+    {
+      "path": "specs/RETAINED-SUBSET.md",
+      "bytes": 6156,
+      "sha256": "62b48ed3e5a2d7222dd57c7dcdff8f16be5375a272071b61dda93fb3c0a5776f"
     }
   ]
 }

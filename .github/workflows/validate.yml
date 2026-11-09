@@ -101,4 +101,6 @@ jobs:
           $env:TIG_BASELINE_SOURCE_CLI = Join-Path $baselineBuild "debug/tig-source$suffix"
           $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
           cargo test -p tig-store --lib --locked source_claims::admission::tests::baseline_cli_replays_atomic_pairs_without_format_migration -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-store --lib --locked source_claims::subset::tests::baseline_reader_preserves_subset_states_and_retirement_receipt -- --ignored --exact
           exit $LASTEXITCODE

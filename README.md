@@ -25,6 +25,11 @@ copies belong. Project schemas, names and storage locations are configuration.
 Objects can belong to several branches or bundles without a copy for each.
 Replacing one asset changes its reference; unchanged bytes stay shared.
 Another branch, retained version or active job may still need old bytes.
+
+Experimental partial history settlement is specified in
+[retained-subset handoff](specs/RETAINED-SUBSET.md). `tig-source subset` previews
+and explicitly settles an owner's selected historical binding paths while
+preserving unselected members. It performs no payload deletion.
 Dropping a reference **does not authorize deletion**.
 
 ## What works today

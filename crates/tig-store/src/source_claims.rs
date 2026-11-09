@@ -12,6 +12,7 @@ use std::{
 use tig_core::{Digest, Object, identity};
 
 pub mod admission;
+pub mod subset;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
