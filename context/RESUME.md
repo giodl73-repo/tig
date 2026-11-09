@@ -10,6 +10,11 @@ source changes into running tools as a side effect. No startup cache operations.
 
 - Active lane: feat/bulk-retirement, input4478207, implementationfe073a6,
   public action binding/test correctivef999e3a.
+  Draft PR #31 stacks on feat/final-provider (#30); evidence closeoute621381.
+  Initial hosted run42584582005: foundation jobs running at inspection; secrets
+  failed while downloading the pinned scanner (HTTP504), before any scan. This
+  is not a detected secret or a completed qualification. Derive new-head state
+  live after this handoff; no job is successful merely because it was retried.
   Read specs/BULK-RETIREMENT.md. Exact flat namespace/source/predecessor/path
   selection resolves held/eligible objects across the complete admitted roster;
   same-source predecessor plans reuse the existing pure transition model.
@@ -30,8 +35,8 @@ source changes into running tools as a side effect. No startup cache operations.
   interrupted alternate-terminal disposal resumes its same empty review.
   Broad suites coverfe073a6; focused sixteen/Clippy/standalone also cover the
   read-only iterator/test additionf999e3a. EVID-100 records separate evidence/
-  validation/trace/six-producer closeout. Next: stacked draft PR and exact-head
-  hosted checks, then PL-01 cross-namespace active/history precedence correction.
+  validation/trace/six-producer closeout. Next: exact-head hosted checks, then
+  PL-01 cross-namespace active/history precedence correction in a separate lane.
   Full age/category/
   native adapters, operator/UI surfaces, large-file/real provider/current clock/
   authority adoption, journal/metadata lifetime and human acceptance remain open.
