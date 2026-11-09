@@ -1,5 +1,14 @@
 # Tig trace
 
+Manual paged execution: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-EXECUTION.md -> paged::control,
+protection::budget, subset::apply_metered and guarded provider hooks ->
+EVID-109/implementation4bcd433. [Review](../reviews/2026-11-09-paged-controller.md)
+separates actual manual execution from aged/native integration, hosted checks and
+full operational/provider/lifetime/independent/human acceptance.
+
 Paged conditional preparation: WP-003/004/006/007/008/009/013/015;
 REQ-001/002/003/004/005/006/007/009 ->
 SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,

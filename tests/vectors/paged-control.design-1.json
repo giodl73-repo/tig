@@ -45,5 +45,37 @@
         "1daa86c5f50cd4b995b2aee226703132fc6828773874f43151641959d7e6de4f"
       ]
     }
+  ],
+  "records": [
+    {
+      "kind": "copy_index",
+      "canonical": "{\"count\":0,\"root\":{\"bytes\":17,\"sha256\":\"ca60b5681c516251b657610891868503fefd686cca7d54e5a8610e7d8c8c401d\"},\"schema\":\"tig.paged-control-copies.design-1\"}",
+      "sha256": "4cd00769d8128242ee3de1e2f6de32d510d0da748fb2916a7610f7404a8fee73"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":null,\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "f8f7659f222b1b76b885a92422c5e7c6a2fa0846dda2a72075c30ab955a93ec8"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"surviving_claims\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "4b7fb228aefbcff4ac242d8ac48ba378aa4505f6106ca261634ff72b3feac994"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"no_copy_scope\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "03fdb15043592f7a8b30c0cf1421b56d91ab1fd50937e2ca55c6a8596f2a26cd"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"provider_unavailable\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "52540dd88cd7406ec703d6d0785d3f38041d8bcd39b66453f1563250b5e7cba5"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"provider_protection\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "22cdc80f3a112352181dd9dbbd0484eae5ebec6a6ff3c2ed715cecb0bb79a821"
+    }
   ]
 }

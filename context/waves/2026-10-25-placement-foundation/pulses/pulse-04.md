@@ -2,6 +2,15 @@
 
 Goal: Concurrency, recovery, custody, scratch and measured reclaim fixtures.
 
+Manual paged execution: input88225ff, implementation4bcd433. PAGED-EXECUTION.md
+names controls and RUST/PROVIDER L0/L1/L2. EVID-109 separates implementation from
+verification/validation/trace/six producer lenses: twenty pages across17 roots,
+actual eligible-copy effects, fourteen process exits, original exclusions,
+shared node budgets, known restore/stale/time refusal and metadata-offline stop/
+cleanup. Default/all-feature/both500k/standalone/final79 per profile/strict Clippy/
+fresh and pinned old artifacts pass. Hosted exact-head qualification and full
+aged/native/UI/Action/authority/provider/lifetime/human acceptance remain open.
+
 Paged preparation checkpoint: input47af6dc, implementation2dd9990.
 PAGED-EXECUTION.md names WP/REQ/SPEC/IF/PKG controls and RUST/PROVIDER L0/L1/L2.
 EVID-108 separates prepared conditional plans, actual34-page/two-namespace source

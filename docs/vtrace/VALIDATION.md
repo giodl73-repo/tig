@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-109 rehearses parts of VAL-002/003/004 with actual manual20-page/17-root
+settlement and final provider effects, shared/unselected byte survival, process
+restart, stale/restore refusal and metadata-offline cancellation/recovery. The
+[review](../reviews/2026-11-09-paged-controller.md) limits this to synthetic local
+scope and three one-byte eligible objects. Aged/native/user F/D/M adoption,
+representative large-file/provider/lifetime qualification and human acceptance
+remain open. No full VAL is closed.
+
 EVID-108 rehearses parts of VAL-002/003/004 through persisted prepared metadata,
 actual34-page source settlement, independent namespace checkpoints, retained
 unselected aliases and observer-race-resistant inherited age. The

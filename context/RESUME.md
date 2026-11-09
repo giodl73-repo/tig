@@ -9,7 +9,8 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Active lane: feat/paged-controller, input88225ff0e7e2ed8082f660eedcd54f4781588834.
-  Uncommitted manual `paged::control` candidate composes prepared source plans,
+  Implementation4bcd433f8a3e89dc1819aef1def5dcba68dd1199.
+  Manual `paged::control` candidate composes prepared source plans,
   exact separate claim/final approvals, original subject/copy/provider-birth/grant
   indexes, accounted global/page intent and receipt-checked completion through
   existing ports. No new SQL/cache/event engine or mutation CLI. Calls bound pages
@@ -36,9 +37,13 @@ source changes into running tools as a side effect. No startup cache operations.
   execution and ordinary pending-cancellation CLI qualifiers pass (90958 terminal
   zero). Pinned pre-final writer refusal/legacy-control qualifier also passes
   (direct exec terminal zero).
-  Broad/final logs are external paged-controller-default.log, paged-controller-all.log
-  and paged-controller-final-focus.log. No implementation commit/review closure or
-  new PR yet.
+  Review additionally pins copy-index/all subject-hold frames (fourteen canonical
+  frames total plus key/binding derivations), without runtime changes; exact vector
+  entry/strict store Clippy passes (41297 terminal zero). Broad/final logs are external
+  paged-controller-default.log, paged-controller-all.log and paged-controller-final-focus.log.
+  All local processes are terminal; no target is live. EVID-109 and its six-producer
+  review separate verification, synthetic validation and trace. New PR/hosted
+  exact-head checks remain to be obtained; no full requirement or live acceptance.
   Next: finish exact broad/artifact/producer qualification for the manual core;
   then compose admitted age evidence and survivor inheritance into page completion,
   native selectors and operator/agent/UI/Action surfaces. Preserve actual current

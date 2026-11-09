@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 14449,
-      "sha256": "496a4630ae6e8697e21cd7de7f6f17f9966fe0cc09d98a1b8e4806b5eb7b5f0a"
+      "bytes": 15090,
+      "sha256": "e6ec40c3c4f1c3e2f73284317da844a5aeff2bc3488dd3f0a942933127b20037"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 98197,
-      "sha256": "67c97a40015ccd6461b93a201577b0b5b93ba7b80f2894b5580f90eba839e7d2"
+      "bytes": 98928,
+      "sha256": "cd73ce5eca1ebfd5105ef22ab6f22a1b29a5d0b6d29c82fc27802fdfe0bb65eb"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 128678,
-      "sha256": "eb350f23ff81463e336faaf0efde1f82659c9b709b5abacbfc9558c0280dda2f"
+      "bytes": 129231,
+      "sha256": "671c3a5d061a684af88e1ed120d7a5b6d7981557cac8ce42e34b87ceb40c2bb8"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 45057,
-      "sha256": "ae6c44915dd68f1e6746a7810a6ceb48726958c03c201791a29a0574375e0d0d"
+      "bytes": 45607,
+      "sha256": "c4de0d2c6507a72654fcd2e06c4525e0b6551f2add98e14290f2b1d796cdcbfb"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 30529,
-      "sha256": "0d9e52a7b518c6b75c3e40f76d6df5af77feff6c78af2b8f0a7d79c49efeaebf"
+      "bytes": 31041,
+      "sha256": "1b3507c95a640b8377bd6f065cee15dbac8ba65757ded470db76dffdb4843330"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 55711,
-      "sha256": "b579c05a465547d3d903ec35a9a3ee61691d40deba8e25c2b557a36f6131ec57"
+      "bytes": 56212,
+      "sha256": "9fbef55418375dc911d32c139b08870e15dc423f2d79dd0c3db0e4fe019cb21c"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 48854,
+      "bytes": 49311,
       "path": "context/RESUME.md",
-      "sha256": "41c76dbcf17d1b42b967d329e1f0777c1c5f07f2d2e728251bdd2a0ee8a8b5bd"
+      "sha256": "92d564fc954ba7dccc4a38e0e408b90625175f13ee21334940bef38ee341b471"
     },
     {
       "bytes": 16453,
@@ -2629,8 +2629,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/control/execute.rs",
-      "bytes": 41076,
-      "sha256": "bbf9950f2762e456e4a4846b9adb98c9c8868a7f60dba9f2249f40f4b0fec207"
+      "bytes": 41674,
+      "sha256": "ede29ca263cc9fcf2a79edc9f07bb9724a1628c3a0886ec7b1332fc925d1ea77"
     },
     {
       "path": "crates/tig-store/src/protection/budget.rs",
@@ -2639,8 +2639,13 @@
     },
     {
       "path": "tests/vectors/paged-control.design-1.json",
-      "bytes": 8639,
-      "sha256": "7f4b44fe8856dc174fe6aaad90e56476ecd31d6c1868fe5dff990440a89b1ded"
+      "bytes": 10364,
+      "sha256": "3608835dbe06d3d4ba2a88a4e1af7a3480ddd436e506e83a475309d1fc73ed0f"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-paged-controller.md",
+      "bytes": 10368,
+      "sha256": "40dd78a9158c59ff7c04240c9f12cee88c14c3de1dadb6a91f2bf35cede163fb"
     }
   ]
 }

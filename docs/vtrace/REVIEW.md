@@ -1,5 +1,13 @@
 # Foundation review
 
+Manual controller review, input88225ff/implementation4bcd433: PC-01..06 in
+[review](../reviews/2026-11-09-paged-controller.md) apply six producer lenses.
+Exact permissions, receipt-backed pages, original copy exclusions, shared budgets,
+known-restore holds and metadata-offline cancellation have scoped actual evidence.
+Both workspace suites/both500k/final79 per profile/strict Clippy/fresh and old
+artifacts pass. Manual scope pass_with_risk; hosted checks and full aged/native/
+operational/provider/lifetime/independent/human acceptance remain open.
+
 Paged preparation review, input47af6dc/implementation2dd9990: PE-01..06 in
 [review](../reviews/2026-11-09-paged-preparation.md) apply six producer lenses.
 Readback was strengthened to bind actual survivor lineage and recompute subset

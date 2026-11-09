@@ -1165,6 +1165,16 @@ mod tests {
         );
         let d = Decision::from_json(v["decision"].as_str().unwrap().as_bytes()).unwrap();
         assert_eq!(d.id().unwrap().as_str(), v["decision_id"].as_str().unwrap());
+        for case in v["records"].as_array().unwrap() {
+            let raw = case["canonical"].as_str().unwrap().as_bytes();
+            let actual = match case["kind"].as_str().unwrap() {
+                "copy_index" => encode(&serde_json::from_slice::<CopyIndex>(raw).unwrap()).unwrap(),
+                "subject" => encode(&serde_json::from_slice::<Subject>(raw).unwrap()).unwrap(),
+                _ => panic!("unknown controller record frame"),
+            };
+            assert_eq!(actual, raw);
+            assert_eq!(Digest::blob(raw).as_str(), case["sha256"].as_str().unwrap());
+        }
         let job: JournalRef = serde_json::from_value(v["bindings"]["witness"].clone()).unwrap();
         let jobs: Vec<StoreJob> = serde_json::from_value(v["bindings"]["jobs"].clone()).unwrap();
         let s: preparation::Step = serde_json::from_str(v["step"].as_str().unwrap()).unwrap();

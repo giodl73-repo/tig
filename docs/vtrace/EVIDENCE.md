@@ -1,5 +1,15 @@
 # Evidence index
 
+EVID-109: manual paged claim/final-copy execution, implementation4bcd433.
+[Review](../reviews/2026-11-09-paged-controller.md) separates13 controller entries,
+fourteen actual process exits,14 independent frames/key derivations, shared-budget
+regressions, default/all-feature/both500k/standalone/strict Clippy, final79 active
+retirement entries per feature profile and fresh/old CLI qualifiers. Twenty pages
+across17 roots complete with only three approved copy deletions; held/shared bytes
+survive. Metadata-offline cancellation stops before cleanup and reports unknown
+debt. This is manual local synthetic scope; aged/native/operator/UI/Action,
+authority/provider/lifetime/human acceptance and hosted exact-head checks stay open.
+
 EVID-108: conditional paged preparation and append-only inherited age,
 implementation2dd9990. [Review](../reviews/2026-11-09-paged-preparation.md)
 separates17 final paged entries,15 age entries including actual pinned old CLI,
