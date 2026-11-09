@@ -1,5 +1,15 @@
 # Verification record
 
+EVID-103/implementation9802166 verifies bounded explicit OS sampling and durable
+high-water replay in the existing capacity ledger. Five independent framing
+cases, clock/ledger/provider/bulk negatives, three actual abrupt exits, full
+command exhaustion and expanded pinned old-writer refusal/legacy control pass.
+Default workspace, standalone Git and final strict Clippy pass; broad all-feature
+and fresh CLI artifact outcomes remain pending. Exact commands and overlapping
+test scopes: [clock review](../reviews/2026-11-09-local-clock.md). Native host
+trust/current authority, globally unseen restore, operational lifetime, hosted
+exact-head and full requirement acceptance remain separate.
+
 EVID-102/implementation29e87e7 verifies writer-free bulk Inspection and explicit
 plan/peak/status CLI. Seventeen focused entries and the separate fresh-artifact
 ignored qualifier pass, with actual offline metadata, phase/hold/error/privacy,

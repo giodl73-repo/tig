@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 11193,
-      "sha256": "6b72f4f7f87ff30d0d241523c2f765763aae27d3f7f90777f33a1c61b6e2f086"
+      "bytes": 11819,
+      "sha256": "9a27348af08e3789dadd6bd0b1de4ce8d7a927fef4d6c696ba3bc6667b679725"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 91854,
-      "sha256": "b79c5a20f5caa292fc0fd372df1255a33a1809309bbcec5c7a9a8146979e1727"
+      "bytes": 92807,
+      "sha256": "5317f35ae362c2346fe177efc6ae0824d4ff82db26598be346dcf14eff80fa01"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 125643,
-      "sha256": "382aef07dece862a2b74f19299c86daf93fe9e958e36abc23b48683342b775a7"
+      "bytes": 126110,
+      "sha256": "60c99e653bc5595985c141f6e78b355ea7029450bf5693a98fc30c00b2c76737"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 20145,
-      "sha256": "678f1804f25f837c46e90c68d4dc7a81e6813ee52d71d85ab777cad6423b5861"
+      "bytes": 20587,
+      "sha256": "4182052105213bee1ac6cda67054122bf6b2ad400c14ead5c95b49fb8bc2f18a"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 41327,
-      "sha256": "3f812efe98aef36234cfc00e9c983c8f0c065edf6171e89936f49c7149d1a7db"
+      "bytes": 41986,
+      "sha256": "036bcec303caf35297492473d3a9d545d3117d24c2516208f6843cf92850e3ba"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 27184,
-      "sha256": "76e4744324939e26c0379481b38b156b92221ffcca56c9a7bb45e72a97154caf"
+      "bytes": 27738,
+      "sha256": "de2f776f646ac3a72b01fc7bd7dce0cc1bdaf7a38e1d8bffbe8de585c76332eb"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 51285,
-      "sha256": "da0313576b7d2c0dac86511aadbf6e0dc7ea9a1215d7c23b5e7dd9d3fc554673"
+      "bytes": 51978,
+      "sha256": "70eecaf240df328791c14ae475b6c5c03bd980dcd4f61e096788508664dbc942"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 31577,
+      "bytes": 31901,
       "path": "context/RESUME.md",
-      "sha256": "54c36cdd86a84d154219a6c84f44b29acffaa6d46e8f841fa646fb11547f902d"
+      "sha256": "f8e9bf54bfc403480cc86d05281db183e908fa8a45b565dcba1d58cda4fcda61"
     },
     {
       "bytes": 16453,
@@ -2426,6 +2426,11 @@
       "path": "tests/vectors/local-clock.design-1.json",
       "bytes": 2586,
       "sha256": "f705d747124a5d287c67d0f7ea2343169b68030854938112dce791b4c03033fe"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-local-clock.md",
+      "bytes": 7931,
+      "sha256": "de1e29a3189be38b41de3c73d026528e0b856bca447d91956b28f4857df55818"
     }
   ]
 }

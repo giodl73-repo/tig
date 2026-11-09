@@ -1,5 +1,18 @@
 # Evidence index
 
+EVID-103: explicit persisted local clock, implementation9802166 and portable
+fixture pin43ad0f4. [Clock review](../reviews/2026-11-09-local-clock.md) records
+controls, exact commands, six producer lenses and residual adoption gates.
+Seven adapter/seven ledger-clock entries (one helper), three actual abrupt exits,
+full16,384-command exhaustion, five independent framing vectors, native OS/final
+provider use and whole-window provider/reacquisition/bulk refusal pass. Seventeen
+clock-filter, sixteen provider and eighteen active bulk entries overlap those
+cases. Final cross-sample ordering/canonical-number regression and strict Clippy
+pass. Default workspace and standalone Git pass; all-feature workspace and fresh
+artifact results remain pending. No live OS trust, current authority, global
+restore, continuation, mutation CLI, native selection or full acceptance is
+established. No runtime code changed after9802166. Full goal remains incomplete.
+
 EVID-102: bounded bulk operator inspection, implementation29e87e7. Exact controls,
 commands and six producer lenses are in
 [operator review](../reviews/2026-11-09-bulk-inspection.md). Seventeen focused bulk

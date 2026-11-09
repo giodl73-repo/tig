@@ -1,5 +1,12 @@
 # Tig controlled specification baseline
 
+SPEC-003/004/005/008/009/014 time-admission prerequisite:
+[local clock](../../specs/LOCAL-CLOCK.md), EVID-103 and
+[six-producer review](../reviews/2026-11-09-local-clock.md) specify fresh design-2
+clock-enabled capacity ledgers, explicit persisted OS observations and whole-window
+checks. Legacy bytes remain unchanged. Native trust/current authority, restored
+systems, operational continuation and operator mutation adoption remain target.
+
 SPEC-003/004/005/008/009/014 operator prerequisite:
 [bulk inspection](../../specs/BULK-OPERATOR.md), EVID-102 and
 [six-producer review](../reviews/2026-11-09-bulk-inspection.md) qualify exact

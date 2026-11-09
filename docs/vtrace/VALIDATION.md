@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-103 rehearses bounded VAL-002/003/004: explicit native time observations
+drive temporary final retirement, while uncertain/expired intervals hold release,
+unlink, new reacquisition birth and bulk settlement. Historical status cannot
+mint permission. [Clock review](../reviews/2026-11-09-local-clock.md) separates
+synthetic rehearsal from user adoption of host time, current authority/restore,
+native age/category semantics, live provider/large-file/lifetime qualification,
+operator mutation and human acceptance. All full VAL outcomes remain open.
+
 EVID-102 contributes bounded VAL-002/003/004 rehearsal: operators review exact
 eligible/held plans and inspect fresh/interrupted/completed history while source
 metadata is unavailable. Missing provider/source observations remain holds and

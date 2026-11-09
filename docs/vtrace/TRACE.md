@@ -1,5 +1,15 @@
 # Tig trace
 
+Explicit local clock: WP-003/004/006/007/008/009/015;
+REQ-001/003/004/005/006/007/009 -> SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/012, PKG-002/003/008/009 -> LOCAL-CLOCK.md ->
+clock::LocalClock/Policy/Enrollment, existing capacity marker/ObserveClock/replay,
+Clock::bounds and Window::check_clock -> adapter/ledger/provider/bulk negatives,
+native samples, three actual exits, full budget and independent vectors ->
+EVID-103, implementation9802166. [Review](../reviews/2026-11-09-local-clock.md)
+keeps verification, synthetic validation and six producer lenses separate from
+live trust/authority/restore/lifetime, mutation integration and acceptance.
+
 Bulk operator inspection: WP-003/004/007/008/009/015;
 REQ-001/003/004/005/007/009 -> SPEC-003/004/005/008/009/014,
 IF-003/004/005/006/008/012, PKG-002/003/008/009 -> BULK-OPERATOR.md ->

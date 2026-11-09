@@ -179,3 +179,12 @@ IF-003/004/005/006/008/012, PKG-002/003/008/009. BULK-OPERATOR.md controls
 existing-root plan/peak/status and writer-free Inspection. Explicit CLI artifact
 qualification and full regressions close apart from implementation. No bulk
 mutation permission, native clock fallback, live stores or deployment.
+
+Local-clock checkpoint: input4aeebf8, implementation9802166, portable fixture
+pin43ad0f4. LOCAL-CLOCK.md names controls and RUST/PROVIDER L0/L1/L2.
+EVID-103 and the six-producer review separate implementation from verification
+and synthetic validation. Persisted high-water/native samples, complete-window
+checks, independent vectors, three actual exits, full command exhaustion and
+negative/provider/bulk fixtures pass. Default workspace/standalone/strict Clippy
+pass; all-feature/fresh-artifact checks remain pending. No live trust/adoption,
+mutation CLI, authority migration, lifetime or full pulse acceptance is implied.
