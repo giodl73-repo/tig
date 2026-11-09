@@ -1,5 +1,14 @@
 # Intended-use validation
 
+EVID-102 contributes bounded VAL-002/003/004 rehearsal: operators review exact
+eligible/held plans and inspect fresh/interrupted/completed history while source
+metadata is unavailable. Missing provider/source observations remain holds and
+missing witness cannot become a false not-started result. Actual CLI leaves
+reopened journals and provider files unchanged. This is inspection, not final
+deletion execution, native selection, trusted current clock/authority, real
+provider/large-file/lifetime or human acceptance. Scope:
+[operator review](../reviews/2026-11-09-bulk-inspection.md).
+
 EVID-101 rehearses bounded VAL-002/003/004: a job in another enrolled namespace
 restores F and removes advisory D; withdrawing it restores D and removes F while
 M remains. A real peer cannot remove the active-use basis while assessment is

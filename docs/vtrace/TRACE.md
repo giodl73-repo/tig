@@ -1,5 +1,15 @@
 # Tig trace
 
+Bulk operator inspection: WP-003/004/007/008/009/015;
+REQ-001/003/004/005/007/009 -> SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/008/012, PKG-002/003/008/009 -> BULK-OPERATOR.md ->
+bulk::Inspection/shared control/report, tig-storage bulk, ledger checkpoint getter
+and explicit CLI CI qualifier -> seventeen focused entries, actual fresh-artifact
+offline phase/hold/binding/privacy/no-command/no-provider-effects qualification ->
+EVID-102, implementation29e87e7. [Review](../reviews/2026-11-09-bulk-inspection.md)
+separates six producer lenses, verification and synthetic validation from full
+operator execution/native/clock/authority/provider/lifetime and acceptance.
+
 PL-01 correction for explicit groups: WP-004/006/007/009;
 REQ-002/003/004/005/009 -> SPEC-004/008/009, IF-004/006/012,
 PKG-002/003/008 -> ROSTER-PRECEDENCE.md -> binding HistoryScope,

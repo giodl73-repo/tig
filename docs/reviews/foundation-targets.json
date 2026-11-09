@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 90859,
-      "sha256": "a6cf3b207dd3581991c78bbe1797e8ebdaf0ba4e3ba59c7e6bef3414418304d8"
+      "bytes": 91854,
+      "sha256": "b79c5a20f5caa292fc0fd372df1255a33a1809309bbcec5c7a9a8146979e1727"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 125027,
-      "sha256": "95240dd193ac60284582b35a1d160e7f6803960e00ade1bdaf4af48d2e905556"
+      "bytes": 125643,
+      "sha256": "382aef07dece862a2b74f19299c86daf93fe9e958e36abc23b48683342b775a7"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 19738,
-      "sha256": "8a5b343ca4e7c2bd2c95d558d11944e33bdae5a2a4aabbe6e9f68d156fefa184"
+      "bytes": 20145,
+      "sha256": "678f1804f25f837c46e90c68d4dc7a81e6813ee52d71d85ab777cad6423b5861"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 40653,
-      "sha256": "dfd1512f097f848c5793705a9633d7b4f0351910edb102e95b106384235ac91d"
+      "bytes": 41327,
+      "sha256": "3f812efe98aef36234cfc00e9c983c8f0c065edf6171e89936f49c7149d1a7db"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 26596,
-      "sha256": "a52ac531e40d5f61a1b44b40b0a7e5131282729d7bee48471a0c17d7d3b27b49"
+      "bytes": 27184,
+      "sha256": "76e4744324939e26c0379481b38b156b92221ffcca56c9a7bb45e72a97154caf"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 50580,
-      "sha256": "e2e8686500f623b61c0168b88eb84c0c40f766c4cf7e17109505cc4ed5b35d5f"
+      "bytes": 51285,
+      "sha256": "da0313576b7d2c0dac86511aadbf6e0dc7ea9a1215d7c23b5e7dd9d3fc554673"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 29170,
+      "bytes": 29750,
       "path": "context/RESUME.md",
-      "sha256": "fa4cae9bac6fa0eb96a1af9be36b857790e2732dca294adf9198e64aa062a2e5"
+      "sha256": "3d7325b7146ff5a417088d789f0ac9c1d336fc4f51c7a99893fd640875b7da53"
     },
     {
       "bytes": 16453,
@@ -2389,13 +2389,18 @@
     },
     {
       "path": "docs/guides/BULK-RETIREMENT.md",
-      "bytes": 3294,
-      "sha256": "ba7a158c5d8aac05d63a9e8f0a6c4a2ef0dbae50da8dd7f5d1641af8f3c32f0a"
+      "bytes": 3606,
+      "sha256": "639ef33b507e9a09252003d9e727151383ec3de7562ca4c16202913f648943a1"
     },
     {
       "path": "specs/BULK-OPERATOR.md",
       "bytes": 4333,
       "sha256": "e18fca0ac3e30a3c0e2c642ae4dc5406ba696dfee0514ffede1a84dc3b45dba5"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-bulk-inspection.md",
+      "bytes": 7768,
+      "sha256": "d10caed30a3fbd7ba4746521612845d18a53a5c73858135d4b8726a8cbd11616"
     }
   ]
 }

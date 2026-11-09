@@ -1,5 +1,14 @@
 # Foundation review
 
+Bulk inspection review, input36fc91b/implementation29e87e7: BI-01..06 in
+[operator review](../reviews/2026-11-09-bulk-inspection.md) apply six producer
+lenses. Writer-free metadata identity and exact private job/authority admission
+support offline historical inspection without adding mutation permission.
+EVID-102 records local broad/focused/CLI qualification separately from code.
+Pass_with_risk for bounded synthetic inspection; hosted exact-head, independent/
+human review and full execution/native/provider/clock/authority/lifetime gates
+remain open. No live enrollment, source merge or deployment is implied.
+
 Roster precedence review, input106f6f5/implementationada8b21: RP-01..06 in
 [roster review](../reviews/2026-11-09-roster-precedence.md) apply six producer
 lenses. PL-01 is addressed for explicit fresh roster groups: same raw bucket rule

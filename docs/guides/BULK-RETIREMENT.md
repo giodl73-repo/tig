@@ -38,6 +38,10 @@ selected/eligible unique bytes, planned copy bytes, newly removed logical copy
 bytes, historical deletion, prior allocation and metadata peak. It grants no
 removal authority or volume-free-space guarantee. A completed historical batch
 does not prove current bytes or current protection; read each action's observation.
+Historical deleted-copy bytes sum only available action statuses confirmed deleted.
+Missing statuses leave the total unknown; zero confirmed bytes is not proof that
+no historical deletion occurred. Status is a sequence of observations, not an
+atomic snapshot across stores; refresh it after concurrent progress.
 
 Status and peak need the enrolled metadata identity but never open its root or a
 metadata writer. Source metadata can be offline. Missing namespace/provider

@@ -8,13 +8,21 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/bulk-inspection, input36fc91b. Read specs/BULK-OPERATOR.md.
+- Active lane: feat/bulk-inspection, input36fc91b, implementation29e87e7.
+  Read specs/BULK-OPERATOR.md.
   Exact existing-root CLI describe/plan/peak/status exposes the bounded controller
   without mutation permissions. bulk::Inspection separates source metadata identity
   from a writable MetadataStore/Clock. Actual CLI qualification covers fresh,
   interrupted-intent and completed states, source metadata offline, missing copies/
   namespaces/witness, strict private admission and unchanged reopened journals and
-  provider file snapshots. Full regression/closeout in progress. Explicit local
+  provider file snapshots. Seventeen focused entries and one separately executed
+  ignored CLI qualifier pass. Locked default/all-feature workspace suites, both
+  500k metadata runs, final strict Clippy/fmt, standalone Git, fresh ordinary CLI
+  cancellation and pinned older-writer refusal/legacy control pass. EVID-102
+  records separate verification/validation/trace/six-producer closeout. No runtime
+  code changed after29e87e7. Next: stacked draft PR against feat/roster-placement
+  (#32) and exact-head hosted qualification, then full operator execution/native
+  selection and admitted clock/authority integration. Explicit local
   versus external clock preference was requested asynchronously; no answer is
   recorded. This read-only work does not depend on that choice. No fallback clock,
   live root, bulk apply, migration or deployment was introduced. Full operator

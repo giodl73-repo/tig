@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-102: bounded bulk operator inspection, implementation29e87e7. Exact controls,
+commands and six producer lenses are in
+[operator review](../reviews/2026-11-09-bulk-inspection.md). Seventeen focused bulk
+entries and one explicitly executed ignored CLI artifact qualifier pass. Actual
+CLI plan matches the library; fresh/intent/completed status works with source
+metadata unavailable. Missing copies/sources/witness, strict profile/budget and
+mutation-verb refusals preserve newly reopened journal checkpoints and exact
+provider/witness files. Inspection requires no metadata writer/Clock/cookie.
+Locked default/all-feature workspace suites (both500k), strict Clippy/fmt,
+standalone Git, fresh ordinary CLI cancellation and pinned old-writer refusal/
+legacy control pass. No runtime changed after29e87e7. Hosted exact-head and full
+operator execution/native/clock/authority/provider/lifetime/human acceptance stay
+separate. This does not complete bulk deletion or the full PRODUCT_PLAN goal.
+
 EVID-101: explicit roster-wide advisory history precedence, implementationada8b21,
 corrects PL-01 for fresh opted-in groups. [Producer review](../reviews/2026-11-09-roster-precedence.md)
 records six lenses, controls and exact commands. Twenty-five placement entries,

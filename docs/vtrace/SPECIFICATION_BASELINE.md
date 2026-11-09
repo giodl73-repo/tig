@@ -1,5 +1,12 @@
 # Tig controlled specification baseline
 
+SPEC-003/004/005/008/009/014 operator prerequisite:
+[bulk inspection](../../specs/BULK-OPERATOR.md), EVID-102 and
+[six-producer review](../reviews/2026-11-09-bulk-inspection.md) qualify exact
+existing-root plan/peak/status and writer-free historical observation. Mutation
+permissions, native selectors, clock/current authority, provider/large-file/
+lifetime and human acceptance remain target obligations.
+
 SPEC-004/008/009 explicit group profile:
 [roster precedence](../../specs/ROSTER-PRECEDENCE.md), EVID-101 and
 [six-producer review](../reviews/2026-11-09-roster-precedence.md) cover fresh

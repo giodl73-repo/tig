@@ -1,5 +1,15 @@
 # Verification record
 
+EVID-102/implementation29e87e7 verifies writer-free bulk Inspection and explicit
+plan/peak/status CLI. Seventeen focused entries and the separate fresh-artifact
+ignored qualifier pass, with actual offline metadata, phase/hold/error/privacy,
+reopened command-checkpoint and provider-file preservation assertions. Locked
+default/all-feature workspace suites, both500k cases, strict Clippy/fmt, standalone
+Git, fresh ordinary CLI cancellation and pinned older-writer refusal/legacy
+control pass. No implementation changed after29e87e7. Exact commands/limits:
+[operator review](../reviews/2026-11-09-bulk-inspection.md). Hosted exact-head,
+independent/human review and full REQ/VAL outcomes remain separate.
+
 EVID-101/implementationada8b21: twenty-five placement and sixteen protection
 entries pass, including independent legacy/roster binding identity, real remote
 job fencing, actual three-store demotion/reacquisition, additive/hard policy,
