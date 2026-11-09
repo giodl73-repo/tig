@@ -528,3 +528,13 @@ twelve settlement/three condition/one signed-source-withdrawal cases plus regres
 and explicit old-reader/artifact checks -> EVID-096, implementation51c5acc.
 Verification, synthetic validation and producer review are separate from full
 lifecycle/native/provider/authority/lifetime/final-deletion/metadata acceptance.
+
+Retained-subset prerequisite: WP-003/004/006/007/008/009/015;
+REQ-001/002/004/005/007/009 -> SPEC-002/004/005/006/008/009/014,
+IF-002/004/005/006/008/013, PKG-002/003/004/008/009 -> RETAINED-SUBSET.md ->
+source_claims::subset, Namespace::select_predecessor, existing sparse tree edits,
+metadata finish/readback and conditional original Retire -> fourteen subset
+library entries/four admission cases/two CLI cases/six actual new process exits
+and explicit old-reader state/receipt proof -> EVID-097, implementation2fecfab/
+corrective002a850. Implementation, verification, synthetic validation and six
+producer lenses remain separate from full bulk/final-deletion/metadata acceptance.

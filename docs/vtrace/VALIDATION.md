@@ -350,3 +350,13 @@ source metadata and changing Git/source conditions preserve protection or report
 stale acknowledgement separately. Two abrupt settlement exits recover. All data
 is synthetic; actual F/D/M enrollment, automatic event routing, native closure,
 user acceptance, final deletion and metadata lifetime remain unvalidated.
+
+EVID-097 contributes only the historical claim-settlement prerequisite to
+VAL-002/003/004. Synthetic exact-path retirement preserves unselected/shared
+members under the original class and leaves another owner's job active. Atomic
+history adoption never exposes a current survivor to suppress history placement;
+interrupted steps and stale conditions preserve protection or truthful historical
+state. Actual default-disabled CLI resume and metadata-offline status execute.
+This is not bulk native/age/category eligibility, payload deletion, custody,
+capacity reclaim, final-deletion cancellation recovery or owner-run acceptance.
+All full VAL outcomes, eventual metadata retirement and live adoption remain open.

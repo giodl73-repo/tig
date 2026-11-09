@@ -488,3 +488,20 @@ EVID-096 records local default/all-feature, condition/old-reader/CLI qualificati
 synthetic validation, trace and producer review; hosted current-head is separate. Automatic
 event routing, durable rename/controller revocation, native/private coverage and
 later final-deletion/metadata/authority/large-file/lifetime gates remain open.
+
+Priority-7 retained-subset prerequisite: [partial history settlement](specs/RETAINED-SUBSET.md)
+now composes sparse edits, finished/read-back metadata and same-owner/class
+survivor protection before exact original predecessor retirement. Atomic
+Prepare/Adopt/Withdraw avoids transient active-use suppression; original revision
+and survivor conditions fence the final claim transition. The default-disabled
+tig-source subset CLI supports plan/status/apply/resume over existing private
+roots. EVID-097 records focused/process/CLI/old-reader qualification and six
+producer lenses separately from implementation. This releases owned obligations,
+not payloads. Bounded bulk age/category/native selection, final-deletion intent/
+authorization/execution, cancellation recovery, actual reclaim, metadata expiry,
+authority/lifetime and remaining full lifecycle/adoption gates remain required.
+Before the last-copy executor, freeze owner-authorized provider-retention grant
+release as well as source settlement, and integrate deliberate absence with the
+retained-placement floor. Ordinary keeper/handoff requirements must remain intact;
+lost source demand alone neither releases retained backups nor permits old
+reconciliation to resurrect explicitly retired content.

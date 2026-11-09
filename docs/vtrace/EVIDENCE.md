@@ -1052,3 +1052,26 @@ Full event routing, durable rename/controller revocation, native/private closure
 real provider/large-file/authority/lifetime, bulk final deletion, metadata expiry
 and user acceptance remain open. Historical obligations are preserved; no full
 requirement, VAL outcome, production adoption or whole-plan completion is claimed.
+
+## EVID-097: Exact retained-subset claim handoff
+
+Input63f2c96, implementation2fecfab/corrective002a850. RETAINED-SUBSET.md and
+../reviews/2026-11-09-retained-subset.md name controls and scope. Fourteen new
+subset library entries include a helper and an explicitly executed old-reader
+qualifier; four new admission cases and two actual CLI cases qualify atomic
+historical survivor protection and exact original owner retirement. Focused
+source claims pass 48 active entries/two ordinarily ignored qualifiers; both
+qualifiers are separately executed and pass. Six new actual child exits, changed
+witness/original, same-hash alias/foreign job, missing/corrupt metadata, full-root
+and sparse 4,096-binding cases preserve survivors or hold. The actual old reader
+observes the atomic triplet state and recovers the final Retire receipt.
+
+Final focused CLI, strict all-feature/all-target workspace Clippy, standalone Git,
+fmt, 70 Node and three restore tests pass. Corrected locked default/all-feature
+workspace suites pass in separate targets, including both 500,000-binding runs.
+The explicit fresh-artifact retirement CLI cancellation qualifier also passes.
+Hosted exact closeout-head checks remain separate; corrective002a850 has Linux/
+secrets success and Windows in progress at observation. No payload IO, full bulk selector,
+last-copy deletion, native/private coverage, metadata expiry, authority/lifetime,
+actual provider adoption or user acceptance is established. Six roles are producer
+lenses, not independent review. Full requirements and the complete goal remain open.

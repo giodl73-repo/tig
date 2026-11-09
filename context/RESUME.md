@@ -8,32 +8,50 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/source-settlement, input9c2a29f, implementation51c5acc,
-  stacked draft PR #27. Read
-  specs/SOURCE-SETTLEMENT.md for controls/entry/exit. New library/CLI compose owned
-  branch-absence and staged/adopted-successor withdrawal with existing placement.
-  SourceCondition gates (max eight) recheck source revisions inside the existing
-  transaction without new event bytes. Three admission cases pass (31 active
-  admission entries, one ignored qualifier), and all-feature focused Git library
-  (38), index/settlement (27, two helpers/four actual exits) and lifecycle (13)
-  pass. Shared private storage preflight and current-source checks prevent an
-  unchanged ref from falsely implying convergence after source settlement.
-  Default/all-feature workspace suites pass in separate external targets; final
-  strict Clippy/standalone/fmt, 70 Node flows, three restore helpers, L0 and both
-  explicit artifact qualifiers pass. Extended pre-pair reader qualification reads
-  conditional Withdraw state and replays all three existing command receipts;
-  final test-only readback and strict Clippy pass after broad suites. No runtime
-  code changed after51c5acc. Issuer run42553357798 passes at that head with zero
-  payload effects; hosted run42553510977 passes Linux/secrets, Windows pending.
-  Closeout creates another head; derive current PR/run state before qualification.
-  Source/docs cap is now 6 MiB, per-file 128 KiB and runtime/media exclusion
-  unchanged; required generic controllers/tests/review growth exhausted headroom.
-  EVID-096 separates verification/validation/trace/six producer lenses from code.
-  Next: inspect exact current-head CI and keep the draft until all checks pass;
-  continue remaining full lifecycle/adoption and final-deletion/metadata gates.
-  No live cache/hook/consumer is attached. Full event routing, durable rename/
-  controller revocation, native/private coverage and final-deletion/metadata/
-  authority/provider/large-file/lifetime/user acceptance remain open.
+- Active lane: feat/retained-subset, input63f2c96, implementation2fecfab and
+  corrective002a850, stacked draft PR #28. Read specs/RETAINED-SUBSET.md for
+  controls/entry/exit. Generic library and default-disabled tig-source subset
+  plan/status/apply/resume protect unselected flat history before exact owner
+  retirement. Policy review caught transient active-use suppression; atomic
+  Prepare/Adopt/Withdraw now exposes only historical survivor state, without new
+  event bytes. Draft-only plan/effect design-2 refuses earlier fixture plans.
+  Fourteen subset library entries include a child helper/explicit old-reader
+  qualifier; four new admission cases and two actual CLI cases pass. Focused
+  source claims pass 48 active entries/two ordinarily ignored qualifiers; both
+  old-reader qualifiers explicitly pass. Six new actual process exits, sparse
+  4,096-binding replacement, shared/foreign/job/stale/unknown cases execute.
+  Final strict workspace Clippy, standalone Git, fmt, 70 Node flows and three
+  restore helpers pass. Corrected locked default/all-feature workspace suites
+  pass in separate external targets/logs workspace-atomic.txt, including both
+  500,000-binding runs. Explicit retirement CLI cancellation qualification also
+  passes with a fresh all-feature artifact. No runtime code changed after002a850.
+  Hosted corrective run42558349597 has Linux/secrets success and Windows in
+  progress at observation; closeout creates another head, derive exact later run.
+  EVID-097 separately records verification/validation/trace/six producer lenses.
+  Next: finish current local/hosted qualification and keep PR draft until all
+  checks pass; continue bounded bulk retirement selection, exact final-deletion
+  intent/authority/execution and cancellation recovery, then metadata/replay
+  lifetime. Full lifecycle/native/authority/provider/large-file/user acceptance
+  remain open. One new source per partial batch consumes finite lifetime slots.
+  No live cache/hook/consumer or payload-deletion capability is attached.
+  Before final-deletion implementation, freeze provider-retention grant release
+  alongside source settlement: retirement::Execution requires retained keepers,
+  and retention handoff requires a successor. Do not permit empty keepers or
+  weaken ordinary eviction. Explicit last-copy intent must also inform retained
+  placement floors, so old known objects cannot be silently rehydrated after
+  deliberate final retirement. Existing birth/new-operation fencing is necessary
+  but not full final-deletion authority or cancellation recovery.
+
+- Previous lane: feat/source-settlement, implementation51c5acc, closeout63f2c96,
+  PR #27 ready after exact-head Validate42554592615 Windows/Linux/secrets and
+  issuer42554587752 succeed. It was marked ready after rechecking all four actual
+  results. SOURCE-SETTLEMENT.md and EVID-096 scope owner branch/draft withdrawal,
+  current-source observations and bounded transactional revision predicates.
+  Local default/all-feature workspace, strict Clippy/standalone, Node/restore,
+  both explicit artifact qualifiers and L0 passed. Hosted issuer remains an empty
+  synthetic scope with zero payload effects. Full automatic routing, durable
+  rename/controller revocation, native/private coverage and later roadmap gates
+  remain open. Derive subsequent PR/merge status live; nothing is merged here.
 
 - Previous lane: feat/index-lifecycle, input195bd0a, implementation51dd2b2,
   PR #26 ready at9c2a29f after hosted run42549837195 Windows/Linux/secrets pass. Read

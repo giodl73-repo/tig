@@ -97,3 +97,11 @@ need no REEL dependency. Native claim/schema acceptance, source/job lifecycle an
 full placement/custody/consumer acceptance remain open.
 
 Explicit restoration pilot: EVID-065 adds default preview and explicit no-overwrite copying of one Git-selected stream through existing guarded readers. The optional project helper orchestrates bounded committed manifests. Synthetic tests stay here; private consumer media and verification receipts stay consumer-side. Full migration, custody and eviction remain open.
+
+Retained-subset prerequisite: EVID-097 and RETAINED-SUBSET.md qualify exact owned
+historical binding settlement with finished metadata, same-class survivor history
+and conditional original retirement. Atomic history adoption avoids transient
+active-use suppression. Focused/CLI/old-reader checks and six actual new exits
+pass; corrected locked default/all-feature workspace and explicit artifact
+qualification pass. Hosted current-head checks remain separate. No payload deletion, full
+bulk selector, metadata retirement, native/provider adoption or full VAL closure.

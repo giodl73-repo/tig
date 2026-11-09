@@ -700,3 +700,18 @@ pass. Explicit qualifiers prove retirement CLI compatibility and old-reader pair
 conditional-Withdraw replay; final readback/test-only changes are separately run.
 Actual issuer empty-scope qualification passes at51c5acc. Hosted Linux/secrets
 pass; Windows/current closeout head remain pending. Full requirements remain open.
+
+## Partial historical-root settlement
+
+EVID-097 / RETAINED-SUBSET.md, implementation2fecfab/corrective002a850:
+48 active focused source-claim entries pass, including four new atomic-history
+admission cases. Fourteen subset library entries include one helper/one explicit
+old-reader qualifier; two actual CLI cases pass for Branch/Draft. Six new actual
+exits recover across source and internal transaction boundaries. Sparse replacement,
+foreign/shared demand, missing/corrupt closure and stale/replayed operation tests
+pass. Both pinned old-reader qualifiers explicitly pass; ignoring them is not proof.
+Final strict workspace Clippy, standalone Git, fmt, Node/restore and L0 pass.
+Corrected locked default/all-feature workspace suites pass in separate targets,
+including both 500,000-binding runs. Explicit fresh-artifact retirement CLI
+cancellation qualification passes. Hosted current-head qualification remains
+separate; no full requirement or live-operation acceptance follows.

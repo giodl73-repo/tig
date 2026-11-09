@@ -1510,3 +1510,13 @@ default-disabled execution remain. Source/docs budget rises to 6 MiB for require
 generic code/tests/review, with 128 KiB/file and runtime/media exclusions unchanged.
 Pass_with_risk for bounded local qualification; hosted current-head, independent/
 human acceptance and the full remaining product plan stay open.
+
+Retained-subset review, input63f2c96/implementation2fecfab/corrective002a850:
+RS-01..06 in ../reviews/2026-11-09-retained-subset.md apply six producer lenses.
+Policy review corrected transient active-use suppression with atomic historical
+adoption; observation/fault/process cases verify the boundary without new event
+bytes. EVID-097 separates focused verification, synthetic validation and trace.
+Pass_with_risk for bounded claim settlement and named local checks. Corrected
+locked default/all-feature workspace suites and explicit retirement/old-reader
+artifact qualifiers pass. Hosted current-head checks, independent/human acceptance,
+complete final deletion, metadata retirement and full-product gates remain open.

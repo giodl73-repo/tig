@@ -107,3 +107,10 @@ dependency. Vendored checkers retain source pins/licenses; see docs/INTAKE.md
 and NOTICE.md. Run tools/validate.ps1 and git diff --check before commits.
 Rust changes also require fmt, appropriate locked tests, strict Clippy and
 integration cases. Hosted Windows/Linux CI is a separate qualification.
+
+Historical subset prerequisite: source_claims::subset and explicit tig-source
+subset plan/status/apply/resume protect unselected flat bindings with a same-owner/
+class survivor predecessor before conditional original retirement. Atomic
+Prepare/Adopt/Withdraw exposes no artificial active use. See RETAINED-SUBSET.md
+and EVID-097. These are claim transitions, never payload deletion or full bulk/
+age/native selection. Source/journal lifetime and all later full-plan gates remain.
