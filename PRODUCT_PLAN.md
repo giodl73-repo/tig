@@ -39,6 +39,11 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [bulk inspection commands](docs/guides/BULK-RETIREMENT.md) expose exact bounded
+block planning, metadata peak and writer-free historical status. They add no bulk
+apply permission. Final operator execution, native selectors, current clock/
+authority, provider/large-file and operational-lifetime gates remain open.
+
 Planning input f742abf7f62b3c4c9c65149a404626679a004f71. This sequence
 prioritizes usable operations over additional catalogue decoration. Estimates
 and provider capabilities must be measured per admitted scope. No live storage

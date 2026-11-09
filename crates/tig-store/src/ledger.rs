@@ -90,6 +90,10 @@ pub struct Checkpoint {
     hash: Digest,
 }
 impl Checkpoint {
+    /// Immutable enrolled journal identity; not evidence of current head/freshness.
+    pub fn identity(&self) -> &Digest {
+        &self.genesis
+    }
     pub fn sequence(&self) -> u64 {
         self.sequence
     }

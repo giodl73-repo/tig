@@ -171,3 +171,11 @@ SPEC-004/008/009, IF-004/006/012, PKG-002/003/008. ROSTER-PRECEDENCE.md
 controls fresh explicit group enrollment and shared planning/live assessment.
 Legacy namespace behavior remains; synthetic qualification/closeout in progress.
 No live upgrade, cache operation, source merge or full acceptance.
+
+
+Bulk operator entry: input36fc91b; WP-003/004/007/008/009/015,
+REQ-001/003/004/005/007/009, SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/008/012, PKG-002/003/008/009. BULK-OPERATOR.md controls
+existing-root plan/peak/status and writer-free Inspection. Explicit CLI artifact
+qualification and full regressions close apart from implementation. No bulk
+mutation permission, native clock fallback, live stores or deployment.

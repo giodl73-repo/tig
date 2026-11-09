@@ -129,13 +129,19 @@ The in-progress final_retirement::bulk library supplies plan, strict Plan JSON,
 exact authorize, and Execution::required_metadata_peak/status/apply/cancel.
 Plan::actions exposes ordered store identities and provider plans for independently
 admitted runtime job binding; it grants no authority from serialized internals.
-Planning/status grant no deletion authority. No bulk CLI/Action/UI permission or
+Planning/status grant no deletion authority. Read-only operator commands are in
+[BULK-OPERATOR](BULK-OPERATOR.md); no bulk mutation CLI/Action/UI permission or
 runtime is enabled. Request selections are sorted by namespace/source/predecessor
 and exact paths; copy requests by store/object. Empty copy scope produces held
 subjects, never inferred absence. The plan includes actual selected bindings,
 per-object held reasons, filtered source subsets and exact eligible provider plans.
 Canonical vectors include both held and eligible framing. The final provider's
 additional Condition port cannot weaken mandatory live membership/provider checks.
+
+Inspection separates status/peak from Execution: it takes the independently
+admitted metadata identity without a metadata writer, Clock or mutation cookie.
+Status can inspect historical evidence while source metadata is offline. Existing
+Execution status delegates to it; status/plan record formats stay unchanged.
 
 Runtime enrollment, current roster/minima, metadata identity, witness job and
 per-action jobs are independently supplied. A portable plan cannot lower private

@@ -126,6 +126,327 @@ struct Fixture {
     clock: Clock,
     publications: BTreeMap<String, Publication>,
 }
+
+#[test]
+fn inspection_needs_no_metadata_writer_or_clock_and_keeps_historical_bindings_exact() {
+    for phase in [Phase::NotStarted, Phase::Intent, Phase::Completed] {
+        let mut f = Fixture::new();
+        let p = f.plan();
+        if phase == Phase::Intent {
+            assert!(
+                f.run(&p, |e| e.apply_hook(&p, &p.authorize().unwrap(), |s| {
+                    if s == Stage::Intent {
+                        Err(Error::Injected)
+                    } else {
+                        Ok(())
+                    }
+                }))
+                .is_err()
+            );
+        } else if phase == Phase::Completed {
+            f.run(&p, |e| e.apply(&p, &p.authorize().unwrap())).unwrap();
+        }
+        let metadata = f.metadata.checkpoint().identity().clone();
+        drop(f.metadata);
+        std::fs::rename(
+            f.temp.path().join("metadata"),
+            f.temp.path().join("metadata-offline"),
+        )
+        .unwrap();
+        let before = (f.ledger.checkpoint(), f.witness_ledger.checkpoint());
+        let sources = f
+            .namespaces
+            .iter()
+            .map(Namespace::checkpoint)
+            .collect::<Vec<_>>();
+        let jobs = vec![f.job.clone(); p.actions.len()];
+        let mut places = [Local {
+            store: &f.store,
+            ledger: &mut f.ledger,
+            job: &f.job,
+        }];
+        let mut witness = Local {
+            store: &f.witness,
+            ledger: &mut f.witness_ledger,
+            job: &f.witness_job,
+        };
+        let mut inspection = Inspection {
+            enrollment: &f.enrollment,
+            roster: &f.roster,
+            namespaces: &mut f.namespaces,
+            metadata,
+            places: &mut places,
+            action_jobs: &jobs,
+            witness: &mut witness,
+            admitted_context: &f.enrollment.context,
+        };
+        let report = inspection.status(&p).unwrap();
+        assert_eq!(report.phase, phase);
+        assert!(!report.removal_authority);
+        assert!(report.effects.is_empty());
+        assert_eq!(report.new_logical_copy_bytes_removed, 0);
+        assert!(inspection.required_metadata_peak(&p).unwrap() > 0);
+        if phase != Phase::NotStarted {
+            inspection.metadata = d("wrong-private-metadata-identity");
+            assert!(inspection.status(&p).is_err());
+        }
+        assert_eq!(
+            before,
+            (f.ledger.checkpoint(), f.witness_ledger.checkpoint())
+        );
+        assert_eq!(
+            sources,
+            f.namespaces
+                .iter()
+                .map(Namespace::checkpoint)
+                .collect::<Vec<_>>()
+        );
+        assert!(!f.temp.path().join("metadata").exists());
+    }
+}
+
+fn inspection_profile(f: &Fixture) -> serde_json::Value {
+    serde_json::json!({
+        "schema":"tig.bulk-inspection-profile.design-1", "enrollment":f.enrollment,
+        "roster":f.roster, "admitted_context":f.enrollment.context,
+        "metadata":{"root":f.temp.path().join("metadata"),"minimum":f.metadata.checkpoint()},
+        "namespaces":f.namespaces.iter().enumerate().map(|(i,n)| serde_json::json!({
+            "root":f.temp.path().join(format!("ns-{i}")),
+            "minimum":f.roster.members.iter().find(|p| &p.namespace == n.identity()).unwrap().minimum,
+        })).collect::<Vec<_>>(),
+        "stores":[{"root":f.temp.path().join("M"),"ledger_root":f.temp.path().join("ledger"),
+            "minimum":f.ledger.checkpoint(),"job":f.job,"place":Place::local(&f.store,1).unwrap()}],
+        "witness":{"root":f.temp.path().join("witness"),"ledger_root":f.temp.path().join("witness-ledger"),
+            "minimum":f.witness_ledger.checkpoint(),"job":f.witness_job,"place":f.enrollment.witness},
+    })
+}
+
+fn inspection_files(root: &std::path::Path) -> Vec<(std::path::PathBuf, Vec<u8>)> {
+    fn walk(
+        base: &std::path::Path,
+        at: &std::path::Path,
+        out: &mut Vec<(std::path::PathBuf, Vec<u8>)>,
+    ) {
+        for entry in std::fs::read_dir(at).unwrap() {
+            let path = entry.unwrap().path();
+            if path.is_dir() {
+                walk(base, &path, out);
+            } else {
+                out.push((
+                    path.strip_prefix(base).unwrap().to_owned(),
+                    std::fs::read(path).unwrap(),
+                ));
+            }
+        }
+    }
+    let mut files = Vec::new();
+    walk(root, root, &mut files);
+    files.sort();
+    files
+}
+
+#[test]
+#[ignore = "requires explicitly fresh tig-storage executable"]
+fn explicit_cli_bulk_inspection_qualification() {
+    let cli = std::env::var_os("TIG_BULK_CLI").expect("explicit fresh CLI artifact");
+    let describe = std::process::Command::new(&cli)
+        .args(["bulk", "describe"])
+        .output()
+        .unwrap();
+    assert!(describe.status.success());
+    assert!(describe.stderr.is_empty());
+    let value: serde_json::Value = serde_json::from_slice(&describe.stdout).unwrap();
+    assert_eq!(value["inspect_only"], true);
+    assert_eq!(value["final_deletion"], false);
+    for expected in ["not_started", "intent", "completed"] {
+        let mut f = Fixture::new();
+        let p = f.plan();
+        if expected == "intent" {
+            assert!(
+                f.run(&p, |e| e.apply_hook(&p, &p.authorize().unwrap(), |s| {
+                    if s == Stage::Intent {
+                        Err(Error::Injected)
+                    } else {
+                        Ok(())
+                    }
+                }))
+                .is_err()
+            );
+        } else if expected == "completed" {
+            f.run(&p, |e| e.apply(&p, &p.authorize().unwrap())).unwrap();
+        }
+        let dir = f.temp.path();
+        let private_prefix = serde_json::to_string(&dir.to_string_lossy()).unwrap();
+        let private_prefix = &private_prefix[1..private_prefix.len() - 1];
+        let profile_path = dir.join("inspection.json");
+        let input = dir.join("input.json");
+        let mut profile = inspection_profile(&f);
+        let write_profile = |value: &serde_json::Value| {
+            std::fs::write(&profile_path, serde_json::to_vec(value).unwrap()).unwrap()
+        };
+        write_profile(&profile);
+        let call = |op: &str| {
+            std::process::Command::new(&cli)
+                .args(["bulk", op])
+                .arg(&profile_path)
+                .arg(&input)
+                .output()
+                .unwrap()
+        };
+        let assert_error = |op: &str, expected: &str| {
+            let output = call(op);
+            assert!(!output.status.success(), "{output:?}");
+            assert!(output.stderr.is_empty());
+            let error: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+            assert_eq!(error["code"], expected);
+            assert!(
+                !String::from_utf8(output.stdout)
+                    .unwrap()
+                    .contains(private_prefix)
+            );
+        };
+        let before = (f.ledger.checkpoint(), f.witness_ledger.checkpoint());
+        let provider_before = (
+            inspection_files(&dir.join("M")),
+            inspection_files(&dir.join("witness")),
+        );
+        let sources = f
+            .namespaces
+            .iter()
+            .map(Namespace::checkpoint)
+            .collect::<Vec<_>>();
+        if expected == "not_started" {
+            std::fs::write(&input, encode(p.request()).unwrap()).unwrap();
+            let output = call("plan");
+            assert!(output.status.success(), "{output:?}");
+            assert!(output.stderr.is_empty());
+            assert_eq!(output.stdout, p.to_json().unwrap());
+            let mut missing = profile.clone();
+            missing["stores"][0]["root"] = serde_json::json!(dir.join("absent-provider"));
+            write_profile(&missing);
+            let output = call("plan");
+            assert!(output.status.success(), "{output:?}");
+            let held = Plan::from_json(&output.stdout).unwrap();
+            assert!(held.subjects().iter().all(|s| s.hold.is_some()));
+            assert_eq!(held.actions().len(), 0);
+            missing["namespaces"][0]["root"] = serde_json::json!(dir.join("absent-source"));
+            write_profile(&missing);
+            assert_error("plan", "source_unavailable");
+            write_profile(&profile);
+        }
+        std::fs::write(&input, p.to_json().unwrap()).unwrap();
+        let mut wrong = profile.clone();
+        wrong["admitted_context"] = serde_json::json!(d("forged-context"));
+        write_profile(&wrong);
+        assert_error("status", "invalid_profile");
+        wrong = profile.clone();
+        wrong["unexpected_permission"] = serde_json::json!(true);
+        write_profile(&wrong);
+        assert_error("status", "invalid_document");
+        wrong = profile.clone();
+        wrong["stores"][0]["minimum"]["genesis"] = serde_json::json!(d("wrong-capacity"));
+        write_profile(&wrong);
+        assert_error("status", "wrong_capacity");
+        wrong = profile.clone();
+        wrong["stores"][0]["root"] = serde_json::json!(dir.join("witness"));
+        write_profile(&wrong);
+        assert_error("status", "wrong_store");
+        write_profile(&profile);
+        std::fs::write(&input, vec![b' '; 65_537]).unwrap();
+        assert_error("status", "invalid_document");
+        std::fs::write(&input, p.to_json().unwrap()).unwrap();
+        profile["metadata"]["root"] = serde_json::json!(dir.join("absent-metadata"));
+        write_profile(&profile);
+        let peak = call("peak");
+        assert!(peak.status.success(), "{peak:?}");
+        let peak: serde_json::Value = serde_json::from_slice(&peak.stdout).unwrap();
+        assert!(peak["required_witness_metadata_peak"].as_u64().unwrap() > 0);
+        let output = call("status");
+        assert!(output.status.success(), "{output:?}");
+        assert!(output.stderr.is_empty());
+        let status: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+        assert_eq!(status["phase"], expected);
+        assert_eq!(status["removal_authority"], false);
+        assert_eq!(status["new_logical_copy_bytes_removed"], 0);
+        assert_eq!(status["selected_roots"], 2);
+        assert_eq!(status["unique_objects"], 4);
+        assert!(
+            !String::from_utf8(output.stdout)
+                .unwrap()
+                .contains(private_prefix)
+        );
+        assert!(!dir.join("absent-metadata").exists());
+        for operation in ["apply", "resume", "cancel", "reacquire"] {
+            let output = call(operation);
+            assert!(!output.status.success());
+            assert!(output.stderr.is_empty());
+            let error: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+            assert_eq!(error["code"], "usage");
+        }
+        profile["stores"][0]["root"] = serde_json::json!(dir.join("absent-provider"));
+        profile["namespaces"][0]["root"] = serde_json::json!(dir.join("absent-source"));
+        write_profile(&profile);
+        let output = call("status");
+        assert!(output.status.success(), "{output:?}");
+        let status: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+        assert_eq!(status["phase"], expected);
+        assert!(
+            status["action_status"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .all(serde_json::Value::is_null)
+        );
+        assert!(!status["holds"].as_array().unwrap().is_empty());
+        profile["witness"]["root"] = serde_json::json!(dir.join("absent-witness"));
+        write_profile(&profile);
+        let output = call("status");
+        assert!(!output.status.success());
+        let error: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+        assert_eq!(error["code"], "witness_unavailable");
+        for name in [
+            "absent-metadata",
+            "absent-provider",
+            "absent-source",
+            "absent-witness",
+        ] {
+            assert!(!dir.join(name).exists());
+        }
+        assert_eq!(
+            before,
+            (
+                CapacityLedger::open(&dir.join("ledger"), &before.0)
+                    .unwrap()
+                    .checkpoint(),
+                CapacityLedger::open(&dir.join("witness-ledger"), &before.1)
+                    .unwrap()
+                    .checkpoint()
+            )
+        );
+        assert_eq!(
+            sources,
+            sources
+                .iter()
+                .enumerate()
+                .map(
+                    |(i, minimum)| Namespace::open(&dir.join(format!("ns-{i}")), minimum)
+                        .unwrap()
+                        .checkpoint()
+                )
+                .collect::<Vec<_>>()
+        );
+        assert_eq!(
+            provider_before,
+            (
+                inspection_files(&dir.join("M")),
+                inspection_files(&dir.join("witness"))
+            )
+        );
+        for name in ["shared", "keep"] {
+            assert!(f.store.read_object(&f.publications[name].object).is_ok());
+        }
+    }
+}
 impl Fixture {
     fn new() -> Self {
         let temp = tempfile::tempdir().unwrap();

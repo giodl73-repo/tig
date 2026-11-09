@@ -17,7 +17,7 @@ mod execute;
 mod selection;
 mod witness;
 pub use crate::placement::Local;
-pub use execute::{Execution, Phase, Report, Stage};
+pub use execute::{Execution, Inspection, Phase, Report, Stage};
 pub use selection::plan;
 
 const MAX_PLAN: usize = 49_152;

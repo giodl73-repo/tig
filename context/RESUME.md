@@ -8,10 +8,23 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/roster-placement, input106f6f5 (PR #31 head at entry),
+- Active lane: feat/bulk-inspection, input36fc91b. Read specs/BULK-OPERATOR.md.
+  Exact existing-root CLI describe/plan/peak/status exposes the bounded controller
+  without mutation permissions. bulk::Inspection separates source metadata identity
+  from a writable MetadataStore/Clock. Actual CLI qualification covers fresh,
+  interrupted-intent and completed states, source metadata offline, missing copies/
+  namespaces/witness, strict private admission and unchanged reopened journals and
+  provider file snapshots. Full regression/closeout in progress. Explicit local
+  versus external clock preference was requested asynchronously; no answer is
+  recorded. This read-only work does not depend on that choice. No fallback clock,
+  live root, bulk apply, migration or deployment was introduced. Full operator
+  execution, native selection, clock/authority, provider/lifetime acceptance remain.
+
+- Previous lane: feat/roster-placement, input106f6f5 (PR #31 head at entry),
   implementationada8b21.
-  Draft PR #32 stacks on feat/bulk-retirement (#31); separate evidence closeout
-  fe704ea. Hosted exact-head qualification pending at handoff; derive it live.
+  PR #32 stacks on feat/bulk-retirement (#31); separate evidence closeoutfe704ea.
+  Head36fc91b passes Validate42588131136: Windows18m6s, Linux5m47s, secrets6s.
+  Ready for review, unmerged. Derive current exact-head status live.
   PL-01 cross-namespace advisory precedence uses fresh explicit roster-scope
   bindings and distinct design-2 placement enrollment. Existing namespace-local
   bindings keep their bytes/identity and behavior. Planning and guarded ordinary

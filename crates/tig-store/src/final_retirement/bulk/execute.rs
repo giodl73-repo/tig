@@ -28,6 +28,27 @@ pub struct Execution<'a, 'b> {
     pub clock: &'a dyn provider::Clock,
     pub admitted_context: &'a Digest,
 }
+/// Observations over independently admitted identities, without a metadata writer
+/// or clock. Status/peak add no commands, source mutations or provider effects.
+pub struct Inspection<'a, 'b> {
+    pub enrollment: &'a Enrollment,
+    pub roster: &'a claims::Roster,
+    pub namespaces: &'a mut [Namespace],
+    pub metadata: Digest,
+    pub places: &'a mut [Local<'b>],
+    pub action_jobs: &'a [JournalRef],
+    pub witness: &'a mut Local<'b>,
+    pub admitted_context: &'a Digest,
+}
+struct Control<'a, 'b> {
+    enrollment: &'a Enrollment,
+    roster: &'a claims::Roster,
+    metadata: Digest,
+    places: &'a [Local<'b>],
+    action_jobs: &'a [JournalRef],
+    witness: &'a Local<'b>,
+    admitted_context: &'a Digest,
+}
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Stage {
     Admitted,
@@ -159,7 +180,7 @@ fn provider_code(error: &provider::Error) -> &'static str {
 fn sum_bytes(mut values: impl Iterator<Item = u64>) -> Result<u64> {
     values.try_fold(0u64, |a, b| a.checked_add(b).ok_or(Error::Budget))
 }
-impl Execution<'_, '_> {
+impl Control<'_, '_> {
     fn common(&self, p: &Plan) -> Result<(Bindings, Witness)> {
         p.id()?;
         if self.enrollment.id()? != p.enrollment.id()?
@@ -187,12 +208,26 @@ impl Execution<'_, '_> {
             }
         }
         let bindings = Bindings {
-            metadata: self.metadata.checkpoint().identity().clone(),
+            metadata: self.metadata.clone(),
             witness_job: self.witness.job.clone(),
             action_jobs: self.action_jobs.to_vec(),
         };
         let witness = Witness::new(p, &bindings, self.witness.store)?;
         Ok((bindings, witness))
+    }
+}
+impl Inspection<'_, '_> {
+    fn common(&self, p: &Plan) -> Result<(Bindings, Witness)> {
+        Control {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            metadata: self.metadata.clone(),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: self.witness,
+            admitted_context: self.admitted_context,
+        }
+        .common(p)
     }
     pub fn required_metadata_peak(&self, p: &Plan) -> Result<u64> {
         Ok(self.common(p)?.1.peak)
@@ -326,6 +361,47 @@ impl Execution<'_, '_> {
             holds,
             removal_authority: false,
         })
+    }
+}
+impl<'a, 'b> Execution<'a, 'b> {
+    fn common(&self, p: &Plan) -> Result<(Bindings, Witness)> {
+        Control {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            metadata: self.metadata.checkpoint().identity().clone(),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: &self.witness,
+            admitted_context: self.admitted_context,
+        }
+        .common(p)
+    }
+    pub fn inspection(&mut self) -> Inspection<'_, 'b> {
+        Inspection {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            namespaces: self.namespaces,
+            metadata: self.metadata.checkpoint().identity().clone(),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: &mut self.witness,
+            admitted_context: self.admitted_context,
+        }
+    }
+    pub fn required_metadata_peak(&self, p: &Plan) -> Result<u64> {
+        Ok(self.common(p)?.1.peak)
+    }
+    pub fn status(&mut self, p: &Plan) -> Result<Report> {
+        self.inspection().status(p)
+    }
+    fn report(
+        &mut self,
+        p: &Plan,
+        witness: &Witness,
+        effects: Vec<Effect>,
+        holds: Vec<Failure>,
+    ) -> Result<Report> {
+        self.inspection().report(p, witness, effects, holds)
     }
     fn time(&self, p: &Plan) -> Result<()> {
         let time = self.clock.now(&p.enrollment.clock)?;

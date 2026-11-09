@@ -1,5 +1,11 @@
 # Tig maintainer context
 
+Bulk operator inspection: tig-storage bulk describe/plan/peak/status uses explicit
+private enrollment and existing roots. bulk::Inspection requires no metadata
+writer or clock; source metadata may be offline for status. No bulk mutation
+command is enabled. Read specs/BULK-OPERATOR.md; full operator execution/native
+selection, current clock/authority, provider/large-file/lifetime gates remain.
+
 Explicit fresh roster-scope bindings and design-2 placement enrollment now
 resolve advisory history against active use across admitted namespaces. Planner
 and live ordinary-retirement assessment share that rule; hard/additive retention
