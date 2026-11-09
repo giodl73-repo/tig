@@ -400,7 +400,13 @@ impl Fixture {
             ledger: &mut self.ledger,
             job: &self.job,
         }];
-        let jobs = vec![self.job.clone(); p.actions.len()];
+        let jobs = p
+            .actions()
+            .map(|(store, _)| {
+                assert_eq!(store, self.store.identity());
+                self.job.clone()
+            })
+            .collect::<Vec<_>>();
         f(&mut Execution {
             enrollment: &self.enrollment,
             roster: &self.roster,
@@ -1434,4 +1440,147 @@ fn interrupted_unused_terminal_disposition_resumes_the_same_empty_review() {
     f.witness_ledger
         .finish(key("finish-witness"), &f.witness_job)
         .unwrap();
+}
+
+#[test]
+fn several_stores_bind_private_jobs_and_report_copy_bytes_separately_from_unique_bytes() {
+    let mut f = Fixture::new();
+    let mut stores = Vec::new();
+    let mut ledgers = Vec::new();
+    let mut jobs = Vec::new();
+    for place in ["F", "D"] {
+        let store = LocalStore::create_final(
+            &f.temp.path().join(format!("store-{place}")),
+            key(place),
+            StoreBinding::new(
+                1,
+                d(&format!("boundary-{place}")),
+                vec![Member {
+                    namespace: f.namespaces[0].identity().clone(),
+                    places: vec![key(place)],
+                }],
+            )
+            .unwrap(),
+            provider::Policy::new(
+                d("final-authority"),
+                d("epoch"),
+                f.roster.scope().unwrap(),
+                d("clock"),
+                vec![key("owner")],
+                1000,
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        let mut ledger = CapacityLedger::create(
+            &f.temp.path().join(format!("ledger-{place}")),
+            key(&format!("capacity-{place}")),
+            key("epoch"),
+            0,
+        )
+        .unwrap();
+        LocalCapacityProbe::bind(&store, &mut ledger)
+            .unwrap()
+            .observe(&store, &mut ledger, key("probe"), key("sample"))
+            .unwrap();
+        let job = ledger
+            .reserve(key("job"), key("owner"), 512 * 1024 * 1024)
+            .unwrap()
+            .reference()
+            .clone();
+        for (name, publication) in &f.publications {
+            let planned = accounted::plan(&store, publication).unwrap();
+            accounted::publish_accounted(
+                &mut ledger,
+                &store,
+                &job,
+                &planned,
+                &mut Cursor::new(name.as_bytes()),
+            )
+            .unwrap();
+            let retained = retention::plan(
+                &store,
+                &retention::RetentionRequest {
+                    operation: key(&format!("pin-{name}")),
+                    owner: key("owner"),
+                    publication: publication.clone(),
+                    minimum_ack: AckLevel::ProcessRestart,
+                },
+            )
+            .unwrap();
+            retention::retain(&mut ledger, &store, &job, &retained).unwrap();
+        }
+        stores.push(store);
+        ledgers.push(ledger);
+        jobs.push(job);
+    }
+    let mut request = f.request();
+    for (store, ledger) in stores.iter().zip(&ledgers) {
+        for name in ["a", "b", "c", "shared"] {
+            request.copies.push(Copy {
+                store: store.identity().clone(),
+                capacity: ledger.identity().clone(),
+                publication: f.publications[name].clone(),
+            });
+        }
+    }
+    request.copies.sort_by(|a, b| copy_key(a).cmp(&copy_key(b)));
+    let all = [&f.store, &stores[0], &stores[1]];
+    let p = plan(
+        &f.enrollment,
+        request,
+        &f.roster,
+        &mut f.namespaces,
+        &f.metadata.finished_reader().unwrap(),
+        &all,
+    )
+    .unwrap();
+    let action_jobs = p
+        .actions()
+        .map(|(store, _)| {
+            if store == f.store.identity() {
+                f.job.clone()
+            } else {
+                jobs[stores.iter().position(|s| s.identity() == store).unwrap()].clone()
+            }
+        })
+        .collect::<Vec<_>>();
+    let mut places = vec![Local {
+        store: &f.store,
+        ledger: &mut f.ledger,
+        job: &f.job,
+    }];
+    for ((store, ledger), job) in stores.iter().zip(ledgers.iter_mut()).zip(&jobs) {
+        places.push(Local { store, ledger, job });
+    }
+    let report = Execution {
+        enrollment: &f.enrollment,
+        roster: &f.roster,
+        namespaces: &mut f.namespaces,
+        metadata: &mut f.metadata,
+        places: &mut places,
+        action_jobs: &action_jobs,
+        witness: Local {
+            store: &f.witness,
+            ledger: &mut f.witness_ledger,
+            job: &f.witness_job,
+        },
+        clock: &f.clock,
+        admitted_context: &f.enrollment.context,
+    }
+    .apply(&p, &p.authorize().unwrap())
+    .unwrap();
+    assert_eq!(report.phase, Phase::Completed, "{:?}", report.holds);
+    assert_eq!(report.eligible_unique_bytes, 3);
+    assert_eq!(report.planned_copy_bytes, 9);
+    assert_eq!(report.new_logical_copy_bytes_removed, 9);
+    assert_eq!(report.historical_deleted_copy_bytes, 9);
+    for store in all {
+        for name in ["a", "b", "c"] {
+            assert!(!store.object_present(&f.publications[name].object).unwrap());
+        }
+        for name in ["shared", "keep"] {
+            assert!(store.read_object(&f.publications[name].object).is_ok());
+        }
+    }
 }

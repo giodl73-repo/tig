@@ -248,6 +248,13 @@ fn action_request(e: &Enrollment, request: &Request, copy: &Copy) -> Result<prov
     })
 }
 impl Plan {
+    /// Map exact action order to independently admitted store jobs without
+    /// parsing private serialized fields or deriving authority from the plan.
+    pub fn actions(&self) -> impl ExactSizeIterator<Item = (&Digest, &provider::Plan)> {
+        self.actions
+            .iter()
+            .map(|plan| (plan.enrollment.store(), plan))
+    }
     pub fn subjects(&self) -> &[Subject] {
         &self.subjects
     }

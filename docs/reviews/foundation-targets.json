@@ -2324,8 +2324,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk.rs",
-      "bytes": 13294,
-      "sha256": "5dde4a7c4914db455fa11664c7be047c6d1b038267bc6992ddfc84baffe2d970"
+      "bytes": 13642,
+      "sha256": "56b4a2ef93d8ef12def07d2124709218267a72d93ed414de6c3d4063dd7c1417"
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk/execute.rs",
@@ -2339,8 +2339,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk/tests.rs",
-      "bytes": 45686,
-      "sha256": "c1d101458a5ae0bf3d124491146f622de393365946c774bebaf848b64793907a"
+      "bytes": 50625,
+      "sha256": "3b1f2dfca8dd994c31d26ffc6f53b4d5fd9fe7a09ca09cab83def0df6e4d557e"
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk/witness.rs",
