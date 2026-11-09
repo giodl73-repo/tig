@@ -195,4 +195,61 @@ fn aged_native_cli_holds_unknown_and_recent_then_emits_only_exact_proven_block()
             .checkpoint(),
         &before
     );
+    // The indexed CLI uses the same real enrolled clock/registry and detached
+    // native archive, with an explicit positive age threshold and staging permit.
+    use tig_git::source::native::retirement::paged::{self as paged, Occurrence, Session};
+    let session = Session::new(BindingLimits::default()).unwrap();
+    let occurrences = paged::occurrences(
+        None,
+        vec![Occurrence {
+            namespace: ns.identity().clone(),
+            source: key("main"),
+            predecessor_revision: 3,
+            header: selection.context.clone(),
+        }],
+        &mut store,
+        &session,
+    )
+    .unwrap();
+    let minimum = store.finish().unwrap();
+    let paged_profile = json!({"schema":"tig.native-paged-profile.design-1","allow_stage":true,
+        "enrollment":{"metadata":e.metadata,"owner":"owner","categories":category(&snapshot),"age":{"enrollment":e,"required_age_millis":1}},
+        "metadata":{"root":root.join("metadata"),"minimum":minimum},
+        "namespaces":[{"root":root.join("namespace"),"minimum":ns_min}],
+        "age":{"registry":{"root":root.join("registry"),"minimum":registry_min},"clock":profile["age"]["clock"]}});
+    fs::write(
+        root.join("paged-profile.json"),
+        serde_json::to_vec(&paged_profile).unwrap(),
+    )
+    .unwrap();
+    fs::write(
+        root.join("paged-request.json"),
+        serde_json::to_vec(&json!({"schema":"tig.native-paged-select-request.design-1",
+        "occurrences":occurrences,"filter":request}))
+        .unwrap(),
+    )
+    .unwrap();
+    let out = Command::new(env!("CARGO_BIN_EXE_tig-retirement"))
+        .arg("select-paged")
+        .arg(root.join("paged-profile.json"))
+        .arg(root.join("paged-request.json"))
+        .output()
+        .unwrap();
+    let result: Value = serde_json::from_slice(&out.stdout).unwrap();
+    assert!(out.status.success(), "{result}");
+    assert_eq!(result["preview"]["selected_roots"], 1);
+    assert_eq!(result["preview"]["held_roots"], 0);
+    assert_eq!(result["authorizes_removal"], false);
+    assert_eq!(
+        Namespace::open(&root.join("namespace"), &source_before)
+            .unwrap()
+            .checkpoint(),
+        source_before
+    );
+    assert_eq!(
+        Namespace::open(&root.join("registry"), &registry_before)
+            .unwrap()
+            .checkpoint(),
+        registry_before
+    );
 }

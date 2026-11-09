@@ -1,5 +1,15 @@
 # Tig maintainer context
 
+Native-paged lane: optional indexed occurrence/block/category/age selection now
+stages existing paged requests through a default-disabled metadata-only CLI.
+Unknown/recent exclusions remain fixed and source drift refuses. The native
+Session shares budgets through independent finish/readback. Synthetic17-root
+aged controller/copy effects and1000-asset/4000-binding selection pass locally;
+broad/framing/artifact qualification passes locally; exact-head CI remains.
+Read context/RESUME.md. Full
+operator/agent/UI/Action, actual writer/authority/provider/lifetime and acceptance
+remain open. No payload IO or source mutation occurs in selection.
+
 Paged-age lane: explicit `paged::control::aged` planning/execution now composes
 pinned retained age and exact survivor inheritance with page completion. It
 admits a separate metadata-only registry boundary, preserves manual framing and

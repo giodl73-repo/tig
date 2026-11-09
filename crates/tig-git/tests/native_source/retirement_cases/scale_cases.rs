@@ -107,6 +107,80 @@ fn one_thousand_native_assets_keep_independent_bindings_and_oversize_category_se
             .count(),
         1
     );
+    // The indexed path retains the complete category rather than flattening it
+    // into the legacy1024-path response. Reuse this actual1000-record capture.
+    use tig_git::source::native::retirement::paged::{self as paged, Occurrence, Session};
+    let temp = tempfile::tempdir().unwrap();
+    let mut persisted = metadata(&temp.path().join("metadata"));
+    for (_, raw) in nodes.objects() {
+        persisted.put(raw).unwrap();
+    }
+    persisted.finish().unwrap();
+    let mut ns = vec![namespace(&temp.path().join("namespace"), &persisted, &root)];
+    let session = Session::new(BindingLimits::default()).unwrap();
+    let input = paged::occurrences(
+        None,
+        vec![Occurrence {
+            namespace: ns[0].identity().clone(),
+            source: key("main"),
+            predecessor_revision: 3,
+            header: root.context.clone(),
+        }],
+        &mut persisted,
+        &session,
+    )
+    .unwrap();
+    let e = paged::Enrollment {
+        metadata: persisted.checkpoint().identity().clone(),
+        owner: key("owner"),
+        categories,
+        age: None,
+    };
+    let all = Filter {
+        assets: BTreeSet::new(),
+        categories: BTreeSet::from(["drawing".into()]),
+    };
+    let candidate = paged::select(
+        &e,
+        &input,
+        &all,
+        tig_store::final_retirement::paged::Paging::default(),
+        &mut ns,
+        &mut persisted,
+        None,
+        &session,
+    )
+    .unwrap();
+    let minimum = persisted.finish().unwrap();
+    let mut reader = MetadataReader::open(&temp.path().join("metadata"), &minimum).unwrap();
+    let checked = paged::validate_current(&e, &candidate, &mut ns, &mut reader, &session).unwrap();
+    assert_eq!(checked.summary().matched_assets, 1000);
+    assert_eq!(checked.summary().bindings, 4000);
+    assert!(candidate.to_json().unwrap().len() < 65536);
+    let (_, selected) = tig_store::final_retirement::paged::read_request(
+        candidate.request().unwrap(),
+        &mut reader,
+        &Default::default(),
+    )
+    .unwrap();
+    let exact = Tree::from_root(selected[0].bindings.clone())
+        .entries(
+            &mut reader,
+            TreeLimits {
+                max_entries: 65536,
+                ..Default::default()
+            },
+        )
+        .unwrap()
+        .0;
+    assert_eq!(exact.len(), 4000);
+    assert_eq!(
+        exact
+            .values()
+            .filter(|o| **o == Object::from_bytes(b"shared"))
+            .count(),
+        1000
+    );
 }
 
 #[test]

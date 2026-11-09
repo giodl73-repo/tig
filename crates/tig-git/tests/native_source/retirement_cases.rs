@@ -3,6 +3,8 @@ use super::*;
 mod age_cases;
 #[path = "retirement_cases/bulk_cases.rs"]
 mod bulk_cases;
+#[path = "retirement_cases/paged_cases.rs"]
+mod paged_cases;
 #[path = "retirement_cases/scale_cases.rs"]
 mod scale_cases;
 use std::{collections::BTreeMap, io::Read};

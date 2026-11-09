@@ -1,5 +1,22 @@
 # Evidence index
 
+EVID-111: indexed native paged selection candidate, input9266765.
+[Review](../reviews/2026-11-09-native-paged-retirement.md) separates native
+occurrence/derivation/request linkage, exact block/category/optional age holds,
+shared staging/readback budgets and default-disabled metadata CLI. Sixteen native
+retirement fixtures pass, including actual aged17-root controller/copy effects,
+source-peer drift and request substitution; the1000-record capture stages all4000
+bindings while old inline selection still refuses. Five independent frames and
+shared-session budget regression pass. Default33052 and all-feature79966 workspace/
+both500k/strict Clippy qualification terminate zero. Final scope30697 passes16
+native fixtures, three native framing/budget entries and19 generic paged entries,
+plus strict schema workspace Clippy. Final artifact chain46256 also terminates
+zero: real enrolled-clock indexed CLI, pinned older age/final-store compatibility,
+three fresh ordinary/bulk CLI qualifiers and strict schema Clippy. Broad test
+compilations precede the final test-only held-root projection and real-clock CLI
+assertions;30697/46256 qualify those additions. Full operator/agent/UI/Action,
+actual writer/authority/provider/lifetime/human acceptance and hosted checks remain.
+
 EVID-110: explicit aged paged controller candidate, inputad8b428,
 implementationd549349063dbd935829a80db0153cbd70594eadc.
 [Review](../reviews/2026-11-09-paged-age.md) separates exact original proof pins,

@@ -39,6 +39,17 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The indexed native selection candidate now connects multiple archived historical
+roots and large block/category scopes to existing paged requests. Explicit
+index-paged/select-paged commands stage metadata only, default-disabled, with
+independent finished-provider readback and shared whole-call budgets. Synthetic
+aged17-root execution preserves shared/unselected bytes;1000 native assets stage
+all4000 bindings without an inline inventory. Read
+[the entry contract](specs/NATIVE-PAGED-RETIREMENT.md) and context/RESUME.md for
+local qualification and pending hosted checks. Operator/agent/UI/Action execution and actual native
+writer/current authority/time/provider/restore/large-file/lifetime/metadata-expiry/
+human adoption remain necessary for the full delivery.
+
 The explicit `paged::control::aged` Rust candidate now freezes retained original
 occurrence evidence, rechecks conservative clock eligibility and acknowledges
 exact survivor inheritance before completing each source page. It preserves

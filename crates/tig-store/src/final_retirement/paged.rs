@@ -22,7 +22,7 @@ mod compile;
 pub mod control;
 mod inspect;
 pub mod preparation;
-pub use compile::{build, request};
+pub use compile::{build, read_request, request};
 pub use inspect::{inspect, page};
 #[cfg(test)]
 mod tests;
@@ -135,7 +135,7 @@ impl Default for Paging {
     }
 }
 impl Paging {
-    fn validate(&self) -> Result<()> {
+    pub fn validate(&self) -> Result<()> {
         if self.max_bindings == 0
             || self.max_bindings > 1024
             || !(8192..=49152).contains(&self.max_bytes)

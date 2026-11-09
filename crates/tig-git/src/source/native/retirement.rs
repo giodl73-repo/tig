@@ -4,6 +4,8 @@ use serde::{Deserialize, Serialize};
 use std::{
     cell::Cell,
     collections::{BTreeMap, BTreeSet},
+    ops::Deref,
+    rc::Rc,
     time::{Duration, Instant},
 };
 use tig_assets::{
@@ -16,6 +18,7 @@ use tig_core::{
     tree::{NodeStore, Tree, TreeError, TreeLimits, TreeResult},
 };
 use tig_store::source_claims::{Selection, subset};
+pub mod paged;
 
 const HEADER: &str = "native-retirement";
 const SCHEMA: &str = "tig.native-retirement-bindings.design-1";
@@ -36,6 +39,13 @@ impl std::error::Error for Error {}
 pub type Result<T> = std::result::Result<T, Error>;
 fn tree_error(e: TreeError) -> Error {
     if matches!(e, TreeError::Budget) {
+        Error::Budget
+    } else {
+        Error::Metadata
+    }
+}
+fn archive_error(e: super::Error) -> Error {
+    if e == super::Error::Budget {
         Error::Budget
     } else {
         Error::Metadata
@@ -107,21 +117,40 @@ impl Limits {
 struct Work<'a, S> {
     store: &'a mut S,
     limits: Limits,
+    meter: Rc<Meter>,
+}
+struct Meter {
     start: Instant,
     reads: Cell<usize>,
-    writes: usize,
+    writes: Cell<usize>,
     bytes: Cell<usize>,
+}
+impl Meter {
+    fn new() -> Rc<Self> {
+        Rc::new(Self {
+            start: Instant::now(),
+            reads: Cell::new(0),
+            writes: Cell::new(0),
+            bytes: Cell::new(0),
+        })
+    }
+}
+impl<S> Deref for Work<'_, S> {
+    type Target = Meter;
+    fn deref(&self) -> &Meter {
+        &self.meter
+    }
 }
 impl<'a, S> Work<'a, S> {
     fn new(store: &'a mut S, limits: Limits) -> Result<Self> {
+        Self::shared(store, limits, Meter::new())
+    }
+    fn shared(store: &'a mut S, limits: Limits, meter: Rc<Meter>) -> Result<Self> {
         limits.validate()?;
         Ok(Self {
             store,
             limits,
-            start: Instant::now(),
-            reads: Cell::new(0),
-            writes: 0,
-            bytes: Cell::new(0),
+            meter,
         })
     }
     fn timed(&self) -> Result<()> {
@@ -166,10 +195,11 @@ impl<S: NodeStore> NodeStore for Work<'_, S> {
         Ok(raw)
     }
     fn put(&mut self, raw: &[u8]) -> TreeResult<Object> {
-        self.writes = self.writes.checked_add(1).ok_or(TreeError::Budget)?;
-        if self.writes > self.limits.writes {
+        let writes = self.writes.get().checked_add(1).ok_or(TreeError::Budget)?;
+        if writes > self.limits.writes {
             return Err(TreeError::Budget);
         }
+        self.writes.set(writes);
         self.charge(raw.len())?;
         let actual = self.store.put(raw)?;
         if actual != Object::from_bytes(raw) {
@@ -396,15 +426,23 @@ pub fn inspect(
     limits: Limits,
 ) -> Result<Inventory> {
     let mut work = Work::new(store, limits)?;
+    inspect_work(selection, admitted_header, &mut work)
+}
+fn inspect_work(
+    selection: &Selection,
+    admitted_header: &Digest,
+    work: &mut Work<'_, impl NodeStore>,
+) -> Result<Inventory> {
+    let limits = work.limits;
     let actual = Tree::from_root(selection.root.clone())
-        .entries(&mut work, limits.tree())
+        .entries(&mut *work, limits.tree())
         .map_err(tree_error)?
         .0;
     let header = actual.get(&path(HEADER)?).ok_or(Error::Incomplete)?;
     if &header.sha256 != admitted_header {
         return Err(Error::Integrity);
     }
-    let raw = archive::read(&work, header, 65_536).map_err(|_| Error::Metadata)?;
+    let raw = archive::read(&*work, header, 65_536).map_err(archive_error)?;
     let decoded: Header =
         serde_json::from_value(identity::parse_json(&raw).map_err(|_| Error::Integrity)?)
             .map_err(|_| Error::Integrity)?;
@@ -415,7 +453,7 @@ pub fn inspect(
         return Err(Error::Invalid);
     }
     let mut snapshot = AssetSnapshot::from_metadata_archive(
-        &mut work,
+        &mut *work,
         &decoded.snapshot,
         NativeLimits {
             documents: 65_536,
@@ -434,7 +472,7 @@ pub fn inspect(
     if snapshot.checkpoint() != &decoded.checkpoint {
         return Err(Error::Integrity);
     }
-    let raw = archive::read(&work, &decoded.profiles, 65_536).map_err(|_| Error::Metadata)?;
+    let raw = archive::read(&*work, &decoded.profiles, 65_536).map_err(archive_error)?;
     let profiles: Vec<Profile> =
         serde_json::from_value(identity::parse_json(&raw).map_err(|_| Error::Integrity)?)
             .map_err(|_| Error::Integrity)?;
@@ -442,7 +480,7 @@ pub fn inspect(
         return Err(Error::Integrity);
     }
     let index = Tree::from_root(decoded.roots)
-        .entries(&mut work, limits.tree())
+        .entries(&mut *work, limits.tree())
         .map_err(tree_error)?
         .0;
     if index.len() != decoded.assets {
@@ -453,14 +491,20 @@ pub fn inspect(
         if key != path(object.sha256.as_str())? {
             return Err(Error::Integrity);
         }
-        let raw = archive::read(&work, &object, 65_536).map_err(|_| Error::Incomplete)?;
+        let raw = archive::read(&*work, &object, 65_536).map_err(|e| {
+            if e == super::Error::Budget {
+                Error::Budget
+            } else {
+                Error::Incomplete
+            }
+        })?;
         let record = Instance::parse(&raw).map_err(|_| Error::Integrity)?;
         roots.insert(Reference {
             id: record.value().id.clone(),
             object,
         });
     }
-    let assets = compile(&mut snapshot, &roots, &profiles, &work)?;
+    let assets = compile(&mut snapshot, &roots, &profiles, &*work)?;
     let mut allowed = BTreeMap::from([(path(HEADER)?, header.clone())]);
     for asset in &assets {
         allowed.extend(asset.paths.clone());
@@ -478,13 +522,14 @@ pub fn inspect(
 }
 
 pub type Categories = BTreeMap<String, BTreeSet<Reference>>;
-#[derive(Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Filter {
     pub assets: BTreeSet<Reference>,
     pub categories: BTreeSet<String>,
 }
-#[derive(Serialize)]
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
 pub struct MatchedAsset {
     pub asset: Reference,
     pub definition: Reference,
@@ -517,6 +562,18 @@ impl Preview {
     }
 }
 pub fn select(inventory: &Inventory, categories: &Categories, filter: &Filter) -> Result<Preview> {
+    let result = select_inner(inventory, categories, filter)?;
+    if result.paths.len() > 1024 {
+        return Err(Error::Budget);
+    }
+    encode(&result)?;
+    Ok(result)
+}
+fn select_inner(
+    inventory: &Inventory,
+    categories: &Categories,
+    filter: &Filter,
+) -> Result<Preview> {
     if (filter.assets.is_empty() && filter.categories.is_empty())
         || filter.assets.len() > 1024
         || categories.len() > 128
@@ -575,9 +632,6 @@ pub fn select(inventory: &Inventory, categories: &Categories, filter: &Filter) -
             remaining_bindings: remaining,
         });
     }
-    if paths.len() > 1024 {
-        return Err(Error::Budget);
-    }
     let result = Preview {
         schema: "tig.native-retirement-selection.design-1",
         header: inventory.header.clone(),
@@ -590,7 +644,6 @@ pub fn select(inventory: &Inventory, categories: &Categories, filter: &Filter) -
         payload_verified: false,
         authorizes_removal: false,
     };
-    encode(&result)?;
     Ok(result)
 }
 

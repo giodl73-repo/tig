@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 14160,
-      "sha256": "98d80cbb7f15b566d009d4dcd2dd76c74c3aa1faea845d9f73eacbd7060bd2a5"
+      "bytes": 14806,
+      "sha256": "e5774ab8762026dc194cc11a7473d9abe3ad3c92256e98e031bfe1a6a9c2d633"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 100186,
-      "sha256": "bb722f344c5dc3d8ce53f4a7f189474f3b73eb430021235a7b86b9839ec3ae59"
+      "bytes": 101462,
+      "sha256": "8a12b5aa56dc67f7f3e49f83ca87aa89d21f182894e3dedf7a698d19bf39e6e1"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 43915,
-      "sha256": "ed0d11e2f909b6da5cf644828a06cbceeec34f550eba49c82e369ef279d70362"
+      "bytes": 44682,
+      "sha256": "ff78d79292dd76021f5227ac18c9fc04472ebaf2a465451f93802b60d6207b37"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 53135,
+      "bytes": 56150,
       "path": "context/RESUME.md",
-      "sha256": "d7b59b398116a3a6f3525d8f67b4ba60b28b1fd83b8053cc28985d3ccd579cc2"
+      "sha256": "90707ddc47dff2b2f2b7ca4847f201667f99d121f5937343163e1c54b5dc8492"
     },
     {
       "bytes": 16453,
@@ -1899,8 +1899,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission.rs",
-      "bytes": 29795,
-      "sha256": "f905dac0cc2423f265134d759e120502981795992699b244fedbe58c8280bad8"
+      "bytes": 30114,
+      "sha256": "4b7f60b633aab7a9a5c188942cdf2bb5d6573ce91e372238ab78a13522184d41"
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/tests.rs",
@@ -2464,18 +2464,18 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-retirement.rs",
-      "bytes": 9150,
-      "sha256": "e52fab92714af4ec4d665793556fff8e7f1b02be1f7da57f59c7553d68c5000e"
+      "bytes": 9563,
+      "sha256": "7000677e896869d92b6cd5ab1806e78fddde10c7ce06052bfe23303afc366aba"
     },
     {
       "path": "crates/tig-git/src/source/native/retirement.rs",
-      "bytes": 19924,
-      "sha256": "f40fe83f82d1e282cb63bebe6fac5c66e683b4a9576e104a731c8dffc918b13b"
+      "bytes": 21214,
+      "sha256": "b0d42cfd1bf6611063d98a01a8462a878b69e1238c8f6340fcb977058ed913df"
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases.rs",
-      "bytes": 16573,
-      "sha256": "b9663e2de0566f8249815f8d9d7d11336ab6e5d24b894cc10afc4b4cd673686b"
+      "bytes": 16634,
+      "sha256": "a1554e5f49ade04b7b1fcf9cba99ca8eeb858776a097f5d67ea1d16a4814dc3d"
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases/bulk_cases.rs",
@@ -2484,8 +2484,8 @@
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases/scale_cases.rs",
-      "bytes": 4158,
-      "sha256": "615d030450e3278c8c82217cf8dc4be4bd73c61682da14340d487a97c45644db"
+      "bytes": 6652,
+      "sha256": "d3981da1d0b62f987b2235309875069501fe0c651fe3cc1a068da66894a54948"
     },
     {
       "path": "tests/vectors/native-retirement.design-1.json",
@@ -2499,13 +2499,13 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-retirement/aged.rs",
-      "bytes": 3569,
-      "sha256": "74a9dead58cb87396a1d072c1d02917d3416485e5efaa51318df3d2d80bad7fa"
+      "bytes": 3934,
+      "sha256": "9d34e0c723829ef0b10c3e7c84baa1564091a4ea41ef6ec02c8c108f4b6cd92e"
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases/age_cases.rs",
-      "bytes": 7423,
-      "sha256": "c9da3391fa40573ce05fd5bc85a9b78329d32792c345284f92b18dd973748c26"
+      "bytes": 9787,
+      "sha256": "3a1209a20d9d2bb249add488823c6ff7c209638f760ee65fec3bcd15b3ec78be"
     },
     {
       "path": "crates/tig-store/src/bin/tig-storage/age.rs",
@@ -2554,13 +2554,13 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged.rs",
-      "bytes": 12511,
-      "sha256": "a4f1c10fccd6b07a2333f8908c5dc2a11a98e125de2d5b3438ec7142598bdf89"
+      "bytes": 12529,
+      "sha256": "3177cef3dbbf2cf06fa261f36f1879a9d0cd73b2e49fe4f29852d46f595c301b"
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/compile.rs",
-      "bytes": 9484,
-      "sha256": "da32065a6f529d7f016101776ac3ecfe930100f40460483d5cdc6bc12714b0c4"
+      "bytes": 9937,
+      "sha256": "17af8989425566f42e95f736f708d56b1096b77b54908cded9c1cdae0797bfb9"
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/inspect.rs",
@@ -2671,6 +2671,41 @@
       "path": "tests/vectors/paged-age.design-1.json",
       "bytes": 4373,
       "sha256": "08685f15b54f25dc485ae5e6b5bc02a211c6d55fbd0b8555afdaea3ef7d8458c"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-retirement/paged.rs",
+      "bytes": 6107,
+      "sha256": "88959b4648761fd428277212c479a0fb2b2936879a9bef7c68364d5103ba4bc5"
+    },
+    {
+      "path": "crates/tig-git/src/source/native/retirement/paged.rs",
+      "bytes": 30264,
+      "sha256": "46d0266a9926e2630e93ab2d384cb62761e7aa3e69dc0bab854ab20505190f9d"
+    },
+    {
+      "path": "crates/tig-git/tests/native_source/retirement_cases/paged_cases.rs",
+      "bytes": 31457,
+      "sha256": "65ddecb779a80d77180b4cc868eeed9a8761156cd6d9172910e80e625c61aafc"
+    },
+    {
+      "path": "docs/guides/NATIVE-PAGED-RETIREMENT.md",
+      "bytes": 2693,
+      "sha256": "8f61b5db212fe425ed6316d0bdde7e02e16757e03d9c2acea568bbdb8fa7f1d4"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-native-paged-retirement.md",
+      "bytes": 7189,
+      "sha256": "5f936f21c534e7cc5f7f90231d2d2fe13836234a871aefe75057fd6cde010464"
+    },
+    {
+      "path": "specs/NATIVE-PAGED-RETIREMENT.md",
+      "bytes": 3125,
+      "sha256": "9f46b6ec62f534a8526290d7d804390a1c7f7edbd541b1a327ca976532db1013"
+    },
+    {
+      "path": "tests/vectors/native-paged-retirement.design-1.json",
+      "bytes": 3567,
+      "sha256": "139ec75f3618d6454a8535dc14dd49ca98f16f7dfc574394b87caff0005c498c"
     }
   ]
 }

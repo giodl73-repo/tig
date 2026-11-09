@@ -495,6 +495,12 @@ impl Namespace {
     pub fn checkpoint(&self) -> Checkpoint {
         self.journal.checkpoint()
     }
+    /// Observe the guarded journal and require this historical minimum's ancestry.
+    /// This is no lease, independent latest-authority witness or complete roster.
+    pub fn observe(&mut self, minimum: &Checkpoint) -> Result<Checkpoint> {
+        self.refresh_minimum(minimum)?;
+        Ok(self.checkpoint())
+    }
     pub(crate) fn refresh_minimum(&mut self, minimum: &Checkpoint) -> Result<()> {
         self.journal.check_guarded_marker()?;
         self.journal.sync()?;

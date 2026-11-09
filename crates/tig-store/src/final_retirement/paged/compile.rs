@@ -67,6 +67,18 @@ pub(super) fn input(
     }
     Ok((r, result))
 }
+/// Read a canonical indexed request without staging nodes or observing sources.
+/// Binding membership/current protection and authority remain separate checks.
+pub fn read_request(
+    root: &Object,
+    nodes: &mut impl NodeStore,
+    limits: &Limits,
+) -> Result<(Paging, Vec<Selection>)> {
+    let mut work = Work::new(nodes, limits)?;
+    let (header, selections) = input(&mut work, root)?;
+    work.timed()?;
+    Ok((header.paging, selections))
+}
 /// Freeze the whole exact historical selection and its hypothetical remaining
 /// protection. No source/provider effect, custody claim or consent is produced.
 pub fn build(

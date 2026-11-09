@@ -15,10 +15,21 @@ pub(super) struct Profile {
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct NativeClock {
+pub(super) struct NativeClock {
     root: PathBuf,
     minimum: ClockCheckpoint,
     enrollment: ClockEnrollment,
+}
+impl NativeClock {
+    pub(super) fn validate(&self, expected: &Digest) -> Result<()> {
+        if !self.root.is_absolute()
+            || self.minimum.identity() != &self.enrollment.journal
+            || self.enrollment.id().map_err(|_| "invalid_clock")? != *expected
+        {
+            return Err("invalid_clock");
+        }
+        Ok(())
+    }
 }
 impl Clock for NativeClock {
     fn now(&self, id: &Digest) -> provider::Result<u64> {

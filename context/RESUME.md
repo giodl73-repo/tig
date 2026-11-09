@@ -8,7 +8,46 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/paged-age, inputad8b428f87e8fb03e2257148559e4db59dbc4fff.
+- Active lane: feat/native-paged-retirement,
+  input9266765ddc2f0e7f58582a74faad471856705ef7. Pending source:
+  specs/NATIVE-PAGED-RETIREMENT.md controls indexed native occurrence/block/
+  category/optional-age selection into existing paged requests. Default-disabled
+  tig-retirement index-paged/select-paged stage only existing metadata roots,
+  finish and independently read back exact derivations. Held unknown/recent rows
+  stay outside the fixed request; no source/provider/removal permission. Shared
+  native Session preserves IO/byte/write/deadline counters across reader/writer
+  views. Existing inline selection retains1024 paths and64KiB response limits.
+  Namespace.observe adds guarded read-only refresh/minimum ancestry, not a lease
+  or independent latest authority. paged::read_request and public Paging.validate
+  expose bounded canonical metadata validation with no source/provider effects.
+  Initial5 paged native cases passed (42461 terminal zero), including actual aged
+  native17-root claim settlement/final provider deletion while an unselected alias
+  preserves shared bytes. Later16 native-retirement cases and strict schema
+  all-target Clippy pass (78486 terminal zero), adding actual source-peer drift,
+  cross-snapshot exact block/global asset matching and request-substitution refusal.
+  The strengthened existing1000-record fixture stages and verifies all4000 bindings
+  under the same capture; legacy inline still refuses (86718 terminal zero, also
+  shared readback/session-clone budget test and strict schema Clippy). Five new
+  independent framing cases pass in the all-feature workspace and final focus.
+  Initial full-chain fmt checks failed solely on the new unformatted test block;
+  cargo fmt fixed it before the actual broad chains started. Default33052 and
+  all-feature79966 terminate zero in separate external native-paged-retirement
+  and native-paged-retirement-all targets, including both500k fixtures, strict
+  workspace Clippy and standalone Git. Their test compilation precedes the final
+  test-only held-root projection and real-clock CLI assertions;30697/46256 qualify
+  those additions.30697 passes16 native-retirement cases, three native framing/
+  budget entries,19 generic paged entries and strict schema workspace Clippy.
+  46256 passes real enrolled-clock indexed CLI, five explicit fresh/pinned old
+  CLI qualifiers and strict schema Clippy. External logs: native-paged-default.log,
+  native-paged-all.log, native-paged-final-focus.log and native-paged-artifacts.log.
+  All processes are terminal; no target is live. No commit/PR yet for this lane.
+  Finish exact pins/L0/secret scan and draft PR on ready PR41. EVID-111 and its
+  six-producer review separate verification, synthetic validation and trace. Next:
+  operator/agent/UI/Action using the actual paged controller, plus actual native
+  writer/current authority/time/restore/providers/large files/lifetime/metadata
+  expiry and human acceptance. Full goal remains active; no live ops or merges.
+
+- Previous lane: feat/paged-age, inputad8b428f87e8fb03e2257148559e4db59dbc4fff.
   Implementationd549349063dbd935829a80db0153cbd70594eadc.
   Source integrates optional privately admitted age policy/proof index
   into the existing paged controller. Original retained evidence is pinned and
@@ -41,10 +80,11 @@ source changes into running tools as a side effect. No startup cache operations.
   paged-age-final-default.log, paged-age-final-all.log and paged-age-artifacts.log.
   All local processes are terminal; no target is live. Never overlap
   Cargo on a target while its CLI artifact qualifiers are using its binary.
-  PR41 is OPEN/draft against feat/paged-controller (ready PR40). Pinned Gitleaks
+  PR41 is OPEN/ready at9266765 against feat/paged-controller (ready PR40).
+  Exact-head run42674788618 is terminal successful for Windows/Linux/secrets.
+  Pinned Gitleaks
   8.30.1 scans all94 reachable commits clean; no new ignore was added. Final L0,
-  fmt and diff pass. Hosted exact-head Windows/Linux/secrets qualification remains
-  required; derive the current head/run from GitHub before readying, never restart
+  fmt and diff pass. Derive the current head/run from GitHub, never restart
   a live run merely because observation expires. Six producer lenses, validation
   and trace are separate in EVID-110 and its review. Next delivery remains
   native selection and operator/agent/UI/Action over the actual aged controller,

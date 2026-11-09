@@ -20,6 +20,8 @@ use tig_store::{
 type Result<T> = std::result::Result<T, &'static str>;
 #[path = "tig-retirement/aged.rs"]
 mod aged;
+#[path = "tig-retirement/paged.rs"]
+mod paged;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Metadata {
@@ -99,15 +101,22 @@ fn code(e: retirement::Error) -> &'static str {
     }
 }
 fn run(args: &[String]) -> Result<Value> {
+    if args
+        .first()
+        .is_some_and(|s| matches!(s.as_str(), "index-paged" | "select-paged"))
+    {
+        return paged::run(args);
+    }
     if args == ["describe"] {
         return Ok(json!({"schema":"tig.native-retirement-interface.design-1",
-            "operations":["bind PROFILE","select PROFILE REQUEST","select-aged PROFILE REQUEST"],
+            "operations":["bind PROFILE","select PROFILE REQUEST","select-aged PROFILE REQUEST","index-paged PROFILE REQUEST","select-paged PROFILE REQUEST"],
             "bind_profile_schema":"tig.native-retirement-bind-profile.design-1",
             "select_profile_schema":"tig.native-retirement-select-profile.design-1",
             "max_document_bytes":65536,"max_response_bytes":65536,
             "initializes_stores":false,"bind_default_enabled":false,
             "select_read_only":true,"age_filter_supported":false,
             "aged_selection":{"profile_schema":"tig.native-retirement-aged-profile.design-1","assessment_may_append_clock_observation":true},
+            "paged_selection":{"profile_schema":"tig.native-paged-profile.design-1","stages_metadata":true,"default_enabled":false,"payload_io":false},
             "authorizes_removal":false}));
     }
     if args.len() == 2 && args[0] == "bind" {
