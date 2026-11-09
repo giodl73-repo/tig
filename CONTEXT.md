@@ -1,5 +1,13 @@
 # Tig maintainer context
 
+Age-witness lane: specs/AGE-WITNESSES.md defines exact historical occurrence
+observations over existing asset-side Trees and an enrolled Retention source.
+Capture preserves acknowledged dates across retries; executed unchanged subsets
+can inherit age. tig-storage age and optional tig-retirement select-aged use
+private existing-root profiles, with no claim-release/removal authority. Aggregate
+metadata/time budgets now span phases. Local final-code qualification is ongoing;
+no live adoption or complete milestone follows. Read context/RESUME.md.
+
 Native retirement binding lane: optional declared storage closure and asset-side
 native-to-flat roots give each root asset independent bindings for shared objects.
 Explicit metadata-only tig-retirement bind/select composes exact block/category

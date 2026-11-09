@@ -39,6 +39,13 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [age-witness contract](specs/AGE-WITNESSES.md) and
+[operator guide](docs/guides/AGE-WITNESSES.md) add conservative observations for
+exact historical occurrences, verified age inheritance through owned subsets and
+separate native age-aware candidates. This lane is undergoing local qualification;
+it grants no final consent and does not close paged shared-claim settlement,
+authority/writer/time adoption, UI/Action, provider or operational lifetime gates.
+
 The [native binding adapter](specs/NATIVE-RETIREMENT-BINDINGS.md) compiles exact
 declared native storage closure into independently aliased flat bindings. The
 metadata-only bind/select CLI maps exact blocks and admitted definition categories

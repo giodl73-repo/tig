@@ -105,7 +105,10 @@ the full plan. A native binding archive does not make any of them complete.
 
 ## Next age and paging design entry
 
-The following is an unimplemented design entry, not a frozen wire protocol:
+This records the entry that led to [AGE-WITNESSES](AGE-WITNESSES.md), now under
+local qualification. That separate contract concretizes the bounded age protocol;
+paged global consent/claim settlement below remains unimplemented. Plain native
+select keeps its original age-free contract; select-aged is a separate interface.
 
 - A trusted capture operation must derive an exact historical occurrence from the
   current namespace/source/predecessor/root, then sample the admitted native

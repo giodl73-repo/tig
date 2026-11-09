@@ -639,6 +639,62 @@ pub fn inspect(e: &Enrollment, namespace: &mut Namespace, plan: &Plan) -> Result
     })
 }
 
+/// Verified historical unchanged-subset transfer. This is not current protection
+/// or removal authority; callers must separately validate the current occurrence.
+pub fn historical_survivor(
+    e: &Enrollment,
+    namespace: &mut Namespace,
+    plan: &Plan,
+    nodes: &impl NodeStore,
+) -> Result<Option<(Key, Version)>> {
+    plan.bound(e, namespace)?;
+    let (root, summary, _) = projection(e, &plan.request, &plan.original, nodes)?;
+    if root != plan.survivor.root || summary != plan.summary {
+        return Err(Error::Invalid);
+    }
+    let (operation, command) = plan.retire(e)?;
+    namespace
+        .command_status(operation, command)?
+        .ok_or(Error::Missing)?;
+    let Some(source) = plan.survivor_source()? else {
+        return Ok(None);
+    };
+    let select = plan.select(e)?;
+    let prepared = namespace
+        .command_status(
+            select.prepare,
+            Command::Prepare {
+                source: source.clone(),
+                owner: e.owner.clone(),
+                expected_revision: 1,
+                selection: plan.survivor.clone(),
+            },
+        )?
+        .ok_or(Error::Missing)?;
+    namespace
+        .command_status(
+            select.adopt,
+            Command::Adopt {
+                source: source.clone(),
+                owner: e.owner.clone(),
+                expected_revision: 2,
+                prepared: prepared.reference,
+            },
+        )?
+        .ok_or(Error::Missing)?;
+    let (operation, command) = plan.withdraw(e)?;
+    namespace
+        .command_status(operation, command)?
+        .ok_or(Error::Missing)?;
+    Ok(Some((
+        source,
+        Version {
+            revision: 3,
+            selection: plan.survivor.clone(),
+        },
+    )))
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Stage {
     MetadataFinished,

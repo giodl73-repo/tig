@@ -17,6 +17,8 @@ use tig_store::{
 };
 
 type Result<T> = std::result::Result<T, &'static str>;
+#[path = "tig-storage/age.rs"]
+mod age;
 #[path = "tig-storage/bulk.rs"]
 mod bulk;
 #[path = "tig-storage/retire.rs"]
@@ -105,6 +107,9 @@ fn report(value: Value) -> Result<Vec<u8>> {
     identity::canonical_json(&value).map_err(|_| "response_budget")
 }
 fn run(args: &[String]) -> Result<Vec<u8>> {
+    if args.first().is_some_and(|s| s == "age") {
+        return age::run(&args[1..]);
+    }
     if args.first().is_some_and(|s| s == "bulk") {
         return bulk::run(&args[1..]);
     }
@@ -120,7 +125,7 @@ fn run(args: &[String]) -> Result<Vec<u8>> {
             "schema": RESPONSE, "operations": ["plan REQUEST", "peak PROFILE PLAN", "status PROFILE PLAN INDEX", "apply PROFILE PLAN INDEX", "resume PROFILE PLAN INDEX"],
             "max_actions": orchestration::MAX_ACTIONS, "max_document_bytes": 65536,
             "copy_only": true, "removal_authority": false,
-            "profile_schema": "tig.storage-profile.design-1", "additional_interfaces":{"bulk":"tig-storage bulk describe","retire":"tig-storage retire describe","s3":{"command":"tig-storage s3 describe","compiled":cfg!(feature="s3")}}
+            "profile_schema": "tig.storage-profile.design-1", "additional_interfaces":{"age":"tig-storage age describe","bulk":"tig-storage bulk describe","retire":"tig-storage retire describe","s3":{"command":"tig-storage s3 describe","compiled":cfg!(feature="s3")}}
         })),
         Some("plan") if args.len() == 2 => {
             let request: PlanRequest = document(Path::new(&args[1]))?;

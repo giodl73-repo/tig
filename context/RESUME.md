@@ -8,6 +8,34 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
+  Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Full qualification
+  remains pending; derive implementation SHA from Git. Metadata/Tree/source journals preserve
+  immutable conservative age observations, clock-free acknowledged retries,
+  owned subset inheritance and read-only historical status. Explicit private
+  tig-storage age commands and optional native select-aged emit candidates only.
+  Review tightened shared operation-wide metadata/time budgets. Twelve final
+  focused library/process/vector entries, three actual CLI cases, nine native
+  retirement entries (one new age-aware case) and strict workspace all-feature/
+  all-target Clippy pass (24427 terminal zero). The strengthened identity framing
+  assertion and strict Clippy pass (53407 terminal zero). Root discovery now lists
+  age; final three age CLI/five storage CLI entries and strict workspace Clippy
+  pass after that discovery-only change. Earlier default chain64389 terminated
+  zero but compiled pre-tightening
+  runtime. Earlier all-feature chain1159 remains live on age-witnesses-all and
+  also cannot qualify the tightened runtime. Final default chain68634 is live on
+  age-witnesses; its log is external age-final-default.log. Inspect actual handles
+  before new Cargo work on either target. Focus target age-budget-focus is separate.
+  Preserve external build/temp roots and never replace a target's CLI while its
+  tests execute. Complete final default/all-feature suites and explicit artifact
+  qualifiers, separate six-role/evidence closeout
+  and a draft PR stacked on feat/native-retirement. PR #36 exact0dbc41f has all
+  three hosted checks successful (run42615606426) and is ready for review; no merge.
+  NB-07 paged global consent/historical claim settlement remains the next design
+  gate, with current/recent/foreign protection and original content scope intact.
+  Metadata retirement/continuation, full UI/Action/native/writer/authority/time/
+  provider/large-file/human acceptance remain required; full goal stays active.
+
 - Active lane: feat/native-retirement, inputc241593. Read
   specs/NATIVE-RETIREMENT-BINDINGS.md. Graph::storage_objects is separate from
   production inputs; exact root assets receive independent flat bindings for

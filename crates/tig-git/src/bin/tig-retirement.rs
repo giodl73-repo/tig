@@ -18,6 +18,8 @@ use tig_store::{
     source_claims::{self, Kind, admission::Namespace},
 };
 type Result<T> = std::result::Result<T, &'static str>;
+#[path = "tig-retirement/aged.rs"]
+mod aged;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Metadata {
@@ -99,12 +101,14 @@ fn code(e: retirement::Error) -> &'static str {
 fn run(args: &[String]) -> Result<Value> {
     if args == ["describe"] {
         return Ok(json!({"schema":"tig.native-retirement-interface.design-1",
-            "operations":["bind PROFILE","select PROFILE REQUEST"],
+            "operations":["bind PROFILE","select PROFILE REQUEST","select-aged PROFILE REQUEST"],
             "bind_profile_schema":"tig.native-retirement-bind-profile.design-1",
             "select_profile_schema":"tig.native-retirement-select-profile.design-1",
             "max_document_bytes":65536,"max_response_bytes":65536,
             "initializes_stores":false,"bind_default_enabled":false,
-            "select_read_only":true,"age_filter_supported":false,"authorizes_removal":false}));
+            "select_read_only":true,"age_filter_supported":false,
+            "aged_selection":{"profile_schema":"tig.native-retirement-aged-profile.design-1","assessment_may_append_clock_observation":true},
+            "authorizes_removal":false}));
     }
     if args.len() == 2 && args[0] == "bind" {
         let p: Bind = document(Path::new(&args[1]))?;
@@ -140,11 +144,17 @@ fn run(args: &[String]) -> Result<Value> {
             "authorizes_source_adoption":false,"authorizes_removal":false}),
         );
     }
-    if args.len() != 3 || args[0] != "select" {
+    if args.len() != 3 || !matches!(args[0].as_str(), "select" | "select-aged") {
         return Err("usage");
     }
     let filter: Filter = document(Path::new(&args[2]))?;
-    let p: Select = document(Path::new(&args[1]))?;
+    let (p, age) = if args[0] == "select-aged" {
+        let p: aged::Profile = document(Path::new(&args[1]))?;
+        p.validate()?;
+        (p.selection, Some(p.age))
+    } else {
+        (document::<Select>(Path::new(&args[1]))?, None)
+    };
     if p.schema != "tig.native-retirement-select-profile.design-1"
         || !p.metadata.root.is_absolute()
         || !p.namespace.root.is_absolute()
@@ -174,6 +184,18 @@ fn run(args: &[String]) -> Result<Value> {
     let inventory =
         retirement::inspect(&version.selection, &p.header, &mut reader, p.limits).map_err(code)?;
     let preview = retirement::select(&inventory, &p.categories, &filter).map_err(code)?;
+    let assessment = age
+        .as_ref()
+        .map(|age| age.assess(&p, &mut namespace, &mut reader))
+        .transpose()?;
+    if assessment.as_ref().is_some_and(|a| {
+        a.status
+            .target
+            .as_ref()
+            .is_some_and(|t| t.selection != version.selection)
+    }) {
+        return Err("wrong_age_occurrence");
+    }
     // A second observation rejects concurrent source changes; this is no lease.
     let before = namespace.checkpoint();
     let current = namespace
@@ -182,20 +204,24 @@ fn run(args: &[String]) -> Result<Value> {
     if namespace.checkpoint() != before || current.as_ref() != Some(&source) {
         return Err("stale_basis");
     }
-    let selection = if preview.paths.is_empty() {
-        None
+    let selection =
+        if preview.paths.is_empty() || assessment.as_ref().is_some_and(|a| !a.old_enough) {
+            None
+        } else {
+            Some(bulk::Selection {
+                namespace: namespace.identity().clone(),
+                request: preview
+                    .request(p.source, p.predecessor_revision)
+                    .map_err(code)?,
+            })
+        };
+    Ok(if let Some(assessment) = assessment {
+        json!({"schema":"tig.native-retirement-aged-preview.design-1","source_checkpoint":namespace.checkpoint(),
+            "selection":selection,"preview":preview,"age_assessment":assessment,"age_filter_supported":true,"authorizes_removal":false})
     } else {
-        Some(bulk::Selection {
-            namespace: namespace.identity().clone(),
-            request: preview
-                .request(p.source, p.predecessor_revision)
-                .map_err(code)?,
-        })
-    };
-    Ok(
         json!({"schema":"tig.native-retirement-preview.design-1","source_checkpoint":namespace.checkpoint(),
-        "selection":selection,"preview":preview,"authorizes_removal":false}),
-    )
+        "selection":selection,"preview":preview,"authorizes_removal":false})
+    })
 }
 fn main() -> ExitCode {
     let args = std::env::args().skip(1).collect::<Vec<_>>();

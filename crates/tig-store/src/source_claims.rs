@@ -12,6 +12,7 @@ use std::{
 use tig_core::{Digest, Object, identity};
 
 pub mod admission;
+pub mod age;
 pub mod subset;
 
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]

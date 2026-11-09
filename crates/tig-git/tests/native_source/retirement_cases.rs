@@ -1,4 +1,6 @@
 use super::*;
+#[path = "retirement_cases/age_cases.rs"]
+mod age_cases;
 #[path = "retirement_cases/bulk_cases.rs"]
 mod bulk_cases;
 #[path = "retirement_cases/scale_cases.rs"]
