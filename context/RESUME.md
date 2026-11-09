@@ -10,6 +10,7 @@ source changes into running tools as a side effect. No startup cache operations.
 
 - Active continuation lane: feat/paged-operator, input
   cec0217f5bae71b43f5ca43a3e3027b4c2fbb426. See specs/PAGED-OPERATOR.md.
+  Implementation:8f5d39edb25129ad26f750e257faf2584b72cbbd; runtime is frozen here.
   Locally qualified existing-root tig-storage paged commands compose copy-index chunks,
   exact selection planning, original scope pages, peak/status and separately
   approved apply/resume/cancel. Stage/apply/cancel default false. Session clones
@@ -37,7 +38,9 @@ source changes into running tools as a side effect. No startup cache operations.
   Previous71796/7218/65684 chains ended on actual fixture failures, now corrected;
   do not count them as full passes or restart work merely for a polling timeout.
   Producer review/EVID-112 separates local verification, synthetic validation and
-  trace; PO-07/full acceptance remain open. Commit/PR and hosted checks remain.
+  trace; PO-07/full acceptance remain open. Source is committed; draft PR and
+  exact-head hosted checks are next. No source merge or deployment is authorized
+  by the component's green checks.
   No live roots, deployment, source merges or automatic runner are enabled.
   Parent PR42 exact-head run42708889588 now passes Windows/Linux/secrets and
   is ready for review. No source merge was performed.

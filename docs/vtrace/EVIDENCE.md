@@ -1,7 +1,8 @@
 # Evidence index
 
 EVID-112 (locally qualified candidate): paged operator, input
-cec0217f5bae71b43f5ca43a3e3027b4c2fbb426. The
+cec0217f5bae71b43f5ca43a3e3027b4c2fbb426, implementation
+8f5d39edb25129ad26f750e257faf2584b72cbbd. The
 [review](../reviews/2026-11-09-paged-operator.md) separates existing-root staging,
 original scope inspection, explicit two-part execution approval and witness-first
 cancellation over the existing controller. Final four copy-index tests and two

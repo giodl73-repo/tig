@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 103140,
-      "sha256": "a83597a52c116ece13eb94e6a8ec528ea6ce2adc8e82b65c530418d1a9396c7e"
+      "bytes": 103197,
+      "sha256": "559bc0a1ea6d1c46bacf433dba066da69f608ceeed060083a3d92bafce740c46"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 60254,
+      "bytes": 60451,
       "path": "context/RESUME.md",
-      "sha256": "771c1588a4d0590ea290f6e1552822bdb5c6cd6d7d5dbf8ff2421cd0a8a32db0"
+      "sha256": "edd1f9f6e87720f5e24ee23377918be8ece461f9ccc58636aaa56637adac19f6"
     },
     {
       "bytes": 16453,
@@ -2734,8 +2734,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-paged-operator.md",
-      "bytes": 7457,
-      "sha256": "0189213339d7cbf0d207420946b4ca9973b4cf2d892daadba945532c6e37c7ac"
+      "bytes": 7612,
+      "sha256": "f499e70ae798fae3254994651ccd5a02e5be342f4f10314fa8064750276806ba"
     },
     {
       "path": "specs/PAGED-OPERATOR.md",

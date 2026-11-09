@@ -5,6 +5,8 @@ feat/paged-operator. Controls, entry/exit and RUST/PROVIDER L0/L1/L2 are in
 [the contract](../../specs/PAGED-OPERATOR.md). Targets: existing-root operator CLI,
 shared metadata Session, copy-index extension/readback and synthetic qualifications.
 No new cache/journal engine, live roots, deployment or source merge.
+Implementation: 8f5d39edb25129ad26f750e257faf2584b72cbbd. No runtime changes follow
+this pin; subsequent review/checkpoint updates are documentation only.
 
 ## Implementation
 
