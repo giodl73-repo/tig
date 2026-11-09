@@ -275,8 +275,18 @@ fn actual_hosted_oidc_reaches_foreground_receiver_without_payloads() {
     let status = child.wait().unwrap();
     assert!(status.success());
     assert!(!response.contains(&token));
-    assert!(response.starts_with("HTTP/1.1 200"));
     let value: Value = serde_json::from_str(response.split_once("\r\n\r\n").unwrap().1).unwrap();
+    let code = match value["code"].as_str() {
+        Some(
+            "invalid" | "budget" | "trust" | "key" | "signature" | "claims" | "clock" | "expired"
+            | "stale" | "unavailable" | "disabled" | "denied",
+        ) => value["code"].as_str().unwrap(),
+        _ => "no_static_error_code",
+    };
+    assert!(
+        response.starts_with("HTTP/1.1 200"),
+        "receiver rejection: {code}"
+    );
     assert_eq!(value["authenticated"], true);
     assert_eq!(value["result"]["storage_converged"], true);
     assert_eq!(value["result"]["objects"], 0);
