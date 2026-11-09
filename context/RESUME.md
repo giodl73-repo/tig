@@ -10,6 +10,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 - Active lane: feat/roster-placement, input106f6f5 (PR #31 head at entry),
   implementationada8b21.
+  Draft PR #32 stacks on feat/bulk-retirement (#31); separate evidence closeout
+  fe704ea. Hosted exact-head qualification pending at handoff; derive it live.
   PL-01 cross-namespace advisory precedence uses fresh explicit roster-scope
   bindings and distinct design-2 placement enrollment. Existing namespace-local
   bindings keep their bytes/identity and behavior. Planning and guarded ordinary
@@ -22,8 +24,8 @@ source changes into running tools as a side effect. No startup cache operations.
   strict Clippy, standalone Git and fresh ordinary-retirement CLI cancellation
   pass. EVID-101 records separate verification/validation/trace/six-producer
   closeout. No implementation changed afterada8b21; no live upgrade or merge.
-  Next: stacked draft PR against feat/bulk-retirement (#31), exact-head hosted
-  qualification, then bulk operator/agent/native selection and admitted clock/
+  Next: PR #32 exact-head hosted qualification, then bulk operator/agent/native
+  selection and admitted clock/
   authority integration. Full-product/provider/lifetime/human gates remain.
 
 - Previous lane: feat/bulk-retirement, input4478207, implementationfe073a6,
