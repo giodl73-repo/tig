@@ -168,21 +168,19 @@ impl Permit {
         Ok(authority == &self.authority && Digest::blob(&super::encode(request)?) == self.request)
     }
 }
-pub(super) struct PairPermit {
+pub(super) struct AtomicPermit {
     authority: Digest,
     requests: Digest,
     _locks: Locks,
 }
-impl PairPermit {
+impl AtomicPermit {
     pub(super) fn matches(
         &self,
         authority: &Digest,
-        requests: &[super::Request; 2],
+        requests: &[super::Request],
     ) -> super::Result<bool> {
-        Ok(
-            authority == &self.authority
-                && Digest::blob(&super::encode(requests)?) == self.requests,
-        )
+        Ok(authority == &self.authority
+            && Digest::blob(&super::encode(&requests)?) == self.requests)
     }
 }
 /// An atomic composition of the existing Prepare and Adopt commands.
@@ -548,13 +546,63 @@ impl Namespace {
         limits: &Limits,
         hook: impl FnMut(Stage) -> super::Result<()>,
     ) -> Result<Receipt> {
+        let requests = selection.requests(self.identity())?.to_vec();
+        self.select_requests(selection, requests, nodes, limits, hook)
+    }
+    /// Atomically Prepare/Adopt/Withdraw a historical selection. No observer can
+    /// see artificial active use suppressing the original history placement.
+    pub fn select_predecessor(
+        &mut self,
+        selection: &Select,
+        withdraw: Key,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+    ) -> Result<Receipt> {
+        self.select_predecessor_hook(selection, withdraw, nodes, limits, |_| Ok(()))
+    }
+    fn select_predecessor_hook(
+        &mut self,
+        selection: &Select,
+        withdraw: Key,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+        hook: impl FnMut(Stage) -> super::Result<()>,
+    ) -> Result<Receipt> {
+        let mut requests = selection.requests(self.identity())?.to_vec();
+        requests.push(super::Request {
+            operation: withdraw,
+            command: Command::Withdraw {
+                source: selection.source.clone(),
+                owner: selection.owner.clone(),
+                expected_revision: selection
+                    .expected_revision
+                    .checked_add(2)
+                    .ok_or(super::Error::Budget)?,
+            },
+        });
+        self.select_requests(selection, requests, nodes, limits, hook)
+    }
+    fn select_requests(
+        &mut self,
+        selection: &Select,
+        requests: Vec<super::Request>,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+        hook: impl FnMut(Stage) -> super::Result<()>,
+    ) -> Result<Receipt> {
         let start = Instant::now();
         limits.validate().map_err(|_| Error::Budget)?;
         self.journal.check_guarded_marker()?;
         self.journal.sync()?;
-        let requests = selection.requests(self.identity())?;
-        if let Some(receipt) = self.selection_status(selection)? {
-            return Ok(receipt);
+        match self.journal.apply_requests(&requests, true, |_| Ok(())) {
+            Ok(mut receipts) => {
+                return receipts
+                    .pop()
+                    .ok_or(super::Error::Corrupt)
+                    .map_err(Into::into);
+            }
+            Err(super::Error::Missing) => {}
+            Err(error) => return Err(error.into()),
         }
         let mut after = self.journal.state.clone();
         let before = after.sources.get(selection.source.as_str()).cloned();
@@ -581,7 +629,7 @@ impl Namespace {
         let held = locks(&self.journal.root, &parts, false)?;
         work.timed()?;
         self.journal.check_guarded_marker()?;
-        let permit = PairPermit {
+        let permit = AtomicPermit {
             authority: self.identity().clone(),
             requests: Digest::blob(&super::encode(&requests)?),
             _locks: held,

@@ -28,9 +28,10 @@ jobs, namespaces and provider retention remain independent protection.
 
 For a nonempty survivor set, finish and independently read back replacement
 metadata before enrolling a deterministic derived source with the same owner and
-immutable class. Existing atomic Prepare/Adopt selects the survivors; Withdraw
-then protects them as a predecessor, under the same original predecessor policy.
-Temporary current protection can overprotect working placement; no global pause
+immutable class. Namespace::select_predecessor atomically composes existing
+Prepare/Adopt/Withdraw commands, protecting the survivors as a predecessor under
+the same original policy. No observer sees an artificial active selection that
+could suppress original history placement through prefer_active. No global pause
 is needed. An unrelated Retention-class source is not a substitute because it
 could have different placement obligations. Original protection remains throughout.
 
@@ -56,7 +57,10 @@ owner-authorized recovery is separate. Metadata-offline status separates histori
 retirement from observed current survivor protection and never claims a lease.
 Later explicit survivor retirement is not undone by an old plan retry.
 
-Plans are strict canonical JSON bounded to 64 KiB; enrollments pin finite projection
+Plans use tig.subset-plan.design-2 strict canonical JSON bounded to 64 KiB;
+the draft-only design-1 plan/effect is refused after correcting transient active
+placement. Existing source event bytes and historical receipts are unchanged.
+Enrollments pin finite projection
 read/time/binding limits plus at most 65,536 sparse writes / 32 MiB. Each projection
 shares one aggregate budget across original traversal, edits and survivor traversal.
 Apply executes at most two such projections plus a separately bounded finished

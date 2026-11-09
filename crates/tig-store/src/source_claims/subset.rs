@@ -151,7 +151,7 @@ pub struct Plan {
 impl Plan {
     pub fn id(&self) -> Result<Digest> {
         self.request.check()?;
-        if self.schema != "tig.subset-plan.design-1"
+        if self.schema != "tig.subset-plan.design-2"
             || self.expected_revision == 0
             || !matches!(self.class, Kind::Branch | Kind::Draft)
             || self.summary.selected_bindings != self.request.paths.len()
@@ -276,7 +276,7 @@ fn effect(
 ) -> Result<Digest> {
     // Runtime budgets and unrelated current-source changes do not fork survivor custody.
     digest(
-        &serde_json::json!({"schema":"tig.subset-effect.design-1","authority":e.authority,
+        &serde_json::json!({"schema":"tig.subset-effect.design-2","authority":e.authority,
         "namespace":e.namespace,"policy":e.policy,"owner":e.owner,"class":class,
         "request":request,"original":original,"survivor_root":root}),
     )
@@ -435,7 +435,7 @@ pub fn plan(
     let (root, summary, _) = projection(e, &request, &original, reader)?;
     let effect = effect(e, &request, &class, &original, &root)?;
     let plan = Plan {
-        schema: "tig.subset-plan.design-1".into(),
+        schema: "tig.subset-plan.design-2".into(),
         enrollment: e.id()?,
         request,
         expected_revision: source.revision,
@@ -512,7 +512,6 @@ pub fn inspect(e: &Enrollment, namespace: &mut Namespace, plan: &Plan) -> Result
 pub enum Stage {
     MetadataFinished,
     Enrolled,
-    Selected,
     SurvivorProtected,
     BeforeRetire,
     Retired,
@@ -575,10 +574,12 @@ pub fn apply_hook(
         }
         namespace.apply(id, command, &finished, &e.limits)?;
         hook(Stage::Enrolled)?;
-        namespace.select(&plan.select(e)?, &finished, &e.limits)?;
-        hook(Stage::Selected)?;
-        let (id, command) = plan.withdraw(e)?;
-        namespace.apply(id, command, &finished, &e.limits)?;
+        namespace.select_predecessor(
+            &plan.select(e)?,
+            plan.key("subset-withdraw")?,
+            &finished,
+            &e.limits,
+        )?;
         hook(Stage::SurvivorProtected)?;
         let key = plan.key("subset")?;
         let source = namespace.source(&key)?.ok_or(Error::Stale)?;

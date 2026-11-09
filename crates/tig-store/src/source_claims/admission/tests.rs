@@ -1137,7 +1137,7 @@ fn admission_child() {
             ("unchanged", Object::from_bytes(b"common")),
         ],
     );
-    if mode.starts_with("pair-") {
+    if mode.starts_with("pair-") || mode.starts_with("history-") {
         let Command::Prepare {
             source,
             owner,
@@ -1156,20 +1156,28 @@ fn admission_child() {
             selection,
         };
         let mut appends = 0;
-        namespace
-            .select_hook(&select, &nodes, &limits(), |stage| {
-                if stage == Stage::BeforeAppend {
-                    appends += 1;
-                }
-                if (mode == "pair-between" && stage == Stage::BeforeAppend && appends == 2)
-                    || (mode == "pair-before" && stage == Stage::BeforeCommit)
-                    || (mode == "pair-after" && stage == Stage::AfterCommit)
-                {
-                    std::process::exit(75);
-                }
-                Ok(())
-            })
-            .unwrap();
+        let hook = |stage| {
+            if stage == Stage::BeforeAppend {
+                appends += 1;
+            }
+            if (mode == "pair-between" && stage == Stage::BeforeAppend && appends == 2)
+                || (mode == "history-between" && stage == Stage::BeforeAppend && appends == 3)
+                || (mode.ends_with("-before") && stage == Stage::BeforeCommit)
+                || (mode.ends_with("-after") && stage == Stage::AfterCommit)
+            {
+                std::process::exit(75);
+            }
+            Ok(())
+        };
+        if mode.starts_with("history-") {
+            namespace
+                .select_predecessor_hook(&select, key("child-withdraw"), &nodes, &limits(), hook)
+                .unwrap();
+        } else {
+            namespace
+                .select_hook(&select, &nodes, &limits(), hook)
+                .unwrap();
+        }
         panic!("pair child missed boundary");
     }
     let stop = match mode.as_str() {
@@ -1439,6 +1447,38 @@ fn actual_exit_between_or_around_atomic_commands_never_leaves_a_pending_half() {
         assert_eq!(reopened.checkpoint().sequence(), before.sequence() + 2);
     }
 }
+
+#[test]
+fn actual_exit_inside_atomic_history_never_exposes_a_current_selection() {
+    for mode in ["history-between", "history-before", "history-after"] {
+        let mut f = Fixture::new(true);
+        f.enroll("main", Kind::Branch);
+        child_input(&f);
+        let before = f.namespace.checkpoint();
+        let mut child = spawn(&f.root(), mode);
+        assert_eq!(child.0.wait().unwrap().code(), Some(75));
+        let mut reopened = Namespace::open(&f.root(), &before).unwrap();
+        let state = reopened.source(&key("main")).unwrap().unwrap();
+        assert!(state.current.is_none() && state.pending.is_none());
+        assert_eq!(
+            state.predecessors.len(),
+            usize::from(mode == "history-after")
+        );
+        let request = Select {
+            prepare: key("child-prepare"),
+            adopt: key("child-adopt"),
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 1,
+            selection: f.old.clone(),
+        };
+        let receipt = reopened
+            .select_predecessor(&request, key("child-withdraw"), &f.nodes, &limits())
+            .unwrap();
+        assert_eq!(receipt.replayed, mode == "history-after");
+        assert_eq!(reopened.checkpoint().sequence(), before.sequence() + 3);
+    }
+}
 #[test]
 fn atomic_pair_needs_two_remaining_slots_and_cannot_consume_the_last_single_slot() {
     use rusqlite::params;
@@ -1497,6 +1537,11 @@ fn atomic_pair_needs_two_remaining_slots_and_cannot_consume_the_last_single_slot
     let selection = f.old.clone();
     let request = select(&mut f, "last-slot", selection);
     assert_eq!(
+        f.namespace
+            .select_predecessor(&request, key("last-withdraw"), &f.nodes, &limits()),
+        Err(Error::Journal(super::super::Error::Budget))
+    );
+    assert_eq!(
         f.namespace.select(&request, &f.nodes, &limits()),
         Err(Error::Journal(super::super::Error::Budget))
     );
@@ -1525,6 +1570,132 @@ fn atomic_pair_needs_two_remaining_slots_and_cannot_consume_the_last_single_slot
             .pending
             .is_some()
     );
+}
+
+#[test]
+fn atomic_predecessor_never_exposes_active_or_pending_survivor() {
+    let mut f = Fixture::new(true);
+    f.enroll("history", Kind::Branch);
+    let minimum = f.namespace.checkpoint();
+    let root = f.root();
+    let request = Select {
+        prepare: key("history-prepare"),
+        adopt: key("history-adopt"),
+        source: key("history"),
+        owner: key("owner"),
+        expected_revision: 1,
+        selection: f.old.clone(),
+    };
+    let mut observations = 0;
+    f.namespace
+        .select_predecessor_hook(
+            &request,
+            key("history-withdraw"),
+            &f.nodes,
+            &limits(),
+            |stage| {
+                let observed = SourceJournal::observe(&root, &minimum, &key("history")).unwrap();
+                let source = observed.source.unwrap();
+                assert!(source.current.is_none() && source.pending.is_none());
+                assert_eq!(
+                    source.predecessors.len(),
+                    usize::from(stage == Stage::AfterCommit)
+                );
+                observations += 1;
+                Ok(())
+            },
+        )
+        .unwrap();
+    assert_eq!(observations, 5); // three appends, before commit, after commit
+    let state = f.namespace.source(&key("history")).unwrap().unwrap();
+    assert_eq!(state.revision, 4);
+    assert_eq!(state.predecessors[0].revision, 3);
+    let assignments = f.namespace.requirements(&f.nodes, &limits()).unwrap();
+    assert!(
+        assignments
+            .entries
+            .iter()
+            .all(|entry| entry.places == vec![key("backup"), key("history")])
+    );
+}
+
+#[test]
+fn atomic_predecessor_rolls_back_every_internal_boundary_and_recovers_ack() {
+    for fail_at in 1..=5 {
+        let mut f = Fixture::new(true);
+        f.enroll("history", Kind::Draft);
+        let before = f.namespace.checkpoint();
+        let request = Select {
+            prepare: key("history-prepare"),
+            adopt: key("history-adopt"),
+            source: key("history"),
+            owner: key("owner"),
+            expected_revision: 1,
+            selection: f.old.clone(),
+        };
+        let mut calls = 0;
+        assert!(
+            f.namespace
+                .select_predecessor_hook(
+                    &request,
+                    key("history-withdraw"),
+                    &f.nodes,
+                    &limits(),
+                    |_| {
+                        calls += 1;
+                        if calls == fail_at {
+                            Err(super::super::Error::Injected)
+                        } else {
+                            Ok(())
+                        }
+                    }
+                )
+                .is_err()
+        );
+        f.namespace = Namespace::open(&f.root(), &before).unwrap();
+        let state = f.namespace.source(&key("history")).unwrap().unwrap();
+        assert!(state.current.is_none() && state.pending.is_none());
+        assert_eq!(state.predecessors.len(), usize::from(fail_at == 5));
+        let receipt = f
+            .namespace
+            .select_predecessor(&request, key("history-withdraw"), &f.nodes, &limits())
+            .unwrap();
+        assert_eq!(receipt.replayed, fail_at == 5);
+        assert_eq!(f.namespace.checkpoint().sequence(), before.sequence() + 3);
+    }
+}
+
+#[test]
+fn atomic_predecessor_rejects_duplicate_phase_ids_and_effective_read_guard() {
+    let mut f = Fixture::new(true);
+    f.enroll("history", Kind::Branch);
+    let before = f.namespace.checkpoint();
+    let request = Select {
+        prepare: key("history-prepare"),
+        adopt: key("history-adopt"),
+        source: key("history"),
+        owner: key("owner"),
+        expected_revision: 1,
+        selection: f.old.clone(),
+    };
+    for duplicate in [request.prepare.clone(), request.adopt.clone()] {
+        assert_eq!(
+            f.namespace
+                .select_predecessor(&request, duplicate, &f.nodes, &limits()),
+            Err(Error::Journal(super::super::Error::Conflict))
+        );
+    }
+    let guard = f.namespace.fence(&f.a).unwrap();
+    assert_eq!(
+        f.namespace
+            .select_predecessor(&request, key("history-withdraw"), &f.nodes, &limits()),
+        Err(Error::Busy)
+    );
+    assert_eq!(f.namespace.checkpoint(), before);
+    drop(guard);
+    f.namespace
+        .select_predecessor(&request, key("history-withdraw"), &f.nodes, &limits())
+        .unwrap();
 }
 #[test]
 #[ignore = "requires TIG_BASELINE_SOURCE_CLI built from pinned pre-pair source"]

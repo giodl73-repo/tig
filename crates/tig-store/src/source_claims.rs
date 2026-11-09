@@ -839,8 +839,8 @@ impl SourceJournal {
     }
     fn apply_atomic_admitted(
         &mut self,
-        requests: &[Request; 2],
-        permit: &admission::PairPermit,
+        requests: &[Request],
+        permit: &admission::AtomicPermit,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Vec<Receipt>> {
         self.check_guarded_marker()?;
@@ -851,7 +851,7 @@ impl SourceJournal {
         self.mark_uncertain(&result);
         result
     }
-    /// One or two existing commands; no new event encoding or journal engine.
+    /// Up to three existing commands; no new event encoding or journal engine.
     fn apply_requests(
         &mut self,
         requests: &[Request],
@@ -871,8 +871,12 @@ impl SourceJournal {
             return Err(Error::NeedsRecovery);
         }
         if requests.is_empty()
-            || requests.len() > 2
-            || requests.len() == 2 && requests[0].operation == requests[1].operation
+            || requests.len() > 3
+            || requests.iter().enumerate().any(|(i, r)| {
+                requests[..i]
+                    .iter()
+                    .any(|prior| prior.operation == r.operation)
+            })
         {
             return Err(Error::Conflict);
         }

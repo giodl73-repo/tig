@@ -230,4 +230,6 @@ remain unchanged; historical receipt, current source/Git and custody are distinc
 SPEC-002/004/005/006/008/009/014 with owner-authorized exact partial historical
 root settlement. Existing tree edits and Enroll/Prepare/Adopt/Withdraw/Retire
 encodings preserve the unselected set under the same immutable policy class.
+Atomic three-command history adoption exposes no transient current selection;
+draft-only subset plan/effect design-2 supersedes design-1 before release.
 New experimental plan/profile/status records grant no payload deletion authority.

@@ -314,7 +314,6 @@ fn every_checkpoint_replays_without_dropping_survivors() {
     for stop in [
         Stage::MetadataFinished,
         Stage::Enrolled,
-        Stage::Selected,
         Stage::SurvivorProtected,
         Stage::BeforeRetire,
         Stage::Retired,
@@ -332,14 +331,7 @@ fn every_checkpoint_replays_without_dropping_survivors() {
             .unwrap_err(),
             Error::Injected
         );
-        assert_eq!(
-            f.demands(&f.b.clone()),
-            if matches!(stop, Stage::Selected) {
-                vec!["F", "M"]
-            } else {
-                vec!["D", "M"]
-            }
-        );
+        assert_eq!(f.demands(&f.b.clone()), vec!["D", "M"]);
         let status = f.apply(&p);
         assert!(status.settlement_current);
         let checkpoint = f.ns.checkpoint();
@@ -676,7 +668,7 @@ fn abrupt_exit_helper() {
 }
 #[test]
 fn real_process_exit_before_and_after_original_retirement_recovers() {
-    for stage in [Stage::Selected, Stage::SurvivorProtected, Stage::Retired] {
+    for stage in [Stage::Enrolled, Stage::SurvivorProtected, Stage::Retired] {
         let mut f = Fixture::new();
         let p = f.plan(&["delete", "shared"]);
         let saved = Saved {

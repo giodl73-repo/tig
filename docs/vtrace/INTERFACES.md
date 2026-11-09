@@ -130,7 +130,8 @@ authority. Default-disabled operator profiles do not authenticate external event
 IF-002/004/005/006/008/013 historical subset handoff, input63f2c96:
 [RETAINED-SUBSET](../../specs/RETAINED-SUBSET.md) exposes bounded generic
 source_claims::subset plan/inspect/apply and tig-source subset plan/status/apply/
-resume. Same-class survivor predecessor protection and transactional revision
+resume. Atomic Prepare/Adopt/Withdraw publishes same-class survivor predecessor
+protection without exposing artificial active use; transactional revision
 conditions precede original owner retirement. Metadata-offline status separates
 historical effects and currently observed claim state. No payload removal,
 automatic lifecycle selector or persistent source-event format is introduced.
