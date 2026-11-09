@@ -1,5 +1,16 @@
 # Evidence index
 
+EVID-108: conditional paged preparation and append-only inherited age,
+implementation2dd9990. [Review](../reviews/2026-11-09-paged-preparation.md)
+separates17 final paged entries,15 age entries including actual pinned old CLI,
+source/subset/bulk and fresh CLI checks, default/500k/standalone/strict Clippy,
+synthetic validation, trace and six producer lenses. Original pages freeze through
+future survivors; actual34-page and two-namespace receipts match predictions.
+Unselected aliases survive. All-feature/second500k/strict workspace Clippy passes;
+final17-entry feature focus also passes. Hosted checks remain pending. No durable
+paged controller, final-copy action or full acceptance
+is closed by this prerequisite.
+
 EVID-107: paged historical selection manifests, implementation3ee9ff3.
 [Review](../reviews/2026-11-09-paged-selection.md) separates eleven focused entries,
 ten independent framing cases, actual seventeen-root/1100-binding/source-peer/

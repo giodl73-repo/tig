@@ -8,7 +8,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/paged-execution, input47af6dc7d2f6d88fd54df54b97e537d7b608d122.
+- Active lane: feat/paged-execution, input47af6dc7d2f6d88fd54df54b97e537d7b608d122,
+  implementation2dd9990d22cdffa41442d9b168813e8c6598838d.
   specs/PAGED-EXECUTION.md controls the complete intended controller scope. Pending
   source adds append-only alternate inherited age proofs, exact historical survivor
   enrollment validation, pure conditional page planning over actual journal state,
@@ -36,10 +37,12 @@ source changes into running tools as a side effect. No startup cache operations.
   chain9715 terminates zero. Its test compilation preceded final readback tightening,
   which97302 qualifies separately. Fresh explicit bulk inspection/execution and
   ordinary pending-cancellation artifact checks pass (83737 terminal zero).
-  All-feature/strict Clippy chain78449 still runs on its distinct explicit target;
-  observe its handle to terminal, do not restart on observation timeout. Its test
-  compilation also preceded final readback tightening; run final all-feature paged
-  focus after it terminates. Hosted exact-head qualification remains required.
+  All-feature/second500k/strict workspace Clippy chain78449 terminates zero. Its
+  test compilation also preceded final readback tightening; final all-feature
+  paged focus70165 also terminates zero (17 entries). All local processes are
+  terminal; no target is live. EVID-108 and its six-producer review record
+  verification/validation/trace separately. Hosted exact-head
+  qualification remains required.
   Next: durably acknowledge the global decision and exact page intents before
   effects, revalidate only admitted owned history under source/final-provider
   fences, acknowledge actual page/age receipts, preserve original copy exclusions

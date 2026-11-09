@@ -1,5 +1,14 @@
 # Tig trace
 
+Paged conditional preparation: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-EXECUTION.md -> subset::plan_pages,
+paged::preparation, age append-only inheritance and shared bulk witness ->
+EVID-108/implementation2dd9990. [Review](../reviews/2026-11-09-paged-preparation.md)
+keeps prediction, actual subset receipts, future controller progress and full
+product/provider/lifetime/human acceptance separate.
+
 Paged historical selection: WP-003/004/006/007/008/009/013/015;
 REQ-001/002/003/004/005/006/007/009 ->
 SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,

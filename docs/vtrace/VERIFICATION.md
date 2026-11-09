@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-108/implementation2dd9990: final17 paged entries,15 age entries including the
+pinned old reader/writer and strict store Clippy pass. Default workspace/500k/
+standalone/strict Clippy and fresh bulk/ordinary-cancellation CLI checks pass.
+[Review](../reviews/2026-11-09-paged-preparation.md) identifies the earlier broad
+test compilation versus final readback tightening, its focused qualification and
+passing all-feature/second500k/strict Clippy and final17-entry feature focus.
+Hosted checks remain pending. No full controller or requirement closure.
+
 EVID-107/implementation3ee9ff3: eleven focused entries/ten independent framing
 cases, full default/all-feature/both500k, strict workspace Clippy/standalone and
 fresh ordinary/bulk/older-writer artifacts pass. The stronger local projection

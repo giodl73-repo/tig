@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 13760,
-      "sha256": "fda8b5299fba9a51f49663159f4f78c8ada0f56437d8fa160b87b5a9341a3f2f"
+      "bytes": 14449,
+      "sha256": "496a4630ae6e8697e21cd7de7f6f17f9966fe0cc09d98a1b8e4806b5eb7b5f0a"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 97476,
-      "sha256": "564890d4da6f51b990ed980299651c5c6f6f3039c6dd56002b590f6106cbf03d"
+      "bytes": 98197,
+      "sha256": "67c97a40015ccd6461b93a201577b0b5b93ba7b80f2894b5580f90eba839e7d2"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 128127,
-      "sha256": "8d4ba1a0e53f92b7d7de2582223b18c715c626e0ae0eaced69d8e3715f9d1dbb"
+      "bytes": 128678,
+      "sha256": "eb350f23ff81463e336faaf0efde1f82659c9b709b5abacbfc9558c0280dda2f"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 44508,
-      "sha256": "8e77c2f65254bfb471e2550c290cd03d6650a5c78d8d1dd7a6c9dd89a388d969"
+      "bytes": 45057,
+      "sha256": "ae6c44915dd68f1e6746a7810a6ceb48726958c03c201791a29a0574375e0d0d"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 30089,
-      "sha256": "d39a296d734b7b2735c3ed6cda8eaa55640200fc46a440354e47783cdff8ac07"
+      "bytes": 30529,
+      "sha256": "0d9e52a7b518c6b75c3e40f76d6df5af77feff6c78af2b8f0a7d79c49efeaebf"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 55155,
-      "sha256": "3b349aeac8c507258f78230e881453de998f04c103205a83c63899324146818a"
+      "bytes": 55711,
+      "sha256": "b579c05a465547d3d903ec35a9a3ee61691d40deba8e25c2b557a36f6131ec57"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 42200,
-      "sha256": "d58322f0770d2602abf39c396a95135abfabb4217d3a0a5ddf032bd7becd8c41"
+      "bytes": 42596,
+      "sha256": "3f324e7926d8ce3dcaa33c4b8d4dfbceafd4f5a006b81bcb9ecf4576fad15a49"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 45716,
+      "bytes": 45855,
       "path": "context/RESUME.md",
-      "sha256": "bef221ed2af15caa51262d692f2e865c412765b9f66f99bcadfe8ab89f8b740e"
+      "sha256": "325e3a9b52e3c3c7851250579617815cff9612d2fb282f73d999d6b227c790ed"
     },
     {
       "bytes": 16453,
@@ -2606,6 +2606,11 @@
       "path": "tests/vectors/paged-preparation.design-1.json",
       "bytes": 3364,
       "sha256": "a7f2e984f62c1c683605bef4b8c2b0b782032eed3dfb17cec7f2a64e0c5810be"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-paged-preparation.md",
+      "bytes": 8970,
+      "sha256": "58ddb587774eb531b58e20035145aca6617d5bde8d89460a0da6b60adb3548d3"
     }
   ]
 }

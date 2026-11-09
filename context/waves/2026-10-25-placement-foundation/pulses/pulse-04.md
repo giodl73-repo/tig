@@ -2,6 +2,16 @@
 
 Goal: Concurrency, recovery, custody, scratch and measured reclaim fixtures.
 
+Paged preparation checkpoint: input47af6dc, implementation2dd9990.
+PAGED-EXECUTION.md names WP/REQ/SPEC/IF/PKG controls and RUST/PROVIDER L0/L1/L2.
+EVID-108 separates prepared conditional plans, actual34-page/two-namespace source
+receipt comparisons and append-only age/old-reader-writer qualification from
+durable global/page execution and final-provider composition. Final focused,
+default/500k/standalone/fresh CLI checks pass. All-feature/second500k/strict
+workspace Clippy and final17-entry feature focus pass; hosted checks remain open.
+Source/docs ceiling8MiB preserves runtime and per-file bounds. No live operation,
+full pulse/requirement closure or human acceptance is implied.
+
 Status: in progress. WP-000 choose/defer discovery is recorded. WP-003 adds a
 bounded local publication subset: 24 test entries including a child helper,
 ten injected protocol boundaries and four actual abrupt process exits. Full

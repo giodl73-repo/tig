@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-108 rehearses parts of VAL-002/003/004 through persisted prepared metadata,
+actual34-page source settlement, independent namespace checkpoints, retained
+unselected aliases and observer-race-resistant inherited age. The
+[review](../reviews/2026-11-09-paged-preparation.md) distinguishes these direct
+subset fixtures from durable controller execution, final loss, real F/D/M
+convergence and human acceptance. All full VALs remain open.
+
 EVID-107 rehearses parts of VAL-002/003/004: a whole historical block spanning
 seventeen roots or1100 bindings retains exact identity and complete page coverage,
 while current/foreign/unselected protection and incomplete metadata remain holds.

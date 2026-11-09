@@ -39,6 +39,12 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [paged-execution entry](specs/PAGED-EXECUTION.md) now includes persisted
+conditional preparation through actual source-state simulation and append-only
+inherited age proofs. EVID-108 separates source receipt/projection/compatibility
+qualification from the durable global/page controller still to be composed.
+Prepared metadata and predicted checkpoints grant no approval or execution proof.
+
 The [paged-retirement contract](specs/PAGED-RETIREMENT.md) addresses NB-07's large
 shared-root selection. Its first layer freezes exact asset-side selection and
 hypothetical protection across the whole scope, then emits deterministic original-
