@@ -228,6 +228,22 @@ fn actual_hosted_oidc_reaches_foreground_receiver_without_payloads() {
         selection_enrollment: enrollment.id().unwrap(),
         placement_enrollment: config.id().unwrap(),
     };
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
+    let public_keys = github::http::Client::new(None, 30000)
+        .unwrap()
+        .keys(now, 300)
+        .unwrap();
+    github::verify(
+        &trust,
+        &public_keys,
+        &token,
+        &tig_git::source::GitId::parse(&env("GITHUB_SHA")).unwrap(),
+        now,
+    )
+    .unwrap_or_else(|error| panic!("live issuer verification refused: {error}"));
     let profile = root.path().join("receiver.json");
     fs::write(&profile,identity::canonical_json(&json!({"schema":"tig.github-receiver.design-1","trust":trust,"enrollment":enrollment,"namespace":{"root":namespace_root,"minimum":namespace.checkpoint()},"metadata_root":metadata_root,"metadata_minimum":metadata_minimum,"placement_profile":storage_path,"api_token_env":"GITHUB_TOKEN","listen":"127.0.0.1:0","budget":{"pages":1,"objects":32,"stream_bytes":1024,"millis":180000},"max_connections":1,"allow_receive":true,"allow_selection":true})).unwrap()).unwrap();
     let executable = env!("CARGO_BIN_EXE_tig-trigger");
@@ -278,8 +294,8 @@ fn actual_hosted_oidc_reaches_foreground_receiver_without_payloads() {
     let value: Value = serde_json::from_str(response.split_once("\r\n\r\n").unwrap().1).unwrap();
     let code = match value["code"].as_str() {
         Some(
-            "invalid" | "budget" | "trust" | "key" | "signature" | "claims" | "clock" | "expired"
-            | "stale" | "unavailable" | "disabled" | "denied",
+            "invalid_request" | "budget" | "authority" | "unauthorized" | "stale" | "unavailable"
+            | "disabled",
         ) => value["code"].as_str().unwrap(),
         _ => "no_static_error_code",
     };

@@ -2128,8 +2128,8 @@
       "path": "crates/tig-git/tests/github.rs"
     },
     {
-      "sha256": "d3483a1faec63112bc57569e5923c2deeedb818abc941f807dc300f22f131e9f",
-      "bytes": 11479,
+      "sha256": "112cc0adbf5cde68fbe7d2c1bd50d1559be6c41c456799d76a21cf9e0c963605",
+      "bytes": 11936,
       "path": "crates/tig-git/tests/github_real.rs"
     },
     {
