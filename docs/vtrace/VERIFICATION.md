@@ -1,5 +1,15 @@
 # Verification record
 
+EVID-101/implementationada8b21: twenty-five placement and sixteen protection
+entries pass, including independent legacy/roster binding identity, real remote
+job fencing, actual three-store demotion/reacquisition, additive/hard policy,
+missing membership/closure, conflicting sizes and aggregate budget refusal.
+Locked default/all-feature workspace suites, both500k fixtures, strict Clippy,
+standalone Git, explicit fresh CLI cancellation and pinned pre-change reader
+refusal/legacy control pass. No runtime changed afterada8b21. Exact commands and
+limits: [roster review](../reviews/2026-11-09-roster-precedence.md). Hosted exact
+head, independent review and full REQ/VAL outcomes remain separate.
+
 EVID-100 verifies bounded bulk runtime atfe073a6 and read-only action binding at
 f999e3a. Sixteen focused entries, six independent canonical vectors, ten actual
 child exits, same-batch peer exclusion, another batch's concurrent progress and

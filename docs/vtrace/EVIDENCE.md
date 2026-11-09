@@ -1,5 +1,17 @@
 # Evidence index
 
+EVID-101: explicit roster-wide advisory history precedence, implementationada8b21,
+corrects PL-01 for fresh opted-in groups. [Producer review](../reviews/2026-11-09-roster-precedence.md)
+records six lenses, controls and exact commands. Twenty-five placement entries,
+sixteen protection entries, two independent binding hashes, real peer Busy77/
+success78 and actual three-store job-start/end transitions pass. Explicit pinned
+old-writer qualification accepts legacy and refuses final-capable/roster roots.
+Locked default/all-feature workspace suites (both500k), strict Clippy, standalone
+Git and fresh ordinary-retirement CLI cancellation pass; no implementation change
+afterada8b21. Legacy behavior, hard/additive obligations and final membership
+clearance remain. Hosted exact-head and native/provider/authority/lifetime/human
+acceptance remain separate; the full goal is incomplete.
+
 EVID-100: bounded bulk final retirement, implementationfe073a6 and public
 action-binding correctivef999e3a. Exact controls, commands, six producer findings
 and scope are in [bulk review](../reviews/2026-11-09-bulk-retirement.md).

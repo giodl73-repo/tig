@@ -1,5 +1,12 @@
 # Tig controlled specification baseline
 
+SPEC-004/008/009 explicit group profile:
+[roster precedence](../../specs/ROSTER-PRECEDENCE.md), EVID-101 and
+[six-producer review](../reviews/2026-11-09-roster-precedence.md) cover fresh
+roster-scope bindings and design-2 placement. Advisory history resolves against
+active use across the admitted group in both planning and live assessment;
+hard/additive obligations and legacy scope remain. Full adoption stays open.
+
 Input: 0a9a522, 13 pure handoff tests. `current` means observed experimental
 behavior, not released compatibility. `target` is controlled design with open
 implementation/validation. `unknown` decisions must be resolved or action-scoped

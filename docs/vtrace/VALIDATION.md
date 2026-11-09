@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-101 rehearses bounded VAL-002/003/004: a job in another enrolled namespace
+restores F and removes advisory D; withdrawing it restores D and removes F while
+M remains. A real peer cannot remove the active-use basis while assessment is
+held. Hard/additive obligations remain; legacy namespace-local behavior stays
+separate. [Roster review](../reviews/2026-11-09-roster-precedence.md) limits this
+to fresh explicit synthetic enrollments. No actual native/provider/clock/authority,
+large-file/lifetime, operator UX or human acceptance is established.
+
 EVID-100 contributes bounded synthetic VAL-002/003/004 rehearsal: exact blocks
 across historical predecessors preserve shared/current job uses and unselected
 siblings; durable intent precedes source settlement; interruption/cancellation

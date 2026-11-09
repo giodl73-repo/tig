@@ -8,18 +8,30 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/roster-placement, input106f6f5 (PR #31 head at entry).
+- Active lane: feat/roster-placement, input106f6f5 (PR #31 head at entry),
+  implementationada8b21.
   PL-01 cross-namespace advisory precedence uses fresh explicit roster-scope
   bindings and distinct design-2 placement enrollment. Existing namespace-local
   bindings keep their bytes/identity and behavior. Planning and guarded ordinary
   eviction share raw active/history/retained buckets; all subject fences hold
   remote active use through removal. Hard retention and additive policies survive.
-  Read specs/ROSTER-PRECEDENCE.md. Qualification/closeout in progress; no live
-  upgrade or source merge. Full-product/native/operator/lifetime gates remain.
+  Read specs/ROSTER-PRECEDENCE.md. Twenty-five placement entries (one helper),
+  sixteen store-protection entries, actual peer Busy77/success78, independent
+  legacy/roster binding hashes and explicit pinned old-writer refusal pass.
+  Locked default/all-feature workspace suites (both500k metadata fixtures),
+  strict Clippy, standalone Git and fresh ordinary-retirement CLI cancellation
+  pass. EVID-101 records separate verification/validation/trace/six-producer
+  closeout. No implementation changed afterada8b21; no live upgrade or merge.
+  Next: stacked draft PR against feat/bulk-retirement (#31), exact-head hosted
+  qualification, then bulk operator/agent/native selection and admitted clock/
+  authority integration. Full-product/provider/lifetime/human gates remain.
 
 - Previous lane: feat/bulk-retirement, input4478207, implementationfe073a6,
   public action binding/test correctivef999e3a.
   Draft PR #31 stacks on feat/final-provider (#30); evidence closeoute621381.
+  Subsequent head106f6f5 passes Validate42584753189: Windows15m30s,
+  Linux6m5s and secrets5s; PR #31 is ready for review, unmerged. The initial
+  scanner download failure below is historical and superseded by that result.
   Initial hosted run42584582005: foundation jobs running at inspection; secrets
   failed while downloading the pinned scanner (HTTP504), before any scan. This
   is not a detected secret or a completed qualification. Derive new-head state

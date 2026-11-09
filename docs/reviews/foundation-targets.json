@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 9720,
-      "sha256": "9b0737f90eba8a0615b1fbdf340f0f6c70fc9f54630f98f3bc63ce63d56be2ca"
+      "bytes": 10180,
+      "sha256": "163d88734ec28e72e7624f48a37c511680d0c3009f7c4bf26345710a6e7e642b"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 89972,
-      "sha256": "10849d97c399e65eec3d50b322c24eaddc10e4d7a5d2cbda2ce3fa1426c0d1a8"
+      "bytes": 90859,
+      "sha256": "a6cf3b207dd3581991c78bbe1797e8ebdaf0ba4e3ba59c7e6bef3414418304d8"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 124386,
-      "sha256": "5d1d690b6495ba0f389ae9df8eb0aadb4379067cb58e5827da17b89fc2e539ff"
+      "bytes": 125027,
+      "sha256": "95240dd193ac60284582b35a1d160e7f6803960e00ade1bdaf4af48d2e905556"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 19318,
-      "sha256": "5f90a899ce4fc902ca2fe7fe7d836ede9c4b9aad1082f56f8c1536f88a22e058"
+      "bytes": 19738,
+      "sha256": "8a5b343ca4e7c2bd2c95d558d11944e33bdae5a2a4aabbe6e9f68d156fefa184"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 40007,
-      "sha256": "14caf31f4ef6b2df3a91c66a5dc232467e3b002d9183591712abfe21bdbbb5c2"
+      "bytes": 40653,
+      "sha256": "dfd1512f097f848c5793705a9633d7b4f0351910edb102e95b106384235ac91d"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 26043,
-      "sha256": "4ba331cc48ad52ff2054889bc63407e2bfe1c04c8bee324cfcb94fb56961849d"
+      "bytes": 26596,
+      "sha256": "a52ac531e40d5f61a1b44b40b0a7e5131282729d7bee48471a0c17d7d3b27b49"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 49881,
-      "sha256": "b2ca4565e5a3a2d37563319255530af690d635c7ff0a77635e7f187d37b3a80b"
+      "bytes": 50580,
+      "sha256": "e2e8686500f623b61c0168b88eb84c0c40f766c4cf7e17109505cc4ed5b35d5f"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 27219,
+      "bytes": 28086,
       "path": "context/RESUME.md",
-      "sha256": "5e2e9485311b7e58174e813fc56f5de1c6132639734bedf8e083bff8e8e5f277"
+      "sha256": "0ccf883a29499e45633c93defc2d64ca376777ef06d83f8dd4b833870001e12c"
     },
     {
       "bytes": 16453,
@@ -2376,6 +2376,11 @@
       "path": "specs/ROSTER-PRECEDENCE.md",
       "bytes": 3957,
       "sha256": "08c38b77a787f057a54ff7b99bf3acaaf8b4d9e3f3a50dddcec34379d2fe0eee"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-roster-precedence.md",
+      "bytes": 7206,
+      "sha256": "0212a7fce9ee593a59c0fa22333f7ee4c6241872da0e5d12372da0fd1593888c"
     }
   ]
 }

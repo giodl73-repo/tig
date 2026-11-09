@@ -1,5 +1,12 @@
 # Tig maintainer context
 
+Explicit fresh roster-scope bindings and design-2 placement enrollment now
+resolve advisory history against active use across admitted namespaces. Planner
+and live ordinary-retirement assessment share that rule; hard/additive retention
+survives. Legacy namespace-local scope remains unchanged. EVID-101 and
+specs/ROSTER-PRECEDENCE.md bound this synthetic qualification; live migration,
+native/provider/clock/authority/lifetime and human adoption remain open.
+
 This repository is the development source of truth. A new session can start here
 without an older consumer-repository conversation. Follow docs/DEVELOPMENT.md and
 context/RESUME.md; PRODUCT_PLAN.md orders the next product slices. Git/PR checks

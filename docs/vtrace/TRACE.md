@@ -1,5 +1,15 @@
 # Tig trace
 
+PL-01 correction for explicit groups: WP-004/006/007/009;
+REQ-002/003/004/005/009 -> SPEC-004/008/009, IF-004/006/012,
+PKG-002/003/008 -> ROSTER-PRECEDENCE.md -> binding HistoryScope,
+admission::roster, design-2 placement and shared live assessment -> twenty-five
+placement/sixteen protection entries, real peer and three-store transitions,
+independent binding hashes and pinned old-reader refusal -> EVID-101,
+implementationada8b21. [Review](../reviews/2026-11-09-roster-precedence.md)
+keeps compatibility, verification, synthetic validation and six producer lenses
+separate from live migration/provider/authority/lifetime and full acceptance.
+
 Bulk composition: WP-003/004/006/007/008/009/013/015;
 REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
 IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->

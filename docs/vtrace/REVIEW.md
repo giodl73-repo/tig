@@ -1,5 +1,14 @@
 # Foundation review
 
+Roster precedence review, input106f6f5/implementationada8b21: RP-01..06 in
+[roster review](../reviews/2026-11-09-roster-precedence.md) apply six producer
+lenses. PL-01 is addressed for explicit fresh roster groups: same raw bucket rule
+drives planner and fenced ordinary assessment, with hard/additive requirements
+preserved. EVID-101 records full local qualification separately from implementation.
+Pass_with_risk for that scope; legacy namespace behavior stays unchanged. Hosted
+exact-head, independent/human review and full provider/authority/lifetime acceptance
+remain open. No live migration, merge or deployment authority is implied.
+
 Bulk-retirement review, input4478207, implementationfe073a6 and public accessor/
 test correctivef999e3a: BR-01..06 in
 [bulk review](../reviews/2026-11-09-bulk-retirement.md) apply all six producer
