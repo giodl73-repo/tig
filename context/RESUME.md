@@ -29,10 +29,15 @@ source changes into running tools as a side effect. No startup cache operations.
   22223/15766 terminated zero. Later review strengthened genuine Production-only
   output refusal and wrong-revision negatives; final eight-entry focus/strict
   Clippy passes (48378 terminal zero). Runtime remains00c229d. EVID-105 records
-  separate verification/validation/trace/six producer review. Hosted checks pending.
-  No live roots, migration or source adoption is inferred. Next: final source
-  qualification, separate verification/validation/trace/six producer closeout and
-  stacked draft against feat/bulk-execution (#35), then durable age witnesses.
+  separate verification/validation/trace/six producer review. Implementation00c229d,
+  closeout95cf813. PR #36 is OPEN/draft against feat/bulk-execution (#35); derive
+  its current head and hosted run before readying it. Hosted checks are pending.
+  No live roots, migration or source adoption is inferred. Next: hosted exact-head
+  qualification, then freeze/implement durable age witness and paged historical
+  settlement semantics. Native age capture must use actual source observation
+  followed by the admitted clock, not timestamp data supplied by a portable plan.
+  Evaluate an enrolled existing source-journal root over an asset-side Tree of
+  immutable observations; bound retries/recovery and preserve trusted minima.
   NB-07 adds an entry gate: more historical aliases than MAX_ROOTS keep every
   bounded final page held. Freeze exact global consent and separately authorised
   historical-claim-only settlement before paged final deletion; do not silently
