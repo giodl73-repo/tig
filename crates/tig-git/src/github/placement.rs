@@ -95,6 +95,20 @@ fn selection_error(error: lifecycle::Error) -> Error {
         _ => Error::Unavailable,
     }
 }
+fn selected_now(
+    namespaces: &mut [Namespace],
+    enrollment: &Enrollment,
+    plan: &lifecycle::Plan,
+) -> Result<lifecycle::Status> {
+    let namespace = namespaces
+        .iter_mut()
+        .find(|n| n.identity() == &enrollment.namespace)
+        .ok_or(Error::Trust)?;
+    let mut status =
+        lifecycle::inspect_selection(enrollment, namespace, plan).map_err(selection_error)?;
+    status.observed_ref_current = Some(true);
+    Ok(status)
+}
 impl<S: ByteSource> Execution<'_, '_, S>
 where
     S::Reader: 'static,
@@ -159,10 +173,10 @@ where
             metadata: self.metadata,
             allow_selection: true,
         };
-        let plan = selection
+        let selection_plan = selection
             .plan(Some(self.request.commit()))
             .map_err(selection_error)?;
-        let selected = selection.apply(&plan).map_err(selection_error)?;
+        let selected = selection.apply(&selection_plan).map_err(selection_error)?;
         let mut report = Report {
             schema: "tig.github-placement-report.design-1",
             provenance: self.request.provenance.clone(),
@@ -210,6 +224,20 @@ where
                 }
                 Err(e) => {
                     report.hold(Hold::Admission(selection_error(e)));
+                    break;
+                }
+            }
+            match selected_now(self.namespaces, self.enrollment, &selection_plan) {
+                Ok(status) => {
+                    report.selection = status;
+                    if !report.selection.desired_current {
+                        report.hold(Hold::Admission(Error::Stale));
+                        report.next = None;
+                        break;
+                    }
+                }
+                Err(error) => {
+                    report.hold(Hold::Admission(error));
                     break;
                 }
             }
@@ -314,6 +342,19 @@ where
                 if &current != self.request.commit() {
                     report.hold(Hold::Admission(Error::Stale));
                     break;
+                }
+                match selected_now(self.namespaces, self.enrollment, &selection_plan) {
+                    Ok(status) => {
+                        report.selection = status;
+                        if !report.selection.desired_current {
+                            report.hold(Hold::Admission(Error::Stale));
+                            break;
+                        }
+                    }
+                    Err(error) => {
+                        report.hold(Hold::Admission(error));
+                        break;
+                    }
                 }
                 report.storage_converged = if complete && report.holds.is_empty() {
                     if cursor.is_none() { Some(true) } else { None }

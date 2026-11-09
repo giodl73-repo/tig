@@ -45,6 +45,13 @@ focused entries (one child helper/two abrupt exits) pass; EVID-095 separately re
 passing local broad qualification, synthetic validation, trace and producer review.
 Hosted current-head qualification remains separate. No hook or live cache is attached.
 
+Owned source settlement is in progress under SOURCE-SETTLEMENT.md: local branch
+absence and an adopted committed successor can authorize withdrawal of only the
+owned current source, preserving predecessors. Bounded source-revision conditions
+are checked in the existing transaction; event bytes are unchanged. Shared local
+storage preflight and fresh admitted-source observations prevent false convergence.
+Focused checks pass; broad qualification and separate closeout remain pending.
+
 Existing-byte readers and explicit local publication/restore/retention primitives
 have bounded fixture evidence. The first tig-store orchestration slice composes
 input-bound plans and source-preserving copy/retention with an explicit tig-storage
@@ -92,7 +99,7 @@ evidence SHAs in documentation identify original checkpoints; they are not
 promises that those commits exist in public history. Port reviewed generic
 patches rather than importing private ancestry. See docs/PUBLIC-RELEASE.md.
 
-Source/docs remain below 5 MiB, individual files below 128 KiB. No media, builds,
+Source/docs remain below 6 MiB, individual files below 128 KiB. No media, builds,
 runtime databases, inventories, raw receipts or private fixtures in Git.
 Use explicit build/temp roots. No portfolio/renderer checkout is a runtime
 dependency. Vendored checkers retain source pins/licenses; see docs/INTAKE.md

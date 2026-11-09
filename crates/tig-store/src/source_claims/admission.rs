@@ -20,6 +20,13 @@ use tig_core::{
 };
 
 pub const PARTITIONS: usize = 256;
+/// Ephemeral admission predicate, not a new journal record or retention grant.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SourceCondition {
+    pub source: Key,
+    pub revision: u64,
+}
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Error {
     Journal(super::Error),
@@ -146,9 +153,13 @@ fn locks(root: &Path, parts: &BTreeSet<usize>, exclusive: bool) -> Result<Locks>
 pub(super) struct Permit {
     authority: Digest,
     request: Digest,
+    conditions: Vec<SourceCondition>,
     _locks: Locks,
 }
 impl Permit {
+    pub(super) fn conditions(&self) -> &[SourceCondition] {
+        &self.conditions
+    }
     pub(super) fn matches(
         &self,
         authority: &Digest,
@@ -490,6 +501,28 @@ impl Namespace {
     ) -> Result<Receipt> {
         self.apply_hook(operation, command, nodes, limits, |_| Ok(()))
     }
+    pub fn apply_if_sources(
+        &mut self,
+        operation: Key,
+        command: Command,
+        conditions: &[SourceCondition],
+        nodes: &impl NodeStore,
+        limits: &Limits,
+    ) -> Result<Receipt> {
+        self.apply_if_hook(operation, command, conditions, nodes, limits, |_| Ok(()))
+    }
+    /// Historical receipt only; conditions are never re-granted by inspection.
+    pub fn command_status(&mut self, operation: Key, command: Command) -> Result<Option<Receipt>> {
+        self.journal.check_guarded_marker()?;
+        match self
+            .journal
+            .apply_once(operation, command, true, |_| Ok(()))
+        {
+            Ok(receipt) => Ok(Some(receipt)),
+            Err(super::Error::Missing) => Ok(None),
+            Err(error) => Err(error.into()),
+        }
+    }
     /// Exact historical recovery; no commands are appended and no tree IO occurs.
     pub fn selection_status(&mut self, selection: &Select) -> Result<Option<Receipt>> {
         self.journal.check_guarded_marker()?;
@@ -567,6 +600,25 @@ impl Namespace {
         limits: &Limits,
         hook: impl FnMut(Stage) -> super::Result<()>,
     ) -> Result<Receipt> {
+        self.apply_if_hook(operation, command, &[], nodes, limits, hook)
+    }
+    fn apply_if_hook(
+        &mut self,
+        operation: Key,
+        command: Command,
+        conditions: &[SourceCondition],
+        nodes: &impl NodeStore,
+        limits: &Limits,
+        hook: impl FnMut(Stage) -> super::Result<()>,
+    ) -> Result<Receipt> {
+        if conditions.len() > 8
+            || conditions.iter().any(|c| c.revision == 0)
+            || conditions
+                .windows(2)
+                .any(|pair| pair[0].source.as_str() >= pair[1].source.as_str())
+        {
+            return Err(super::Error::Conflict.into());
+        }
         let start = Instant::now();
         limits.validate().map_err(|_| Error::Budget)?;
         self.journal.check_guarded_marker()?;
@@ -582,6 +634,15 @@ impl Namespace {
             PreviewDisposition::Recorded { receipt } => return Ok(receipt),
             PreviewDisposition::Proposed { before, after } => (before, after),
         };
+        if conditions.iter().any(|c| {
+            self.journal
+                .state
+                .sources
+                .get(c.source.as_str())
+                .is_none_or(|s| s.revision != c.revision)
+        }) {
+            return Err(super::Error::Stale.into());
+        }
         let mut work = Work::new(nodes, limits, start)?;
         let policy = self.policy();
         let before = match &before {
@@ -606,6 +667,7 @@ impl Namespace {
         let permit = Permit {
             authority: self.identity().clone(),
             request: Digest::blob(&super::encode(&request)?),
+            conditions: conditions.to_vec(),
             _locks: held,
         };
         Ok(self

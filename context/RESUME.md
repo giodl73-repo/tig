@@ -8,8 +8,27 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/index-lifecycle, input195bd0a, implementation51dd2b2,
-  stacked draft PR #26. Read
+- Active uncommitted lane: feat/source-settlement, input9c2a29f. Read
+  specs/SOURCE-SETTLEMENT.md for controls/entry/exit. New library/CLI compose owned
+  branch-absence and staged/adopted-successor withdrawal with existing placement.
+  SourceCondition gates (max eight) recheck source revisions inside the existing
+  transaction without new event bytes. Three admission cases pass (31 active
+  admission entries, one ignored qualifier), and all-feature focused Git library
+  (38), index/settlement (27, two helpers/four actual exits) and lifecycle (13)
+  pass. Shared private storage preflight and current-source checks prevent an
+  unchanged ref from falsely implying convergence after source settlement.
+  Default/all-feature workspace suites are running in separate external targets;
+  final strict Clippy/standalone/L0 and artifact qualification remain to finish.
+  Source/docs cap is now 6 MiB, per-file 128 KiB and runtime/media exclusion
+  unchanged; required generic controllers/tests/review growth exhausted headroom.
+  Next: inspect live checks, publish implementation, close EVID-096 verification/
+  validation/trace/six producer lenses separately and inspect current-head CI.
+  No live cache/hook/consumer is attached. Full event routing, durable rename/
+  controller revocation, native/private coverage and final-deletion/metadata/
+  authority/provider/large-file/lifetime/user acceptance remain open.
+
+- Previous lane: feat/index-lifecycle, input195bd0a, implementation51dd2b2,
+  PR #26 ready at9c2a29f after hosted run42549837195 Windows/Linux/secrets pass. Read
   specs/INDEX-LIFECYCLE.md for GIT/PROVIDER controls/scope/entry/exit. Default
   lifecycle::index/tig-lifecycle index compose exact staged pointer obligations,
   finished/read-back metadata, existing atomic source adoption and one existing
@@ -23,10 +42,9 @@ source changes into running tools as a side effect. No startup cache operations.
   explicitly executed artifact qualifiers and portable L0 pass. Do not overlap
   builds against a target under CLI tests. No source journal/event format changed.
   EVID-095 separately records verification/validation/trace/six producer lenses.
-  Hosted run42549064931 at51dd2b2 passes Linux/secrets with Windows still pending;
-  closeout creates another head, so derive current PR/run state before qualification.
-  Next: inspect exact current-head hosted checks; retain the draft until they pass,
-  then continue the remaining lifecycle/source settlement and full plan. No live cache,
+  Hosted closeout run42549837195 at9c2a29f passes Windows/Linux/secrets; PR #26
+  was marked ready only after those checks passed. Derive later merge state live.
+  Source settlement and the remaining full plan continue in the active lane. No live cache,
   hook or consumer is attached. Branch withdrawal/rename, automatic commit/draft
   settlement, private overlays/native closure, provider/large-file/authority/
   lifetime, final deletion, metadata expiry and user acceptance remain open.

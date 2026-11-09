@@ -1,4 +1,6 @@
 mod common;
+#[path = "index_lifecycle/settlement_cases.rs"]
+mod settlement_cases;
 #[path = "index_lifecycle/store_cases.rs"]
 mod store_cases;
 use common::{command, git, git_executable, key};

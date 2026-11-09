@@ -803,7 +803,14 @@ impl SourceJournal {
         )? {
             return Err(Error::AdmissionRequired);
         }
-        let result = self.apply_once(operation, command, false, hook);
+        let result = self
+            .apply_requests_if(
+                &[Request { operation, command }],
+                false,
+                permit.conditions(),
+                hook,
+            )
+            .and_then(|mut receipts| receipts.pop().ok_or(Error::Corrupt));
         self.mark_uncertain(&result);
         result
     }
@@ -848,6 +855,15 @@ impl SourceJournal {
         &mut self,
         requests: &[Request],
         recorded_only: bool,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
+        self.apply_requests_if(requests, recorded_only, &[], hook)
+    }
+    fn apply_requests_if(
+        &mut self,
+        requests: &[Request],
+        recorded_only: bool,
+        conditions: &[admission::SourceCondition],
         mut hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Vec<Receipt>> {
         if self.poisoned {
@@ -886,6 +902,14 @@ impl SourceJournal {
         }
         if recorded_only {
             return Err(Error::Missing);
+        }
+        if conditions.iter().any(|c| {
+            state
+                .sources
+                .get(c.source.as_str())
+                .is_none_or(|s| s.revision != c.revision)
+        }) {
+            return Err(Error::Stale);
         }
         // Admit the complete group before its first append. One remaining event
         // slot is not room for an atomic Prepare/Adopt pair.

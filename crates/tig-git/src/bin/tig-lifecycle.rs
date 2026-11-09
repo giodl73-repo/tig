@@ -1,10 +1,14 @@
 //! Explicit trusted operator entry, not an authenticated GitHub webhook receiver.
 #[path = "lifecycle/index.rs"]
 mod index_cli;
+#[path = "lifecycle/local_placement.rs"]
+mod local_placement;
 #[path = "lifecycle/placement.rs"]
 mod placement_cli;
 #[path = "lifecycle/profiles.rs"]
 mod profiles;
+#[path = "lifecycle/settlement.rs"]
+mod settlement_cli;
 use serde::Deserialize;
 use serde_json::{Value, json};
 use std::{
@@ -102,7 +106,7 @@ fn run() -> Result<Value, &'static str> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.git-lifecycle-interface.design-1","profile_schema":"tig.git-lifecycle-profile.design-1","request_schema":"tig.git-lifecycle-request.design-1","source_format":"git_lfs_pointers","index_profile_schema":"tig.git-index-profile.design-1","index_operations":["index plan PROFILE","index status PROFILE PLAN","index apply PROFILE PLAN","index resume PROFILE PLAN","index reconcile PROFILE PLACEMENT_PROFILE [CURSOR]"],"operations":["plan PROFILE REQUEST","status PROFILE PLAN","apply PROFILE PLAN","resume PROFILE PLAN","reconcile PROFILE REQUEST PLACEMENT_PROFILE [CURSOR]"],"selection_only":false,"selection_commands":["plan","status","apply","resume"],"physical_reconciliation":true,"storage_converged":null,"default_selection":false,"authenticates_webhooks":false,"initializes_providers":false}),
+            json!({"schema":"tig.git-lifecycle-interface.design-1","profile_schema":"tig.git-lifecycle-profile.design-1","request_schema":"tig.git-lifecycle-request.design-1","source_format":"git_lfs_pointers","settlement_profile_schema":"tig.source-settlement-profile.design-1","settlement_operations":["settle plan PROFILE","settle status PROFILE PLAN","settle apply PROFILE PLAN","settle resume PROFILE PLAN","settle reconcile PROFILE PLACEMENT_PROFILE [CURSOR]"],"index_profile_schema":"tig.git-index-profile.design-1","index_operations":["index plan PROFILE","index status PROFILE PLAN","index apply PROFILE PLAN","index resume PROFILE PLAN","index reconcile PROFILE PLACEMENT_PROFILE [CURSOR]"],"operations":["plan PROFILE REQUEST","status PROFILE PLAN","apply PROFILE PLAN","resume PROFILE PLAN","reconcile PROFILE REQUEST PLACEMENT_PROFILE [CURSOR]"],"selection_only":false,"selection_commands":["plan","status","apply","resume"],"physical_reconciliation":true,"storage_converged":null,"default_selection":false,"authenticates_webhooks":false,"initializes_providers":false}),
         );
     }
     if args.first().is_some_and(|a| a == "reconcile") {
@@ -110,6 +114,9 @@ fn run() -> Result<Value, &'static str> {
     }
     if args.first().is_some_and(|a| a == "index") {
         return index_cli::run(&args);
+    }
+    if args.first().is_some_and(|a| a == "settle") {
+        return settlement_cli::run(&args);
     }
     if args.len() != 3 {
         return Err("usage");

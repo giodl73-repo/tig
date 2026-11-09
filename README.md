@@ -182,6 +182,8 @@ adoption require separate qualification.
 Explicit [staged-index protection](specs/INDEX-LIFECYCLE.md) adds
 `tig-lifecycle index` plan/status/apply/resume/reconcile. Conflict alternatives
 remain draft byte obligations, with no merged-version or storage-convergence claim.
+Explicit [source settlement](specs/SOURCE-SETTLEMENT.md) adds `tig-lifecycle settle`
+for owned branch-end and staged-to-committed handoff, preserving retained history.
 
 ## Learn and contribute
 

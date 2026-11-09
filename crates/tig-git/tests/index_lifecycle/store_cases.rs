@@ -10,12 +10,12 @@ use tig_store::{
     source_claims::{Selection, admission::Select},
     store_protection::{Binding, Member},
 };
-struct Storage {
-    path: PathBuf,
-    stores: Vec<LocalStore>,
+pub(super) struct Storage {
+    pub(super) path: PathBuf,
+    pub(super) stores: Vec<LocalStore>,
 }
 impl Storage {
-    fn new(f: &Fixture) -> Self {
+    pub(super) fn new(f: &Fixture) -> Self {
         let mut stores = Vec::new();
         let mut providers = Vec::new();
         let mut roots = Vec::new();
@@ -103,7 +103,7 @@ impl Storage {
         fs::write(&path,identity::canonical_json(&json!({"schema":"tig.placement-profile.design-1","config":config,"namespaces":[{"root":f.temp.path().join("namespace"),"minimum":f.namespace.checkpoint()}],"providers":roots,"byte_source":byte_source,"allow_copy":true,"allow_eviction":true,"allow_reacquisition":true,"allow_cancellation":true})).unwrap()).unwrap();
         Self { path, stores }
     }
-    fn has(&self, store: usize, bytes: &[u8]) -> bool {
+    pub(super) fn has(&self, store: usize, bytes: &[u8]) -> bool {
         self.stores[store]
             .read_object(&Object::from_bytes(bytes))
             .is_ok()

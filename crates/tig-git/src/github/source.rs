@@ -568,6 +568,10 @@ mod tests {
     fn repeated_signed_request_reuses_original_selection_and_placements() {
         signed_reconciliation_case("retry");
     }
+    #[test]
+    fn settled_source_cannot_claim_convergence_merely_because_github_ref_is_unchanged() {
+        signed_reconciliation_case("withdrawn");
+    }
     fn signed_reconciliation_case(mode: &str) {
         use crate::github::{
             fixture::Fixture,
@@ -791,12 +795,18 @@ mod tests {
         match mode {
             "expired" | "clock" | "outage" => replies.truncate(18),
             "advanced" => replies[21]["object"]["sha"] = json!("e".repeat(40)),
+            "withdrawn" => replies.truncate(20),
             "pagebudget" => replies.truncate(22),
             _ => {}
         }
         let expected_requests = replies.len();
         let retry_replies = replies.clone();
         let (client, server) = peer(replies);
+        let namespace_minimum = ns.checkpoint();
+        let metadata_minimum = metadata.checkpoint();
+        let namespace_root = temp.path().join("namespace");
+        let metadata_root = temp.path().join("metadata");
+        let admission_limits = config.budget.limits.clone();
         let mut namespaces = vec![ns];
         let mut locals = stores
             .iter()
@@ -849,6 +859,26 @@ mod tests {
                             let mut calls = 0;
                             move || {
                                 calls += 1;
+                                if mode == "withdrawn" && calls == 2 {
+                                    let mut peer =
+                                        Namespace::open(&namespace_root, &namespace_minimum)
+                                            .unwrap();
+                                    let meta =
+                                        MetadataStore::open(&metadata_root, &metadata_minimum)
+                                            .unwrap();
+                                    let current = peer.source(&key("main")).unwrap().unwrap();
+                                    peer.apply(
+                                        key("fixture-withdrawal"),
+                                        Command::Withdraw {
+                                            source: key("main"),
+                                            owner: key("owner"),
+                                            expected_revision: current.revision,
+                                        },
+                                        &meta.finished_reader().unwrap(),
+                                        &admission_limits,
+                                    )
+                                    .unwrap();
+                                }
                                 Ok(match (mode, calls) {
                                     ("expired", 2..) => 1300,
                                     ("clock", 2..) => 1000,
@@ -872,7 +902,7 @@ mod tests {
             serde_json::from_str(response.split_once("\r\n\r\n").unwrap().1).unwrap();
         assert_eq!(response["authenticated"], true);
         let report = &response["result"];
-        assert_eq!(report["selection"]["desired_current"], true);
+        assert_eq!(report["selection"]["desired_current"], mode != "withdrawn");
         let copied = matches!(
             mode,
             "complete" | "advanced" | "paged" | "pagebudget" | "retry"
@@ -906,7 +936,7 @@ mod tests {
             let reason = match mode {
                 "expired" => "expired",
                 "clock" => "clock",
-                "advanced" => "stale",
+                "advanced" | "withdrawn" => "stale",
                 "outage" => "unavailable",
                 "pagebudget" => "budget",
                 _ => unreachable!(),

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6840,
-      "sha256": "9d8506fa909b62f220be598e22395b95b9792156a590ab559508236cd357e0b7"
+      "bytes": 7327,
+      "sha256": "25c64225339dc1f642b23f60987ecf08df989016836d4c582b0eff9e464f7073"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 34222,
-      "sha256": "af9dcbf8c9a502bffb47ba244325ae9c4e71b51b30a9251eb0833f0a936f38b5"
+      "bytes": 34881,
+      "sha256": "5cace553b5f1626d5c08f95d35368f75d4a4bef3ee905d67d79c689f7cde405e"
     },
     {
       "path": "README.md",
-      "bytes": 11459,
-      "sha256": "8703a4bab7f4d6794bd8a7d7d8105852e4433757da80f92fc3e6e6a028a19411"
+      "bytes": 11627,
+      "sha256": "a522449c0866344ec6963e2f5be61c6eda154f3709c42896b35b6149a857dc8a"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -480,7 +480,7 @@
     {
       "path": "tools/validate.ps1",
       "bytes": 21594,
-      "sha256": "3e48a814fe294f1dd55386316effe96b214a93b04ced3bd159e40370fe90e28f"
+      "sha256": "2ebe6df76aa213598dcfd71517012c97929252b56e6d73ed9aa1376d6e4ff550"
     },
     {
       "path": "tools/vendor/pins.json",
@@ -784,8 +784,8 @@
     },
     {
       "path": "crates/tig-git/src/source.rs",
-      "bytes": 23462,
-      "sha256": "fcfcd32e5e3f86659db588122a601d91602b9638c47ae83a1a487bcc4f19fd34"
+      "bytes": 25050,
+      "sha256": "487d574da0f0fff2904c31f20b7e00c784560411379bb9a6374c3cb81a3dd5c4"
     },
     {
       "path": "crates/tig-git/tests/source.rs",
@@ -799,8 +799,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims.rs",
-      "bytes": 38088,
-      "sha256": "7c8b3857f24c7230fb772f2777715303323af71442dedaf255867d9efe60313d"
+      "bytes": 38846,
+      "sha256": "f7eff49546610a70b37fd1c62f8a4f779e21f2c745d0fbd77dcfc9261089b387"
     },
     {
       "path": "crates/tig-store/tests/source_claims.rs",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 14901,
-      "sha256": "c62001965c59ea663cd616e2c79651713f3a3724f07a0739b034d25ed950217a"
+      "bytes": 15421,
+      "sha256": "5849f373bff36c79c757a99ec1b1b87f2e20d63b1f947e32c7cc62c62c68b975"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 19092,
+      "bytes": 20482,
       "path": "context/RESUME.md",
-      "sha256": "5ef6bc900aa2baf96605313b5734b6f2f644a0892a5f7a060461eb0af5e4560f"
+      "sha256": "4d7fb43bac02f5bbde9189d3a191006fc689839ca671fccfab0420ade46ae18b"
     },
     {
       "bytes": 16453,
@@ -1899,13 +1899,13 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission.rs",
-      "bytes": 23408,
-      "sha256": "8487b0cf6bc72e8abe7b50723120ecb12d8ea7c42d969a311d3d1056423f5a5b"
+      "bytes": 25573,
+      "sha256": "30f213b9b966f4e86f26895b1ffe37314b4135bd5cd22ecb7b31ce257b54580e"
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/tests.rs",
-      "bytes": 47908,
-      "sha256": "554aa8f51c1d8b1ab3f9b063c9cfdf009294e12be368f798690d0be858a982a6"
+      "bytes": 53930,
+      "sha256": "85f79e2cd4cff13c6c01255209d346579d4271c3c23c9833e9ff7c3166905bee"
     },
     {
       "path": "specs/MANDATORY-SOURCE-ADMISSION.md",
@@ -2029,13 +2029,13 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-lifecycle.rs",
-      "bytes": 7231,
-      "sha256": "fc600549b425d246eedde1d9e5d1201cc8a37cce9b52dfde3b3de92fb141982f"
+      "bytes": 7708,
+      "sha256": "d214944f272f3c8f42afdeeed3561162a63e1b4bd1d3ce095c61af752c6ee8e3"
     },
     {
       "path": "crates/tig-git/src/lifecycle.rs",
-      "bytes": 16817,
-      "sha256": "4c5e73474640a268d4c99fd028d582446226db377d97c92125362ad39d1c1bbf"
+      "bytes": 16837,
+      "sha256": "bc3f41c60e3412b4cdac7b0f88189717805b8c251b9c2b2ed8b1bc4e95363254"
     },
     {
       "path": "crates/tig-git/tests/lifecycle.rs",
@@ -2054,8 +2054,8 @@
     },
     {
       "path": "crates/tig-git/src/bin/lifecycle/placement.rs",
-      "bytes": 7218,
-      "sha256": "afc432261ce5bad1c43bd5a7f7d151e39f7aaddd41dcf930e197f375288a97b5"
+      "bytes": 7891,
+      "sha256": "39e10b08afc5b13313d05ce8c64e5e2340c8ae8f7003b078d01a815cd9cb4a0e"
     },
     {
       "path": "crates/tig-store/src/placement.rs",
@@ -2078,8 +2078,8 @@
       "sha256": "c21a056f05f5c59e3a61f0aacd36806d23bc32e246c410c27cce272fc9c27e67"
     },
     {
-      "sha256": "618187da1ceb8bd969640117b990d7b985b7da4f0908e7206070ef1566fc477b",
-      "bytes": 2772,
+      "sha256": "7bf1b26bd35e3ed596cbcdc099f1b5e8ef39fcc2592e02f463b5064974027ca6",
+      "bytes": 2796,
       "path": ".github/workflows/qualify-trigger.yml"
     },
     {
@@ -2108,13 +2108,13 @@
       "path": "crates/tig-git/src/github/intake.rs"
     },
     {
-      "sha256": "990499934f1f2644bd1830d42d685ad493a0bf257e3ed972176126720d9fa38a",
-      "bytes": 11391,
+      "sha256": "38f7d71e13aee352f4103582d958944f93879005e3c1aabf2e0a3e47217cf0ab",
+      "bytes": 12982,
       "path": "crates/tig-git/src/github/placement.rs"
     },
     {
-      "sha256": "bc63468617ec858170169b756baf38f1c7802942f282e50a25ae038e301fd95f",
-      "bytes": 37323,
+      "sha256": "142e2bbd909fbd40f3dd6a76bbe2ebce954059fbde1ba2d26f743b3476598191",
+      "bytes": 39083,
       "path": "crates/tig-git/src/github/source.rs"
     },
     {
@@ -2158,8 +2158,8 @@
       "path": "docs/reviews/2026-11-09-github-trigger.md"
     },
     {
-      "sha256": "bfc83c59c8c1525696fc947c2acc35eb49c4641031f60d8befa02e38556671b2",
-      "bytes": 9022,
+      "sha256": "5036dfb56b8a51865f52286835962ae016584258866da73cbde527193b636d53",
+      "bytes": 5869,
       "path": "crates/tig-git/src/bin/lifecycle/index.rs"
     },
     {
@@ -2168,13 +2168,13 @@
       "path": "crates/tig-git/src/lifecycle/index.rs"
     },
     {
-      "sha256": "3169ffe64ffc401bc062957686a4d8055364cf2380910ceaa99ec39fa1965930",
-      "bytes": 21332,
+      "sha256": "23cb431fa56151309d8b5c603caf75123fa4567b4b8eec68451fb25039d6121b",
+      "bytes": 21402,
       "path": "crates/tig-git/tests/index_lifecycle.rs"
     },
     {
-      "sha256": "e50d7ae98f51eeb7f5942e948d9ab7891aaa6cb69564dd1c862f9251289a02fd",
-      "bytes": 9698,
+      "sha256": "fd5a3cf7ead1f947257dd63a73b85e114ee164258ffc39d906069c94fbf68f59",
+      "bytes": 9753,
       "path": "crates/tig-git/tests/index_lifecycle/store_cases.rs"
     },
     {
@@ -2186,6 +2186,31 @@
       "path": "docs/reviews/2026-11-09-index-lifecycle.md",
       "sha256": "d898b14bfd074a9e2eb28abfb95791d290cc81b6ec6d6bbad8322dc76851a3f7",
       "bytes": 4798
+    },
+    {
+      "bytes": 5588,
+      "path": "crates/tig-git/src/bin/lifecycle/local_placement.rs",
+      "sha256": "18520adc2e91b7ac5129b2cf6cc8f090fbb9669e5b2e4d9107f9885a50928566"
+    },
+    {
+      "bytes": 6167,
+      "path": "crates/tig-git/src/bin/lifecycle/settlement.rs",
+      "sha256": "da944a277c8d3ebbf4af4462bc555e638c8730e232987a54127e07bb825e80e7"
+    },
+    {
+      "bytes": 14651,
+      "path": "crates/tig-git/src/lifecycle/settlement.rs",
+      "sha256": "0aebdd0301d56bddb54db8c0b446cc7bf68570c4f5bb792a399a729bf65b96e2"
+    },
+    {
+      "bytes": 20886,
+      "path": "crates/tig-git/tests/index_lifecycle/settlement_cases.rs",
+      "sha256": "21d0aebd2622ba93fe9e8ed468130194b073d71c60710f707452c1f32c36c741"
+    },
+    {
+      "bytes": 5802,
+      "path": "specs/SOURCE-SETTLEMENT.md",
+      "sha256": "6b0a2bcc6682c039f9ab9dcbc242be936b79efe39d95ef578c609499f15c0854"
     }
   ]
 }

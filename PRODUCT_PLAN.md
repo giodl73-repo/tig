@@ -478,3 +478,12 @@ workspace, strict Clippy/artifact qualification, synthetic validation, trace and
 six producer lenses. Hosted current-head checks remain separate.
 Branch rename/withdrawal, automatic commit/draft settlement, arbitrary private
 overlay/native coverage and the later full roadmap obligations remain required.
+
+Priority-6 owned settlement under development: [source settlement](specs/SOURCE-SETTLEMENT.md)
+adds exact local branch-absence and adopted-successor draft withdrawal with
+transactional source-revision conditions. Ordinary placement can catch up after
+no-op settlement; history and other jobs remain protected. Focused tests include
+two abrupt exits and actual staged -> committed -> branch-end -> job-end demotion.
+Broad verification and separate evidence/review closeout remain pending. Automatic
+event routing, durable rename/controller revocation, native/private coverage and
+later final-deletion/metadata/authority/large-file/lifetime gates remain open.

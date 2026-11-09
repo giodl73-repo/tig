@@ -1,7 +1,7 @@
 name: Qualify trusted trigger
 on:
   push:
-    branches: [feat/github-trigger]
+    branches: [feat/github-trigger, feat/source-settlement]
   workflow_dispatch:
 permissions:
   contents: read

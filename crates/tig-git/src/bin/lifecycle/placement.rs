@@ -90,6 +90,16 @@ pub(super) fn reconcile(args: &[std::ffi::OsString]) -> Result<Value, &'static s
         .iter()
         .map(|n| Namespace::open(&n.root, &n.minimum).map_err(|_| "journal_unavailable"))
         .collect::<Result<Vec<_>, _>>()?;
+    let source_index = namespaces
+        .iter()
+        .position(|n| n.identity() == &profile.enrollment.namespace)
+        .ok_or("authority")?;
+    if fs::canonicalize(&profile.namespace_root).map_err(|_| "journal_unavailable")?
+        != fs::canonicalize(&storage.namespaces[source_index].root)
+            .map_err(|_| "journal_unavailable")?
+    {
+        return Err("authority");
+    }
     let stores = storage
         .providers
         .iter()
@@ -137,9 +147,9 @@ pub(super) fn reconcile(args: &[std::ffi::OsString]) -> Result<Value, &'static s
         metadata: &mut metadata,
         allow_selection: true,
     };
-    let plan = selection.plan(commit.as_ref()).map_err(code)?;
-    let admitted_commit = GitId::parse(&plan.commit).map_err(|_| "invalid_document")?;
-    let selected = selection.apply(&plan).map_err(code)?;
+    let selection_plan = selection.plan(commit.as_ref()).map_err(code)?;
+    let admitted_commit = GitId::parse(&selection_plan.commit).map_err(|_| "invalid_document")?;
+    let selected = selection.apply(&selection_plan).map_err(code)?;
     if selected.observed_ref_current != Some(true) || !selected.desired_current {
         return Ok(
             json!({"schema":"tig.git-placement-response.design-1","selection":selected,"placement":null,"storage_converged":false,"held":"stale_ref"}),
@@ -166,10 +176,14 @@ pub(super) fn reconcile(args: &[std::ffi::OsString]) -> Result<Value, &'static s
         .named_commit(&profile.enrollment.ref_name)
         .map_err(|_| "git_unavailable")?
         == admitted_commit;
+    let selection_current =
+        lifecycle::inspect_selection(&profile.enrollment, &mut namespace, &selection_plan)
+            .ok()
+            .map(|s| s.desired_current);
     // A Git change requests catch-up; a provider report remains independently
     // scoped to its desired basis and page even when the ref has since moved.
     Ok(
-        json!({"schema":"tig.git-placement-response.design-1","selection":selected,"observed_ref_current":current,"storage_converged":if current {placed.storage_converged} else {Some(false)},"plan":plan,"placement":placed}),
+        json!({"schema":"tig.git-placement-response.design-1","selection":selected,"selection_current":selection_current,"observed_ref_current":current,"storage_converged":if current&&selection_current==Some(true) {placed.storage_converged} else {Some(false)},"plan":plan,"placement":placed}),
     )
 }
 pub(super) fn placement_code(e: placement::Error) -> &'static str {

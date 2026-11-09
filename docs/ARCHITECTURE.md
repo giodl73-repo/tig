@@ -75,6 +75,14 @@ issues hold adoption, and source observations stay separate from durable receipt
 No Git/index write, hook or journal format is added. See
 [staged-index contract](../specs/INDEX-LIFECYCLE.md).
 
+`lifecycle::settlement`/`tig-lifecycle settle` compose owner Withdraw with verified
+ref absence or adopted-successor byte coverage. Up to eight source-revision
+conditions are rechecked inside the existing journal transaction, preserving its
+event encoding and short SQL scope. Index/settlement share private local placement
+preflight; Git observations and current admitted-source state remain independent.
+Predecessor/history and retained backups are not deleted. See
+[owned settlement](../specs/SOURCE-SETTLEMENT.md).
+
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable
 request/result schemas cover inspect/admission, find, comparison and impact.

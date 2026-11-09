@@ -18,6 +18,198 @@ fn limits() -> Limits {
         read_bytes: 32 * 1024 * 1024,
     }
 }
+struct ConditionRace<'a> {
+    nodes: &'a MemoryNodes,
+    path: PathBuf,
+    minimum: Checkpoint,
+    revision: u64,
+    change_witness: bool,
+    fired: Cell<bool>,
+}
+impl NodeStore for ConditionRace<'_> {
+    fn get(&self, object: &Object) -> TreeResult<Option<Vec<u8>>> {
+        if !self.fired.replace(true) {
+            let mut peer = Namespace::open(&self.path, &self.minimum).unwrap();
+            let command = if self.change_witness {
+                Command::Withdraw {
+                    source: key("main"),
+                    owner: key("owner"),
+                    expected_revision: self.revision,
+                }
+            } else {
+                Command::Enroll {
+                    source: key("unrelated"),
+                    owner: key("owner"),
+                    class: Kind::Job,
+                }
+            };
+            peer.apply(key("racing-condition"), command, self.nodes, &limits())
+                .unwrap();
+        }
+        self.nodes.get(object)
+    }
+    fn put(&mut self, _: &[u8]) -> TreeResult<Object> {
+        panic!("condition assessment is read-only")
+    }
+}
+#[test]
+fn source_conditions_recheck_after_tree_io_and_allow_unrelated_progress() {
+    for change_witness in [false, true] {
+        let mut f = Fixture::new(true);
+        f.enroll("main", Kind::Branch);
+        f.selected("main", f.old.clone());
+        f.enroll("draft", Kind::Draft);
+        f.selected("draft", f.old.clone());
+        let main = f.namespace.source(&key("main")).unwrap().unwrap();
+        let draft = f.namespace.source(&key("draft")).unwrap().unwrap();
+        let race = ConditionRace {
+            nodes: &f.nodes,
+            path: f.root(),
+            minimum: f.namespace.checkpoint(),
+            revision: main.revision,
+            change_witness,
+            fired: Cell::new(false),
+        };
+        let command = Command::Withdraw {
+            source: key("draft"),
+            owner: key("owner"),
+            expected_revision: draft.revision,
+        };
+        let result = f.namespace.apply_if_sources(
+            key("settle-draft"),
+            command.clone(),
+            &[SourceCondition {
+                source: key("main"),
+                revision: main.revision,
+            }],
+            &race,
+            &limits(),
+        );
+        assert!(race.fired.get());
+        if change_witness {
+            assert_eq!(result, Err(Error::Journal(super::super::Error::Stale)));
+            assert!(
+                f.namespace
+                    .command_status(key("settle-draft"), command)
+                    .unwrap()
+                    .is_none()
+            );
+        } else {
+            assert!(result.is_ok());
+            assert!(f.namespace.source(&key("unrelated")).unwrap().is_some());
+        }
+        assert_eq!(
+            f.namespace
+                .source(&key("draft"))
+                .unwrap()
+                .unwrap()
+                .current
+                .is_some(),
+            change_witness
+        );
+    }
+}
+#[test]
+fn conditional_withdrawal_replays_historically_without_regranting_changed_conditions() {
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    f.selected("main", f.old.clone());
+    f.enroll("draft", Kind::Draft);
+    f.selected("draft", f.old.clone());
+    let conditions = [SourceCondition {
+        source: key("main"),
+        revision: f.namespace.source(&key("main")).unwrap().unwrap().revision,
+    }];
+    let command = Command::Withdraw {
+        source: key("draft"),
+        owner: key("owner"),
+        expected_revision: f.namespace.source(&key("draft")).unwrap().unwrap().revision,
+    };
+    let first = f
+        .namespace
+        .apply_if_sources(
+            key("conditional"),
+            command.clone(),
+            &conditions,
+            &f.nodes,
+            &limits(),
+        )
+        .unwrap();
+    f.selected("main", f.new.clone());
+    f.selected("draft", f.new.clone());
+    let before = f.namespace.source(&key("draft")).unwrap().unwrap();
+    let checkpoint = f.namespace.checkpoint();
+    let replay = f
+        .namespace
+        .apply_if_sources(
+            key("conditional"),
+            command.clone(),
+            &conditions,
+            &MemoryNodes::default(),
+            &limits(),
+        )
+        .unwrap();
+    assert!(replay.replayed);
+    assert_eq!(replay.reference, first.reference);
+    assert_eq!(f.namespace.source(&key("draft")).unwrap().unwrap(), before);
+    assert_eq!(f.namespace.checkpoint(), checkpoint);
+    assert!(
+        f.namespace
+            .command_status(key("conditional"), command)
+            .unwrap()
+            .unwrap()
+            .replayed
+    );
+}
+#[test]
+fn malformed_or_missing_source_conditions_refuse_without_mutation() {
+    let mut f = Fixture::new(true);
+    f.enroll("draft", Kind::Draft);
+    f.selected("draft", f.old.clone());
+    let command = Command::Withdraw {
+        source: key("draft"),
+        owner: key("owner"),
+        expected_revision: f.namespace.source(&key("draft")).unwrap().unwrap().revision,
+    };
+    let before = f.namespace.checkpoint();
+    for conditions in [
+        vec![SourceCondition {
+            source: key("missing"),
+            revision: 1,
+        }],
+        vec![SourceCondition {
+            source: key("draft"),
+            revision: 0,
+        }],
+        vec![
+            SourceCondition {
+                source: key("draft"),
+                revision: 1
+            };
+            2
+        ],
+        vec![
+            SourceCondition {
+                source: key("draft"),
+                revision: 1
+            };
+            9
+        ],
+    ] {
+        assert!(
+            f.namespace
+                .apply_if_sources(
+                    key("invalid-condition"),
+                    command.clone(),
+                    &conditions,
+                    &f.nodes,
+                    &limits()
+                )
+                .is_err()
+        );
+        assert_eq!(f.namespace.checkpoint(), before);
+    }
+}
 fn policy(prefer_active: bool) -> Policy {
     let places = Places {
         current: vec![key("working"), key("backup")],
