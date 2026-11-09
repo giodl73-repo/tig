@@ -187,6 +187,34 @@ fn admission_limits() -> tig_store::protection::Limits {
 }
 
 #[test]
+fn committed_source_seam_preserves_original_git_listing_tree_and_context_identity() {
+    use tig_git::source::Scope;
+    let mut f = Fixture::new();
+    let commit = f.repository.named_commit(&f.enrollment.ref_name).unwrap();
+    let snapshot = f.repository.commit(commit.clone()).unwrap();
+    let extraction = f
+        .repository
+        .extract(&snapshot, Scope::new(f.enrollment.scope.clone()).unwrap())
+        .unwrap();
+    let mut nodes = MemoryNodes::default();
+    let root = extraction
+        .write_tree(&mut nodes, TreeLimits::default())
+        .unwrap()
+        .root()
+        .clone();
+    let listing = snapshot.checkpoint().listing.clone();
+    let expected = hash(
+        &serde_json::json!({"schema":"tig.git-lifecycle-context.design-1","enrollment":f.enrollment.id().unwrap(),"commit":commit.as_str(),"listing":listing,"root":root}),
+    );
+    let before = f.namespace.checkpoint();
+    let p = f.plan();
+    assert_eq!(p.listing, listing);
+    assert_eq!(p.selection.root, root);
+    assert_eq!(p.selection.context, expected);
+    assert_eq!(f.namespace.checkpoint(), before);
+}
+
+#[test]
 fn real_merge_changes_desired_placement_preserves_history_and_duplicate_uses_no_commands() {
     let mut f = Fixture::new();
     let initial = f.plan();

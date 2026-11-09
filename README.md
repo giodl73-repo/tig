@@ -175,6 +175,10 @@ use [the Rust project interface](specs/PROJECT-RESTORE.md).
 
 The automatic lifecycle arrows describe intended integration. Current components
 do not make every Git operation trigger transfers or eviction.
+The optional [GitHub trigger](specs/GITHUB-TRIGGER.md) adds explicit foreground
+OIDC intake and bounded placement coordination under private enrollment. Its
+Action example is opt-in; external ingress, executor isolation and live provider
+adoption require separate qualification.
 
 ## Learn and contribute
 

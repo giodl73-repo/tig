@@ -2,6 +2,7 @@
 use crate::source::{GitId, Repository, Scope};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use std::collections::BTreeMap;
 use std::time::{Duration, Instant};
 use tig_core::{
     Digest, LogicalPath, Object, identity,
@@ -276,14 +277,62 @@ pub fn inspect_selection(
         storage_converged: None,
     })
 }
-pub struct Execution<'a> {
+/// Complete explicit pointer scope from an independently admitted source. An
+/// implementation must enforce its own cumulative IO/response/time budgets.
+pub struct FlatCapture {
+    pub listing: Digest,
+    pub bindings: BTreeMap<LogicalPath, Object>,
+}
+pub trait CommittedSource {
+    fn named_commit(&self, name: &str) -> Result<GitId>;
+    fn flat_capture(
+        &self,
+        commit: GitId,
+        scope: &[LogicalPath],
+        budget: &Budget,
+    ) -> Result<FlatCapture>;
+}
+impl CommittedSource for Repository {
+    fn named_commit(&self, name: &str) -> Result<GitId> {
+        Repository::named_commit(self, name).map_err(|_| Error::Git)
+    }
+    fn flat_capture(
+        &self,
+        commit: GitId,
+        scope: &[LogicalPath],
+        budget: &Budget,
+    ) -> Result<FlatCapture> {
+        let snapshot = self.commit(commit).map_err(|_| Error::Git)?;
+        let extraction = self
+            .extract(
+                &snapshot,
+                Scope::new(scope.to_vec()).map_err(|_| Error::Invalid)?,
+            )
+            .map_err(|_| Error::Git)?;
+        if !extraction.complete() {
+            return Err(Error::Pending);
+        }
+        if extraction.bindings().len() > budget.entries as usize {
+            return Err(Error::Budget);
+        }
+        Ok(FlatCapture {
+            listing: snapshot.checkpoint().listing.clone(),
+            bindings: extraction
+                .bindings()
+                .iter()
+                .map(|b| (b.path.clone(), b.object.clone()))
+                .collect(),
+        })
+    }
+}
+pub struct Execution<'a, R: CommittedSource + ?Sized = Repository> {
     pub enrollment: &'a Enrollment,
-    pub repository: &'a Repository,
+    pub repository: &'a R,
     pub namespace: &'a mut Namespace,
     pub metadata: &'a mut MetadataStore,
     pub allow_selection: bool,
 }
-impl Execution<'_> {
+impl<R: CommittedSource + ?Sized> Execution<'_, R> {
     fn check(&self) -> Result<()> {
         check_enrollment(self.enrollment, self.namespace)
     }
@@ -299,9 +348,7 @@ impl Execution<'_> {
         Ok(s)
     }
     fn current(&self) -> Result<GitId> {
-        self.repository
-            .named_commit(&self.enrollment.ref_name)
-            .map_err(|_| Error::Git)
+        self.repository.named_commit(&self.enrollment.ref_name)
     }
     fn require_current(&self, commit: &str) -> Result<()> {
         if self.current()?.as_str() != commit {
@@ -310,32 +357,22 @@ impl Execution<'_> {
         Ok(())
     }
     fn capture(&self, commit: GitId) -> Result<Capture> {
-        let snapshot = self
-            .repository
-            .commit(commit.clone())
-            .map_err(|_| Error::Git)?;
-        let extraction = self
-            .repository
-            .extract(
-                &snapshot,
-                Scope::new(self.enrollment.scope.clone()).map_err(|_| Error::Invalid)?,
-            )
-            .map_err(|_| Error::Git)?;
-        if !extraction.complete() {
-            return Err(Error::Pending);
-        }
-        if extraction.bindings().len() > self.enrollment.budget.entries as usize {
+        let captured = self.repository.flat_capture(
+            commit.clone(),
+            &self.enrollment.scope,
+            &self.enrollment.budget,
+        )?;
+        if captured.bindings.len() > self.enrollment.budget.entries as usize {
             return Err(Error::Budget);
         }
         let mut nodes = MemoryNodes::default();
-        let (root, listing) = (
-            extraction
-                .write_tree(&mut nodes, self.enrollment.budget.tree())
-                .map_err(|_| Error::Budget)?
-                .root()
-                .clone(),
-            snapshot.checkpoint().listing.clone(),
-        );
+        let (tree, _) = Tree::build(
+            &captured.bindings,
+            &mut nodes,
+            self.enrollment.budget.tree(),
+        )
+        .map_err(|_| Error::Budget)?;
+        let (root, listing) = (tree.root().clone(), captured.listing);
         let context = digest(
             &json!({"schema":"tig.git-lifecycle-context.design-1","enrollment":self.enrollment.id()?,"commit":commit.as_str(),"listing":listing,"root":root}),
         )?;

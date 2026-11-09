@@ -1,41 +1,12 @@
 //! Private operator composition. Event authentication remains external.
+use super::profiles::Storage;
 use super::*;
 use tig_store::{
     existing::{Profile as SourceProfile, ReadCache},
-    ledger::{CapacityLedger, Checkpoint as CapacityCheckpoint},
+    ledger::CapacityLedger,
     local::LocalStore,
-    placement::{self, Config, Cursor, Local},
+    placement::{self, Cursor, Local},
 };
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
-struct NamespaceRoot {
-    root: PathBuf,
-    minimum: source_claims::Checkpoint,
-}
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
-struct ProviderRoot {
-    root: PathBuf,
-    ledger_root: PathBuf,
-    minimum: CapacityCheckpoint,
-}
-#[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
-struct Storage {
-    schema: String,
-    config: Config,
-    namespaces: Vec<NamespaceRoot>,
-    providers: Vec<ProviderRoot>,
-    byte_source: Value,
-    #[serde(default)]
-    allow_copy: bool,
-    #[serde(default)]
-    allow_eviction: bool,
-    #[serde(default)]
-    allow_reacquisition: bool,
-    #[serde(default)]
-    allow_cancellation: bool,
-}
 pub(super) fn reconcile(args: &[std::ffi::OsString]) -> Result<Value, &'static str> {
     if !(4..=5).contains(&args.len()) {
         return Err("usage");

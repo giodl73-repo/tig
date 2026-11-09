@@ -1,6 +1,8 @@
 //! Explicit trusted operator entry, not an authenticated GitHub webhook receiver.
 #[path = "lifecycle/placement.rs"]
 mod placement_cli;
+#[path = "lifecycle/profiles.rs"]
+mod profiles;
 use serde::Deserialize;
 use serde_json::{Value, json};
 use std::{

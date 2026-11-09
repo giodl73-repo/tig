@@ -1,0 +1,67 @@
+name: Qualify trusted trigger
+on:
+  push:
+    branches: [feat/github-trigger]
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: qualify-trigger-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  issuer-fixture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CARGO_INCREMENTAL: '0'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+      RUST_TEST_THREADS: '4'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          components: rustfmt
+      - name: Build fixture receiver
+        shell: pwsh
+        run: |
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          cargo build -p tig-git --features github --bin tig-trigger --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-git --features github --test github_real --locked --no-run
+          exit $LASTEXITCODE
+      - name: Qualify live issuer against fresh no-payload fixture
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          TIG_REAL_REPOSITORY: ${{ github.repository }}
+          TIG_REAL_REPOSITORY_ID: ${{ github.repository_id }}
+          TIG_REAL_OWNER_ID: ${{ github.repository_owner_id }}
+          TIG_REAL_REF: ${{ github.ref }}
+          TIG_REAL_WORKFLOW_REF: ${{ github.workflow_ref }}
+          TIG_REAL_EVENT: ${{ github.event_name }}
+          TIG_REAL_AUDIENCE: tig:hosted-qualification
+        run: |
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          try {
+            $separator = if ($env:ACTIONS_ID_TOKEN_REQUEST_URL.Contains('?')) { '&' } else { '?' }
+            $uri = $env:ACTIONS_ID_TOKEN_REQUEST_URL + $separator + 'audience=' + [Uri]::EscapeDataString($env:TIG_REAL_AUDIENCE)
+            $response = Invoke-RestMethod -Uri $uri -Headers @{Authorization=('Bearer ' + $env:ACTIONS_ID_TOKEN_REQUEST_TOKEN)}
+            $env:TIG_REAL_GITHUB_OIDC = $response.value
+          } catch {
+            Write-Error 'OIDC fixture admission unavailable'
+            exit 1
+          }
+          cargo test -p tig-git --features github --test github_real --locked actual_hosted_oidc_reaches_foreground_receiver_without_payloads -- --ignored --exact --nocapture
+          $result = $LASTEXITCODE
+          Remove-Item Env:TIG_REAL_GITHUB_OIDC
+          exit $result

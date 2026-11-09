@@ -8,7 +8,23 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/git-placement, inputa678381, implementation7432739, local placement
+- Active uncommitted lane: feat/github-trigger, base1c253ea. Read
+  specs/GITHUB-TRIGGER.md for input controls, bounded source/intake/coordinator
+  contract and adoption gates. Optional feature github adds tig-trigger serve,
+  independent RS256/OIDC verification and bounded metadata-only GitHub source;
+  existing local source identities remain compatible through CommittedSource.
+  Signed synthetic HTTP requests exercise actual temporary working/backup copies,
+  expired/rollback clocks, source outage and head drift after physical progress.
+  A dedicated opt-in hosted issuer fixture is present but has not executed yet;
+  its ignored entry is not evidence. Node Action client/examples install nothing.
+  Focused checks pass; broad exact-source qualification and implementation versus
+  evidence/review closeout remain pending. Preserve this dirty worktree.
+  PR #24 head1c253ea is open/ready; hosted Windows/Linux/secrets all pass.
+  Next: finish paging/retry failure fixtures, run broad checks, refresh pins,
+  commit implementation, explicitly qualify the live-issuer synthetic fixture,
+  and close verification/validation/trace/six producer lenses separately.
+
+- Previous lane: feat/git-placement, inputa678381, implementation7432739, local placement
   reconciliation through existing store mechanisms and `tig-lifecycle reconcile`.
   specs/PLACEMENT-RECONCILIATION.md freezes controls/scope/entry/exit. EVID-093
   separately records local verification, synthetic validation, trace and all six
@@ -25,8 +41,8 @@ source changes into running tools as a side effect. No startup cache operations.
   strict Clippy passes and both ignored cross-artifact qualifiers explicitly pass.
   The pre-pair reader was rebuilt from clean pinned inputd81cabe. Local broad
   default workspace passed before the final focused corrections. Implementation
-  and evidence/review closeout are separate commits. Next: publish the stacked
-  draft PR and inspect hosted current-head qualification; derive its state live.
+  and evidence/review closeout are separate commits. PR #24 is ready with passing
+  hosted qualification at1c253ea; derive subsequent merge state live.
   Private partial cleanup remains explicit; CLI requires roots open at entry;
   page success alone does not establish full selection convergence.
 

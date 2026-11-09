@@ -1033,10 +1033,12 @@ dependencies = [
 name = "tig-git"
 version = "0.1.0"
 dependencies = [
+ "base64 0.22.1",
  "flate2",
  "fs2",
  "getrandom 0.4.3",
  "regex",
+ "ring",
  "serde",
  "serde_json",
  "sha1",

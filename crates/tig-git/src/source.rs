@@ -54,7 +54,7 @@ impl GitId {
     pub fn as_str(&self) -> &str {
         &self.0
     }
-    fn verify_blob(&self, bytes: &[u8]) -> Result<()> {
+    pub(crate) fn verify_blob(&self, bytes: &[u8]) -> Result<()> {
         let header = format!("blob {}\0", bytes.len());
         let actual = if self.0.len() == 40 {
             let mut h = sha1::Sha1::new();

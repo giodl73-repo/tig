@@ -83,6 +83,16 @@ command receipts. No other checkout/cache/runtime is changed by the fixture.
 
 ## Selection and trusted execution
 
+The CommittedSource port supplies an exact current ref and a complete bounded
+flat pointer capture (listing identity plus logical path/object map). Repository
+remains the default implementation and preserves its existing ls-tree listing,
+root and context identities. Additional adapters are independently trusted source
+providers, not event-supplied closures. They must qualify complete explicit scope,
+hash/size/path checks, cumulative IO/time budgets and pre/post current-ref checks.
+Missing coverage returns an error, never a fabricated empty selection. The
+[GitHub trigger contract](GITHUB-TRIGGER.md) defines the separate authenticated
+remote source/intake work; the seam alone enables no receiver or storage action.
+
 An event requests an exact enrolled repository/ref/commit. It grants no authority.
 Private operator enrollment independently pins repository identity, ref, pointer
 scope, source owner/class, namespace/policy, metadata provider and finite budgets.

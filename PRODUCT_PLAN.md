@@ -145,6 +145,13 @@ retirement intent before destructive IO and reserve metadata capacity for intent
 completion and recovery first. New protection admission and removal share the
 same effective fence; a crash cannot leave a deletion with no recoverable intent.
 If evidence cannot be durably recorded at the required level, hold removal.
+Before that executor is implemented, freeze cancellation after historical-claim
+settlement: either restore the admitted protection through owner-authorized
+recovery or explicitly report retired-but-present content and its remaining
+protection. Never report an unqualified rollback. Batch approval binds its exact
+basis and validity window; changed selection/use, policy or authority invalidates
+affected pending removals. Revalidate each action, preserve historical completed
+effects, and test cancellation and invalidation on both sides of claim settlement.
 Report removal from the admitted namespace separately from provider-version,
 snapshot or trash retention and actual capacity release. Unlinking is not secure
 erasure and does not prove deletion of unknown copies outside managed scope.
@@ -446,3 +453,12 @@ current-head checks remain separate. Trusted external triggers, branch/draft/ind
 unattended private-partial recovery, offline enrollment, aggregate verification IO,
 large-file/provider qualification and lifetime remain required. This does not
 complete priority 6 or enable live storage operations.
+
+Priority-6 trusted intake under development: optional
+[GitHub request execution](specs/GITHUB-TRIGGER.md) connects signed OIDC intake,
+independent current GitHub source metadata and a bounded placement pass. Its
+foreground loopback receiver and inert Action client reuse private placement
+permissions; workflow code receives no executor policy or OS authority. Signed
+synthetic HTTP fixtures cover nonempty three-store placement, expiry/clock holds,
+source outage and post-copy head drift. Exact-source broad/hosted qualification
+and evidence closeout remain pending. No service or live cache is attached.

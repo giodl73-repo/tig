@@ -10,6 +10,7 @@ publish = false
 assets = ["dep:tig-assets"]
 schema = ["assets", "tig-assets/schema", "dep:regex", "dep:flate2"]
 upload = ["tig-store/upload-witness", "dep:ureq"]
+github = ["dep:base64", "dep:ring", "dep:ureq"]
 
 [dependencies]
 tig-core = { path = "../tig-core" }
@@ -24,6 +25,8 @@ fs2 = "=0.4.3"
 regex = { version = "=1.13.1", optional = true }
 flate2 = { version = "=1.1.9", optional = true }
 ureq = { version = "=3.5.1", default-features = false, features = ["rustls"], optional = true }
+base64 = { version = "=0.22.1", optional = true }
+ring = { version = "=0.17.14", optional = true }
 
 
 [dev-dependencies]
@@ -32,6 +35,11 @@ tempfile = "=3.27.0"
 [[bin]]
 name = "tig-lifecycle"
 path = "src/bin/tig-lifecycle.rs"
+
+[[bin]]
+name="tig-trigger"
+path="src/bin/tig-trigger.rs"
+required-features=["github"]
 
 [[bin]]
 name = "tig-lfs"
