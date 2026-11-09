@@ -1,6 +1,7 @@
 # Evidence index
 
-EVID-110: explicit aged paged controller candidate, inputad8b428.
+EVID-110: explicit aged paged controller candidate, inputad8b428,
+implementationd549349063dbd935829a80db0153cbd70594eadc.
 [Review](../reviews/2026-11-09-paged-age.md) separates exact original proof pins,
 survivor acknowledgement before page completion, shared metadata budgets and
 registry-aware clock-free status. Final eight focused controller fixtures/four

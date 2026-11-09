@@ -9,7 +9,8 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Active lane: feat/paged-age, inputad8b428f87e8fb03e2257148559e4db59dbc4fff.
-  Pending source integrates optional privately admitted age policy/proof index
+  Implementationd549349063dbd935829a80db0153cbd70594eadc.
+  Source integrates optional privately admitted age policy/proof index
   into the existing paged controller. Original retained evidence is pinned and
   reverified, actual clock bounds determine eligibility, and exact survivor age
   is acknowledged before page completion. Completed prefixes verify facts rather
@@ -40,8 +41,11 @@ source changes into running tools as a side effect. No startup cache operations.
   paged-age-final-default.log, paged-age-final-all.log and paged-age-artifacts.log.
   All local processes are terminal; no target is live. Never overlap
   Cargo on a target while its CLI artifact qualifiers are using its binary.
-  No new PR/commit yet. Finalize exact pins/L0 and stack on ready PR40; derive the
-  new exact-head hosted results before readying. Six producer lenses, validation
+  PR41 is OPEN/draft against feat/paged-controller (ready PR40). Pinned Gitleaks
+  8.30.1 scans all94 reachable commits clean; no new ignore was added. Final L0,
+  fmt and diff pass. Hosted exact-head Windows/Linux/secrets qualification remains
+  required; derive the current head/run from GitHub before readying, never restart
+  a live run merely because observation expires. Six producer lenses, validation
   and trace are separate in EVID-110 and its review. Next delivery remains
   native selection and operator/agent/UI/Action over the actual aged controller,
   plus actual authority/writer/time/restore/provider/large-file/lifetime/metadata

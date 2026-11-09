@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 100130,
-      "sha256": "2f7c8fe76a2b704e1a6cebddc98190fdb1b6a32acacb17fb4bcd14ea90cdd22c"
+      "bytes": 100186,
+      "sha256": "bb722f344c5dc3d8ce53f4a7f189474f3b73eb430021235a7b86b9839ec3ae59"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 52840,
+      "bytes": 53135,
       "path": "context/RESUME.md",
-      "sha256": "976e2f714122d375cba52534af0addd7bb42ac4e9c3f3558dbd57559ee89e1c0"
+      "sha256": "d7b59b398116a3a6f3525d8f67b4ba60b28b1fd83b8053cc28985d3ccd579cc2"
     },
     {
       "bytes": 16453,
@@ -2664,8 +2664,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-paged-age.md",
-      "bytes": 9157,
-      "sha256": "70e3ab8cf34108ec6ae8de71d42b24c97912bc3cc1e4c4d6e46a5e7c3c4784cd"
+      "bytes": 9350,
+      "sha256": "609f71e22e8254794cb6e1ccde3dc2f8bd84914b61c4252768e867334c5943e1"
     },
     {
       "path": "tests/vectors/paged-age.design-1.json",
