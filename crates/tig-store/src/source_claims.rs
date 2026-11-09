@@ -621,13 +621,21 @@ impl SourceJournal {
             poisoned: false,
         };
         journal.sync()?;
-        if journal.state.head.sequence < witness.sequence {
+        journal.verify_minimum(witness)?;
+        Ok(journal)
+    }
+    /// Shared exact ancestry check for open and stricter caller-admitted minima.
+    fn verify_minimum(&self, witness: &Checkpoint) -> Result<()> {
+        if self.identity() != witness.identity() {
+            return Err(Error::InvalidReference);
+        }
+        if self.state.head.sequence < witness.sequence {
             return Err(Error::Rollback);
         }
         let actual = if witness.sequence == 0 {
-            journal.state.head.genesis.as_str().to_owned()
+            self.state.head.genesis.as_str().to_owned()
         } else {
-            journal.conn.query_row(
+            self.conn.query_row(
                 "SELECT hash FROM events WHERE sequence=?1",
                 [number(witness.sequence)?],
                 |r| r.get::<_, String>(0),
@@ -636,7 +644,7 @@ impl SourceJournal {
         if actual != witness.hash.as_str() {
             return Err(Error::Rollback);
         }
-        Ok(journal)
+        Ok(())
     }
     pub fn checkpoint(&self) -> Checkpoint {
         self.state.head.clone()

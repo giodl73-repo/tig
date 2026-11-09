@@ -233,3 +233,11 @@ encodings preserve the unselected set under the same immutable policy class.
 Atomic three-command history adoption exposes no transient current selection;
 draft-only subset plan/effect design-2 supersedes design-1 before release.
 New experimental plan/profile/status records grant no payload deletion authority.
+
+[FINAL-RETIREMENT](../../specs/FINAL-RETIREMENT.md), input59174b1, extends
+SPEC-002/003/004/005/006/008/009/013/014. Content-scope live claim clearance is
+current bounded infrastructure; final provider release/removal, bulk selection,
+new provider formats, cancellation effects and metadata lifetime remain target.
+Clearance checks membership in all admitted namespaces independent of placement
+and pins exact trusted minima with the shared journal ancestry verifier. The
+new roster/summary is experimental; no existing journal/provider format changes.

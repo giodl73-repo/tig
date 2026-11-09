@@ -135,3 +135,13 @@ protection without exposing artificial active use; transactional revision
 conditions precede original owner retirement. Metadata-offline status separates
 historical effects and currently observed claim state. No payload removal,
 automatic lifecycle selector or persistent source-event format is introduced.
+
+IF-002/003/004/005/006/008/012/013 final-retirement prerequisite, input59174b1:
+[FINAL-RETIREMENT](../../specs/FINAL-RETIREMENT.md) exposes
+final_retirement::claims::Roster/acquire and a live non-serializable Clearance.
+Canonical admitted namespace/policy/minimum pins and one aggregate tree budget
+produce exact membership holds or declared-scope clearance under existing subject
+fences. Authority scope excludes budgets/advancing minima; the concrete roster
+profile includes them. SourceJournal open and stricter minima share one ancestry
+verifier. No retention release, provider guard, deletion grant or payload action
+is supplied. The full destructive protocol and format/adoption gates remain target.

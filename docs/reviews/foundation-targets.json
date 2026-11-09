@@ -319,8 +319,8 @@
     },
     {
       "path": "docs/vtrace/INTERFACES.md",
-      "bytes": 10418,
-      "sha256": "d64a8c491c6e1fdd3c4a973e664303c4abd9b765f203d1f9b794bcae596986cf"
+      "bytes": 11125,
+      "sha256": "76739172083703501e571e7aa30d2f4c2600c3dfa386b4123085d4a837491dc8"
     },
     {
       "path": "docs/vtrace/LANGUAGE_PROFILES.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 17632,
-      "sha256": "b4318b3f51d5dfb5565029d2e4f338a710d4de63ea42174390b4d66a8066b3df"
+      "bytes": 18186,
+      "sha256": "f4d5feca890022da6c3396b302306a51cd6777742e5ed3ad64aa5cd95a4e8fa3"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -584,8 +584,8 @@
     },
     {
       "path": "crates/tig-store/src/lib.rs",
-      "bytes": 5546,
-      "sha256": "5cc1f646a80aeabd62c8078a1a0bdfbe747fadb1ebeecfa1ce02be677fab65e4"
+      "bytes": 5572,
+      "sha256": "7600d2f4c2c14b98021325e665a17fb47c7d04440e34cd288dcc1854695dad5a"
     },
     {
       "path": "crates/tig-store/src/local.rs",
@@ -799,8 +799,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims.rs",
-      "bytes": 38973,
-      "sha256": "aa9c3ffc21a221047f08986e24ec43b0ec2bb503898ebb04525739ef4559d89b"
+      "bytes": 39286,
+      "sha256": "caf50eec085933cb00e0597e8c0fa81da3735b8f6fa03b283ea034380f923061"
     },
     {
       "path": "crates/tig-store/tests/source_claims.rs",
@@ -1899,8 +1899,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission.rs",
-      "bytes": 27390,
-      "sha256": "d3f2e45301075c662ef59aa7e96fe10ffa101a48f025708a1179277afc15d030"
+      "bytes": 28800,
+      "sha256": "723992aecb41ed8488ab4cada0cd546e5ffddd064e0a45aad55e2ef37085cfb9"
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/tests.rs",
@@ -2246,6 +2246,31 @@
       "path": "docs/reviews/2026-11-09-retained-subset.md",
       "bytes": 7252,
       "sha256": "14a97cef5ca92a137b4a3c5a541b74dd72da08282ab6d76ccc175e99eed454e8"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement.rs",
+      "bytes": 96,
+      "sha256": "0dc92ff34a2ddf94e755c5b3c7ce32873a118b33b7b471fd4ebe42f67fcc6364"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/claims.rs",
+      "bytes": 9713,
+      "sha256": "c43660f2d3b84382175c5fa86108c542bb4c97d99396151822137c2235e2f84e"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/claims/tests.rs",
+      "bytes": 23983,
+      "sha256": "fb2f7e853f59c771c4a871024ff7ce50a1a373aa4e5585025c93d0ecd53ad381"
+    },
+    {
+      "path": "specs/FINAL-RETIREMENT.md",
+      "bytes": 16403,
+      "sha256": "5c1af90870f097a56baeb196faf0d009456c00696aed88a2af20181d34f53af2"
+    },
+    {
+      "path": "tests/vectors/final-claim-roster.design-1.json",
+      "bytes": 1698,
+      "sha256": "39d82db37fc2e37fb98c41e20b9aa16c9c79611e2de37225f7e689cdc1f4e80d"
     }
   ]
 }

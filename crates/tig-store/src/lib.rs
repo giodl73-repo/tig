@@ -2,6 +2,7 @@
 #![forbid(unsafe_code)]
 pub mod accounted;
 pub mod existing;
+pub mod final_retirement;
 pub mod ledger;
 pub mod local;
 pub mod local_capacity;

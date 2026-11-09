@@ -475,6 +475,15 @@ impl Namespace {
     pub fn checkpoint(&self) -> Checkpoint {
         self.journal.checkpoint()
     }
+    pub(crate) fn refresh_minimum(&mut self, minimum: &Checkpoint) -> Result<()> {
+        self.journal.check_guarded_marker()?;
+        self.journal.sync()?;
+        self.verify_minimum(minimum)
+    }
+    pub(crate) fn verify_minimum(&self, minimum: &Checkpoint) -> Result<()> {
+        self.journal.check_guarded_marker()?;
+        Ok(self.journal.verify_minimum(minimum)?)
+    }
     pub fn identity(&self) -> &Digest {
         self.journal.identity()
     }
@@ -804,6 +813,33 @@ impl Namespace {
         {
             return Ok(None);
         }
+        Ok(Some(state.head))
+    }
+
+    /// Content membership, independent of assigned place or active precedence.
+    /// Used only under this exact object's live fence; never removal authority.
+    pub(crate) fn absent_object(
+        &mut self,
+        fence: &SubjectFence,
+        work: &mut Work<'_, impl NodeStore>,
+    ) -> Result<Option<Checkpoint>> {
+        self.journal.check_guarded_marker()?;
+        if fence.authority != *self.identity() {
+            return Err(Error::WrongAuthority);
+        }
+        self.journal.sync()?;
+        let state = self.journal.state.clone();
+        for source in state.sources.values() {
+            let demands = work.source(source, self.policy())?;
+            if let Some(demand) = demands.get(&fence.object.sha256) {
+                if demand.bytes != fence.object.bytes {
+                    return Err(Error::ConflictingSize);
+                }
+                return Ok(None);
+            }
+        }
+        self.journal.check_guarded_marker()?;
+        work.timed()?;
         Ok(Some(state.head))
     }
 }
