@@ -8,43 +8,44 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/final-retirement, input59174b1, implementation89d260e,
-  stacked draft PR #29. Read specs/FINAL-RETIREMENT.md for controls/entry/exit,
-  the current claim-clearance port and remaining destructive protocol gates.
-  final_retirement::claims admits a complete content-scope namespace/policy/
-  minimum roster, holds all existing subject fences and refuses any source-root
-  membership, independent of target-place surplus. A job on F blocks final M
-  loss; another authority outside the target store binding still protects it.
-  Exact trusted minima share the journal-open ancestry check: an actual restored
-  SQLite prefix and forged checkpoint refuse even with weaker supplied handles.
-  Roster summaries grant neither provider release nor removal. Thirteen focused
-  entries (one helper/one actual exit), 48 active source-claim regressions and
-  both explicit pinned old-reader qualifiers pass. Final-runtime locked default/
-  all-feature workspace suites pass in separate external targets, including both
-  500,000-binding metadata runs. The independent ASCII canonical/hashlib vector
-  is test-only and explicitly qualified in the final thirteen-entry focused run;
-  final strict workspace Clippy, standalone Git, fmt and L0 pass.
-  Explicit ordinary-retirement CLI cancellation qualification also passes with
-  the fresh final-runtime all-feature binary. No frontend script changed; no new
-  local Node/restore run is claimed. No runtime code changed after89d260e.
-  Hosted implementation run42563093756 at89d260e has Linux/secrets success and
-  Windows running at observation; derive later exact-head status. The
-  closeout creates another head, so derive current exact-head checks from PR #29.
-  EVID-098 separates verification/validation/trace/six producer lenses. Keep the
-  draft until all exact-head checks pass. No full requirement or goal is done.
-  Next: pin canonical final-capable provider formats and old-writer refusal,
-  then implement exact owner-consented provider-grant release and durable final
-  intent/release/completion/cancellation under this live clearance plus the
-  provider/incarnation guard. Preserve ordinary keeper/handoff requirements.
-  Use existing accounted metadata/ledger and LocalStore; no new cache engine,
-  no silent design-7 upgrade, no live stores. Complete the actual release/unlink
-  crash/clock/authority/cancellation matrix before enabling final removal.
-  Integrate deliberate absence with retained-placement floors so old known
-  objects cannot be silently rehydrated; fresh final reacquisition needs separate
-  explicit authority and a new birth. Bulk source/age/category/native selection,
-  metadata lifetime/epoch handoff, full lifecycle/provider/large-file and human
-  acceptance remain required. FR-06..15 are unexecuted later gates, not closed
-  by the current claim guard. Foundation continues with synthetic fixtures only.
+- Active lane: feat/final-provider, input273e639.
+  Read specs/FINAL-PROVIDER.md and FINAL-RETIREMENT.md. Fresh explicit design-8
+  LocalStore uses existing fences, capacity ledger and publication; no upgrade,
+  live root or CLI activation. New immutable final intent/release/terminal records
+  separate pre/post-release cancellation, deliberate absence and current unknown
+  presence. Explicit library reacquisition uses a new context-bearing birth and
+  accounted streaming; old deletion retry cannot remove that placement. Read-only
+  status adds no commands and grants no removal authority. Canonical ASCII/Python
+  vectors include final records and fresh reacquisition framing. Thirteen focused
+  entries pass (one helper, nine actual child exits): same-hash/new-retention,
+  late clock expiry/rollback, foreign grants, budget refusal, status and public
+  placement refusal followed by explicit reacquisition/convergence. Final-runtime
+  default workspace, strict all-feature/all-target Clippy and standalone Git pass.
+  Final-runtime all-feature workspace and explicit fresh ordinary-retirement CLI
+  cancellation also pass, including 500,000 bindings. The first all-feature run
+  exposed an overstrong S3 per-round-winner assertion. Twenty unchanged races
+  passed; a new held-reader fixture deterministically makes both peers Busy and
+  verifies serial convergence after release. All fifteen corrected S3 tests pass;
+  unexpected error codes remain failures. No S3 runtime behavior changed.
+  Pre-final tig-storage artifact refusal passes with an accepted legacy control;
+  CI now builds pinned273e639 and explicitly runs that ignored qualification.
+  Workspace compilation exposed and fixed the new placement hold's CLI mapping.
+  Implementation and verification/validation/trace/six producer review close
+  separately. Next: finish evidence closeout and a stacked draft PR; derive
+  hosted exact-head checks before readiness. Budget,
+  authority/native clock/provider/large-file, complete bulk selection/source
+  settlement, metadata expiry/continuation/epoch migration and human acceptance
+  remain required. Full plan remains active. Foundation fixtures only.
+
+- Previous lane: feat/final-retirement, implementation89d260e, closeout273e639.
+  PR #29 is OPEN and ready, observed at273e639 with exact-head Validate42564231857
+  Windows/Linux/secrets SUCCESS. Content-wide live namespace membership clearance
+  and trusted minimum ancestry are qualified in EVID-098. Clearance grants no
+  provider release/removal; the active provider lane adds those separate effects.
+  Thirteen focused entries (one helper/one actual exit), 48 active source-claim
+  regressions, both old-reader qualifiers, default/all-feature workspace including
+  500,000 bindings, strict Clippy/standalone/fmt/L0 and explicit ordinary-retirement
+  CLI cancellation passed at that historical checkpoint. No merge or deployment.
 
 - Previous lane: feat/retained-subset, implementation2fecfab/corrective002a850,
   closeout59174b1, PR #28 ready after exact-head run42559095758 Windows/Linux/

@@ -14,6 +14,7 @@ const SCHEMA: &str = "tig.storage-plan.design-1";
 const LOCAL_CONTRACT: &[u8] = b"tig.local-store.design-5/process-restart/copy-retain/v1";
 const PROTECTED_CONTRACT: &[u8] = b"tig.local-store.design-6/process-restart/copy-retain/v1";
 const MANAGED_CONTRACT: &[u8] = b"tig.local-store.design-7/process-restart/managed-incarnation/v1";
+const FINAL_CONTRACT: &[u8] = b"tig.local-store.design-8/process-restart/final-incarnation/v1";
 
 #[derive(Debug)]
 pub enum Error {
@@ -78,7 +79,9 @@ impl Place {
         Ok(Self {
             instance: store.identity().clone(),
             generation,
-            contract: Digest::blob(if store.supports_retirement() {
+            contract: Digest::blob(if store.final_policy().is_some() {
+                FINAL_CONTRACT
+            } else if store.supports_retirement() {
                 MANAGED_CONTRACT
             } else if store.protection().is_some() {
                 PROTECTED_CONTRACT
@@ -91,7 +94,8 @@ impl Place {
         if self.generation == 0
             || (self.contract != Digest::blob(LOCAL_CONTRACT)
                 && self.contract != Digest::blob(PROTECTED_CONTRACT)
-                && self.contract != Digest::blob(MANAGED_CONTRACT))
+                && self.contract != Digest::blob(MANAGED_CONTRACT)
+                && self.contract != Digest::blob(FINAL_CONTRACT))
         {
             return Err(Error::InvalidPlan);
         }

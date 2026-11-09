@@ -85,8 +85,8 @@ pub(crate) struct RetentionRecord {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RetentionGrant {
-    record: RetentionRecord,
-    sha256: Digest,
+    pub(crate) record: RetentionRecord,
+    pub(crate) sha256: Digest,
 }
 impl RetentionGrant {
     pub fn store(&self) -> &Digest {

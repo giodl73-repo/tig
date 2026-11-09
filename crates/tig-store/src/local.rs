@@ -10,6 +10,7 @@ use std::{
     sync::atomic::{AtomicU64, Ordering},
 };
 use tig_core::{Digest, identity};
+mod final_state;
 pub(crate) mod lifecycle;
 
 pub const MAX_OBJECT_BYTES: u64 = 8 * 1024 * 1024;
@@ -25,6 +26,8 @@ struct Manifest {
     protection: Option<crate::store_protection::Binding>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     retirement: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    final_policy: Option<crate::final_retirement::provider::Policy>,
 }
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -42,11 +45,12 @@ pub struct LocalStore {
     protection: Option<crate::store_protection::Binding>,
     managed: bool,
     staging: Option<PathBuf>,
+    final_policy: Option<crate::final_retirement::provider::Policy>,
 }
 impl LocalStore {
     /// Creates a fresh explicit root only. Never enrolls an existing directory.
     pub fn create(root: &Path, place: Key) -> Result<Self> {
-        Self::create_mode(root, place, None, false)
+        Self::create_mode(root, place, None, false, None)
     }
     /// Explicit fresh store only; no migration or discovery of existing clients.
     pub fn create_protected(
@@ -57,7 +61,7 @@ impl LocalStore {
         if !protection.valid() {
             return Err(Error::InvalidRequest);
         }
-        Self::create_mode(root, place, Some(protection), false)
+        Self::create_mode(root, place, Some(protection), false, None)
     }
     pub fn create_managed(
         root: &Path,
@@ -67,13 +71,39 @@ impl LocalStore {
         if !protection.valid() {
             return Err(Error::InvalidRequest);
         }
-        Self::create_mode(root, place, Some(protection), true)
+        Self::create_mode(root, place, Some(protection), true, None)
+    }
+    /// Fresh explicit opt-in only. No existing-root upgrade or live enrollment.
+    pub fn create_final(
+        root: &Path,
+        place: Key,
+        protection: crate::store_protection::Binding,
+        policy: crate::final_retirement::provider::Policy,
+    ) -> Result<Self> {
+        if !protection.valid() || policy.id().is_err() {
+            return Err(Error::InvalidRequest);
+        }
+        Self::create_mode(root, place, Some(protection), true, Some(policy))
+    }
+    pub fn final_policy(&self) -> Option<&crate::final_retirement::provider::Policy> {
+        self.final_policy.as_ref()
+    }
+    #[cfg(test)]
+    pub(crate) fn fixture_manifest_valid(raw: &[u8]) -> Result<()> {
+        let m: Manifest =
+            serde_json::from_value(identity::parse_json(raw).map_err(|_| Error::CorruptRecord)?)
+                .map_err(|_| Error::CorruptRecord)?;
+        if !valid_manifest(&m) || lifecycle::encode(&m)? != raw {
+            return Err(Error::CorruptRecord);
+        }
+        Ok(())
     }
     fn create_mode(
         root: &Path,
         place: Key,
         protection: Option<crate::store_protection::Binding>,
         managed: bool,
+        final_policy: Option<crate::final_retirement::provider::Policy>,
     ) -> Result<Self> {
         check_root_spelling(root)?;
         fs::create_dir(root)?;
@@ -99,6 +129,7 @@ impl LocalStore {
             protection,
             managed,
             staging: None,
+            final_policy,
         };
         store.write_record(
             &store.root.join("store.json"),
@@ -108,6 +139,7 @@ impl LocalStore {
                 instance: store.instance.clone(),
                 protection: store.protection.clone(),
                 retirement: store.managed.then(|| lifecycle::SCHEMA.to_owned()),
+                final_policy: store.final_policy.clone(),
             },
         )?;
         Ok(store)
@@ -127,6 +159,7 @@ impl LocalStore {
             protection: manifest.protection,
             managed: manifest.retirement.is_some(),
             staging: None,
+            final_policy: manifest.final_policy,
         };
         store.guard()?;
         Ok(store)
@@ -144,7 +177,9 @@ impl LocalStore {
         self.managed
     }
     fn schema(&self) -> &str {
-        if self.managed {
+        if self.final_policy.is_some() {
+            "tig.local-store.design-8"
+        } else if self.managed {
             "tig.local-store.design-7"
         } else if self.protection.is_some() {
             "tig.local-store.design-6"
@@ -290,6 +325,7 @@ impl LocalStore {
                 protection: self.protection.clone(),
                 managed: self.managed,
                 staging: Some(scope.clone()),
+                final_policy: self.final_policy.clone(),
             },
             scope,
             _lock: lock,
@@ -399,7 +435,7 @@ impl LocalStore {
         &self,
         record: &crate::retention::RetentionRecord,
     ) -> Result<bool> {
-        Ok(self.handoff_record(record)?.is_some())
+        Ok(self.handoff_record(record)?.is_some() || self.final_grant_released(record)?)
     }
     pub(crate) fn handoff_fence(&self, object: &Object) -> Result<ExclusiveObject> {
         self.guard()?;
@@ -417,7 +453,11 @@ impl LocalStore {
             instance: self.instance.clone(),
         })
     }
-    fn check_handoff_fence(&self, object: &Object, fence: &ExclusiveObject) -> Result<()> {
+    pub(super) fn check_handoff_fence(
+        &self,
+        object: &Object,
+        fence: &ExclusiveObject,
+    ) -> Result<()> {
         self.guard()?;
         if fence.instance != self.instance || fence.object != *object {
             return Err(Error::OperationConflict);
@@ -478,7 +518,7 @@ impl LocalStore {
         )?;
         Ok(())
     }
-    fn retention_files(&self, object: &Object) -> Result<Vec<PathBuf>> {
+    pub(super) fn retention_files(&self, object: &Object) -> Result<Vec<PathBuf>> {
         self.guard()?;
         let dir = self.retention_dir(object);
         if !path_present(&dir)? {
@@ -572,6 +612,7 @@ impl LocalStore {
             || (manifest.place != self.place || manifest.instance != self.instance)
             || manifest.protection != self.protection
             || manifest.retirement != self.managed.then(|| lifecycle::SCHEMA.to_owned())
+            || manifest.final_policy != self.final_policy
         {
             return Err(Error::CorruptRecord);
         }
@@ -646,10 +687,16 @@ fn valid_manifest(manifest: &Manifest) -> bool {
         &*manifest.schema,
         &manifest.protection,
         manifest.retirement.as_deref(),
+        &manifest.final_policy,
     ) {
-        ("tig.local-store.design-5", None, None) => true,
-        ("tig.local-store.design-6", Some(binding), None) => binding.valid(),
-        ("tig.local-store.design-7", Some(binding), Some(lifecycle::SCHEMA)) => binding.valid(),
+        ("tig.local-store.design-5", None, None, None) => true,
+        ("tig.local-store.design-6", Some(binding), None, None) => binding.valid(),
+        ("tig.local-store.design-7", Some(binding), Some(lifecycle::SCHEMA), None) => {
+            binding.valid()
+        }
+        ("tig.local-store.design-8", Some(binding), Some(lifecycle::SCHEMA), Some(policy)) => {
+            binding.valid() && policy.id().is_ok()
+        }
         _ => false,
     }
 }

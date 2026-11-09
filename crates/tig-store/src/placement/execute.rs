@@ -131,6 +131,9 @@ fn recipe(config: &Config, pin: &Provider, store: &LocalStore, object: &Object) 
     }
     if store.supports_retirement() {
         if let Some(head) = store.life_head(object)? {
+            if head.final_state.is_some() {
+                return Err(Error::FinalRetirement);
+            }
             if let Some(intent) = head.intent {
                 return Ok(Recipe::Retirement(Box::new(intent.plan)));
             }
@@ -139,6 +142,13 @@ fn recipe(config: &Config, pin: &Provider, store: &LocalStore, object: &Object) 
             {
                 if request.owner != config.owner {
                     return Err(Error::WrongEnrollment);
+                }
+                if let Some(context) = &origin.final_context {
+                    return Ok(Recipe::Publication {
+                        request: request.clone(),
+                        payload: Box::new(accounted::plan_bound(store, request, context.clone())?),
+                        reacquire: None,
+                    });
                 }
                 let reacquire = retirement::resume_reacquisition(
                     store,

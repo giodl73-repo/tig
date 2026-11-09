@@ -518,3 +518,14 @@ formats and old-writer refusal, exact owner consents, budgeted durable intent/
 release/completion/cancellation, deliberate-absence placement, bulk selectors,
 actual reclaim and all lifetime/adoption gates remain required, not implemented
 by this prerequisite. FR-01..15 distinguishes current fixtures from later gates.
+
+The next bounded layer, [FINAL-PROVIDER](specs/FINAL-PROVIDER.md), is in progress:
+fresh explicit design-8 LocalStore, exact owned grant release, durable final
+intent/terminal, cancellation, deliberate absence, separately authorized fresh
+same-hash acquisition and read-only status. It reuses existing scoped guards,
+capacity and accounted streaming. Ordinary placement holds final-retirement
+states; its copy permission cannot silently recreate them. Format vectors and
+actual old-writer refusal have separate qualification. This library slice does
+not complete priority 7: batch consent/source settlement, age/category/native
+selection, operator surfaces, authority/provider/large-file qualification and
+metadata lifetime remain required before full intended-use acceptance.

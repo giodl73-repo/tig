@@ -123,7 +123,9 @@ fn plan_with_context(
             .ok_or(AccountedError::InvalidPlan)
     };
     let payload = round(request.object.bytes)?;
-    let lifecycle_files = if store.supports_retirement() {
+    let lifecycle_files = if store.final_policy().is_some() {
+        crate::local::lifecycle::MAX_FINAL_FILES as u64
+    } else if store.supports_retirement() {
         crate::local::lifecycle::MAX_FILES as u64
     } else {
         0

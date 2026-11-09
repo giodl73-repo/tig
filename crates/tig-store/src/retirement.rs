@@ -161,7 +161,17 @@ fn metadata_peak(store: &LocalStore) -> Result<u64> {
         .checked_add(quantum - 1)
         .and_then(|n| n.checked_div(quantum))
         .and_then(|n| n.checked_mul(quantum))
-        .and_then(|n| n.checked_mul((MAX_SCOPE_FILES + lifecycle::MAX_FILES + 3) as u64))
+        .and_then(|n| {
+            n.checked_mul(
+                (MAX_SCOPE_FILES
+                    + if store.final_policy().is_some() {
+                        lifecycle::MAX_FINAL_FILES
+                    } else {
+                        lifecycle::MAX_FILES
+                    }
+                    + 3) as u64,
+            )
+        })
         .ok_or(Error::InvalidPlan)
 }
 fn validate_request(store: &LocalStore, request: &Request) -> Result<()> {

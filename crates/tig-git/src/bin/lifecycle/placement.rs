@@ -202,5 +202,6 @@ pub(super) fn placement_code(e: placement::Error) -> &'static str {
         Retained => "retained",
         MissingSource => "source_unavailable",
         ReacquisitionRequired => "reacquisition_required",
+        FinalRetirement => "final_retirement",
     }
 }

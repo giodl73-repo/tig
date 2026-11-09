@@ -131,7 +131,8 @@ final-capable roots only. Real adoption/migration remains a later gate.
 
 Freeze canonical vectors for the manifest, plan, intent, release, completion and
 cancellation before admitting any new provider format. A prospective design-8
-profile is not currently implemented or accepted. Its authority/epoch/policy,
+profile is under development in [FINAL-PROVIDER](FINAL-PROVIDER.md), without
+production acceptance. Its authority/epoch/policy,
 complete roster and supported acknowledgement are immutable enrollment inputs.
 Old-reader/writer refusal and unchanged legacy behavior need actual pinned artifacts.
 

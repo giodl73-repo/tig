@@ -61,6 +61,9 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
+        Self::with_final_provider(false)
+    }
+    fn with_final_provider(final_provider: bool) -> Self {
         let root = tempfile::tempdir().unwrap();
         let places = Places {
             current: vec![key("working"), key("backup")],
@@ -102,9 +105,36 @@ impl Fixture {
             }],
         )
         .unwrap();
-        let store =
+        let store = if final_provider {
+            use tig_store::final_retirement::{claims, provider};
+            let roster = claims::Roster::flat(
+                digest("authority"),
+                digest("epoch"),
+                Some(digest("complete-content-scope")),
+                vec![claims::NamespacePin::current(&namespace).unwrap()],
+                limits(),
+            )
+            .unwrap();
+            let policy = provider::Policy::new(
+                digest("authority"),
+                digest("epoch"),
+                roster.scope().unwrap(),
+                digest("clock"),
+                vec![key("owner")],
+                1000,
+            )
+            .unwrap();
+            LocalStore::create_final(
+                &root.path().join("working"),
+                key("working"),
+                binding,
+                policy,
+            )
+            .unwrap()
+        } else {
             LocalStore::create_managed(&root.path().join("working"), key("working"), binding)
-                .unwrap();
+                .unwrap()
+        };
         let mut ledger = CapacityLedger::create(
             &root.path().join("ledger"),
             key("capacity"),
@@ -305,6 +335,41 @@ fn processes_unlink_retry_restore_and_preserve_historical_outcome_without_status
     let mut bytes = Vec::new();
     read.read_to_end(&mut bytes).unwrap();
     assert_eq!(Object::from_bytes(&bytes), f.publication.object);
+}
+
+#[test]
+#[ignore = "requires explicitly pinned pre-final tig-storage executable"]
+fn pre_final_writer_refuses_new_manifest_and_accepts_legacy_control() {
+    let baseline = std::env::var_os("TIG_PRE_FINAL_CLI").expect("explicit pre-final artifact");
+    for final_provider in [false, true] {
+        let f = Fixture::with_final_provider(final_provider);
+        let before = f.sequence();
+        let output = Process::new(&baseline)
+            .args(["retire", "plan"])
+            .arg(f.root.path().join("profile.json"))
+            .arg(f.root.path().join("request.json"))
+            .output()
+            .unwrap();
+        assert!(output.stderr.is_empty());
+        let response: Value = serde_json::from_slice(&output.stdout).unwrap();
+        if final_provider {
+            assert!(
+                !output.status.success(),
+                "old writer accepted final-capable root"
+            );
+            assert_eq!(response["ok"], false);
+        } else {
+            assert!(output.status.success(), "legacy control: {response}");
+            retirement::Plan::from_json(&output.stdout).unwrap();
+        }
+        assert_eq!(f.sequence(), before);
+        assert!(
+            LocalStore::open(&f.root.path().join("working"))
+                .unwrap()
+                .read_object(&f.publication.object)
+                .is_ok()
+        );
+    }
 }
 #[test]
 fn independent_policy_refuses_disabled_owner_context_domain_budget_and_forged_plan() {

@@ -6,16 +6,19 @@ use std::collections::BTreeSet;
 pub(crate) const SCHEMA: &str = "tig.local-lifecycle.design-1";
 pub(crate) const MAX_BIRTHS: usize = 16;
 pub(crate) const MAX_FILES: usize = MAX_BIRTHS * 4 + 1;
+pub(crate) const MAX_FINAL_FILES: usize = MAX_BIRTHS * 7 + 1;
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct Birth {
-    schema: String,
-    store: Digest,
-    object: Object,
+    pub(super) schema: String,
+    pub(crate) store: Digest,
+    pub(crate) object: Object,
     pub index: usize,
-    previous: Option<Digest>,
+    pub(super) previous: Option<Digest>,
     pub reacquire: Option<Request>,
     pub placement: Digest,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(crate) final_context: Option<Digest>,
 }
 #[derive(Clone)]
 pub(crate) struct Head {
@@ -23,6 +26,12 @@ pub(crate) struct Head {
     pub intent: Option<Intent>,
     pub done: Option<Completion>,
     pub aborted: Option<Completion>,
+    pub final_state: Option<crate::final_retirement::provider::State>,
+}
+impl Head {
+    pub(crate) fn retired(&self) -> bool {
+        self.done.is_some() || self.final_state.as_ref().is_some_and(|s| s.retired())
+    }
 }
 pub(crate) fn digest(value: &impl Serialize) -> Result<Digest> {
     Ok(Digest::blob(&encode(value)?))
@@ -70,10 +79,10 @@ impl LocalStore {
         }
         Ok(())
     }
-    fn life_dir(&self, object: &Object) -> PathBuf {
+    pub(super) fn life_dir(&self, object: &Object) -> PathBuf {
         self.root.join("lifecycle").join(object.sha256.as_str())
     }
-    fn life_path(&self, object: &Object, index: usize, kind: &str) -> PathBuf {
+    pub(super) fn life_path(&self, object: &Object, index: usize, kind: &str) -> PathBuf {
         self.life_dir(object)
             .join(format!("{index:02x}.{kind}.json"))
     }
@@ -97,7 +106,13 @@ impl LocalStore {
         directory(&dir)?;
         let mut result = Vec::new();
         for entry in fs::read_dir(dir)? {
-            if result.len() >= MAX_FILES - 1 {
+            if result.len()
+                >= (if self.final_policy.is_some() {
+                    MAX_FINAL_FILES
+                } else {
+                    MAX_FILES
+                }) - 1
+            {
                 return Err(Error::Budget);
             }
             let path = entry?.path();
@@ -131,7 +146,27 @@ impl LocalStore {
             let birth: Birth = read_record(&path)?;
             let (expected_previous, expected_placement, expected_reacquire) = match &last {
                 Some(head) => {
-                    if let Some(aborted) = &head.aborted {
+                    if let Some(final_state) = &head.final_state {
+                        let terminal = final_state.terminal.as_ref().ok_or(Error::CorruptRecord)?;
+                        if final_state.cancelled() {
+                            (Some(digest(terminal)?), head.birth.placement.clone(), false)
+                        } else {
+                            let previous = digest(terminal)?;
+                            let request = birth.reacquire.as_ref().ok_or(Error::CorruptRecord)?;
+                            (
+                                Some(previous.clone()),
+                                digest(&(
+                                    "final-reacquired-placement",
+                                    &self.instance,
+                                    object,
+                                    &previous,
+                                    request,
+                                    birth.final_context.as_ref().ok_or(Error::CorruptRecord)?,
+                                ))?,
+                                true,
+                            )
+                        }
+                    } else if let Some(aborted) = &head.aborted {
                         (Some(digest(aborted)?), head.birth.placement.clone(), false)
                     } else {
                         let previous = digest(head.done.as_ref().ok_or(Error::CorruptRecord)?)?;
@@ -156,6 +191,10 @@ impl LocalStore {
                 ),
             };
             if birth.schema != SCHEMA
+                || birth.final_context.is_some()
+                    != last
+                        .as_ref()
+                        .is_some_and(|h| h.final_state.as_ref().is_some_and(|s| s.retired()))
                 || birth.store != self.instance
                 || birth.object != *object
                 || birth.index != index
@@ -199,11 +238,25 @@ impl LocalStore {
             } else {
                 None
             };
+            let final_state = if self.final_policy.is_some() {
+                self.load_final_state(&birth)?
+            } else {
+                None
+            };
+            if self.final_policy.is_some() {
+                for kind in ["final-intent", "final-release", "final-terminal"] {
+                    remaining.remove(&self.life_path(object, index, kind));
+                }
+            }
+            if final_state.is_some() && intent.is_some() {
+                return Err(Error::CorruptRecord);
+            }
             last = Some(Head {
                 birth,
                 intent,
                 done,
                 aborted,
+                final_state,
             });
         }
         if !remaining.is_empty() || (last.is_none() && path_present(&self.life_dir(object))?) {
@@ -215,10 +268,10 @@ impl LocalStore {
         let Some(head) = self.life_head(object)? else {
             return Err(Error::ReacquisitionRequired);
         };
-        if head.done.is_some() {
+        if head.retired() {
             return Err(Error::AuthorizedAbsence);
         }
-        if head.intent.is_some() && !self.object_present(object)? {
+        if (head.intent.is_some() || head.final_state.is_some()) && !self.object_present(object)? {
             return Err(Error::NeedsRecovery);
         }
         Ok(())
@@ -259,10 +312,10 @@ impl LocalStore {
             .life_head(&request.object)?
             .ok_or(Error::CorruptRecord)?;
         if head.birth.placement == *wanted {
-            if head.done.is_some() {
+            if head.retired() {
                 return Err(Error::AuthorizedAbsence);
             }
-            if head.intent.is_some() && head.aborted.is_none() {
+            if head.final_state.is_some() || head.intent.is_some() && head.aborted.is_none() {
                 return Err(Error::NeedsRecovery);
             }
             return Ok(());
@@ -270,6 +323,11 @@ impl LocalStore {
         // Only actual exact retirement evidence can explain an old incarnation.
         for index in 0..head.birth.index {
             let birth: Birth = read_record(&self.life_path(&request.object, index, "birth"))?;
+            if birth.placement == *wanted
+                && self.load_final_state(&birth)?.is_some_and(|s| s.retired())
+            {
+                return Err(Error::AuthorizedAbsence);
+            }
             if birth.placement == *wanted
                 && path_present(&self.life_path(&request.object, index, "done"))?
             {
@@ -323,10 +381,10 @@ impl LocalStore {
             self.life_head(&request.object)?
         };
         if let Some(head) = head {
-            if head.done.is_some() {
+            if head.retired() {
                 return Err(Error::ReacquisitionRequired);
             }
-            if head.intent.is_some() {
+            if head.intent.is_some() || head.final_state.is_some() {
                 return Err(Error::NeedsRecovery);
             }
             if let Some(first) = &head.birth.reacquire
@@ -345,11 +403,12 @@ impl LocalStore {
             previous: None,
             reacquire: None,
             placement: digest(&("initial-placement", &self.instance, &request.object))?,
+            final_context: None,
         };
         self.install_birth(&birth)?;
         Ok(Some(birth.placement))
     }
-    fn install_birth(&self, birth: &Birth) -> Result<()> {
+    pub(super) fn install_birth(&self, birth: &Birth) -> Result<()> {
         let dir = self.life_dir(&birth.object);
         if !path_present(&dir)? {
             fs::create_dir(&dir)?;
@@ -362,8 +421,8 @@ impl LocalStore {
         let head = self
             .life_head(&request.object)?
             .ok_or(Error::CorruptRecord)?;
-        if head.intent.is_some() {
-            return Err(if head.done.is_some() {
+        if head.intent.is_some() || head.final_state.is_some() {
+            return Err(if head.retired() {
                 Error::AuthorizedAbsence
             } else {
                 Error::NeedsRecovery
@@ -460,6 +519,7 @@ impl LocalStore {
             previous: Some(digest(&aborted)?),
             reacquire: None,
             placement: head.birth.placement,
+            final_context: None,
         };
         self.install_birth(&birth)
     }
@@ -469,11 +529,23 @@ impl LocalStore {
         birth: &Birth,
         fence: &ExclusiveObject,
     ) -> Result<u64> {
+        self.verify_bound_source(request, birth, fence, false)
+    }
+    pub(super) fn verify_bound_source(
+        &self,
+        request: &Request,
+        birth: &Birth,
+        fence: &ExclusiveObject,
+        allow_final: bool,
+    ) -> Result<u64> {
         self.check_handoff_fence(&request.object, fence)?;
         let head = self
             .life_head(&request.object)?
             .ok_or(Error::CorruptRecord)?;
-        if digest(&head.birth)? != digest(birth)? || head.done.is_some() {
+        if digest(&head.birth)? != digest(birth)?
+            || head.retired()
+            || !allow_final && head.final_state.is_some()
+        {
             return Err(Error::OperationConflict);
         }
         for (kind, schema) in [
@@ -595,6 +667,7 @@ impl LocalStore {
                 digest(previous)?,
                 request,
             ))?,
+            final_context: None,
         })
     }
     pub(crate) fn begin_reacquisition(&self, birth: &Birth, fence: &ExclusiveObject) -> Result<()> {

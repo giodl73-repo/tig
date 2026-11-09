@@ -682,38 +682,54 @@ fn payload_budget_unsupported_guarantees_and_unknown_roots_cannot_enable_upload(
 
 #[test]
 fn concurrent_cli_publishers_preserve_source_and_retry_exact_shared_witnesses() {
-    let f = Fixture::new();
-    let spawn = || {
-        Command::new(env!("CARGO_BIN_EXE_tig-storage"))
-            .args(["s3", "apply"])
-            .arg(f.root.path().join("profile.json"))
-            .arg(f.root.path().join("plan.json"))
-            .stdout(std::process::Stdio::piped())
-            .stderr(std::process::Stdio::piped())
-            .spawn()
-            .unwrap()
-    };
-    let first = spawn();
-    let second = spawn();
-    let a = first.wait_with_output().unwrap();
-    let b = second.wait_with_output().unwrap();
-    assert!(a.status.success() || b.status.success());
-    for result in [a, b] {
-        if result.status.success() {
-            success(result);
-        } else {
-            failure(result, "busy");
+    for hold_ledger_reader in [false, true] {
+        let f = Fixture::new();
+        let reader =
+            rusqlite::Connection::open(f.root.path().join("ledger/ledger.sqlite")).unwrap();
+        if hold_ledger_reader {
+            reader
+                .execute_batch("BEGIN; SELECT COUNT(*) FROM events;")
+                .unwrap();
         }
+        let spawn = || {
+            Command::new(env!("CARGO_BIN_EXE_tig-storage"))
+                .args(["s3", "apply"])
+                .arg(f.root.path().join("profile.json"))
+                .arg(f.root.path().join("plan.json"))
+                .stdout(std::process::Stdio::piped())
+                .stderr(std::process::Stdio::piped())
+                .spawn()
+                .unwrap()
+        };
+        let first = spawn();
+        let second = spawn();
+        let a = first.wait_with_output().unwrap();
+        let b = second.wait_with_output().unwrap();
+        // Nonblocking ledger admission does not promise a winner per racing round.
+        // A held reader deterministically exercises both writers returning Busy.
+        if hold_ledger_reader {
+            assert!(!a.status.success() && !b.status.success());
+        }
+        for result in [a, b] {
+            if result.status.success() {
+                success(result);
+            } else {
+                failure(result, "busy");
+            }
+        }
+        if hold_ledger_reader {
+            reader.execute_batch("ROLLBACK;").unwrap();
+        }
+        success(f.cli("resume"));
+        let after = f.server.counts().1;
+        success(f.cli("resume"));
+        assert_eq!(f.server.counts().1, after);
+        assert_eq!(
+            f.server.state.lock().unwrap().object.as_ref().unwrap(),
+            b"synthetic S3 fixture bytes"
+        );
+        f.preserved();
     }
-    success(f.cli("resume"));
-    let after = f.server.counts().1;
-    success(f.cli("resume"));
-    assert_eq!(f.server.counts().1, after);
-    assert_eq!(
-        f.server.state.lock().unwrap().object.as_ref().unwrap(),
-        b"synthetic S3 fixture bytes"
-    );
-    f.preserved();
 }
 
 #[test]

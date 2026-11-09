@@ -81,6 +81,27 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo check -p tig-git --no-default-features --locked
           exit $LASTEXITCODE
+      - name: Qualify pre-final provider writer refusal
+        shell: pwsh
+        run: |
+          $baseline = '273e639cd9515f0860140c926240b18e4ca69a1b'
+          $baselineRoot = Join-Path $env:RUNNER_TEMP 'tig-pre-final'
+          $baselineBuild = Join-Path $env:RUNNER_TEMP 'tig-pre-final-build'
+          $env:GIT_LFS_SKIP_SMUDGE = '1'
+          git -c core.hooksPath=NUL fetch --no-tags --depth=1 origin $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -c core.hooksPath=NUL worktree add --detach $baselineRoot $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          cargo build --manifest-path "$baselineRoot/crates/tig-store/Cargo.toml" --target-dir $baselineBuild --bin tig-storage --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_PRE_FINAL_CLI = Join-Path $baselineBuild "debug/tig-storage$suffix"
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          cargo test -p tig-store --test retirement_cli --locked pre_final_writer_refuses_new_manifest_and_accepts_legacy_control -- --ignored --exact
+          exit $LASTEXITCODE
       - name: Qualify pre-pair source reader compatibility
         shell: pwsh
         run: |

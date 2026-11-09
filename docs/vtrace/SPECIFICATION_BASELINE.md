@@ -241,3 +241,11 @@ new provider formats, cancellation effects and metadata lifetime remain target.
 Clearance checks membership in all admitted namespaces independent of placement
 and pins exact trusted minima with the shared journal ancestry verifier. The
 new roster/summary is experimental; no existing journal/provider format changes.
+
+[FINAL-PROVIDER](../../specs/FINAL-PROVIDER.md), input273e639, extends the same
+SPEC-002/003/004/005/006/008/009/013/014 controls with a fresh design-8 provider
+profile and bounded canonical final policy/plan/intent/release/terminal/status,
+plus separately authorized fresh reacquisition plan and context-bearing birth.
+Legacy provider encodings and ordinary keeper requirements remain. No existing
+root upgrade, journal command, bulk selector, live authority migration or metadata
+expiry is admitted. Implementation and qualification are separate records.

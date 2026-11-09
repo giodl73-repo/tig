@@ -75,6 +75,11 @@ upload. The guard is released for the existing accounted completion publisher,
 whose exact binding handles a competing finisher. No SQL transaction spans remote
 IO. Status samples provider evidence before the ledger and rechecks after a fresh
 settlement witness, so concurrent completion does not fabricate missing metadata.
+Nonblocking ledger admission may return Busy to every contender in one racing
+round; no per-round winner or fairness is promised. After contention clears,
+explicit serial resume must converge on the same exact witnesses and preserve
+the source. Qualification includes a held SQLite reader forcing both peers Busy;
+other failure codes are not accepted as ordinary contention.
 
 Remote transfer budgets bound object bytes, total application payload IO bytes,
 HTTP calls and elapsed time per invocation. Network timeouts are cooperative, not
