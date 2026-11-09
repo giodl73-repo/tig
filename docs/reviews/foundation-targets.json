@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 11951,
-      "sha256": "5141e141b5dbc4ff69358c94b225c196ca7b15ebc0658957b97f4da967135ad4"
+      "bytes": 11958,
+      "sha256": "5cab00fc435f901189e0eb2b8c93e9d859006b8862082641d17c5e773958c98e"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 13514,
-      "sha256": "ca08c7d1c5926b77d3c50ebc47dcda3bd5ea2ec22b0485be3a1a649c14ed51c8"
+      "bytes": 13760,
+      "sha256": "fda8b5299fba9a51f49663159f4f78c8ada0f56437d8fa160b87b5a9341a3f2f"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 94186,
-      "sha256": "7b1eb3d9c4cde9916b0f210a577e5861dfde205f2d177368c2a6622d4dd2f9f7"
+      "bytes": 95543,
+      "sha256": "f026d6751a64788f4f3bc78f08ff5edf50c321bf0ce473327f6e575b47870f46"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 126532,
-      "sha256": "64281aa8eccec280902bf3687a8fb42371c90923da15127f59e3f6bf260f1166"
+      "bytes": 127067,
+      "sha256": "a9b14d21ffce9541a357d0425b1c9073bc4f406a89c84959629c7b130c318f24"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 21086,
-      "sha256": "73c19f4cb7e488950173c09bb4822c2022c5a768739a90a041dd721e4d9496a0"
+      "bytes": 21633,
+      "sha256": "929a4b9dbc52570c45268dca3f248e6b69e8c444dae350ebcb160b86a2275463"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 42645,
-      "sha256": "c6a605dde2bf60ab878c2e9b354d64536c94149e046d8d6433bc6f2c8cdbeacd"
+      "bytes": 43364,
+      "sha256": "5fde8db79c299259bacc44b929d66646bbd702f97db0bb407cfa3af077ae52d7"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 28351,
-      "sha256": "6b97e607ec66393852717db934391ef407008f1ba577ae881d3d6a3042437fc8"
+      "bytes": 29016,
+      "sha256": "649d8945758a6a090b900f835e1ff8b77a5cb77da4abf46420eb70042d48676f"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 52956,
-      "sha256": "6eb98d8bd9369bf10ce5c390dfa1b2fb4322c388b1512bc3e6e37bad4b4191f7"
+      "bytes": 53986,
+      "sha256": "9d11f3c3b3bd2f99339d4e014220245edc268acc72737842e17c9ce703cbbe71"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 40649,
-      "sha256": "8d4a21e8f5232167983cec1ecb58cc9512867df17f01de643b123c7b7f9130dd"
+      "bytes": 41249,
+      "sha256": "310c513451ce818fff4241e58603c2dcaa2c7094aeb678f9c9fdc36777720f60"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 36364,
+      "bytes": 37320,
       "path": "context/RESUME.md",
-      "sha256": "b3fc8547f20d28462713c1024017190b0767434b80d228770d4051c17aec6f00"
+      "sha256": "591e9772a144abb2b9441ac5e832e3b66080f34c0b626e1111b19045714b8316"
     },
     {
       "bytes": 16453,
@@ -2454,8 +2454,8 @@
     },
     {
       "path": "specs/NATIVE-RETIREMENT-BINDINGS.md",
-      "bytes": 6712,
-      "sha256": "ec5d9191af992e00b6a05b2822830c025b1e8bde142700ae3b6dee0b3874e95c"
+      "bytes": 8720,
+      "sha256": "e39a7e3365e8bf3836d5b9957e1e9c29513a252ec40aafa8ee2e15cbd09c68fd"
     },
     {
       "path": "docs/guides/NATIVE-RETIREMENT.md",
@@ -2474,8 +2474,8 @@
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases.rs",
-      "bytes": 15570,
-      "sha256": "076f82e426de5a74059671ba9fdd825ccd57972025b69dac54a2e0d6102b8958"
+      "bytes": 16516,
+      "sha256": "00db44e15e2e83226b66bdf43e9eedd90c22c99c20f80e9535809f06e1b81eca"
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases/bulk_cases.rs",
@@ -2491,6 +2491,11 @@
       "path": "tests/vectors/native-retirement.design-1.json",
       "bytes": 2200,
       "sha256": "13e49239fb667826a4c21ab0b51f5fe7366c730ae9f7ed17e04d273c15f9a99f"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-native-retirement-bindings.md",
+      "bytes": 11750,
+      "sha256": "c9a8e5b62dc8df076397b170a0eef0ec7d114bf06e9b93509ac8e18ca925c192"
     }
   ]
 }

@@ -254,6 +254,17 @@ fn exact_categories_and_aggregate_native_graph_budgets_cannot_be_inferred_or_mul
     );
     category_filter.categories.insert("unadmitted".into());
     assert!(retirement::select(&inventory, &category(&snapshot), &category_filter).is_err());
+    let wrong_revision = Filter {
+        assets: BTreeSet::from([Reference {
+            id: "asset/a".into(),
+            object: Object::from_bytes(b"other-record-revision"),
+        }]),
+        categories: BTreeSet::new(),
+    };
+    assert!(matches!(
+        retirement::select(&inventory, &Categories::new(), &wrong_revision),
+        Err(retirement::Error::Incomplete)
+    ));
     assert!(
         retirement::select(
             &inventory,
@@ -299,6 +310,24 @@ fn storage_closure_includes_explicit_output_bytes_without_admitting_them_as_prod
             .contains(&Object::from_bytes(b"old render"))
     );
     assert!(graph.production_requirements().is_err());
+    let production = graph::resolve(
+        &mut snapshot,
+        &Query {
+            checkpoint: graph.checkpoint().clone(),
+            roots: BTreeSet::from([root.clone()]),
+            kinds: BTreeSet::from([EdgeKind::Production]),
+            limits: graph::Limits {
+                nodes: 10,
+                edges: 10,
+                depth: 10,
+                bytes: 100_000,
+            },
+        },
+        &p,
+    )
+    .unwrap();
+    assert!(production.complete_declared_coverage());
+    assert!(production.production_requirements().is_err());
     let mut nodes = MemoryNodes::default();
     let selected = retirement::build(
         &mut snapshot,

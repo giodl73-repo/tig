@@ -1,5 +1,16 @@
 # Tig trace
 
+Native historical mapping: WP-003/004/007/008/009/010/013/015;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-001/003/004/006/008/009 -> NATIVE-RETIREMENT-BINDINGS.md ->
+Graph::storage_objects, native::retirement build/build_from_archive/inspect/select,
+tig-retirement -> eight native entries, one framing entry/four independent cases,
+real Git/CLI/1000 roots and actual bulk byte effects -> EVID-105,
+implementation00c229d. [Review](../reviews/2026-11-09-native-retirement-bindings.md)
+keeps implementation, verification, synthetic validation and six producer lenses
+separate from age, live adoption/provider/lifetime and full acceptance.
+
 Bulk operator execution: WP-003/004/006/007/008/009/013/015;
 REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
 IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->

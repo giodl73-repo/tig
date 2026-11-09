@@ -1,5 +1,13 @@
 # Tig controlled specification baseline
 
+SPEC-002/003/004/005/008/009/010/013/014 native selection prerequisite:
+[native historical bindings](../../specs/NATIVE-RETIREMENT-BINDINGS.md), EVID-105
+and [six-producer review](../reviews/2026-11-09-native-retirement-bindings.md)
+specify explicit declared storage closure, per-asset aliases, admitted immutable
+header/native interpretation and exact block/category selection. Production input
+rules remain. Native age, source/writer adoption, UI/Action/paging and live
+authority/provider/lifetime/metadata retirement acceptance remain target.
+
 SPEC-002/003/004/005/006/008/009/013/014 operator extension:
 [bulk execution](../../specs/BULK-EXECUTION.md), EVID-104 and
 [six-producer review](../reviews/2026-11-09-bulk-execution.md) specify separately

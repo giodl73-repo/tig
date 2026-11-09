@@ -1,5 +1,13 @@
 # Foundation review
 
+Native binding review, inputc241593/implementation00c229d: NB-01..06 in
+[native review](../reviews/2026-11-09-native-retirement-bindings.md) apply six
+producer lenses. EVID-105 separates code, verification and synthetic validation.
+Pass_with_risk for declared native mapping; local broad/final strengthened checks
+pass, hosted exact-head pending. NB-07 retains a paged shared-claim settlement
+entry gate. Age/native adoption/writers, metadata dependencies,
+provider/lifetime and independent/human acceptance remain open. No live use.
+
 Bulk execution review, input6f8fdaa/implementation6b9016e: BE-01..06 in
 [execution review](../reviews/2026-11-09-bulk-execution.md) apply six producer
 lenses. EVID-104 separates implementation, verification and synthetic validation.

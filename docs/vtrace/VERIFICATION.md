@@ -1,5 +1,19 @@
 # Verification record
 
+EVID-105/implementation00c229d: eight native integration entries plus one framing
+entry/four independent cases pass. Actual metadata CLI independently reads back
+bind output, selects exact historical bindings without source/metadata commands,
+and operates with Git detached. Existing bulk execution removes only the unique
+payload while an unselected native alias protects shared bytes. Counted-provider
+acquisition, aggregate budgets,1000 roots and malformed/unknown scope refuse.
+Full locked default/all-feature workspace, both500k fixtures, standalone Git,
+fresh ordinary cancellation/bulk inspection/execution and pinned old-writer
+refusal/legacy control pass (22223/15766 terminal zero). Later strengthened
+Production-only-output/wrong-revision assertions and strict Clippy pass (48378
+terminal zero). Runtime unchanged after00c229d. Final fmt/L0/diff pass. Commands/scope:
+[native review](../reviews/2026-11-09-native-retirement-bindings.md). Hosted
+exact-head, intended-use adoption and full requirements remain separate.
+
 EVID-104/implementation6b9016e: nineteen active bulk entries and explicit fresh
 execution CLI qualifier pass. Metadata/time-free Cancellation preserves settled
 history and surviving bytes; apply uses independently enrolled LocalClock and

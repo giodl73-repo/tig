@@ -42,7 +42,7 @@ certifying full requirements or every consumer.
 The [native binding adapter](specs/NATIVE-RETIREMENT-BINDINGS.md) compiles exact
 declared native storage closure into independently aliased flat bindings. The
 metadata-only bind/select CLI maps exact blocks and admitted definition categories
-to existing bulk selections. Qualification is in progress. Recorded supersession
+to existing bulk selections. EVID-105 records local qualification. Recorded supersession
 age remains a separate prerequisite; no input timestamp or Git date grants it.
 
 The [bulk execution interface](specs/BULK-EXECUTION.md) composes exact private
@@ -360,6 +360,15 @@ the working local orchestration slice; they are not prerequisites for it.
 
 The [six-role review](docs/reviews/2026-11-08-storage-roadmap-roles.md) records
 design corrections and the implementation proof still required.
+
+Native selection review adds NB-07 in the
+[native binding review](docs/reviews/2026-11-09-native-retirement-bindings.md):
+when shared content appears in more historical roots than one bounded batch can
+select, every page remains held by the others. Larger-block delivery therefore
+needs exact global consent and a separately admitted historical-claim-only
+settlement phase before final byte removal. Repeating current bounded final
+batches is insufficient. Preserve held/current/foreign obligations and original
+deletion consent; qualify age inheritance and interruption across those pages.
 
 ## Full outstanding obligations
 

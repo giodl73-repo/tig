@@ -7,8 +7,9 @@ SPEC-002/003/004/005/008/009/010/013/014;
 IF-002/004/005/006/008/010/012/013; PKG-001/003/004/006/008/009.
 RUST/GIT/PROVIDER profiles. Allowed: optional declared native storage closure,
 asset-side native-to-flat binding archives, exact block/category selection,
-explicit metadata-only bind/select CLI and synthetic integration. No byte IO,
-new cache/journal engine, live root, implicit adoption/migration, deletion, native
+explicit metadata-only bind/select CLI and synthetic integration. The adapter
+opens no payloads; L2 exercises existing guarded bulk providers only in owned
+temporary fixtures. No new provider/cache/journal engine, live root, implicit adoption/migration, native
 age inference or UI deployment. Entry: admitted exact native snapshot/profiles,
 existing metadata provider, current source authority/minima and historical root.
 Exit: shared aliases survive selected asset retirement, category meaning binds
@@ -101,3 +102,31 @@ Native age witnesses, full UI/Action integration, current authority/host trust/
 unseen restore, large files/real providers, journal continuation, eventual
 metadata retirement and human intended-use acceptance remain required parts of
 the full plan. A native binding archive does not make any of them complete.
+
+## Next age and paging design entry
+
+The following is an unimplemented design entry, not a frozen wire protocol:
+
+- A trusted capture operation must derive an exact historical occurrence from the
+  current namespace/source/predecessor/root, then sample the admitted native
+  clock. Persist a conservative supersession-observation upper bound; do not
+  accept a serialized timestamp as capture authority. Unknown age holds.
+- Evaluate reusing an explicitly enrolled source-journal root over an asset-side
+  Tree of immutable age documents, with the existing metadata/clock ports. Bound
+  stable-operation retries, pending/adopted recovery, metadata budgets and old
+  registry-root retirement; create no separate event/cache engine.
+- Bind each receipt to its exact occurrence and authority/clock epoch. New current
+  or recent historical occurrences remain independent obligations. Owned subset
+  lineage may preserve original age only after verifying its actual source
+  transition and unchanged bindings; header/hash equality alone is insufficient.
+- More than sixteen historical roots can protect the same object. Every bounded
+  page then sees protection outside its selection, leaving every member held.
+  Repeating the current bounded final batch cannot settle that whole block.
+  Before paged final execution, freeze exact global selection/consent and a
+  separately authorized historical-claim-only settlement phase. Surviving claims
+  still protect bytes. Later physical removal must stay inside the originally
+  approved eligible content; newly eligible held content needs a new decision.
+- Qualify age inheritance across partial subsets, shared objects spanning more
+  than MAX_ROOTS, active/unselected obligations, interruption and resource/lifetime
+  exhaustion between pages. Preserve honest partial effects and final live
+  protection checks. Current bounded batch semantics remain unchanged.

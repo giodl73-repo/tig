@@ -1,5 +1,23 @@
 # Evidence index
 
+EVID-105: native historical binding/block/category adapter, implementation00c229d.
+[Native review](../reviews/2026-11-09-native-retirement-bindings.md) records exact
+controls/commands and six producer lenses. Eight native integration entries and
+one framing entry/four independent cases pass: real Git/CLI without Git available,
+independent shared aliases, actual bulk unique-byte removal/shared preservation,
+retained subsets, exact categories,1000 roots, oversized category refusal and
+cross-query size/budget holds. Archive acquisition now shares construction's
+budget; a counted provider stops at one read and zero writes. Strict all-feature/
+all-target Clippy/fmt/L0/diff pass. Full locked default/all-feature workspace,
+both500k fixtures, standalone Git and fresh ordinary cancellation/bulk inspection/
+execution/pinned older-writer refusal with legacy control pass; chains22223/15766
+terminated zero. Later Production-only-output/wrong-revision assertions pass in
+final focus/Clippy (48378 terminal zero). No runtime changed after00c229d. Hosted
+exact-head remains separate. NB-07 records a future paged shared-claim settlement
+gate: repeating bounded final batches alone is insufficient. Native ages,
+adoption/writer coverage, UI/Action/paging, authority/provider/
+lifetime/metadata dependencies and human acceptance remain open. Full goal active.
+
 EVID-104: explicit bulk execution, implementation6b9016e.
 [Execution review](../reviews/2026-11-09-bulk-execution.md) records controls,
 commands, six producer lenses and residual scope. Nineteen active bulk entries

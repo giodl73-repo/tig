@@ -1,5 +1,14 @@
 # Intended-use validation
 
+EVID-105 contributes bounded VAL-002/003/004 rehearsal: exact native blocks and
+admitted definition categories map to independent aliases instead of withdrawing
+another asset's shared protection. An actual temporary bulk run deletes six
+unique bytes while six shared bytes remain readable; surviving partial native
+membership is inspectable without Git. [Review](../reviews/2026-11-09-native-retirement-bindings.md)
+separates declared mapping from full semantic/schema/adoption coverage, recorded
+age, native UI/Action/paging, real providers/large files, current authority/restore,
+lifetime/new metadata dependency expiry and human acceptance. All full VALs open.
+
 EVID-104 contributes bounded VAL-002/003/004 rehearsal: exact approved historical
 blocks can execute/resume/cancel through the CLI over the same controller as
 inspection. Shared siblings survive; expired/changed consent prevents further

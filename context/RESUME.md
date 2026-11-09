@@ -23,11 +23,23 @@ source changes into running tools as a side effect. No startup cache operations.
   all-feature/all-target Clippy pass. Review found initial CLI archive acquisition
   outside its binding budget; build_from_archive now charges both together. The
   counted-provider regression stops at one read and zero writes. Independent
-  persisted readback is a second bounded phase. Full regressions remain required.
+  persisted readback is a second bounded phase. Both locked workspace suites,
+  both500k fixtures, standalone Git and fresh ordinary cancellation/bulk
+  inspection/execution/pinned older-writer refusal/legacy control pass; chains
+  22223/15766 terminated zero. Later review strengthened genuine Production-only
+  output refusal and wrong-revision negatives; final eight-entry focus/strict
+  Clippy passes (48378 terminal zero). Runtime remains00c229d. EVID-105 records
+  separate verification/validation/trace/six producer review. Hosted checks pending.
   No live roots, migration or source adoption is inferred. Next: final source
   qualification, separate verification/validation/trace/six producer closeout and
-  stacked draft against feat/bulk-execution (#35), then durable age witnesses,
-  full UI/Action/provider/lifetime/authority and eventual metadata retirement.
+  stacked draft against feat/bulk-execution (#35), then durable age witnesses.
+  NB-07 adds an entry gate: more historical aliases than MAX_ROOTS keep every
+  bounded final page held. Freeze exact global consent and separately authorised
+  historical-claim-only settlement before paged final deletion; do not silently
+  change current held-member semantics. Preserve age through proven owned subset
+  lineage, with newer/current/recent occurrences independently protected. Read
+  the next-entry section of NATIVE-RETIREMENT-BINDINGS.md. Full UI/Action/provider/
+  lifetime/authority and eventual metadata retirement remain owed; goal active.
 
 - Previous lane: feat/bulk-execution, input6f8fdaa. Read specs/BULK-EXECUTION.md.
   Separate tig-storage bulk execute apply/resume/cancel profile binds exact

@@ -4,7 +4,7 @@ Native retirement binding lane: optional declared storage closure and asset-side
 native-to-flat roots give each root asset independent bindings for shared objects.
 Explicit metadata-only tig-retirement bind/select composes exact block/category
 selection with the existing bulk controller, without self-approval or age inference.
-Read specs/NATIVE-RETIREMENT-BINDINGS.md. Qualification is in progress; age
+Read specs/NATIVE-RETIREMENT-BINDINGS.md and EVID-105 for local qualification; age
 witnesses, UI/Action, authority/provider/lifetime and full acceptance remain open.
 
 Bulk execution lane: the distinct tig-storage bulk execute profile binds exact
