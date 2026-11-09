@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 49311,
+      "bytes": 49699,
       "path": "context/RESUME.md",
-      "sha256": "92d564fc954ba7dccc4a38e0e408b90625175f13ee21334940bef38ee341b471"
+      "sha256": "6ca4923710e706da1b972402640e04599ba5d36c4ec432fae1de562acc073769"
     },
     {
       "bytes": 16453,
@@ -2644,8 +2644,13 @@
     },
     {
       "path": "docs/reviews/2026-11-09-paged-controller.md",
-      "bytes": 10368,
-      "sha256": "40dd78a9158c59ff7c04240c9f12cee88c14c3de1dadb6a91f2bf35cede163fb"
+      "bytes": 10958,
+      "sha256": "5291a063ac52adc92aedf93deb8960e326546006fd0bf42ddc12fa58e6033a1a"
+    },
+    {
+      "path": ".gitleaksignore",
+      "bytes": 360,
+      "sha256": "f0f17df7c373354f2ead733db94deb424f15f5d3a37b07f4355ad1a86b9f4535"
     }
   ]
 }

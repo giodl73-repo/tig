@@ -1,0 +1,4 @@
+# Public synthetic operation digests, recomputed by the independent controller
+# framing test. These exact historical fingerprints exclude no file or rule.
+4bcd433f8a3e89dc1819aef1def5dcba68dd1199:tests/vectors/paged-control.design-1.json:generic-api-key:20
+4bcd433f8a3e89dc1819aef1def5dcba68dd1199:tests/vectors/paged-control.design-1.json:generic-api-key:35

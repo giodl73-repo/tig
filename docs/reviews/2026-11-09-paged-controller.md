@@ -64,6 +64,14 @@ key/control-binding checks. These pin framing, not authority or semantic closure
   before implementation; refresh L0 after this review. Hosted exact-head Windows/
   Linux/secrets qualification remains required.
 
+First hosted run42665505108 flagged two generic-api-key matches in historical
+vector lines20/35 of implementation4bcd433. Both are public operation digests
+recomputed by independent framing; no credential is present. The two exact
+commit/path/rule/line [fingerprints](../../.gitleaksignore) are excluded, with no
+file-wide or rule-wide suppression. Pinned Gitleaks8.30.1 (official Windows
+release archive SHA-256 verified) then scans all92 reachable commits clean locally.
+Resubmitted hosted qualification must still succeed at the new exact head.
+
 Commands use explicit external build/temp roots and finite test threads. The
 default/all-feature/final-focus logs remain outside source; pinned old binaries
 are preserved in separate targets.
@@ -84,6 +92,7 @@ cargo test -p tig-store --lib --locked explicit_cli_pending_cancellation_qualifi
 cargo test -p tig-store --test retirement_cli --locked pre_final_writer_refuses_new_manifest_and_accepts_legacy_control -- --ignored
 pwsh -NoProfile -File tools/validate.ps1
 git diff --check
+gitleaks git . --redact --log-opts=--all
 ```
 
 ## Synthetic validation

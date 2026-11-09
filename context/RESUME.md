@@ -42,8 +42,13 @@ source changes into running tools as a side effect. No startup cache operations.
   entry/strict store Clippy passes (41297 terminal zero). Broad/final logs are external
   paged-controller-default.log, paged-controller-all.log and paged-controller-final-focus.log.
   All local processes are terminal; no target is live. EVID-109 and its six-producer
-  review separate verification, synthetic validation and trace. New PR/hosted
-  exact-head checks remain to be obtained; no full requirement or live acceptance.
+  review separate verification, synthetic validation and trace. PR40 is OPEN/draft,
+  stacking on ready PR39. Its first hosted run42665505108 has a secrets failure:
+  two public synthetic operation digests in vector lines20/35 of4bcd433. Exact
+  historical fingerprints are now documented in .gitleaksignore; pinned Gitleaks
+  8.30.1 scans all92 reachable commits clean locally. No file/rule is broadly
+  ignored. Resubmit and derive the new exact-head hosted status before readying;
+  no full requirement or live acceptance follows from source/CI.
   Next: finish exact broad/artifact/producer qualification for the manual core;
   then compose admitted age evidence and survivor inheritance into page completion,
   native selectors and operator/agent/UI/Action surfaces. Preserve actual current
