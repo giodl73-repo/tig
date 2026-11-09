@@ -1,4 +1,5 @@
 //! Exact Git-selected desired protection. Provider execution is composed separately.
+pub mod index;
 use crate::source::{GitId, Repository, Scope};
 use serde::{Deserialize, Serialize};
 use serde_json::json;

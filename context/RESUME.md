@@ -8,8 +8,26 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/github-trigger, base1c253ea, implementation503adca,
-  issuer-time fixb3aced0; stacked draft PR #25. Read
+- Active uncommitted lane: feat/index-lifecycle, input195bd0a. Read
+  specs/INDEX-LIFECYCLE.md for GIT/PROVIDER controls/scope/entry/exit. Default
+  lifecycle::index/tig-lifecycle index compose exact staged pointer obligations,
+  finished/read-back metadata, existing atomic source adoption and one existing
+  placement page. Conflict alternatives remain draft byte obligations, not merged
+  content. Other source issues hold adoption. Fifteen focused entries pass (one
+  helper, two actual abrupt process exits); linked indexes, stale/foreign/disabled
+  plans, offline status and real CLI job-aware demotion/no-op catch-up execute.
+  Strict all-feature/all-target workspace Clippy passes. Broad default/all-feature
+  workspace suites are running in separate external targets; do not overlap builds
+  against a target under CLI tests. No source journal/event format changed.
+  Next: inspect those exact processes, run remaining checks, refresh target pins,
+  commit implementation separately from EVID-095 verification/validation/trace/
+  six-role closeout and inspect the stacked hosted qualification. No live cache,
+  hook or consumer is attached. Branch withdrawal/rename, automatic commit/draft
+  settlement, private overlays/native closure, provider/large-file/authority/
+  lifetime, final deletion, metadata expiry and user acceptance remain open.
+
+- Previous lane: feat/github-trigger, base1c253ea, implementation503adca,
+  issuer-time fixb3aced0; PR #25 is ready at195bd0a. Read
   specs/GITHUB-TRIGGER.md for input controls, bounded source/intake/coordinator
   contract and adoption gates. Optional feature github adds tig-trigger serve,
   independent RS256/OIDC verification and bounded metadata-only GitHub source;
@@ -28,16 +46,14 @@ source changes into running tools as a side effect. No startup cache operations.
   Hosted issuer run42546575041 passes atb3aced0 through the actual foreground
   binary and GitHub current API with a random empty fixture scope: zero objects,
   streamed bytes and effects. Ordinary ignored entries are not proof. Hosted
-  run42546580318 atb3aced0 passes Linux/secrets; Windows is still live. Inspect
-  exact handles and the later closeout head before claiming hosted qualification.
+  exact closeout run42547240764 at195bd0a passes Windows/Linux/secrets, and
+  issuer run42547232445 passes. PR #25 was marked ready after all checks passed.
   Node Action examples install nothing. EVID-094 separates verification,
   synthetic validation, trace and six producer lenses from implementation.
   PR #24 head1c253ea is open/ready; hosted Windows/Linux/secrets all pass.
-  Next: inspect hosted current-head checks and keep the draft until they pass.
-  Local verification/validation/trace/six producer lenses close separately under
-  EVID-094. Then continue full priority 6
-  branch/draft/index/native integration and remaining final-deletion, metadata/
-  authority/large-file/lifetime and user-adoption requirements; goal stays active.
+  EVID-094 records separate local verification/validation/trace/six producer
+  lenses. No complete priority-6, provider adoption, final deletion or metadata
+  lifetime claim follows. Derive later merge state live; the goal stays active.
 
 - Previous lane: feat/git-placement, inputa678381, implementation7432739, local placement
   reconciliation through existing store mechanisms and `tig-lifecycle reconcile`.

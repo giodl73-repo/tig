@@ -466,3 +466,13 @@ A real hosted-issuer/foreground-CLI fixture passes with zero payload effects;
 hosted current-head checks remain separate. Full branch/draft/index/native
 integration, external ingress/OS isolation, provider/large-file/lifetime and later
 final-deletion/metadata milestones remain required. No service or live cache is attached.
+
+Priority-6 staged-index slice under development:
+[index lifecycle](specs/INDEX-LIFECYCLE.md) derives a draft obligation set from exact
+bounded Git index pointers, including every known conflict alternative without
+publishing a merged content selection. It reuses metadata finish/readback, guarded
+atomic adoption and one ordinary placement page. Fifteen focused entries include
+one child helper, two actual abrupt exits, linked worktrees and a real CLI/store
+job-end demotion flow; broader checks and evidence closeout remain pending.
+Branch rename/withdrawal, automatic commit/draft settlement, arbitrary private
+overlay/native coverage and the later full roadmap obligations remain required.

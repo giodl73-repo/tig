@@ -172,7 +172,7 @@ pub(super) fn reconcile(args: &[std::ffi::OsString]) -> Result<Value, &'static s
         json!({"schema":"tig.git-placement-response.design-1","selection":selected,"observed_ref_current":current,"storage_converged":if current {placed.storage_converged} else {Some(false)},"plan":plan,"placement":placed}),
     )
 }
-fn placement_code(e: placement::Error) -> &'static str {
+pub(super) fn placement_code(e: placement::Error) -> &'static str {
     use placement::Error::*;
     match e {
         Invalid => "invalid_document",

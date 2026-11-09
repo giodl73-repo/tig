@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6343,
-      "sha256": "007f6cc699016ed0c0276778cb2826a71a17c9379efd02eb144412ab6e210e9a"
+      "bytes": 6754,
+      "sha256": "ced3bbfd66fa1a490f897b7569602639d5795e35edc67d7290e30ffcb3591fd9"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 16046,
-      "sha256": "de983e05e399b9d25a9acd7cb6f12b55fa0c584ca33d071786307525ca6e3927"
+      "bytes": 16759,
+      "sha256": "8ddf587b486451edb09fcd6ca20f5ec599654d66eb3f301456c08d3686ec23a9"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 33382,
-      "sha256": "9a95e04527adb9e99ba950695df9e5b94cf6f8f6c99ceddde3559c83aea058b8"
+      "bytes": 34077,
+      "sha256": "57c07707e3373316f73738da2422593946ce0d26a81c358ea9dc73d1a78cec63"
     },
     {
       "path": "README.md",
-      "bytes": 11229,
-      "sha256": "19ad8f7f6acbb306a7f22dd3b5f34fc412b83a20e46961d1bf422814f7007386"
+      "bytes": 11459,
+      "sha256": "8703a4bab7f4d6794bd8a7d7d8105852e4433757da80f92fc3e6e6a028a19411"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 14294,
-      "sha256": "717824419f4c82e8ce4c0ef712336c5f64a7ba2b41edfef1708845672f70eb4f"
+      "bytes": 14901,
+      "sha256": "c62001965c59ea663cd616e2c79651713f3a3724f07a0739b034d25ed950217a"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 17492,
+      "bytes": 18721,
       "path": "context/RESUME.md",
-      "sha256": "7d88e167984603f51ab5cf102dc083f4d7e7dc57f5024182f4b4bd1b375d5f43"
+      "sha256": "f060151ba2867c3808273697f63d2d62e336533660f0fccfdd9071a1a9c682eb"
     },
     {
       "bytes": 16453,
@@ -2029,13 +2029,13 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-lifecycle.rs",
-      "bytes": 6855,
-      "sha256": "16a0c771393cc7b7ea7dc687e2175dd0e13b7918a489bce2df5a04cd6c7b6329"
+      "bytes": 7231,
+      "sha256": "fc600549b425d246eedde1d9e5d1201cc8a37cce9b52dfde3b3de92fb141982f"
     },
     {
       "path": "crates/tig-git/src/lifecycle.rs",
-      "bytes": 16802,
-      "sha256": "4d9b58b684373233fe59a0faa3ef2072ebf03054e54b844c22b237e0111e1c6c"
+      "bytes": 16817,
+      "sha256": "4c5e73474640a268d4c99fd028d582446226db377d97c92125362ad39d1c1bbf"
     },
     {
       "path": "crates/tig-git/tests/lifecycle.rs",
@@ -2054,8 +2054,8 @@
     },
     {
       "path": "crates/tig-git/src/bin/lifecycle/placement.rs",
-      "bytes": 7207,
-      "sha256": "91e251689df7d6abca57f6821bc3765d3505adde13f7b4c9a062a4d67e647bcd"
+      "bytes": 7218,
+      "sha256": "afc432261ce5bad1c43bd5a7f7d151e39f7aaddd41dcf930e197f375288a97b5"
     },
     {
       "path": "crates/tig-store/src/placement.rs",
@@ -2156,6 +2156,31 @@
       "sha256": "5f607791cc36e1cc1cb891e2772f9a5172cbef12271d06a8a7228aea061cf357",
       "bytes": 5374,
       "path": "docs/reviews/2026-11-09-github-trigger.md"
+    },
+    {
+      "sha256": "bfc83c59c8c1525696fc947c2acc35eb49c4641031f60d8befa02e38556671b2",
+      "bytes": 9022,
+      "path": "crates/tig-git/src/bin/lifecycle/index.rs"
+    },
+    {
+      "sha256": "4a8199f995a08298a5fd43fae71817c22f3f8750cefb7a70f87273c1ae03aaca",
+      "bytes": 11235,
+      "path": "crates/tig-git/src/lifecycle/index.rs"
+    },
+    {
+      "sha256": "3169ffe64ffc401bc062957686a4d8055364cf2380910ceaa99ec39fa1965930",
+      "bytes": 21332,
+      "path": "crates/tig-git/tests/index_lifecycle.rs"
+    },
+    {
+      "sha256": "e50d7ae98f51eeb7f5942e948d9ab7891aaa6cb69564dd1c862f9251289a02fd",
+      "bytes": 9698,
+      "path": "crates/tig-git/tests/index_lifecycle/store_cases.rs"
+    },
+    {
+      "sha256": "8d31e79e2747a74556725f04059581345d052a6e78649bb2c4c6a94f037265a5",
+      "bytes": 5841,
+      "path": "specs/INDEX-LIFECYCLE.md"
     }
   ]
 }

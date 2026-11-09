@@ -209,3 +209,14 @@ journal encoding exists. Current private enrollment/page/report documents remain
 experimental; page convergence is not full selection convergence. EVID-093 scopes
 temporary-store verification separately from external trigger, native/provider/
 large-file/lifetime, final-deletion and metadata-retirement requirements.
+
+Optional trusted GitHub intake extends the same source/provider controls under
+[GITHUB-TRIGGER](../../specs/GITHUB-TRIGGER.md), input1c253ea. EVID-094 separates
+signed nonempty synthetic placement from actual issuer/foreground empty-scope
+compatibility; neither grants live enrollment or final-copy authority.
+
+Explicit staged-index protection extends SPEC-002/004/005/006/007/008/009 under
+[INDEX-LIFECYCLE](../../specs/INDEX-LIFECYCLE.md), input195bd0a. Object-set draft
+roots admit known conflict alternatives without relaxing merged extraction.
+Existing source journal bytes and placement/removal contracts remain unchanged;
+new index plan/profile/status documents are experimental and separately versioned.

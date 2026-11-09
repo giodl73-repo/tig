@@ -66,6 +66,15 @@ nothing; external TLS ingress, workflow/executor OS separation, full issuer/
 provider qualification and adoption are separate gates. See
 [trusted requests](../specs/GITHUB-TRIGGER.md).
 
+Default `lifecycle::index` and `tig-lifecycle index` protect an explicitly enrolled
+worktree's staged pointer set as a Draft source. Distinct immutable contexts bind
+the index listing and unresolved stage counts; the flat obligation tree deduplicates
+payload identities rather than pretending conflict stages form one merged view.
+Known alternatives participate in existing placement/admission. Other extraction
+issues hold adoption, and source observations stay separate from durable receipts.
+No Git/index write, hook or journal format is added. See
+[staged-index contract](../specs/INDEX-LIFECYCLE.md).
+
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable
 request/result schemas cover inspect/admission, find, comparison and impact.

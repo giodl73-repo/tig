@@ -179,6 +179,9 @@ The optional [GitHub trigger](specs/GITHUB-TRIGGER.md) adds explicit foreground
 OIDC intake and bounded placement coordination under private enrollment. Its
 Action example is opt-in; external ingress, executor isolation and live provider
 adoption require separate qualification.
+Explicit [staged-index protection](specs/INDEX-LIFECYCLE.md) adds
+`tig-lifecycle index` plan/status/apply/resume/reconcile. Conflict alternatives
+remain draft byte obligations, with no merged-version or storage-convergence claim.
 
 ## Learn and contribute
 
