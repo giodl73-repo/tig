@@ -149,6 +149,56 @@ pub struct Plan {
     pub summary: Summary,
 }
 impl Plan {
+    pub fn request(&self) -> &Request {
+        &self.request
+    }
+    pub fn original(&self) -> &Selection {
+        &self.original
+    }
+    /// Exact commands owned by this controller, never caller-chosen exemptions.
+    pub(crate) fn commands(&self, e: &Enrollment) -> Result<Vec<(Key, Command)>> {
+        self.bound_profile(e)?;
+        let mut commands = Vec::new();
+        if self.summary.survivor_bindings != 0 {
+            commands.push(self.enroll(e)?);
+            for r in self
+                .select(e)?
+                .requests(&e.namespace)
+                .map_err(|_| Error::Invalid)?
+            {
+                commands.push((r.operation, r.command));
+            }
+            commands.push(self.withdraw(e)?);
+        }
+        commands.push(self.retire(e)?);
+        Ok(commands)
+    }
+    /// Resolve selection meaning in the exact original root; no removal grant.
+    pub fn selected_bindings(
+        &self,
+        e: &Enrollment,
+        namespace: &mut Namespace,
+        reader: &impl NodeStore,
+    ) -> Result<BTreeMap<LogicalPath, Object>> {
+        self.bound(e, namespace)?;
+        let (_, original, class) = original_source(e, namespace, &self.request)?;
+        if original != self.original || class != self.class {
+            return Err(Error::Stale);
+        }
+        let mut overlay = Overlay::new(reader, e);
+        let limits = overlay.limits();
+        let (entries, _) = Tree::from_root(original.root).entries(&mut overlay, limits)?;
+        self.request
+            .paths
+            .iter()
+            .map(|path| {
+                Ok((
+                    path.clone(),
+                    entries.get(path).ok_or(Error::Missing)?.clone(),
+                ))
+            })
+            .collect()
+    }
     pub fn id(&self) -> Result<Digest> {
         self.request.check()?;
         if self.schema != "tig.subset-plan.design-2"
@@ -233,8 +283,11 @@ impl Plan {
         ))
     }
     fn bound(&self, e: &Enrollment, namespace: &Namespace) -> Result<()> {
-        self.id()?;
         e.check(namespace)?;
+        self.bound_profile(e)
+    }
+    fn bound_profile(&self, e: &Enrollment) -> Result<()> {
+        self.id()?;
         if self.enrollment != e.id()? || !e.classes.contains(&self.class) {
             return Err(Error::Authority);
         }
@@ -432,6 +485,20 @@ pub fn plan(
     reader: &impl NodeStore,
 ) -> Result<Plan> {
     let (source, original, class) = original_source(e, namespace, &request)?;
+    let plan = plan_from_source(e, &source, request, original, class, reader)?;
+    if namespace.source(&plan.request.source)? != Some(source) {
+        return Err(Error::Stale);
+    }
+    Ok(plan)
+}
+fn plan_from_source(
+    e: &Enrollment,
+    source: &Source,
+    request: Request,
+    original: Selection,
+    class: Kind,
+    reader: &impl NodeStore,
+) -> Result<Plan> {
     let (root, summary, _) = projection(e, &request, &original, reader)?;
     let effect = effect(e, &request, &class, &original, &root)?;
     let plan = Plan {
@@ -449,11 +516,75 @@ pub fn plan(
         effect,
         summary,
     };
-    if namespace.source(&plan.request.source)? != Some(source) {
-        return Err(Error::Stale);
-    }
     plan.id()?;
     Ok(plan)
+}
+
+/// Plan several exact historical removals, including multiple predecessors of
+/// one source, against the existing pure transition model. No journal mutation.
+pub fn plan_sequence(
+    e: &Enrollment,
+    namespace: &mut Namespace,
+    requests: Vec<Request>,
+    reader: &impl NodeStore,
+) -> Result<Vec<Plan>> {
+    e.check(namespace)?;
+    if requests.is_empty() || requests.len() > 16 {
+        return Err(Error::Budget);
+    }
+    let mut initial = BTreeMap::new();
+    let mut seen = BTreeSet::new();
+    for request in &requests {
+        request.check()?;
+        if !seen.insert((
+            request.source.as_str().to_owned(),
+            request.predecessor_revision,
+        )) {
+            return Err(Error::Invalid);
+        }
+        let (source, _, _) = original_source(e, namespace, request)?;
+        initial.insert(request.source.as_str().to_owned(), source);
+    }
+    let mut state = super::State {
+        guarded: true,
+        sources: initial.clone(),
+        outcomes: BTreeMap::new(),
+        head: namespace.checkpoint(),
+        bytes: 0,
+    };
+    let mut plans = Vec::new();
+    for request in requests {
+        let source = state
+            .sources
+            .get(request.source.as_str())
+            .ok_or(Error::Missing)?;
+        let original = source
+            .predecessors
+            .iter()
+            .find(|v| v.revision == request.predecessor_revision)
+            .ok_or(Error::Missing)?
+            .selection
+            .clone();
+        let class = source.kind.clone().ok_or(Error::Authority)?;
+        let plan = plan_from_source(e, source, request, original, class, reader)?;
+        let (operation, command) = plan.retire(e)?;
+        state
+            .transition(&super::Request { operation, command })
+            .map_err(|error| {
+                if error == super::Error::Budget {
+                    Error::Budget
+                } else {
+                    Error::Stale
+                }
+            })?;
+        plans.push(plan);
+    }
+    for (key, source) in initial {
+        if namespace.source(&Key::parse(&key).map_err(|_| Error::Invalid)?)? != Some(source) {
+            return Err(Error::Stale);
+        }
+    }
+    Ok(plans)
 }
 
 #[derive(Clone, Debug, Serialize)]

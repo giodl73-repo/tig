@@ -8,8 +8,33 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/final-provider, input273e639, implementation9f5e8c0,
-  evidence closeout9c0d1ca, stacked draft PR #30 against feat/final-retirement.
+- Active lane: feat/bulk-retirement, input4478207.
+  Read specs/BULK-RETIREMENT.md. Exact flat namespace/source/predecessor/path
+  selection resolves held/eligible objects across the complete admitted roster;
+  same-source predecessor plans reuse the existing pure transition model.
+  Durable accounted intent/job binding precedes source subsets and pre-admitted
+  final-provider actions. Consent history is checked under final live fences,
+  including prepare/abort that leaves no current membership. Cancellation stops
+  future source/removal work and records honest partial effects. Alternate unused
+  terminal metadata uses existing empty-review private cleanup, so the witness
+  job can finish. No new cache/journal engine, source event format or CLI is added.
+  Fifteen focused entries pass (one helper, ten actual abrupt exits plus a process
+  peer refused by the batch fence). An unrelated batch progresses on the same
+  witness. Six independent ASCII canonical/hashlib vectors pin held/eligible plan,
+  enrollment, intent and terminal framing. Final-runtime locked default/all-feature
+  workspace suites pass in separate targets, including both 500,000-binding runs.
+  Strict all-feature/all-target Clippy, standalone Git, fresh ordinary-retirement
+  CLI cancellation and explicit pinned pre-final writer refusal/legacy control
+  pass. Cancellation of never-started stale actions creates no new admission;
+  interrupted alternate-terminal disposal resumes its same empty review. No
+  implementation and evidence closeout remain separate. Next: evidence/
+  validation/trace/six-producer closeout, then stacked draft PR. Full age/category/
+  native adapters, operator/UI surfaces, large-file/real provider/current clock/
+  authority adoption, journal/metadata lifetime and human acceptance remain open.
+  Foundation fixtures only; the full plan is active and incomplete.
+
+- Previous lane: feat/final-provider, input273e639, implementation9f5e8c0,
+  evidence closeout9c0d1ca, handoff4478207, PR #30 against feat/final-retirement.
   Read specs/FINAL-PROVIDER.md and FINAL-RETIREMENT.md. Fresh explicit design-8
   LocalStore uses existing fences, capacity ledger and publication; no upgrade,
   live root or CLI activation. New immutable final intent/release/terminal records
@@ -33,8 +58,9 @@ source changes into running tools as a side effect. No startup cache operations.
   Workspace compilation exposed and fixed the new placement hold's CLI mapping.
   EVID-099 and docs/reviews/2026-11-09-final-provider.md separately record
   verification, synthetic validation, trace and six producer lenses. No runtime
-  code changed after9f5e8c0. PR #30 is OPEN/draft; derive hosted exact-head checks
-  before readiness. No merge or deployment. Then implement bounded
+  code changed after9f5e8c0. PR #30 is OPEN/ready after exact-head Validate42571000366
+  at4478207 Windows/Linux/secrets SUCCESS was observed. No merge/deployment.
+  The active lane implements bounded
   bulk intent/consent and exact historical selection/source settlement over these
   ports, retaining held siblings and explicit per-object/store outcomes. Budget,
   authority/native clock/provider/large-file, complete bulk selection/source

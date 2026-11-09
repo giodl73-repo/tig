@@ -123,7 +123,7 @@ FINAL-RETIREMENT.md and EVID-098 separate this bounded implementation from the
 remaining provider format, grant-release/intent/unlink/cancellation executor,
 intentional-absence placement integration, bulk selection and metadata lifetime.
 
-The active final-provider lane implements the bounded fresh design-8 local layer
+The bounded final-provider layer implements the fresh design-8 local layer
 under specs/FINAL-PROVIDER.md: immutable intent/release/terminal, exact owner grant
 release, unlink/cancellation, explicit fresh same-hash acquisition and read-only
 status, using existing capacity/publication/fences. It is under qualification,
@@ -131,3 +131,12 @@ not live enabled or production accepted. Bulk selection/consent/source settlemen
 complete age/native closure, large-file/provider/authority qualification, operator
 interfaces and metadata lifetime remain required. Do not infer goal completion
 from this library layer; derive current checks from the active lane and PR.
+
+The bulk-retirement lane composes exact flat historical block selection, complete-
+scope held/eligible projection, durable consent and sequential owned subsets with
+the final provider. Source command history is checked under live content fences;
+transient prepared/aborted demand invalidates pending approval. Cancelled scopes
+cannot silently resume source work or expand held membership. Existing private
+cleanup closes unused metadata reservations. BULK-RETIREMENT.md separates this
+bounded library from remaining native age/category, operator/UI, current authority/
+clock/provider/large-file, metadata lifetime and human acceptance gates.

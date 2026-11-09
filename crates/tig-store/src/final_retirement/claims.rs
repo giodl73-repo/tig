@@ -202,6 +202,37 @@ pub struct Clearance<'a> {
     _subjects: Vec<SubjectFence>,
 }
 impl Clearance<'_> {
+    /// Batch consent history is checked while the original subject fences live.
+    pub(crate) fn only_owned_commands(
+        &self,
+        basis: &Roster,
+        allowed: &std::collections::BTreeMap<
+            Digest,
+            Vec<(crate::Key, crate::source_claims::Command)>,
+        >,
+    ) -> Result<bool> {
+        basis.id()?;
+        if basis.scope()? != self.scope || basis.members.len() != self.order.len() {
+            return Err(Error::WrongEnrollment);
+        }
+        for (pin, at) in basis.members.iter().zip(&self.order) {
+            if pin.namespace != *self.namespaces[*at].identity() {
+                return Err(Error::WrongEnrollment);
+            }
+            let commands = allowed
+                .get(&pin.namespace)
+                .map(Vec::as_slice)
+                .unwrap_or(&[]);
+            if !crate::source_claims::admission::bulk::only_owned_since(
+                &self.namespaces[*at],
+                &pin.minimum,
+                commands,
+            )? {
+                return Ok(false);
+            }
+        }
+        Ok(true)
+    }
     pub fn summary(&self) -> Summary<'_> {
         Summary {
             schema: "tig.final-claim-clearance.design-1",

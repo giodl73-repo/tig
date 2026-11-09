@@ -249,3 +249,11 @@ plus separately authorized fresh reacquisition plan and context-bearing birth.
 Legacy provider encodings and ordinary keeper requirements remain. No existing
 root upgrade, journal command, bulk selector, live authority migration or metadata
 expiry is admitted. Implementation and qualification are separate records.
+
+[BULK-RETIREMENT](../../specs/BULK-RETIREMENT.md), input4478207, extends the same
+SPEC-002/003/004/005/006/008/009/013/014 controls with exact historical selection,
+held/eligible plan, accounted consent/terminal witnesses and source/final-provider
+composition. Source sequences reuse existing transitions and event bytes; final
+consent history is checked under the existing live content fences. The new bounded
+experimental wire records have independent framing vectors. No new journal/cache,
+provider format, native category/age interpretation or CLI permission is added.

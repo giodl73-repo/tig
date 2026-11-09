@@ -529,3 +529,14 @@ actual old-writer refusal have separate qualification. This library slice does
 not complete priority 7: batch consent/source settlement, age/category/native
 selection, operator surfaces, authority/provider/large-file qualification and
 metadata lifetime remain required before full intended-use acceptance.
+
+[BULK-RETIREMENT](specs/BULK-RETIREMENT.md) now composes the bounded Rust path:
+exact historical flat bindings, held/eligible projection, sequential same-source
+subsets, durable accounted consent and final-provider actions. Current source
+history is checked under final live fences; a prepared/aborted new use invalidates
+pending approval. Cancellation preserves honest source and byte effects, and
+unused terminal metadata reservations close through existing private cleanup.
+Status distinguishes exact roots/bindings, unique/copy bytes and historical versus
+new removal. This remains a bounded library slice: native age/category selection,
+operator/UI/Action surfaces, larger paged scopes and all authority/provider/
+large-file/lifetime/human acceptance gates remain required for full priority 7.

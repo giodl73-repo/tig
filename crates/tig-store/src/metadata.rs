@@ -106,6 +106,9 @@ pub struct Checkpoint {
     bytes: u64,
 }
 impl Checkpoint {
+    pub fn identity(&self) -> &Digest {
+        &self.identity
+    }
     pub fn nodes(&self) -> u64 {
         self.nodes
     }

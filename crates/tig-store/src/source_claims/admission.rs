@@ -15,9 +15,10 @@ use std::{
     time::Instant,
 };
 use tig_core::{
-    Digest, Object,
+    Digest, LogicalPath, Object,
     tree::{NodeStore, Tree, TreeError, TreeLimits},
 };
+pub(crate) mod bulk;
 
 pub const PARTITIONS: usize = 256;
 /// Ephemeral admission predicate, not a new journal record or retention grant.
@@ -196,7 +197,7 @@ pub struct Select {
     pub selection: super::Selection,
 }
 impl Select {
-    fn requests(&self, authority: &Digest) -> super::Result<[super::Request; 2]> {
+    pub(super) fn requests(&self, authority: &Digest) -> super::Result<[super::Request; 2]> {
         Ok([
             super::Request {
                 operation: self.prepare.clone(),
@@ -307,20 +308,33 @@ impl<'a, S: NodeStore> Work<'a, S> {
         self.nodes.timed().map_err(|_| Error::Budget)
     }
     fn source(&mut self, source: &Source, policy: &Policy) -> Result<BTreeMap<Digest, Demand>> {
+        self.source_excluding(source, policy, &BTreeMap::new())
+    }
+    fn source_excluding(
+        &mut self,
+        source: &Source,
+        policy: &Policy,
+        removed: &BTreeMap<u64, BTreeSet<LogicalPath>>,
+    ) -> Result<BTreeMap<Digest, Demand>> {
         let kind = source.kind.as_ref().ok_or(Error::WrongAuthority)?;
         let places = policy.classes.get(kind).ok_or(Error::InvalidPolicy)?;
         let mut roots = Vec::new();
         if let Some(current) = &source.current {
-            roots.push((&current.selection, &places.current, false));
+            roots.push((&current.selection, &places.current, false, None));
         }
         if let Some(pending) = &source.pending {
-            roots.push((&pending.selection, &places.pending, false));
+            roots.push((&pending.selection, &places.pending, false, None));
         }
         for old in &source.predecessors {
-            roots.push((&old.selection, &places.predecessor, true));
+            roots.push((
+                &old.selection,
+                &places.predecessor,
+                true,
+                Some(old.revision),
+            ));
         }
         let mut result = BTreeMap::<Digest, Demand>::new();
-        for (selection, places, history) in roots {
+        for (selection, places, history, revision) in roots {
             self.timed()?;
             self.roots += 1;
             if self.roots > self.limits.roots {
@@ -354,7 +368,12 @@ impl<'a, S: NodeStore> Work<'a, S> {
             if self.associations > self.limits.associations {
                 return Err(Error::Budget);
             }
-            for object in entries.values() {
+            for (path, object) in &entries {
+                if revision
+                    .is_some_and(|r| removed.get(&r).is_some_and(|paths| paths.contains(path)))
+                {
+                    continue;
+                }
                 let demand = result
                     .entry(object.sha256.clone())
                     .or_insert_with(|| Demand {

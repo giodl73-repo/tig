@@ -256,6 +256,11 @@ pub fn plan(store: &LocalStore, request: Request) -> Result<Plan> {
 pub trait Clock {
     fn now(&self, policy: &Digest) -> Result<u64>;
 }
+/// Additional trusted consent/authority predicate under live content fences.
+/// It cannot weaken mandatory provider or complete-membership checks.
+pub trait Condition {
+    fn check(&self, clearance: &claims::Clearance<'_>) -> Result<()>;
+}
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum Mode {
@@ -428,6 +433,40 @@ fn keys(p: &Plan) -> Result<(Key, Key)> {
         Key::parse(&format!("final-settle-{}", id.as_str()))?,
     ))
 }
+/// Reserve this exact provider's recovery metadata before a bulk source change.
+pub(crate) fn admit(
+    store: &LocalStore,
+    ledger: &mut CapacityLedger,
+    job: &JournalRef,
+    p: &Plan,
+) -> Result<JournalRef> {
+    p.validate(store)?;
+    if ledger.identity() != &p.request.capacity {
+        return Err(Error::WrongAuthority);
+    }
+    Ok(ledger
+        .begin_retention(
+            keys(p)?.0,
+            job,
+            p.request.owner.clone(),
+            digest(&("tig.final-allocation.design-1", p, job))?,
+            p.limit,
+        )?
+        .reference()
+        .clone())
+}
+/// Read-only exact admission lookup; cancellation must not create new work.
+pub(crate) fn admitted(ledger: &mut CapacityLedger, job: &JournalRef, p: &Plan) -> Result<bool> {
+    p.id()?;
+    if ledger.identity() != &p.request.capacity {
+        return Err(Error::WrongAuthority);
+    }
+    let Some(a) = ledger.allocation_reference(&keys(p)?.0, true)? else {
+        return Ok(false);
+    };
+    ledger.retention_status(&a, &digest(&("tig.final-allocation.design-1", p, job))?)?;
+    Ok(true)
+}
 fn observe(store: &LocalStore, object: &Object) -> Observation {
     match store.object_present(object) {
         Ok(true) => Observation::PresentUnverified,
@@ -466,10 +505,18 @@ impl<S: NodeStore> Execution<'_, S> {
         a: &Authorization,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
-        self.run(p, a, false, hook)
+        self.run(p, a, false, hook, None)
+    }
+    pub fn apply_guarded(
+        &mut self,
+        p: &Plan,
+        a: &Authorization,
+        condition: &dyn Condition,
+    ) -> Result<Receipt> {
+        self.run(p, a, false, |_| Ok(()), Some(condition))
     }
     pub fn cancel(&mut self, p: &Plan, a: &Authorization) -> Result<Receipt> {
-        self.run(p, a, true, |_| Ok(()))
+        self.run(p, a, true, |_| Ok(()), None)
     }
     pub fn cancel_hook(
         &mut self,
@@ -477,7 +524,7 @@ impl<S: NodeStore> Execution<'_, S> {
         a: &Authorization,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
-        self.run(p, a, true, hook)
+        self.run(p, a, true, hook, None)
     }
     fn run(
         &mut self,
@@ -485,21 +532,12 @@ impl<S: NodeStore> Execution<'_, S> {
         a: &Authorization,
         cancel: bool,
         mut hook: impl FnMut(Stage) -> Result<()>,
+        condition: Option<&dyn Condition>,
     ) -> Result<Receipt> {
         self.common(p, a)?;
         let (operation, settle) = keys(p)?;
         let binding = digest(&("tig.final-allocation.design-1", p, self.job))?;
-        let allocation = self
-            .ledger
-            .begin_retention(
-                operation.clone(),
-                self.job,
-                p.request.owner.clone(),
-                binding.clone(),
-                p.limit,
-            )?
-            .reference()
-            .clone();
+        let allocation = admit(self.store, self.ledger, self.job, p)?;
         hook(Stage::Admitted)?;
         let scope = Publication {
             operation,
@@ -656,6 +694,9 @@ impl<S: NodeStore> Execution<'_, S> {
                 .unwrap_or(0),
         )?;
         let clearance = claims::acquire(self.roster, &p.birth.object, self.namespaces, self.nodes)?;
+        if let Some(condition) = condition {
+            condition.check(&clearance)?;
+        }
         let fence = self.store.handoff_fence(&p.birth.object)?;
         let allocated =
             self.store
@@ -745,6 +786,9 @@ impl<S: NodeStore> Execution<'_, S> {
         self.store.verify_final_source(&intent, &fence)?;
         clearance.check_current()?;
         hook(Stage::BeforeUnlink)?;
+        if let Some(condition) = condition {
+            condition.check(&clearance)?;
+        }
         let now = self.clock.now(&p.policy.clock)?;
         if now < release.time
             || now < p.request.window.not_before
