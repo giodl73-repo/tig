@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-104: explicit bulk execution, implementation6b9016e.
+[Execution review](../reviews/2026-11-09-bulk-execution.md) records controls,
+commands, six producer lenses and residual scope. Nineteen active bulk entries
+pass, including metadata-offline cancellation without a clock handle. Explicit
+fresh CLI qualification passes exact permission/consent denial, actual native
+clock deletion/shared-byte preservation, completed replay, interrupted resume,
+metadata/time-offline cancellation, expired-window hold and transient-use refusal
+before/after settlement. Strict all-feature/all-target Clippy, fmt and L0/diff
+pass. Locked default/all-feature workspace and final artifact chains are running;
+terminal evidence is pending. Additional independent cancel/resume permission and
+wrong-store negatives await the final artifact run. No record format changes,
+live enrollment, UI/Action, native selectors, full authority/provider/lifetime
+or human acceptance are implied; the full goal remains incomplete.
+
 EVID-103: explicit persisted local clock, implementation9802166 and portable
 fixture pin43ad0f4. [Clock review](../reviews/2026-11-09-local-clock.md) records
 controls, exact commands, six producer lenses and residual adoption gates.

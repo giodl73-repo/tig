@@ -1,5 +1,15 @@
 # Verification record
 
+EVID-104/implementation6b9016e: nineteen active bulk entries and explicit fresh
+execution CLI qualifier pass. Metadata/time-free Cancellation preserves settled
+history and surviving bytes; apply uses independently enrolled LocalClock and
+exact private permission/plan admission. Denials preserve newly reopened journal
+checkpoints and provider files. Strict all-feature/all-target Clippy/fmt/L0/diff
+pass; full workspace/final artifact chains remain pending. Commands and scope:
+[execution review](../reviews/2026-11-09-bulk-execution.md). Additional permission/
+wrong-store negatives await final artifact execution. Hosted exact-head, full
+requirements and intended-use acceptance remain separate.
+
 EVID-103/implementation9802166 verifies bounded explicit OS sampling and durable
 high-water replay in the existing capacity ledger. Five independent framing
 cases, clock/ledger/provider/bulk negatives, three actual abrupt exits, full

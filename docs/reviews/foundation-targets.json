@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 92953,
-      "sha256": "9f8599c1828112208ddf9e34f825d5a75dc633cdb8f67aec5c3fac23a4848130"
+      "bytes": 93954,
+      "sha256": "cab628686cab6361ec662cd5afe3335f297043e816c474fc225435a9994ebac9"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 126114,
-      "sha256": "481ea96a01344aa6204eba3311d20167fb835ad0c1d14380d1ab790a4b1ef62c"
+      "bytes": 126511,
+      "sha256": "0f12ec830f1efeaa839e5469b665c5fc69dc7ecc1e1f77d20fe5587f1c092090"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 20587,
-      "sha256": "4182052105213bee1ac6cda67054122bf6b2ad400c14ead5c95b49fb8bc2f18a"
+      "bytes": 21086,
+      "sha256": "73c19f4cb7e488950173c09bb4822c2022c5a768739a90a041dd721e4d9496a0"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 41986,
-      "sha256": "036bcec303caf35297492473d3a9d545d3117d24c2516208f6843cf92850e3ba"
+      "bytes": 42645,
+      "sha256": "c6a605dde2bf60ab878c2e9b354d64536c94149e046d8d6433bc6f2c8cdbeacd"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 27738,
-      "sha256": "de2f776f646ac3a72b01fc7bd7dce0cc1bdaf7a38e1d8bffbe8de585c76332eb"
+      "bytes": 28351,
+      "sha256": "6b97e607ec66393852717db934391ef407008f1ba577ae881d3d6a3042437fc8"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 52056,
-      "sha256": "d94a42700784d1edcdadf6b8f50e1ad45aca5c14db4f64fc79d7eac46ffa8650"
+      "bytes": 52756,
+      "sha256": "19375ecfe1d0c35c85cffef950ada95fbe04451d4e01085b0742065dfec42b20"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -2444,8 +2444,13 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk/tests/operator.rs",
-      "bytes": 15709,
-      "sha256": "7378fa936c670257cd557fc28a9b4e0cf4a5e296621c6a2799c1c426d690b664"
+      "bytes": 16317,
+      "sha256": "2728064e4f4354805b80e3734089916dfed7a85f2808a1ec071ef65503515fc3"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-bulk-execution.md",
+      "bytes": 9093,
+      "sha256": "1991346e653f1a9de78209d2cfce9081ee3751872a0432631baba041ad5ea2a5"
     }
   ]
 }

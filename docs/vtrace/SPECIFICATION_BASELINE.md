@@ -1,5 +1,13 @@
 # Tig controlled specification baseline
 
+SPEC-002/003/004/005/006/008/009/013/014 operator extension:
+[bulk execution](../../specs/BULK-EXECUTION.md), EVID-104 and
+[six-producer review](../reviews/2026-11-09-bulk-execution.md) specify separately
+enabled exact-plan apply/resume/cancel, explicit native clock admission and
+metadata/time-free cancellation over the existing controller. Inspection stays
+observational. Native/UI/Action/current authority/provider/lifetime adoption
+and full intended-use acceptance remain target requirements.
+
 SPEC-003/004/005/008/009/014 time-admission prerequisite:
 [local clock](../../specs/LOCAL-CLOCK.md), EVID-103 and
 [six-producer review](../reviews/2026-11-09-local-clock.md) specify fresh design-2

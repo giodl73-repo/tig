@@ -1,5 +1,14 @@
 # Intended-use validation
 
+EVID-104 contributes bounded VAL-002/003/004 rehearsal: exact approved historical
+blocks can execute/resume/cancel through the CLI over the same controller as
+inspection. Shared siblings survive; expired/changed consent prevents further
+removal; absent source metadata or fresh time cannot trap cancellation. Source
+settlement/grant release/deletion remain truthful partial effects. Scope:
+[execution review](../reviews/2026-11-09-bulk-execution.md). Native age/category,
+UI/Action, real providers/large files, current authority/restore/host trust,
+lifetime/metadata retirement and human acceptance remain open.
+
 EVID-103 rehearses bounded VAL-002/003/004: explicit native time observations
 drive temporary final retirement, while uncertain/expired intervals hold release,
 unlink, new reacquisition birth and bulk settlement. Historical status cannot

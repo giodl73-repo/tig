@@ -280,6 +280,26 @@ fn explicit_cli_bulk_execution_qualification() {
     for (wrong, expected) in cases {
         denied(call(&cli, &f, &p, &wrong, "apply"), expected, f.temp.path());
     }
+    let mut wrong = admitted.clone();
+    wrong["permissions"] = json!({"apply":true});
+    denied(
+        call(&cli, &f, &p, &wrong, "cancel"),
+        "execution_disabled",
+        f.temp.path(),
+    );
+    wrong["permissions"] = json!({"cancel":true});
+    denied(
+        call(&cli, &f, &p, &wrong, "resume"),
+        "execution_disabled",
+        f.temp.path(),
+    );
+    let mut wrong = admitted.clone();
+    wrong["inspection"]["stores"][0]["root"] = json!(f.temp.path().join("witness"));
+    denied(
+        call(&cli, &f, &p, &wrong, "apply"),
+        "wrong_store",
+        f.temp.path(),
+    );
     assert_eq!(before, checkpoints(&f, clock_root.path(), &minimum));
     assert_eq!(
         files,

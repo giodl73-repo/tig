@@ -1,5 +1,15 @@
 # Tig trace
 
+Bulk operator execution: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+BULK-EXECUTION.md -> separate execute profile, immutable enrollment accessor,
+shared private Runtime and Cancellation -> nineteen active bulk entries and
+actual fresh CLI execution/recovery/refusal qualifier -> EVID-104,
+implementation6b9016e. [Review](../reviews/2026-11-09-bulk-execution.md) separates
+six producer lenses, verification and synthetic validation from full native/
+UI/Action/current authority/provider/lifetime and human acceptance.
+
 Explicit local clock: WP-003/004/006/007/008/009/015;
 REQ-001/003/004/005/006/007/009 -> SPEC-003/004/005/008/009/014,
 IF-003/004/005/006/012, PKG-002/003/008/009 -> LOCAL-CLOCK.md ->
