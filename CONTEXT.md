@@ -30,6 +30,14 @@ specs/PLACEMENT-RECONCILIATION.md. Authenticated triggers, full lifecycle/native
 provider adoption, unattended partial recovery, large files, bulk final deletion,
 authority handoff and lifetime remain required plan work.
 
+Optional github feature now adds strict OIDC verification, bounded independent
+GitHub metadata capture, foreground tig-trigger and multi-page coordination over
+the same selection/placement APIs. EVID-094 scopes synthetic signed-request
+working/backup copies and a separate actual hosted-issuer/CLI empty-scope test.
+The latter performs zero payload operations. An inert Action client installs
+nothing; external ingress/OS isolation, full lifecycle/provider/large-file/lifetime
+adoption and later final-deletion/metadata milestones remain open.
+
 Existing-byte readers and explicit local publication/restore/retention primitives
 have bounded fixture evidence. The first tig-store orchestration slice composes
 input-bound plans and source-preserving copy/retention with an explicit tig-storage

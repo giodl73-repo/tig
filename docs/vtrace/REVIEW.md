@@ -1473,3 +1473,15 @@ Disposition: pass_with_risk for the 8 MiB/process-restart local composition only
 Hosted current-head verification, independent/human review and full requirements
 remain open. Total hash IO/free-space reclaim are not fabricated from stream or
 unlink counts. This checkpoint does not close the whole product plan.
+
+## Trusted GitHub request producer review
+
+Input1c253ea, implementation503adca/fixb3aced0: all six producer checklists and
+GT-01..06 are recorded in ../reviews/2026-11-09-github-trigger.md. EVID-094
+separates passing broad/final-focused/default/Clippy/artifact results from pending
+hosted Windows/current-head checks, synthetic nonempty HTTP/store rehearsal and actual hosted issuer
+empty-scope qualification. Corrected findings include lost partial progress on a
+late metadata failure, accumulating duplicate holds, oversized blob responses,
+cross-platform fixture pins and invalid coupled JWT time semantics. Disposition:
+pass_with_risk for bounded implementation; no independent/human acceptance or
+live-operation authority. Full roadmap and intended-use acceptance remain open.

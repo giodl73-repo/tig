@@ -454,11 +454,15 @@ unattended private-partial recovery, offline enrollment, aggregate verification 
 large-file/provider qualification and lifetime remain required. This does not
 complete priority 6 or enable live storage operations.
 
-Priority-6 trusted intake under development: optional
+Priority-6 bounded trusted intake: optional
 [GitHub request execution](specs/GITHUB-TRIGGER.md) connects signed OIDC intake,
 independent current GitHub source metadata and a bounded placement pass. Its
 foreground loopback receiver and inert Action client reuse private placement
 permissions; workflow code receives no executor policy or OS authority. Signed
 synthetic HTTP fixtures cover nonempty three-store placement, expiry/clock holds,
-source outage and post-copy head drift. Exact-source broad/hosted qualification
-and evidence closeout remain pending. No service or live cache is attached.
+source outage and post-copy head drift. EVID-094 separately records broad/final-
+focused local qualification, synthetic validation, trace and six producer lenses.
+A real hosted-issuer/foreground-CLI fixture passes with zero payload effects;
+hosted current-head checks remain separate. Full branch/draft/index/native
+integration, external ingress/OS isolation, provider/large-file/lifetime and later
+final-deletion/metadata milestones remain required. No service or live cache is attached.

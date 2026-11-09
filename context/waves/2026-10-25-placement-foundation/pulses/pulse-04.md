@@ -139,3 +139,11 @@ reacquisition, including job-end/no-op/outage catch-up. The pulse remains open:
 trusted triggers, full lifecycle/native/provider adoption, large files, unattended
 partial recovery, authority/lifetime, final deletion and metadata expiry are not
 closed by this temporary-store checkpoint.
+
+Trusted-request checkpoint: input1c253ea, implementation503adca/fixb3aced0;
+GITHUB-TRIGGER.md freezes controls and GIT/PROVIDER L0/L1/L2. EVID-094 separates
+sixteen library/eight authentication/thirteen Git cases, broader verification,
+signed nonempty temporary-store rehearsal, hosted real issuer empty-scope proof
+and six producer lenses. No service is installed. Full source/native/provider
+adoption, large files, authority/lifetime, final deletion and metadata expiry
+remain required; the pulse and whole goal stay open.

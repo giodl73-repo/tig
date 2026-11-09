@@ -657,3 +657,19 @@ Hosted current-head verification remains separate. This is component/temporary
 provider proof; full system safety, independent native custody, trusted events,
 large files, lifetime/restore authority, final deletion and metadata expiry remain
 open. Detailed limitations and remaining entry gates are in the scoped contract.
+
+## Trusted GitHub placement requests
+
+EVID-094 / GITHUB-TRIGGER.md, implementation503adca with issuer-time fixb3aced0:
+sixteen GitHub library, eight signed authentication/CLI and thirteen local Git
+lifecycle entries pass at final focused scope. Default workspace, strict fresh-
+target all-feature/all-target Clippy, standalone Git, fmt, shipped Node/restore
+checks and both explicit artifact qualifiers pass. A fresh isolated all-feature
+workspace rerun passes before the final issuer-time correction, followed by final
+all-feature changed-package library/authentication/lifecycle suites after it.
+The earlier overlapping-target upload failures and stale-metadata compiler
+refusal are not successful qualification.
+Hosted run42546575041 explicitly passes the real issuer/foreground empty-scope
+fixture atb3aced0; it performs zero payload operations. Hosted Linux/secrets pass
+at that source; Windows/current-head closeout validation remains pending. Exact evidence timing,
+failure corrections and unqualified full-system boundaries remain in EVID-094.

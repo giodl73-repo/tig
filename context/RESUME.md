@@ -8,21 +8,36 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active uncommitted lane: feat/github-trigger, base1c253ea. Read
+- Active lane: feat/github-trigger, base1c253ea, implementation503adca,
+  issuer-time fixb3aced0; stacked draft PR #25. Read
   specs/GITHUB-TRIGGER.md for input controls, bounded source/intake/coordinator
   contract and adoption gates. Optional feature github adds tig-trigger serve,
   independent RS256/OIDC verification and bounded metadata-only GitHub source;
   existing local source identities remain compatible through CommittedSource.
   Signed synthetic HTTP requests exercise actual temporary working/backup copies,
-  expired/rollback clocks, source outage and head drift after physical progress.
-  A dedicated opt-in hosted issuer fixture is present but has not executed yet;
-  its ignored entry is not evidence. Node Action client/examples install nothing.
-  Focused checks pass; broad exact-source qualification and implementation versus
-  evidence/review closeout remain pending. Preserve this dirty worktree.
+  expired/rollback clocks, source outage, paging/budget/duplicate reuse and head
+  drift after physical progress. Sixteen library, eight authentication/CLI and
+  thirteen Git/lifecycle cases pass at final focused scope. Default workspace,
+  fresh-target strict workspace Clippy, standalone Git, fmt, 70 Node flows, three
+  restore checks and both explicit artifact qualifiers pass. The isolated broad
+  all-feature rerun passes before the final issuer-time correction, followed by
+  final all-feature changed-package library/authentication/lifecycle suites after
+  it. Do not overlap Cargo builds against a target while CLI tests execute.
+  Earlier shared-target binary replacement caused
+  upload failures; stale compiler metadata required fresh target directories.
+  Hosted issuer run42546575041 passes atb3aced0 through the actual foreground
+  binary and GitHub current API with a random empty fixture scope: zero objects,
+  streamed bytes and effects. Ordinary ignored entries are not proof. Hosted
+  run42546580318 atb3aced0 passes Linux/secrets; Windows is still live. Inspect
+  exact handles and the later closeout head before claiming hosted qualification.
+  Node Action examples install nothing. EVID-094 separates verification,
+  synthetic validation, trace and six producer lenses from implementation.
   PR #24 head1c253ea is open/ready; hosted Windows/Linux/secrets all pass.
-  Next: finish paging/retry failure fixtures, run broad checks, refresh pins,
-  commit implementation, explicitly qualify the live-issuer synthetic fixture,
-  and close verification/validation/trace/six producer lenses separately.
+  Next: inspect hosted current-head checks and keep the draft until they pass.
+  Local verification/validation/trace/six producer lenses close separately under
+  EVID-094. Then continue full priority 6
+  branch/draft/index/native integration and remaining final-deletion, metadata/
+  authority/large-file/lifetime and user-adoption requirements; goal stays active.
 
 - Previous lane: feat/git-placement, inputa678381, implementation7432739, local placement
   reconciliation through existing store mechanisms and `tig-lifecycle reconcile`.
@@ -45,19 +60,6 @@ source changes into running tools as a side effect. No startup cache operations.
   hosted qualification at1c253ea; derive subsequent merge state live.
   Private partial cleanup remains explicit; CLI requires roots open at entry;
   page success alone does not establish full selection convergence.
-
-  Trusted-trigger research for the next contract (not implemented): GitHub's
-  [OIDC discovery](https://token.actions.githubusercontent.com/.well-known/openid-configuration)
-  publishes issuer/JWKS, RS256 and claims including sha, repository_id,
-  repository_owner_id, workflow_ref/sha and run identifiers. Its
-  [reference](https://docs.github.com/en/actions/reference/security/oidc) explains
-  audience/subject and reusable-workflow claims. Pin immutable repository/owner
-  IDs and independently admitted workflow/policy; require exact commit/ref and
-  expiration checks. This is a proposed verifier boundary, not request-JSON trust.
-  [GitHub's runner guidance](https://docs.github.com/en/actions/reference/security/secure-use)
-  warns about persistent compromise from workflow code on self-hosted runners.
-  Preserve the plan's separate trusted executor/profile boundary; putting workflow
-  code in the storage executor's OS authority would not satisfy that boundary.
 
 - PR #14: reviewed storage roadmap, finite-backup/bulk-retirement requirements
   and direct startup. Source/merge status must be checked live.

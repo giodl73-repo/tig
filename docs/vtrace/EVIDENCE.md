@@ -915,3 +915,52 @@ unattended partial cleanup, offline enrollment, aggregate verification IO, large
 files, sustained journal continuation, final deletion or metadata expiry. Hosted
 current-head checks and user/live adoption remain separate. Full requirements,
 VAL outcomes and the remaining roadmap milestones stay open.
+
+## EVID-094: Trusted GitHub intake and bounded placement coordination
+
+Input1c253ea, implementation503adca and issuer-time correctionb3aced0.
+Controls/scope/entry/exit: specs/GITHUB-TRIGGER.md. This evidence separates
+implementation, local verification, hosted issuer compatibility, synthetic
+intended-use rehearsal and producer review. It closes no full work package.
+
+- Sixteen optional GitHub library cases cover independent HTTP/JWKS credentials,
+  immutable repository/ref checks, bounded complete pointer capture, blob identity,
+  atomic selection, strict intake, actual signed HTTP/three temporary stores,
+  expiry/observed clock rollback, source outage, post-copy drift, multiple pages,
+  page exhaustion and duplicate reuse with zero repeated streaming.
+- Eight independently OpenSSL-signed authentication/CLI cases cover JOSE/key/claim
+  substitution, wrong identities/events/workflows, duplicate JSON, expiry, issuer
+  backdated not-before, immutable reusable workflow and disabled/public-listener
+  refusal. Thirteen actual Git/lifecycle cases retain the prior behavior and add
+  exact local listing/root/context compatibility through CommittedSource.
+- Final all-feature tig-git library/authentication/lifecycle suites pass after
+  the time correction. Default workspace, strict all-feature/all-target workspace
+  Clippy in a fresh target, standalone Git, fmt, 70 shipped Node/client flows and
+  three restore-helper tests pass. Both ignored cross-artifact qualifiers were
+  explicitly executed successfully using the current retirement CLI and pinned
+  pre-pair reader. The ordinary ignored entries remain non-evidence.
+- Hosted live-issuer run42546575041 atb3aced0 passes: actual GitHub OIDC signature,
+  fixed-origin JWKS/current API metadata and actual foreground receiver reconcile
+  a random absent scope in fresh temporary stores. Objects, streamed bytes and
+  effects are zero. This proves that narrow issuer/API/intake compatibility only;
+  nonempty byte behavior is proven separately by the synthetic signed fixture.
+
+The isolated all-feature workspace rerun passes, including the 500000-binding
+metadata case, before the final issuer-time correction; the final all-feature
+tig-git library (37 entries), authentication (eight) and Git/lifecycle (thirteen)
+run after that correction passes. Other runtime packages are unchanged by it.
+Earlier failures were not waived: one shared-target focused build replaced a CLI
+during a broad test run, and stale local compiler metadata required fresh isolated
+targets. No overlapping builds ran against the successful broad test target.
+Hosted validation first exposed fixture line-ending pins, then the real issuer
+exposed an invalid not-before/issued-at coupling. Canonical fixture pins and
+independent JWT time checks corrected those issues; signed regression cases and
+the live issuer run pass. Hosted run42546580318 atb3aced0 passes Linux and secrets;
+Windows remains pending. A later documentation closeout needs its own current-head
+check. The bearer is never copied into reports, source, logs or argv.
+
+Full lifecycle/native coverage, external TLS/OS/rate isolation, real payload
+provider custody, large files, offline enrollment, unattended private-partial
+recovery, authority migration, operational lifetime, bulk final deletion and
+metadata expiry remain required. No service/consumer/cache is installed or
+enrolled, and no full VAL outcome or independent/human acceptance is claimed.

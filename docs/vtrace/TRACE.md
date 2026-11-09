@@ -497,3 +497,14 @@ synthetic intended-use rehearsal and six producer lenses close separately. Full
 priority 6, trusted triggers, branch/draft/index/native adoption, unattended partial
 recovery, provider/large-file/lifetime, bulk final deletion and metadata expiry
 remain required. No requirement or full-system VAL outcome is marked complete.
+
+Trusted GitHub intake: WP-004/005/007/008/009/013/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/007/008/009 ->
+GITHUB-TRIGGER.md -> optional RS256/intake/source/coordinator, CommittedSource,
+tig-trigger and inert Action client -> sixteen library/eight authentication/
+thirteen Git lifecycle entries, real hosted issuer empty-scope qualification and
+separate broader checks -> EVID-094, implementation503adca/fixb3aced0. Verification,
+synthetic validation and six producer lenses remain distinct. Full lifecycle,
+provider/large-file/authority/lifetime, final deletion, metadata expiry and user
+acceptance remain open; source availability does not install automation.

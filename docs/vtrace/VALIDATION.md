@@ -322,3 +322,13 @@ F/D/M enrollment, independently qualified devices, trusted GitHub automation or
 full lifecycle/native semantics. Page success remains scoped; full selection
 aggregation, unattended partial recovery and the later final-deletion/metadata/
 large-file/lifetime milestones remain required. Full VAL outcomes stay planned.
+
+EVID-094 contributes request-to-placement rehearsal to VAL-002/003/004: real
+synthetic RSA-signed HTTP intake independently captures admitted source metadata,
+adopts desired state and verifies working/retained copies in temporary stores.
+Paging, duplicate retry, expired/rollback clocks, outage and source drift preserve
+truthful partial progress. A separate actual GitHub-hosted token reaches the real
+foreground CLI against an empty synthetic scope with zero payload effects. These
+two evidence scopes are distinct. Neither is user acceptance of live automation,
+external ingress/OS isolation, actual F/D/M custody or final-deletion/metadata
+lifetime. Full intended-use VAL outcomes remain planned.
