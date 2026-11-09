@@ -9,7 +9,7 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Active lane: feat/paged-retirement, inpute995b604e2218bc71897f51e874f65c59d3f5476.
-  Read specs/PAGED-RETIREMENT.md. First layer: asset-side exact
+  Read specs/PAGED-RETIREMENT.md. Implementation3ee9ff3: asset-side exact
   selection request/manifest, complete-roster hypothetical protection and stable
   original-binding pages. No Source/provider mutation or consent is exposed.
   Eight focused entries/ten independent framing cases and strict store all-target
@@ -21,22 +21,25 @@ source changes into running tools as a side effect. No startup cache operations.
   tests strengthen deterministic reconstruction/unselected predecessor, wrong
   object/path and foreign/Job/Retention/current-only selection refusal. Final
   eleven-entry focus and strict store Clippy pass (65113 terminal zero) on the
-  separate paged-focus target.
+  separate paged-focus target. A stronger local root-limit case now reaches the
+  complete projection; exact test/strict Clippy pass (19626 terminal zero).
   No runtime code changed after the19322 focus. Full locked default/500k/standalone
   chain72249 and all-feature/strict workspace Clippy/second500k chain77055 both
   terminated zero. Fresh ordinary cancellation, bulk inspection/execution and
   pinned pre-final older-writer refusal with legacy control pass (89270 terminal
   zero). Logs are external paged-final-default.log, paged-final-all.log and
   paged-final-artifacts.log. All local processes are terminal; no target is live.
-  Finish L0/pins, implementation commit, separate six-role/evidence/trace and draft PR on
+  EVID-107 / docs/reviews/2026-11-09-paged-selection.md separately records
+  verification, synthetic validation, trace and six producer lenses. Derive the
+  draft PR/hosted exact-head status from GitHub; this lane stacks on
   feat/age-witnesses. Future durable paged intent/decision, conditional survivor
   translation, verified age inheritance and originally approved final actions
   remain necessary to resolve NB-07 operationally. The manifest is no lease or
   authority, and a cursor is no execution-completion proof. Full goal active.
 
-- Active lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
-  Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Full qualification
-  remains pending; implementation1a344fc. Metadata/Tree/source journals preserve
+- Previous lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
+  Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Bounded local/
+  hosted qualification passes; implementation1a344fc. Metadata/Tree/source journals preserve
   immutable conservative age observations, clock-free acknowledged retries,
   owned subset inheritance and read-only historical status. Explicit private
   tig-storage age commands and optional native select-aged emit candidates only.
@@ -69,7 +72,7 @@ source changes into running tools as a side effect. No startup cache operations.
   Metadata retirement/continuation, full UI/Action/native/writer/authority/time/
   provider/large-file/human acceptance remain required; full goal stays active.
 
-- Active lane: feat/native-retirement, inputc241593. Read
+- Previous lane: feat/native-retirement, inputc241593. Read
   specs/NATIVE-RETIREMENT-BINDINGS.md. Graph::storage_objects is separate from
   production inputs; exact root assets receive independent flat bindings for
   shared objects. Header pins native archive/profile/index; privately admitted

@@ -629,9 +629,37 @@ fn private_roster_and_local_protection_limits_both_constrain_projection() {
         } else {
             f.limits.selections = 2;
             f.limits.source.roots = 2;
-            f.limits.source.bindings = 1;
-            f.limits.bindings = 1;
-            f.limits.objects = 1;
+            // The two selected roots fit. A third, unselected current root
+            // makes only the local complete-projection root cap fail. This
+            // must not pass merely because the roster's root cap is larger.
+            let ns = &mut f.namespaces[0];
+            let selection = ns.source(&key("main")).unwrap().unwrap().predecessors[0]
+                .selection
+                .clone();
+            ns.apply(
+                key("extra-enroll"),
+                Command::Enroll {
+                    source: key("extra"),
+                    owner: key("other"),
+                    class: Kind::Job,
+                },
+                &f.metadata,
+                &f.limits.source,
+            )
+            .unwrap();
+            ns.select(
+                &Select {
+                    prepare: key("extra-prepare"),
+                    adopt: key("extra-adopt"),
+                    source: key("extra"),
+                    owner: key("other"),
+                    expected_revision: 1,
+                    selection,
+                },
+                &f.metadata,
+                &f.limits.source,
+            )
+            .unwrap();
         }
         let before = f.namespaces[0].checkpoint();
         assert!(matches!(

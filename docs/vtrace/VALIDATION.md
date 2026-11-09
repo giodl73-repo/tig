@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-107 rehearses parts of VAL-002/003/004: a whole historical block spanning
+seventeen roots or1100 bindings retains exact identity and complete page coverage,
+while current/foreign/unselected protection and incomplete metadata remain holds.
+[Review](../reviews/2026-11-09-paged-selection.md) separates these metadata fixtures
+from durable page decisions, actual claim settlement/final deletion, native/age/
+UI/Action/provider/authority/lifetime adoption and human acceptance. All full VALs open.
+
 EVID-106 rehearses parts of VAL-002/003/004: unknown age holds, actual historical
 observation precedes time sampling, retries preserve evidence and executed subsets
 inherit age; native exact blocks become candidates only after interval-based age

@@ -1,5 +1,12 @@
 # Verification record
 
+EVID-107/implementation3ee9ff3: eleven focused entries/ten independent framing
+cases, full default/all-feature/both500k, strict workspace Clippy/standalone and
+fresh ordinary/bulk/older-writer artifacts pass. The stronger local projection
+limit case/strict Clippy also passes (19626). Runtime unchanged. [Review](../reviews/2026-11-09-paged-selection.md)
+limits this evidence to exact metadata/protection observation/paging, not the
+future durable paged mutation controller or full requirements. Hosted checks open.
+
 EVID-106/implementation1a344fc: focused exact-occurrence age, six actual exits,
 peer contention, five independent framing cases, CLI/native selection and strict
 workspace all-feature/all-target Clippy pass. Aggregate phase budgets and actual

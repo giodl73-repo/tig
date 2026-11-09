@@ -1,5 +1,17 @@
 # Evidence index
 
+EVID-107: paged historical selection manifests, implementation3ee9ff3.
+[Review](../reviews/2026-11-09-paged-selection.md) separates eleven focused entries,
+ten independent framing cases, actual seventeen-root/1100-binding/source-peer/
+reopen/budget/unknown-metadata evidence, synthetic validation, trace and six
+producer lenses. Corrected local-limit regression exercises complete projection
+rather than an earlier selection cap. Default/all-feature workspace, both500k,
+strict Clippy/standalone and fresh ordinary/bulk/pinned older-writer artifact
+checks pass. This compiles exact asset-side metadata and original-binding pages;
+it grants no claim-release/removal authority. NB-07 durable decision/page/lineage/
+final-copy execution, hosted checks and full adoption/lifetime/human acceptance
+remain open.
+
 EVID-106: bounded exact-occurrence age witnesses, implementation1a344fc.
 [Age review](../reviews/2026-11-09-age-witnesses.md) records twelve focused library
 entries, five independent framing cases, six actual child exits, simultaneous

@@ -1,5 +1,12 @@
 # Foundation review
 
+Paged selection review, inpute995b60/implementation3ee9ff3: PG-01..06 in
+[review](../reviews/2026-11-09-paged-selection.md) apply six producer lenses.
+EVID-107 separates exact metadata/paging verification from actual retirement.
+Default/all-feature/both500k/focus/strict Clippy/fresh artifacts pass; the local
+budget regression now reaches complete projection. Metadata scope pass_with_risk;
+NB-07 durable decisions/lineage/page/final execution and full acceptance stay open.
+
 Age review, input0dbc41f/implementation1a344fc: AW-01..06 in
 [age review](../reviews/2026-11-09-age-witnesses.md) apply six producer checklists.
 Review tightened operation-wide metadata/time budgets and independently finished

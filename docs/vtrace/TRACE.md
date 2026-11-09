@@ -1,5 +1,14 @@
 # Tig trace
 
+Paged historical selection: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-RETIREMENT.md -> final_retirement::paged,
+admission::bulk::remaining_selected -> EVID-107/implementation3ee9ff3.
+[Review](../reviews/2026-11-09-paged-selection.md) separates metadata implementation,
+verification, synthetic validation and six producer lenses from NB-07 controller
+execution, hosted checks and complete adoption/lifetime/human acceptance.
+
 Recorded historical age: WP-003/004/006/007/008/009/010/013/015;
 REQ-001/002/003/004/005/006/007/009/010 ->
 SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
