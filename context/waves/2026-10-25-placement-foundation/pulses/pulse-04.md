@@ -196,6 +196,10 @@ SPEC-002/003/004/005/006/008/009/013/014, IF-002/003/004/005/006/008/012/013,
 PKG-002/003/004/007/008/009 and RUST/PROVIDER L0/L1/L2. Separate explicit
 profile binds exact plan and default-disabled permissions; source-metadata/time-
 free cancellation shares the existing controller. Nineteen active bulk entries
-and explicit fresh execution CLI qualifier pass; broad/Clippy qualification and
-separate evidence/validation/trace/six producer closeout remain in progress.
+and explicit fresh execution CLI qualifier pass. EVID-104 and the six-producer
+review separately close verification, synthetic validation and trace for this
+bounded scope. Both locked workspace suites/both500k fixtures, final strict
+Clippy/fmt/standalone, expanded fresh execution/inspection/ordinary cancellation,
+pinned older-writer refusal/legacy control and L0/diff pass. PR #35 stays draft
+pending exact-head hosted qualification. Full pulse/product acceptance stays open.
 No live storage, host-trust adoption, source merge or full acceptance.

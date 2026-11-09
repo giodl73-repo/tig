@@ -4,7 +4,7 @@ Bulk execution lane: the distinct tig-storage bulk execute profile binds exact
 privately admitted consent and default-disabled apply/cancel permissions. Native
 clock admission is explicit; cancellation can operate without fresh time or source
 metadata. The existing controller is reused; inspection stays observational.
-Read specs/BULK-EXECUTION.md. Synthetic qualification is in progress; no live
+Read specs/BULK-EXECUTION.md and EVID-104 for bounded local qualification; no live
 root, service, migration, trust adoption or full-plan acceptance is enabled.
 
 Local-clock lane: a fresh explicit clock-enabled capacity ledger and LocalClock

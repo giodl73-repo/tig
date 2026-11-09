@@ -5,9 +5,12 @@ execution CLI qualifier pass. Metadata/time-free Cancellation preserves settled
 history and surviving bytes; apply uses independently enrolled LocalClock and
 exact private permission/plan admission. Denials preserve newly reopened journal
 checkpoints and provider files. Strict all-feature/all-target Clippy/fmt/L0/diff
-pass; full workspace/final artifact chains remain pending. Commands and scope:
-[execution review](../reviews/2026-11-09-bulk-execution.md). Additional permission/
-wrong-store negatives await final artifact execution. Hosted exact-head, full
+pass. Full default workspace/500k/standalone and expanded fresh execution CLI
+permission/wrong-store negatives pass. All-feature workspace/second500k and final
+fresh ordinary cancellation/bulk inspection/expanded execution/pinned old-writer
+refusal with legacy control pass; chain40830 terminated zero. No runtime changed
+after6b9016e. Commands and scope:
+[execution review](../reviews/2026-11-09-bulk-execution.md). Hosted exact-head, full
 requirements and intended-use acceptance remain separate.
 
 EVID-103/implementation9802166 verifies bounded explicit OS sampling and durable

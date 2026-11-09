@@ -77,3 +77,15 @@ Native age/category selectors, UI/Action integration, live OS/current authority
 trust and whole-system restore, operational journal continuation, large-file/real
 provider qualification, metadata retirement and human acceptance remain required
 full-product work. This source interface grants no live operation authority.
+
+## Bounded implementation checkpoint
+
+Implementation6b9016e and EVID-104 qualify the named local CLI/shared controller.
+[Six-producer review](../docs/reviews/2026-11-09-bulk-execution.md) separates
+verification, synthetic validation and trace: nineteen active bulk entries,
+actual fresh execution/inspection/cancellation artifact tests, both full workspace
+suites/both500k metadata fixtures, final strict Clippy/standalone/fmt/L0 and pinned
+older-writer refusal/legacy control pass. Later additions strengthen permission/
+replaced-root tests; runtime and record encodings remain unchanged. Hosted
+exact-head, live authority/provider/large-file/lifetime and human acceptance stay
+separate. This completes no whole product milestone or operational enrollment.

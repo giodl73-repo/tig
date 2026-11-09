@@ -8,9 +8,12 @@ fresh CLI qualification passes exact permission/consent denial, actual native
 clock deletion/shared-byte preservation, completed replay, interrupted resume,
 metadata/time-offline cancellation, expired-window hold and transient-use refusal
 before/after settlement. Strict all-feature/all-target Clippy, fmt and L0/diff
-pass. Locked default/all-feature workspace and final artifact chains are running;
-terminal evidence is pending. Additional independent cancel/resume permission and
-wrong-store negatives await the final artifact run. No record format changes,
+pass. Locked default workspace (500k) and standalone Git pass; expanded fresh
+execution CLI permission/wrong-store negatives and final strict Clippy pass.
+All-feature workspace (second500k) and final artifact chain40830 terminated zero:
+fresh ordinary cancellation/bulk inspection/expanded bulk execution and pinned
+older-writer refusal/legacy control pass. No runtime changed after6b9016e.
+PR #35 is draft pending hosted exact-head qualification. No record format changes,
 live enrollment, UI/Action, native selectors, full authority/provider/lifetime
 or human acceptance are implied; the full goal remains incomplete.
 

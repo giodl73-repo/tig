@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 11457,
-      "sha256": "becef5edca2cceefd6644edbebc807478d68c670568ec732b8cc87c317e21d25"
+      "bytes": 11462,
+      "sha256": "ea9a3d25676f80f63bfc9c9019e4a658d792d716e95722ce91598ecf728f2381"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 12567,
-      "sha256": "780510bea22faeef10504998be38a6398e402f2f95e2567df501dbe1fa6827ec"
+      "bytes": 12888,
+      "sha256": "b50763a730a6f4c732a0d2e2e1d5c88a7308abc226ab196d64ec7b436dfdac4f"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 93954,
-      "sha256": "cab628686cab6361ec662cd5afe3335f297043e816c474fc225435a9994ebac9"
+      "bytes": 94186,
+      "sha256": "7b1eb3d9c4cde9916b0f210a577e5861dfde205f2d177368c2a6622d4dd2f9f7"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 126511,
-      "sha256": "0f12ec830f1efeaa839e5469b665c5fc69dc7ecc1e1f77d20fe5587f1c092090"
+      "bytes": 126532,
+      "sha256": "64281aa8eccec280902bf3687a8fb42371c90923da15127f59e3f6bf260f1166"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -389,8 +389,8 @@
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 52756,
-      "sha256": "19375ecfe1d0c35c85cffef950ada95fbe04451d4e01085b0742065dfec42b20"
+      "bytes": 52956,
+      "sha256": "6eb98d8bd9369bf10ce5c390dfa1b2fb4322c388b1512bc3e6e37bad4b4191f7"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 40207,
-      "sha256": "d3acec1ed2d6baec73e106169b1d032d5d3caf6db1524e2b92ed35f29ed0cd29"
+      "bytes": 40246,
+      "sha256": "ceedd7db30d12f275a52c40ef97e98cbb094c29690fa779b7ce12e38851a5a1f"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 33763,
+      "bytes": 34721,
       "path": "context/RESUME.md",
-      "sha256": "b84cd0b094d882bfd1928dd9383b9d413bb388184662c3ce6a6c741e56cb5d94"
+      "sha256": "ef0206b3830b792f3cee18250e4ca6b77810305beca835b2ae68611d4cebe8b1"
     },
     {
       "bytes": 16453,
@@ -2434,8 +2434,8 @@
     },
     {
       "path": "specs/BULK-EXECUTION.md",
-      "bytes": 4974,
-      "sha256": "8bdf003013ccf7c67fcd08091fadf99a316db27028e28cbe6926f11e5e299a4d"
+      "bytes": 5733,
+      "sha256": "aec4d05142393b9734338a197105a83e75f56d7721a235c06b9a6e4961630805"
     },
     {
       "path": "crates/tig-store/src/bin/tig-storage/bulk/execute.rs",
@@ -2449,8 +2449,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-bulk-execution.md",
-      "bytes": 9093,
-      "sha256": "1991346e653f1a9de78209d2cfce9081ee3751872a0432631baba041ad5ea2a5"
+      "bytes": 9705,
+      "sha256": "33cbd31fb7ce9b459f84ebfcd43643d6d3f4a684ea7b0dc39f64132cf2f8fa9b"
     }
   ]
 }

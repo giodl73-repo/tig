@@ -21,9 +21,21 @@ source changes into running tools as a side effect. No startup cache operations.
   An initial assertion expected a report for pre-settlement stale basis; the
   existing controller correctly errors. The test now distinguishes that refusal
   from post-settlement provider holds; no safety check was weakened.
-  Strict Clippy/broad qualification is in progress in external bulk-execution
-  targets; derive terminal handles/results before closeout. Source/code changes
-  require fmt and reviewed-target updates before the implementation commit.
+  Implementation6b9016e, separate producer/evidence/trace review7ea5970.
+  PR #35 is OPEN/draft against feat/local-clock (#34). Default workspace/500k
+  and standalone Git pass (chain3144 terminal zero). Final strict Clippy and the
+  expanded fresh execution CLI permission/replaced-root negatives pass (70528
+  terminal zero). All-feature workspace/second500k and final fresh ordinary
+  cancellation/bulk inspection/expanded execution/pinned old-writer refusal with
+  accepted legacy control pass (40830 terminal zero). Both broad suites cover
+  final runtime; final Clippy/explicit qualifiers cover later test additions.
+  No runtime changed after6b9016e. Hosted exact-head checks remain pending; derive
+  live PR head/run before readying it. No source merge/deployment.
+  Next: native exact block/category/age adapters, with independently admitted
+  supersession evidence, unknown-age holds, reactivation invalidation and exact
+  historical-root/path mapping. Full UI/Action, current authority/restore/host
+  trust, real providers/large files, continuation, eventual metadata retirement
+  and intended-use acceptance remain owed. Keep the full goal active.
   Native age/category/UI/Action, current authority/restore/host trust, real large
   files/providers, lifetime and metadata retirement remain required. No live use.
 
@@ -49,13 +61,14 @@ source changes into running tools as a side effect. No startup cache operations.
   fixture/spec pin43ad0f4 are followed by separate EVID-103 verification,
   synthetic validation, trace and six-producer review records. Five
   independent framing vectors pin legacy/new marker, policy, enrollment and event.
-  PR #34 is OPEN/draft against feat/bulk-inspection (#33). Exact-head hosted
-  checks remain pending; derive their live head/run rather than using prior
-  push results. Six-producer review: docs/reviews/2026-11-09-local-clock.md.
-  Next: hosted qualification, then full bulk operator mutation integration in a
-  separate lane, preserving independently admitted exact-plan consent, current
-  roster/minima and explicit clock policy. Native age/category, lifetime/provider
-  qualification and eventual metadata retirement remain required.
+  PR #34 is OPEN/ready against feat/bulk-inspection (#33). Exact head6f8fdaa
+  passes Validate42604128468: Windows21m15s, Linux5m56s, secrets5s. Marked ready
+  only after all three actual results and head were checked; unmerged.
+  Six-producer review: docs/reviews/2026-11-09-local-clock.md.
+  Successor feat/bulk-execution supplies explicit CLI mutation under separately
+  admitted exact-plan consent, current roster/minima and explicit clock policy.
+  Native age/category/UI/Action, lifetime/provider qualification and eventual
+  metadata retirement remain required.
   Explicit OS time accuracy/trust, independently current minima, whole-system
   restore, native deployment and operational lifetime remain unqualified gates.
 

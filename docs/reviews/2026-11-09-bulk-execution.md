@@ -49,7 +49,8 @@ that the subprocess uses the independently enrolled native clock.
 
 Preflight negatives include omitted/empty permissions, unapproved plan, missing/
 wrong clock, unavailable clock root, missing metadata, wrong context and unknown
-fields. Actual newly reopened checkpoints and exact provider/witness files remain
+fields, independent cancel/resume permission denial and replaced provider roots.
+Actual newly reopened checkpoints and exact provider/witness files remain
 unchanged across these denials. Unknown roots remain absent and error JSON is
 redacted. Discovery truthfully reports cancellation needs neither clock nor
 metadata writer. Initial test compilation incorrectly compared ObjectRead to a
@@ -62,11 +63,17 @@ The private Runtime refactor preserves existing Execution public fields/API and
 record encodings. Its metadata writer is optional internally, required explicitly
 for non-cancelling paths. Cancellation always enters the cancelling path with
 no writer and a rejecting time port. Inspection has no new mutation method.
-Strict all-feature/all-target workspace Clippy passes after removing needless
-borrows; fmt and portable L0/diff pass. Full locked default/all-feature workspace,
-standalone Git and final fresh-artifact chain are running and remain pending
-until actual terminal results are observed. No source runtime changed after
-implementation6b9016e.
+Final strict all-feature/all-target workspace Clippy passes after removing
+needless borrows; fmt and portable L0/diff pass. Full locked default workspace,
+its500k metadata fixture and standalone Git pass (chain3144 terminated zero).
+The expanded fresh execution CLI qualifier passes after the additional independent
+permission/replaced-root negatives (chain70528 terminated zero). Full locked
+all-feature workspace and its500k metadata fixture pass. Final artifact chain40830
+terminated zero: explicit ordinary cancellation, bulk inspection, expanded bulk
+execution and pinned older-writer refusal with accepted legacy control all pass.
+Both broad suites cover the final runtime; final Clippy and explicit execution
+qualifiers also cover the later negative test assertions. No runtime changed
+after6b9016e. PR #35 is draft against #34 pending exact-head hosted qualification.
 
 ```text
 cargo fmt --all -- --check

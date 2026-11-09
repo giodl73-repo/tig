@@ -42,7 +42,8 @@ certifying full requirements or every consumer.
 The [bulk execution interface](specs/BULK-EXECUTION.md) composes exact private
 plan approval, explicit enrolled clock and existing apply/resume/cancel. Inspection
 permissions remain separate; cancellation does not need source metadata or fresh
-time. Qualification is in progress. Native selectors/UI/Action, current authority,
+time. EVID-104 records local qualification; hosted checks remain separate.
+Native selectors/UI/Action, current authority,
 large files/providers, lifetime and eventual metadata retirement remain required.
 
 The explicit [local clock profile](specs/LOCAL-CLOCK.md) is the first candidate
