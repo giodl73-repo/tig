@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 101916,
-      "sha256": "30c45c3c58b3a08526771e9bf69ad4b71150c9273c555a15e516655a0e90787d"
+      "bytes": 101971,
+      "sha256": "5ad26046ed6ad196525c50489a720831da605495c96091049b9ecb5720ffaaf9"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 56971,
+      "bytes": 57028,
       "path": "context/RESUME.md",
-      "sha256": "378ca090715e9283ef1c2e95ff21f4b724bef9059027b9e5a69f8f389c1a13db"
+      "sha256": "f3f034df6de17703b334325724022ad50b3c9d0f5eb590ab237a1e7e3c45d3c8"
     },
     {
       "bytes": 16453,
@@ -2694,8 +2694,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-native-paged-retirement.md",
-      "bytes": 8049,
-      "sha256": "acef3330d4bbe5e38a7fced2a18b12b56cbe61f18dc9c38e3c0d16dbf45b57b0"
+      "bytes": 8295,
+      "sha256": "92fcf97c88c7286ecd5b671c3121a5129359cf05b56ebfed9ed5d1606b13c049"
     },
     {
       "path": "specs/NATIVE-PAGED-RETIREMENT.md",

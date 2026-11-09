@@ -1,6 +1,7 @@
 # Evidence index
 
-EVID-111: indexed native paged selection candidate, input9266765.
+EVID-111: indexed native paged selection candidate, input9266765,
+final runtime134476a18234d620eec74e1c9a223374b191c392.
 [Review](../reviews/2026-11-09-native-paged-retirement.md) separates native
 occurrence/derivation/request linkage, exact block/category/optional age holds,
 shared staging/readback budgets and default-disabled metadata CLI. Sixteen native

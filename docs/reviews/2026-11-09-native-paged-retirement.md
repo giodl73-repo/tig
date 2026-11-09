@@ -3,6 +3,7 @@
 Input9266765ddc2f0e7f58582a74faad471856705ef7; branch
 feat/native-paged-retirement. Entry, controls, allowed scope and RUST/GIT/PROVIDER
 L0/L1/L2 are in [the contract](../../specs/NATIVE-PAGED-RETIREMENT.md).
+Initial implementatione881b2f; final runtime134476a18234d620eec74e1c9a223374b191c392.
 Targets: native occurrence/derivation indexes, exact block/category/optional age
 selection, existing paged request linkage, shared native metadata Session,
 default-disabled index-paged/select-paged CLI and narrow read-only source/request
@@ -53,6 +54,8 @@ source checkpoints. Final17-case native, three native framing/budget entries and
 strict workspace Clippy pass under schema/default89656 and all-feature82856,
 both terminal zero. Earlier broad/hosted success predates this tightening and
 does not qualify it; the final focused reruns provide its actual coverage.
+PR42 remains draft on ready PR41. Final reviewed hashes/fmt/diff/portable checks
+pass; obtain new exact-head hosted checks for the final runtime/review update.
 
 ## Synthetic validation
 

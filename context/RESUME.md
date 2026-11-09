@@ -9,7 +9,8 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Active lane: feat/native-paged-retirement,
-  input9266765ddc2f0e7f58582a74faad471856705ef7. Pending source:
+  input9266765ddc2f0e7f58582a74faad471856705ef7.
+  Final runtime implementation134476a18234d620eec74e1c9a223374b191c392.
   specs/NATIVE-PAGED-RETIREMENT.md controls indexed native occurrence/block/
   category/optional-age selection into existing paged requests. Default-disabled
   tig-retirement index-paged/select-paged stage only existing metadata roots,
@@ -50,8 +51,8 @@ source changes into running tools as a side effect. No startup cache operations.
   default/schema89656 and all-feature82856 checks terminate zero, including three
   native framing/budget entries and strict workspace Clippy per profile; logs are
   native-paged-size-default.log/native-paged-size-all.log in the external temp root.
-  All local processes/targets are terminal. Record the actual final runtime SHA,
-  refresh pins/L0, push to PR42 and derive new exact-head checks before readying.
+  All local processes/targets are terminal. Final pins/L0/fmt/diff pass; push the
+  runtime/review update to PR42 and derive new exact-head checks before readying.
   EVID-111 and its
   six-producer review separate verification, synthetic validation and trace. Next:
   operator/agent/UI/Action using the actual paged controller, plus actual native
