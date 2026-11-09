@@ -51,9 +51,20 @@ that executor after exact committed-ref admission, including no-op selections.
 Copies retain stable original operation/job bindings across later Git revisions.
 Required cache readers span conflicting source removal; existing all-namespace
 and provider fences still decide removal. No new cache engine or journal exists.
-Page convergence is distinct from full selection convergence. Trusted external
-trigger integration, complete lifecycle/provider adoption, large files and
-operational continuation remain required. No service starts on resume.
+Page convergence is distinct from full selection convergence. Complete lifecycle/
+provider adoption, large files and operational continuation remain required.
+No service starts on resume.
+
+The independent **github** feature adds fixed-issuer RS256 request verification,
+a bounded metadata-only GitHub CommittedSource adapter, foreground loopback
+`tig-trigger` intake and a coordinator over the same selection/placement APIs.
+Local Git implements that source seam without changing its listing/context
+identities. Private enrollment supplies authority; a signed commit request cannot
+choose roots or permissions. Complete same-basis passes, partial effects and
+source drift remain separate observations. The inert Action example installs
+nothing; external TLS ingress, workflow/executor OS separation, full issuer/
+provider qualification and adoption are separate gates. See
+[trusted requests](../specs/GITHUB-TRIGGER.md).
 
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable

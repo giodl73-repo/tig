@@ -131,6 +131,17 @@ fn time_and_key_validity_are_bounded_and_exact_expiry_refuses() {
     assert_eq!(keys.validate(1001), Err(Error::Key));
 }
 #[test]
+fn issuer_backdated_not_before_does_not_change_issuance_or_expiry_limits() {
+    let f = Fixture::new();
+    let mut claims = f.claims.clone();
+    claims["nbf"] = json!(940);
+    assert!(f.verify(&claims, 1001).is_ok());
+    assert_eq!(f.verify(&claims, 990).unwrap_err(), Error::Clock);
+    assert_eq!(f.verify(&claims, 1300).unwrap_err(), Error::Expired);
+    claims["exp"] = json!(1601);
+    assert_eq!(f.verify(&claims, 1001).unwrap_err(), Error::Clock);
+}
+#[test]
 fn duplicate_claims_and_unknown_jose_or_algorithm_mechanisms_refuse() {
     let f = Fixture::new();
     for header in [

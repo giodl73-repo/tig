@@ -388,7 +388,6 @@ pub fn verify(
     if claims.exp <= claims.iat
         || claims.exp - claims.iat > trust.max_token_seconds
         || claims.nbf > claims.exp
-        || claims.nbf.abs_diff(claims.iat) > trust.clock_skew_seconds
     {
         return Err(Error::Clock);
     }

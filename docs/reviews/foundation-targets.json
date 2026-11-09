@@ -1579,8 +1579,8 @@
     },
     {
       "path": "docs/ARCHITECTURE.md",
-      "bytes": 13598,
-      "sha256": "7f80dcb22bdb7228db2cc7c230cbd2f96d15f80349c051d647b95387ed793dd7"
+      "bytes": 14294,
+      "sha256": "717824419f4c82e8ce4c0ef712336c5f64a7ba2b41edfef1708845672f70eb4f"
     },
     {
       "path": "docs/PUBLIC-RELEASE.md",
@@ -2093,8 +2093,8 @@
       "path": "crates/tig-git/src/bin/tig-trigger.rs"
     },
     {
-      "sha256": "c2a10bf901d1748ce88c9ea216e74e8eed28952bc2e2dd103bd70b5951056e56",
-      "bytes": 13301,
+      "sha256": "cd64c41322532f344929cd41e8f4100ed418fcf2ba780853843b5d86b725946f",
+      "bytes": 13231,
       "path": "crates/tig-git/src/github.rs"
     },
     {
@@ -2123,8 +2123,8 @@
       "path": "crates/tig-git/tests/common/github_fixture.rs"
     },
     {
-      "sha256": "5141434c24c8036d5e780a9bd44fe2cb87c09a4da07e7cdd557aa77d9aa23952",
-      "bytes": 10771,
+      "sha256": "0030b1617ec3d6907d285b3a155680430c0c6a84105e6d0a0d83b48bbced5008",
+      "bytes": 11241,
       "path": "crates/tig-git/tests/github.rs"
     },
     {
@@ -2148,8 +2148,8 @@
       "path": "examples/github/request.test.mjs"
     },
     {
-      "sha256": "fd0da7bbe7f94e0354319f1decadf313a68e1b73e96e323a2d9db3fa6ea1eb77",
-      "bytes": 10983,
+      "sha256": "8f8911b93a9c19f3c9efb2e0311f86bb9804b41a81333c1ef2e74c187311836c",
+      "bytes": 11306,
       "path": "specs/GITHUB-TRIGGER.md"
     }
   ]

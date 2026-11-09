@@ -38,6 +38,10 @@ are independently admitted snapshots with explicit validity, never event data.
 Key refresh is a separately bounded fixed-origin HTTPS operation; unknown/expired
 keys hold rather than accepting stale signatures. No bearer appears in Debug,
 reports, logs, command lines or persistent receipts.
+Issued-at age/lifetime and not-before are checked independently: an issuer may
+backdate not-before without extending the bounded issued-at/expiry interval.
+Future issuance/not-before still obey admitted clock skew, and exact expiry
+refuses. See [JWT time claims](https://www.rfc-editor.org/rfc/rfc7519.html#section-4.1.5).
 
 Authentication establishes request provenance, not current GitHub head, retained
 custody or storage authority. Independently check immutable repository identity
