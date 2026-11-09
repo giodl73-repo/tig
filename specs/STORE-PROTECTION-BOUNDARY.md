@@ -28,6 +28,10 @@ every provider guard. No existing root is migrated or scanned. Binding order is
 normalized; duplicates, empty rosters, zero generations and excess bounds refuse
 before creating roots. Portable Enrollment binds store instance, generation and
 canonical binding identity; deserializing it never creates a live assessment.
+Fresh explicit roster-scope bindings can additionally adopt
+[roster-wide advisory precedence](ROSTER-PRECEDENCE.md). Their new strict field
+changes binding identity and old readers refuse it. Namespace-local bindings
+retain their original canonical bytes and behavior; no in-place migration exists.
 
 All concrete callers must use the store's admitted roster, not a supplied subset
 or a caller assertion of complete coverage. Assessment requires exactly those

@@ -82,6 +82,11 @@ history-store requirement merely because a predecessor root mentions them.
 Explicit hard retention/location obligations remain additive and cannot be
 suppressed by active-use precedence. Configure and explain this distinction;
 another project may deliberately choose additive history placement instead.
+The explicit [roster-precedence profile](specs/ROSTER-PRECEDENCE.md) addresses
+active use held in another enrolled namespace. It requires fresh roster-scope
+store bindings and design-2 placement enrollment; legacy namespace-local policy
+remains unchanged. Planner and final ordinary-eviction assessment must agree on
+this group, without suppressing hard retention or explicitly additive history.
 
 Acquire and verify new copies, establish required retention, then recheck current
 protection and evict eligible old working copies. Routine eviction can execute

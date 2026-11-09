@@ -64,6 +64,9 @@ impl Fixture {
         Self::with_final_provider(false)
     }
     fn with_final_provider(final_provider: bool) -> Self {
+        Self::with_provider(final_provider, false)
+    }
+    fn with_provider(final_provider: bool, roster: bool) -> Self {
         let root = tempfile::tempdir().unwrap();
         let places = Places {
             current: vec![key("working"), key("backup")],
@@ -96,7 +99,12 @@ impl Fixture {
                 &limits(),
             )
             .unwrap();
-        let binding = Binding::new(
+        let constructor = if roster {
+            Binding::new_roster
+        } else {
+            Binding::new
+        };
+        let binding = constructor(
             1,
             digest("managed-boundary"),
             vec![Member {
@@ -341,8 +349,8 @@ fn processes_unlink_retry_restore_and_preserve_historical_outcome_without_status
 #[ignore = "requires explicitly pinned pre-final tig-storage executable"]
 fn pre_final_writer_refuses_new_manifest_and_accepts_legacy_control() {
     let baseline = std::env::var_os("TIG_PRE_FINAL_CLI").expect("explicit pre-final artifact");
-    for final_provider in [false, true] {
-        let f = Fixture::with_final_provider(final_provider);
+    for (final_provider, roster) in [(false, false), (true, false), (false, true)] {
+        let f = Fixture::with_provider(final_provider, roster);
         let before = f.sequence();
         let output = Process::new(&baseline)
             .args(["retire", "plan"])
@@ -352,10 +360,10 @@ fn pre_final_writer_refuses_new_manifest_and_accepts_legacy_control() {
             .unwrap();
         assert!(output.stderr.is_empty());
         let response: Value = serde_json::from_slice(&output.stdout).unwrap();
-        if final_provider {
+        if final_provider || roster {
             assert!(
                 !output.status.success(),
-                "old writer accepted final-capable root"
+                "old writer accepted final-capable or roster-precedence root"
             );
             assert_eq!(response["ok"], false);
         } else {

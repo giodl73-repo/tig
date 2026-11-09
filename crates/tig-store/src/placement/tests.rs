@@ -56,6 +56,12 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
+        Self::configured(false, false)
+    }
+    fn configured(roster: bool, additive: bool) -> Self {
+        Self::configured_group(roster, additive, roster)
+    }
+    fn configured_group(roster: bool, additive: bool, multiple: bool) -> Self {
         let temp = tempfile::tempdir().unwrap();
         let p = Places {
             current: vec![key("working"), key("backup")],
@@ -63,7 +69,7 @@ impl Fixture {
             predecessor: vec![key("history"), key("backup")],
         };
         let policy = crate::source_claims::admission::Policy {
-            prefer_active: true,
+            prefer_active: !additive,
             classes: [Kind::Branch, Kind::Draft, Kind::Job, Kind::Retention]
                 .into_iter()
                 .map(|k| (k, p.clone()))
@@ -73,7 +79,7 @@ impl Fixture {
             &temp.path().join("namespace"),
             key("project"),
             key("epoch"),
-            policy,
+            policy.clone(),
         )
         .unwrap();
         let nodes = MemoryNodes::default();
@@ -90,10 +96,35 @@ impl Fixture {
             )
             .unwrap();
         }
-        let authority = Authority {
-            namespace: ns.identity().clone(),
-            policy: digest(ns.policy()).unwrap(),
-        };
+        let mut namespaces = vec![ns];
+        if multiple {
+            let mut peer = Namespace::create(
+                &temp.path().join("job-namespace"),
+                key("job-project"),
+                key("epoch"),
+                policy,
+            )
+            .unwrap();
+            peer.apply(
+                key("enroll-job"),
+                Command::Enroll {
+                    source: key("job"),
+                    owner: key("owner"),
+                    class: Kind::Job,
+                },
+                &nodes,
+                &limits(),
+            )
+            .unwrap();
+            namespaces.push(peer);
+        }
+        let authorities = namespaces
+            .iter()
+            .map(|ns| Authority {
+                namespace: ns.identity().clone(),
+                policy: digest(ns.policy()).unwrap(),
+            })
+            .collect();
         let mut stores = Vec::new();
         let mut ledgers = Vec::new();
         let mut jobs = Vec::new();
@@ -105,13 +136,21 @@ impl Fixture {
         ] {
             let root = temp.path().join(name);
             let store = if role == Role::Cache {
-                let binding = Binding::new(
+                let constructor = if roster {
+                    Binding::new_roster
+                } else {
+                    Binding::new
+                };
+                let binding = constructor(
                     1,
                     Digest::blob(b"trusted boundary"),
-                    vec![Member {
-                        namespace: ns.identity().clone(),
-                        places: vec![key(name)],
-                    }],
+                    namespaces
+                        .iter()
+                        .map(|ns| Member {
+                            namespace: ns.identity().clone(),
+                            places: vec![key(name)],
+                        })
+                        .collect(),
                 )
                 .unwrap();
                 LocalStore::create_managed(&root, key(name), binding).unwrap()
@@ -140,22 +179,30 @@ impl Fixture {
                 failure_domain: key(name),
                 capacity: ledger.identity().clone(),
                 job: job.clone(),
-                assignments: vec![Mapping {
-                    namespace: ns.identity().clone(),
-                    place: key(name),
-                }],
+                assignments: namespaces
+                    .iter()
+                    .map(|ns| Mapping {
+                        namespace: ns.identity().clone(),
+                        place: key(name),
+                    })
+                    .collect(),
             });
             stores.push(store);
             ledgers.push(ledger);
             jobs.push(job);
         }
         let config = Config {
-            schema: "tig.placement-enrollment.design-1".into(),
+            schema: if roster {
+                "tig.placement-enrollment.design-2"
+            } else {
+                "tig.placement-enrollment.design-1"
+            }
+            .into(),
             owner: key("owner"),
             authority: Digest::blob(b"owner"),
             seed: Digest::blob(b"verified source"),
             providers,
-            namespaces: vec![authority],
+            namespaces: authorities,
             minimum_domains: 1,
             budget: Budget {
                 objects: 32,
@@ -175,7 +222,7 @@ impl Fixture {
         };
         Self {
             temp,
-            namespaces: vec![ns],
+            namespaces,
             nodes,
             stores,
             ledgers,
@@ -188,13 +235,16 @@ impl Fixture {
         }
     }
     fn select(&mut self, source: &str, objects: &[Object]) {
+        self.select_at(0, source, objects)
+    }
+    fn select_at(&mut self, index: usize, source: &str, objects: &[Object]) {
         let entries = objects
             .iter()
             .enumerate()
             .map(|(i, o)| (LogicalPath::parse(&format!("item-{i}")).unwrap(), o.clone()))
             .collect();
         let (tree, _) = Tree::build(&entries, &mut self.nodes, TreeLimits::default()).unwrap();
-        let n = &mut self.namespaces[0];
+        let n = &mut self.namespaces[index];
         let revision = n.source(&key(source)).unwrap().unwrap().revision;
         n.select(
             &crate::source_claims::admission::Select {
@@ -316,6 +366,336 @@ fn altered_plan_cannot_claim_convergence_or_apply() {
     assert_eq!(f.run(|e| e.status(&p)).unwrap_err(), Error::Invalid);
     assert_eq!(f.run(|e| e.apply(&p)).unwrap_err(), Error::Stale);
     assert_eq!(f.seed.opens, 0);
+}
+
+#[test]
+fn roster_precedence_job_start_and_end_reconcile_both_plan_and_guarded_eviction() {
+    let mut f = Fixture::configured(true, false);
+    f.select("main", &[f.old.clone(), f.shared.clone()]);
+    assert_eq!(f.apply().storage_converged, Some(true));
+    f.select("main", &[f.new.clone(), f.shared.clone()]);
+    assert_eq!(f.apply().storage_converged, Some(true));
+    assert!(!f.present(0, &f.old));
+    assert!(f.present(1, &f.old));
+    f.select_at(1, "job", &[f.old.clone()]);
+    let p = f.run(|e| e.plan(None).unwrap());
+    assert_eq!(
+        p.rows.iter().find(|r| r.object == f.old).unwrap().required,
+        vec![true, false, true]
+    );
+    let active = f.apply();
+    assert_eq!(active.storage_converged, Some(true), "{active:?}");
+    assert!(f.present(0, &f.old));
+    assert!(!f.present(1, &f.old));
+    assert!(f.present(2, &f.old));
+    assert!(!f.present(1, &f.shared));
+    let n = &mut f.namespaces[1];
+    let revision = n.source(&key("job")).unwrap().unwrap().revision;
+    n.apply(
+        key("finish-job"),
+        Command::Withdraw {
+            source: key("job"),
+            owner: key("owner"),
+            expected_revision: revision,
+        },
+        &f.nodes,
+        &limits(),
+    )
+    .unwrap();
+    let inactive = f.apply();
+    assert_eq!(inactive.storage_converged, Some(true), "{inactive:?}");
+    assert!(!f.present(0, &f.old));
+    assert!(f.present(1, &f.old));
+    assert!(f.present(2, &f.old));
+}
+
+#[test]
+fn roster_precedence_keeps_explicitly_additive_history_and_retention_class_demands() {
+    for additive in [false, true] {
+        let mut f = Fixture::configured(true, additive);
+        f.select("main", &[f.old.clone()]);
+        f.select("main", &[f.new.clone()]);
+        f.select_at(1, "job", &[f.old.clone()]);
+        if !additive {
+            f.namespaces[0]
+                .apply(
+                    key("enroll-hard"),
+                    Command::Enroll {
+                        source: key("hard"),
+                        owner: key("owner"),
+                        class: Kind::Retention,
+                    },
+                    &f.nodes,
+                    &limits(),
+                )
+                .unwrap();
+            f.select("hard", &[f.old.clone()]);
+            f.select("hard", &[f.new.clone()]);
+        }
+        let p = f.run(|e| e.plan(None).unwrap());
+        assert_eq!(
+            p.rows.iter().find(|r| r.object == f.old).unwrap().required,
+            vec![true, true, true]
+        );
+        let report = f.apply();
+        assert_eq!(report.storage_converged, Some(true), "{report:?}");
+        assert!((0..3).all(|i| f.present(i, &f.old)));
+    }
+}
+
+#[test]
+fn roster_semantics_require_matching_fresh_store_enrollment() {
+    let mut old = Fixture::new();
+    old.config.schema = "tig.placement-enrollment.design-2".into();
+    assert_eq!(
+        old.run(|e| e.plan(None)).unwrap_err(),
+        Error::WrongEnrollment
+    );
+    let mut new = Fixture::configured(true, false);
+    let new_id = new.config.id().unwrap();
+    new.config.schema = "tig.placement-enrollment.design-1".into();
+    assert_ne!(new.config.id().unwrap(), new_id);
+    assert_eq!(
+        new.run(|e| e.plan(None)).unwrap_err(),
+        Error::WrongEnrollment
+    );
+}
+
+#[test]
+fn legacy_namespace_scope_preserves_additive_assignments_across_namespaces() {
+    let mut f = Fixture::configured_group(false, false, true);
+    f.select("main", &[f.old.clone()]);
+    f.select("main", &[f.new.clone()]);
+    f.select_at(1, "job", &[f.old.clone()]);
+    let p = f.run(|e| e.plan(None).unwrap());
+    assert_eq!(
+        p.rows.iter().find(|r| r.object == f.old).unwrap().required,
+        vec![true, true, true]
+    );
+    let report = f.apply();
+    assert_eq!(report.storage_converged, Some(true), "{report:?}");
+    assert!((0..3).all(|i| f.present(i, &f.old)));
+}
+
+#[test]
+fn roster_projection_keeps_one_budget_and_refuses_missing_closure_or_conflicting_sizes() {
+    let mut f = Fixture::configured(true, false);
+    f.select("main", &[f.old.clone()]);
+    f.select_at(1, "job", &[f.old.clone()]);
+    let before = f
+        .ledgers
+        .iter()
+        .map(CapacityLedger::checkpoint)
+        .collect::<Vec<_>>();
+    f.config.budget.limits.roots = 1;
+    assert_eq!(f.run(|e| e.plan(None)).unwrap_err(), Error::Budget);
+    f.config.budget.limits = limits();
+    let nodes = std::mem::take(&mut f.nodes);
+    assert_eq!(f.run(|e| e.plan(None)).unwrap_err(), Error::Recovery);
+    f.nodes = nodes;
+    let mut wrong = f.old.clone();
+    wrong.bytes += 1;
+    let mut g = Fixture::configured(true, false);
+    g.select("main", &[g.old.clone()]);
+    g.select_at(1, "job", &[wrong]);
+    assert_eq!(g.run(|e| e.plan(None)).unwrap_err(), Error::Recovery);
+    assert_eq!(g.seed.opens, 0);
+    assert_eq!(f.seed.opens, 0);
+    assert_eq!(
+        before,
+        f.ledgers
+            .iter()
+            .map(CapacityLedger::checkpoint)
+            .collect::<Vec<_>>()
+    );
+}
+
+#[test]
+fn roster_assessment_does_not_clear_unknown_closure_and_releases_all_fences_on_failure() {
+    let mut f = Fixture::configured(true, false);
+    f.select("main", &[f.old.clone()]);
+    f.select("main", &[f.new.clone()]);
+    assert_eq!(f.apply().storage_converged, Some(true));
+    f.select_at(1, "job", &[f.old.clone()]);
+    let enrollment = crate::store_protection::Enrollment::bind(&f.stores[1]).unwrap();
+    assert!(matches!(
+        crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &MemoryNodes::default(),
+            &limits()
+        ),
+        Err(crate::store_protection::Error::Admission(
+            crate::source_claims::admission::Error::IncompleteClosure
+        ))
+    ));
+    for ns in &f.namespaces {
+        drop(ns.fence(&f.old).unwrap());
+    }
+    assert!(f.present(1, &f.old));
+}
+
+#[test]
+fn roster_assessment_fences_loss_of_remote_active_use_and_rejects_missing_members() {
+    let mut f = Fixture::configured(true, false);
+    f.select("main", &[f.old.clone()]);
+    f.select("main", &[f.new.clone()]);
+    assert_eq!(f.apply().storage_converged, Some(true));
+    f.select_at(1, "job", &[f.old.clone()]);
+    let mut peer = Namespace::open(
+        &f.temp.path().join("job-namespace"),
+        &f.namespaces[1].checkpoint(),
+    )
+    .unwrap();
+    let revision = peer.source(&key("job")).unwrap().unwrap().revision;
+    let command = Command::Withdraw {
+        source: key("job"),
+        owner: key("owner"),
+        expected_revision: revision,
+    };
+    let enrollment = crate::store_protection::Enrollment::bind(&f.stores[1]).unwrap();
+    {
+        let assessment = crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &f.nodes,
+            &limits(),
+        )
+        .unwrap();
+        assert!(matches!(
+            peer.apply(key("finish-peer"), command.clone(), &f.nodes, &limits()),
+            Err(crate::source_claims::admission::Error::Busy)
+        ));
+        assessment.check_current().unwrap();
+    }
+    peer.apply(key("finish-peer"), command, &f.nodes, &limits())
+        .unwrap();
+    assert!(matches!(
+        crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &f.nodes,
+            &limits()
+        ),
+        Err(crate::store_protection::Error::Required)
+    ));
+    let member = f.namespaces.pop().unwrap();
+    assert!(matches!(
+        crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &f.nodes,
+            &limits()
+        ),
+        Err(crate::store_protection::Error::IncompleteRoster)
+    ));
+    f.namespaces.push(member);
+}
+
+#[test]
+fn roster_peer_child() {
+    let Some(root) = std::env::var_os("TIG_ROSTER_PEER_ROOT") else {
+        return;
+    };
+    let root = std::path::PathBuf::from(root);
+    let checkpoint =
+        serde_json::from_slice(&fs::read(root.join("peer-minimum.json")).unwrap()).unwrap();
+    let mut peer = Namespace::open(&root.join("job-namespace"), &checkpoint).unwrap();
+    let captured: Vec<Vec<u8>> =
+        serde_json::from_slice(&fs::read(root.join("peer-nodes.json")).unwrap()).unwrap();
+    let mut nodes = MemoryNodes::default();
+    for bytes in captured {
+        nodes.put(&bytes).unwrap();
+    }
+    let revision = peer.source(&key("job")).unwrap().unwrap().revision;
+    let result = peer.apply(
+        key("child-finish"),
+        Command::Withdraw {
+            source: key("job"),
+            owner: key("owner"),
+            expected_revision: revision,
+        },
+        &nodes,
+        &limits(),
+    );
+    if matches!(result, Err(crate::source_claims::admission::Error::Busy)) {
+        std::process::exit(77);
+    }
+    if result.is_ok() {
+        std::process::exit(78);
+    }
+    panic!("unexpected child result {result:?}");
+}
+
+#[test]
+fn actual_process_cannot_withdraw_remote_active_use_until_roster_assessment_releases() {
+    let mut f = Fixture::configured(true, false);
+    f.select("main", &[f.old.clone()]);
+    f.select("main", &[f.new.clone()]);
+    assert_eq!(f.apply().storage_converged, Some(true));
+    f.select_at(1, "job", &[f.old.clone()]);
+    fs::write(
+        f.temp.path().join("peer-minimum.json"),
+        serde_json::to_vec(&f.namespaces[1].checkpoint()).unwrap(),
+    )
+    .unwrap();
+    let captured = f
+        .nodes
+        .objects()
+        .map(|(_, bytes)| bytes.to_vec())
+        .collect::<Vec<_>>();
+    fs::write(
+        f.temp.path().join("peer-nodes.json"),
+        serde_json::to_vec(&captured).unwrap(),
+    )
+    .unwrap();
+    let child = || {
+        std::process::Command::new(std::env::current_exe().unwrap())
+            .args([
+                "--exact",
+                "placement::tests::roster_peer_child",
+                "--nocapture",
+            ])
+            .env("TIG_ROSTER_PEER_ROOT", f.temp.path())
+            .output()
+            .unwrap()
+    };
+    let enrollment = crate::store_protection::Enrollment::bind(&f.stores[1]).unwrap();
+    {
+        let assessment = crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &f.nodes,
+            &limits(),
+        )
+        .unwrap();
+        let output = child();
+        assert_eq!(output.status.code(), Some(77), "{output:?}");
+        assessment.check_current().unwrap();
+    }
+    let output = child();
+    assert_eq!(output.status.code(), Some(78), "{output:?}");
+    assert!(matches!(
+        crate::store_protection::assess(
+            &f.stores[1],
+            &enrollment,
+            &f.old,
+            &mut f.namespaces,
+            &f.nodes,
+            &limits()
+        ),
+        Err(crate::store_protection::Error::Required)
+    ));
 }
 
 #[test]

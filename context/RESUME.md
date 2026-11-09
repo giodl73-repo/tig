@@ -8,7 +8,16 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/bulk-retirement, input4478207, implementationfe073a6,
+- Active lane: feat/roster-placement, input106f6f5 (PR #31 head at entry).
+  PL-01 cross-namespace advisory precedence uses fresh explicit roster-scope
+  bindings and distinct design-2 placement enrollment. Existing namespace-local
+  bindings keep their bytes/identity and behavior. Planning and guarded ordinary
+  eviction share raw active/history/retained buckets; all subject fences hold
+  remote active use through removal. Hard retention and additive policies survive.
+  Read specs/ROSTER-PRECEDENCE.md. Qualification/closeout in progress; no live
+  upgrade or source merge. Full-product/native/operator/lifetime gates remain.
+
+- Previous lane: feat/bulk-retirement, input4478207, implementationfe073a6,
   public action binding/test correctivef999e3a.
   Draft PR #31 stacks on feat/final-provider (#30); evidence closeoute621381.
   Initial hosted run42584582005: foundation jobs running at inspection; secrets

@@ -19,6 +19,7 @@ use tig_core::{
     tree::{NodeStore, Tree, TreeError, TreeLimits},
 };
 pub(crate) mod bulk;
+pub(crate) mod roster;
 
 pub const PARTITIONS: usize = 256;
 /// Ephemeral admission predicate, not a new journal record or retention grant.

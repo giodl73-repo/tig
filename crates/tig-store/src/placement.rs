@@ -103,8 +103,10 @@ pub struct Config {
 }
 impl Config {
     pub fn id(&self) -> Result<Digest> {
-        if self.schema != "tig.placement-enrollment.design-1"
-            || self.providers.len() < 2
+        if !matches!(
+            self.schema.as_str(),
+            "tig.placement-enrollment.design-1" | "tig.placement-enrollment.design-2"
+        ) || self.providers.len() < 2
             || self.providers.len() > 4
             || self.namespaces.is_empty()
             || self.namespaces.len() > 16
@@ -165,7 +167,7 @@ impl Config {
         namespaces.sort_by(|a, b| a.namespace.cmp(&b.namespace));
         // Page/run budgets must not create another physical placement identity.
         digest(&(
-            "tig.placement-enrollment.design-1",
+            &self.schema,
             &self.owner,
             &self.authority,
             &self.seed,
@@ -278,6 +280,13 @@ impl<S, N: NodeStore> Execution<'_, '_, S, N> {
                 return Err(Error::WrongEnrollment);
             }
             if let Some(binding) = runtime.store.protection() {
+                let roster = self.config.schema == "tig.placement-enrollment.design-2";
+                if (binding.history_scope() == crate::store_protection::HistoryScope::Roster)
+                    != roster
+                    || roster && binding.members().len() != self.namespaces.len()
+                {
+                    return Err(Error::WrongEnrollment);
+                }
                 let mut expected = BTreeMap::<Digest, Vec<Key>>::new();
                 for m in &pin.assignments {
                     expected
@@ -338,11 +347,19 @@ impl<S, N: NodeStore> Execution<'_, '_, S, N> {
         .map_err(|_| Error::Budget)?;
         let mut observations = Vec::<(Digest, Checkpoint)>::new();
         let mut entries = BTreeMap::<Digest, Row>::new();
-        for ns in self.namespaces.iter_mut() {
-            let observed = ns.requirements_work(&mut work).map_err(|e| match e {
-                crate::source_claims::admission::Error::Budget => Error::Budget,
-                _ => Error::Recovery,
-            })?;
+        let observed = if self.config.schema == "tig.placement-enrollment.design-2" {
+            crate::source_claims::admission::roster::requirements(self.namespaces, &mut work)
+        } else {
+            self.namespaces
+                .iter_mut()
+                .map(|ns| ns.requirements_work(&mut work))
+                .collect()
+        }
+        .map_err(|e| match e {
+            crate::source_claims::admission::Error::Budget => Error::Budget,
+            _ => Error::Recovery,
+        })?;
+        for observed in observed {
             observations.push((observed.namespace.clone(), observed.checkpoint));
             for entry in observed.entries {
                 let row = entries

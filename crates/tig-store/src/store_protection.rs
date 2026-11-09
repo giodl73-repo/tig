@@ -63,6 +63,20 @@ pub struct Binding {
     generation: u64,
     boundary: Digest,
     members: Vec<Member>,
+    #[serde(default, skip_serializing_if = "HistoryScope::is_namespace")]
+    history_scope: HistoryScope,
+}
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum HistoryScope {
+    #[default]
+    Namespace,
+    Roster,
+}
+impl HistoryScope {
+    fn is_namespace(&self) -> bool {
+        *self == Self::Namespace
+    }
 }
 impl Binding {
     pub fn new(generation: u64, boundary: Digest, members: Vec<Member>) -> Result<Self> {
@@ -70,8 +84,23 @@ impl Binding {
             generation,
             boundary,
             members,
+            history_scope: HistoryScope::Namespace,
         }
         .normalized()
+    }
+    /// Fresh enrollment only: every member explicitly joins the same advisory
+    /// precedence group. Hard retention and additive policies remain local.
+    pub fn new_roster(generation: u64, boundary: Digest, members: Vec<Member>) -> Result<Self> {
+        Self {
+            generation,
+            boundary,
+            members,
+            history_scope: HistoryScope::Roster,
+        }
+        .normalized()
+    }
+    pub fn history_scope(&self) -> HistoryScope {
+        self.history_scope
     }
     fn normalized(&self) -> Result<Self> {
         if self.generation == 0
@@ -242,11 +271,35 @@ pub fn assess<'a>(
     }
     let provider = store.existing_exclusive_object(object)?;
     let mut checked = Vec::with_capacity(order.len());
-    for ((member, index), fence) in binding.members.iter().zip(order).zip(&subjects) {
+    let roster_checkpoints = if binding.history_scope == HistoryScope::Roster {
+        Some(
+            admission::roster::absent(
+                namespaces,
+                &order,
+                &subjects,
+                &binding
+                    .members
+                    .iter()
+                    .map(|m| m.places.clone())
+                    .collect::<Vec<_>>(),
+                &mut work,
+            )?
+            .ok_or(Error::Required)?,
+        )
+    } else {
+        None
+    };
+    for (position, ((member, index), fence)) in
+        binding.members.iter().zip(order).zip(&subjects).enumerate()
+    {
         let namespace = &mut namespaces[index];
-        let checkpoint = namespace
-            .absent_places(fence, &member.places, &mut work)?
-            .ok_or(Error::Required)?;
+        let checkpoint = if let Some(checkpoints) = &roster_checkpoints {
+            checkpoints[position].clone()
+        } else {
+            namespace
+                .absent_places(fence, &member.places, &mut work)?
+                .ok_or(Error::Required)?
+        };
         checked.push(Checked {
             namespace: member.namespace.clone(),
             checkpoint,

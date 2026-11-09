@@ -164,3 +164,10 @@ old-reader/artifact checks, synthetic validation and six producer lenses. Existi
 Withdraw/event bytes are unchanged. Source/docs ceiling is 6 MiB, with all runtime
 limits and exclusions preserved. Full workflow/native/provider/authority/lifetime,
 final deletion, metadata expiry, hosted current-head and user adoption stay open.
+
+
+Roster precedence entry: input106f6f5; WP-004/006/007/009, REQ-002/003/004/005/009,
+SPEC-004/008/009, IF-004/006/012, PKG-002/003/008. ROSTER-PRECEDENCE.md
+controls fresh explicit group enrollment and shared planning/live assessment.
+Legacy namespace behavior remains; synthetic qualification/closeout in progress.
+No live upgrade, cache operation, source merge or full acceptance.

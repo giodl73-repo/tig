@@ -22,6 +22,10 @@ source contributes. The returned checkpoint is an observation, never a lease or
 removal permission. Missing/opaque closure, conflicting size or work-budget failure
 holds planning. Resolve policy within each namespace, then union physical place
 assignments across the explicitly admitted namespaces.
+This remains design-1 enrollment behavior. Explicit design-2 enrollment and fresh
+roster-scope bindings instead use [roster precedence](ROSTER-PRECEDENCE.md),
+preserving hard/additive obligations while resolving advisory history across the
+whole admitted group. Mixed scopes refuse; existing enrollment is not upgraded.
 
 An immutable private enrollment pins owner/authority, configured namespace IDs,
 policy hashes, logical-to-physical place mappings, provider instance/generation,

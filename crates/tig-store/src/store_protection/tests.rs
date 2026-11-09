@@ -246,6 +246,36 @@ fn binding_normalization_bounds_and_identity_preserve_every_namespace_and_alias(
     );
     assert!(Binding::new(1, digest("boundary"), vec![a; 17]).is_err());
 }
+
+#[test]
+fn independently_pinned_roster_binding_preserves_legacy_framing_and_rejects_unknown_scope() {
+    // Independent Python json(sort_keys,separators) + hashlib SHA-256 outputs.
+    let members = vec![Member {
+        namespace: digest("namespace"),
+        places: vec![key("history")],
+    }];
+    let old = Binding::new(7, digest("boundary"), members.clone()).unwrap();
+    assert_eq!(
+        old.id().unwrap().as_str(),
+        "b3d86661dbb8678666a4703d6165bbc62a99825bd70509b07bfcf93a4de132f7"
+    );
+    let legacy = serde_json::to_value(&old).unwrap();
+    assert!(legacy.get("history_scope").is_none());
+    assert_eq!(serde_json::from_value::<Binding>(legacy).unwrap(), old);
+    let roster = Binding::new_roster(7, digest("boundary"), members).unwrap();
+    assert_eq!(
+        roster.id().unwrap().as_str(),
+        "e42b635a8df3709d35a43647c915e3edadae58ed6dc445ec5b0daf9333b5e909"
+    );
+    let mut wire = serde_json::to_value(&roster).unwrap();
+    assert_eq!(wire["history_scope"], "roster");
+    assert_eq!(
+        serde_json::from_value::<Binding>(wire.clone()).unwrap(),
+        roster
+    );
+    wire["history_scope"] = serde_json::json!("unknown");
+    assert!(serde_json::from_value::<Binding>(wire).is_err());
+}
 #[test]
 fn exact_provider_binding_reopens_and_legacy_marker_is_unchanged() {
     let f = Fixture::new();
