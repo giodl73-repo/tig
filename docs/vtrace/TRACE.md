@@ -1,5 +1,14 @@
 # Tig trace
 
+Recorded historical age: WP-003/004/006/007/008/009/010/013/015;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> AGE-WITNESSES.md -> source_claims::age,
+subset::historical_survivor, tig-storage age, tig-retirement select-aged ->
+EVID-106/implementation1a344fc. [Review](../reviews/2026-11-09-age-witnesses.md)
+separates implementation, focused verification, synthetic validation and six
+producer lenses from final broad/artifact checks and complete user acceptance.
+
 Native historical mapping: WP-003/004/007/008/009/010/013/015;
 REQ-001/002/003/004/005/006/007/009/010 ->
 SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,

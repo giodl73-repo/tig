@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 95543,
-      "sha256": "f026d6751a64788f4f3bc78f08ff5edf50c321bf0ce473327f6e575b47870f46"
+      "bytes": 96581,
+      "sha256": "6b78a8e0c3cb278eef7b205f7287afb1485a3bd01614a5412b3069bc1527dc53"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 127067,
-      "sha256": "a9b14d21ffce9541a357d0425b1c9073bc4f406a89c84959629c7b130c318f24"
+      "bytes": 127659,
+      "sha256": "692501c6992d90795ad58432f292384803f3ff093905de15bbda8eecced078ab"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 43364,
-      "sha256": "5fde8db79c299259bacc44b929d66646bbd702f97db0bb407cfa3af077ae52d7"
+      "bytes": 43935,
+      "sha256": "2d656e5f49a1d3a8fc9443d2f4ad62fd52cbf77294695aef04b5c24ac110f296"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 29016,
-      "sha256": "649d8945758a6a090b900f835e1ff8b77a5cb77da4abf46420eb70042d48676f"
+      "bytes": 29589,
+      "sha256": "4ed0aa1a0df15adc8cc0ad469f5e8e268514fe88219e340ae9edc30525178b72"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 53986,
-      "sha256": "9d11f3c3b3bd2f99339d4e014220245edc268acc72737842e17c9ce703cbbe71"
+      "bytes": 54562,
+      "sha256": "ed0744ae2eacc10af6fb5e20df7ff4d94932efb8561798362525267a3cadd0c4"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 39840,
+      "bytes": 40300,
       "path": "context/RESUME.md",
-      "sha256": "576b95a44ec5fbd6c55f08a24b72dec6c4025a91e419077abc18b1cc78950b0d"
+      "sha256": "02c85afd424935d3ad8241bee19c1ce53eff5753649a89cc825c8a0318d72b37"
     },
     {
       "bytes": 16453,
@@ -2546,6 +2546,11 @@
       "path": "tests/vectors/age-witnesses.design-1.json",
       "bytes": 4794,
       "sha256": "5cccdc3365b7ffdbdb40166d9e5812ebc8b2a1b3cd7f136007c7979d7eda09dd"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-age-witnesses.md",
+      "bytes": 9048,
+      "sha256": "b67eabe4baa04347df810ca7c7940d9088ed4824cdabfdcb927a9d6157dac1b4"
     }
   ]
 }

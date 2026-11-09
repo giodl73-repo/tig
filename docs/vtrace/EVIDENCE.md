@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-106: bounded exact-occurrence age witnesses, implementation1a344fc.
+[Age review](../reviews/2026-11-09-age-witnesses.md) records twelve focused library
+entries, five independent framing cases, six actual child exits, simultaneous
+peers, restored-prefix/unknown/budget holds, three actual age CLI entries and nine
+native retirement entries (one new age-aware case). Final focused/Clippy, identity
+helper framing and discovery/storage CLI qualification pass. Final default/500k/
+standalone Git and fresh ordinary/bulk/pinned older-writer artifact checks pass;
+final all-feature broad/hosted checks remain pending. One operation meter
+spans metadata phases; acknowledged retries preserve original observations without
+time IO; actual executed subsets preserve age. Earlier broad runs predate meter
+tightening; the review distinguishes their scope. This is metadata-only
+evidence/candidate selection, not claim-release/removal authority, native writer/
+time/current-authority adoption or full paging/provider/lifetime/human acceptance.
+
 EVID-105: native historical binding/block/category adapter, implementation00c229d.
 [Native review](../reviews/2026-11-09-native-retirement-bindings.md) records exact
 controls/commands and six producer lenses. Eight native integration entries and

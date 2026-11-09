@@ -10,7 +10,7 @@ source changes into running tools as a side effect. No startup cache operations.
 
 - Active lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
   Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Full qualification
-  remains pending; derive implementation SHA from Git. Metadata/Tree/source journals preserve
+  remains pending; implementation1a344fc. Metadata/Tree/source journals preserve
   immutable conservative age observations, clock-free acknowledged retries,
   owned subset inheritance and read-only historical status. Explicit private
   tig-storage age commands and optional native select-aged emit candidates only.
@@ -21,15 +21,21 @@ source changes into running tools as a side effect. No startup cache operations.
   assertion and strict Clippy pass (53407 terminal zero). Root discovery now lists
   age; final three age CLI/five storage CLI entries and strict workspace Clippy
   pass after that discovery-only change. Earlier default chain64389 terminated
-  zero but compiled pre-tightening
-  runtime. Earlier all-feature chain1159 remains live on age-witnesses-all and
-  also cannot qualify the tightened runtime. Final default chain68634 is live on
-  age-witnesses; its log is external age-final-default.log. Inspect actual handles
-  before new Cargo work on either target. Focus target age-budget-focus is separate.
+  zero but compiled pre-tightening runtime. Earlier all-feature chain1159 also
+  terminated zero and cannot qualify the tightened runtime. Final default chain
+  68634 terminated zero (500k plus standalone Git); its log is external
+  age-final-default.log. It predates the separately qualified discovery-only
+  addition. Exact-runtime all-feature/Clippy chain87689 is live on age-witnesses-all,
+  with external age-final-all.log. Fresh ordinary cancellation, bulk inspection/
+  execution and pinned pre-final older-writer refusal/legacy control pass (89964
+  terminal zero, external age-final-artifacts.log). All default/focus processes
+  are terminal; inspect actual87689 before further Cargo on its target.
   Preserve external build/temp roots and never replace a target's CLI while its
-  tests execute. Complete final default/all-feature suites and explicit artifact
-  qualifiers, separate six-role/evidence closeout
-  and a draft PR stacked on feat/native-retirement. PR #36 exact0dbc41f has all
+  tests execute. EVID-106 / docs/reviews/2026-11-09-age-witnesses.md separately
+  records verification, synthetic validation, trace and six producer lenses.
+  Complete final all-feature qualification and derive the draft PR/hosted exact-
+  head checks from GitHub; this lane stacks on feat/native-retirement.
+  PR #36 exact0dbc41f has all
   three hosted checks successful (run42615606426) and is ready for review; no merge.
   NB-07 paged global consent/historical claim settlement remains the next design
   gate, with current/recent/foreign protection and original content scope intact.

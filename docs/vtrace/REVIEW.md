@@ -1,5 +1,14 @@
 # Foundation review
 
+Age review, input0dbc41f/implementation1a344fc: AW-01..06 in
+[age review](../reviews/2026-11-09-age-witnesses.md) apply six producer checklists.
+Review tightened operation-wide metadata/time budgets and independently finished
+record/root readback before adoption. Focused process/peer/vector/CLI/native and
+strict Clippy/default/500k/fresh artifact checks pass; final all-feature broad/
+hosted checks remain pending. EVID-106
+separates verification/validation/trace from implementation. Bounded mechanism
+pass_with_risk; full paging/adoption/provider/lifetime/human acceptance remains open.
+
 Native binding review, inputc241593/implementation00c229d: NB-01..06 in
 [native review](../reviews/2026-11-09-native-retirement-bindings.md) apply six
 producer lenses. EVID-105 separates code, verification and synthetic validation.

@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-106/implementation1a344fc: focused exact-occurrence age, six actual exits,
+peer contention, five independent framing cases, CLI/native selection and strict
+workspace all-feature/all-target Clippy pass. Aggregate phase budgets and actual
+identity-helper framing are covered. [Review](../reviews/2026-11-09-age-witnesses.md)
+records passing default/500k/standalone and fresh ordinary/bulk/old-writer checks;
+final all-feature broad/hosted checks remain pending. It separates initial broad runs
+that predate meter tightening. No full-system safety or intended-use closure.
+
 EVID-105/implementation00c229d: eight native integration entries plus one framing
 entry/four independent cases pass. Actual metadata CLI independently reads back
 bind output, selects exact historical bindings without source/metadata commands,

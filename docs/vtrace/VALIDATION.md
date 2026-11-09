@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-106 rehearses parts of VAL-002/003/004: unknown age holds, actual historical
+observation precedes time sampling, retries preserve evidence and executed subsets
+inherit age; native exact blocks become candidates only after interval-based age
+assessment. [Review](../reviews/2026-11-09-age-witnesses.md) separates synthetic
+mechanism evidence from final broad qualification, live writer/time/authority/
+provider adoption, NB-07 paging, lifetime, UI/Action and human acceptance. All full
+VALs remain open; no removal or claim-release authority comes from an age report.
+
 EVID-105 contributes bounded VAL-002/003/004 rehearsal: exact native blocks and
 admitted definition categories map to independent aliases instead of withdrawing
 another asset's shared protection. An actual temporary bulk run deletes six
