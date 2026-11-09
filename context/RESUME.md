@@ -8,9 +8,32 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/bulk-inspection, input36fc91b, implementation29e87e7.
-  Draft PR #33 stacks on feat/roster-placement (#32); evidence closeout9051538.
-  Hosted exact-head qualification is pending at handoff; derive current state live.
+- Active lane: feat/local-clock, input4aeebf8. Read specs/LOCAL-CLOCK.md.
+  Proposed first local-clock profile after optional preference received no answer;
+  no live trust/adoption is inferred. Fresh clock-enabled capacity ledger design-2
+  reuses existing hashed commands/replay and retains a high-water timestamp.
+  Legacy design-1 bytes stay unchanged. Clock identity binds actual genesis plus
+  immutable OS-time policy. LocalClock samples only on explicit calls, commits
+  its lower bound before use and checks monotonic/wall correlation, sample age and
+  invocation duration. TimeBounds protects the entire approval window in bulk,
+  grant release, unlink and reacquisition birth. No CLI activation or fallback.
+  Seventeen clock-filter entries, sixteen provider entries, eighteen active bulk
+  entries, strict Clippy and expanded pinned older-writer refusal pass so far.
+  Three actual clock-journal child exits and full16,384-command exhaustion run.
+  Final cross-sample monotonic ordering and out-of-format timestamp preflight now
+  pass their regression; final strict Clippy passes. Both broad workspace suites
+  and fresh CLI artifact qualifications are running; derive their live handles
+  and terminal results before closeout. Five
+  independent framing vectors pin legacy/new marker, policy, enrollment and event.
+  Next: final focused/broad qualification and separate evidence/validation/trace/
+  six-producer closeout, then stacked draft PR against feat/bulk-inspection (#33).
+  Explicit OS time accuracy/trust, independently current minima, whole-system
+  restore, native deployment and operational lifetime remain unqualified gates.
+
+- Previous lane: feat/bulk-inspection, input36fc91b, implementation29e87e7.
+  PR #33 stacks on feat/roster-placement (#32); evidence closeout9051538.
+  Head4aeebf8 passes Validate42594434031: Windows18m20s, Linux6m8s, secrets5s;
+  ready for review, unmerged. Derive current exact-head status live.
   Read specs/BULK-OPERATOR.md.
   Exact existing-root CLI describe/plan/peak/status exposes the bounded controller
   without mutation permissions. bulk::Inspection separates source metadata identity

@@ -50,6 +50,13 @@ port/phase behavior; they do not qualify native OS time, remote clock authority,
 live epoch changes or offline policy adoption. Cancellation is separately
 owner-authorized and remains possible after deletion consent expires.
 
+Clock::bounds now permits explicit earliest/latest observations; the entire
+interval must fit the window before source settlement, release, unlink or a new
+reacquisition birth. Exact existing clocks keep point-interval defaults and record
+bytes stay unchanged. [LOCAL-CLOCK](LOCAL-CLOCK.md) adds a fresh explicit bounded
+OS/journal adapter; declared OS trust, current independent minima and full native
+restore/adoption remain separate, not inferred from a native clock API existing.
+
 Portable Place descriptors use the separate contract identity
 tig.local-store.design-8/process-restart/final-incarnation/v1. A final-capable
 root cannot masquerade as design-7 in copy/placement plans. Actual root instance,

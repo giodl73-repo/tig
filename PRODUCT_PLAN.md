@@ -39,6 +39,11 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The explicit [local clock profile](specs/LOCAL-CLOCK.md) is the first candidate
+for final-deletion time admission. It reuses bounded journals and checks the whole
+time interval. Native OS trust, current authority/minima, restoration/lifetime and
+operator mutation integration require separate qualification and adoption.
+
 The [bulk inspection commands](docs/guides/BULK-RETIREMENT.md) expose exact bounded
 block planning, metadata peak and writer-free historical status. They add no bulk
 apply permission. Final operator execution, native selectors, current clock/

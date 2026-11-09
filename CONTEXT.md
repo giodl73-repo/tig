@@ -1,5 +1,11 @@
 # Tig maintainer context
 
+Local-clock lane: a fresh explicit clock-enabled capacity ledger and LocalClock
+adapter persist time floors and provide bounded native OS observations. Final
+window checks require the full earliest/latest interval; no generic SystemTime
+fallback or CLI activation. specs/LOCAL-CLOCK.md records native trust/minimum/
+restore/lifetime gates and qualification scope. This is not live clock adoption.
+
 Bulk operator inspection: tig-storage bulk describe/plan/peak/status uses explicit
 private enrollment and existing roots. bulk::Inspection requires no metadata
 writer or clock; source metadata may be offline for status. No bulk mutation

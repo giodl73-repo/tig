@@ -247,13 +247,11 @@ impl Execution<'_> {
             .life_head(&p.birth.object)?
             .ok_or(Error::Recovery)?;
         if digest(&current.birth)? != digest(&p.birth)? {
-            let now = self.clock.now(&p.parent.policy.clock)?;
-            if now < p.request.window.not_before
-                || now >= p.request.window.expires
-                || now < state.release.as_ref().ok_or(Error::Recovery)?.time
-            {
-                return Err(Error::Clock);
-            }
+            p.request.window.check_clock(
+                self.clock,
+                &p.parent.policy.clock,
+                state.release.as_ref().ok_or(Error::Recovery)?.time,
+            )?;
             attempt
                 .managed_store()
                 .begin_final_reacquisition(&state.intent, &p.birth, &fence)?;

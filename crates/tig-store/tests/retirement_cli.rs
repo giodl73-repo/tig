@@ -67,6 +67,9 @@ impl Fixture {
         Self::with_provider(final_provider, false)
     }
     fn with_provider(final_provider: bool, roster: bool) -> Self {
+        Self::with_clock_ledger(final_provider, roster, false)
+    }
+    fn with_clock_ledger(final_provider: bool, roster: bool, clock: bool) -> Self {
         let root = tempfile::tempdir().unwrap();
         let places = Places {
             current: vec![key("working"), key("backup")],
@@ -143,12 +146,29 @@ impl Fixture {
             LocalStore::create_managed(&root.path().join("working"), key("working"), binding)
                 .unwrap()
         };
-        let mut ledger = CapacityLedger::create(
-            &root.path().join("ledger"),
-            key("capacity"),
-            key("epoch"),
-            0,
-        )
+        let mut ledger = if clock {
+            CapacityLedger::create_clock(
+                &root.path().join("ledger"),
+                key("capacity"),
+                key("epoch"),
+                0,
+                tig_store::clock::Policy {
+                    authority: digest("clock-authority"),
+                    epoch: digest("clock-epoch"),
+                    boundary: digest("native-os"),
+                    max_sample_millis: 5000,
+                    max_drift_millis: 1000,
+                    max_session_millis: 60000,
+                },
+            )
+        } else {
+            CapacityLedger::create(
+                &root.path().join("ledger"),
+                key("capacity"),
+                key("epoch"),
+                0,
+            )
+        }
         .unwrap();
         LocalCapacityProbe::bind(&store, &mut ledger)
             .unwrap()
@@ -349,8 +369,13 @@ fn processes_unlink_retry_restore_and_preserve_historical_outcome_without_status
 #[ignore = "requires explicitly pinned pre-final tig-storage executable"]
 fn pre_final_writer_refuses_new_manifest_and_accepts_legacy_control() {
     let baseline = std::env::var_os("TIG_PRE_FINAL_CLI").expect("explicit pre-final artifact");
-    for (final_provider, roster) in [(false, false), (true, false), (false, true)] {
-        let f = Fixture::with_provider(final_provider, roster);
+    for (final_provider, roster, clock) in [
+        (false, false, false),
+        (true, false, false),
+        (false, true, false),
+        (false, false, true),
+    ] {
+        let f = Fixture::with_clock_ledger(final_provider, roster, clock);
         let before = f.sequence();
         let output = Process::new(&baseline)
             .args(["retire", "plan"])
@@ -360,10 +385,10 @@ fn pre_final_writer_refuses_new_manifest_and_accepts_legacy_control() {
             .unwrap();
         assert!(output.stderr.is_empty());
         let response: Value = serde_json::from_slice(&output.stdout).unwrap();
-        if final_provider || roster {
+        if final_provider || roster || clock {
             assert!(
                 !output.status.success(),
-                "old writer accepted final-capable or roster-precedence root"
+                "old writer accepted final-capable, roster-precedence or clock-ledger profile"
             );
             assert_eq!(response["ok"], false);
         } else {

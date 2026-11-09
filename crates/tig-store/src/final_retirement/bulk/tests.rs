@@ -128,6 +128,66 @@ struct Fixture {
 }
 
 #[test]
+fn bulk_requires_the_whole_clock_interval_before_intent_or_source_settlement() {
+    struct Uncertain;
+    impl provider::Clock for Uncertain {
+        fn now(&self, _: &Digest) -> provider::Result<u64> {
+            panic!("bulk bypassed interval")
+        }
+        fn bounds(&self, _: &Digest) -> provider::Result<provider::TimeBounds> {
+            Ok(provider::TimeBounds {
+                earliest: 100,
+                latest: 500,
+            })
+        }
+    }
+    let mut f = Fixture::new();
+    let p = f.plan();
+    let before = (f.ledger.checkpoint(), f.witness_ledger.checkpoint());
+    let sources = f
+        .namespaces
+        .iter()
+        .map(Namespace::checkpoint)
+        .collect::<Vec<_>>();
+    let jobs = vec![f.job.clone(); p.actions.len()];
+    let mut places = [Local {
+        store: &f.store,
+        ledger: &mut f.ledger,
+        job: &f.job,
+    }];
+    let mut e = Execution {
+        enrollment: &f.enrollment,
+        roster: &f.roster,
+        namespaces: &mut f.namespaces,
+        metadata: &mut f.metadata,
+        places: &mut places,
+        action_jobs: &jobs,
+        witness: Local {
+            store: &f.witness,
+            ledger: &mut f.witness_ledger,
+            job: &f.witness_job,
+        },
+        clock: &Uncertain,
+        admitted_context: &f.enrollment.context,
+    };
+    assert!(matches!(
+        e.apply(&p, &p.authorize().unwrap()),
+        Err(Error::Provider(provider::Error::Clock))
+    ));
+    assert_eq!(
+        before,
+        (f.ledger.checkpoint(), f.witness_ledger.checkpoint())
+    );
+    assert_eq!(
+        sources,
+        f.namespaces
+            .iter()
+            .map(Namespace::checkpoint)
+            .collect::<Vec<_>>()
+    );
+}
+
+#[test]
 fn inspection_needs_no_metadata_writer_or_clock_and_keeps_historical_bindings_exact() {
     for phase in [Phase::NotStarted, Phase::Intent, Phase::Completed] {
         let mut f = Fixture::new();

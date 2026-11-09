@@ -64,6 +64,162 @@ struct TestClock {
     value: Cell<u64>,
     last: Cell<u64>,
 }
+struct BoundsClock(Cell<TimeBounds>);
+impl Clock for BoundsClock {
+    fn now(&self, _: &Digest) -> Result<u64> {
+        panic!("provider bypassed clock bounds")
+    }
+    fn bounds(&self, _: &Digest) -> Result<TimeBounds> {
+        Ok(self.0.get())
+    }
+}
+#[test]
+fn interval_expiry_holds_release_or_unlink_and_preserves_honest_grant_state() {
+    for stop in [Stage::Intent, Stage::BeforeUnlink] {
+        let mut f = Fixture::new();
+        let p = f.plan();
+        let clock = BoundsClock(Cell::new(TimeBounds {
+            earliest: 100,
+            latest: 101,
+        }));
+        let mut e = Execution {
+            store: &f.store,
+            ledger: &mut f.ledger,
+            job: &f.job,
+            roster: &f.roster,
+            namespaces: &mut f.namespaces,
+            nodes: &f.nodes,
+            clock: &clock,
+            admitted_context: &f.context,
+        };
+        let result = e.apply_hook(&p, &p.authorize().unwrap(), |stage| {
+            if stage == stop {
+                clock.0.set(TimeBounds {
+                    earliest: 100,
+                    latest: 500,
+                });
+            }
+            Ok(())
+        });
+        assert!(matches!(result, Err(Error::Clock)));
+        assert_eq!(f.bytes(), b"asset");
+        let state = f.store.load_final_state(&p.birth).unwrap().unwrap();
+        assert_eq!(state.release.is_some(), stop == Stage::BeforeUnlink);
+        let active = f.store.active_final_grants(&p.birth.object).unwrap();
+        if stop == Stage::Intent {
+            assert_eq!(encode(&active).unwrap(), encode(&p.grants()).unwrap());
+        } else {
+            assert!(active.is_empty());
+        }
+    }
+}
+#[test]
+fn actual_enrolled_local_clock_drives_final_retirement_without_request_supplied_now() {
+    let temp = tempfile::tempdir().unwrap();
+    let ledger = CapacityLedger::create_clock(
+        &temp.path().join("clock"),
+        key("clock"),
+        key("epoch"),
+        0,
+        crate::clock::Policy {
+            authority: d("time-authority"),
+            epoch: d("time-epoch"),
+            boundary: d("admitted-os-time"),
+            max_sample_millis: 5000,
+            max_drift_millis: 1000,
+            max_session_millis: 60000,
+        },
+    )
+    .unwrap();
+    let enrollment = ledger.clock_enrollment().unwrap();
+    let id = enrollment.id().unwrap();
+    let clock = crate::clock::LocalClock::new(ledger, enrollment).unwrap();
+    let mut f = Fixture::with_clock(id.clone(), 60000);
+    let bounds = clock.sample(&id).unwrap();
+    let mut request = f.plan().request().clone();
+    request.window = Window {
+        not_before: bounds.earliest.saturating_sub(1000),
+        expires: bounds.latest + 30000,
+    };
+    let p = plan(&f.store, request).unwrap();
+    let receipt = Execution {
+        store: &f.store,
+        ledger: &mut f.ledger,
+        job: &f.job,
+        roster: &f.roster,
+        namespaces: &mut f.namespaces,
+        nodes: &f.nodes,
+        clock: &clock,
+        admitted_context: &f.context,
+    }
+    .apply(&p, &p.authorize().unwrap())
+    .unwrap();
+    assert_eq!(receipt.outcome, Some(Outcome::Deleted));
+    assert!(clock.status().unwrap().checkpoint.sequence() >= 4);
+    assert!(f.store.read_object(&f.publication.object).is_err());
+}
+
+#[test]
+fn reacquisition_birth_requires_the_whole_clock_interval_but_completion_can_resume() {
+    let mut f = Fixture::new();
+    let old = f.plan();
+    f.apply(&old);
+    let rp = reacquire::plan(
+        &f.store,
+        &old,
+        reacquire::Request {
+            publication: Publication {
+                operation: key("bounds-reacquire"),
+                ..f.publication.clone()
+            },
+            capacity: f.ledger.identity().clone(),
+            context: f.context.clone(),
+            window: Window {
+                not_before: 50,
+                expires: 500,
+            },
+        },
+    )
+    .unwrap();
+    let clock = BoundsClock(Cell::new(TimeBounds {
+        earliest: 100,
+        latest: 500,
+    }));
+    let run = |f: &mut Fixture| {
+        reacquire::Execution {
+            store: &f.store,
+            ledger: &mut f.ledger,
+            job: &f.job,
+            clock: &clock,
+            admitted_context: &f.context,
+        }
+        .apply(&rp, &rp.authorize().unwrap(), &mut Cursor::new(b"asset"))
+    };
+    assert!(matches!(run(&mut f), Err(Error::Clock)));
+    assert_eq!(
+        digest(
+            &f.store
+                .life_head(&f.publication.object)
+                .unwrap()
+                .unwrap()
+                .birth
+        )
+        .unwrap(),
+        digest(&old.birth).unwrap()
+    );
+    clock.0.set(TimeBounds {
+        earliest: 100,
+        latest: 499,
+    });
+    run(&mut f).unwrap();
+    assert_eq!(f.bytes(), b"asset");
+    clock.0.set(TimeBounds {
+        earliest: 500,
+        latest: 501,
+    });
+    run(&mut f).unwrap();
+    assert_eq!(f.bytes(), b"asset");
+}
 impl Clock for TestClock {
     fn now(&self, p: &Digest) -> Result<u64> {
         let n = self.value.get();
@@ -89,6 +245,9 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
+        Self::with_clock(d("clock"), 1000)
+    }
+    fn with_clock(clock: Digest, max_window: u64) -> Self {
         let root = tempfile::tempdir().unwrap();
         let mut namespaces = Vec::new();
         let nodes = MemoryNodes::default();
@@ -137,9 +296,9 @@ impl Fixture {
             d("authority"),
             d("epoch"),
             roster.scope().unwrap(),
-            d("clock"),
+            clock,
             vec![key("owner")],
-            1000,
+            max_window,
         )
         .unwrap();
         let store = LocalStore::create_final(&root.path().join("store"), key("M"), binding, policy)

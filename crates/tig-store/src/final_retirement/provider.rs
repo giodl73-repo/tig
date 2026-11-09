@@ -255,6 +255,36 @@ pub fn plan(store: &LocalStore, request: Request) -> Result<Plan> {
 /// No SystemTime fallback or request-supplied timestamp is accepted by execution.
 pub trait Clock {
     fn now(&self, policy: &Digest) -> Result<u64>;
+    fn bounds(&self, policy: &Digest) -> Result<TimeBounds> {
+        let time = self.now(policy)?;
+        Ok(TimeBounds {
+            earliest: time,
+            latest: time,
+        })
+    }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct TimeBounds {
+    pub earliest: u64,
+    pub latest: u64,
+}
+impl Window {
+    pub(crate) fn check_clock(
+        &self,
+        clock: &dyn Clock,
+        policy: &Digest,
+        minimum: u64,
+    ) -> Result<u64> {
+        let bounds = clock.bounds(policy)?;
+        if bounds.earliest > bounds.latest
+            || bounds.earliest < minimum
+            || bounds.earliest < self.not_before
+            || bounds.latest >= self.expires
+        {
+            return Err(Error::Clock);
+        }
+        Ok(bounds.earliest)
+    }
 }
 /// Additional trusted consent/authority predicate under live content fences.
 /// It cannot weaken mandatory provider or complete-membership checks.
@@ -490,11 +520,9 @@ impl<S: NodeStore> Execution<'_, S> {
         Ok(())
     }
     fn time(&self, p: &Plan, minimum: u64) -> Result<u64> {
-        let now = self.clock.now(&p.policy.clock)?;
-        if now < minimum || now < p.request.window.not_before || now >= p.request.window.expires {
-            return Err(Error::Clock);
-        }
-        Ok(now)
+        p.request
+            .window
+            .check_clock(self.clock, &p.policy.clock, minimum)
     }
     pub fn apply(&mut self, p: &Plan, a: &Authorization) -> Result<Receipt> {
         self.apply_hook(p, a, |_| Ok(()))
@@ -764,7 +792,11 @@ impl<S: NodeStore> Execution<'_, S> {
             let release = Release {
                 schema: "tig.final-retirement-release.design-1".into(),
                 intent: digest(&intent)?,
-                time: self.clock.now(&p.policy.clock)?,
+                time: p.request.window.check_clock(
+                    self.clock,
+                    &p.policy.clock,
+                    first.max(intent.time.ok_or(Error::Recovery)?),
+                )?,
             };
             if release.time < first
                 || release.time < intent.time.ok_or(Error::Recovery)?
@@ -789,7 +821,10 @@ impl<S: NodeStore> Execution<'_, S> {
         if let Some(condition) = condition {
             condition.check(&clearance)?;
         }
-        let now = self.clock.now(&p.policy.clock)?;
+        let now = p
+            .request
+            .window
+            .check_clock(self.clock, &p.policy.clock, release.time)?;
         if now < release.time
             || now < p.request.window.not_before
             || now >= p.request.window.expires

@@ -404,10 +404,9 @@ impl<'a, 'b> Execution<'a, 'b> {
         self.inspection().report(p, witness, effects, holds)
     }
     fn time(&self, p: &Plan) -> Result<()> {
-        let time = self.clock.now(&p.enrollment.clock)?;
-        if time < p.request.window.not_before || time >= p.request.window.expires {
-            return Err(provider::Error::Clock.into());
-        }
+        p.request
+            .window
+            .check_clock(self.clock, &p.enrollment.clock, 0)?;
         Ok(())
     }
     pub fn apply(&mut self, p: &Plan, auth: &Authorization) -> Result<Report> {

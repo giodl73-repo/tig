@@ -1,6 +1,7 @@
 //! Experimental publication protocol. No startup discovery, eviction or daemon.
 #![forbid(unsafe_code)]
 pub mod accounted;
+pub mod clock;
 pub mod existing;
 pub mod final_retirement;
 pub mod ledger;
