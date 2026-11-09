@@ -1,4 +1,6 @@
 use super::*;
+#[path = "paged_cases/operator.rs"]
+mod operator;
 use std::cell::Cell;
 use tig_git::source::native::retirement::paged::{self as native, Occurrence, Session};
 use tig_store::{

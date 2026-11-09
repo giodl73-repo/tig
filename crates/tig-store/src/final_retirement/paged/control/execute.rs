@@ -43,7 +43,8 @@ pub enum Stage {
     Cancelled,
     Completed,
 }
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Deserialize)]
+#[serde(default, deny_unknown_fields)]
 pub struct RunLimits {
     pub pages: usize,
     pub actions: usize,

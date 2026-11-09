@@ -1,5 +1,21 @@
 # Evidence index
 
+EVID-112 (locally qualified candidate): paged operator, input
+cec0217f5bae71b43f5ca43a3e3027b4c2fbb426. The
+[review](../reviews/2026-11-09-paged-operator.md) separates existing-root staging,
+original scope inspection, explicit two-part execution approval and witness-first
+cancellation over the existing controller. Final four copy-index tests and two
+fresh20-page manual/actual-clock-aged CLI qualifiers pass. Default workspace,
+500k metadata, strict workspace Clippy and standalone Git chain42894 terminate
+zero. Native executable -> storage executable handoff and strict schema workspace
+Clippy chain48425 terminate zero, including more than16 pages, one six-byte copy
+deleted and verified shared bytes retained. Final all-feature workspace/second500k
+and strict all-feature/all-target Clippy44984 pass; current source is covered by
+final Clippy and the explicit native qualifier. L0/pins/fmt/diff/changed-source
+Gitleaks pass. Hosted qualification remains pending. Held-copy follow-up after source settlement,
+native writer/current authority, agent/UI/Action, provider/large-file/restore/lifetime,
+metadata expiry and full intended-use acceptance remain required.
+
 EVID-111: indexed native paged selection candidate, input9266765,
 final runtime134476a18234d620eec74e1c9a223374b191c392.
 [Review](../reviews/2026-11-09-native-paged-retirement.md) separates native

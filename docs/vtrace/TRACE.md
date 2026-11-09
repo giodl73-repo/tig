@@ -1,5 +1,14 @@
 # Tig trace
 
+Paged operator candidate: WP-003/004/006/007/008/009/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 -> PAGED-OPERATOR.md ->
+tig-storage paged, shared paged::Session and canonical copy-index extension ->
+EVID-112. The native artifact qualifier additionally uses WP-010/REQ-010/
+SPEC-010/IF-010/PKG-004/006 through the existing optional adapter, without a
+typed/Git dependency in tig-store. Verification, synthetic rehearsal and producer
+review remain separate from held-copy follow-up, full intended use and acceptance.
+
 Manual paged execution: WP-003/004/006/007/008/009/013/015;
 REQ-001/002/003/004/005/006/007/009 ->
 SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,

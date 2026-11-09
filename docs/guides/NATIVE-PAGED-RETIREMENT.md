@@ -38,5 +38,9 @@ The CLI finishes the existing metadata provider, opens an independent reader and
 recomputes native derivations/request linkage under the same session budget before
 returning a bounded preview. Source drift refuses the candidate. Native inspection
 is historical metadata, not a source lease or fresh final-deletion approval.
-Operator/agent/UI/Action execution and real writer/authority/provider/lifetime
+The [paged operator](PAGED-OPERATOR.md) accepts that exact generic request pointer
+through its separate private profile and finish/readback boundary. Native filters
+carry exact References (`id` plus record `object`), rather than unqualified names.
+Native staging never supplies its own storage execution approvals.
+Full agent/UI/Action execution and real writer/authority/provider/lifetime
 adoption remain required before the complete user workflow is accepted.

@@ -9,7 +9,7 @@ pub mod aged;
 mod decision;
 mod execute;
 pub use decision::inspect;
-pub use decision::{copies, plan};
+pub use decision::{copies, extend_copies, plan, read_copies};
 pub use execute::{Cancellation, Execution, Inspection, Phase, Report, RunLimits, Stage, StoreJob};
 
 #[derive(Debug)]
@@ -192,6 +192,10 @@ impl Decision {
     }
     pub fn request(&self) -> &Request {
         &self.request
+    }
+    /// Declared enrollment identity; callers must still admit it independently.
+    pub fn enrollment_id(&self) -> &Digest {
+        &self.enrollment
     }
     /// Explicit caller authority boundary, separate from approving final loss.
     pub fn authorize_claim_release(&self) -> Result<ClaimAuthorization> {

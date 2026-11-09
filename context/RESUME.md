@@ -8,6 +8,49 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active continuation lane: feat/paged-operator, input
+  cec0217f5bae71b43f5ca43a3e3027b4c2fbb426. See specs/PAGED-OPERATOR.md.
+  Locally qualified existing-root tig-storage paged commands compose copy-index chunks,
+  exact selection planning, original scope pages, peak/status and separately
+  approved apply/resume/cancel. Stage/apply/cancel default false. Session clones
+  preserve metadata counters/deadline across finish and independent readback.
+  Cancellation acknowledges stop with only the witness open before optional
+  cleanup; missing metadata/providers/sources never becomes zero debt. Initial22
+  paged library entries and pagination pass. Final copy-index4 cases and fresh
+  manual/actual-clock-aged20-page CLI qualifiers pass after document reuse,
+  sparse Tree edits, clock-free unused configuration and stop reobservation.
+  The aged fixture waits beyond admitted sample/drift uncertainty and freezes
+  its execution window immediately before planning, never on approved resume.
+  Chain42894 is terminal zero: final focused/artifact, default workspace/500k,
+  strict workspace Clippy and standalone Git. Chain48425 is terminal zero:
+  actual native index/select -> storage planning/resume over17 roots, six-byte
+  unique copy deletion, verified shared bytes retained, strict schema workspace
+  Clippy. That qualifier takes87.77 s under its fixed240 s window/300 s policy;
+  the initial100 s window correctly refused a slower resume. No production
+  clock/approval window is refreshed. Native/private-writer latency remains open.
+  Chain44984 is terminal zero: final all-feature workspace/second500k and strict
+  all-feature/all-target Clippy. Logs are paged-operator-final-focus,
+  default, native-final3 and all-final2.log in the external dev temp root.
+  The all-feature compilation precedes only the native ignored qualifier's
+  final window constants;48425 executes that correction. Final strict Clippy
+  covers current source. No local test/target process remains live.
+  Previous71796/7218/65684 chains ended on actual fixture failures, now corrected;
+  do not count them as full passes or restart work merely for a polling timeout.
+  Producer review/EVID-112 separates local verification, synthetic validation and
+  trace; PO-07/full acceptance remain open. Commit/PR and hosted checks remain.
+  No live roots, deployment, source merges or automatic runner are enabled.
+  Parent PR42 exact-head run42708889588 now passes Windows/Linux/secrets and
+  is ready for review. No source merge was performed.
+  Review PO-07 is the next delivery gap: paged claim release can settle the
+  original occurrence while a copy remains held; an old action set cannot grow,
+  and subset::original_source cannot select that retired predecessor anew.
+  Add a fresh exact-copy follow-up from retained original scope/receipts under
+  independently current all-consumer/provider authority and new approval. Prove
+  recovered offline provider and ended foreign-job cases without recreating
+  source history or reviving old deletion IDs. This is required for priority7.
+  Full agent/UI/Action, authority/provider/restore/large-file/lifetime and
+  metadata-expiry/intended-use requirements remain open. Derive live PR state.
+
 - Active lane: feat/native-paged-retirement,
   input9266765ddc2f0e7f58582a74faad471856705ef7.
   Final runtime implementation134476a18234d620eec74e1c9a223374b191c392.

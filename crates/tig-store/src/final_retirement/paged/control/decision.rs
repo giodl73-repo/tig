@@ -32,6 +32,15 @@ pub fn copies(
     })?)
 }
 fn input(work: &mut Work<'_, impl NodeStore>, root: &Object) -> Result<Vec<bulk::Copy>> {
+    Ok(input_records(work, root)?
+        .into_iter()
+        .map(|(_, copy)| copy)
+        .collect())
+}
+fn input_records(
+    work: &mut Work<'_, impl NodeStore>,
+    root: &Object,
+) -> Result<Vec<(Object, bulk::Copy)>> {
     let h: CopyIndex = work.read(root)?;
     if h.schema != "tig.paged-control-copies.design-1" || h.count > 65536 {
         return Err(Error::Invalid);
@@ -45,15 +54,105 @@ fn input(work: &mut Work<'_, impl NodeStore>, root: &Object) -> Result<Vec<bulk:
         if key != slot(i)? {
             return Err(Error::Invalid);
         }
-        copies.push(work.read::<bulk::Copy>(&o)?);
+        let copy = work.read::<bulk::Copy>(&o)?;
+        copies.push((o, copy));
     }
     if copies
         .windows(2)
-        .any(|c| copy_key(&c[0]) >= copy_key(&c[1]))
+        .any(|c| copy_key(&c[0].1) >= copy_key(&c[1].1))
     {
         return Err(Error::Invalid);
     }
     Ok(copies)
+}
+/// Read the exact original copy scope. This verifies metadata, not current bytes,
+/// provider enrollment, ownership or removal authority.
+pub fn read_copies(
+    root: &Object,
+    nodes: &mut impl NodeStore,
+    limits: &Limits,
+) -> Result<Vec<bulk::Copy>> {
+    input(&mut Work::new(nodes, limits)?, root)
+}
+
+/// Stage a bounded chunk in the existing copy-index encoding. Exact repeated
+/// entries are idempotent; conflicting requests for one store/object refuse
+/// before writes. The returned index is a candidate requiring finish/readback.
+pub fn extend_copies(
+    base: Option<&Object>,
+    chunk: Vec<bulk::Copy>,
+    nodes: &mut impl NodeStore,
+    limits: &Limits,
+) -> Result<Object> {
+    if chunk.len() > 65536 {
+        return Err(Error::Budget);
+    }
+    let session = super::super::Session::new(limits)?;
+    let mut metered = session.nodes(nodes);
+    let mut work = Work::new(&mut metered, limits)?;
+    let mut merged = BTreeMap::new();
+    let previous = match base {
+        Some(root) => input_records(&mut work, root)?,
+        None => Vec::new(),
+    };
+    let mut original_index = BTreeMap::new();
+    for (i, (object, copy)) in previous.into_iter().enumerate() {
+        original_index.insert(slot(i)?, object.clone());
+        merged.insert(
+            (copy.store.clone(), copy.publication.object.sha256.clone()),
+            (copy, Some(object)),
+        );
+    }
+    let mut changed = false;
+    for copy in chunk {
+        let key = (copy.store.clone(), copy.publication.object.sha256.clone());
+        if let Some((old, _)) = merged.get(&key) {
+            if old != &copy {
+                return Err(Error::Invalid);
+            }
+        } else {
+            if merged.len() >= 65536 {
+                return Err(Error::Budget);
+            }
+            merged.insert(key, (copy, None));
+            changed = true;
+        }
+    }
+    if !changed && let Some(base) = base {
+        return Ok(base.clone());
+    }
+    let count = merged.len();
+    let mut index = BTreeMap::new();
+    for (i, (copy, original)) in merged.into_values().enumerate() {
+        let object = match original {
+            Some(object) => object,
+            None => work.doc(&copy)?,
+        };
+        index.insert(slot(i)?, object);
+    }
+    let changes = index
+        .iter()
+        .filter(|(key, object)| original_index.get(*key) != Some(*object))
+        .map(|(key, object)| (key.clone(), Some(object.clone())))
+        .collect::<BTreeMap<_, _>>();
+    let root = if let Some(base) = base
+        && changes.len() < index.len() / 16
+    {
+        let header: CopyIndex = work.read(base)?;
+        let tree_limits = limits.tree(65536);
+        Tree::from_root(header.root.clone())
+            .edit(&header.root, &changes, &mut work, tree_limits)?
+            .0
+            .root()
+            .clone()
+    } else {
+        work.tree(&index, 65536)?
+    };
+    Ok(work.doc(&CopyIndex {
+        schema: "tig.paged-control-copies.design-1".into(),
+        root,
+        count,
+    })?)
 }
 fn anchor(e: &Enrollment, r: &Request, prepared: &Object) -> Result<Digest> {
     hash(
@@ -347,4 +446,116 @@ pub fn inspect(
         subjects: l.subjects,
         actions: l.actions,
     })
+}
+
+#[cfg(test)]
+mod copy_tests {
+    use super::*;
+    use tig_core::tree::{MemoryNodes, TreeResult};
+
+    #[derive(Default)]
+    struct Counted {
+        inner: MemoryNodes,
+        writes: usize,
+    }
+    impl NodeStore for Counted {
+        fn get(&self, object: &Object) -> TreeResult<Option<Vec<u8>>> {
+            self.inner.get(object)
+        }
+        fn put(&mut self, raw: &[u8]) -> TreeResult<Object> {
+            self.writes += 1;
+            self.inner.put(raw)
+        }
+    }
+    fn copy(i: usize) -> bulk::Copy {
+        bulk::Copy {
+            store: Digest::blob(b"fixture-store"),
+            capacity: Digest::blob(b"fixture-capacity"),
+            publication: crate::Request {
+                operation: Key::parse(&format!("fixture-{i}")).unwrap(),
+                owner: Key::parse("fixture-owner").unwrap(),
+                object: Object::from_bytes(format!("fixture-payload-{i}").as_bytes()),
+                required: crate::AckLevel::ProcessRestart,
+            },
+        }
+    }
+    #[test]
+    fn chunked_copy_scope_matches_original_encoding_and_exact_retry() {
+        let limits = Limits::default();
+        let mut nodes = MemoryNodes::default();
+        let all = (0..200).map(copy).collect::<Vec<_>>();
+        assert!(serde_json::to_vec(&all).unwrap().len() > 65536);
+        let mut root = None;
+        for chunk in all.chunks(20).rev() {
+            root = Some(extend_copies(root.as_ref(), chunk.to_vec(), &mut nodes, &limits).unwrap());
+        }
+        let root = root.unwrap();
+        assert_eq!(root, copies(all.clone(), &mut nodes, &limits).unwrap());
+        assert_eq!(
+            root,
+            extend_copies(Some(&root), all, &mut nodes, &limits).unwrap()
+        );
+        let read = read_copies(&root, &mut nodes, &limits).unwrap();
+        assert_eq!(read.len(), 200);
+        assert!(
+            read.windows(2)
+                .all(|pair| copy_key(&pair[0]) < copy_key(&pair[1]))
+        );
+    }
+    #[test]
+    fn conflicting_copy_chunk_refuses_without_writing_or_changing_base() {
+        let limits = Limits::default();
+        let mut nodes = Counted::default();
+        let original = copy(0);
+        let root = copies(vec![original.clone()], &mut nodes, &limits).unwrap();
+        let writes = nodes.writes;
+        let mut conflict = original.clone();
+        conflict.publication.object.bytes += 1;
+        assert!(matches!(
+            extend_copies(Some(&root), vec![copy(1), conflict], &mut nodes, &limits),
+            Err(Error::Invalid)
+        ));
+        assert_eq!(nodes.writes, writes);
+        assert_eq!(
+            read_copies(&root, &mut nodes, &limits).unwrap(),
+            vec![original]
+        );
+    }
+    #[test]
+    fn copy_extension_reuses_original_documents_under_a_smaller_write_budget() {
+        let limits = Limits::default();
+        let mut nodes = Counted::default();
+        let root = copies((0..100).map(copy).collect(), &mut nodes, &limits).unwrap();
+        let before = nodes.writes;
+        let mut small = limits.clone();
+        small.writes = 128;
+        let extended = extend_copies(Some(&root), vec![copy(100)], &mut nodes, &small).unwrap();
+        assert!(nodes.writes - before < 128);
+        assert_eq!(
+            read_copies(&extended, &mut nodes, &limits).unwrap().len(),
+            101
+        );
+        let before = nodes.writes;
+        assert_eq!(
+            extended,
+            extend_copies(Some(&extended), vec![copy(100)], &mut nodes, &small).unwrap()
+        );
+        assert_eq!(nodes.writes, before);
+    }
+    #[test]
+    fn sparse_copy_append_keeps_canonical_tree_under_a_small_write_budget() {
+        let limits = Limits::default();
+        let mut all = (0..200).map(copy).collect::<Vec<_>>();
+        all.sort_by(|a, b| copy_key(a).cmp(&copy_key(b)));
+        let expected = copies(all.clone(), &mut MemoryNodes::default(), &limits).unwrap();
+        let last = all.pop().unwrap();
+        let mut nodes = Counted::default();
+        let base = copies(all, &mut nodes, &limits).unwrap();
+        let before = nodes.writes;
+        let mut small = limits;
+        small.writes = 64;
+        let actual = extend_copies(Some(&base), vec![last], &mut nodes, &small).unwrap();
+        assert_eq!(actual, expected);
+        assert!(nodes.writes - before < 64);
+    }
 }

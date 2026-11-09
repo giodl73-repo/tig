@@ -22,8 +22,10 @@ mod compile;
 pub mod control;
 mod inspect;
 pub mod preparation;
+mod session;
 pub use compile::{build, read_request, request};
 pub use inspect::{inspect, page};
+pub use session::Session;
 #[cfg(test)]
 mod tests;
 const MAX_DOC: usize = 65536;

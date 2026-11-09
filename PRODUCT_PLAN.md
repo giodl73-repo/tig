@@ -39,6 +39,23 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
+existing-root copy-index staging, whole-selection planning, original scope pages,
+witness peak/status and separately approved apply/resume/cancel through
+`tig-storage paged`. It reuses the existing controller and shares metadata
+budgets across finish/readback. Synthetic20-page manual and actual-clock/registry
+workflows, native executable handoff, broad/default/all-feature/500k/strict Clippy
+and standalone checks pass locally. Hosted qualification remains separate.
+This advances the operator surface, while native writer/current authority,
+agent/UI/Action, provider/restore/large-file/lifetime/metadata-expiry and intended-use
+acceptance remain necessary for full delivery. See context/RESUME.md and the
+[operator guide](docs/guides/PAGED-OPERATOR.md).
+Originally held copies also need a fresh approved follow-up after selected
+history settlement, for example when an offline provider returns or another job
+ends. Preserve the original scope/receipts for discovery and recheck current
+protection; neither expanding an old decision nor recreating retired history is
+an acceptable substitute. This remains an explicit priority-7 delivery gate.
+
 The indexed native selection candidate now connects multiple archived historical
 roots and large block/category scopes to existing paged requests. Explicit
 index-paged/select-paged commands stage metadata only, default-disabled, with

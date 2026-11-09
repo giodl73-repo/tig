@@ -1,9 +1,9 @@
 use super::*;
 use crate::source_claims::{Checkpoint, age};
 
-struct AgeFixture {
+pub(super) struct AgeFixture {
     registry: Namespace,
-    minimum: Checkpoint,
+    pub(super) minimum: Checkpoint,
     limits: age::Limits,
 }
 impl AgeFixture {
@@ -33,7 +33,7 @@ impl AgeFixture {
         })
         .unwrap()
     }
-    fn new(f: &mut Fixture, e: &mut control::Enrollment) -> Self {
+    pub(super) fn new(f: &mut Fixture, e: &mut control::Enrollment) -> Self {
         let mut registry = Namespace::create(
             &f.temp.path().join("ages"),
             key("ages"),

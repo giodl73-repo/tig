@@ -21,24 +21,24 @@ const SCHEMA: &str = "tig.bulk-inspection-profile.design-1";
 mod execute;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Nodes {
-    root: PathBuf,
-    minimum: MetadataCheckpoint,
+pub(super) struct Nodes {
+    pub(super) root: PathBuf,
+    pub(super) minimum: MetadataCheckpoint,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Source {
-    root: PathBuf,
-    minimum: SourceCheckpoint,
+pub(super) struct Source {
+    pub(super) root: PathBuf,
+    pub(super) minimum: SourceCheckpoint,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Store {
-    root: PathBuf,
-    ledger_root: PathBuf,
-    minimum: Checkpoint,
-    job: JournalRef,
-    place: Place,
+pub(super) struct Store {
+    pub(super) root: PathBuf,
+    pub(super) ledger_root: PathBuf,
+    pub(super) minimum: Checkpoint,
+    pub(super) job: JournalRef,
+    pub(super) place: Place,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -68,7 +68,7 @@ fn code(e: bulk::Error) -> &'static str {
     }
 }
 impl Store {
-    fn open(&self) -> Result<(LocalStore, CapacityLedger)> {
+    pub(super) fn open(&self) -> Result<(LocalStore, CapacityLedger)> {
         let store = LocalStore::open(&self.root).map_err(|_| "provider_unavailable")?;
         if Place::local(&store, self.place.generation).map_err(|_| "wrong_store")? != self.place {
             return Err("wrong_store");

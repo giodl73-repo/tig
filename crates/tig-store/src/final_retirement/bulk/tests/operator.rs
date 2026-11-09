@@ -92,7 +92,7 @@ fn cancellation_without_source_metadata_or_time_preserves_settled_and_held_histo
     }
 }
 
-fn native() -> (
+pub(super) fn native() -> (
     Fixture,
     Plan,
     tempfile::TempDir,

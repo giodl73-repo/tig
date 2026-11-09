@@ -1,5 +1,15 @@
 # Tig maintainer context
 
+Paged-operator lane: explicit tig-storage paged now composes existing-root copy
+index staging, exact decisions, original scope pagination, peak/status and
+separately approved apply/resume/cancel with the existing controller. Metadata
+Session views share budgets through finish/readback; cancellation acknowledges
+the witness stop before optional cleanup. Synthetic20-page manual/aged CLI,
+native-executable handoff, default/all-feature/500k/strict Clippy and standalone
+checks pass locally; hosted checks remain. Read context/RESUME.md for exact scope.
+Full native/current-authority, agent/UI/Action, provider/large-file/restore/lifetime,
+metadata expiry and intended-use acceptance remain open. No live roots are enabled.
+
 Native-paged lane: optional indexed occurrence/block/category/age selection now
 stages existing paged requests through a default-disabled metadata-only CLI.
 Unknown/recent exclusions remain fixed and source drift refuses. The native

@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-112 rehearses parts of VAL-002/003/004 through fresh explicit operator
+commands in temporary namespaces/metadata/providers/ledgers and actual LocalClock:
+manual/aged20-page resume, separate approvals, shared-byte survival, offline stop
+and native executable -> storage executable handoff. This does not close a full
+VAL or prove native writer/current authority, realistic provider/large-file/restore/
+lifetime behavior, held-copy follow-up, agent/UI/Action or human F/D/M acceptance.
+See the [scoped review](../reviews/2026-11-09-paged-operator.md).
+
 EVID-109 rehearses parts of VAL-002/003/004 with actual manual20-page/17-root
 settlement and final provider effects, shared/unselected byte survival, process
 restart, stale/restore refusal and metadata-offline cancellation/recovery. The

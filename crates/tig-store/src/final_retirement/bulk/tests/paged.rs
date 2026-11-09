@@ -1,10 +1,25 @@
 use super::*;
 use crate::final_retirement::paged::{self as selection, control};
 mod aged;
+mod operator;
 
 fn compile(
     f: &mut Fixture,
     extra: usize,
+) -> (control::Enrollment, control::Decision, selection::Limits) {
+    compile_with_window(
+        f,
+        extra,
+        provider::Window {
+            not_before: 50,
+            expires: 500,
+        },
+    )
+}
+fn compile_with_window(
+    f: &mut Fixture,
+    extra: usize,
+    window: provider::Window,
 ) -> (control::Enrollment, control::Decision, selection::Limits) {
     let shared = root(
         &mut f.metadata,
@@ -130,10 +145,7 @@ fn compile(
             operation: key("paged-block"),
             manifest,
             copies,
-            window: provider::Window {
-                not_before: 50,
-                expires: 500,
-            },
+            window,
         },
         &f.roster,
         &mut f.namespaces,
