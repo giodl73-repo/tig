@@ -9,6 +9,8 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Active lane: feat/bulk-inspection, input36fc91b, implementation29e87e7.
+  Draft PR #33 stacks on feat/roster-placement (#32); evidence closeout9051538.
+  Hosted exact-head qualification is pending at handoff; derive current state live.
   Read specs/BULK-OPERATOR.md.
   Exact existing-root CLI describe/plan/peak/status exposes the bounded controller
   without mutation permissions. bulk::Inspection separates source metadata identity
@@ -20,8 +22,8 @@ source changes into running tools as a side effect. No startup cache operations.
   500k metadata runs, final strict Clippy/fmt, standalone Git, fresh ordinary CLI
   cancellation and pinned older-writer refusal/legacy control pass. EVID-102
   records separate verification/validation/trace/six-producer closeout. No runtime
-  code changed after29e87e7. Next: stacked draft PR against feat/roster-placement
-  (#32) and exact-head hosted qualification, then full operator execution/native
+  code changed after29e87e7. Next: PR #33 exact-head hosted qualification,
+  then full operator execution/native
   selection and admitted clock/authority integration. Explicit local
   versus external clock preference was requested asynchronously; no answer is
   recorded. This read-only work does not depend on that choice. No fallback clock,
