@@ -171,6 +171,58 @@ restore, multiple providers/large files, sustained continuation/metadata expiry
 and human acceptance retain their separate gates. Manual fixture success closes
 none of those full-product obligations.
 
+## Explicit aged controller candidate
+
+The optional enrollment `age` field admits an exact age enrollment, positive
+minimum duration and independent metadata-only registry boundary. Omission keeps
+the manual canonical bytes and identities unchanged. The selected registry must
+be outside every payload roster/source namespace; this requires actual private
+classification, not a name-based exemption. Metadata identity, authority, owner,
+clock and observer policies/classes must agree with the controller. The private
+admission boundary is not authenticated by its serialized digest.
+
+`control::aged::plan` uses the ordinary conditional/source/provider planner and
+freezes one exact retained evidence object and conservative observed interval
+per original occurrence in an asset-side Tree. Unknown/recent evidence refuses;
+the admitted actual clock interval must satisfy the age deadline and operation
+window. A later stronger observation cannot rebind this exact decision. Inspection
+validates index membership/shape; execution separately verifies retained registry
+membership, complete proof ancestry and the original target against current
+private registry/minima. Plain hashes or upstream previews confer no age authority.
+
+`Execution::apply_aged` supplies explicit registry/minimum/limits to the same
+durable controller. Manual apply rejects an aged enrollment. Original proofs are
+reverified on every forward call; the conservative deadline also holds at each
+source retirement and under the final provider live clearance. Initial reconstruction preserves those exact
+proof pins while independently rebuilding source/provider decisions. Completed
+page prefixes verify existing exact inherited facts. Each new page inherits from
+its fixed parent evidence and exact executed subset, verifies the unchanged age,
+and only then publishes page completion. Full-root retirement has no survivor to
+inherit. An interruption after retirement or after age acknowledgement resumes
+the same chain without recreating claims. AgeAcknowledged exposes that boundary
+for synthetic process-exit qualification. Global/provider copy scopes and separate
+claim/final permissions remain unchanged.
+
+Age registry sessions clone the existing call-owned metadata budget handle;
+reads, writes, independent finish/readback, source admission, lineage and failures
+consume the same counters/deadline as the paged controller. Local age limits also
+apply. No record/event encoding or SQL journal is added for this composition.
+
+Clock-free status still reports historical page/source witnesses. It cannot
+infer current registry availability. `age_inheritance_unknown` explicitly reports
+uncompleted aged source retirements (or unavailable source metadata), and also
+sets cleanup_unknown. Cancellation requires neither registry nor time, durably
+stops first, and cannot invent inheritance or undo retired source history. A
+`control::aged::status` supplies a registry-aware read-only debt inspection with
+the same shared budget, no writer and no clock. It verifies exact retained
+original/child facts and can resolve uncertainty after an interrupted page
+acknowledgement. Missing inheritance stays unknown and is never created by status;
+the flag must not be interpreted as verified absence of an inherited fact.
+
+This Rust candidate does not complete native selection, operator/agent/UI/Action,
+actual authority/writer/time/restore/provider/large-file/lifetime/metadata expiry
+or human acceptance. Their complete delivery remains the active goal.
+
 Source/test code for this required controller exceeds the remaining ordinary
 source headroom. Raise the source/docs ceiling from6 to8MiB, retaining the128KiB
 per-file prohibition on runtime/media/build artifacts. Runtime record64KiB,

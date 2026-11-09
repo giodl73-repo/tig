@@ -8,7 +8,46 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/paged-controller, input88225ff0e7e2ed8082f660eedcd54f4781588834.
+- Active lane: feat/paged-age, inputad8b428f87e8fb03e2257148559e4db59dbc4fff.
+  Pending source integrates optional privately admitted age policy/proof index
+  into the existing paged controller. Original retained evidence is pinned and
+  reverified, actual clock bounds determine eligibility, and exact survivor age
+  is acknowledged before page completion. Completed prefixes verify facts rather
+  than recreating missing ones. Manual framing remains omitted/unchanged. Shared
+  Budget handles retain counters/deadline across age sessions and metadata views.
+  Read-only aged status clarifies acknowledged inheritance without writer/time;
+  cancellation needs neither registry nor time and preserves unresolved debt.
+  Initial seven aged integration fixtures pass (17714 terminal zero), including20 pages
+  across17 roots, four actual child exits, unknown/recent/wrong registry holds,
+  conservative intervals, execution recheck, interrupted acknowledgements,
+  clock-free cancellation/debt inspection and known registry restore refusal.
+  Independent aged framing and strict store all-target Clippy also pass in17714.
+  Earlier18 paged entries/strict Clippy pass in40590; final focused framing/stronger
+  observation/shared-budget regression pass in45795. Broad default and all-feature
+  suites terminate zero in distinct external paged-age/paged-age-all targets,
+  sessions40940/39089, including both500k fixtures, strict workspace Clippy and
+  standalone Git. External logs:
+  paged-age-default.log and paged-age-all.log under the admitted dev temp root.
+  Their test compilations precede a further deadline check at Source BeforeRetire
+  and final provider Condition clearance. Do not qualify that tightening with old
+  test binaries. Fresh paged-age-focus chain36718 terminates zero: final8 aged
+  fixtures (new late-clock regression),14 active age entries, framing and strict
+  store Clippy. Final88 active retirement entries,14 active age entries and budget
+  regression plus strict workspace Clippy pass under default82844/all-feature65787
+  (both terminal zero). Artifact chain50655 also terminates zero: pinned pre-alternate
+  age reader/writer and pre-final writer refusal/legacy control, plus three fresh
+  ordinary/bulk CLI qualifiers. External logs: paged-age-final-focus.log,
+  paged-age-final-default.log, paged-age-final-all.log and paged-age-artifacts.log.
+  All local processes are terminal; no target is live. Never overlap
+  Cargo on a target while its CLI artifact qualifiers are using its binary.
+  No new PR/commit yet. Finalize exact pins/L0 and stack on ready PR40; derive the
+  new exact-head hosted results before readying. Six producer lenses, validation
+  and trace are separate in EVID-110 and its review. Next delivery remains
+  native selection and operator/agent/UI/Action over the actual aged controller,
+  plus actual authority/writer/time/restore/provider/large-file/lifetime/metadata
+  expiry and human acceptance. Do not narrow or mark the full goal complete.
+
+- Previous lane: feat/paged-controller, input88225ff0e7e2ed8082f660eedcd54f4781588834.
   Implementation4bcd433f8a3e89dc1819aef1def5dcba68dd1199.
   Manual `paged::control` candidate composes prepared source plans,
   exact separate claim/final approvals, original subject/copy/provider-birth/grant
@@ -41,13 +80,15 @@ source changes into running tools as a side effect. No startup cache operations.
   frames total plus key/binding derivations), without runtime changes; exact vector
   entry/strict store Clippy passes (41297 terminal zero). Broad/final logs are external
   paged-controller-default.log, paged-controller-all.log and paged-controller-final-focus.log.
-  All local processes are terminal; no target is live. EVID-109 and its six-producer
-  review separate verification, synthetic validation and trace. PR40 is OPEN/draft,
-  stacking on ready PR39. Its first hosted run42665505108 has a secrets failure:
+  All parent-lane local processes are terminal; no parent target is live. EVID-109
+  and its six-producer review separate verification, synthetic validation and trace.
+  PR40 is OPEN/ready atad8b428, stacking on ready PR39. Exact-head hosted run
+  42666621158 is terminal successful for Windows/Linux/secrets; no source merge.
+  Its first hosted run42665505108 had a secrets failure:
   two public synthetic operation digests in vector lines20/35 of4bcd433. Exact
   historical fingerprints are now documented in .gitleaksignore; pinned Gitleaks
-  8.30.1 scans all92 reachable commits clean locally. No file/rule is broadly
-  ignored. Resubmit and derive the new exact-head hosted status before readying;
+  8.30.1 scans all93 reachable commits clean locally. No file/rule is broadly
+  ignored. Derive current exact-head hosted status rather than replaying an old run;
   no full requirement or live acceptance follows from source/CI.
   Next: finish exact broad/artifact/producer qualification for the manual core;
   then compose admitted age evidence and survivor inheritance into page completion,

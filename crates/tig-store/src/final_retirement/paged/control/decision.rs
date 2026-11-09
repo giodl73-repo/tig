@@ -92,6 +92,20 @@ pub fn plan(
     stores: &[&LocalStore],
     limits: &Limits,
 ) -> Result<Decision> {
+    if e.age.is_some() {
+        return Err(Error::Authority);
+    }
+    plan_inner(e, r, roster, namespaces, nodes, stores, limits)
+}
+pub(super) fn plan_inner(
+    e: &Enrollment,
+    r: Request,
+    roster: &claims::Roster,
+    namespaces: &mut [Namespace],
+    nodes: &mut impl NodeStore,
+    stores: &[&LocalStore],
+    limits: &Limits,
+) -> Result<Decision> {
     e.id()?;
     r.check(e)?;
     if stores.len() > 4
@@ -202,6 +216,7 @@ pub fn plan(
         }
     }
     let d = Decision {
+        age: None,
         schema: "tig.paged-control-decision.design-1".into(),
         enrollment: e.id()?,
         request: r,
@@ -227,6 +242,9 @@ pub(super) fn load(
     d.id()?;
     d.request.check(e)?;
     if d.enrollment != e.id()? {
+        return Err(Error::Authority);
+    }
+    if d.age.is_some() != e.age.is_some() {
         return Err(Error::Authority);
     }
     let mut work = Work::new(nodes, limits)?;
@@ -301,12 +319,16 @@ pub(super) fn load(
             return Err(Error::Invalid);
         }
     }
-    Ok(Loaded {
+    let loaded = Loaded {
         prepared,
         steps,
         subjects,
         actions,
-    })
+    };
+    if d.age.is_some() {
+        aged::read(e, d, &loaded, &mut work, limits)?;
+    }
+    Ok(loaded)
 }
 
 /// Explain the frozen original copy scope and exclusions before approval.

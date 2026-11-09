@@ -10,6 +10,14 @@ See docs/ARCHITECTURE.md for current scope. Private consumer checkpoints and
 runtime bindings remain owner-managed; docs/CONSUMER-ADOPTION.md defines generic
 gates. Registration and component tests do not close production or custody.
 
+Explicit aged paged execution candidate: existing controller now freezes exact
+retained original age proofs and acknowledges unchanged survivor inheritance
+before page completion. Source/provider fences recheck the conservative deadline.
+Read-only registry-aware status can clarify interrupted acknowledgement without
+writer/time; cancellation preserves unknown inheritance. EVID-110 separates
+focused qualification from pending broader/artifact/adoption gates. Full native,
+operator/agent/UI/Action and authority/provider/lifetime/human acceptance stay open.
+
 Validation: pwsh -NoProfile -File tools/validate.ps1; git diff --check.
 For implementation changes, run fmt/locked Rust tests/Clippy and exact focused
 failure fixtures before closing the pulse. Update docs/vtrace/REVIEW.md with

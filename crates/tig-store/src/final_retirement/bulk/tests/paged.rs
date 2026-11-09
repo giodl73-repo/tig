@@ -1,5 +1,6 @@
 use super::*;
 use crate::final_retirement::paged::{self as selection, control};
+mod aged;
 
 fn compile(
     f: &mut Fixture,
@@ -50,6 +51,7 @@ fn compile(
     }
     let limits = selection::Limits::default();
     let e = control::Enrollment {
+        age: None,
         selection: selection::Enrollment {
             authority: f.enrollment.sources[0].authority.clone(),
             epoch: f.enrollment.epoch.clone(),
@@ -572,6 +574,7 @@ fn full_witness_peak_is_checked_before_any_claim_settlement() {
 
 #[derive(Serialize, Deserialize)]
 struct PagedSaved {
+    age: Option<source_claims::Checkpoint>,
     enrollment: control::Enrollment,
     decision: control::Decision,
     roster: claims::Roster,
@@ -613,7 +616,7 @@ fn paged_child() {
     let clock = Clock(Cell::new(100), s.enrollment.clock.clone());
     let limits = selection::Limits::default();
     let stop = std::env::var("TIG_PAGED_STOP").unwrap();
-    control::Execution {
+    let mut execution = control::Execution {
         enrollment: &s.enrollment,
         roster: &s.roster,
         namespaces: &mut namespaces,
@@ -629,19 +632,38 @@ fn paged_child() {
         admitted_context: &s.enrollment.context,
         limits: &limits,
         run_limits: control::RunLimits::default(),
+    };
+    let hook = |stage| {
+        if format!("{stage:?}") == stop {
+            std::process::exit(76);
+        }
+        Ok(())
+    };
+    if let Some(minimum) = &s.age {
+        let mut registry = Namespace::open(&dir.join("ages"), minimum).unwrap();
+        execution
+            .apply_aged(
+                &s.decision,
+                &s.decision.authorize_claim_release().unwrap(),
+                &s.decision.authorize_final_loss().unwrap(),
+                control::aged::Context {
+                    registry: &mut registry,
+                    minimum,
+                    limits: &source_claims::age::Limits::default(),
+                },
+                hook,
+            )
+            .unwrap();
+    } else {
+        execution
+            .apply_hook(
+                &s.decision,
+                &s.decision.authorize_claim_release().unwrap(),
+                &s.decision.authorize_final_loss().unwrap(),
+                hook,
+            )
+            .unwrap();
     }
-    .apply_hook(
-        &s.decision,
-        &s.decision.authorize_claim_release().unwrap(),
-        &s.decision.authorize_final_loss().unwrap(),
-        |stage| {
-            if format!("{stage:?}") == stop {
-                std::process::exit(76);
-            }
-            Ok(())
-        },
-    )
-    .unwrap();
     panic!("requested paged exit was not reached");
 }
 #[test]
@@ -665,6 +687,7 @@ fn actual_child_exits_resume_global_page_claim_and_final_copy_boundaries() {
         let mut f = Fixture::new();
         let (e, p, l) = compile(&mut f, 0);
         let saved = PagedSaved {
+            age: None,
             enrollment: e.clone(),
             decision: p.clone(),
             roster: f.roster.clone(),

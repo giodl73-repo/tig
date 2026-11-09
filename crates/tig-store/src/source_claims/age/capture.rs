@@ -59,7 +59,22 @@ impl Capture<'_> {
         plan: &subset::Plan,
     ) -> Result<Status> {
         self.session()
-            .inherit(parent, observer, minimum, enrollment, plan)
+            .inherit(parent, None, observer, minimum, enrollment, plan)
+    }
+    #[allow(clippy::too_many_arguments)]
+    pub(crate) fn inherit_from_metered(
+        &mut self,
+        parent: &Request,
+        evidence: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        enrollment: &subset::Enrollment,
+        plan: &subset::Plan,
+        budget: &crate::protection::budget::Budget,
+    ) -> Result<Status> {
+        let mut session = self.session();
+        session.meter = Meter::with_budget(Some(budget));
+        session.inherit(parent, Some(evidence), observer, minimum, enrollment, plan)
     }
 }
 struct Session<'a> {
@@ -297,16 +312,31 @@ impl Session<'_> {
     }
     /// Carry a proven historical unchanged-subset observation forward. It accepts
     /// no caller timestamp and does not manufacture age from equal hashes.
+    #[allow(clippy::too_many_arguments)]
     pub fn inherit(
         &mut self,
         parent: &Request,
+        pinned: Option<&Object>,
         observer: &mut Namespace,
         minimum: &Checkpoint,
         enrollment: &subset::Enrollment,
         plan: &subset::Plan,
     ) -> Result<Status> {
         self.enrollment.observer(observer, minimum)?;
-        let p = self.status(parent, observer, minimum)?;
+        let p = if let Some(evidence) = pinned {
+            let mut reader = self.metadata.finished_reader()?;
+            Inspection {
+                enrollment: self.enrollment,
+                registry: self.registry,
+                minimum: self.minimum,
+                metadata: self.enrollment.metadata.clone(),
+                nodes: &mut reader,
+                limits: self.limits,
+            }
+            .proof_with(parent, evidence, observer, minimum, self.meter.clone())?
+        } else {
+            self.status(parent, observer, minimum)?
+        };
         let parent_object = p.evidence.ok_or(Error::Missing)?;
         let old = p.target.ok_or(Error::Missing)?;
         if enrollment.namespace != old.request.namespace
@@ -335,8 +365,8 @@ impl Session<'_> {
         let (_, map) = self.current()?;
         // Acknowledged inheritance remains replayable after later owned pages
         // retire this survivor. It never recreates the missing source claim.
-        if map.contains_key(&key) {
-            return self.status(&request, observer, minimum);
+        if let Some(evidence) = map.get(&key) {
+            return self.inherited_status(&request, evidence, observer, minimum, pinned.is_some());
         }
         let survivor = observer.source(&request.source)?.ok_or(Error::Missing)?;
         if survivor.owner != old.owner || survivor.kind.as_ref() != Some(&old.class) {
@@ -370,6 +400,30 @@ impl Session<'_> {
             },
         };
         self.publish(&record, &mut |_| Ok(()))?;
-        self.status(&request, observer, minimum)
+        let (_, map) = self.current()?;
+        let evidence = map.get(&key).ok_or(Error::Recovery)?;
+        self.inherited_status(&request, evidence, observer, minimum, pinned.is_some())
+    }
+    fn inherited_status(
+        &mut self,
+        request: &Request,
+        evidence: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        exact: bool,
+    ) -> Result<Status> {
+        if !exact {
+            return self.status(request, observer, minimum);
+        }
+        let mut reader = self.metadata.finished_reader()?;
+        Inspection {
+            enrollment: self.enrollment,
+            registry: self.registry,
+            minimum: self.minimum,
+            metadata: self.enrollment.metadata.clone(),
+            nodes: &mut reader,
+            limits: self.limits,
+        }
+        .proof_with(request, evidence, observer, minimum, self.meter.clone())
     }
 }

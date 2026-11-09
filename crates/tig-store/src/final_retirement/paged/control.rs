@@ -5,6 +5,7 @@ use crate::{
     orchestration::Place,
     source_claims::subset,
 };
+pub mod aged;
 mod decision;
 mod execute;
 pub use decision::inspect;
@@ -27,6 +28,7 @@ pub enum Error {
     Witness(bulk::Error),
     Metadata(crate::metadata::Error),
     Tree(TreeError),
+    Age(crate::source_claims::age::Error),
 }
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -51,6 +53,7 @@ from!(provider::Error, Provider);
 from!(bulk::Error, Witness);
 from!(crate::metadata::Error, Metadata);
 from!(TreeError, Tree);
+from!(crate::source_claims::age::Error, Age);
 pub type Result<T> = std::result::Result<T, Error>;
 fn encode(v: &impl Serialize) -> Result<Vec<u8>> {
     Ok(super::encode(v)?)
@@ -62,6 +65,8 @@ fn hash(v: &impl Serialize) -> Result<Digest> {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Enrollment {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub age: Option<aged::Policy>,
     pub selection: super::Enrollment,
     pub sources: Vec<subset::Enrollment>,
     pub context: Digest,
@@ -74,6 +79,9 @@ pub struct Enrollment {
 impl Enrollment {
     pub fn id(&self) -> Result<Digest> {
         self.selection.id()?;
+        if let Some(age) = &self.age {
+            age.check(self)?;
+        }
         if self.sources.is_empty()
             || self.sources.len() > 16
             || self
@@ -132,6 +140,8 @@ impl Request {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Decision {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    age: Option<Object>,
     schema: String,
     enrollment: Digest,
     request: Request,

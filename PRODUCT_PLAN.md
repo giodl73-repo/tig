@@ -39,6 +39,18 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The explicit `paged::control::aged` Rust candidate now freezes retained original
+occurrence evidence, rechecks conservative clock eligibility and acknowledges
+exact survivor inheritance before completing each source page. It preserves
+manual framing and shares budgets through existing age/source/provider ports.
+Read-only registry-aware status clarifies interrupted age acknowledgement without
+writing or sampling time; cancellation preserves unresolved debt. The new
+[entry/review](docs/reviews/2026-11-09-paged-age.md) records broad pre-tightening,
+final changed-scope and artifact qualification; exact-head hosted checks remain.
+Native selectors and operator/agent/UI/Action
+composition, actual current authority/writer/time/restore/provider/large-file and
+lifetime/metadata-expiry/human acceptance remain full delivery obligations.
+
 The manual `paged::control` candidate now composes frozen prepared plans with
 separate historical-claim/final-copy approvals, durable global/page witnesses,
 actual receipt-checked progress and original provider copy plans. Source-metadata-

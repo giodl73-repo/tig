@@ -1,5 +1,14 @@
 # Tig maintainer context
 
+Paged-age lane: explicit `paged::control::aged` planning/execution now composes
+pinned retained age and exact survivor inheritance with page completion. It
+admits a separate metadata-only registry boundary, preserves manual framing and
+shares metadata budgets. Seven focused aged controller fixtures, four actual
+child exits and independent aged framing pass locally. Broad pre-tightening and
+final changed-scope/artifact qualification pass; exact-head hosted checks remain.
+Read context/RESUME.md. Full native/operator/agent/UI/Action, current
+authority/writer/time/provider/restore/lifetime and human acceptance remain open.
+
 Paged-controller lane: specs/PAGED-EXECUTION.md controls a synthetic manual Rust
 candidate over existing prepared pages, accounted witnesses and final providers.
 Separate exact claim/final-copy permissions, durable global/page intent, actual

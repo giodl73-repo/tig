@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 13532,
-      "sha256": "1b4ad95df46fda75fdfe8c6a47ea7218df7953e15c97bbcff8e563d021a3122a"
+      "bytes": 14160,
+      "sha256": "98d80cbb7f15b566d009d4dcd2dd76c74c3aa1faea845d9f73eacbd7060bd2a5"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -114,8 +114,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
-      "bytes": 7201,
-      "sha256": "400cf19e46876ffbeeb6a1c9b3ac0820f357e61a1760a0e364c3725fd11aa8c0"
+      "bytes": 7762,
+      "sha256": "aed9eb0a30ad909f7b5a576fabb4edda56f22bfb10a7412f0f663a1c659b8901"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/WAVE.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 98928,
-      "sha256": "cd73ce5eca1ebfd5105ef22ab6f22a1b29a5d0b6d29c82fc27802fdfe0bb65eb"
+      "bytes": 100130,
+      "sha256": "2f7c8fe76a2b704e1a6cebddc98190fdb1b6a32acacb17fb4bcd14ea90cdd22c"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 43077,
-      "sha256": "58dc71ad49ddce6d5e93174ff2358df24437804b132d76e7f8c5691b51416b4f"
+      "bytes": 43915,
+      "sha256": "ed0d11e2f909b6da5cf644828a06cbceeec34f550eba49c82e369ef279d70362"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 49699,
+      "bytes": 52840,
       "path": "context/RESUME.md",
-      "sha256": "6ca4923710e706da1b972402640e04599ba5d36c4ec432fae1de562acc073769"
+      "sha256": "976e2f714122d375cba52534af0addd7bb42ac4e9c3f3558dbd57559ee89e1c0"
     },
     {
       "bytes": 16453,
@@ -2514,18 +2514,18 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/age.rs",
-      "bytes": 22851,
-      "sha256": "d5308b8bccc611642fd975307d9461c675608007984c0dd279c0a08633f8e9ea"
+      "bytes": 27332,
+      "sha256": "260413d4e48ab5bf08f38e83f38a8e10a6b5f794649bbaa3b49597e6b1a775cc"
     },
     {
       "path": "crates/tig-store/src/source_claims/age/capture.rs",
-      "bytes": 13955,
-      "sha256": "dce2527bcd2685ef959ec9e055c649458db5cac5bf60575395780bd3f9eb7847"
+      "bytes": 16002,
+      "sha256": "6b2d5f8f4be274c0dd6129ff4df0d683a9acdfeffb36bc699f69122262bd607e"
     },
     {
       "path": "crates/tig-store/src/source_claims/age/tests.rs",
-      "bytes": 40563,
-      "sha256": "d0e85cc6f1b7efacd96d02937027609fc5978a0aa32f3a3cfa8afdee1eba1d17"
+      "bytes": 42758,
+      "sha256": "b397f46d7c23a9616ef6864854ce24f8547aff662cd0fcec0a5b28edd5e9b068"
     },
     {
       "path": "crates/tig-store/tests/age_cli.rs",
@@ -2584,8 +2584,8 @@
     },
     {
       "path": "docs/guides/PAGED-RETIREMENT.md",
-      "bytes": 8533,
-      "sha256": "42b6ad5bb9ac8b2007f44297ea7e6ea02b9c240ef900c5e2090aee923db03e94"
+      "bytes": 9682,
+      "sha256": "0a990445f463583466a2be7892d748e413f5ec55431f94d9e644e0da4ddda295"
     },
     {
       "path": "docs/reviews/2026-11-09-paged-selection.md",
@@ -2599,8 +2599,8 @@
     },
     {
       "path": "specs/PAGED-EXECUTION.md",
-      "bytes": 12106,
-      "sha256": "6c62b0425a3c9ec520d345a390a37c4b98df8a9ccde5d8bc871cf2f616032a84"
+      "bytes": 15624,
+      "sha256": "f63cc8b235c7be9e7899f2b9123cd8432657bc2f9530acd0df116e9f63d200db"
     },
     {
       "path": "tests/vectors/paged-preparation.design-1.json",
@@ -2614,28 +2614,28 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/bulk/tests/paged.rs",
-      "bytes": 30445,
-      "sha256": "db4af6f8e00265c33543465ce37ecdecec58023d70a6cc86dd22d8ba787ed12b"
+      "bytes": 31231,
+      "sha256": "088622be54f80e5cf6740315fcf7b6ae90b447d0e33286b63acc5dc1632bf89f"
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/control.rs",
-      "bytes": 7344,
-      "sha256": "f1711e0590598f388c398357fc1c1247381e65d7a64fad7113db079e4553e707"
+      "bytes": 7712,
+      "sha256": "845657586aeafbcd524a3271f82015f000ef134d8e2bdebedf0f5d556fbb6b9f"
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/control/decision.rs",
-      "bytes": 10783,
-      "sha256": "a70b1ff4ae1158ed1bf358a6172cd65fa80cc7664f5b520d9ac4741cca5982e0"
+      "bytes": 11366,
+      "sha256": "10fe06ff22b9dbe504fc1d06671adf9cf0a22256e16cbba7b8a36f21af01a802"
     },
     {
       "path": "crates/tig-store/src/final_retirement/paged/control/execute.rs",
-      "bytes": 41674,
-      "sha256": "ede29ca263cc9fcf2a79edc9f07bb9724a1628c3a0886ec7b1332fc925d1ea77"
+      "bytes": 47260,
+      "sha256": "02eab2dc932f897efe10492b06a00eba0717f6d23dc760e4cd1a9c1686a73c47"
     },
     {
       "path": "crates/tig-store/src/protection/budget.rs",
-      "bytes": 4725,
-      "sha256": "943032404a49c4f0658fb123353360f272a0e7750c78386b308765e7a60b1f77"
+      "bytes": 5129,
+      "sha256": "8e328faedd88cd83fd2e05b68ffe9218580f952d3b308829b31331711aa91dbb"
     },
     {
       "path": "tests/vectors/paged-control.design-1.json",
@@ -2651,6 +2651,26 @@
       "path": ".gitleaksignore",
       "bytes": 360,
       "sha256": "f0f17df7c373354f2ead733db94deb424f15f5d3a37b07f4355ad1a86b9f4535"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/bulk/tests/paged/aged.rs",
+      "bytes": 20482,
+      "sha256": "def1a13bed58b2cadd1a5aa4812ecec898009ceeb2f8e8fc8c5493431805b479"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/paged/control/aged.rs",
+      "bytes": 18822,
+      "sha256": "567e4d6b95143ae59afe33e5018187440b6a0c538fb2d77ea2a130086c45432e"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-paged-age.md",
+      "bytes": 9157,
+      "sha256": "70e3ab8cf34108ec6ae8de71d42b24c97912bc3cc1e4c4d6e46a5e7c3c4784cd"
+    },
+    {
+      "path": "tests/vectors/paged-age.design-1.json",
+      "bytes": 4373,
+      "sha256": "08685f15b54f25dc485ae5e6b5bc02a211c6d55fbd0b8555afdaea3ef7d8458c"
     }
   ]
 }

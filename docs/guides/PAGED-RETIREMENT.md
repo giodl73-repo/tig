@@ -129,3 +129,20 @@ native-category admission and must not be presented as qualifying an aged previe
 The [execution contract](../../specs/PAGED-EXECUTION.md) retains age inheritance,
 native/operator/agent/UI/Action, actual authority/writer/time/provider/large-file,
 continuation/metadata-expiry and human acceptance obligations for the full plan.
+
+The explicit age-aware Rust candidate adds `Enrollment.age`,
+`control::aged::plan` and `Execution::apply_aged`. Admit a separate metadata-only
+registry boundary, clock and required duration privately. Planning freezes exact
+retained original evidence in an asset-side index; manual apply cannot execute
+this enrollment. Each page verifies the same original age and acknowledges its
+survivor's inherited proof before completion. A new stronger fact cannot change
+the approved proof chain. Unknown/recent evidence and lost completed inheritance
+hold work. Both exact claim/final permissions remain required.
+
+Plain status has no registry port; `age_inheritance_unknown` reports an
+uncompleted aged source retirement rather than inventing its inheritance state.
+`control::aged::status` can inspect exact retained facts without a metadata writer
+or clock, and can clarify an acknowledged fact after interrupted page completion.
+It never creates a missing fact. Cancellation still stops without registry or
+time; it cannot undo retired history. Full user-facing selection/execution and
+private native/provider/authority/lifetime acceptance remain open.

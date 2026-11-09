@@ -896,6 +896,23 @@ fn later_survivor_capture_cannot_suppress_older_verified_inheritance() {
     let inherited = f.inherit(&parent, &e, &plan).unwrap();
     assert_eq!(inherited.observed, old.observed);
     assert_ne!(inherited.evidence, young.evidence);
+    let mut pinned_reader = f.metadata.finished_reader().unwrap();
+    let pinned = Inspection {
+        enrollment: &f.e,
+        registry: &mut f.registry,
+        minimum: &f.registry_min,
+        metadata: f.e.metadata.clone(),
+        nodes: &mut pinned_reader,
+        limits: &f.limits,
+    }
+    .proof(
+        &child,
+        young.evidence.as_ref().unwrap(),
+        &mut f.observer,
+        &f.observer_min,
+    )
+    .unwrap();
+    assert_eq!(pinned.observed, young.observed);
     assert_eq!(before, f.observer.checkpoint());
     f.reopen();
     assert_eq!(f.capture(&NoClock).unwrap().observed, old.observed);
@@ -935,6 +952,65 @@ fn later_survivor_capture_cannot_suppress_older_verified_inheritance() {
     );
     let grandchild = f.inherit(&child, &e, &next).unwrap();
     assert_eq!(grandchild.observed, old.observed);
+    let budget = crate::protection::budget::Budget::new(
+        &f.limits.source,
+        f.limits.writes,
+        f.limits.write_bytes,
+    )
+    .unwrap();
+    let pinned_child = Capture {
+        enrollment: &f.e,
+        registry: &mut f.registry,
+        minimum: &f.registry_min,
+        metadata: &mut f.metadata,
+        limits: &f.limits,
+    }
+    .inherit_from_metered(
+        &child,
+        young.evidence.as_ref().unwrap(),
+        &mut f.observer,
+        &f.observer_min,
+        &e,
+        &next,
+        &budget,
+    )
+    .unwrap();
+    assert_eq!(pinned_child.observed, young.observed);
+    assert_ne!(pinned_child.evidence, grandchild.evidence);
+    assert!(budget.usage().0 > 1);
+    let mut small = f.limits.source.clone();
+    small.reads = 1;
+    let exhausted =
+        crate::protection::budget::Budget::new(&small, f.limits.writes, f.limits.write_bytes)
+            .unwrap();
+    exhausted
+        .read(&Object::from_bytes(b"already-consumed-failed-read"))
+        .unwrap();
+    let registry_before = f.registry.checkpoint();
+    assert!(matches!(
+        Capture {
+            enrollment: &f.e,
+            registry: &mut f.registry,
+            minimum: &f.registry_min,
+            metadata: &mut f.metadata,
+            limits: &f.limits,
+        }
+        .inherit_from_metered(
+            &child,
+            young.evidence.as_ref().unwrap(),
+            &mut f.observer,
+            &f.observer_min,
+            &e,
+            &next,
+            &exhausted
+        ),
+        Err(Error::Budget)
+    ));
+    assert_eq!(registry_before, f.registry.checkpoint());
+    assert_eq!(
+        f.status(&grandchild.request).unwrap().observed,
+        old.observed
+    );
     assert_eq!(
         f.assess(&child, &NoClock, 10).unwrap().hold,
         Some("occurrence_missing")

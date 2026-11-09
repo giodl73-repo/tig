@@ -356,6 +356,7 @@ impl Limits {
     }
 }
 struct Meter {
+    external: Option<crate::protection::budget::Budget>,
     start: Instant,
     reads: Cell<usize>,
     bytes: Cell<usize>,
@@ -364,7 +365,11 @@ struct Meter {
 }
 impl Meter {
     fn new() -> Rc<Self> {
+        Self::with_budget(None)
+    }
+    fn with_budget(external: Option<&crate::protection::budget::Budget>) -> Rc<Self> {
         Rc::new(Self {
+            external: external.cloned(),
             start: Instant::now(),
             reads: Cell::new(0),
             bytes: Cell::new(0),
@@ -373,6 +378,9 @@ impl Meter {
         })
     }
     fn timed(&self, limits: &Limits) -> TreeResult<()> {
+        if let Some(b) = &self.external {
+            b.timed()?;
+        }
         if Instant::now()
             .checked_duration_since(self.start)
             .is_none_or(|a| a > Duration::from_millis(limits.source.millis))
@@ -444,6 +452,9 @@ impl<S: NodeStore> NodeStore for Work<'_, S> {
         }
         self.meter.reads.set(n);
         self.meter.bytes.set(b);
+        if let Some(budget) = &self.meter.external {
+            budget.read(o)?;
+        }
         let raw = self.store.get(o)?;
         self.meter.timed(self.limits)?;
         if raw.as_ref().is_some_and(|b| Object::from_bytes(b) != *o) {
@@ -470,6 +481,9 @@ impl<S: NodeStore> NodeStore for Work<'_, S> {
         }
         self.meter.writes.set(writes);
         self.meter.write_bytes.set(write_bytes);
+        if let Some(budget) = &self.meter.external {
+            budget.write(b)?;
+        }
         let o = self.store.put(b)?;
         self.meter.timed(self.limits)?;
         if o != Object::from_bytes(b) {
@@ -583,6 +597,104 @@ pub struct Inspection<'a, 'b, S> {
     pub limits: &'a Limits,
 }
 impl<S: NodeStore> Inspection<'_, '_, S> {
+    /// Verify one pinned retained fact, independent of a newer best observation.
+    /// This is historical evidence, never current eligibility or release authority.
+    pub fn proof(
+        &mut self,
+        r: &Request,
+        evidence: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+    ) -> Result<Status> {
+        self.proof_with(r, evidence, observer, minimum, Meter::new())
+    }
+    pub(crate) fn proof_metered(
+        &mut self,
+        r: &Request,
+        evidence: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        budget: &crate::protection::budget::Budget,
+    ) -> Result<Status> {
+        self.proof_with(
+            r,
+            evidence,
+            observer,
+            minimum,
+            Meter::with_budget(Some(budget)),
+        )
+    }
+    #[allow(clippy::too_many_arguments)]
+    pub(crate) fn inherited_metered(
+        &mut self,
+        parent: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        enrollment: &subset::Enrollment,
+        plan: &subset::Plan,
+        budget: &crate::protection::budget::Budget,
+    ) -> Result<Status> {
+        self.enrollment.observer(observer, minimum)?;
+        if self.metadata != self.enrollment.metadata {
+            return Err(Error::Authority);
+        }
+        let meter = Meter::with_budget(Some(budget));
+        let source = self.enrollment.registry(self.registry, self.minimum)?;
+        let mut work = Work::shared(self.nodes, self.limits, meter.clone())?;
+        let (source_key, version) = subset::historical_survivor(enrollment, observer, plan, &work)?
+            .ok_or(Error::Missing)?;
+        let request = Request {
+            namespace: observer.identity().clone(),
+            source: source_key,
+            predecessor_revision: version.revision,
+        };
+        let key = path(&format!(
+            "age/{}",
+            inheritance_key(&request, parent, &Object::from_bytes(&plan.to_json()?))?.as_str()
+        ))?;
+        let map = entries(self.enrollment, &source, &mut work)?;
+        let evidence = map.get(&key).ok_or(Error::Missing)?.clone();
+        self.proof_with(&request, &evidence, observer, minimum, meter)
+    }
+    fn proof_with(
+        &mut self,
+        r: &Request,
+        evidence: &Object,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        meter: Rc<Meter>,
+    ) -> Result<Status> {
+        r.id()?;
+        self.enrollment.observer(observer, minimum)?;
+        if observer.identity() != &r.namespace || self.metadata != self.enrollment.metadata {
+            return Err(Error::Authority);
+        }
+        let source = self.enrollment.registry(self.registry, self.minimum)?;
+        let mut work = Work::shared(self.nodes, self.limits, meter.clone())?;
+        let map = entries(self.enrollment, &source, &mut work)?;
+        let (record, stamp) = verify_record(self.enrollment, evidence, observer, &mut work, 0)?;
+        if &record.target.request != r {
+            return Err(Error::Authority);
+        }
+        if !map
+            .iter()
+            .any(|(key, object)| object == evidence && record.accepts(key).unwrap_or(false))
+        {
+            return Err(Error::Missing);
+        }
+        meter.timed(self.limits)?;
+        Ok(Status {
+            schema: "tig.age-status.design-1",
+            enrollment: self.enrollment.id()?,
+            request: r.clone(),
+            evidence: Some(evidence.clone()),
+            target: Some(record.target),
+            observed: Some(stamp),
+            registry_checkpoint: self.registry.checkpoint(),
+            historical_only: true,
+            authorizes_removal: false,
+        })
+    }
     pub fn status(
         &mut self,
         r: &Request,
@@ -590,6 +702,15 @@ impl<S: NodeStore> Inspection<'_, '_, S> {
         minimum: &Checkpoint,
     ) -> Result<Status> {
         self.status_with(r, observer, minimum, Meter::new())
+    }
+    pub(crate) fn status_metered(
+        &mut self,
+        r: &Request,
+        observer: &mut Namespace,
+        minimum: &Checkpoint,
+        budget: &crate::protection::budget::Budget,
+    ) -> Result<Status> {
+        self.status_with(r, observer, minimum, Meter::with_budget(Some(budget)))
     }
     fn status_with(
         &mut self,

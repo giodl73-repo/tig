@@ -1,5 +1,21 @@
 # Evidence index
 
+EVID-110: explicit aged paged controller candidate, inputad8b428.
+[Review](../reviews/2026-11-09-paged-age.md) separates exact original proof pins,
+survivor acknowledgement before page completion, shared metadata budgets and
+registry-aware clock-free status. Final eight focused controller fixtures/four
+actual child exits,14 active age entries, independent three-frame aged vectors
+and strict store Clippy pass (36718 terminal zero). The deadline is checked at
+source retirement and final provider live clearance. Earlier default workspace/
+500k/standalone/strict Clippy passes (40940 terminal zero); its test compilation
+precedes the final deadline tightening. All-feature workspace/second500k/strict
+Clippy also passes (39089 terminal zero). Final88 active retirement entries,
+14 active age entries and budget regression plus strict workspace Clippy pass
+under default82844 and all-feature65787 (both terminal zero). Five explicit
+fresh/pinned artifact qualifiers pass in50655. Exact-head hosted checks remain.
+No full native/operator/agent/UI/Action,
+authority/provider/lifetime/metadata-expiry/human acceptance is claimed.
+
 EVID-109: manual paged claim/final-copy execution, implementation4bcd433.
 [Review](../reviews/2026-11-09-paged-controller.md) separates13 controller entries,
 fourteen actual process exits,14 independent frames/key derivations, shared-budget
@@ -8,7 +24,8 @@ retirement entries per feature profile and fresh/old CLI qualifiers. Twenty page
 across17 roots complete with only three approved copy deletions; held/shared bytes
 survive. Metadata-offline cancellation stops before cleanup and reports unknown
 debt. This is manual local synthetic scope; aged/native/operator/UI/Action,
-authority/provider/lifetime/human acceptance and hosted exact-head checks stay open.
+authority/provider/lifetime/human acceptance stay open. Parent exact-headad8b428
+hosted Windows/Linux/secrets run42666621158 passed; PR40 is ready, unmerged.
 
 EVID-108: conditional paged preparation and append-only inherited age,
 implementation2dd9990. [Review](../reviews/2026-11-09-paged-preparation.md)

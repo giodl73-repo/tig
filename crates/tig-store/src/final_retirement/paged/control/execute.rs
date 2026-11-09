@@ -36,6 +36,7 @@ pub enum Stage {
     PageAdmitted(usize),
     PageIntent(usize),
     Source(usize, subset::Stage),
+    AgeAcknowledged(usize),
     PageCompleted(usize),
     Provider(usize, provider::Stage),
     Removed(usize),
@@ -89,6 +90,9 @@ pub struct Report {
     pub excluded_objects: Option<usize>,
     pub metadata_available: bool,
     pub cleanup_unknown: bool,
+    /// An aged source retirement lacks a page completion witness. Inheritance
+    /// may already exist, but this clock-free status has no registry port.
+    pub age_inheritance_unknown: bool,
     pub unreported_holds: usize,
     pub holds: Vec<Held>,
     pub effects: Vec<Effect>,
@@ -125,12 +129,18 @@ pub struct Cancellation<'a, 'b> {
     pub inspection: Inspection<'a, 'b>,
 }
 struct Consent<'a> {
+    age: Option<(&'a dyn provider::Clock, &'a Digest, u64)>,
     budget: &'a Budget,
     basis: &'a claims::Roster,
     allowed: BTreeMap<Digest, Vec<(Key, Command)>>,
 }
 impl<'a> Consent<'a> {
-    fn new(e: &Enrollment, l: &'a Loaded, budget: &'a Budget) -> Result<Self> {
+    fn new(
+        e: &'a Enrollment,
+        l: &'a Loaded,
+        budget: &'a Budget,
+        age: Option<(&'a dyn provider::Clock, u64)>,
+    ) -> Result<Self> {
         let mut allowed = BTreeMap::<_, Vec<_>>::new();
         for (s, p) in &l.steps {
             allowed
@@ -139,6 +149,7 @@ impl<'a> Consent<'a> {
                 .extend(p.commands(e.source(&s.origin.namespace)?)?);
         }
         Ok(Self {
+            age: age.map(|(clock, deadline)| (clock, &e.clock, deadline)),
             budget,
             basis: &l.prepared.basis,
             allowed,
@@ -146,6 +157,7 @@ impl<'a> Consent<'a> {
     }
     fn current(&self, trusted: &claims::Roster, namespaces: &mut [Namespace]) -> Result<()> {
         self.budget.timed()?;
+        self.time()?;
         trusted.id()?;
         if trusted.scope()? != self.basis.scope()? || namespaces.len() != self.basis.members.len() {
             return Err(Error::Authority);
@@ -178,9 +190,19 @@ impl<'a> Consent<'a> {
         self.budget.timed()?;
         Ok(())
     }
+    fn time(&self) -> Result<()> {
+        if let Some((clock, id, deadline)) = self.age {
+            let now = clock.bounds(id)?;
+            if now.earliest < deadline || now.latest < now.earliest || now.latest > MAX_NUMBER {
+                return Err(Error::Authority);
+            }
+        }
+        Ok(())
+    }
 }
 impl provider::Condition for Consent<'_> {
     fn check(&self, c: &claims::Clearance<'_>) -> provider::Result<()> {
+        self.time().map_err(|_| provider::Error::Clock)?;
         self.budget
             .timed()
             .map_err(|_| provider::Error::Claims(claims::Error::Budget))?;
@@ -361,6 +383,7 @@ impl Observation<'_, '_> {
             excluded_objects: None,
             metadata_available: loaded.is_some(),
             cleanup_unknown: loaded.is_none(),
+            age_inheritance_unknown: e.age.is_some() && loaded.is_none(),
             unreported_holds: 0,
             holds: Vec::new(),
             effects,
@@ -410,6 +433,8 @@ impl Observation<'_, '_> {
             r.cancelled_pages = Some(cancelled);
             r.historical_retired_pages = (!source_unknown).then_some(retired);
             r.cleanup_unknown |= source_unknown;
+            r.age_inheritance_unknown = e.age.is_some() && (source_unknown || retired > completed);
+            r.cleanup_unknown |= r.age_inheritance_unknown;
             let (mut deleted, mut pending) = (0, 0);
             let mut provider_unknown = false;
             for (i, p) in l.actions.iter().enumerate() {
@@ -498,12 +523,15 @@ impl Inspection<'_, '_> {
         metadata_peak(self.enrollment, d, self.jobs, self.witness, &l)
     }
     pub fn status(&mut self, d: &Decision) -> Result<Report> {
-        self.metadata_identity()?;
         let budget = Budget::new(
             &self.limits.source,
             self.limits.writes,
             self.limits.write_bytes,
         )?;
+        self.status_metered(d, &budget)
+    }
+    pub(super) fn status_metered(&mut self, d: &Decision, budget: &Budget) -> Result<Report> {
+        self.metadata_identity()?;
         bound(
             self.enrollment,
             d,
@@ -522,7 +550,7 @@ impl Inspection<'_, '_> {
                     d,
                     &mut Nodes {
                         inner: m,
-                        budget: Some(&budget),
+                        budget: Some(budget),
                     },
                     self.limits,
                 )
@@ -556,6 +584,8 @@ impl NodeStore for NoNodes {
     }
 }
 struct Runtime<'a, 'b> {
+    age: Option<aged::Context<'a>>,
+    age_deadline: Option<u64>,
     budget: Budget,
     started: Instant,
     e: &'a Enrollment,
@@ -616,7 +646,30 @@ impl Execution<'_, '_> {
         finals: &FinalAuthorization,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Report> {
+        self.apply_with_age(d, claims, finals, None, hook)
+    }
+    /// Execute an explicitly aged decision through the same durable controller.
+    pub fn apply_aged(
+        &mut self,
+        d: &Decision,
+        claims: &ClaimAuthorization,
+        finals: &FinalAuthorization,
+        age: aged::Context<'_>,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Report> {
+        self.apply_with_age(d, claims, finals, Some(age), hook)
+    }
+    fn apply_with_age(
+        &mut self,
+        d: &Decision,
+        claims: &ClaimAuthorization,
+        finals: &FinalAuthorization,
+        age: Option<aged::Context<'_>>,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Report> {
         Runtime {
+            age,
+            age_deadline: None,
             budget: Budget::new(
                 &self.limits.source,
                 self.limits.writes,
@@ -645,6 +698,8 @@ impl Execution<'_, '_> {
         finals: &FinalAuthorization,
     ) -> Result<Report> {
         Runtime {
+            age: None,
+            age_deadline: None,
             budget: Budget::new(
                 &self.limits.source,
                 self.limits.writes,
@@ -676,6 +731,8 @@ impl Cancellation<'_, '_> {
     ) -> Result<Report> {
         let i = &mut self.inspection;
         Runtime {
+            age: None,
+            age_deadline: None,
             budget: Budget::new(&i.limits.source, i.limits.writes, i.limits.write_bytes)?,
             started: Instant::now(),
             e: i.enrollment,
@@ -788,6 +845,14 @@ impl Runtime<'_, '_> {
         if claims.decision != d.id()? || finals.decision != d.id()? {
             return Err(Error::Authority);
         }
+        if !cancel {
+            if self.e.age.is_some() != self.age.is_some() {
+                return Err(Error::Authority);
+            }
+            if let Some(ctx) = &self.age {
+                aged::boundary(self.e, self.roster, ctx)?;
+            }
+        }
         let w = witness(self.e, d, self.jobs, self.witness, None)?;
         let _guard = w.admit(self.witness.store, self.witness.ledger, self.witness.job)?;
         hook(Stage::Admitted)?;
@@ -827,6 +892,35 @@ impl Runtime<'_, '_> {
         }
         self.time(d)?;
         let loaded = self.loaded(d)?.ok_or(Error::Authority)?;
+        if self.e.age.is_some() != self.age.is_some() {
+            return Err(Error::Authority);
+        }
+        let proofs = if let Some(ctx) = self.age.as_mut() {
+            let metadata = self.metadata.as_deref_mut().ok_or(Error::Authority)?;
+            let mut reader = metadata.finished_reader()?;
+            let proofs = aged::read(
+                self.e,
+                d,
+                &loaded,
+                &mut Nodes {
+                    inner: &mut reader,
+                    budget: Some(&self.budget),
+                },
+                self.limits,
+            )?;
+            proofs.verify(
+                self.e,
+                self.roster,
+                self.namespaces,
+                &mut reader,
+                ctx,
+                &self.budget,
+                Some(self.clock),
+            )?;
+            Some(proofs)
+        } else {
+            None
+        };
         if metadata_peak(self.e, d, self.jobs, self.witness, &loaded)? > self.e.max_metadata_bytes {
             return Err(Error::Budget);
         }
@@ -834,7 +928,7 @@ impl Runtime<'_, '_> {
             let m = self.metadata.as_deref_mut().ok_or(Error::Authority)?;
             m.finished_reader()?;
             let stores = self.places.iter().map(|l| l.store).collect::<Vec<_>>();
-            let fresh = decision::plan(
+            let mut fresh = decision::plan_inner(
                 self.e,
                 d.request.clone(),
                 self.roster,
@@ -846,12 +940,21 @@ impl Runtime<'_, '_> {
                 &stores,
                 self.limits,
             )?;
+            // The retained pinned age proofs above are reverified independently;
+            // new stronger observations cannot rebind the original approval.
+            fresh.age = d.age.clone();
             if fresh != *d {
                 return Err(Error::Stale);
             }
             m.finished_reader()?;
         }
-        let consent = Consent::new(self.e, &loaded, &self.budget)?;
+        self.age_deadline = proofs.as_ref().map(|p| p.deadline(self.e)).transpose()?;
+        let consent = Consent::new(
+            self.e,
+            &loaded,
+            &self.budget,
+            self.age_deadline.map(|deadline| (self.clock, deadline)),
+        )?;
         consent.current(self.roster, self.namespaces)?;
         for p in &loaded.actions {
             let local = self
@@ -878,6 +981,7 @@ impl Runtime<'_, '_> {
             .map(|p| (p.namespace.clone(), p.minimum.clone()))
             .collect::<BTreeMap<_, _>>();
         let mut progressed = 0;
+        let mut inherited = BTreeMap::new();
         for (s, p) in &loaded.steps {
             let pw = witness(self.e, d, self.jobs, self.witness, Some((s, p)))?;
             let ps = pw.state(self.witness.store, self.witness.ledger, self.witness.job)?;
@@ -898,6 +1002,23 @@ impl Runtime<'_, '_> {
                     .is_none_or(|r| r.checkpoint != s.retirement_checkpoint)
                 {
                     return Err(Error::Recovery);
+                }
+                if let (Some(proofs), Some(ctx)) = (&proofs, self.age.as_mut()) {
+                    let id = s.origin.id()?;
+                    let status = proofs.page(
+                        self.e,
+                        s,
+                        p,
+                        &mut self.namespaces[at],
+                        self.metadata.as_deref_mut().ok_or(Error::Authority)?,
+                        ctx,
+                        &self.budget,
+                        inherited.get(&id),
+                        true,
+                    )?;
+                    if let Some(status) = status {
+                        inherited.insert(id, status);
+                    }
                 }
                 pw.close_unused(
                     self.witness.store,
@@ -953,6 +1074,12 @@ impl Runtime<'_, '_> {
                         interrupted = Some(e.into());
                         return Err(subset::Error::Injected);
                     }
+                    if stage == subset::Stage::BeforeRetire
+                        && let Err(e) = consent.time()
+                    {
+                        interrupted = Some(e);
+                        return Err(subset::Error::Injected);
+                    }
                     Ok(())
                 },
             );
@@ -966,6 +1093,25 @@ impl Runtime<'_, '_> {
                 .is_none_or(|r| r.checkpoint != s.retirement_checkpoint)
             {
                 return Err(Error::Recovery);
+            }
+            if let (Some(proofs), Some(ctx)) = (&proofs, self.age.as_mut()) {
+                let id = s.origin.id()?;
+                let status = proofs.page(
+                    self.e,
+                    s,
+                    p,
+                    &mut self.namespaces[at],
+                    self.metadata.as_deref_mut().ok_or(Error::Authority)?,
+                    ctx,
+                    &self.budget,
+                    inherited.get(&id),
+                    false,
+                )?;
+                if let Some(status) = status {
+                    inherited.insert(id, status);
+                }
+                hook(Stage::AgeAcknowledged(s.index))?;
+                self.time(d)?;
             }
             pw.publish(2, self.witness.store, self.witness.ledger, self.witness.job)?;
             pw.close_unused(
@@ -1022,7 +1168,12 @@ impl Runtime<'_, '_> {
         cancel: bool,
         hook: &mut impl FnMut(Stage) -> Result<()>,
     ) -> Result<(Vec<Effect>, Vec<Held>)> {
-        let consent = Consent::new(self.e, l, &self.budget)?;
+        let consent = Consent::new(
+            self.e,
+            l,
+            &self.budget,
+            self.age_deadline.map(|deadline| (self.clock, deadline)),
+        )?;
         let mut effects = Vec::new();
         let mut holds = Vec::new();
         let mut raw_reader = self

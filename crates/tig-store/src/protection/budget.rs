@@ -1,7 +1,10 @@
 //! Call-owned metadata admission across protocol phases; no persistent engine.
 use super::*;
+use std::{ops::Deref, rc::Rc};
 
-pub(crate) struct Budget {
+#[derive(Clone)]
+pub(crate) struct Budget(Rc<Inner>);
+pub(crate) struct Inner {
     limits: Limits,
     start: Instant,
     reads: Cell<usize>,
@@ -10,6 +13,12 @@ pub(crate) struct Budget {
     write_bytes: Cell<usize>,
     max_writes: usize,
     max_write_bytes: usize,
+}
+impl Deref for Budget {
+    type Target = Inner;
+    fn deref(&self) -> &Inner {
+        &self.0
+    }
 }
 impl Budget {
     #[cfg(test)]
@@ -23,7 +32,7 @@ impl Budget {
     }
     pub fn new(limits: &Limits, writes: usize, write_bytes: usize) -> TreeResult<Self> {
         limits.validate().map_err(|_| TreeError::Budget)?;
-        Ok(Self {
+        Ok(Self(Rc::new(Inner {
             limits: limits.clone(),
             start: Instant::now(),
             reads: Cell::new(0),
@@ -32,7 +41,7 @@ impl Budget {
             write_bytes: Cell::new(0),
             max_writes: writes,
             max_write_bytes: write_bytes,
-        })
+        })))
     }
     pub fn timed(&self) -> TreeResult<()> {
         if self.start.elapsed() > Duration::from_millis(self.limits.millis) {
@@ -41,7 +50,7 @@ impl Budget {
             Ok(())
         }
     }
-    fn read(&self, o: &Object) -> TreeResult<()> {
+    pub(crate) fn read(&self, o: &Object) -> TreeResult<()> {
         self.timed()?;
         let reads = self.reads.get().checked_add(1).ok_or(TreeError::Budget)?;
         let bytes = self
@@ -56,7 +65,7 @@ impl Budget {
         self.read_bytes.set(bytes);
         Ok(())
     }
-    fn write(&self, raw: &[u8]) -> TreeResult<()> {
+    pub(crate) fn write(&self, raw: &[u8]) -> TreeResult<()> {
         self.timed()?;
         let writes = self.writes.get().checked_add(1).ok_or(TreeError::Budget)?;
         let bytes = self
@@ -155,6 +164,9 @@ mod tests {
             Err(TreeError::Budget)
         ));
         assert_eq!(budget.usage().0, 2);
+        let same_budget = budget.clone();
+        assert!(matches!(same_budget.read(&object), Err(TreeError::Budget)));
+        assert_eq!(same_budget.usage(), budget.usage());
         assert!(second.get(&Object::from_bytes(b"write")).unwrap().is_none());
     }
 }
