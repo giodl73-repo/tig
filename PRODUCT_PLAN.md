@@ -39,6 +39,12 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [native binding adapter](specs/NATIVE-RETIREMENT-BINDINGS.md) compiles exact
+declared native storage closure into independently aliased flat bindings. The
+metadata-only bind/select CLI maps exact blocks and admitted definition categories
+to existing bulk selections. Qualification is in progress. Recorded supersession
+age remains a separate prerequisite; no input timestamp or Git date grants it.
+
 The [bulk execution interface](specs/BULK-EXECUTION.md) composes exact private
 plan approval, explicit enrolled clock and existing apply/resume/cancel. Inspection
 permissions remain separate; cancellation does not need source metadata or fresh

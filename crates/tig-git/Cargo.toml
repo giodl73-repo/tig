@@ -83,3 +83,8 @@ required-features = ["schema"]
 name = "tig-query"
 path = "src/bin/tig-query.rs"
 required-features = ["schema"]
+
+[[bin]]
+name = "tig-retirement"
+path = "src/bin/tig-retirement.rs"
+required-features = ["schema"]

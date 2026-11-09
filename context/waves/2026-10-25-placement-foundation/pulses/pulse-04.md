@@ -203,3 +203,12 @@ Clippy/fmt/standalone, expanded fresh execution/inspection/ordinary cancellation
 pinned older-writer refusal/legacy control and L0/diff pass. PR #35 stays draft
 pending exact-head hosted qualification. Full pulse/product acceptance stays open.
 No live storage, host-trust adoption, source merge or full acceptance.
+
+Native binding entry: inputc241593; NATIVE-RETIREMENT-BINDINGS.md names
+WP-003/004/007/008/009/010/013/015, REQ-001/002/003/004/005/006/007/009/010,
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-001/003/004/006/008/009 and RUST/GIT/PROVIDER L0/L1/L2. Native storage
+closure, asset-specific flat aliases and exact block/category metadata CLI reuse
+existing trees and source/bulk controllers. Focused/vector/CLI/1000-root and
+actual temporary shared/unique byte effects pass; full qualification and separate
+evidence/six producer closeout remain in progress. Age is not inferred or enabled.

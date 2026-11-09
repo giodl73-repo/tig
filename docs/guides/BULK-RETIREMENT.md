@@ -32,6 +32,11 @@ capacity authorities. The preview binds resolved objects, held reasons, filtered
 historical subsets and eligible provider actions. Shared current/job use and
 unselected aliases remain protected; an empty copy scope produces holds.
 
+For optional native records, [native historical selection](NATIVE-RETIREMENT.md)
+maps an exact block or admitted definition categories to these tuples. It uses
+explicit native binding roots; arbitrary legacy flat paths are never guessed.
+It does not infer retirement age or approve execution.
+
 Read the plan before interpreting counts. Selected bindings and unique objects
 are different, and one object's copies may occupy several stores. Status separates
 selected/eligible unique bytes, planned copy bytes, newly removed logical copy

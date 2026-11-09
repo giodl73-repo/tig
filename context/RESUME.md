@@ -8,7 +8,28 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/bulk-execution, input6f8fdaa. Read specs/BULK-EXECUTION.md.
+- Active lane: feat/native-retirement, inputc241593. Read
+  specs/NATIVE-RETIREMENT-BINDINGS.md. Graph::storage_objects is separate from
+  production inputs; exact root assets receive independent flat bindings for
+  shared objects. Header pins native archive/profile/index; privately admitted
+  header identity permits inspecting owned subsets with changed source context.
+  Metadata-only tig-retirement bind/select uses existing providers and emits
+  exact bulk selections, with default-disabled bind permission and no age fields.
+  Eight focused native integration entries and one independent framing entry
+  pass, including real CLI without Git, aggregate budgets,1000 native roots,
+  conflicting sizes and actual bulk removal of a unique payload while an
+  unselected native alias preserves shared bytes. Four Python framing/path cases
+  pin header/profile/alias identities. Final focused/vector/fmt and strict
+  all-feature/all-target Clippy pass. Review found initial CLI archive acquisition
+  outside its binding budget; build_from_archive now charges both together. The
+  counted-provider regression stops at one read and zero writes. Independent
+  persisted readback is a second bounded phase. Full regressions remain required.
+  No live roots, migration or source adoption is inferred. Next: final source
+  qualification, separate verification/validation/trace/six producer closeout and
+  stacked draft against feat/bulk-execution (#35), then durable age witnesses,
+  full UI/Action/provider/lifetime/authority and eventual metadata retirement.
+
+- Previous lane: feat/bulk-execution, input6f8fdaa. Read specs/BULK-EXECUTION.md.
   Separate tig-storage bulk execute apply/resume/cancel profile binds exact
   admitted_plan, independent inspection enrollment/roster/jobs/minima and default-
   disabled permissions. Apply/resume require explicit LocalClock; Cancellation
@@ -29,8 +50,9 @@ source changes into running tools as a side effect. No startup cache operations.
   cancellation/bulk inspection/expanded execution/pinned old-writer refusal with
   accepted legacy control pass (40830 terminal zero). Both broad suites cover
   final runtime; final Clippy/explicit qualifiers cover later test additions.
-  No runtime changed after6b9016e. Hosted exact-head checks remain pending; derive
-  live PR head/run before readying it. No source merge/deployment.
+  No runtime changed after6b9016e. Exact headc241593 passes Validate42607922877:
+  Windows22m38s, Linux6m18s, secrets6s. PR #35 was marked ready after all three
+  actual results/head were checked; unmerged. No source merge/deployment.
   Next: native exact block/category/age adapters, with independently admitted
   supersession evidence, unknown-age holds, reactivation invalidation and exact
   historical-root/path mapping. Full UI/Action, current authority/restore/host

@@ -11,6 +11,8 @@ pub mod metadata_reader;
 pub mod placement;
 pub mod produced;
 #[cfg(feature = "schema")]
+pub mod retirement;
+#[cfg(feature = "schema")]
 pub mod schema;
 #[cfg(feature = "schema")]
 pub mod updates;

@@ -83,6 +83,12 @@ roots, reserved capacity and independently admitted private profiles are require
 eviction, cancellation and reacquisition are separately disabled by default.
 Historical retirement and current byte availability are reported separately.
 
+The optional [native historical selector](docs/guides/NATIVE-RETIREMENT.md)
+uses `tig-retirement bind/select` to map exact native blocks and admitted
+definition categories to existing bulk selections. Shared objects retain separate
+asset bindings. Binding writes metadata only; source adoption and final deletion
+need their separate authority. Age filtering is not inferred or enabled.
+
 An optional [S3 upload interface](specs/S3-PUBLICATION.md) uses private presigned
 access, conditional PUT and full hash/length readback while preserving the local
 source. Build with the tig-store `s3` feature and start with `tig-storage s3 describe`.

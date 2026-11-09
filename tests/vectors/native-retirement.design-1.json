@@ -1,0 +1,45 @@
+{
+  "method": "independent Python json sort_keys compact ASCII plus hashlib.sha256; paths use raw record and object digests",
+  "cases": [
+    {
+      "kind": "header",
+      "canonical": "{\"assets\":2,\"checkpoint\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"profiles\":{\"bytes\":8,\"sha256\":\"d52fd337f01644a0d2063a040f14c508dbbf4d3a85b040e47f54417b94a4bc54\"},\"roots\":{\"bytes\":9,\"sha256\":\"a4e3c20a327766600f2e45b9b0735d26e2f809088dd323d7a5ad5d71d757dc69\"},\"schema\":\"tig.native-retirement-bindings.design-1\",\"snapshot\":{\"bytes\":7,\"sha256\":\"0eb3e36bfb24dcd9bb1d1bece1531216b59539a8fde17ee80224af0653c92aa3\"}}",
+      "sha256": "d235fce5dd096e696053abbf88db3a37141a17b582765c8dd8e6040e541067e2"
+    },
+    {
+      "kind": "profiles",
+      "canonical": "[{\"class\":\"primary\",\"covered\":[\"production\",\"composition\"],\"definition\":{\"bytes\":10,\"sha256\":\"4c4ed1afbfdaa1e4c3bf7bbb82d730cecb7e384da91eea4f3cc093fd545524d6\"},\"definition_id\":\"types/primary\",\"payloads\":\"SelectedObject\",\"rules\":[]}]",
+      "sha256": "95caf0078dc1714f8a447e29bd9939a0b2435fd737ebe01094f43ba27ecac9e4"
+    },
+    {
+      "kind": "binding_path",
+      "root": {
+        "id": "asset/a",
+        "object": {
+          "sha256": "e12c02249bf145590a804eb574fe92f28cf5bbb95ab536c1fbcfb79d342fa640",
+          "bytes": 8
+        }
+      },
+      "object": {
+        "sha256": "841dc9f62a261b5ac3ca2fd1c6a511b8d0c1c9c5df25a4947994c0a24572b7d7",
+        "bytes": 14
+      },
+      "path": "assets/e12c02249bf145590a804eb574fe92f28cf5bbb95ab536c1fbcfb79d342fa640/841dc9f62a261b5ac3ca2fd1c6a511b8d0c1c9c5df25a4947994c0a24572b7d7"
+    },
+    {
+      "kind": "binding_path",
+      "root": {
+        "id": "asset/b",
+        "object": {
+          "sha256": "93b1bfdf760074cf744d1a2a07121085c93ff2bf4c9510ef53a3946dab02ef89",
+          "bytes": 8
+        }
+      },
+      "object": {
+        "sha256": "841dc9f62a261b5ac3ca2fd1c6a511b8d0c1c9c5df25a4947994c0a24572b7d7",
+        "bytes": 14
+      },
+      "path": "assets/93b1bfdf760074cf744d1a2a07121085c93ff2bf4c9510ef53a3946dab02ef89/841dc9f62a261b5ac3ca2fd1c6a511b8d0c1c9c5df25a4947994c0a24572b7d7"
+    }
+  ]
+}
