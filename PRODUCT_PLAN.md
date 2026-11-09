@@ -505,3 +505,16 @@ release as well as source settlement, and integrate deliberate absence with the
 retained-placement floor. Ordinary keeper/handoff requirements must remain intact;
 lost source demand alone neither releases retained backups nor permits old
 reconciliation to resurrect explicitly retired content.
+
+Priority-7 final-retirement boundary: [the final-retirement contract](specs/FINAL-RETIREMENT.md)
+now separates source settlement, provider grant release, final unlink/cancellation
+and eventual metadata retirement. Its first implementation is content-wide live
+claim clearance across admitted namespace/policy/minimum pins, independent of
+place-local surplus. A job on F can protect the only recovery bytes on M even
+without an M assignment. Exact stronger minima, aggregate metadata bounds and
+scoped fences have synthetic/process/restore/vector evidence in EVID-098.
+The live guard grants no provider release or removal. Canonical final-provider
+formats and old-writer refusal, exact owner consents, budgeted durable intent/
+release/completion/cancellation, deliberate-absence placement, bulk selectors,
+actual reclaim and all lifetime/adoption gates remain required, not implemented
+by this prerequisite. FR-01..15 distinguishes current fixtures from later gates.

@@ -360,3 +360,12 @@ state. Actual default-disabled CLI resume and metadata-offline status execute.
 This is not bulk native/age/category eligibility, payload deletion, custody,
 capacity reclaim, final-deletion cancellation recovery or owner-run acceptance.
 All full VAL outcomes, eventual metadata retirement and live adoption remain open.
+
+EVID-098 contributes a content-protection prerequisite to VAL-002/003/004: the
+last recovery source cannot be declared clear solely because its own place is
+surplus. A job needing another place, any source role or another namespace keeps
+the object protected. Explicit owner retirement of every historical root permits
+only membership clearance, leaving provider grants untouched. Actual process
+fences, restored-prefix refusal and unrelated progress rehearse source protection
+without payload mutation. This is not actual final deletion, grant release,
+bulk/age/native eligibility, cancellation recovery, measured reclaim or acceptance.

@@ -114,3 +114,11 @@ class survivor predecessor before conditional original retirement. Atomic
 Prepare/Adopt/Withdraw exposes no artificial active use. See RETAINED-SUBSET.md
 and EVID-097. These are claim transitions, never payload deletion or full bulk/
 age/native selection. Source/journal lifetime and all later full-plan gates remain.
+
+Final-retirement prerequisite: final_retirement::claims guards object membership
+across a separately admitted content-scope namespace/policy/minimum roster,
+independent of target-place requirements. Shared ancestry checks refuse weaker
+handle minima/restored known history. Roster summaries grant no removal or release.
+FINAL-RETIREMENT.md and EVID-098 separate this bounded implementation from the
+remaining provider format, grant-release/intent/unlink/cancellation executor,
+intentional-absence placement integration, bulk selection and metadata lifetime.

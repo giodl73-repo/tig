@@ -538,3 +538,13 @@ library entries/four admission cases/two CLI cases/six actual new process exits
 and explicit old-reader state/receipt proof -> EVID-097, implementation2fecfab/
 corrective002a850. Implementation, verification, synthetic validation and six
 producer lenses remain separate from full bulk/final-deletion/metadata acceptance.
+
+Final-retirement prerequisite: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+FINAL-RETIREMENT.md -> final_retirement::claims, Namespace::absent_object,
+shared exact SourceJournal minimum ancestry and existing scoped admission/Work ->
+thirteen focused entries, one actual process exit, independent canonical vector,
+real restored-prefix and surplus-M/F-job fixtures -> EVID-098, implementation
+89d260e. Verification, synthetic validation and six producer lenses remain
+separate; the physical final-retirement/bulk/lifetime protocol remains target.

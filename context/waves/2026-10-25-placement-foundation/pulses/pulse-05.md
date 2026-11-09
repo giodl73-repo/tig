@@ -105,3 +105,11 @@ active-use suppression. Focused/CLI/old-reader checks and six actual new exits
 pass; corrected locked default/all-feature workspace and explicit artifact
 qualification pass. Hosted current-head checks remain separate. No payload deletion, full
 bulk selector, metadata retirement, native/provider adoption or full VAL closure.
+
+Final-retirement claim prerequisite: EVID-098 / FINAL-RETIREMENT.md adds live
+content-wide membership clearance with exact namespace/policy/minimum pins.
+All source classes/roles, another-place use, actual restored history and process
+fences execute without grant release or payload mutation. Final-runtime locked
+default/all-feature workspace, focused/vector/old-reader, strict Clippy and L0
+pass. Hosted exact head and the actual final-provider/bulk/lifetime executor,
+native adoption and complete VAL outcomes remain open.

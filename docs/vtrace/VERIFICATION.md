@@ -715,3 +715,18 @@ Corrected locked default/all-feature workspace suites pass in separate targets,
 including both 500,000-binding runs. Explicit fresh-artifact retirement CLI
 cancellation qualification passes. Hosted current-head qualification remains
 separate; no full requirement or live-operation acceptance follows.
+
+## Final-retirement content-scope clearance prerequisite
+
+EVID-098 / FINAL-RETIREMENT.md, implementation89d260e: thirteen focused entries
+include one helper/one actual process exit. A live F job defeats final M deletion
+clearance even when ordinary M-place assessment succeeds. Exact whole-scope
+membership, all source classes/roles, real restored SQLite history, forged minima,
+aggregate limits and nonoverlapping progress pass. Forty-eight source-claim
+regressions and both explicit pinned old-reader qualifiers pass. Final-runtime
+locked default/all-feature workspace suites include passing 500,000-binding cases;
+final independent-vector/focused and strict Clippy checks pass after runtime
+changes, alongside standalone Git/fmt/L0. Hosted exact-head qualification remains
+separate. This verifies no provider release, deletion, bulk or lifetime executor.
+Explicit ordinary-retirement CLI cancellation qualification also passes against
+the fresh final-runtime all-feature artifact; no ordinary keeper rule is weakened.

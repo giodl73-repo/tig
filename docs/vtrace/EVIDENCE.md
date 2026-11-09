@@ -1075,3 +1075,32 @@ secrets success and Windows in progress at observation. No payload IO, full bulk
 last-copy deletion, native/private coverage, metadata expiry, authority/lifetime,
 actual provider adoption or user acceptance is established. Six roles are producer
 lenses, not independent review. Full requirements and the complete goal remain open.
+
+## EVID-098: Content-wide live claim clearance for final retirement
+
+Input59174b1; implementation89d260e. FINAL-RETIREMENT.md defines the full
+remaining protocol separately from current final_retirement::claims. Thirteen
+focused entries (one child helper/one actual exit) pass: all four source classes
+and three roles, current/history sharing, another namespace/owner, ordinary M
+surplus despite an F job, exact rosters/minima, unknown/corrupt closure, budgets,
+marker drift and partial-lock cleanup. Actual restored SQLite history loses an
+acknowledged target claim but fails the stronger admitted minimum; a forged hash
+also refuses. Known minima do not prove absence of every globally unseen rollback.
+
+Final-runtime locked default/all-feature workspace suites pass in separate
+external targets, including both 500,000-binding runs. Forty-eight active
+source-claim regressions and both explicitly executed pinned old-reader qualifiers
+pass. The independent ASCII/Python canonical/hashlib vector and final focused
+thirteen entries are explicitly qualified after runtime changes; final strict
+workspace all-feature/all-target Clippy, standalone Git, fmt and portable L0 pass.
+The explicit ordinary-retirement CLI cancellation qualifier passes against the
+fresh final-runtime all-feature binary, independently of ordinarily ignored tests.
+No frontend script changed or new Node/restore evidence is claimed for this slice.
+Hosted exact implementation/closeout-head qualification remains separate.
+
+../reviews/2026-11-09-final-retirement-claims.md records six producer lenses,
+synthetic validation and residual gates. Clearance owns live namespace fences,
+not a provider fence or removal/grant-release authority. No new provider/journal
+format, final unlink, owner grant release, bulk age/native/category selector,
+intent/cancellation executor, capacity reclaim, metadata expiry or user acceptance
+is implemented. FR-06..15 and the complete plan remain open.

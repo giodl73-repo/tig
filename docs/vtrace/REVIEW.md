@@ -1520,3 +1520,12 @@ Pass_with_risk for bounded claim settlement and named local checks. Corrected
 locked default/all-feature workspace suites and explicit retirement/old-reader
 artifact qualifiers pass. Hosted current-head checks, independent/human acceptance,
 complete final deletion, metadata retirement and full-product gates remain open.
+
+Final-retirement claim review, input59174b1/implementation89d260e: FC-01..06
+in ../reviews/2026-11-09-final-retirement-claims.md apply six producer lenses.
+Place-local surplus is insufficient for final loss; live content membership and
+stricter minimum ancestry now hold across an independently admitted whole scope.
+EVID-098 separates final-runtime workspace, focused/vector/old-reader verification
+and synthetic validation from implementation. Pass_with_risk for this bounded
+guard; design-only for provider release/unlink and later FR-06..15. Hosted exact
+head, independent/human acceptance and the complete plan remain open.

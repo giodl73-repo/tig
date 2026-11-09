@@ -8,39 +8,55 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/retained-subset, input63f2c96, implementation2fecfab and
-  corrective002a850, stacked draft PR #28. Read specs/RETAINED-SUBSET.md for
-  controls/entry/exit. Generic library and default-disabled tig-source subset
-  plan/status/apply/resume protect unselected flat history before exact owner
-  retirement. Policy review caught transient active-use suppression; atomic
-  Prepare/Adopt/Withdraw now exposes only historical survivor state, without new
-  event bytes. Draft-only plan/effect design-2 refuses earlier fixture plans.
-  Fourteen subset library entries include a child helper/explicit old-reader
-  qualifier; four new admission cases and two actual CLI cases pass. Focused
-  source claims pass 48 active entries/two ordinarily ignored qualifiers; both
-  old-reader qualifiers explicitly pass. Six new actual process exits, sparse
-  4,096-binding replacement, shared/foreign/job/stale/unknown cases execute.
-  Final strict workspace Clippy, standalone Git, fmt, 70 Node flows and three
-  restore helpers pass. Corrected locked default/all-feature workspace suites
-  pass in separate external targets/logs workspace-atomic.txt, including both
-  500,000-binding runs. Explicit retirement CLI cancellation qualification also
-  passes with a fresh all-feature artifact. No runtime code changed after002a850.
-  Hosted corrective run42558349597 has Linux/secrets success and Windows in
-  progress at observation; closeout creates another head, derive exact later run.
-  EVID-097 separately records verification/validation/trace/six producer lenses.
-  Next: finish current local/hosted qualification and keep PR draft until all
-  checks pass; continue bounded bulk retirement selection, exact final-deletion
-  intent/authority/execution and cancellation recovery, then metadata/replay
-  lifetime. Full lifecycle/native/authority/provider/large-file/user acceptance
-  remain open. One new source per partial batch consumes finite lifetime slots.
-  No live cache/hook/consumer or payload-deletion capability is attached.
-  Before final-deletion implementation, freeze provider-retention grant release
-  alongside source settlement: retirement::Execution requires retained keepers,
-  and retention handoff requires a successor. Do not permit empty keepers or
-  weaken ordinary eviction. Explicit last-copy intent must also inform retained
-  placement floors, so old known objects cannot be silently rehydrated after
-  deliberate final retirement. Existing birth/new-operation fencing is necessary
-  but not full final-deletion authority or cancellation recovery.
+- Active lane: feat/final-retirement, input59174b1, implementation89d260e,
+  stacked draft PR #29. Read specs/FINAL-RETIREMENT.md for controls/entry/exit,
+  the current claim-clearance port and remaining destructive protocol gates.
+  final_retirement::claims admits a complete content-scope namespace/policy/
+  minimum roster, holds all existing subject fences and refuses any source-root
+  membership, independent of target-place surplus. A job on F blocks final M
+  loss; another authority outside the target store binding still protects it.
+  Exact trusted minima share the journal-open ancestry check: an actual restored
+  SQLite prefix and forged checkpoint refuse even with weaker supplied handles.
+  Roster summaries grant neither provider release nor removal. Thirteen focused
+  entries (one helper/one actual exit), 48 active source-claim regressions and
+  both explicit pinned old-reader qualifiers pass. Final-runtime locked default/
+  all-feature workspace suites pass in separate external targets, including both
+  500,000-binding metadata runs. The independent ASCII canonical/hashlib vector
+  is test-only and explicitly qualified in the final thirteen-entry focused run;
+  final strict workspace Clippy, standalone Git, fmt and L0 pass.
+  Explicit ordinary-retirement CLI cancellation qualification also passes with
+  the fresh final-runtime all-feature binary. No frontend script changed; no new
+  local Node/restore run is claimed. No runtime code changed after89d260e.
+  Hosted implementation run42563093756 at89d260e has Linux/secrets success and
+  Windows running at observation; derive later exact-head status. The
+  closeout creates another head, so derive current exact-head checks from PR #29.
+  EVID-098 separates verification/validation/trace/six producer lenses. Keep the
+  draft until all exact-head checks pass. No full requirement or goal is done.
+  Next: pin canonical final-capable provider formats and old-writer refusal,
+  then implement exact owner-consented provider-grant release and durable final
+  intent/release/completion/cancellation under this live clearance plus the
+  provider/incarnation guard. Preserve ordinary keeper/handoff requirements.
+  Use existing accounted metadata/ledger and LocalStore; no new cache engine,
+  no silent design-7 upgrade, no live stores. Complete the actual release/unlink
+  crash/clock/authority/cancellation matrix before enabling final removal.
+  Integrate deliberate absence with retained-placement floors so old known
+  objects cannot be silently rehydrated; fresh final reacquisition needs separate
+  explicit authority and a new birth. Bulk source/age/category/native selection,
+  metadata lifetime/epoch handoff, full lifecycle/provider/large-file and human
+  acceptance remain required. FR-06..15 are unexecuted later gates, not closed
+  by the current claim guard. Foundation continues with synthetic fixtures only.
+
+- Previous lane: feat/retained-subset, implementation2fecfab/corrective002a850,
+  closeout59174b1, PR #28 ready after exact-head run42559095758 Windows/Linux/
+  secrets all succeed. It was marked ready only after those results were read.
+  RETAINED-SUBSET.md and EVID-097 scope same-owner/class historical survivor
+  protection before exact original predecessor retirement. Atomic history avoids
+  transient active-use suppression without new source event bytes. Local locked
+  default/all-feature suites, strict Clippy/standalone, focused/process/CLI,
+  both old-reader qualifiers, explicit retirement CLI cancellation, Node/restore
+  and L0 passed. One source per partial batch consumes finite lifetime slots.
+  No payload deletion, full bulk selector, final-provider release or metadata
+  expiry was implemented. Derive later merge state live; no PR is merged here.
 
 - Previous lane: feat/source-settlement, implementation51c5acc, closeout63f2c96,
   PR #27 ready after exact-head Validate42554592615 Windows/Linux/secrets and

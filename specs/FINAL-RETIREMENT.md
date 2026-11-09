@@ -46,6 +46,8 @@ content scope. Missing/extra/substituted handles, unknown scope, policy mismatch
 unavailable authorities or unresolved authority handoff hold. A caller-supplied
 coverage digest identifies the admitted declaration; hashing it is not proof of
 global completeness. Unmanaged writers/pruners require an explicit boundary.
+The executor must match the scope digest to its independently enrolled final
+policy; a request-provided digest cannot grant itself authority.
 Each namespace pin includes an independently admitted trusted minimum checkpoint.
 Refresh and verify exact checkpoint ancestry even when a supplied handle was
 opened against a weaker minimum. Revalidate the observed checked checkpoint
@@ -73,6 +75,13 @@ the full roster-profile digest includes them. Advancing trusted minima is also
 excluded from the authority-scope digest and retained in the concrete profile.
 A changed scope needs independent
 admission; increasing a read budget cannot grant deletion authority.
+Excluding minima from the scope hash must never let a request lower privately
+admitted witnesses. The executor constructs the concrete roster from its trusted
+profile/current witness source, then enforces any additional exact plan minima;
+it does not accept request-chosen weaker minima merely because a scope hash
+matches. Scope equality does not authenticate the concrete roster or make an
+old private profile globally current. Missing current authority/witness admission
+holds the destructive executor.
 The aggregate counters cover tree metadata, not SQL journal replay. Each of at
 most sixteen journals retains its existing 16,384-command / 16 MiB replay bound.
 
@@ -167,6 +176,9 @@ does not imply power-loss, native quota or hostile-filesystem safety.
 | Bytes absent under exact durable intent/release evidence | Recover observed authorized absence and historical effects; do not claim successful rollback, fresh deletion or complete current protection. A new claim may now be protected-but-unavailable. |
 | Current birth/placement differs | Never act on the new incarnation. Recover only exact old historical outcomes, otherwise report stale/uncertain. |
 
+Cancellation is an exact current-owner/control decision. Expired deletion consent
+grants no new unlink and does not itself prevent safe current-owner cancellation.
+Recovery of recorded historical effects is not fresh deletion approval.
 Cancellation before release must not itself release grants. A durable release
 marker cannot become valid after a pre-release cancellation. Interrupted grant-
 file cleanup remains exactly resumable; missing evidence without an authorized
