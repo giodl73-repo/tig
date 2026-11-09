@@ -2419,13 +2419,13 @@
     },
     {
       "path": "specs/LOCAL-CLOCK.md",
-      "bytes": 4810,
-      "sha256": "72b4703ed5b769925a3c55e725582c96775ce850f8fd7913cbb2109ea0e9ff2b"
+      "bytes": 4733,
+      "sha256": "9725cb6e4f4963e34496558e46c754db1d442436f73fc59ac31a5b3924e8fc3a"
     },
     {
       "path": "tests/vectors/local-clock.design-1.json",
-      "bytes": 2617,
-      "sha256": "f4efcc59934f96a0ad62c99a048711755b3aab53a52d91c26a103dea093748cc"
+      "bytes": 2586,
+      "sha256": "f705d747124a5d287c67d0f7ea2343169b68030854938112dce791b4c03033fe"
     }
   ]
 }

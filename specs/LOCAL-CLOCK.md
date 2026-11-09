@@ -44,10 +44,8 @@ Each fresh call samples OS wall time and monotonic marks, persists its lower
 timestamp, then resamples after commit. Backwards monotonic/wall movement,
 excessive sampling/commit latency, drift against the invocation anchor, invocation
 expiry, missing/corrupt/spent evidence or failed persistence grant no time.
-No replayed journal result is returned as a fresh clock observation. Reopening
-never treats out-of-format native timestamps as recordable values: both interval
-ends must fit the existing canonical-number contract before any append.
-Reopening
+No replayed journal result is returned as a fresh clock observation. Both interval
+ends must fit the existing canonical-number contract before any append. Reopening
 may start a new monotonic anchor but cannot reset the durable floor or weaken the
 independently supplied minimum.
 
