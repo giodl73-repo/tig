@@ -22,8 +22,12 @@ to verified persistent metadata and atomically adopted desired claims. Duplicate
 stale, revert and active-job/history behavior have synthetic Git fixtures. Source
 journals reuse existing Prepare/Adopt event bytes in one transaction; status
 preserves historical receipts independently of Git/metadata availability.
-Physical convergence and an authenticated GitHub trigger remain required. See
-specs/GIT-LIFECYCLE-RECONCILIATION.md; provider integration, bulk final deletion,
+The explicit tig-lifecycle reconcile command now composes bounded local copy,
+retention/handoff, ordinary eviction, cancellation and exact-byte reacquisition
+through tig-store::placement. EVID-093 scopes temporary Git/store qualification;
+page success does not establish complete selection convergence. See
+specs/PLACEMENT-RECONCILIATION.md. Authenticated triggers, full lifecycle/native/
+provider adoption, unattended partial recovery, large files, bulk final deletion,
 authority handoff and lifetime remain required plan work.
 
 Existing-byte readers and explicit local publication/restore/retention primitives

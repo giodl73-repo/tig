@@ -129,3 +129,13 @@ REQ-001/002/004/005/007/009, SPEC-002/004/005/006/008;
 IF-002/004/005/006/008, PKG-001/003. EVID-085 records bounded actual journal/root
 projection and snapshot-to-copy integration. The View adapter still holds removal;
 effective mandatory admission and intentional-absence recovery remain open.
+
+Local placement composition checkpoint: inputa678381, implementation7432739;
+controls and GIT/PROVIDER L0/L1/L2 in specs/PLACEMENT-RECONCILIATION.md. EVID-093
+separately records sixteen placement entries, two projection cases, twelve Git/
+CLI entries, broad/final-focused qualification and six producer lenses. Existing
+mechanisms now compose bounded copy/retain/handoff/ordinary eviction/cancellation/
+reacquisition, including job-end/no-op/outage catch-up. The pulse remains open:
+trusted triggers, full lifecycle/native/provider adoption, large files, unattended
+partial recovery, authority/lifetime, final deletion and metadata expiry are not
+closed by this temporary-store checkpoint.

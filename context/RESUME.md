@@ -8,10 +8,11 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/git-placement, inputa678381, local placement
+- Active lane: feat/git-placement, inputa678381, implementation7432739, local placement
   reconciliation through existing store mechanisms and `tig-lifecycle reconcile`.
-  specs/PLACEMENT-RECONCILIATION.md freezes controls/scope/entry/exit. Ten placement
-  entries initially passed; final focused coverage is sixteen placement entries
+  specs/PLACEMENT-RECONCILIATION.md freezes controls/scope/entry/exit. EVID-093
+  separately records local verification, synthetic validation, trace and all six
+  producer lenses. Final focused coverage is sixteen placement entries
   (one child helper, one real process exit), two namespace-projection cases and twelve
   Git lifecycle entries, including renewed-demand cancellation, unexplained
   managed-copy refusal, byte budgets, real merge, cursor handling and completion
@@ -23,8 +24,9 @@ source changes into running tools as a side effect. No startup cache operations.
   each pass 262 active entries (two ignored), default lifecycle passes twelve,
   strict Clippy passes and both ignored cross-artifact qualifiers explicitly pass.
   The pre-pair reader was rebuilt from clean pinned inputd81cabe. Local broad
-  default workspace passed before the final focused corrections. Next: separate
-  implementation and EVID/review closeout, then hosted current-head qualification.
+  default workspace passed before the final focused corrections. Implementation
+  and evidence/review closeout are separate commits. Next: publish the stacked
+  draft PR and inspect hosted current-head qualification; derive its state live.
   Private partial cleanup remains explicit; CLI requires roots open at entry;
   page success alone does not establish full selection convergence.
 

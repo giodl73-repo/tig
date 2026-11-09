@@ -309,3 +309,16 @@ local witnesses preserve source instead of granting custody or deleting copies.
 This is a protocol/component rehearsal, not actual AWS/account/operator acceptance,
 retained backup or end-to-end Git lifecycle validation. LFS upload, full policy/
 claim coverage, live providers, bulk final deletion and metadata lifetime stay open.
+
+EVID-093 contributes temporary-store operator rehearsal to VAL-002/003: a real
+merge to main selects new bytes, reconciles retained backup/working/history
+placements and supports exact old-byte reacquisition on revert. A separate
+fixture keeps old working bytes for a job and demotes them after job withdrawal;
+another exits an actual process after backup publication, then resumes without
+the original source. Shared objects, reader/late-demand holds, known lost
+acknowledgements, backup outage/catch-up and independent permissions are visible.
+These are generic synthetic consumer rehearsals, not user UX acceptance, actual
+F/D/M enrollment, independently qualified devices, trusted GitHub automation or
+full lifecycle/native semantics. Page success remains scoped; full selection
+aggregation, unattended partial recovery and the later final-deletion/metadata/
+large-file/lifetime milestones remain required. Full VAL outcomes stay planned.

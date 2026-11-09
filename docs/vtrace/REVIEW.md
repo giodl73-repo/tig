@@ -1442,3 +1442,34 @@ EVID-092 separately records local verification, synthetic validation and trace.
 Disposition: pass_with_risk for committed-ref selection only. Full automatic
 copy/retention/eviction, authenticated trigger, branch/draft/index/native/provider
 adoption and large-file/lifetime/subset/authority/final-deletion work remain open.
+
+## Local placement reconciliation producer review
+
+Inputa678381; implementation74327391d8c53e3fe9295ba5a19c3a34b7dbe985.
+Controls, exact targets, allowed scope and GIT/PROVIDER L0/L1/L2 are in
+[PLACEMENT-RECONCILIATION](../../specs/PLACEMENT-RECONCILIATION.md). Targets:
+requirements projection, placement plans/executor, existing receipt/origin
+inspection helpers, explicit committed-ref composition and synthetic fixtures.
+Method: one producer applies all six .roles checklists against current model,
+safety, source/provider contracts and executed evidence. Owner of each finding:
+Tig maintainer using the named role. No independent review, user acceptance or
+live-operation authority is implied.
+
+| Finding / role | Severity | Disposition and evidence | Remaining gate |
+| --- | --- | --- | --- |
+| LP-01 Identity and Namespace | High, resolved for bounded placement | Exact object/provider/generation/authority/job and source-policy pins; current plan rows are recomputed. Run budgets/order cannot mint new copies. Unexplained managed placements and changed plans hold. | Authority/namespace migration and complete restore witnesses. |
+| LP-02 Placement Policy | High, resolved for declared scope | Resolve active/history precedence per namespace, then physical union; shared current/job bytes avoid advisory history. Aggregate compiler work spans all namespaces. A snapshot is never a removal lease. | Full branch/draft/index/native source integration and incremental scale. |
+| LP-03 Storage and Custody | Critical, resolved for ordinary local removal | Backup retention precedes cache ingest handoff; required cache readers and existing retained keeper/all-namespace fences span source removal. Offline or missing acknowledged backup blocks eviction. Retained-role copies are never automatically deleted. | Real provider/domain qualification, large files, measured reclaim and separate final-deletion authority. |
+| LP-04 Concurrency and Recovery | Critical, corrected for process restart | Late claims/readers block removal while other objects progress. Actual child exit resumes from backup. Cancellation preserves original placement/publication; effects now report the actual birth transition. Keeper choice is stable across provider reordering. | Unattended private-partial recovery, sustained journals, epoch handoff and power-loss proof. |
+| LP-05 Provider and Privacy | High, retained external boundary | Private strict profiles, independent default-disabled permissions and source-profile digest; requests supply no machine paths or authority. Missing entry roots hold without initialization. No runner/hook/daemon is installed. | Authenticated external trigger and independent executor OS authority; offline enrollment and live adoption. |
+| LP-06 Git and Adoption | High, corrected convergence scope | Real main merge/copy/demotion/revert CLI flow and no-op provider retry pass. Historical selection, observed ref, desired basis and physical page remain separate. Cursor pages report global convergence unknown. | Complete same-basis orchestration, user/UX acceptance and remaining priority-6/later milestones. |
+
+EVID-093 separately records verification, synthetic validation and trace. L0 and
+local scoped qualification pass with the exact broad/final-focused timing in
+that evidence. Sixteen placement entries include one child helper and one actual
+exit; two new projection cases and twelve real Git/CLI cases pass. Both ignored
+artifact qualifications are executed explicitly, not credited from ignored rows.
+Disposition: pass_with_risk for the 8 MiB/process-restart local composition only.
+Hosted current-head verification, independent/human review and full requirements
+remain open. Total hash IO/free-space reclaim are not fabricated from stream or
+unlink counts. This checkpoint does not close the whole product plan.

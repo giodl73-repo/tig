@@ -440,8 +440,9 @@ enrolled committed ref, then reconciles one bounded page even for a no-op select
 Stable copy identities survive later source changes and run-budget adjustments.
 Temporary-store fixtures exercise replacement, job-end demotion, shared bytes,
 backup outage/catch-up, reader and late-claim holds, process exit, exact old-byte
-reacquisition, pagination and CLI defaults. Full workspace qualification/closeout
-is in progress. Trusted external triggers, branch/draft/index/native integration,
+reacquisition, pagination and CLI defaults. EVID-093 separately records local
+qualification, synthetic validation, trace and six-role producer review; hosted
+current-head checks remain separate. Trusted external triggers, branch/draft/index/native integration,
 unattended private-partial recovery, offline enrollment, aggregate verification IO,
 large-file/provider qualification and lifetime remain required. This does not
 complete priority 6 or enable live storage operations.

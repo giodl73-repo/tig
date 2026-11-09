@@ -860,3 +860,58 @@ copy/retention/eviction, a trusted GitHub receiver, full branch/draft/index/nati
 coverage, independently retained custody, user acceptance or live adoption.
 Full priority 6 and later bulk final deletion/subset handoff, authority migration,
 metadata expiry, large-file and journal continuation gates remain required.
+
+## EVID-093: bounded local placement and committed-ref composition
+
+Input a6783814c22c5d1de01a95fb026f05e8bd8c400b; implementation
+74327391d8c53e3fe9295ba5a19c3a34b7dbe985. Scope/controls/entry/exit and
+GIT/PROVIDER L0/L1/L2: [PLACEMENT-RECONCILIATION](../../specs/PLACEMENT-RECONCILIATION.md).
+Generic tig-store requirements/pages reuse existing accounted publication,
+retention/handoff, managed retirement/cancellation/reacquisition and scoped
+all-namespace/provider fencing. No new persistent journal or event encoding.
+
+Executed local evidence, in external build/temp roots:
+
+- `cargo test -p tig-store --lib --all-features --locked placement::tests -- --nocapture`:
+  sixteen entries, including one child helper and one actual process exit after
+  backup publication. Replacement, job-end demotion, shared bytes, backup outage/
+  catch-up, known acknowledged loss, late claim, reader hold with unrelated object
+  progress, renewed-demand cancellation, original publication recovery, bounded
+  streaming, untracked managed-copy refusal, pagination and provider-order reuse.
+- `cargo test -p tig-store --lib --locked source_claims::admission::tests::placement_requirements -- --nocapture`:
+  two new projection/aggregate-budget cases. Current/history precedence is projected
+  without commands; incomplete closure holds and namespaces share one work budget.
+- `cargo test -p tig-git --test lifecycle --all-features --locked -- --nocapture`:
+  twelve actual Git/CLI entries, including three added operator composition cases.
+  A real merge to main copies/retains/demotes, a no-op needs no original source,
+  and revert reacquires exact old bytes. Private permissions default disabled;
+  source-profile drift and stale cursors refuse. Final default lifecycle also
+  passes all twelve entries.
+- Broad locked default and all-feature workspace suites pass. The default broad
+  build preceded final focused corrections; the successful all-feature broad
+  build preceded the last deterministic-keeper ordering correction. Final default
+  and all-feature store library runs each pass 262 active entries, with two ignored
+  qualifiers, after that correction. The last reader-progress assertions were
+  followed by all sixteen placement entries. Final strict all-feature/all-target
+  workspace Clippy, standalone Git check, fmt, validator/pins and diff checks pass.
+- `cargo build --workspace --all-features --bins --locked`, then explicit
+  `retirement::tests::explicit_cli_pending_cancellation_qualification -- --ignored --exact`
+  with the fresh TIG_RETIREMENT_CLI succeeds. Clean pinned inputd81cabe rebuilt
+  tig-source separately; explicit
+  `source_claims::admission::tests::baseline_cli_replays_atomic_pairs_without_format_migration -- --ignored --exact`
+  with TIG_BASELINE_SOURCE_CLI succeeds. Ordinary ignored entries are not proof.
+
+Review corrected cancellation effect reporting and deterministic keeper selection
+across provider reordering; a new fixture's unsupported bare managed publication
+was replaced with actual accounted publication. Failures were fixed and rerun.
+Serialized page requirements are recomputed before admission/current convergence;
+page success cannot claim complete selection convergence. Logical unlink and
+pre-unlink allocation remain distinct from free-space reclaim and total hash IO.
+
+All data, repositories, providers and faults are synthetic. This qualifies bounded
+local process-restart composition, not native failure-domain independence, power
+loss, authenticated external triggers, full branch/draft/index/native coverage,
+unattended partial cleanup, offline enrollment, aggregate verification IO, large
+files, sustained journal continuation, final deletion or metadata expiry. Hosted
+current-head checks and user/live adoption remain separate. Full requirements,
+VAL outcomes and the remaining roadmap milestones stay open.

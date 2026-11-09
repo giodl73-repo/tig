@@ -485,3 +485,15 @@ cases, six added admission pair cases and separate pinned pre-pair reader test -
 EVID-092, implementationfc3c57f. Verification, synthetic intended-use rehearsal
 and six producer lenses close separately. Full priority-6 provider/trigger and
 branch/draft/index integration plus later roadmap milestones remain open.
+
+Local placement reconciliation: WP-003/004/005/006/007/008/009/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/008/009 ->
+PLACEMENT-RECONCILIATION.md -> readonly namespace requirements, generic bounded
+placement executor and explicit tig-lifecycle reconcile over existing effect ports
+-> sixteen placement entries, two projection cases, twelve Git/CLI entries and
+separate artifact qualifications -> EVID-093, implementation7432739. Verification,
+synthetic intended-use rehearsal and six producer lenses close separately. Full
+priority 6, trusted triggers, branch/draft/index/native adoption, unattended partial
+recovery, provider/large-file/lifetime, bulk final deletion and metadata expiry
+remain required. No requirement or full-system VAL outcome is marked complete.

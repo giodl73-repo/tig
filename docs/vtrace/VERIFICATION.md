@@ -635,3 +635,25 @@ the final lifecycle status/discovery adjustment was followed by all nine focused
 cases and strict all-target/all-feature Clippy. Other package implementations
 were unchanged. Hosted current-head suites and complete physical lifecycle,
 trigger authentication, native/provider/large-file/lifetime acceptance remain open.
+
+## Bounded local placement composition
+
+EVID-093 / PLACEMENT-RECONCILIATION.md, implementation7432739: sixteen placement
+entries (one child helper/one actual exit), two new requirements-projection cases
+and twelve real Git/CLI lifecycle entries pass. The real main merge connects
+selection -> verified backup/cache -> history demotion -> ordinary unlink ->
+exact-byte reacquisition. Reader/late-claim holds, backup outage, missing known
+acknowledgement, cancellation, original publication/keeper reuse and byte budgets
+remain explicit. Current plan requirements are recompiled; providers/namespace
+pins and run bounds are validated independently of event input.
+
+Broad default/all-feature workspace suites pass within EVID-093's exact source
+timing: the last keeper-order correction was followed by final default/all-feature
+store library suites (262 active entries, two ignored), default lifecycle (twelve),
+and strict all-feature/all-target workspace Clippy. The final test-only reader
+assertions were followed by sixteen placement entries. Standalone Git, fmt,
+portable L0/pins/diff and both separately executed cross-artifact qualifiers pass.
+Hosted current-head verification remains separate. This is component/temporary
+provider proof; full system safety, independent native custody, trusted events,
+large files, lifetime/restore authority, final deletion and metadata expiry remain
+open. Detailed limitations and remaining entry gates are in the scoped contract.

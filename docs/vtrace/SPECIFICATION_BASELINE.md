@@ -200,3 +200,12 @@ new experimental plan/profile/status documents remain distinct. Atomic adoption
 is desired protection, never byte/custody/convergence acknowledgement. Old-reader
 qualification uses a pinned pre-pair artifact separately from ordinary tests.
 The full Git lifecycle/provider execution and trigger boundary remain open.
+
+The bounded local placement composition extends those same controls under
+[PLACEMENT-RECONCILIATION](../../specs/PLACEMENT-RECONCILIATION.md), inputa678381.
+Readonly requirements and explicit operator pages reuse existing event, accounted
+publication, retention/handoff and managed incarnation/removal contracts. No new
+journal encoding exists. Current private enrollment/page/report documents remain
+experimental; page convergence is not full selection convergence. EVID-093 scopes
+temporary-store verification separately from external trigger, native/provider/
+large-file/lifetime, final-deletion and metadata-retirement requirements.
