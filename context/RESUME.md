@@ -8,7 +8,7 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/final-provider, input273e639.
+- Active lane: feat/final-provider, input273e639, implementation9f5e8c0.
   Read specs/FINAL-PROVIDER.md and FINAL-RETIREMENT.md. Fresh explicit design-8
   LocalStore uses existing fences, capacity ledger and publication; no upgrade,
   live root or CLI activation. New immutable final intent/release/terminal records
@@ -30,9 +30,12 @@ source changes into running tools as a side effect. No startup cache operations.
   Pre-final tig-storage artifact refusal passes with an accepted legacy control;
   CI now builds pinned273e639 and explicitly runs that ignored qualification.
   Workspace compilation exposed and fixed the new placement hold's CLI mapping.
-  Implementation and verification/validation/trace/six producer review close
-  separately. Next: finish evidence closeout and a stacked draft PR; derive
-  hosted exact-head checks before readiness. Budget,
+  EVID-099 and docs/reviews/2026-11-09-final-provider.md separately record
+  verification, synthetic validation, trace and six producer lenses. No runtime
+  code changed after9f5e8c0. Next: publish the evidence closeout/stacked draft PR
+  and derive hosted exact-head checks before readiness. Then implement bounded
+  bulk intent/consent and exact historical selection/source settlement over these
+  ports, retaining held siblings and explicit per-object/store outcomes. Budget,
   authority/native clock/provider/large-file, complete bulk selection/source
   settlement, metadata expiry/continuation/epoch migration and human acceptance
   remain required. Full plan remains active. Foundation fixtures only.

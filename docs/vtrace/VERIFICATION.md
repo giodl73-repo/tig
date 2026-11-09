@@ -730,3 +730,15 @@ changes, alongside standalone Git/fmt/L0. Hosted exact-head qualification remain
 separate. This verifies no provider release, deletion, bulk or lifetime executor.
 Explicit ordinary-retirement CLI cancellation qualification also passes against
 the fresh final-runtime all-feature artifact; no ordinary keeper rule is weakened.
+
+Final-provider checkpoint (EVID-099), input273e639/implementation9f5e8c0:
+locked final-runtime default/all-feature workspace suites pass, including both
+500,000-binding runs. Thirteen focused entries (one helper/nine actual exits),
+eleven independent canonical vectors, explicit pre-final CLI refusal/legacy
+control, fresh ordinary-retirement CLI cancellation, strict all-feature/all-target
+Clippy, standalone Git, fmt and portable L0/diff pass. The inherited S3 concurrency
+assertion was corrected with deterministic both-Busy/serial-resume coverage;
+fifteen S3 entries and the final-runtime full all-feature rerun pass. No runtime
+code changed after9f5e8c0. Exact command/scope/caveats are in
+../reviews/2026-11-09-final-provider.md. Hosted Windows/Linux, full FR-06..15,
+independent review and full requirement closure remain separate and open.

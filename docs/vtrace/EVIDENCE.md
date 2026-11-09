@@ -1104,3 +1104,37 @@ not a provider fence or removal/grant-release authority. No new provider/journal
 format, final unlink, owner grant release, bulk age/native/category selector,
 intent/cancellation executor, capacity reclaim, metadata expiry or user acceptance
 is implemented. FR-06..15 and the complete plan remain open.
+
+## EVID-099: Bounded explicit local final retirement and reacquisition
+
+Input273e639; implementation9f5e8c0. FINAL-PROVIDER.md adds a fresh design-8
+LocalStore and distinct portable contract, exact single-owner grant release,
+immutable intent/release/terminal, cancellation and explicit final reacquisition.
+Existing accounted publication, ledgers and scoped namespace/provider fences are
+reused. Historical outcome, current unverified presence and removal authority
+are separate; read-only status adds no commands and grants no authority.
+
+Thirteen focused entries pass (one helper, nine actual abrupt exits), including
+pre/post-release cancellation, new/foreign grants, metadata reservation refusal,
+late clock expiry/rollback, missing evidence, same-hash/new-retention survival and
+public placement refusal until explicit final reacquisition followed by convergence.
+Eleven independent ASCII/Python canonical/hashlib cases pin new framing. Explicit
+pre-final CLI manifest refusal passes with an accepted legacy control; CI builds
+pinned273e639 rather than treating an ignored test entry as proof.
+
+Final-runtime locked default/all-feature workspace suites pass in separate external
+targets, including both 500,000-binding metadata runs. Strict all-feature/all-target
+workspace Clippy, standalone Git, fmt, L0 and diff checks pass. Explicit fresh
+ordinary-retirement CLI cancellation passes. First all-feature failure was an
+S3 per-round-winner assertion: twenty unchanged races pass; a held-reader fixture
+now proves both-Busy then explicit serial convergence. All fifteen corrected S3
+entries and the full final-runtime all-feature rerun pass. Original response codes
+were not captured; no fairness or automatic-retry guarantee is inferred.
+
+../reviews/2026-11-09-final-provider.md separates verification, synthetic validation,
+trace and six producer lenses. No runtime code changed after9f5e8c0. Source event
+bytes and legacy formats remain; pre-pair artifact, frontend and restore evidence
+is historical, not newly rerun locally. Hosted exact-head checks, native clock/
+authority/provider/large-file/restore, bulk age/category/native selection and
+consent/source settlement, metadata lifetime/continuation and human acceptance
+remain open. The full goal is not complete; no live stores or upgrades were used.

@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 86618,
-      "sha256": "0685c57a6e28208b28285e1bc1031c485208754de0b84037fc1465d2a9d4d488"
+      "bytes": 88934,
+      "sha256": "e95c67c2ec11f01d117d3d683ded2c05470264477b0b8d4033edc3274d01a841"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 122937,
-      "sha256": "dfb9e5872af20ac157e43595a01121986f344aa7e42b44b11f7463c259719ae8"
+      "bytes": 123720,
+      "sha256": "cfaf13f6d764f349bac66586b2ad76734ea8de336d6495c3eb4bf536472ca5ca"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 38578,
-      "sha256": "b1c45e6432cdaa466bf510189054820635f05021764a850250697b6aa94a8752"
+      "bytes": 39337,
+      "sha256": "bfa713c0ac2ac86eb0270a9c852c7bf374376eb09861fe1d9a534c4d554fe902"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 24618,
-      "sha256": "e9efb2bac023ff7c8f9e0ab0ec064729d87e1b4cb2c58236abd9aa26d6867ea9"
+      "bytes": 25409,
+      "sha256": "e96f4181a1472cf56e8ec708aaaf6c791ed4ed013f42ace729fac823dbb63c99"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 48320,
-      "sha256": "8ae81fc5879bb94b018fe47dae06dc4c205b0de9c24a244e9d5d40b36edade81"
+      "bytes": 49169,
+      "sha256": "fa15ed5c2499f0572d2342395f3e68cd34397cf3131e81dab4c0865cfa00a6e8"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 23640,
+      "bytes": 23936,
       "path": "context/RESUME.md",
-      "sha256": "3d1bcbc869de1b5883fbaa8869616e3cb842d7ab1626d14e15ce06b44141cc80"
+      "sha256": "e9ed6051092457210732585aee35aad6ca347eb87d2b9c274103c4e4a72309c7"
     },
     {
       "bytes": 16453,
@@ -2264,8 +2264,8 @@
     },
     {
       "path": "specs/FINAL-RETIREMENT.md",
-      "bytes": 17337,
-      "sha256": "6214656ff0375cad0bca7e5d1ac2146dff7af0c346153e5dfa94f513f1db0cab"
+      "bytes": 17963,
+      "sha256": "6f690e3e48ebc6ecf6e0c1f309491b49576d271feeb7c76af5fc11ba84e80a09"
     },
     {
       "path": "tests/vectors/final-claim-roster.design-1.json",
@@ -2316,6 +2316,11 @@
       "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases.rs",
       "bytes": 5184,
       "sha256": "6bebaac74a38a06214cb9d7f7259c2a4bcc2c4bf02394d0a0fcb7e4c0bc553ae"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-final-provider.md",
+      "bytes": 7080,
+      "sha256": "5d1457f12f3187f84172ea4d1d328cbad38910c72d6d67e1283cb3878ffaf3b0"
     }
   ]
 }

@@ -548,3 +548,14 @@ thirteen focused entries, one actual process exit, independent canonical vector,
 real restored-prefix and surplus-M/F-job fixtures -> EVID-098, implementation
 89d260e. Verification, synthetic validation and six producer lenses remain
 separate; the physical final-retirement/bulk/lifetime protocol remains target.
+
+Final-provider layer: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+FINAL-PROVIDER.md -> final_retirement::provider/reacquire/status, LocalStore
+final-state/incarnation, accounted metadata, distinct portable contract and
+placement hold -> thirteen focused entries/nine actual exits, eleven canonical
+vectors, explicit old-writer refusal/legacy control and public reconciliation ->
+EVID-099, implementation9f5e8c0. Inherited S3 contention fixture additionally uses
+WP-005/014 and SPEC-007. Verification, synthetic validation and six producer
+lenses close separately from full bulk/authority/provider/lifetime acceptance.

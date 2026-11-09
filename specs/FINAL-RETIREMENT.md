@@ -227,15 +227,15 @@ operations; new explicit ingestion of identical bytes remains possible.
 | FR-03 | Unknown/missing/extra/duplicate/policy-substituted roster, weaker/forged minimum, restored history or missing/corrupt closure never clears. | Current clearance fixtures |
 | FR-04 | New target demand is blocked while clearance lives; another partition advances; child exit releases only the fence. | Current clearance fixtures |
 | FR-05 | Aggregate metadata/deadline bounds span namespaces; partial acquisition failure releases earlier guards. | Current clearance fixtures |
-| FR-06 | Physical store/birth/grants changed or another owner/non-releasable hold appears before release/unlink. | Executor gate, unexecuted |
-| FR-07 | Clock expiry/rollback, authority outage or new selection/use invalidates pending removal; old completed outcomes remain. | Executor gate, unexecuted |
-| FR-08 | Exhaust metadata capacity before intent, release, unlink or completion recovery; no unrecorded destructive IO. | Executor gate, unexecuted |
-| FR-09 | Actual child exits before/after every release/unlink/completion boundary recover exact states. | Executor gate, unexecuted |
-| FR-10 | Cancel before/after source settlement and provider release, including late cancellation after unlink. | Executor gate, unexecuted |
+| FR-06 | Physical store/birth/grants changed or another owner/non-releasable hold appears before release/unlink. | Bounded local grant/birth/reader fixtures; full provider gate open |
+| FR-07 | Clock expiry/rollback, authority outage or new selection/use invalidates pending removal; old completed outcomes remain. | Synthetic clock/window fixtures; current authority adoption open |
+| FR-08 | Exhaust metadata capacity before intent, release, unlink or completion recovery; no unrecorded destructive IO. | Initial metadata reservation refusal; full exhaustion matrix open |
+| FR-09 | Actual child exits before/after every release/unlink/completion boundary recover exact states. | Nine local process-exit boundaries; full batch/provider matrix open |
+| FR-10 | Cancel before/after source settlement and provider release, including late cancellation after unlink. | Local provider cancellation fixtures; source/bulk integration open |
 | FR-11 | Shared/held mixed bulk selection preserves unselected siblings and scopes approval to eligible members only. | Bulk integration gate, unexecuted |
-| FR-12 | Completed/cancelled final retirement survives ordinary reconciliation without resurrection; fresh same-hash birth survives old retries. | Executor/placement gate, unexecuted |
-| FR-13 | Old real artifacts refuse the final-capable profile; legacy stores/receipts and ordinary keepers remain unchanged. | Format/adoption gate, unexecuted |
-| FR-14 | Actual managed removal and provider retention/versions/trash report measured effects separately. | Provider/scale gate, unexecuted |
+| FR-12 | Completed/cancelled final retirement survives ordinary reconciliation without resurrection; fresh same-hash birth survives old retries. | Local reacquisition/public-placement fixtures; full adoption open |
+| FR-13 | Old real artifacts refuse the final-capable profile; legacy stores/receipts and ordinary keepers remain unchanged. | Pinned pre-final CLI refusal/legacy control; live upgrade open |
+| FR-14 | Actual managed removal and provider retention/versions/trash report measured effects separately. | Local logical/pre-allocation observations; actual provider/scale gate open |
 | FR-15 | Audit-window retirement, journal continuation, old peer/backup replay and live epoch handoff preserve fencing. | Lifetime gate, unexecuted |
 
 L0: fmt, portable validation, reviewed targets and diff checks. L1: locked default/
@@ -243,3 +243,8 @@ all-feature workspace, strict Clippy, standalone Git and exact focused negatives
 L2 now: actual synthetic journals/metadata and cross-process scoped fencing;
 L2 later: all executor/format/placement/provider/lifetime gates above. Designed
 matrix rows are not execution evidence. Full REQ/VAL acceptance remains open.
+
+[FINAL-PROVIDER](FINAL-PROVIDER.md) and EVID-099 qualify the named bounded local
+parts above at implementation9f5e8c0. Full row scopes remain open where shown;
+local process-restart fixtures do not establish batch, live authority/provider,
+large-file or lifetime acceptance. Historical EVID-098 remains clearance-only.

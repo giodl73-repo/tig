@@ -369,3 +369,14 @@ only membership clearance, leaving provider grants untouched. Actual process
 fences, restored-prefix refusal and unrelated progress rehearse source protection
 without payload mutation. This is not actual final deletion, grant release,
 bulk/age/native eligibility, cancellation recovery, measured reclaim or acceptance.
+
+Final-provider synthetic intended-use validation (EVID-099), implementation9f5e8c0:
+explicit owner consent removes actual temporary last-copy bytes after content-wide
+clearance and durable exact release. Cancellation preserves bytes without falsely
+restoring released protection; same-hash fresh acquisition/new grants survive old
+retry. Public placement holds fresh demand for final absence, then converges after
+separately authorized acquisition. Read-only status separates historical effects
+and unverified current presence. This validates a bounded 8 MiB/process-restart
+library slice, not full bulk F/D/M, actual provider/clock/authority/large-file,
+metadata lifetime, operator UX or human acceptance. See
+../reviews/2026-11-09-final-provider.md; full product acceptance remains open.
