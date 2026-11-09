@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 88934,
-      "sha256": "e95c67c2ec11f01d117d3d683ded2c05470264477b0b8d4033edc3274d01a841"
+      "bytes": 89972,
+      "sha256": "10849d97c399e65eec3d50b322c24eaddc10e4d7a5d2cbda2ce3fa1426c0d1a8"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 123720,
-      "sha256": "cfaf13f6d764f349bac66586b2ad76734ea8de336d6495c3eb4bf536472ca5ca"
+      "bytes": 124386,
+      "sha256": "5d1d690b6495ba0f389ae9df8eb0aadb4379067cb58e5827da17b89fc2e539ff"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 39337,
-      "sha256": "bfa713c0ac2ac86eb0270a9c852c7bf374376eb09861fe1d9a534c4d554fe902"
+      "bytes": 40007,
+      "sha256": "14caf31f4ef6b2df3a91c66a5dc232467e3b002d9183591712abfe21bdbbb5c2"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 25409,
-      "sha256": "e96f4181a1472cf56e8ec708aaaf6c791ed4ed013f42ace729fac823dbb63c99"
+      "bytes": 26043,
+      "sha256": "4ba331cc48ad52ff2054889bc63407e2bfe1c04c8bee324cfcb94fb56961849d"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 49169,
-      "sha256": "fa15ed5c2499f0572d2342395f3e68cd34397cf3131e81dab4c0865cfa00a6e8"
+      "bytes": 49881,
+      "sha256": "b2ca4565e5a3a2d37563319255530af690d635c7ff0a77635e7f187d37b3a80b"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 25939,
+      "bytes": 26191,
       "path": "context/RESUME.md",
-      "sha256": "332f593ea612e7e586d22ea4b5a507dcbbba11376a0a74837626a90a4dad9254"
+      "sha256": "1d99ef607aea18da532d894574060841284340d5190332e216d52ffcb8ea8ab3"
     },
     {
       "bytes": 16453,
@@ -2354,13 +2354,18 @@
     },
     {
       "path": "specs/BULK-RETIREMENT.md",
-      "bytes": 11041,
-      "sha256": "ca639721b1329327179e43f4ca3233f88ac46134632f0b51077542bae254dd5f"
+      "bytes": 11205,
+      "sha256": "d07ad2ca08cee983642e4cd97da40e60ad6def26fe878cca22beceed2fc76093"
     },
     {
       "path": "tests/vectors/bulk-final.design-1.json",
       "bytes": 15932,
       "sha256": "84808697f034ff15a31c07a8e2d95a7ef40181df0cd241eb340b61ee8e21dce2"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-bulk-retirement.md",
+      "bytes": 7772,
+      "sha256": "f735239f3cd30763f99e36f05db35189f2e5ca7e4a934a05a966945acba831a4"
     }
   ]
 }

@@ -127,6 +127,8 @@ human intended-use acceptance remain required parts of the full product plan.
 
 The in-progress final_retirement::bulk library supplies plan, strict Plan JSON,
 exact authorize, and Execution::required_metadata_peak/status/apply/cancel.
+Plan::actions exposes ordered store identities and provider plans for independently
+admitted runtime job binding; it grants no authority from serialized internals.
 Planning/status grant no deletion authority. No bulk CLI/Action/UI permission or
 runtime is enabled. Request selections are sorted by namespace/source/predecessor
 and exact paths; copy requests by store/object. Empty copy scope produces held

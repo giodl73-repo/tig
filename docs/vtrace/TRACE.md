@@ -1,5 +1,15 @@
 # Tig trace
 
+Bulk composition: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+BULK-RETIREMENT.md -> final_retirement::bulk, existing subset/final-provider/
+accounted composition and admission history guard -> sixteen focused entries,
+ten actual exits, six independent canonical vectors and three-store copy/unique
+accounting -> EVID-100, implementationfe073a6/correctivef999e3a. See
+[bulk review](../reviews/2026-11-09-bulk-retirement.md). Native selection/operator/
+provider/clock/authority/lifetime and PL-01 remain open; no full REQ closure.
+
 WP-006/007/008/009/010/012; REQ-002/003/004/005/006/007/009 ->
 SPEC-003/004/005/006/007/008/009/010/012; IF-002/003/004/005/006/010/012;
 PKG-001/002/003/004/006 -> PROTECTED-WORKING-HANDOFF.md -> placement/handoff.rs

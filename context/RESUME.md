@@ -8,7 +8,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/bulk-retirement, input4478207.
+- Active lane: feat/bulk-retirement, input4478207, implementationfe073a6,
+  public action binding/test correctivef999e3a.
   Read specs/BULK-RETIREMENT.md. Exact flat namespace/source/predecessor/path
   selection resolves held/eligible objects across the complete admitted roster;
   same-source predecessor plans reuse the existing pure transition model.
@@ -18,7 +19,7 @@ source changes into running tools as a side effect. No startup cache operations.
   future source/removal work and records honest partial effects. Alternate unused
   terminal metadata uses existing empty-review private cleanup, so the witness
   job can finish. No new cache/journal engine, source event format or CLI is added.
-  Fifteen focused entries pass (one helper, ten actual abrupt exits plus a process
+  Sixteen focused entries pass (one helper, ten actual abrupt exits plus a process
   peer refused by the batch fence). An unrelated batch progresses on the same
   witness. Six independent ASCII canonical/hashlib vectors pin held/eligible plan,
   enrollment, intent and terminal framing. Final-runtime locked default/all-feature
@@ -26,9 +27,12 @@ source changes into running tools as a side effect. No startup cache operations.
   Strict all-feature/all-target Clippy, standalone Git, fresh ordinary-retirement
   CLI cancellation and explicit pinned pre-final writer refusal/legacy control
   pass. Cancellation of never-started stale actions creates no new admission;
-  interrupted alternate-terminal disposal resumes its same empty review. No
-  implementation and evidence closeout remain separate. Next: evidence/
-  validation/trace/six-producer closeout, then stacked draft PR. Full age/category/
+  interrupted alternate-terminal disposal resumes its same empty review.
+  Broad suites coverfe073a6; focused sixteen/Clippy/standalone also cover the
+  read-only iterator/test additionf999e3a. EVID-100 records separate evidence/
+  validation/trace/six-producer closeout. Next: stacked draft PR and exact-head
+  hosted checks, then PL-01 cross-namespace active/history precedence correction.
+  Full age/category/
   native adapters, operator/UI surfaces, large-file/real provider/current clock/
   authority adoption, journal/metadata lifetime and human acceptance remain open.
   Foundation fixtures only; the full plan is active and incomplete.

@@ -1,5 +1,15 @@
 # Verification record
 
+EVID-100 verifies bounded bulk runtime atfe073a6 and read-only action binding at
+f999e3a. Sixteen focused entries, six independent canonical vectors, ten actual
+child exits, same-batch peer exclusion, another batch's concurrent progress and
+three-store unique/copy byte assertions pass. Locked default/all-feature broad
+runs cover the final mutation implementation; focused/strict Clippy/standalone
+also cover the later accessor/test addition. Explicit ordinary-retirement CLI
+cancellation and pinned pre-final writer refusal/legacy control pass. Exact
+commands and limits: [bulk review](../reviews/2026-11-09-bulk-retirement.md).
+Hosted exact-head, independent review and full REQ/VAL closure remain separate.
+
 EVID-076: all 35 publication cases pass (1.03 s), including six new cases and
 the extended explicit CLI fixture. The baseline reproduces six failures with
 the previous policy reader. Default selected-subject admission stays strict;

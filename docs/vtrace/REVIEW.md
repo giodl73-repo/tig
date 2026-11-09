@@ -1,5 +1,15 @@
 # Foundation review
 
+Bulk-retirement review, input4478207, implementationfe073a6 and public accessor/
+test correctivef999e3a: BR-01..06 in
+[bulk review](../reviews/2026-11-09-bulk-retirement.md) apply all six producer
+checklists. EVID-100 separates qualification from implementation. Exact durable
+consent, held-member preservation, live transient-use invalidation, partial
+cancellation and three-store accounting pass in bounded synthetic scope.
+Disposition pass_with_risk; PL-01 requires explicit cross-namespace advisory
+precedence and regression proof. Native/operators/real providers/clock/authority/
+lifetime and independent/human acceptance remain open. No live action approval.
+
 EVID-076: [retained-subject producer review](../reviews/2026-11-01-publication-retained-subjects.md)
 applies identity, provider/privacy, Git/adoption, custody, recovery and placement
 lenses. Component-only disposition; exact-head hosted qualification and actual

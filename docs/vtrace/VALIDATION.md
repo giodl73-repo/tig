@@ -1,5 +1,14 @@
 # Intended-use validation
 
+EVID-100 contributes bounded synthetic VAL-002/003/004 rehearsal: exact blocks
+across historical predecessors preserve shared/current job uses and unselected
+siblings; durable intent precedes source settlement; interruption/cancellation
+retains honest partial effects. Three actual temporary stores remove nine copies
+of three unique eligible bytes. This is not native age/category selection, live
+F/D/M custody/reclaim, operator UX, trusted clock/authority, metadata lifetime or
+human acceptance. [Bulk review](../reviews/2026-11-09-bulk-retirement.md) records
+scope and remaining gates, including separate placement finding PL-01.
+
 EVID-092 contributes exact-ref selection to VAL-001/002/004: actual synthetic
 merge/revert and job/history protection, interrupted atomic adoption, old-reader
 compatibility and explicit CLI replay. The operator grants authority independently

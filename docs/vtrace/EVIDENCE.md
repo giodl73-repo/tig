@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-100: bounded bulk final retirement, implementationfe073a6 and public
+action-binding correctivef999e3a. Exact controls, commands, six producer findings
+and scope are in [bulk review](../reviews/2026-11-09-bulk-retirement.md).
+Sixteen focused entries (one helper), ten actual abrupt exits, same-batch peer
+refusal and unrelated-batch progress on one witness pass. Three stores distinguish
+three eligible unique bytes from nine deleted copy bytes while shared siblings
+survive. Six independent canonical/hashlib vectors pin new framing. Final mutation
+runtime default/all-feature workspace suites pass, including both 500k metadata
+runs, explicit fresh CLI cancellation and pinned old-writer refusal/legacy control.
+The later read-only accessor/test addition passes focused sixteen, strict Clippy
+and standalone Git; broad runs precede that addition. Hosted exact-head checks,
+PL-01 namespace precedence, native age/category/operator/provider/clock/authority/
+lifetime and human acceptance remain separate. No full-product completion.
+
 EVID-082: bounded multi-asset history service candidate,
 [contract](../../specs/HISTORY-BATCH-COMMAND.md) and
 [producer review](../reviews/history-multi-entry.md). Eight actual temporary
