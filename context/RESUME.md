@@ -8,7 +8,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/final-provider, input273e639, implementation9f5e8c0.
+- Active lane: feat/final-provider, input273e639, implementation9f5e8c0,
+  evidence closeout9c0d1ca, stacked draft PR #30 against feat/final-retirement.
   Read specs/FINAL-PROVIDER.md and FINAL-RETIREMENT.md. Fresh explicit design-8
   LocalStore uses existing fences, capacity ledger and publication; no upgrade,
   live root or CLI activation. New immutable final intent/release/terminal records
@@ -32,8 +33,8 @@ source changes into running tools as a side effect. No startup cache operations.
   Workspace compilation exposed and fixed the new placement hold's CLI mapping.
   EVID-099 and docs/reviews/2026-11-09-final-provider.md separately record
   verification, synthetic validation, trace and six producer lenses. No runtime
-  code changed after9f5e8c0. Next: publish the evidence closeout/stacked draft PR
-  and derive hosted exact-head checks before readiness. Then implement bounded
+  code changed after9f5e8c0. PR #30 is OPEN/draft; derive hosted exact-head checks
+  before readiness. No merge or deployment. Then implement bounded
   bulk intent/consent and exact historical selection/source settlement over these
   ports, retaining held siblings and explicit per-object/store outcomes. Budget,
   authority/native clock/provider/large-file, complete bulk selection/source
