@@ -1,4 +1,5 @@
 //! Exact observed demand from admitted journal roots. Never removal authority.
+pub(crate) mod budget;
 use crate::{
     Key,
     source_claims::{self, Checkpoint, Selection, SourceJournal},

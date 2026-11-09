@@ -19,6 +19,7 @@ use tig_core::{
     tree::{NodeStore, Tree, TreeError, TreeLimits, TreeResult},
 };
 mod compile;
+pub mod control;
 mod inspect;
 pub mod preparation;
 pub use compile::{build, request};

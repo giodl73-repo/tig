@@ -541,7 +541,16 @@ impl<S: NodeStore> Execution<'_, S> {
         a: &Authorization,
         condition: &dyn Condition,
     ) -> Result<Receipt> {
-        self.run(p, a, false, |_| Ok(()), Some(condition))
+        self.apply_guarded_hook(p, a, condition, |_| Ok(()))
+    }
+    pub(crate) fn apply_guarded_hook(
+        &mut self,
+        p: &Plan,
+        a: &Authorization,
+        condition: &dyn Condition,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Receipt> {
+        self.run(p, a, false, hook, Some(condition))
     }
     pub fn cancel(&mut self, p: &Plan, a: &Authorization) -> Result<Receipt> {
         self.run(p, a, true, |_| Ok(()), None)

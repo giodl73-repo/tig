@@ -8,7 +8,45 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/paged-execution, input47af6dc7d2f6d88fd54df54b97e537d7b608d122,
+- Active lane: feat/paged-controller, input88225ff0e7e2ed8082f660eedcd54f4781588834.
+  Uncommitted manual `paged::control` candidate composes prepared source plans,
+  exact separate claim/final approvals, original subject/copy/provider-birth/grant
+  indexes, accounted global/page intent and receipt-checked completion through
+  existing ports. No new SQL/cache/event engine or mutation CLI. Calls bound pages
+  and provider attempts, reuse completed prefixes and preserve original exclusions.
+  Status has no writer/clock; metadata-offline cancellation durably stops first
+  and reports null observations/unknown debt, then resolves cleanup when online.
+  A call-owned metadata budget now spans reconstruction/readback/subset admission/
+  final clearance, including failed reads and changed metadata views; old subset
+  callers retain their existing behavior.
+  Initial13 controller fixture entries/strict store all-target Clippy pass (45482
+  terminal zero), including20 pages across17 historical roots, actual deletion of
+  only three approved copies, seven initial actual process exits, cancellation/expiry,
+  transient use, original exclusions, known restored source prefix, mixed approvals,
+  conflicting operation reuse, whole witness peak and concrete wrong-metadata
+  identity. Independent decision/global/page framing and shared-budget view/page
+  regressions pass in earlier focused chains. Full default/500k/standalone/strict
+  workspace chain17838 and all-feature/second500k/strict chain41582 terminate zero.
+  They compiled before the final readonly explanation and guarded fault-hook
+  additions. Final79 active retirement entries (two explicit artifacts ignored)
+  plus strict Clippy pass under default84350 and all-feature95356 (both terminal
+  zero). These include all13 controller entries with fourteen actual process exits
+  through provider intent/release/grant removal/unlink/terminal/settlement, and
+  original exclusions/copy plans available before approval. Fresh bulk inspection/
+  execution and ordinary pending-cancellation CLI qualifiers pass (90958 terminal
+  zero). Pinned pre-final writer refusal/legacy-control qualifier also passes
+  (direct exec terminal zero).
+  Broad/final logs are external paged-controller-default.log, paged-controller-all.log
+  and paged-controller-final-focus.log. No implementation commit/review closure or
+  new PR yet.
+  Next: finish exact broad/artifact/producer qualification for the manual core;
+  then compose admitted age evidence and survivor inheritance into page completion,
+  native selectors and operator/agent/UI/Action surfaces. Preserve actual current
+  authority/writer/time/restore/provider/large-file/lifetime/metadata-expiry and
+  human acceptance gates. NB-07 full operational/age-aware acceptance stays open.
+  No live stores, deployments, source merges or private consumers were changed.
+
+- Previous lane: feat/paged-execution, input47af6dc7d2f6d88fd54df54b97e537d7b608d122,
   implementation2dd9990d22cdffa41442d9b168813e8c6598838d.
   specs/PAGED-EXECUTION.md controls the complete intended controller scope. Pending
   source adds append-only alternate inherited age proofs, exact historical survivor
@@ -42,7 +80,8 @@ source changes into running tools as a side effect. No startup cache operations.
   paged focus70165 also terminates zero (17 entries). All local processes are
   terminal; no target is live. EVID-108 and its six-producer review record
   verification/validation/trace separately. Hosted exact-head
-  qualification remains required.
+  qualification passed at88225ff: run42647498235 Windows/Linux/secrets successful.
+  PR39 is OPEN and ready for review; recheck live state before acting on it.
   Next: durably acknowledge the global decision and exact page intents before
   effects, revalidate only admitted owned history under source/final-provider
   fences, acknowledge actual page/age receipts, preserve original copy exclusions

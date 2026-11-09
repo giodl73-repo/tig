@@ -39,6 +39,13 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The manual `paged::control` candidate now composes frozen prepared plans with
+separate historical-claim/final-copy approvals, durable global/page witnesses,
+actual receipt-checked progress and original provider copy plans. Source-metadata-
+offline cancellation records stop before cleanup and reports unknown debt.
+[Paged execution](specs/PAGED-EXECUTION.md) controls its synthetic qualification;
+full age-aware/native/operator/UI/Action and operational acceptance stay required.
+
 The [paged-execution entry](specs/PAGED-EXECUTION.md) now includes persisted
 conditional preparation through actual source-state simulation and append-only
 inherited age proofs. EVID-108 separates source receipt/projection/compatibility

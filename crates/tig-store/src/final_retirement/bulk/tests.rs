@@ -810,6 +810,7 @@ impl Fixture {
 }
 
 mod operator;
+mod paged;
 
 #[test]
 fn mixed_block_settles_several_predecessors_and_deletes_only_eligible_exact_bytes() {

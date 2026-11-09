@@ -884,6 +884,26 @@ pub fn apply_hook(
     namespace: &mut Namespace,
     metadata: &mut MetadataStore,
     plan: &Plan,
+    hook: impl FnMut(Stage) -> Result<()>,
+) -> Result<Status> {
+    apply_inner(e, namespace, metadata, plan, None, hook)
+}
+pub(crate) fn apply_metered(
+    e: &Enrollment,
+    namespace: &mut Namespace,
+    metadata: &mut MetadataStore,
+    plan: &Plan,
+    budget: &crate::protection::budget::Budget,
+    hook: impl FnMut(Stage) -> Result<()>,
+) -> Result<Status> {
+    apply_inner(e, namespace, metadata, plan, Some(budget), hook)
+}
+fn apply_inner(
+    e: &Enrollment,
+    namespace: &mut Namespace,
+    metadata: &mut MetadataStore,
+    plan: &Plan,
+    budget: Option<&crate::protection::budget::Budget>,
     mut hook: impl FnMut(Stage) -> Result<()>,
 ) -> Result<Status> {
     let status = inspect(e, namespace, plan)?;
@@ -893,7 +913,11 @@ pub fn apply_hook(
     if metadata.pending_nodes() != 0 {
         return Err(Error::PendingMetadata);
     }
-    let reader = metadata.finished_reader()?;
+    let mut reader = metadata.finished_reader()?;
+    let reader = crate::protection::budget::Nodes {
+        inner: &mut reader,
+        budget,
+    };
     let rebuilt = self::plan(e, namespace, plan.request.clone(), &reader)?;
     if &rebuilt != plan {
         return Err(Error::Stale);
@@ -905,10 +929,18 @@ pub fn apply_hook(
             return Err(Error::Stale);
         }
         for (_, bytes) in nodes.objects() {
-            metadata.put(bytes)?;
+            crate::protection::budget::Nodes {
+                inner: &mut *metadata,
+                budget,
+            }
+            .put(bytes)?;
         }
         metadata.finish()?;
-        let finished = metadata.finished_reader()?;
+        let mut finished = metadata.finished_reader()?;
+        let finished = crate::protection::budget::Nodes {
+            inner: &mut finished,
+            budget,
+        };
         // Independent finished-store closure readback, before any source adoption.
         let mut checked = Overlay::new(&finished, e);
         let limits = checked.limits();
@@ -947,14 +979,13 @@ pub fn apply_hook(
     }
     hook(Stage::BeforeRetire)?;
     let (id, command) = plan.retire(e)?;
+    let mut finished = metadata.finished_reader()?;
+    let finished = crate::protection::budget::Nodes {
+        inner: &mut finished,
+        budget,
+    };
     // Checks the original revision and the survivor witness in one short transaction.
-    namespace.apply_if_sources(
-        id,
-        command,
-        &conditions,
-        &metadata.finished_reader()?,
-        &e.limits,
-    )?;
+    namespace.apply_if_sources(id, command, &conditions, &finished, &e.limits)?;
     hook(Stage::Retired)?;
     inspect(e, namespace, plan)
 }

@@ -1,5 +1,13 @@
 # Tig maintainer context
 
+Paged-controller lane: specs/PAGED-EXECUTION.md controls a synthetic manual Rust
+candidate over existing prepared pages, accounted witnesses and final providers.
+Separate exact claim/final-copy permissions, durable global/page intent, actual
+receipt/checkpoint completion, shared metadata budgets and cancellation/status
+are being qualified. It performs no live operations or startup discovery. Full
+age-aware/native/operator/UI/Action and authority/provider/lifetime acceptance
+remain open. Read context/RESUME.md for exact checks and the next integration.
+
 Paged-retirement lane: specs/PAGED-RETIREMENT.md freezes the whole-selection and
 future controller boundaries for NB-07. The in-progress final_retirement::paged
 library compiles asset-side requests/manifests and original-binding pages using

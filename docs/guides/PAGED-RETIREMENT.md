@@ -99,3 +99,33 @@ must validate only its admitted command history under final live fences, preserv
 original held exclusions and provider births/grants, stop on cancellation or stale
 approval, and report partial effects honestly. Existing subset/final-provider/
 accounted ports supply those primitives; this manifest API does not execute them.
+
+## Manual controller candidate
+
+`paged::control` is the separate experimental Rust execution interface. Admit its
+Enrollment and complete current roster privately, persist an exact `copies` index,
+then `plan` a candidate Decision using existing providers. Explicitly finish and
+read back metadata. `control::inspect` exposes original exclusions and the exact
+provider plans without payload IO or new permission. The admitted operator separately approves the decision's
+historical-claim scope and original final-copy scope. Portable hashes authenticate
+neither permission. There is no new apply CLI or automatic policy installation.
+
+`Execution::apply` uses these two exact approvals and private job bindings. Calls
+default to16 new pages and16 provider attempts. Call again with the same decision
+and approvals to resume; progress comes from fixed witness slots and actual source/
+provider receipts. All pages settle before physical copy actions. Changed private
+authority, clock/window, protection, metadata identity or unknown intervening
+commands can hold work. A changed candidate requires a new decision.
+
+`Inspection` needs a metadata reader and no clock/writer. `Cancellation` can stop
+without that reader or fresh time. A missing reader yields null observations and
+unknown cleanup debt; later cancellation with metadata can resolve admitted page/
+provider work. Stopping does not restore retired history or deleted copies.
+Reports distinguish page completion from historical source retirement and original
+copy deletion; they do not assert secure erasure or newly available volume space.
+
+This interface accepts exact manual selections. It supplies no age-policy or
+native-category admission and must not be presented as qualifying an aged preview.
+The [execution contract](../../specs/PAGED-EXECUTION.md) retains age inheritance,
+native/operator/agent/UI/Action, actual authority/writer/time/provider/large-file,
+continuation/metadata-expiry and human acceptance obligations for the full plan.

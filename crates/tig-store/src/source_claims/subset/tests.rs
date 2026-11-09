@@ -42,6 +42,63 @@ fn original_pages_prepare_conditional_survivors_and_predict_actual_checkpoints()
 }
 
 #[test]
+fn one_shared_metadata_budget_spans_conditional_page_applications() {
+    use crate::protection::budget::Budget;
+    let mut measured = Fixture::new();
+    let request = measured.request(&["delete"]);
+    let steps = plan_pages(
+        &measured.e,
+        &mut measured.ns,
+        vec![request],
+        &mut measured.metadata,
+    )
+    .unwrap();
+    measured.metadata.finish().unwrap();
+    let generous = Budget::new(&measured.e.limits, 65536, 32 * 1024 * 1024).unwrap();
+    apply_metered(
+        &measured.e,
+        &mut measured.ns,
+        &mut measured.metadata,
+        &steps[0].plan,
+        &generous,
+        |_| Ok(()),
+    )
+    .unwrap();
+    let used = generous.usage().0;
+    assert!(used > 1);
+    let mut f = Fixture::new();
+    let requests = vec![f.request(&["delete"]), f.request(&["shared"])];
+    let steps = plan_pages(&f.e, &mut f.ns, requests, &mut f.metadata).unwrap();
+    f.metadata.finish().unwrap();
+    let mut limits = f.e.limits.clone();
+    limits.reads = used + 1;
+    let budget = Budget::new(&limits, 65536, 32 * 1024 * 1024).unwrap();
+    apply_metered(
+        &f.e,
+        &mut f.ns,
+        &mut f.metadata,
+        &steps[0].plan,
+        &budget,
+        |_| Ok(()),
+    )
+    .unwrap();
+    let before = f.ns.checkpoint();
+    assert!(matches!(
+        apply_metered(
+            &f.e,
+            &mut f.ns,
+            &mut f.metadata,
+            &steps[1].plan,
+            &budget,
+            |_| Ok(())
+        ),
+        Err(Error::Tree(TreeError::Budget))
+    ));
+    assert_eq!(before, f.ns.checkpoint());
+    assert_eq!(f.demands(&f.b.clone()), vec!["D", "M"]);
+}
+
+#[test]
 fn paged_preparation_rejects_duplicate_bindings_and_existing_survivor_slots() {
     let mut f = Fixture::new();
     let request = f.request(&["delete"]);
