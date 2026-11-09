@@ -23,6 +23,27 @@ pub(crate) fn remaining(
     candidates: &BTreeMap<Digest, Object>,
     work: &mut Work<'_, impl NodeStore>,
 ) -> Result<(Checkpoint, BTreeSet<Digest>)> {
+    remaining_with_limit(namespace, exclusions, candidates, work, 1024)
+}
+
+/// Separate larger-selection preview. Its caller bounds the aggregate selected
+/// binding inventory. This is hypothetical protection, never removal authority.
+pub(crate) fn remaining_selected(
+    namespace: &mut Namespace,
+    exclusions: &[Exclusion],
+    candidates: &BTreeMap<Digest, Object>,
+    work: &mut Work<'_, impl NodeStore>,
+) -> Result<(Checkpoint, BTreeSet<Digest>)> {
+    let max_paths = work.limits.bindings;
+    remaining_with_limit(namespace, exclusions, candidates, work, max_paths)
+}
+fn remaining_with_limit(
+    namespace: &mut Namespace,
+    exclusions: &[Exclusion],
+    candidates: &BTreeMap<Digest, Object>,
+    work: &mut Work<'_, impl NodeStore>,
+    max_paths: usize,
+) -> Result<(Checkpoint, BTreeSet<Digest>)> {
     let checkpoint = snapshot(namespace)?;
     let sources = namespace.journal.state.sources.clone();
     let mut removed = BTreeMap::<String, BTreeMap<u64, BTreeSet<LogicalPath>>>::new();
@@ -38,7 +59,7 @@ pub(crate) fn remaining(
                 .iter()
                 .any(|v| v.revision == exclusion.predecessor && v.selection == exclusion.original)
             || exclusion.paths.is_empty()
-            || exclusion.paths.len() > 1024
+            || exclusion.paths.len() > max_paths
             || removed
                 .entry(exclusion.source.as_str().into())
                 .or_default()

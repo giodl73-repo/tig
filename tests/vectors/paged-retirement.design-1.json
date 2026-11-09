@@ -1,0 +1,66 @@
+{
+  "schema": "tig.paged-selection-vectors.design-1",
+  "method": "independent Python ASCII sorted compact JSON and hashlib.sha256; framing only, no closure/protection/authority proof",
+  "cases": [
+    {
+      "kind": "enrollment",
+      "canonical": "{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"metadata\":\"45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f\",\"owner\":\"owner\",\"scope\":\"6240d2d8a87ee7f2736f605181279941d7d3b4b060d85042bb443140c8b0ac99\"}",
+      "sha256": "b44d541e7dc64b56e4845f77a7035103d3575b4a520cc33a94a78dcdaf9d93bc",
+      "id": "13313e0c988282dce96415d07f238ee299531634948f72e39b4f996acb1c6c02"
+    },
+    {
+      "kind": "selection",
+      "canonical": "{\"bindings\":{\"bytes\":13,\"sha256\":\"558488d7d3636ecb84cc86cc12826db123fdc60e0e5862c4d77fddbc8e94f965\"},\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"predecessor_revision\":3,\"source\":\"main\"}",
+      "sha256": "9ca4dc4597c6373e3328857c472310aa52757ad741e497ce25021b3b351d7951",
+      "id": "81c0024b279cc2366f9a3360ab949a506ffefe5ff66b3f4a33a5c00c77f3b718"
+    },
+    {
+      "kind": "origin",
+      "canonical": "{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"}",
+      "sha256": "ee8a62857b3a63bdbb66ae7031102cf538e583846003a5f28e0ce8111b2cad96",
+      "id": "78718ef1628f13e44ac6593d05c6a3ff2ca2878b35624e19b275042d6250ec39"
+    },
+    {
+      "kind": "cohort",
+      "canonical": "{\"bindings\":{\"bytes\":13,\"sha256\":\"558488d7d3636ecb84cc86cc12826db123fdc60e0e5862c4d77fddbc8e94f965\"},\"count\":2,\"origin\":{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"}}",
+      "sha256": "f6546887a306a2d007b502e5baf59ad0ab6555142d9c5e05972c541f7d827179",
+      "id": "f6546887a306a2d007b502e5baf59ad0ab6555142d9c5e05972c541f7d827179"
+    },
+    {
+      "kind": "request",
+      "canonical": "{\"count\":1,\"paging\":{\"max_bindings\":256,\"max_bytes\":49152},\"roots\":{\"bytes\":15,\"sha256\":\"c30acfe539859611d8b09c4c1602a3850332ff981da85b288a17a6ef4e3fc8aa\"},\"schema\":\"tig.paged-selection-request.design-1\"}",
+      "sha256": "06c219a09994cd5ca99d129f3996f8709328a2a5983460a3ce8a664091cff5d6",
+      "id": "06c219a09994cd5ca99d129f3996f8709328a2a5983460a3ce8a664091cff5d6"
+    },
+    {
+      "kind": "subject_held",
+      "canonical": "{\"held_by_surviving_claims\":true,\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"}}",
+      "sha256": "865037e293e3d1d3ff503b8f5c16255c60b00e97bd91a5ee4616e408f7403122",
+      "id": "865037e293e3d1d3ff503b8f5c16255c60b00e97bd91a5ee4616e408f7403122"
+    },
+    {
+      "kind": "subject_unprotected",
+      "canonical": "{\"held_by_surviving_claims\":false,\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"}}",
+      "sha256": "cf405c7ddbbd5fe72c5833aed87598a7d22ed0ad7f6233661bcfb52dc1e63dd0",
+      "id": "cf405c7ddbbd5fe72c5833aed87598a7d22ed0ad7f6233661bcfb52dc1e63dd0"
+    },
+    {
+      "kind": "manifest",
+      "canonical": "{\"basis\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"coverage\":\"c3a3091b9d32267d0b3175ee14f70a1e0b3d7292d0a0fa45020ced5fb764d620\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"format\":\"flat_binding_closure\",\"limits\":{\"associations\":500000,\"bindings\":500000,\"millis\":60000,\"read_bytes\":134217728,\"reads\":500000,\"roots\":4096},\"members\":[{\"minimum\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\"}],\"schema\":\"tig.final-claim-roster.design-1\"},\"cohorts\":{\"bytes\":12,\"sha256\":\"b2a7e978c28e645678b7247c726e18893c1c0b5a79e78e16d1429f17bd3c858a\"},\"enrollment\":\"13313e0c988282dce96415d07f238ee299531634948f72e39b4f996acb1c6c02\",\"paging\":{\"max_bindings\":256,\"max_bytes\":49152},\"request\":{\"bytes\":204,\"sha256\":\"06c219a09994cd5ca99d129f3996f8709328a2a5983460a3ce8a664091cff5d6\"},\"schema\":\"tig.paged-selection-manifest.design-1\",\"subjects\":{\"bytes\":13,\"sha256\":\"5bf55a73ebf962f620c114696256781f8fb109a83bc3909b0902febec184c225\"},\"summary\":{\"bindings\":2,\"held_objects\":1,\"roots\":1,\"unique_bytes\":6,\"unique_objects\":1}}",
+      "sha256": "8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0",
+      "id": "8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0"
+    },
+    {
+      "kind": "cursor",
+      "canonical": "{\"after\":\"a\",\"manifest\":\"8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0\",\"occurrence\":\"78718ef1628f13e44ac6593d05c6a3ff2ca2878b35624e19b275042d6250ec39\"}",
+      "sha256": "01835ccb0345cfbb4d31cc47c1a791d4bdb34190457662d28d6ff48a20c0c7d7",
+      "id": "01835ccb0345cfbb4d31cc47c1a791d4bdb34190457662d28d6ff48a20c0c7d7"
+    },
+    {
+      "kind": "page",
+      "canonical": "{\"authorizes_claim_release\":false,\"authorizes_removal\":false,\"bindings\":[{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"a\"},{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"b\"}],\"cohort\":{\"bindings\":{\"bytes\":13,\"sha256\":\"558488d7d3636ecb84cc86cc12826db123fdc60e0e5862c4d77fddbc8e94f965\"},\"count\":2,\"origin\":{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"}},\"historical_only\":true,\"manifest\":{\"bytes\":1344,\"sha256\":\"8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0\"},\"next\":null,\"schema\":\"tig.paged-selection-page.design-1\"}",
+      "sha256": "6b2baf0030f4fd8217cb71e8104eea84464cff4b739e42b77a9ff526d5578a32",
+      "id": "6b2baf0030f4fd8217cb71e8104eea84464cff4b739e42b77a9ff526d5578a32"
+    }
+  ]
+}

@@ -39,18 +39,25 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+The [paged-retirement contract](specs/PAGED-RETIREMENT.md) addresses NB-07's large
+shared-root selection. Its first layer freezes exact asset-side selection and
+hypothetical protection across the whole scope, then emits deterministic original-
+binding pages. Separate durable claim/final-copy decisions, survivor/age lineage,
+page recovery and actual final execution remain required; a manifest or cursor
+grants no authority and does not close the block-retirement milestone.
+
 The [age-witness contract](specs/AGE-WITNESSES.md) and
 [operator guide](docs/guides/AGE-WITNESSES.md) add conservative observations for
 exact historical occurrences, verified age inheritance through owned subsets and
-separate native age-aware candidates. This lane is undergoing local qualification;
-it grants no final consent and does not close paged shared-claim settlement,
+separate native age-aware candidates. EVID-106 records local/hosted qualification;
+the mechanism grants no final consent and does not close paged shared-claim settlement,
 authority/writer/time adoption, UI/Action, provider or operational lifetime gates.
 
 The [native binding adapter](specs/NATIVE-RETIREMENT-BINDINGS.md) compiles exact
 declared native storage closure into independently aliased flat bindings. The
 metadata-only bind/select CLI maps exact blocks and admitted definition categories
-to existing bulk selections. EVID-105 records local qualification. Recorded supersession
-age remains a separate prerequisite; no input timestamp or Git date grants it.
+to existing bulk selections. EVID-105 records local qualification. Recorded age
+is a separate admitted protocol under EVID-106; no input timestamp or Git date grants it.
 
 The [bulk execution interface](specs/BULK-EXECUTION.md) composes exact private
 plan approval, explicit enrolled clock and existing apply/resume/cancel. Inspection

@@ -62,11 +62,15 @@ both500k fixtures, but compiled the pre-aggregate-meter implementation. They are
 not final-runtime broad qualification. Final default chain68634 (includes final
 meter, predates the separately tested discovery-only addition) terminated zero,
 including its500k fixture and standalone Git check. Exact-runtime all-feature/
-Clippy chain87689 remains pending. External logs and current process
-handles, not this paragraph, determine their eventual result. Fresh ordinary CLI
+Clippy chain87689 terminated zero, including its second500k fixture. Fresh ordinary CLI
 cancellation, bulk inspection/execution and pinned pre-final older-writer refusal
 with accepted legacy control pass (chain89964 terminal zero). Historical
 frontend/pre-pair/other-consumer evidence is not newly rerun by these tests.
+
+Hosted exact-head e995b604e2218bc71897f51e874f65c59d3f5476 qualification also
+passes: Validate42624730574, Windows10m55s, Linux6m20s, secrets5s. PR #37 was
+marked ready only after the exact head and all three successful jobs were checked.
+No merge, deployment or live adoption follows; runtime remains1a344fc.
 
 Commands (external build/temp roots and finite test threads required):
 
@@ -95,8 +99,8 @@ PKG-002/003/004/006/008/009 -> AGE-WITNESSES -> source_claims::age,
 subset::historical_survivor, tig-storage age, tig-retirement select-aged -> EVID-106.
 
 Disposition: pass_with_risk for the bounded mechanism under independently admitted
-private writers/clock/minima; final all-feature broad and hosted qualification remain
-pending. No full requirement, VAL, deployment or independent/human approval closes.
+private writers/clock/minima; local broad/artifact and hosted exact-head qualification
+pass. No full requirement, VAL, deployment or independent/human approval closes.
 NB-07 paging, live native/writer adoption, current authority/host trust/unseen
 restore, UI/Action, real providers/large files, journal continuation, eventual
 metadata retirement and full user acceptance remain required. Full goal active.

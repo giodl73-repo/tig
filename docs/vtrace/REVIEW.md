@@ -4,8 +4,8 @@ Age review, input0dbc41f/implementation1a344fc: AW-01..06 in
 [age review](../reviews/2026-11-09-age-witnesses.md) apply six producer checklists.
 Review tightened operation-wide metadata/time budgets and independently finished
 record/root readback before adoption. Focused process/peer/vector/CLI/native and
-strict Clippy/default/500k/fresh artifact checks pass; final all-feature broad/
-hosted checks remain pending. EVID-106
+strict Clippy/default/all-feature/both500k/fresh artifact and hosted exact-head
+e995b60 checks pass. EVID-106
 separates verification/validation/trace from implementation. Bounded mechanism
 pass_with_risk; full paging/adoption/provider/lifetime/human acceptance remains open.
 

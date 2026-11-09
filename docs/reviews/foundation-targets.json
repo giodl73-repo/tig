@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 12508,
-      "sha256": "07d8b2618b966b353041b2ccae28bc02cb3cba0c562f9e2418ee6667657c6831"
+      "bytes": 12973,
+      "sha256": "9bdf23db98fc10f7271f7194b6e5778d3a22b79e82411e699760c3a7db7a5b23"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 96581,
-      "sha256": "6b78a8e0c3cb278eef7b205f7287afb1485a3bd01614a5412b3069bc1527dc53"
+      "bytes": 96669,
+      "sha256": "c04bdec66e135e24a402cd87c8b5e761d2d2b4cf2b141963921e75809a657556"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 127659,
-      "sha256": "692501c6992d90795ad58432f292384803f3ff093905de15bbda8eecced078ab"
+      "bytes": 127650,
+      "sha256": "6ee6b2a769a8a6a555ac628779e11b36bd2943e94f9d4ca434eb8f7c77caa9b5"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -389,8 +389,8 @@
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 54562,
-      "sha256": "ed0744ae2eacc10af6fb5e20df7ff4d94932efb8561798362525267a3cadd0c4"
+      "bytes": 54638,
+      "sha256": "5a87c8f6df1de3bf160db28af38aae6a3f7ee9b871c1b146b803f1bb3c4a7db2"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 41710,
-      "sha256": "87c1b70cbda4ba82d6364f80857a556947b8f65acca5262cecdfd444df9281ee"
+      "bytes": 42200,
+      "sha256": "d58322f0770d2602abf39c396a95135abfabb4217d3a0a5ddf032bd7becd8c41"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 40300,
+      "bytes": 42319,
       "path": "context/RESUME.md",
-      "sha256": "02c85afd424935d3ad8241bee19c1ce53eff5753649a89cc825c8a0318d72b37"
+      "sha256": "ea610584c895c57f4f1b259c022b9e79b35fbaa6ea9c1c2dc0144947c4736686"
     },
     {
       "bytes": 16453,
@@ -2249,8 +2249,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement.rs",
-      "bytes": 129,
-      "sha256": "9f5103b2681b0ac99f2a4e51105ab634e5cf0a26e8b6c8c804f672c91c07183c"
+      "bytes": 144,
+      "sha256": "2b928888fb53b702e935c9e99aadc3b06862ce9af1fc87e6cf1af971af1716d1"
     },
     {
       "path": "crates/tig-store/src/final_retirement/claims.rs",
@@ -2349,8 +2349,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/bulk.rs",
-      "bytes": 4675,
-      "sha256": "0f1a51ba5668016462d926f4706bb5ac744963f77a937d24a9634aed7e23c5be"
+      "bytes": 5500,
+      "sha256": "8c75e3b9e88d6722f4d57a7cf47786dbf75d460e0a28cdfccb3640d5591947e1"
     },
     {
       "path": "specs/BULK-RETIREMENT.md",
@@ -2549,8 +2549,43 @@
     },
     {
       "path": "docs/reviews/2026-11-09-age-witnesses.md",
-      "bytes": 9048,
-      "sha256": "b67eabe4baa04347df810ca7c7940d9088ed4824cdabfdcb927a9d6157dac1b4"
+      "bytes": 9295,
+      "sha256": "4c230dbe427bfa09902382b26889047191f973bc34d0ce3e73beeaba7845b11b"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/paged.rs",
+      "bytes": 12181,
+      "sha256": "e72b69dfc8cfeac024a447d395ab0036c50fc9606d1d67bed7bb6bfaeb419d78"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/paged/compile.rs",
+      "bytes": 9484,
+      "sha256": "da32065a6f529d7f016101776ac3ecfe930100f40460483d5cdc6bc12714b0c4"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/paged/inspect.rs",
+      "bytes": 9391,
+      "sha256": "19c6c73ac9a25051e97dddc937cde5df73ecf31b6cfc1aef6cc4552ee63d8293"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/paged/tests.rs",
+      "bytes": 25492,
+      "sha256": "940c3d6e20cccf2c1598e3d99b814ba131b57fd63f40ef1e92a298b2ca27f704"
+    },
+    {
+      "path": "specs/PAGED-RETIREMENT.md",
+      "bytes": 10619,
+      "sha256": "8d4435b8f7ff5fea2a27ccff38ac485b38e8e28dd2b2b2aa88433e74b8201450"
+    },
+    {
+      "path": "tests/vectors/paged-retirement.design-1.json",
+      "bytes": 7375,
+      "sha256": "d977eba3f238c49f84dc00dad648c043b024c06238c5018d3c5f75872f232d15"
+    },
+    {
+      "path": "docs/guides/PAGED-RETIREMENT.md",
+      "bytes": 5428,
+      "sha256": "a9dad2b2465428581de385739a1d4519b1b48a4edfe16a8202f0b76ad56a9444"
     }
   ]
 }

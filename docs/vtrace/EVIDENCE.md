@@ -7,7 +7,8 @@ peers, restored-prefix/unknown/budget holds, three actual age CLI entries and ni
 native retirement entries (one new age-aware case). Final focused/Clippy, identity
 helper framing and discovery/storage CLI qualification pass. Final default/500k/
 standalone Git and fresh ordinary/bulk/pinned older-writer artifact checks pass;
-final all-feature broad/hosted checks remain pending. One operation meter
+final all-feature/second500k and hosted e995b60 checks also pass (87689 terminal
+zero; Validate42624730574 Windows/Linux/secrets successful). One operation meter
 spans metadata phases; acknowledged retries preserve original observations without
 time IO; actual executed subsets preserve age. Earlier broad runs predate meter
 tightening; the review distinguishes their scope. This is metadata-only

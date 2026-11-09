@@ -8,6 +8,32 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active lane: feat/paged-retirement, inpute995b604e2218bc71897f51e874f65c59d3f5476.
+  Read specs/PAGED-RETIREMENT.md. First layer: asset-side exact
+  selection request/manifest, complete-roster hypothetical protection and stable
+  original-binding pages. No Source/provider mutation or consent is exposed.
+  Eight focused entries/ten independent framing cases and strict store all-target
+  Clippy pass (19322 terminal zero):17 roots preserve complete page coverage while
+  the old16-root projection remains held;1100 bindings span stable byte-bounded
+  pages; actual prepare/abort during build invalidates the candidate. Unselected/
+  current/job/retention/foreign holds, missing/corrupt metadata, source-private and
+  local budget intersection and malformed cursors are exercised. Three later
+  tests strengthen deterministic reconstruction/unselected predecessor, wrong
+  object/path and foreign/Job/Retention/current-only selection refusal. Final
+  eleven-entry focus and strict store Clippy pass (65113 terminal zero) on the
+  separate paged-focus target.
+  No runtime code changed after the19322 focus. Full locked default/500k/standalone
+  chain72249 and all-feature/strict workspace Clippy/second500k chain77055 both
+  terminated zero. Fresh ordinary cancellation, bulk inspection/execution and
+  pinned pre-final older-writer refusal with legacy control pass (89270 terminal
+  zero). Logs are external paged-final-default.log, paged-final-all.log and
+  paged-final-artifacts.log. All local processes are terminal; no target is live.
+  Finish L0/pins, implementation commit, separate six-role/evidence/trace and draft PR on
+  feat/age-witnesses. Future durable paged intent/decision, conditional survivor
+  translation, verified age inheritance and originally approved final actions
+  remain necessary to resolve NB-07 operationally. The manifest is no lease or
+  authority, and a cursor is no execution-completion proof. Full goal active.
+
 - Active lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
   Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Full qualification
   remains pending; implementation1a344fc. Metadata/Tree/source journals preserve
@@ -25,16 +51,17 @@ source changes into running tools as a side effect. No startup cache operations.
   terminated zero and cannot qualify the tightened runtime. Final default chain
   68634 terminated zero (500k plus standalone Git); its log is external
   age-final-default.log. It predates the separately qualified discovery-only
-  addition. Exact-runtime all-feature/Clippy chain87689 is live on age-witnesses-all,
+  addition. Exact-runtime all-feature/Clippy chain87689 terminated zero on age-witnesses-all,
   with external age-final-all.log. Fresh ordinary cancellation, bulk inspection/
   execution and pinned pre-final older-writer refusal/legacy control pass (89964
   terminal zero, external age-final-artifacts.log). All default/focus processes
-  are terminal; inspect actual87689 before further Cargo on its target.
+  are terminal; no previous age build is live.
   Preserve external build/temp roots and never replace a target's CLI while its
   tests execute. EVID-106 / docs/reviews/2026-11-09-age-witnesses.md separately
   records verification, synthetic validation, trace and six producer lenses.
-  Complete final all-feature qualification and derive the draft PR/hosted exact-
-  head checks from GitHub; this lane stacks on feat/native-retirement.
+  PR #37 at e995b60 is OPEN/ready against feat/native-retirement. Local final
+  all-feature/second500k and exact-head hosted Windows/Linux/secrets checks pass
+  (Validate42624730574). No runtime changed after1a344fc and no merge occurred.
   PR #36 exact0dbc41f has all
   three hosted checks successful (run42615606426) and is ready for review; no merge.
   NB-07 paged global consent/historical claim settlement remains the next design

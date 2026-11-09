@@ -1,19 +1,26 @@
 # Tig maintainer context
 
+Paged-retirement lane: specs/PAGED-RETIREMENT.md freezes the whole-selection and
+future controller boundaries for NB-07. The in-progress final_retirement::paged
+library compiles asset-side requests/manifests and original-binding pages using
+existing metadata/source ports. It grants no claim-release/removal authority;
+the durable paged controller and user surfaces remain owed. Read context/RESUME.md.
+
 Age-witness lane: specs/AGE-WITNESSES.md defines exact historical occurrence
 observations over existing asset-side Trees and an enrolled Retention source.
 Capture preserves acknowledged dates across retries; executed unchanged subsets
 can inherit age. tig-storage age and optional tig-retirement select-aged use
 private existing-root profiles, with no claim-release/removal authority. Aggregate
-metadata/time budgets now span phases. Local final-code qualification is ongoing;
-no live adoption or complete milestone follows. Read context/RESUME.md.
+metadata/time budgets span phases. EVID-106 records local/hosted qualification;
+live adoption and the complete milestone remain open. Read context/RESUME.md.
 
 Native retirement binding lane: optional declared storage closure and asset-side
 native-to-flat roots give each root asset independent bindings for shared objects.
 Explicit metadata-only tig-retirement bind/select composes exact block/category
 selection with the existing bulk controller, without self-approval or age inference.
-Read specs/NATIVE-RETIREMENT-BINDINGS.md and EVID-105 for local qualification; age
-witnesses, UI/Action, authority/provider/lifetime and full acceptance remain open.
+Read specs/NATIVE-RETIREMENT-BINDINGS.md and EVID-105 for local qualification.
+Bounded age witnesses are separate in EVID-106; UI/Action, native writer/adoption,
+authority/provider/lifetime and full acceptance remain open.
 
 Bulk execution lane: the distinct tig-storage bulk execute profile binds exact
 privately admitted consent and default-disabled apply/cancel permissions. Native
