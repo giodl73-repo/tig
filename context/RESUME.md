@@ -40,8 +40,19 @@ source changes into running tools as a side effect. No startup cache operations.
   46256 passes real enrolled-clock indexed CLI, five explicit fresh/pinned old
   CLI qualifiers and strict schema Clippy. External logs: native-paged-default.log,
   native-paged-all.log, native-paged-final-focus.log and native-paged-artifacts.log.
-  All processes are terminal; no target is live. No commit/PR yet for this lane.
-  Finish exact pins/L0/secret scan and draft PR on ready PR41. EVID-111 and its
+  Initial implementatione881b2f0b8ec1100efdf5174c7ade5e8a0270d01 is committed;
+  PR42 is OPEN/draft on ready PR41. Its initial exact-head hosted Windows/Linux/
+  secrets run42685956150 passed, but does not qualify the size tightening.
+  A final review found separately valid roots could disagree on a digest's size.
+  Stage/readback now checks all actual bindings across occurrences,
+  including unselected aliases, under the nodes/identity cap. A real two-namespace
+  regression passes in45121; source checkpoints stay unchanged. Final17-case native
+  default/schema89656 and all-feature82856 checks terminate zero, including three
+  native framing/budget entries and strict workspace Clippy per profile; logs are
+  native-paged-size-default.log/native-paged-size-all.log in the external temp root.
+  All local processes/targets are terminal. Record the actual final runtime SHA,
+  refresh pins/L0, push to PR42 and derive new exact-head checks before readying.
+  EVID-111 and its
   six-producer review separate verification, synthetic validation and trace. Next:
   operator/agent/UI/Action using the actual paged controller, plus actual native
   writer/current authority/time/restore/providers/large files/lifetime/metadata

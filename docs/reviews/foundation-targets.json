@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 101462,
-      "sha256": "8a12b5aa56dc67f7f3e49f83ca87aa89d21f182894e3dedf7a698d19bf39e6e1"
+      "bytes": 101916,
+      "sha256": "30c45c3c58b3a08526771e9bf69ad4b71150c9273c555a15e516655a0e90787d"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 56150,
+      "bytes": 56971,
       "path": "context/RESUME.md",
-      "sha256": "90707ddc47dff2b2f2b7ca4847f201667f99d121f5937343163e1c54b5dc8492"
+      "sha256": "378ca090715e9283ef1c2e95ff21f4b724bef9059027b9e5a69f8f389c1a13db"
     },
     {
       "bytes": 16453,
@@ -2679,13 +2679,13 @@
     },
     {
       "path": "crates/tig-git/src/source/native/retirement/paged.rs",
-      "bytes": 30264,
-      "sha256": "46d0266a9926e2630e93ab2d384cb62761e7aa3e69dc0bab854ab20505190f9d"
+      "bytes": 30910,
+      "sha256": "8b26c9febbb9f2f8372afe9672ec98322b563efdc7422340453250b156d06afb"
     },
     {
       "path": "crates/tig-git/tests/native_source/retirement_cases/paged_cases.rs",
-      "bytes": 31457,
-      "sha256": "65ddecb779a80d77180b4cc868eeed9a8761156cd6d9172910e80e625c61aafc"
+      "bytes": 34532,
+      "sha256": "82551157352a7658a41df1805d30f7b3b8a3d9f9feaaf75f0c1f84e73a96f55b"
     },
     {
       "path": "docs/guides/NATIVE-PAGED-RETIREMENT.md",
@@ -2694,13 +2694,13 @@
     },
     {
       "path": "docs/reviews/2026-11-09-native-paged-retirement.md",
-      "bytes": 7189,
-      "sha256": "5f936f21c534e7cc5f7f90231d2d2fe13836234a871aefe75057fd6cde010464"
+      "bytes": 8049,
+      "sha256": "acef3330d4bbe5e38a7fced2a18b12b56cbe61f18dc9c38e3c0d16dbf45b57b0"
     },
     {
       "path": "specs/NATIVE-PAGED-RETIREMENT.md",
-      "bytes": 3125,
-      "sha256": "9f46b6ec62f534a8526290d7d804390a1c7f7edbd541b1a327ca976532db1013"
+      "bytes": 3573,
+      "sha256": "21dfb7a80989f2195621c92826903f86ea372623d62456a2a19792995f46fd17"
     },
     {
       "path": "tests/vectors/native-paged-retirement.design-1.json",

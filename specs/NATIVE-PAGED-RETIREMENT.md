@@ -29,6 +29,13 @@ Categories are exact admitted definition References; block and category intersec
 Global requested asset References must exist in the admitted occurrence scope;
 they need not all exist in each individual historical root.
 
+Actual bindings across all admitted occurrences, including unselected aliases,
+must agree on the declared size of each digest. Independently well-formed roots
+cannot hide conflicting shared identities. Stage and independent readback both
+check this; their transient identity map shares the admitted nodes/identity bound
+(maximum500000), rather than growing without a memory bound. This verifies
+metadata consistency, not payload bytes or custody.
+
 Selection replays the native archive and exact actual remaining bindings, keeps
 the interpretation header, and emits existing paged selection requests. Missing
 scope/metadata, foreign owner/class/header, inconsistent bindings, source drift

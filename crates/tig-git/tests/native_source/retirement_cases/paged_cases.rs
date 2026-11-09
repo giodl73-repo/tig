@@ -493,6 +493,115 @@ fn a_peer_source_change_during_native_reads_invalidates_the_candidate() {
 }
 
 #[test]
+fn conflicting_payload_sizes_across_historical_namespaces_refuse_native_candidates() {
+    let mut f = Setup::new(1);
+    f._fixture
+        .record("d", "asset/d", true, json!([]), Some(b"shared"));
+    let record_path = f._fixture.root().join("records/d.tig");
+    let mut raw: serde_json::Value =
+        serde_json::from_slice(&std::fs::read(&record_path).unwrap()).unwrap();
+    raw["selected"]["bytes"] = json!(7);
+    std::fs::write(&record_path, serde_json::to_vec(&raw).unwrap()).unwrap();
+    let mut newer = capture(&reader(f._fixture.root()), commit(f._fixture.root()));
+    let dref = newer.resolve_id("asset/d").unwrap().reference().clone();
+    let second = retirement::build(
+        &mut newer,
+        BTreeSet::from([dref.clone()]),
+        profiles(&f._fixture),
+        &mut f.metadata,
+        BindingLimits::default(),
+    )
+    .unwrap();
+    f.metadata.finish().unwrap();
+    let mut ns = Namespace::create(
+        &f.temp.path().join("second-namespace"),
+        key("second-project"),
+        key("epoch"),
+        f.namespaces[0].policy().clone(),
+    )
+    .unwrap();
+    ns.apply(
+        key("enroll"),
+        SourceCommand::Enroll {
+            source: key("main"),
+            owner: key("owner"),
+            class: Kind::Branch,
+        },
+        &f.metadata,
+        &protection_limits(),
+    )
+    .unwrap();
+    ns.select(
+        &Select {
+            prepare: key("prepare"),
+            adopt: key("adopt"),
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 1,
+            selection: second.clone(),
+        },
+        &f.metadata,
+        &protection_limits(),
+    )
+    .unwrap();
+    ns.apply(
+        key("withdraw"),
+        SourceCommand::Withdraw {
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 3,
+        },
+        &f.metadata,
+        &protection_limits(),
+    )
+    .unwrap();
+    f.roots.push(Occurrence {
+        namespace: ns.identity().clone(),
+        source: key("main"),
+        predecessor_revision: 3,
+        header: second.context,
+    });
+    f.namespaces.push(ns);
+    let input = f.input();
+    let chosen = Filter {
+        assets: BTreeSet::from([
+            f.snapshot
+                .resolve_id("asset/a")
+                .unwrap()
+                .reference()
+                .clone(),
+            dref,
+        ]),
+        categories: BTreeSet::new(),
+    };
+    let before = f
+        .namespaces
+        .iter()
+        .map(Namespace::checkpoint)
+        .collect::<Vec<_>>();
+    assert!(matches!(
+        native::select(
+            &f.enrollment,
+            &input,
+            &chosen,
+            selection::Paging::default(),
+            &mut f.namespaces,
+            &mut f.metadata,
+            None,
+            &Session::new(BindingLimits::default()).unwrap()
+        ),
+        Err(retirement::Error::Integrity)
+    ));
+    assert_eq!(
+        before,
+        f.namespaces
+            .iter()
+            .map(Namespace::checkpoint)
+            .collect::<Vec<_>>()
+    );
+}
+
+#[test]
 fn unknown_and_recent_age_remain_held_rows_and_cannot_grow_an_old_request() {
     let mut f = Setup::new(17);
     let input = f.input();

@@ -16,6 +16,12 @@ three fresh ordinary/bulk CLI qualifiers and strict schema Clippy. Broad test
 compilations precede the final test-only held-root projection and real-clock CLI
 assertions;30697/46256 qualify those additions. Full operator/agent/UI/Action,
 actual writer/authority/provider/lifetime/human acceptance and hosted checks remain.
+Post-commit identity review tightens declared-size consistency across actual
+bindings in all historical roots, including unselected aliases. A real two-namespace
+negative passes. Final17 native fixtures/three framing-budget entries and strict
+workspace Clippy pass under schema89656/all-feature82856 (both terminal zero).
+Earlier broad/hosted qualification predates that runtime change; new exact-head
+hosted checks remain required before readying PR42.
 
 EVID-110: explicit aged paged controller candidate, inputad8b428,
 implementationd549349063dbd935829a80db0153cbd70594eadc.

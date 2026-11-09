@@ -327,6 +327,24 @@ fn asset_index(assets: &[MatchedAsset], work: &mut Work<'_, impl NodeStore>) -> 
         .map(|t| t.0.root().clone())
         .map_err(tree_error)
 }
+fn consistent_sizes(
+    inv: &Inventory,
+    known: &mut BTreeMap<Digest, u64>,
+    limit: usize,
+) -> Result<()> {
+    for object in inv.actual.values() {
+        if known
+            .insert(object.sha256.clone(), object.bytes)
+            .is_some_and(|old| old != object.bytes)
+        {
+            return Err(Error::Integrity);
+        }
+        if known.len() > limit {
+            return Err(Error::Budget);
+        }
+    }
+    Ok(())
+}
 /// Stage the whole native derivation and exact existing paged request. Both
 /// source and provider execution permissions remain external and independent.
 #[allow(clippy::too_many_arguments)]
@@ -373,6 +391,7 @@ pub fn select(
     let mut rows = BTreeMap::new();
     let mut selections = Vec::new();
     let mut found = BTreeSet::new();
+    let mut sizes = BTreeMap::new();
     let (mut matched_assets, mut bindings, mut all_bindings) = (0usize, 0usize, 0usize);
     for (key, object) in &index {
         work.timed()?;
@@ -399,6 +418,7 @@ pub fn select(
             .selection
             .clone();
         let inv = super::inspect_work(&original, &occurrence.header, &mut work)?;
+        consistent_sizes(&inv, &mut sizes, limits.nodes)?;
         let preview = chosen(&inv, e, filter, &mut found)?;
         matched_assets = matched_assets
             .checked_add(preview.assets.len())
@@ -645,6 +665,7 @@ pub fn inspect(
     }
     let (mut matched_assets, mut bindings, mut all_bindings) = (0usize, 0usize, 0usize);
     let mut found = BTreeSet::new();
+    let mut sizes = BTreeMap::new();
     let mut rows = Vec::new();
     let mut expected = BTreeMap::new();
     for (key, object) in stored {
@@ -658,6 +679,7 @@ pub fn inspect(
             return Err(Error::Integrity);
         }
         let inv = super::inspect_work(&row.original, &original.header, &mut work)?;
+        consistent_sizes(&inv, &mut sizes, session.limits.nodes)?;
         let preview = chosen(&inv, e, &filter, &mut found)?;
         let stored_assets = entries(&row.assets, &mut work)?;
         if stored_assets.len() != row.asset_count || preview.assets.len() != row.asset_count {

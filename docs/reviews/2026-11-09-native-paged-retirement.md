@@ -42,6 +42,18 @@ separate qualifier actually runs. No local process/target remains live.
 Portable validator/fmt/diff and final reviewed hashes pass. Pinned Gitleaks8.30.1
 changed-source scan passes with no new rule/path exclusions. Hosted checks remain.
 
+Post-commit identity review found a cross-root gap: each native archive rejected
+internal size conflicts, but separately valid historical roots could disagree
+about one payload digest's declared size until later generic planning. The
+tightening checks every actual binding (also unselected aliases) across
+occurrences during selection and readback, with a bounded transient identity map.
+A new actual two-namespace regression passes in45121 (terminal zero), proving
+both roots were individually admitted and that selection refuses without changing
+source checkpoints. Final17-case native, three native framing/budget entries and
+strict workspace Clippy pass under schema/default89656 and all-feature82856,
+both terminal zero. Earlier broad/hosted success predates this tightening and
+does not qualify it; the final focused reruns provide its actual coverage.
+
 ## Synthetic validation
 
 An actual native block across17 historical roots stages exact paths, then the
