@@ -50,8 +50,14 @@ The [Git lifecycle selection interface](specs/GIT-LIFECYCLE-RECONCILIATION.md)
 adds `tig-lifecycle describe`, then explicit plan/status/apply/resume for an
 enrolled committed ref. It verifies persisted immutable metadata before atomic
 desired-claim adoption, preserves predecessors, and separates historical receipts
-from current ref observations. Storage convergence remains unknown; automatic
-copy/retention/eviction composition and a trusted GitHub trigger remain required.
+from current ref observations. Those commands keep storage convergence unknown.
+The subsequent [local placement command](specs/PLACEMENT-RECONCILIATION.md),
+`tig-lifecycle reconcile PROFILE REQUEST PLACEMENT_PROFILE [CURSOR]`, composes
+copy, retained backup, handoff, ordinary cache eviction and exact-byte
+reacquisition in explicitly enrolled local stores. It processes one bounded page
+with private permissions and separate physical observations. A trusted GitHub
+trigger, production provider/large-file qualification and full lifecycle coverage
+remain required; no runner, hook or live cache is installed automatically.
 
 The optional `tig-git/upload` feature adds [Git LFS upload](specs/LFS-UPLOAD.md)
 through `tig-lfs upload describe` and an explicitly configured standalone agent.

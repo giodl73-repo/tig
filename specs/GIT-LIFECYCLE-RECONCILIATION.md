@@ -28,6 +28,12 @@ Copy/retention/eviction integration, a trusted GitHub trigger boundary, branch
 withdrawal and draft/index lifecycle integration remain required subsequent work.
 This checkpoint does not close priority 6 or replace those deliverables.
 
+The subsequent [local placement composition](PLACEMENT-RECONCILIATION.md) adds
+explicit `reconcile PROFILE REQUEST PLACEMENT_PROFILE [CURSOR]`. The original
+four selection commands retain this checkpoint's semantics; interface discovery
+now advertises the separate physical command. Neither command authenticates an
+external event or installs a runner. Bulk/final deletion remains unavailable.
+
 ```text
 tig-lifecycle plan PROFILE REQUEST
 tig-lifecycle status PROFILE PLAN

@@ -622,6 +622,19 @@ impl CapacityLedger {
             operation: op.clone(),
         }))
     }
+    pub(crate) fn handoff_reference(&mut self, op: &Key) -> Result<Option<JournalRef>> {
+        self.sync()?;
+        let Some(output) = self.outputs.get(op.as_str()) else {
+            return Ok(None);
+        };
+        if !matches!(output, Output::Handoff { .. }) {
+            return Err(LedgerError::Conflict);
+        }
+        Ok(Some(JournalRef {
+            genesis: self.checkpoint.genesis.clone(),
+            operation: op.clone(),
+        }))
+    }
     pub(crate) fn publication_reference(&mut self, op: Key) -> Result<JournalRef> {
         self.sync()?;
         if !matches!(

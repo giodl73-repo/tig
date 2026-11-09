@@ -373,7 +373,79 @@ impl<'a, S: NodeStore> Work<'a, S> {
 pub struct Namespace {
     journal: SourceJournal,
 }
+/// Exact desired assignment within this namespace checkpoint. This is not a
+/// live protection guard and says nothing about other namespace authorities.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct Assignment {
+    pub object: Object,
+    pub places: Vec<Key>,
+}
+#[derive(Clone, Debug, Serialize)]
+pub struct Requirements {
+    pub namespace: Digest,
+    pub checkpoint: Checkpoint,
+    pub entries: Vec<Assignment>,
+}
 impl Namespace {
+    pub fn requirements(
+        &mut self,
+        nodes: &impl NodeStore,
+        limits: &Limits,
+    ) -> Result<Requirements> {
+        let start = Instant::now();
+        let mut work = Work::new(nodes, limits, start)?;
+        self.requirements_work(&mut work)
+    }
+    pub(crate) fn requirements_work<S: NodeStore>(
+        &mut self,
+        work: &mut Work<'_, S>,
+    ) -> Result<Requirements> {
+        self.journal.check_guarded_marker()?;
+        self.journal.sync()?;
+        let checkpoint = self.journal.checkpoint();
+        let policy = self.policy();
+        let mut all = BTreeMap::<Digest, Demand>::new();
+        for source in self.journal.state.sources.values() {
+            for (id, demand) in work.source(source, policy)? {
+                match all.entry(id) {
+                    std::collections::btree_map::Entry::Vacant(e) => {
+                        e.insert(demand);
+                    }
+                    std::collections::btree_map::Entry::Occupied(mut e) => {
+                        e.get_mut().extend(&demand)?
+                    }
+                }
+            }
+        }
+        let keys = policy
+            .classes
+            .values()
+            .flat_map(|p| p.current.iter().chain(&p.pending).chain(&p.predecessor))
+            .map(|k| k.as_str())
+            .collect::<BTreeSet<_>>();
+        let mut entries = Vec::new();
+        for (id, demand) in all {
+            let places = keys
+                .iter()
+                .filter(|p| demand.required(policy, p))
+                .map(|p| Key::parse(p).map_err(Error::from))
+                .collect::<Result<Vec<_>>>()?;
+            entries.push(Assignment {
+                object: Object {
+                    sha256: id,
+                    bytes: demand.bytes,
+                },
+                places,
+            });
+        }
+        work.timed()?;
+        self.journal.check_guarded_marker()?;
+        Ok(Requirements {
+            namespace: self.identity().clone(),
+            checkpoint,
+            entries,
+        })
+    }
     pub(crate) fn check_marker(&self) -> Result<()> {
         Ok(self.journal.check_guarded_marker()?)
     }

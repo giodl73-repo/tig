@@ -432,3 +432,16 @@ The remaining priority-6 exit still requires automatic copy/retention/ordinary
 eviction composition, independently trusted trigger integration, configured branch
 withdrawal/draft/index lifecycle and end-to-end provider failure fixtures. This
 prerequisite does not replace those deliverables or complete the milestone.
+
+Priority-6 local composition: [placement reconciliation](specs/PLACEMENT-RECONCILIATION.md)
+now reuses exact namespace requirements and existing accounted/retention/handoff/
+retirement/reacquisition adapters. Explicit `tig-lifecycle reconcile` adopts the
+enrolled committed ref, then reconciles one bounded page even for a no-op selection.
+Stable copy identities survive later source changes and run-budget adjustments.
+Temporary-store fixtures exercise replacement, job-end demotion, shared bytes,
+backup outage/catch-up, reader and late-claim holds, process exit, exact old-byte
+reacquisition, pagination and CLI defaults. Full workspace qualification/closeout
+is in progress. Trusted external triggers, branch/draft/index/native integration,
+unattended private-partial recovery, offline enrollment, aggregate verification IO,
+large-file/provider qualification and lifetime remain required. This does not
+complete priority 6 or enable live storage operations.

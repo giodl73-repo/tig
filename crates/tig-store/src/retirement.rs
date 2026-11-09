@@ -423,6 +423,16 @@ impl<S: NodeStore> Execution<'_, '_, S> {
     pub fn apply(&mut self, plan: &Plan, authorization: &Authorization) -> Result<Receipt> {
         self.apply_hook(plan, authorization, |_| Ok(()))
     }
+    #[cfg(test)]
+    pub(crate) fn fixture_pending_intent(&mut self, plan: &Plan) -> Result<Receipt> {
+        self.apply_hook(plan, &plan.authorize()?, |stage| {
+            if stage == Stage::Intent {
+                Err(Error::Injected)
+            } else {
+                Ok(())
+            }
+        })
+    }
     fn apply_hook(
         &mut self,
         plan: &Plan,
@@ -730,6 +740,9 @@ pub struct ReacquisitionPlan {
     capacity: Digest,
 }
 impl ReacquisitionPlan {
+    pub(crate) fn payload_plan(&self) -> &PublicationPlan {
+        &self.payload
+    }
     pub fn publication(&self) -> &Publication {
         &self.publication
     }
@@ -833,6 +846,41 @@ pub struct Reacquisition<'a> {
     pub store: &'a LocalStore,
     pub ledger: &'a mut CapacityLedger,
     pub job: &'a JournalRef,
+}
+/// Reconstruct the original typed plan after its new birth was persisted. The
+/// per-object chain and original context/ledger bindings still verify on apply.
+pub(crate) fn resume_reacquisition(
+    store: &LocalStore,
+    birth: Birth,
+    context: Digest,
+) -> Result<ReacquisitionPlan> {
+    let publication = birth.reacquire.clone().ok_or(Error::InvalidPlan)?;
+    let old_index = birth.index.checked_sub(1).ok_or(Error::InvalidPlan)?;
+    let intent = store
+        .retirement_intent(&publication.object, old_index)?
+        .ok_or(Error::InvalidPlan)?;
+    let previous = store
+        .retirement_done(&publication.object, old_index)?
+        .ok_or(Error::InvalidPlan)?;
+    previous.validate(&intent)?;
+    let payload = accounted::plan_bound(
+        store,
+        &publication,
+        lifecycle::digest(&("reacquire", &birth, &context))?,
+    )?;
+    let plan = ReacquisitionPlan {
+        schema: "tig.replica-reacquisition-plan.design-1".into(),
+        enrollment: Enrollment::bind(store)?,
+        previous,
+        birth,
+        publication,
+        context,
+        payload,
+        limit: metadata_peak(store)?,
+        capacity: intent.plan.request.capacity,
+    };
+    plan.validate(store)?;
+    Ok(plan)
 }
 impl Reacquisition<'_> {
     pub fn apply(

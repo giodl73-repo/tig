@@ -223,6 +223,25 @@ impl LocalStore {
         }
         Ok(())
     }
+    /// Original birth of the current physical placement, preserving publication
+    /// identity across cancellation-only action slots. No census or mutation.
+    pub(crate) fn placement_origin(&self, object: &Object) -> Result<Option<Birth>> {
+        let Some(head) = self.life_head(object)? else {
+            return Ok(None);
+        };
+        let mut origin = head.birth.clone();
+        for index in (0..=head.birth.index).rev() {
+            let birth: Birth = read_record(&self.life_path(object, index, "birth"))?;
+            if birth.placement != head.birth.placement {
+                break;
+            }
+            origin = birth;
+            if origin.reacquire.is_some() {
+                break;
+            }
+        }
+        Ok(Some(origin))
+    }
     pub(crate) fn check_incarnation(
         &self,
         request: &Request,

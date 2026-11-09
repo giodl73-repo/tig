@@ -162,6 +162,42 @@ fn keys(p: &HandoffPlan) -> Result<(Key, Key)> {
         Key::parse(&format!("handedoff-{}", id.as_str()))?,
     ))
 }
+/// Exact read-only settlement check; no allocation/attempt creation.
+pub(crate) fn inspect(
+    ledger: &mut CapacityLedger,
+    source: &LocalStore,
+    job: &JournalRef,
+    planned: &HandoffPlan,
+) -> Result<bool> {
+    if encode(&plan(source, &planned.request)?)? != encode(planned)? {
+        return Err(HandoffError::InvalidPlan);
+    }
+    let existing = source.handoff_record(&planned.request.previous.record)?;
+    let (operation, _) = keys(planned)?;
+    let allocation = ledger.handoff_reference(&operation)?;
+    let settled = match &allocation {
+        Some(a) => ledger
+            .handoff_status(a, &Digest::blob(&encode(&(planned, job))?))?
+            .is_some(),
+        None => false,
+    };
+    match existing {
+        Some(marker) => {
+            if encode(&marker.plan)? != encode(planned)?
+                || marker.job != *job
+                || allocation.as_ref() != Some(&marker.allocation)
+            {
+                return Err(HandoffError::InvalidPlan);
+            }
+            if settled && !source.handoff_claim_absent(&planned.request.previous.record)? {
+                return Err(HandoffError::InvalidPlan);
+            }
+            Ok(settled)
+        }
+        None if settled => Err(HandoffError::InvalidPlan),
+        None => Ok(false),
+    }
+}
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Stage {
     Admitted,

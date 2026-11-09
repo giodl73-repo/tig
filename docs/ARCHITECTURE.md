@@ -44,8 +44,16 @@ finishes and is read through a fresh reader before one transactional Prepare/Ado
 pair publishes desired protection. Existing event encodings and roles are reused.
 No-op duplicates append no commands; historical replay cannot replace a newer
 selection. Current ref observations are separate from admitted state. This is
-the selection prerequisite; provider copy/retention/eviction composition and
-trusted external trigger integration remain required. No service starts on resume.
+the selection prerequisite. `tig-store::placement` adds generic requirements
+projection and bounded pages over existing accounted publication, retention,
+handoff and managed retirement/reacquisition. `tig-lifecycle reconcile` composes
+that executor after exact committed-ref admission, including no-op selections.
+Copies retain stable original operation/job bindings across later Git revisions.
+Required cache readers span conflicting source removal; existing all-namespace
+and provider fences still decide removal. No new cache engine or journal exists.
+Page convergence is distinct from full selection convergence. Trusted external
+trigger integration, complete lifecycle/provider adoption, large files and
+operational continuation remain required. No service starts on resume.
 
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable

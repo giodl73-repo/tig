@@ -386,6 +386,241 @@ fn failure(output: std::process::Output, code: &str) {
         code
     );
 }
+
+fn storage_profile(f: &Fixture) -> serde_json::Value {
+    use tig_store::{
+        ledger::CapacityLedger,
+        local::LocalStore,
+        local_capacity::LocalCapacityProbe,
+        orchestration::Place,
+        placement::{Authority, Budget, Config, Mapping, Provider, Role},
+        store_protection::{Binding, Member},
+    };
+    let root = f.temp.path();
+    let mut providers = Vec::new();
+    let mut roots = Vec::new();
+    for (name, role) in [
+        ("working", Role::Cache),
+        ("history", Role::Cache),
+        ("backup", Role::Retained),
+    ] {
+        let path = root.join(name);
+        let store = if role == Role::Cache {
+            LocalStore::create_managed(
+                &path,
+                key(name),
+                Binding::new(
+                    1,
+                    hash(&"trusted clients"),
+                    vec![Member {
+                        namespace: f.namespace.identity().clone(),
+                        places: vec![key(name)],
+                    }],
+                )
+                .unwrap(),
+            )
+            .unwrap()
+        } else {
+            LocalStore::create(&path, key(name)).unwrap()
+        };
+        let ledger_root = root.join(format!("ledger-{name}"));
+        let mut ledger = CapacityLedger::create(&ledger_root, key(name), key("epoch"), 0).unwrap();
+        LocalCapacityProbe::bind(&store, &mut ledger)
+            .unwrap()
+            .observe(&store, &mut ledger, key("probe"), key("sample"))
+            .unwrap();
+        let job = ledger
+            .reserve(key("controller"), key("owner"), 256 * 1024 * 1024)
+            .unwrap()
+            .reference()
+            .clone();
+        providers.push(Provider {
+            place: Place::local(&store, 1).unwrap(),
+            role,
+            failure_domain: key(name),
+            capacity: ledger.identity().clone(),
+            job,
+            assignments: vec![Mapping {
+                namespace: f.namespace.identity().clone(),
+                place: key(name),
+            }],
+        });
+        roots.push(serde_json::json!({"root":path,"ledger_root":ledger_root,"minimum":ledger.checkpoint()}));
+    }
+    let seed = root.join("seed");
+    fs::create_dir_all(seed.join("objects")).unwrap();
+    for bytes in [b"old".as_slice(), b"new".as_slice(), b"shared".as_slice()] {
+        fs::write(
+            seed.join("objects")
+                .join(Object::from_bytes(bytes).sha256.as_str()),
+            bytes,
+        )
+        .unwrap();
+    }
+    let byte_source = serde_json::json!({"places":[{"root":seed,"layout":"flat"}],"required":"cooperative-immutable"});
+    let config = Config {
+        schema: "tig.placement-enrollment.design-1".into(),
+        owner: key("owner"),
+        authority: f.enrollment.authority.clone(),
+        seed: hash(&byte_source),
+        providers,
+        namespaces: vec![Authority {
+            namespace: f.namespace.identity().clone(),
+            policy: hash(f.namespace.policy()),
+        }],
+        minimum_domains: 1,
+        budget: Budget {
+            objects: 32,
+            max_object_bytes: 8 * 1024 * 1024,
+            max_stream_bytes: 32 * 1024 * 1024,
+            max_peak_bytes: 256 * 1024 * 1024,
+            limits: admission_limits(),
+        },
+    };
+    serde_json::json!({"schema":"tig.placement-profile.design-1","config":config,"namespaces":[{"root":root.join("namespace"),"minimum":f.namespace.checkpoint()}],"providers":roots,"byte_source":byte_source,"allow_copy":true,"allow_eviction":true,"allow_reacquisition":true,"allow_cancellation":true})
+}
+fn reconcile(root: &Path) -> std::process::Output {
+    Process::new(env!("CARGO_BIN_EXE_tig-lifecycle"))
+        .arg("reconcile")
+        .arg(root.join("profile.json"))
+        .arg(root.join("request.json"))
+        .arg(root.join("storage.json"))
+        .output()
+        .unwrap()
+}
+#[test]
+fn actual_cli_selects_copies_demotes_and_reacquires_without_source_on_noop() {
+    use tig_store::local::LocalStore;
+    let f = Fixture::new();
+    let root = f.temp.path();
+    save(root, "profile.json", &profile(&f));
+    save(
+        root,
+        "request.json",
+        &serde_json::json!({"schema":"tig.git-lifecycle-request.design-1","repository":f.enrollment.repository,"ref_name":f.enrollment.ref_name,"commit":null}),
+    );
+    save(root, "storage.json", &storage_profile(&f));
+    let first = success(reconcile(root));
+    assert_eq!(first["storage_converged"], true, "{first}");
+    let revision = first["selection"]["source_revision"].clone();
+    let old = Object::from_bytes(b"old");
+    let new = Object::from_bytes(b"new");
+    let shared = Object::from_bytes(b"shared");
+    assert!(
+        LocalStore::open(&root.join("working"))
+            .unwrap()
+            .read_object(&old)
+            .is_ok()
+    );
+    git(&f.repo(), &["checkout", "-b", "asset-fix"]);
+    f.update(b"new");
+    git(&f.repo(), &["checkout", "main"]);
+    git(
+        &f.repo(),
+        &[
+            "-c",
+            "core.hooksPath=NUL",
+            "merge",
+            "--no-ff",
+            "asset-fix",
+            "-m",
+            "release synthetic asset",
+        ],
+    );
+    let advanced = success(reconcile(root));
+    assert_eq!(advanced["storage_converged"], true, "{advanced}");
+    assert_ne!(advanced["selection"]["source_revision"], revision);
+    let working = LocalStore::open(&root.join("working")).unwrap();
+    let history = LocalStore::open(&root.join("history")).unwrap();
+    assert!(working.read_object(&old).is_err());
+    assert!(history.read_object(&old).is_ok());
+    assert!(working.read_object(&new).is_ok());
+    assert!(history.read_object(&shared).is_err());
+    fs::rename(root.join("seed"), root.join("offline-seed")).unwrap();
+    let no_op = success(reconcile(root));
+    assert_eq!(no_op["storage_converged"], true, "{no_op}");
+    assert_eq!(no_op["placement"]["stream_bytes"], 0);
+    assert_eq!(no_op["placement"]["effects"], serde_json::json!([]));
+    assert_eq!(
+        no_op["selection"]["source_revision"],
+        advanced["selection"]["source_revision"]
+    );
+    f.update(b"old");
+    let restored = success(reconcile(root));
+    assert_eq!(restored["storage_converged"], true, "{restored}");
+    assert!(working.read_object(&old).is_ok());
+    assert!(history.read_object(&old).is_err());
+}
+
+#[test]
+fn actual_cli_private_permissions_default_disabled_and_profile_drift_refuses() {
+    let f = Fixture::new();
+    let root = f.temp.path();
+    save(root, "profile.json", &profile(&f));
+    save(
+        root,
+        "request.json",
+        &serde_json::json!({"schema":"tig.git-lifecycle-request.design-1","repository":f.enrollment.repository,"ref_name":f.enrollment.ref_name,"commit":null}),
+    );
+    let mut storage = storage_profile(&f);
+    for flag in [
+        "allow_copy",
+        "allow_eviction",
+        "allow_reacquisition",
+        "allow_cancellation",
+    ] {
+        storage.as_object_mut().unwrap().remove(flag);
+    }
+    save(root, "storage.json", &storage);
+    let held = success(reconcile(root));
+    assert_eq!(held["storage_converged"], false);
+    assert_eq!(held["placement"]["stream_bytes"], 0);
+    assert!(
+        held["placement"]["holds"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|v| v == "disabled")
+    );
+    storage["byte_source"]["places"][0]["root"] = serde_json::json!(root.join("different-seed"));
+    save(root, "storage.json", &storage);
+    failure(reconcile(root), "authority");
+}
+
+#[test]
+fn actual_cli_pages_one_basis_and_refuses_cursor_after_new_selection() {
+    let f = Fixture::new();
+    let root = f.temp.path();
+    save(root, "profile.json", &profile(&f));
+    save(
+        root,
+        "request.json",
+        &serde_json::json!({"schema":"tig.git-lifecycle-request.design-1","repository":f.enrollment.repository,"ref_name":f.enrollment.ref_name,"commit":null}),
+    );
+    let mut storage = storage_profile(&f);
+    storage["config"]["budget"]["objects"] = serde_json::json!(1);
+    save(root, "storage.json", &storage);
+    let first = success(reconcile(root));
+    assert_eq!(first["placement"]["page_converged"], true);
+    assert!(first["storage_converged"].is_null());
+    save(root, "cursor.json", &first["placement"]["next"]);
+    let page = || {
+        Process::new(env!("CARGO_BIN_EXE_tig-lifecycle"))
+            .arg("reconcile")
+            .arg(root.join("profile.json"))
+            .arg(root.join("request.json"))
+            .arg(root.join("storage.json"))
+            .arg(root.join("cursor.json"))
+            .output()
+            .unwrap()
+    };
+    let second = success(page());
+    assert_eq!(second["placement"]["page_converged"], true);
+    assert!(second["storage_converged"].is_null());
+    assert!(second["placement"]["next"].is_null());
+    f.update(b"new");
+    failure(page(), "stale");
+}
 #[test]
 fn actual_cli_binds_operator_request_and_offline_status_adds_no_commands() {
     let described = success(
@@ -395,7 +630,8 @@ fn actual_cli_binds_operator_request_and_offline_status_adds_no_commands() {
             .unwrap(),
     );
     assert_eq!(described["source_format"], "git_lfs_pointers");
-    assert_eq!(described["selection_only"], true);
+    assert_eq!(described["selection_only"], false);
+    assert_eq!(described["physical_reconciliation"], true);
     assert_eq!(described["storage_converged"], serde_json::Value::Null);
     let f = Fixture::new();
     let root = f.temp.path().to_path_buf();

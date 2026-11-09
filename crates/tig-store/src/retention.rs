@@ -235,6 +235,19 @@ pub(crate) fn inspect(
     job: &JournalRef,
     planned: &RetentionPlan,
 ) -> Result<Option<RetainedReplica>> {
+    let Some(grant) = recorded(ledger, store, job, planned)? else {
+        return Ok(None);
+    };
+    Ok(Some(verify(ledger, store, &grant)?))
+}
+/// Recover the original settled grant binding. Callers must separately verify
+/// active custody or the exact handoff marker; this never grants a live guard.
+pub(crate) fn recorded(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &RetentionPlan,
+) -> Result<Option<RetentionGrant>> {
     validate(store, planned)?;
     let (operation, _) = keys(planned)?;
     let Some(allocation) = ledger.allocation_reference(&operation, true)? else {
@@ -254,7 +267,7 @@ pub(crate) fn inspect(
         sha256: Digest::blob(&encode(&record)?),
         record,
     };
-    Ok(Some(verify(ledger, store, &grant)?))
+    Ok(Some(grant))
 }
 pub fn verify(
     ledger: &mut CapacityLedger,
@@ -292,6 +305,13 @@ pub fn verify(
         grant: grant.clone(),
         valid: true,
     })
+}
+pub(crate) fn released(store: &LocalStore, grant: &RetentionGrant) -> Result<bool> {
+    validate(store, &grant.record.plan)?;
+    if grant.record.schema != SCHEMA || Digest::blob(&encode(&grant.record)?) != grant.sha256 {
+        return Err(RetentionError::InvalidPlan);
+    }
+    Ok(store.retention_released(&grant.record)?)
 }
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Stage {

@@ -8,6 +8,39 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active lane: feat/git-placement, inputa678381, local placement
+  reconciliation through existing store mechanisms and `tig-lifecycle reconcile`.
+  specs/PLACEMENT-RECONCILIATION.md freezes controls/scope/entry/exit. Ten placement
+  entries initially passed; final focused coverage is sixteen placement entries
+  (one child helper, one real process exit), two namespace-projection cases and twelve
+  Git lifecycle entries, including renewed-demand cancellation, unexplained
+  managed-copy refusal, byte budgets, real merge, cursor handling and completion
+  of a superseded original publication. The first broad all-feature run caught
+  two new-fixture/reporting failures; those were corrected, not waived. Final
+  all-feature workspace/default changed-package/strict Clippy/standalone Git and
+  explicit retirement CLI qualification pass. The final provider-order correction
+  followed broad workspace builds; final default/all-feature store library runs
+  each pass 262 active entries (two ignored), default lifecycle passes twelve,
+  strict Clippy passes and both ignored cross-artifact qualifiers explicitly pass.
+  The pre-pair reader was rebuilt from clean pinned inputd81cabe. Local broad
+  default workspace passed before the final focused corrections. Next: separate
+  implementation and EVID/review closeout, then hosted current-head qualification.
+  Private partial cleanup remains explicit; CLI requires roots open at entry;
+  page success alone does not establish full selection convergence.
+
+  Trusted-trigger research for the next contract (not implemented): GitHub's
+  [OIDC discovery](https://token.actions.githubusercontent.com/.well-known/openid-configuration)
+  publishes issuer/JWKS, RS256 and claims including sha, repository_id,
+  repository_owner_id, workflow_ref/sha and run identifiers. Its
+  [reference](https://docs.github.com/en/actions/reference/security/oidc) explains
+  audience/subject and reusable-workflow claims. Pin immutable repository/owner
+  IDs and independently admitted workflow/policy; require exact commit/ref and
+  expiration checks. This is a proposed verifier boundary, not request-JSON trust.
+  [GitHub's runner guidance](https://docs.github.com/en/actions/reference/security/secure-use)
+  warns about persistent compromise from workflow code on self-hosted runners.
+  Preserve the plan's separate trusted executor/profile boundary; putting workflow
+  code in the storage executor's OS authority would not satisfy that boundary.
+
 - PR #14: reviewed storage roadmap, finite-backup/bulk-retirement requirements
   and direct startup. Source/merge status must be checked live.
 - PR #15, feat/storage-orchestration-contract, d18afba: bounded immutable storage

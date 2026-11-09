@@ -217,6 +217,57 @@ fn guarded_marker_and_legacy_encoding_are_distinct_and_direct_bypass_refuses() {
     assert_eq!(old.schema, "tig.source-claims.design-1");
     let _ = (old.project, old.epoch, old.instance);
 }
+
+#[test]
+fn placement_requirements_project_precedence_without_journal_mutation() {
+    let mut f = Fixture::new(true);
+    f.enroll("main", Kind::Branch);
+    f.selected("main", f.old.clone());
+    f.selected("main", f.new.clone());
+    let before = f.namespace.checkpoint();
+    let requirements = f.namespace.requirements(&f.nodes, &limits()).unwrap();
+    assert_eq!(requirements.checkpoint, before);
+    assert_eq!(f.namespace.checkpoint(), before);
+    let get = |o: &Object| {
+        requirements
+            .entries
+            .iter()
+            .find(|e| &e.object == o)
+            .unwrap()
+            .places
+            .iter()
+            .map(Key::as_str)
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(get(&f.a), vec!["backup", "history"]);
+    assert_eq!(get(&f.b), vec!["backup", "working"]);
+    assert_eq!(get(&f.common), vec!["backup", "working"]);
+    assert!(matches!(
+        f.namespace.requirements(&MemoryNodes::default(), &limits()),
+        Err(Error::IncompleteClosure)
+    ));
+    assert_eq!(f.namespace.checkpoint(), before);
+}
+
+#[test]
+fn placement_requirements_share_budget_across_namespaces() {
+    let mut a = Fixture::new(true);
+    let mut b = Fixture::new(true);
+    a.enroll("main", Kind::Branch);
+    a.selected("main", a.old.clone());
+    b.enroll("main", Kind::Branch);
+    b.selected("main", b.old.clone());
+    let mut small = limits();
+    small.roots = 1;
+    let mut work = Work::new(&a.nodes, &small, Instant::now()).unwrap();
+    a.namespace.requirements_work(&mut work).unwrap();
+    assert!(matches!(
+        b.namespace.requirements_work(&mut work),
+        Err(Error::Budget)
+    ));
+    // The same second namespace succeeds with its own separately admitted work.
+    b.namespace.requirements(&b.nodes, &small).unwrap();
+}
 #[test]
 fn source_enrollment_is_mandatory_and_class_owner_and_operation_are_immutable() {
     let mut f = Fixture::new(true);
