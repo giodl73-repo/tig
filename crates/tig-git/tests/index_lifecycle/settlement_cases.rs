@@ -1,5 +1,6 @@
 use super::*;
 use serde_json::{Value, json};
+use std::io::Read;
 use tig_git::lifecycle::{
     self,
     settlement::{self, Enrollment as Mode, Plan as SettlementPlan, Stage as SettlementStage},
@@ -450,6 +451,13 @@ fn actual_cli_draft_commit_then_branch_end_demotes_without_deleting_retained_bac
     assert!(!storage.has(0, b"base"));
     assert!(storage.has(1, b"base"));
     assert!(storage.has(2, b"base"));
+    let mut restored = Vec::new();
+    storage.stores[2]
+        .read_object(&Object::from_bytes(b"base"))
+        .unwrap()
+        .read_to_end(&mut restored)
+        .unwrap();
+    assert_eq!(restored, b"base");
     let retry = success(call("reconcile", &[&branch_profile, &storage.path]));
     assert_eq!(retry["storage_converged"], true);
     assert_eq!(retry["placement"]["stream_bytes"], 0);

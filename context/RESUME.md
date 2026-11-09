@@ -8,7 +8,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active uncommitted lane: feat/source-settlement, input9c2a29f. Read
+- Active lane: feat/source-settlement, input9c2a29f, implementation51c5acc,
+  stacked draft PR #27. Read
   specs/SOURCE-SETTLEMENT.md for controls/entry/exit. New library/CLI compose owned
   branch-absence and staged/adopted-successor withdrawal with existing placement.
   SourceCondition gates (max eight) recheck source revisions inside the existing
@@ -17,12 +18,19 @@ source changes into running tools as a side effect. No startup cache operations.
   (38), index/settlement (27, two helpers/four actual exits) and lifecycle (13)
   pass. Shared private storage preflight and current-source checks prevent an
   unchanged ref from falsely implying convergence after source settlement.
-  Default/all-feature workspace suites are running in separate external targets;
-  final strict Clippy/standalone/L0 and artifact qualification remain to finish.
+  Default/all-feature workspace suites pass in separate external targets; final
+  strict Clippy/standalone/fmt, 70 Node flows, three restore helpers, L0 and both
+  explicit artifact qualifiers pass. Extended pre-pair reader qualification reads
+  conditional Withdraw state and replays all three existing command receipts;
+  final test-only readback and strict Clippy pass after broad suites. No runtime
+  code changed after51c5acc. Issuer run42553357798 passes at that head with zero
+  payload effects; hosted run42553510977 passes Linux/secrets, Windows pending.
+  Closeout creates another head; derive current PR/run state before qualification.
   Source/docs cap is now 6 MiB, per-file 128 KiB and runtime/media exclusion
   unchanged; required generic controllers/tests/review growth exhausted headroom.
-  Next: inspect live checks, publish implementation, close EVID-096 verification/
-  validation/trace/six producer lenses separately and inspect current-head CI.
+  EVID-096 separates verification/validation/trace/six producer lenses from code.
+  Next: inspect exact current-head CI and keep the draft until all checks pass;
+  continue remaining full lifecycle/adoption and final-deletion/metadata gates.
   No live cache/hook/consumer is attached. Full event routing, durable rename/
   controller revocation, native/private coverage and final-deletion/metadata/
   authority/provider/large-file/lifetime/user acceptance remain open.

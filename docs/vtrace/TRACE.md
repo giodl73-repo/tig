@@ -518,3 +518,13 @@ exits, linked worktrees and actual CLI/store job-end/no-op demotion -> EVID-095,
 implementation51dd2b2. Broader verification, synthetic validation and six producer
 lenses close separately; full lifecycle/native/authority/provider/lifetime, final
 deletion, metadata expiry and intended-use acceptance remain open.
+
+Owned settlement: WP-003/004/005/006/007/008/009/015;
+REQ-001/002/003/004/005/007/008/009 -> SPEC-002/004/005/006/007/008/009,
+IF-002/004/005/006/008/013, PKG-002/003/004/008/009 -> SOURCE-SETTLEMENT.md ->
+bounded transactional SourceCondition, exact ref lookup, lifecycle::settlement,
+tig-lifecycle settle/shared local placement and current-source convergence ->
+twelve settlement/three condition/one signed-source-withdrawal cases plus regression
+and explicit old-reader/artifact checks -> EVID-096, implementation51c5acc.
+Verification, synthetic validation and producer review are separate from full
+lifecycle/native/provider/authority/lifetime/final-deletion/metadata acceptance.

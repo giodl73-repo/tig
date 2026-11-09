@@ -220,3 +220,8 @@ Explicit staged-index protection extends SPEC-002/004/005/006/007/008/009 under
 roots admit known conflict alternatives without relaxing merged extraction.
 Existing source journal bytes and placement/removal contracts remain unchanged;
 new index plan/profile/status documents are experimental and separately versioned.
+
+[SOURCE-SETTLEMENT](../../specs/SOURCE-SETTLEMENT.md), input9c2a29f, extends the
+same source/Git/placement controls with bounded transactional revision predicates,
+exact local ref absence and owned current-to-predecessor withdrawal. Event bytes
+remain unchanged; historical receipt, current source/Git and custody are distinct.

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 7327,
-      "sha256": "25c64225339dc1f642b23f60987ecf08df989016836d4c582b0eff9e464f7073"
+      "bytes": 7396,
+      "sha256": "33648ee82e9bd6505d86c07c681057682efd97ac470ac2eb9bdcd409b8ae2f71"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 9820,
-      "sha256": "6da31e074de8c0ced0dbaabf1cc5069337922fd5c5913412addc7deae747b54b"
+      "bytes": 10382,
+      "sha256": "8ee91835e7ae4dd0aab57821b3d11cfc600eda8e1d33849d423fe1629ae68263"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 80288,
-      "sha256": "7c97609cd5d1c749dd643f0cfd4364d732a11ab3676948770f7652390b7a0200"
+      "bytes": 83083,
+      "sha256": "f8a398a376935971ee9177fa6e73f150096ab78cbca334611e2830664c09f83f"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 120869,
-      "sha256": "65e9f0f5da07d28e50be9bd91d4d08e1e0f2fb6de141bea8afc2b88af3e714f2"
+      "bytes": 121585,
+      "sha256": "775c4dcef54f80174746b07008b1647d257afedebc3d287c9d5e0d3ce7715ad1"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -369,8 +369,8 @@
     },
     {
       "path": "docs/vtrace/SPECIFICATION_BASELINE.md",
-      "bytes": 16759,
-      "sha256": "8ddf587b486451edb09fcd6ca20f5ec599654d66eb3f301456c08d3686ec23a9"
+      "bytes": 17088,
+      "sha256": "3a849cea527307d7544d6d468c1a1673965410f616ab05e67da7614b18124c7b"
     },
     {
       "path": "docs/vtrace/STAGE_EXECUTION.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 36523,
-      "sha256": "e82a12755ed6138237402774e71c1f4e98b4a7a635baa3766a15ebeb5898378d"
+      "bytes": 37208,
+      "sha256": "524e69958cb53990d2cd502cdc5205bf359b6447754af008b7be44d28e19c1e0"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 22713,
-      "sha256": "fa7a04c7ad522f7c85e89adfd1d17ca0206c66f0432b0e550c294408222257e2"
+      "bytes": 23266,
+      "sha256": "e50291cfa54179fba2e3c99772fc2e0db0362c3cba7173e06b7fd460cdd13b6f"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 45553,
-      "sha256": "3b1372807621df59a27035f57b2cfe6e67ec41838f1a3af4eace6747fa3bf19c"
+      "bytes": 46314,
+      "sha256": "f3a8fd2c5d8caa820ab52d80659471fa43ba7054c9e937bf9347316b9fd86075"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 34881,
-      "sha256": "5cace553b5f1626d5c08f95d35368f75d4a4bef3ee905d67d79c689f7cde405e"
+      "bytes": 34956,
+      "sha256": "36eacc4566616fcdd20c0c2e573d0df389e5360560716e67ebd63438e92904dd"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 20482,
+      "bytes": 21083,
       "path": "context/RESUME.md",
-      "sha256": "4d7fb43bac02f5bbde9189d3a191006fc689839ca671fccfab0420ade46ae18b"
+      "sha256": "935a7d4ce8e971835507aa7cd5da12ee52f6c303cb313750374558a562535d3c"
     },
     {
       "bytes": 16453,
@@ -1904,8 +1904,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/admission/tests.rs",
-      "bytes": 53930,
-      "sha256": "85f79e2cd4cff13c6c01255209d346579d4271c3c23c9833e9ff7c3166905bee"
+      "bytes": 54794,
+      "sha256": "7774a4501189a8d6a03ebde8b0b97774ce715dc6ac4b994c201a1eb4063bc5ab"
     },
     {
       "path": "specs/MANDATORY-SOURCE-ADMISSION.md",
@@ -2203,14 +2203,19 @@
       "sha256": "0aebdd0301d56bddb54db8c0b446cc7bf68570c4f5bb792a399a729bf65b96e2"
     },
     {
-      "bytes": 20886,
+      "bytes": 21121,
       "path": "crates/tig-git/tests/index_lifecycle/settlement_cases.rs",
-      "sha256": "21d0aebd2622ba93fe9e8ed468130194b073d71c60710f707452c1f32c36c741"
+      "sha256": "fbddbf54098297326234843f5e9e8ae269201b85fb64f637d90a365c8847cc0d"
     },
     {
       "bytes": 5802,
       "path": "specs/SOURCE-SETTLEMENT.md",
       "sha256": "6b0a2bcc6682c039f9ab9dcbc242be936b79efe39d95ef578c609499f15c0854"
+    },
+    {
+      "bytes": 4086,
+      "path": "docs/reviews/2026-11-09-source-settlement.md",
+      "sha256": "f7a5add555b0fc6adcf166ed07d4e244268c75fa6306afb68318c68a253a89bb"
     }
   ]
 }

@@ -1539,6 +1539,31 @@ fn baseline_cli_replays_atomic_pairs_without_format_migration() {
     let selection = f.new.clone();
     let request = select(&mut f, "compatibility", selection);
     f.namespace.select(&request, &f.nodes, &limits()).unwrap();
+    f.enroll("successor", Kind::Branch);
+    f.selected("successor", f.new.clone());
+    let conditions = [SourceCondition {
+        source: key("successor"),
+        revision: f
+            .namespace
+            .source(&key("successor"))
+            .unwrap()
+            .unwrap()
+            .revision,
+    }];
+    let withdrawal = Command::Withdraw {
+        source: key("main"),
+        owner: key("owner"),
+        expected_revision: f.namespace.source(&key("main")).unwrap().unwrap().revision,
+    };
+    f.namespace
+        .apply_if_sources(
+            key("conditional-compatibility"),
+            withdrawal.clone(),
+            &conditions,
+            &f.nodes,
+            &limits(),
+        )
+        .unwrap();
     let current = f.namespace.source(&key("main")).unwrap().unwrap();
     let profile = f.temp.path().join("baseline-profile.json");
     fs::write(&profile,serde_json::to_vec(&serde_json::json!({"schema":"tig.source-observation-profile.experimental-1","journal_root":f.root(),"minimum":minimum,"source":"main"})).unwrap()).unwrap();
@@ -1563,12 +1588,12 @@ fn baseline_cli_replays_atomic_pairs_without_format_migration() {
         value["checkpoint"],
         serde_json::to_value(f.namespace.checkpoint()).unwrap()
     );
-    for (index, command) in request
-        .requests(f.namespace.identity())
-        .unwrap()
-        .into_iter()
-        .enumerate()
-    {
+    let mut commands = request.requests(f.namespace.identity()).unwrap().to_vec();
+    commands.push(super::super::Request {
+        operation: key("conditional-compatibility"),
+        command: withdrawal,
+    });
+    for (index, command) in commands.into_iter().enumerate() {
         let profile = f.temp.path().join(format!("baseline-ack-{index}.json"));
         let report = f
             .temp

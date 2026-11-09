@@ -688,3 +688,15 @@ portable L0 and both explicitly executed artifact qualifiers pass. Hosted Linux/
 secrets pass at51dd2b2; Windows and later closeout exact-head checks remain pending.
 Inherited event compatibility and later full roadmap gates are
 separate; these component results establish no live adoption or final deletion.
+
+## Owned source settlement
+
+EVID-096 / SOURCE-SETTLEMENT.md, implementation51c5acc: twelve new settlement
+entries (one helper/two actual exits), 27 combined index entries, thirteen committed
+cases and 38 Git library cases pass; admission passes 31 active entries/one ignored.
+Conditions are checked after transaction catch-up, without new event bytes.
+Default/all-feature workspace, strict Clippy, standalone Git, Node/restore and L0
+pass. Explicit qualifiers prove retirement CLI compatibility and old-reader pair/
+conditional-Withdraw replay; final readback/test-only changes are separately run.
+Actual issuer empty-scope qualification passes at51c5acc. Hosted Linux/secrets
+pass; Windows/current closeout head remain pending. Full requirements remain open.

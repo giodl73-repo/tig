@@ -45,12 +45,13 @@ focused entries (one child helper/two abrupt exits) pass; EVID-095 separately re
 passing local broad qualification, synthetic validation, trace and producer review.
 Hosted current-head qualification remains separate. No hook or live cache is attached.
 
-Owned source settlement is in progress under SOURCE-SETTLEMENT.md: local branch
+Owned source settlement is bounded under SOURCE-SETTLEMENT.md: local branch
 absence and an adopted committed successor can authorize withdrawal of only the
 owned current source, preserving predecessors. Bounded source-revision conditions
 are checked in the existing transaction; event bytes are unchanged. Shared local
 storage preflight and fresh admitted-source observations prevent false convergence.
-Focused checks pass; broad qualification and separate closeout remain pending.
+EVID-096 separates passing local broad/focused checks, synthetic validation, trace
+and producer review from pending hosted current-head/adoption gates.
 
 Existing-byte readers and explicit local publication/restore/retention primitives
 have bounded fixture evidence. The first tig-store orchestration slice composes

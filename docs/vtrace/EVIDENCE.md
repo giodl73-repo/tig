@@ -1011,3 +1011,44 @@ discovery or a hostile-filesystem/restore proof. Automatic branch rename/withdra
 commit/draft settlement, private overlays/native coverage, real custody/large files,
 operational continuation, authority migration, bulk final deletion, metadata expiry
 and user acceptance remain open. No full requirement or VAL outcome is closed.
+
+## EVID-096: Owned source settlement and conditional admission
+
+Input9c2a29f, implementation51c5acc. SOURCE-SETTLEMENT.md names controls,
+scope, entry/exit and GIT/PROVIDER L0/L1/L2. Twelve new settlement entries include
+one helper and two actual abrupt exits before/after withdrawal. All 27 combined
+index/settlement entries (two helpers/four actual exits), thirteen committed-ref
+cases and 38 all-feature Git library cases pass. Three new admission cases bring
+that focused suite to 31 active entries plus one ignored artifact qualifier.
+Changed witness during tree IO refuses, unrelated sources progress, malformed
+conditions hold and historical replay never withdraws a later reactivation.
+
+Actual CLI fixtures adopt staged pointers and a committed successor, settle the
+draft, end a branch, preserve an active job, then demote old working bytes after
+job end on no-op catch-up. Backup/history readback verifies exact bytes; retries
+stream zero new bytes. Missing metadata, unadopted/conflicted stage, ref failure/
+reappearance, condition drift, disabled permission and offline status stay distinct.
+A signed HTTP request with a withdrawn Tig source and unchanged GitHub ref reports
+pending rather than false convergence. Shared private preflight validates roots
+before mutation; committed/index completion also checks current admitted selection.
+
+Locked default/all-feature workspace suites pass in isolated targets, including
+large metadata scale. Strict all-feature/all-target workspace Clippy, standalone
+Git, fmt, 70 shipped Node flows, three restore helpers and portable L0 pass.
+Both ignored artifact qualifiers execute explicitly. The pre-pair reader fixture
+now reads conditional Withdraw state and acknowledges all three existing command
+receipts (Prepare/Adopt/Withdraw). This test-only extension and explicit backup
+byte-readback assertion followed broad suites; exact qualifiers/readback and final
+strict Clippy pass afterwards. No runtime code changed after implementation51c5acc.
+
+Hosted issuer run42553357798 at51c5acc passes actual foreground empty-scope
+intake/current API with zero payload operations. Hosted run42553510977 passes
+Linux/secrets; Windows and later closeout head remain pending. This is not live
+TLS ingress/OS isolation or actual provider custody. Review uses six producer
+lenses, not independent people. The source/docs ceiling grows to 6 MiB with
+unchanged per-file/media/runtime restrictions; no runtime storage cap changes.
+
+Full event routing, durable rename/controller revocation, native/private closure,
+real provider/large-file/authority/lifetime, bulk final deletion, metadata expiry
+and user acceptance remain open. Historical obligations are preserved; no full
+requirement, VAL outcome, production adoption or whole-plan completion is claimed.

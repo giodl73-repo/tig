@@ -1500,3 +1500,13 @@ all-feature workspace, strict Clippy, standalone Git, Node/restore, both explici
 artifact qualifiers and L0 pass. Hosted Linux/secrets pass at51dd2b2; Windows/
 later current-head checks, independent review, real-provider/user adoption and
 full roadmap remain open.
+
+Owned settlement review, input9c2a29f/implementation51c5acc: six producer lenses
+SS-01..06 are in ../reviews/2026-11-09-source-settlement.md. EVID-096 separates
+local verification, synthetic intended-use rehearsal, hosted issuer/check scope
+and trace. Successor revision is checked inside the existing transaction; source
+and Git observations both gate convergence. Historical roots, keeper fences and
+default-disabled execution remain. Source/docs budget rises to 6 MiB for required
+generic code/tests/review, with 128 KiB/file and runtime/media exclusions unchanged.
+Pass_with_risk for bounded local qualification; hosted current-head, independent/
+human acceptance and the full remaining product plan stay open.

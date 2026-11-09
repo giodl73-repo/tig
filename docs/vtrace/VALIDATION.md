@@ -342,3 +342,11 @@ bytes remain readable. Disabled/bad-source/storage cases and abrupt exits preser
 truthful held/historical outcomes. This does not validate automatic Git hooks,
 commit settlement, native producer coverage, real F/D/M custody or user acceptance.
 Full VAL outcomes and final-deletion/metadata/lifetime gates remain open.
+
+EVID-096 contributes owner-settlement rehearsal to VAL-002/003/004: staged ->
+adopted committed successor -> owned branch end -> job end -> ordinary history
+demotion, with exact retained byte readback and no-op catch-up. Missing/unknown
+source metadata and changing Git/source conditions preserve protection or report
+stale acknowledgement separately. Two abrupt settlement exits recover. All data
+is synthetic; actual F/D/M enrollment, automatic event routing, native closure,
+user acceptance, final deletion and metadata lifetime remain unvalidated.

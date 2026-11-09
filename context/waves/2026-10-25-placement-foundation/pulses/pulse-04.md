@@ -156,3 +156,11 @@ validation, trace and six producer lenses. Conflict alternatives are draft byte
 obligations, never a merged selection. Hosted current-head checks and full
 branch/commit/private/native/provider/authority/lifetime/final-deletion/metadata
 acceptance remain open. No hook, consumer or live cache is attached.
+
+Owned settlement checkpoint: input9c2a29f, implementation51c5acc;
+SOURCE-SETTLEMENT.md freezes controls/L0/L1/L2. EVID-096 records three condition,
+twelve settlement and one signed-source-withdrawal additions, broader regression/
+old-reader/artifact checks, synthetic validation and six producer lenses. Existing
+Withdraw/event bytes are unchanged. Source/docs ceiling is 6 MiB, with all runtime
+limits and exclusions preserved. Full workflow/native/provider/authority/lifetime,
+final deletion, metadata expiry, hosted current-head and user adoption stay open.
