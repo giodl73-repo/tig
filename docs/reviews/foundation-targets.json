@@ -2118,8 +2118,8 @@
       "path": "crates/tig-git/src/github/source.rs"
     },
     {
-      "sha256": "4f995781f1669b2533341dcc44bc6b25cc0bd87727c33c45613c957059265a8e",
-      "bytes": 5816,
+      "sha256": "edee79cb47123fff2b17cac47a894991db5f9f55d657c1837c1f52ca4714acad",
+      "bytes": 5659,
       "path": "crates/tig-git/tests/common/github_fixture.rs"
     },
     {
