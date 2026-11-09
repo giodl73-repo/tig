@@ -8,8 +8,10 @@ full16,384-command exhaustion, five independent framing vectors, native OS/final
 provider use and whole-window provider/reacquisition/bulk refusal pass. Seventeen
 clock-filter, sixteen provider and eighteen active bulk entries overlap those
 cases. Final cross-sample ordering/canonical-number regression and strict Clippy
-pass. Default workspace and standalone Git pass; all-feature workspace and fresh
-artifact results remain pending. No live OS trust, current authority, global
+pass. Locked default/all-feature workspace suites (both500k), standalone Git,
+fresh ordinary cancellation/bulk inspection and expanded pinned older-writer
+refusal/legacy control pass. Final fmt/L0/diff pass. Hosted exact-head remains
+pending; PR #34 is draft. No live OS trust, current authority, global
 restore, continuation, mutation CLI, native selection or full acceptance is
 established. No runtime code changed after9802166. Full goal remains incomplete.
 

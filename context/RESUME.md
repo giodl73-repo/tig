@@ -22,15 +22,21 @@ source changes into running tools as a side effect. No startup cache operations.
   Three actual clock-journal child exits and full16,384-command exhaustion run.
   Final cross-sample monotonic ordering and out-of-format timestamp preflight now
   pass their regression; final strict Clippy passes. Default workspace and
-  standalone Git pass. The all-feature workspace/fresh CLI qualification chain
-  remains live as session55665; its500k fixture is running. Derive terminal
-  results before claiming broad completion. Implementation9802166 and portable
+  standalone Git pass. All-feature workspace and the fresh ordinary cancellation/
+  bulk inspection CLI qualifiers pass, alongside expanded pinned older-writer
+  refusal/legacy control. Both command chains74217/55665 terminated zero and
+  both500k metadata fixtures passed. Final fmt/L0/diff pass. No runtime changed
+  after9802166. Implementation9802166 and portable
   fixture/spec pin43ad0f4 are followed by separate EVID-103 verification,
   synthetic validation, trace and six-producer review records. Five
   independent framing vectors pin legacy/new marker, policy, enrollment and event.
-  Next: terminal all-feature/fresh-artifact qualification and exact-head hosted
-  checks, then full operator mutation integration in a separate lane. Stack the
-  local-clock draft against feat/bulk-inspection (#33); derive its live PR number.
+  PR #34 is OPEN/draft against feat/bulk-inspection (#33). Exact-head hosted
+  checks remain pending; derive their live head/run rather than using prior
+  push results. Six-producer review: docs/reviews/2026-11-09-local-clock.md.
+  Next: hosted qualification, then full bulk operator mutation integration in a
+  separate lane, preserving independently admitted exact-plan consent, current
+  roster/minima and explicit clock policy. Native age/category, lifetime/provider
+  qualification and eventual metadata retirement remain required.
   Explicit OS time accuracy/trust, independently current minima, whole-system
   restore, native deployment and operational lifetime remain unqualified gates.
 

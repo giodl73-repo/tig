@@ -186,5 +186,6 @@ EVID-103 and the six-producer review separate implementation from verification
 and synthetic validation. Persisted high-water/native samples, complete-window
 checks, independent vectors, three actual exits, full command exhaustion and
 negative/provider/bulk fixtures pass. Default workspace/standalone/strict Clippy
-pass; all-feature/fresh-artifact checks remain pending. No live trust/adoption,
+and all-feature/fresh-artifact checks pass, including both500k fixtures. PR #34
+is draft pending exact-head hosted qualification. No live trust/adoption,
 mutation CLI, authority migration, lifetime or full pulse acceptance is implied.

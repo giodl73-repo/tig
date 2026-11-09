@@ -54,8 +54,15 @@ regression and strict all-feature/all-target Clippy pass. The vector's portable
 outer LF bytes and manifest pin were corrected in43ad0f4 without changing its
 canonical cases or runtime code.
 
-Full default workspace and standalone Git checks pass. All-feature workspace and
-fresh artifact qualification remain pending until terminal results are observed.
+Full locked default/all-feature workspace suites pass in separate external
+targets, including both 500,000-binding metadata fixtures. Standalone Git without
+optional features passes. The fresh all-feature artifact passes explicit ordinary
+retirement cancellation and bulk inspection qualifiers. Pinned273e639 passes the
+expanded old-writer refusal/legacy control. Both command chains terminated zero;
+ordinary ignored output was not substituted for these explicit artifact runs.
+Final fmt, strict all-feature/all-target Clippy and portable L0/diff checks pass.
+No runtime code changed after9802166. Hosted exact-head qualification remains
+separate and pending; PR #34 is draft against #33.
 
 ```text
 cargo fmt --all -- --check
@@ -91,7 +98,7 @@ CapacityLedger clock marker/command/high-water replay, Clock::bounds and
 Window::check_clock -> adapter/ledger/provider/bulk and pinned artifact cases ->
 EVID-103. Implementation, verification, synthetic validation and this producer
 review close separately. Disposition: pass_with_risk for the bounded synthetic
-scope only; broad/hosted qualification status must be derived from actual results.
+scope only; hosted qualification status must be derived from exact-head results.
 
 Explicit OS accuracy/trust, independently current minima/authority, globally
 unseen whole-system restore, arbitrary pause semantics, operational continuation,

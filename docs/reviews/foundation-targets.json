@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 11819,
-      "sha256": "9a27348af08e3789dadd6bd0b1de4ce8d7a927fef4d6c696ba3bc6667b679725"
+      "bytes": 11893,
+      "sha256": "51f6ba45467940099cd43149f17d03a86d458f9e5ae8f4c76f187d1c0bd53d25"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 92807,
-      "sha256": "5317f35ae362c2346fe177efc6ae0824d4ff82db26598be346dcf14eff80fa01"
+      "bytes": 92953,
+      "sha256": "9f8599c1828112208ddf9e34f825d5a75dc633cdb8f67aec5c3fac23a4848130"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 126110,
-      "sha256": "60c99e653bc5595985c141f6e78b355ea7029450bf5693a98fc30c00b2c76737"
+      "bytes": 126114,
+      "sha256": "481ea96a01344aa6204eba3311d20167fb835ad0c1d14380d1ab790a4b1ef62c"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -389,8 +389,8 @@
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 51978,
-      "sha256": "70eecaf240df328791c14ae475b6c5c03bd980dcd4f61e096788508664dbc942"
+      "bytes": 52056,
+      "sha256": "d94a42700784d1edcdadf6b8f50e1ad45aca5c14db4f64fc79d7eac46ffa8650"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 31901,
+      "bytes": 32329,
       "path": "context/RESUME.md",
-      "sha256": "f8e9bf54bfc403480cc86d05281db183e908fa8a45b565dcba1d58cda4fcda61"
+      "sha256": "28d785267809e9b0924634ace262926c513771872eb0f96d1a059328f3c8d430"
     },
     {
       "bytes": 16453,
@@ -2429,8 +2429,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-local-clock.md",
-      "bytes": 7931,
-      "sha256": "de1e29a3189be38b41de3c73d026528e0b856bca447d91956b28f4857df55818"
+      "bytes": 8457,
+      "sha256": "ec0bb91108892f33ee9f4b934f3067730b605e0c5f46a859f4ea52ac2f8804b9"
     }
   ]
 }
