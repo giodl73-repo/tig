@@ -15,7 +15,7 @@ use tig_core::{Digest, LogicalPath, Object, identity};
 
 mod execute;
 mod selection;
-mod witness;
+pub(crate) mod witness;
 pub use crate::placement::Local;
 pub use execute::{Cancellation, Execution, Inspection, Phase, Report, Stage};
 pub use selection::plan;

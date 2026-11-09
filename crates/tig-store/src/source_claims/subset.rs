@@ -40,6 +40,15 @@ impl From<admission::Error> for Error {
         Self::Journal(e)
     }
 }
+impl From<super::Error> for Error {
+    fn from(e: super::Error) -> Self {
+        if e == super::Error::Budget {
+            Self::Budget
+        } else {
+            Self::Journal(e.into())
+        }
+    }
+}
 impl From<crate::metadata::Error> for Error {
     fn from(e: crate::metadata::Error) -> Self {
         Self::Metadata(e)
@@ -154,6 +163,24 @@ impl Plan {
     }
     pub fn original(&self) -> &Selection {
         &self.original
+    }
+    pub(crate) fn survivor_selection(&self) -> Option<&Selection> {
+        (self.summary.survivor_bindings != 0).then_some(&self.survivor)
+    }
+    pub(crate) fn class(&self) -> &Kind {
+        &self.class
+    }
+    pub(crate) fn validate_projection(
+        &self,
+        e: &Enrollment,
+        reader: &impl NodeStore,
+    ) -> Result<()> {
+        self.bound_profile(e)?;
+        let (root, summary, _) = projection(e, &self.request, &self.original, reader)?;
+        if root != self.survivor.root || summary != self.summary {
+            return Err(Error::Invalid);
+        }
+        Ok(())
     }
     /// Exact commands owned by this controller, never caller-chosen exemptions.
     pub(crate) fn commands(&self, e: &Enrollment) -> Result<Vec<(Key, Command)>> {
@@ -587,6 +614,142 @@ pub fn plan_sequence(
     Ok(plans)
 }
 
+/// Pure prediction, never a journal acknowledgement. The actual retirement
+/// receipt must later match before execution progress may be acknowledged.
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ProjectedStep {
+    pub plan: Plan,
+    pub retirement_checkpoint: super::Checkpoint,
+}
+/// Compile original-occurrence pages through planned owned survivors. No source
+/// command executes; only bounded new immutable metadata is staged in `nodes`.
+/// Requests may repeat an original occurrence but may not repeat any binding.
+pub fn plan_pages(
+    e: &Enrollment,
+    namespace: &mut Namespace,
+    requests: Vec<Request>,
+    nodes: &mut impl NodeStore,
+) -> Result<Vec<ProjectedStep>> {
+    e.check(namespace)?;
+    if requests.is_empty() || requests.len() > 4096 {
+        return Err(Error::Budget);
+    }
+    let mut count = 0usize;
+    let mut selected = BTreeSet::new();
+    for request in &requests {
+        request.check()?;
+        count = count
+            .checked_add(request.paths.len())
+            .ok_or(Error::Budget)?;
+        if count > 65536 {
+            return Err(Error::Budget);
+        }
+        for path in &request.paths {
+            if !selected.insert((
+                request.source.as_str().to_owned(),
+                request.predecessor_revision,
+                path.clone(),
+            )) {
+                return Err(Error::Invalid);
+            }
+        }
+    }
+    let mut state = namespace.planning_state()?;
+    let baseline = state.head.clone();
+    let mut positions = BTreeMap::<(String, u64), (Key, u64)>::new();
+    let mut overlay = Overlay::new(&*nodes, e);
+    let start = Instant::now();
+    let mut steps = Vec::new();
+    for mut request in requests {
+        overlay.timed()?;
+        let origin = (
+            request.source.as_str().to_owned(),
+            request.predecessor_revision,
+        );
+        if let Some((source, revision)) = positions.get(&origin) {
+            request.source = source.clone();
+            request.predecessor_revision = *revision;
+        }
+        let source = state
+            .sources
+            .get(request.source.as_str())
+            .ok_or(Error::Missing)?;
+        let class = source.kind.clone().ok_or(Error::Authority)?;
+        if source.owner != e.owner || !e.classes.contains(&class) || source.pending.is_some() {
+            return Err(Error::Authority);
+        }
+        let original = source
+            .predecessors
+            .iter()
+            .find(|v| v.revision == request.predecessor_revision)
+            .ok_or(Error::Missing)?
+            .selection
+            .clone();
+        let plan = plan_from_source(e, source, request, original, class, &overlay)?;
+        let (root, summary, generated) = projection(e, &plan.request, &plan.original, &overlay)?;
+        if root != plan.survivor.root || summary != plan.summary {
+            return Err(Error::Invalid);
+        }
+        for (_, body) in generated.objects() {
+            overlay.put(body)?;
+        }
+        for (operation, command) in plan.commands(e)? {
+            if state.outcomes.contains_key(operation.as_str()) {
+                return Err(Error::Stale);
+            }
+            let request = super::Request { operation, command };
+            let body = super::encode(&request)?;
+            let bytes = super::growth_bytes(&state, body.len())?;
+            let sequence = state
+                .head
+                .sequence
+                .checked_add(1)
+                .filter(|n| *n <= super::MAX_COMMANDS)
+                .ok_or(Error::Budget)?;
+            state.transition(&request)?;
+            state.head = super::Checkpoint {
+                genesis: baseline.genesis.clone(),
+                sequence,
+                hash: super::event_hash(sequence, &state.head.hash, &request)?,
+            };
+            state.bytes = bytes;
+        }
+        if let Some(survivor) = plan.survivor_source()? {
+            positions.insert(origin, (survivor, 3));
+        } else {
+            positions.remove(&origin);
+        }
+        steps.push(ProjectedStep {
+            plan,
+            retirement_checkpoint: state.head.clone(),
+        });
+    }
+    overlay.timed()?;
+    let generated = overlay
+        .nodes
+        .objects()
+        .map(|(_, b)| b.to_vec())
+        .collect::<Vec<_>>();
+    drop(overlay);
+    // Provider IO occurs outside the pure model and never flushes metadata.
+    for body in generated {
+        if start.elapsed().as_millis() > u128::from(e.limits.millis) {
+            return Err(Error::Budget);
+        }
+        if nodes.put(&body)? != Object::from_bytes(&body) {
+            return Err(Error::Invalid);
+        }
+    }
+    if start.elapsed().as_millis() > u128::from(e.limits.millis) {
+        return Err(Error::Budget);
+    }
+    if namespace.planning_state()?.head != baseline {
+        return Err(Error::Stale);
+    }
+    Ok(steps)
+}
+
 #[derive(Clone, Debug, Serialize)]
 pub struct Status {
     pub schema: &'static str,
@@ -659,6 +822,10 @@ pub fn historical_survivor(
     let Some(source) = plan.survivor_source()? else {
         return Ok(None);
     };
+    let (operation, command) = plan.enroll(e)?;
+    namespace
+        .command_status(operation, command)?
+        .ok_or(Error::Missing)?;
     let select = plan.select(e)?;
     let prepared = namespace
         .command_status(

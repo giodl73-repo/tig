@@ -12,6 +12,406 @@ fn key(s: &str) -> Key {
 fn d(s: &str) -> Digest {
     Digest::blob(s.as_bytes())
 }
+fn source_profile(f: &Fixture) -> source_claims::subset::Enrollment {
+    source_claims::subset::Enrollment {
+        authority: f.e.authority.clone(),
+        namespace: f.namespaces[0].identity().clone(),
+        policy: f.roster.members[0].policy.clone(),
+        owner: f.e.owner.clone(),
+        classes: vec![Kind::Branch, Kind::Draft],
+        limits: f.limits.source.clone(),
+        writes: 65536,
+        write_bytes: 32 * 1024 * 1024,
+    }
+}
+#[test]
+fn prepared_whole_block_reopens_and_actual_page_receipts_match_predictions() {
+    use crate::source_claims::subset;
+    for alias in [false, true] {
+        let mut f = Fixture::new(17, 3, alias);
+        let (_, manifest) = f.compile(Paging {
+            max_bindings: 2,
+            ..Paging::default()
+        });
+        let source = source_profile(&f);
+        let before = f.namespaces[0].checkpoint();
+        let prepared = preparation::prepare(
+            &f.e,
+            &manifest,
+            std::slice::from_ref(&source),
+            &f.roster,
+            &mut f.namespaces,
+            &mut f.metadata,
+            &f.limits,
+        )
+        .unwrap();
+        assert_eq!(f.namespaces[0].checkpoint(), before);
+        let minimum = f.metadata.finish().unwrap();
+        drop(f.metadata);
+        f.metadata = MetadataStore::open(&f.temp.path().join("metadata"), &minimum).unwrap();
+        let (h, steps) = preparation::read(&f.e, &prepared, &mut f.metadata, &f.limits).unwrap();
+        assert_eq!(h.count, 34);
+        assert_eq!(h.bindings, 51);
+        assert_eq!(f.namespaces[0].checkpoint(), before);
+        for (row, plan) in steps {
+            let result =
+                subset::apply(&source, &mut f.namespaces[0], &mut f.metadata, &plan).unwrap();
+            assert_eq!(
+                result.historical_retirement.unwrap().checkpoint,
+                row.retirement_checkpoint
+            );
+        }
+        assert!(
+            f.namespaces[0]
+                .source(&key("main"))
+                .unwrap()
+                .unwrap()
+                .predecessors
+                .is_empty()
+        );
+        let mut protection =
+            ProtectionWork::new(&f.metadata, &f.limits.source, Instant::now()).unwrap();
+        let candidates = [(f.object.sha256.clone(), f.object.clone())]
+            .into_iter()
+            .collect();
+        let remaining =
+            projection::remaining_selected(&mut f.namespaces[0], &[], &candidates, &mut protection)
+                .unwrap();
+        assert_eq!(!remaining.1.is_empty(), alias);
+        // Persisted predictions remain inspectable after source effects. They
+        // still do not claim that those effects happened or grant removal.
+        assert_eq!(
+            preparation::read(&f.e, &prepared, &mut f.metadata, &f.limits)
+                .unwrap()
+                .0
+                .count,
+            34
+        );
+    }
+}
+#[test]
+fn stale_manifest_wrong_profiles_and_aggregate_budget_cannot_prepare_source_effects() {
+    let mut f = Fixture::new(2, 3, false);
+    let (_, manifest) = f.compile(Paging {
+        max_bindings: 1,
+        ..Paging::default()
+    });
+    let source = source_profile(&f);
+    let before = f.namespaces[0].checkpoint();
+    let mut wrong = source.clone();
+    wrong.owner = key("foreign");
+    assert!(
+        preparation::prepare(
+            &f.e,
+            &manifest,
+            &[wrong],
+            &f.roster,
+            &mut f.namespaces,
+            &mut f.metadata,
+            &f.limits
+        )
+        .is_err()
+    );
+    let mut small = f.limits.clone();
+    small.source.reads = 1;
+    assert!(matches!(
+        preparation::prepare(
+            &f.e,
+            &manifest,
+            std::slice::from_ref(&source),
+            &f.roster,
+            &mut f.namespaces,
+            &mut f.metadata,
+            &small
+        ),
+        Err(Error::Budget)
+    ));
+    assert_eq!(f.namespaces[0].checkpoint(), before);
+    f.namespaces[0]
+        .apply(
+            key("new-source"),
+            Command::Enroll {
+                source: key("other"),
+                owner: key("owner"),
+                class: Kind::Job,
+            },
+            &f.metadata,
+            &f.limits.source,
+        )
+        .unwrap();
+    let changed = f.namespaces[0].checkpoint();
+    assert!(matches!(
+        preparation::prepare(
+            &f.e,
+            &manifest,
+            &[source],
+            &f.roster,
+            &mut f.namespaces,
+            &mut f.metadata,
+            &f.limits
+        ),
+        Err(Error::Stale)
+    ));
+    assert_eq!(f.namespaces[0].checkpoint(), changed);
+}
+
+#[test]
+fn prepared_readback_rejects_truncated_reordered_and_changed_original_pages() {
+    let mut f = Fixture::new(2, 3, false);
+    let (_, manifest) = f.compile(Paging {
+        max_bindings: 2,
+        ..Paging::default()
+    });
+    let source = source_profile(&f);
+    let prepared = preparation::prepare(
+        &f.e,
+        &manifest,
+        &[source],
+        &f.roster,
+        &mut f.namespaces,
+        &mut f.metadata,
+        &f.limits,
+    )
+    .unwrap();
+    f.metadata.finish().unwrap();
+    let (header, steps) = preparation::read(&f.e, &prepared, &mut f.metadata, &f.limits).unwrap();
+    let before = f.namespaces[0].checkpoint();
+    for mode in 0..5 {
+        let mut work = Work::new(&mut f.metadata, &f.limits).unwrap();
+        let mut h = header.clone();
+        let mut index = work.entries(&h.steps, 4096).unwrap();
+        match mode {
+            0 => {
+                index.pop_last();
+            }
+            1 => {
+                let first = index.remove(&path("00000000").unwrap()).unwrap();
+                let last = index.remove(&path("00000003").unwrap()).unwrap();
+                index.insert(path("00000000").unwrap(), last);
+                index.insert(path("00000003").unwrap(), first);
+            }
+            2 => {
+                let mut row = steps[0].0.clone();
+                row.bindings[0].object = Object::from_bytes(b"substituted");
+                index.insert(path("00000000").unwrap(), work.doc(&row).unwrap());
+            }
+            3 => {
+                let mut row = steps[0].0.clone();
+                row.plan = steps[2].0.plan.clone();
+                index.insert(path("00000000").unwrap(), work.doc(&row).unwrap());
+            }
+            _ => {
+                let mut row = steps[0].0.clone();
+                let mut value = serde_json::to_value(&steps[0].1).unwrap();
+                value["summary"]["survivor_bindings"] = serde_json::json!(0);
+                let raw = identity::canonical_json(&value).unwrap();
+                let changed = source_claims::subset::Plan::from_json(&raw).unwrap();
+                row.plan = work.doc(&changed).unwrap();
+                index.insert(path("00000000").unwrap(), work.doc(&row).unwrap());
+            }
+        }
+        h.steps = work.tree(&index, 4096).unwrap();
+        let changed = work.doc(&h).unwrap();
+        f.metadata.finish().unwrap();
+        assert!(preparation::read(&f.e, &changed, &mut f.metadata, &f.limits).is_err());
+    }
+    assert_eq!(f.namespaces[0].checkpoint(), before);
+}
+
+struct PreparationDrift<'a> {
+    nodes: &'a mut MetadataStore,
+    peer: Namespace,
+    limits: protection::Limits,
+    changed: bool,
+}
+impl NodeStore for PreparationDrift<'_> {
+    fn get(&self, o: &Object) -> TreeResult<Option<Vec<u8>>> {
+        self.nodes.get(o)
+    }
+    fn put(&mut self, raw: &[u8]) -> TreeResult<Object> {
+        if !self.changed
+            && raw
+                .windows(b"tig.subset-plan.design-2".len())
+                .any(|v| v == b"tig.subset-plan.design-2")
+        {
+            self.peer
+                .apply(
+                    key("during-plan"),
+                    Command::Enroll {
+                        source: key("late-job"),
+                        owner: key("owner"),
+                        class: Kind::Job,
+                    },
+                    self.nodes,
+                    &self.limits,
+                )
+                .unwrap();
+            self.changed = true;
+        }
+        self.nodes.put(raw)
+    }
+}
+#[test]
+fn source_drift_during_plan_persistence_invalidates_the_whole_preparation() {
+    let mut f = Fixture::new(2, 3, false);
+    let (_, manifest) = f.compile(Paging {
+        max_bindings: 2,
+        ..Paging::default()
+    });
+    let profile = source_profile(&f);
+    let before = f.namespaces[0].checkpoint();
+    let peer = Namespace::open(&f.temp.path().join("ns"), &before).unwrap();
+    let mut nodes = PreparationDrift {
+        nodes: &mut f.metadata,
+        peer,
+        limits: f.limits.source.clone(),
+        changed: false,
+    };
+    assert!(matches!(
+        preparation::prepare(
+            &f.e,
+            &manifest,
+            &[profile],
+            &f.roster,
+            &mut f.namespaces,
+            &mut nodes,
+            &f.limits
+        ),
+        Err(Error::Stale)
+    ));
+    assert!(nodes.changed);
+    let source = f.namespaces[0].source(&key("main")).unwrap().unwrap();
+    assert_eq!(source.predecessors.len(), 2);
+    assert_eq!(
+        f.namespaces[0].checkpoint().sequence(),
+        before.sequence() + 1
+    );
+}
+
+#[test]
+fn interleaved_namespace_pages_keep_independent_checkpoint_sequences() {
+    use crate::source_claims::subset;
+    let mut f = Fixture::new(2, 3, false);
+    let first = source_profile(&f);
+    let original = f.namespaces[0]
+        .source(&key("main"))
+        .unwrap()
+        .unwrap()
+        .predecessors[0]
+        .selection
+        .clone();
+    let mut peer = Namespace::create(
+        &f.temp.path().join("second"),
+        key("second-project"),
+        key("epoch"),
+        f.namespaces[0].policy().clone(),
+    )
+    .unwrap();
+    peer.apply(
+        key("enroll"),
+        Command::Enroll {
+            source: key("main"),
+            owner: key("owner"),
+            class: Kind::Branch,
+        },
+        &f.metadata,
+        &f.limits.source,
+    )
+    .unwrap();
+    peer.select(
+        &Select {
+            prepare: key("prepare"),
+            adopt: key("adopt"),
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 1,
+            selection: original,
+        },
+        &f.metadata,
+        &f.limits.source,
+    )
+    .unwrap();
+    peer.apply(
+        key("withdraw"),
+        Command::Withdraw {
+            source: key("main"),
+            owner: key("owner"),
+            expected_revision: 3,
+        },
+        &f.metadata,
+        &f.limits.source,
+    )
+    .unwrap();
+    f.selections.push(Selection {
+        namespace: peer.identity().clone(),
+        source: key("main"),
+        predecessor_revision: 3,
+        bindings: f.selections[0].bindings.clone(),
+    });
+    let second = subset::Enrollment {
+        namespace: peer.identity().clone(),
+        policy: hash(peer.policy()).unwrap(),
+        ..first.clone()
+    };
+    f.namespaces.push(peer);
+    f.roster = claims::Roster::flat(
+        f.e.authority.clone(),
+        f.e.epoch.clone(),
+        Some(d("complete-two")),
+        f.namespaces
+            .iter()
+            .map(|n| claims::NamespacePin::current(n).unwrap())
+            .collect(),
+        f.limits.source.clone(),
+    )
+    .unwrap();
+    f.e.scope = f.roster.scope().unwrap();
+    let mut profiles = vec![first, second];
+    profiles.sort_by(|a, b| a.namespace.cmp(&b.namespace));
+    f.namespaces.reverse();
+    let (_, manifest) = f.compile(Paging {
+        max_bindings: 2,
+        ..Paging::default()
+    });
+    let prepared = preparation::prepare(
+        &f.e,
+        &manifest,
+        &profiles,
+        &f.roster,
+        &mut f.namespaces,
+        &mut f.metadata,
+        &f.limits,
+    )
+    .unwrap();
+    f.metadata.finish().unwrap();
+    let (_, steps) = preparation::read(&f.e, &prepared, &mut f.metadata, &f.limits).unwrap();
+    assert_eq!(steps.len(), 6);
+    for (s, p) in steps {
+        let profile = profiles
+            .iter()
+            .find(|p| p.namespace == s.origin.namespace)
+            .unwrap();
+        let ns = f
+            .namespaces
+            .iter_mut()
+            .find(|n| n.identity() == &s.origin.namespace)
+            .unwrap();
+        let actual = subset::apply(profile, ns, &mut f.metadata, &p).unwrap();
+        assert_eq!(
+            actual.historical_retirement.unwrap().checkpoint,
+            s.retirement_checkpoint
+        );
+    }
+    for ns in &mut f.namespaces {
+        assert!(
+            ns.source(&key("main"))
+                .unwrap()
+                .unwrap()
+                .predecessors
+                .is_empty()
+        );
+    }
+}
 #[test]
 fn independent_vectors_pin_all_new_record_frames_and_cursor_identity() {
     let vectors: serde_json::Value = serde_json::from_str(include_str!(concat!(

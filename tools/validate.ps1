@@ -15,7 +15,7 @@ $files = @(Get-ChildItem $repoRoot -Recurse -File -Force | Where-Object {
     $_.FullName -notmatch '[\\/](\.git|\.local|target)[\\/]'
 })
 $bytes = ($files | Measure-Object -Property Length -Sum).Sum
-Require ($bytes -lt 6291456) 'Source/docs exceed 6 MiB ordinary-file budget'
+Require ($bytes -lt 8388608) 'Source/docs exceed 8 MiB ordinary-file budget'
 foreach ($file in $files) {
     Require ($file.Length -le 131072) "Ordinary file exceeds 128 KiB: $($file.Name)"
     Require ($file.Extension -notin @('.mp4','.mp3','.wav','.flac','.png','.jpg','.jpeg','.pdf','.zip','.exe','.dll','.pdb','.rlib','.sqlite','.db','.jsonl','.log')) "Runtime/media/binary file in source: $($file.Name)"

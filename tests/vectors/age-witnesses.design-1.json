@@ -31,6 +31,12 @@
       "canonical": "{\"enrollment\":\"f2dfc3c03bb267cf68f38db43cec9066e02a73caf9059cd8729cb8db72bff223\",\"origin\":{\"checkpoint\":{\"genesis\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"enrollment\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"limits\":{\"associations\":100000,\"bindings\":65536,\"millis\":60000,\"read_bytes\":67108864,\"reads\":100000,\"roots\":256},\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"owner\":\"owner\",\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\",\"write_bytes\":8388608,\"writes\":10000},\"kind\":\"inherited\",\"parent\":{\"bytes\":808,\"sha256\":\"a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f\"},\"plan\":{\"bytes\":11,\"sha256\":\"07d240f3361546a1b77720a68228d3ef61ec040189356f81dc72cd86c962be2c\"}},\"schema\":\"tig.age-observation.design-1\",\"target\":{\"class\":\"branch\",\"owner\":\"owner\",\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\",\"request\":{\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"predecessor_revision\":3,\"source\":\"survivor\"},\"selection\":{\"context\":\"ea7792a26f405e2ae9c6f49ca93bbe6076ceac0a1fc53d83426c7d7f2d9377e4\",\"root\":{\"bytes\":4,\"sha256\":\"dc9c5edb8b2d479e697b4b0b8ab874f32b325138598ce9e7b759eb8292110622\"}}}}",
       "sha256": "8b8d2b429747db2fc3ec3b30e489cf7d0fc48d7404259962e187cc530b8ea0c0",
       "id": "8b8d2b429747db2fc3ec3b30e489cf7d0fc48d7404259962e187cc530b8ea0c0"
+    },
+    {
+      "kind": "inheritance_key",
+      "canonical": "{\"parent\":{\"bytes\":808,\"sha256\":\"a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f\"},\"plan\":{\"bytes\":11,\"sha256\":\"07d240f3361546a1b77720a68228d3ef61ec040189356f81dc72cd86c962be2c\"},\"request\":\"e6d4059b18fcdb1a87bef3ac6a9663cad45f6fb3087686864d34a9fc4fbd57b2\",\"schema\":\"tig.age-inheritance-key.design-1\"}",
+      "sha256": "22f212c9ddfcbbc0f5198395f041ee977df85a72450f12dc22c01f177baad86d",
+      "id": "22f212c9ddfcbbc0f5198395f041ee977df85a72450f12dc22c01f177baad86d"
     }
   ]
 }

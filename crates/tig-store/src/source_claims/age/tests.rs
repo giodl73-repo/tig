@@ -48,6 +48,25 @@ fn independent_framing_vectors_pin_occurrence_enrollment_and_both_origins() {
                 assert_eq!(encode(&v).unwrap(), raw);
                 assert_eq!(hash(&v).unwrap(), expected);
             }
+            "inheritance_key" => {
+                let inherited = vectors["cases"]
+                    .as_array()
+                    .unwrap()
+                    .iter()
+                    .find(|c| c["kind"] == "inherited")
+                    .unwrap();
+                let record: Record =
+                    serde_json::from_str(inherited["canonical"].as_str().unwrap()).unwrap();
+                assert_eq!(record.slot().unwrap(), expected);
+                assert_ne!(record.slot().unwrap(), record.target.request.id().unwrap());
+                assert!(
+                    record
+                        .accepts(&record.target.request.path().unwrap())
+                        .unwrap()
+                );
+                assert!(record.accepts(&record.path().unwrap()).unwrap());
+                assert!(!record.accepts(&path("age/unrelated").unwrap()).unwrap());
+            }
             _ => panic!("unknown vector"),
         }
     }
@@ -159,6 +178,9 @@ struct Fixture {
 }
 impl Fixture {
     fn new() -> Self {
+        Self::with_clock(Digest::blob(b"clock"))
+    }
+    fn with_clock(clock: Digest) -> Self {
         let temp = tempfile::tempdir().unwrap();
         let mut observer = Namespace::create(
             &temp.path().join("observer"),
@@ -219,7 +241,7 @@ impl Fixture {
             registry_policy: hash(registry.policy()).unwrap(),
             source: key("records"),
             owner: key("owner"),
-            clock: Digest::blob(b"clock"),
+            clock,
             observers: vec![Observer {
                 namespace: observer.identity().clone(),
                 policy: hash(observer.policy()).unwrap(),
@@ -842,6 +864,245 @@ fn executed_owned_subsets_inherit_age_and_unexecuted_plans_cannot() {
     );
     f.limits.lineage = 2;
     assert!(matches!(f.status(&second.request), Err(Error::Budget)));
+}
+
+#[test]
+fn later_survivor_capture_cannot_suppress_older_verified_inheritance() {
+    let mut f = Fixture::new();
+    let parent = f.request.clone();
+    let e = f.subset_enrollment();
+    let old = f.capture(&TestClock::new(&f.e.clock, 100, 110)).unwrap();
+    let plan = subset::plan(
+        &e,
+        &mut f.observer,
+        subset::Request {
+            source: parent.source.clone(),
+            predecessor_revision: 3,
+            paths: vec![path("a").unwrap()],
+        },
+        &f.metadata.finished_reader().unwrap(),
+    )
+    .unwrap();
+    subset::apply(&e, &mut f.observer, &mut f.metadata, &plan).unwrap();
+    let child = Request {
+        namespace: parent.namespace.clone(),
+        source: plan.survivor_source().unwrap().unwrap(),
+        predecessor_revision: 3,
+    };
+    f.request = child.clone();
+    let young = f.capture(&TestClock::new(&f.e.clock, 1000, 1010)).unwrap();
+    assert_ne!(young.observed, old.observed);
+    let before = f.observer.checkpoint();
+    let inherited = f.inherit(&parent, &e, &plan).unwrap();
+    assert_eq!(inherited.observed, old.observed);
+    assert_ne!(inherited.evidence, young.evidence);
+    assert_eq!(before, f.observer.checkpoint());
+    f.reopen();
+    assert_eq!(f.capture(&NoClock).unwrap().observed, old.observed);
+    // The exact first capture document/binding survives the stronger proof.
+    let source = f.registry.source(&f.e.source).unwrap().unwrap();
+    let mut reader = f.metadata.finished_reader().unwrap();
+    let mut work = Work::new(&mut reader, &f.limits).unwrap();
+    let map = entries(&f.e, &source, &mut work).unwrap();
+    assert_eq!(map.get(&child.path().unwrap()), young.evidence.as_ref());
+    assert_eq!(
+        work.record(young.evidence.as_ref().unwrap(), &f.e)
+            .unwrap()
+            .origin,
+        Origin::Captured {
+            checkpoint: before.clone(),
+            observed: Stamp {
+                earliest: 1000,
+                latest: 1010
+            }
+        }
+    );
+    let next = subset::plan(
+        &e,
+        &mut f.observer,
+        subset::Request {
+            source: child.source.clone(),
+            predecessor_revision: 3,
+            paths: vec![path("b").unwrap()],
+        },
+        &f.metadata.finished_reader().unwrap(),
+    )
+    .unwrap();
+    subset::apply(&e, &mut f.observer, &mut f.metadata, &next).unwrap();
+    assert_eq!(
+        f.inherit(&parent, &e, &plan).unwrap().observed,
+        old.observed
+    );
+    let grandchild = f.inherit(&child, &e, &next).unwrap();
+    assert_eq!(grandchild.observed, old.observed);
+    assert_eq!(
+        f.assess(&child, &NoClock, 10).unwrap().hold,
+        Some("occurrence_missing")
+    );
+    assert!(
+        f.assess(
+            &grandchild.request,
+            &TestClock::new(&f.e.clock, 120, 130),
+            10
+        )
+        .unwrap()
+        .old_enough
+    );
+}
+
+#[test]
+fn historical_inheritance_after_leaf_retirement_is_evidence_only() {
+    let mut f = Fixture::new();
+    let parent = f.request.clone();
+    let e = f.subset_enrollment();
+    let observed = f
+        .capture(&TestClock::new(&f.e.clock, 100, 110))
+        .unwrap()
+        .observed;
+    let p = subset::plan(
+        &e,
+        &mut f.observer,
+        subset::Request {
+            source: parent.source.clone(),
+            predecessor_revision: 3,
+            paths: vec![path("a").unwrap()],
+        },
+        &f.metadata.finished_reader().unwrap(),
+    )
+    .unwrap();
+    subset::apply(&e, &mut f.observer, &mut f.metadata, &p).unwrap();
+    let child = Request {
+        namespace: parent.namespace.clone(),
+        source: p.survivor_source().unwrap().unwrap(),
+        predecessor_revision: 3,
+    };
+    let q = subset::plan(
+        &e,
+        &mut f.observer,
+        subset::Request {
+            source: child.source.clone(),
+            predecessor_revision: 3,
+            paths: vec![path("b").unwrap(), path("c").unwrap()],
+        },
+        &f.metadata.finished_reader().unwrap(),
+    )
+    .unwrap();
+    subset::apply(&e, &mut f.observer, &mut f.metadata, &q).unwrap();
+    let before = f.observer.checkpoint();
+    let inherited = f.inherit(&parent, &e, &p).unwrap();
+    assert_eq!(inherited.observed, observed);
+    assert_eq!(before, f.observer.checkpoint());
+    assert_eq!(
+        f.assess(&child, &NoClock, 10).unwrap().hold,
+        Some("occurrence_missing")
+    );
+}
+
+#[test]
+#[ignore = "requires TIG_PRE_ALTERNATE_AGE_CLI from the pinned pre-alternate source"]
+fn pre_alternate_reader_and_writer_preserve_stronger_inherited_facts() {
+    let executable =
+        std::env::var_os("TIG_PRE_ALTERNATE_AGE_CLI").expect("explicit old artifact required");
+    assert!(PathBuf::from(&executable).is_absolute());
+    let clock_temp = tempfile::tempdir().unwrap();
+    let clock_root = clock_temp.path().join("clock");
+    let ledger = crate::ledger::CapacityLedger::create_clock(
+        &clock_root,
+        key("clock"),
+        key("epoch"),
+        0,
+        crate::clock::Policy {
+            authority: Digest::blob(b"authority"),
+            epoch: Digest::blob(b"epoch"),
+            boundary: Digest::blob(b"native-os"),
+            max_sample_millis: 1000,
+            max_drift_millis: 1000,
+            max_session_millis: 60000,
+        },
+    )
+    .unwrap();
+    let clock_enrollment = ledger.clock_enrollment().unwrap();
+    let clock_min = ledger.checkpoint();
+    drop(ledger);
+    let mut f = Fixture::with_clock(clock_enrollment.id().unwrap());
+    let parent = f.request.clone();
+    let e = f.subset_enrollment();
+    let old = f.capture(&TestClock::new(&f.e.clock, 100, 110)).unwrap();
+    let plan = subset::plan(
+        &e,
+        &mut f.observer,
+        subset::Request {
+            source: parent.source.clone(),
+            predecessor_revision: 3,
+            paths: vec![path("a").unwrap()],
+        },
+        &f.metadata.finished_reader().unwrap(),
+    )
+    .unwrap();
+    subset::apply(&e, &mut f.observer, &mut f.metadata, &plan).unwrap();
+    f.request = Request {
+        namespace: parent.namespace.clone(),
+        source: plan.survivor_source().unwrap().unwrap(),
+        predecessor_revision: 3,
+    };
+    let young = f.capture(&TestClock::new(&f.e.clock, 1000, 1010)).unwrap();
+    f.inherit(&parent, &e, &plan).unwrap();
+    let root = f.temp.path();
+    let profile = root.join("old-profile.json");
+    let request = root.join("old-request.json");
+    fs::write(
+        &profile,
+        serde_json::to_vec(&serde_json::json!({
+            "schema":"tig.age-profile.design-1","enrollment":f.e,
+            "registry":{"root":root.join("registry"),"minimum":f.registry.checkpoint()},
+            "observers":[{"root":root.join("observer"),"minimum":f.observer.checkpoint()}],
+            "metadata":{"root":root.join("metadata"),"minimum":f.metadata.checkpoint()},
+        "clock":{"root":clock_root,"minimum":clock_min,"enrollment":clock_enrollment},
+            "permissions":{"capture":true}
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+    fs::write(&request, serde_json::to_vec(&f.request).unwrap()).unwrap();
+    let before = f.observer.checkpoint();
+    for op in ["status", "capture"] {
+        let out = Process::new(&executable)
+            .args(["age", op])
+            .arg(&profile)
+            .arg(&request)
+            .env("PATH", "")
+            .output()
+            .unwrap();
+        assert!(
+            out.status.success(),
+            "{}",
+            String::from_utf8_lossy(&out.stdout)
+        );
+        assert!(out.stderr.is_empty());
+        let value: serde_json::Value = serde_json::from_slice(&out.stdout).unwrap();
+        let value = if op == "capture" {
+            &value["status"]
+        } else {
+            &value
+        };
+        assert_eq!(
+            value["observed"],
+            serde_json::to_value(young.observed).unwrap()
+        );
+        assert_eq!(
+            value["evidence"],
+            serde_json::to_value(&young.evidence).unwrap()
+        );
+    }
+    f.reopen();
+    assert_eq!(f.status(&f.request.clone()).unwrap().observed, old.observed);
+    assert_eq!(f.observer.checkpoint(), before);
+    assert_eq!(
+        crate::ledger::CapacityLedger::open(&clock_root, &clock_min)
+            .unwrap()
+            .checkpoint(),
+        clock_min
+    );
 }
 
 #[derive(Serialize, Deserialize)]

@@ -20,6 +20,7 @@ use tig_core::{
 };
 mod compile;
 mod inspect;
+pub mod preparation;
 pub use compile::{build, request};
 pub use inspect::{inspect, page};
 #[cfg(test)]
@@ -39,6 +40,7 @@ pub enum Error {
     Tree(TreeError),
     Source(admission::Error),
     Roster(claims::Error),
+    Subset(source_claims::subset::Error),
 }
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -70,6 +72,15 @@ impl From<claims::Error> for Error {
     }
 }
 pub type Result<T> = std::result::Result<T, Error>;
+impl From<source_claims::subset::Error> for Error {
+    fn from(e: source_claims::subset::Error) -> Self {
+        if e == source_claims::subset::Error::Budget {
+            Self::Budget
+        } else {
+            Self::Subset(e)
+        }
+    }
+}
 fn encode(v: &impl Serialize) -> Result<Vec<u8>> {
     let raw = identity::canonical_json(&serde_json::to_value(v).map_err(|_| Error::Invalid)?)
         .map_err(|_| Error::Invalid)?;

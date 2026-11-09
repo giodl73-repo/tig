@@ -38,7 +38,7 @@ struct Document {
     plan: PublicationPlan,
     bytes: Vec<u8>,
 }
-pub(super) struct Witness {
+pub(crate) struct Witness {
     documents: [Document; 3],
     control: Publication,
     control_binding: Digest,
@@ -47,13 +47,25 @@ pub(super) struct Witness {
     pub peak: u64,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) struct State {
+pub(crate) struct State {
     pub admitted: bool,
     pub intent: bool,
     pub terminal: Option<bool>,
 }
+/// Shared fixed accounted records, not another journal/provider. Callers must
+/// independently validate their exact enrollment and document semantics.
+pub(crate) struct Layout {
+    pub owner: Key,
+    pub key: Digest,
+    pub plan: Digest,
+    pub control_binding: Digest,
+    pub control_object: Object,
+    pub documents: [Vec<u8>; 3],
+    pub prefix: &'static str,
+    pub max_metadata_bytes: u64,
+}
 impl Witness {
-    pub fn new(plan: &Plan, bindings: &Bindings, store: &LocalStore) -> Result<Self> {
+    pub(super) fn new(plan: &Plan, bindings: &Bindings, store: &LocalStore) -> Result<Self> {
         plan.id()?;
         if store.supports_retirement()
             || Place::local(store, plan.enrollment.witness.generation)
@@ -88,16 +100,38 @@ impl Witness {
             encode(&terminal(Outcome::Cancelled))?,
             encode(&terminal(Outcome::Completed))?,
         ];
+        Self::from_records(
+            Layout {
+                owner: plan.enrollment.owner.clone(),
+                key,
+                plan: id.clone(),
+                control_binding: digest(&("tig.bulk-final-control.design-1", id, bindings))?,
+                control_object: Object::from_bytes(&plan.to_json()?),
+                documents: data,
+                prefix: "bulk",
+                max_metadata_bytes: plan.enrollment.max_metadata_bytes,
+            },
+            store,
+        )
+    }
+    pub(crate) fn from_records(layout: Layout, store: &LocalStore) -> Result<Self> {
+        if store.supports_retirement() || layout.documents.iter().any(|b| b.len() > 65536) {
+            return Err(Error::Authority);
+        }
         let mut docs = Vec::new();
         let mut peak = 0u64;
-        for (index, bytes) in data.into_iter().enumerate() {
+        for (index, bytes) in layout.documents.into_iter().enumerate() {
             let request = Publication {
-                operation: Key::parse(&format!("bulk-{index}-{}", key.as_str()))?,
-                owner: plan.enrollment.owner.clone(),
+                operation: Key::parse(&format!(
+                    "{}-{index}-{}",
+                    layout.prefix,
+                    layout.key.as_str()
+                ))?,
+                owner: layout.owner.clone(),
                 object: Object::from_bytes(&bytes),
                 required: AckLevel::ProcessRestart,
             };
-            let pp = accounted::plan_bound(store, &request, id.clone())?;
+            let pp = accounted::plan_bound(store, &request, layout.plan.clone())?;
             peak = peak.checked_add(pp.required_peak()).ok_or(Error::Budget)?;
             docs.push(Document {
                 request,
@@ -113,20 +147,28 @@ impl Witness {
             .and_then(|v| v.checked_mul((MAX_SCOPE_FILES + 4) as u64))
             .ok_or(Error::Budget)?;
         peak = peak.checked_add(control_limit).ok_or(Error::Budget)?;
-        if peak > plan.enrollment.max_metadata_bytes {
+        if peak > layout.max_metadata_bytes {
             return Err(Error::Budget);
         }
         Ok(Self {
             documents: docs.try_into().map_err(|_| Error::Invalid)?,
             control: Publication {
-                operation: Key::parse(&format!("bulk-control-{}", key.as_str()))?,
-                owner: plan.enrollment.owner.clone(),
-                object: Object::from_bytes(&plan.to_json()?),
+                operation: Key::parse(&format!(
+                    "{}-control-{}",
+                    layout.prefix,
+                    layout.key.as_str()
+                ))?,
+                owner: layout.owner,
+                object: layout.control_object,
                 required: AckLevel::ProcessRestart,
             },
-            control_binding: digest(&("tig.bulk-final-control.design-1", id, bindings))?,
+            control_binding: layout.control_binding,
             control_limit,
-            settle: Key::parse(&format!("bulk-control-settle-{}", key.as_str()))?,
+            settle: Key::parse(&format!(
+                "{}-control-settle-{}",
+                layout.prefix,
+                layout.key.as_str()
+            ))?,
             peak,
         })
     }

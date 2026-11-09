@@ -77,6 +77,22 @@ survivor chain. They cannot be applied repeatedly to the original source. Prove
 unchanged paths and actual transitions, preserve unselected members and inherit
 age using [the age protocol](AGE-WITNESSES.md). Equal hashes cannot replace lineage.
 
+`paged::preparation::prepare` now stages those conditional future source plans.
+Supply independently admitted subset profiles and the current complete roster.
+Preparation reconstructs the original manifest, translates every page through the
+existing pure journal transition model and reobserves the full source basis. It
+changes no source or payload. Explicitly finish and reopen the metadata operation
+before `preparation::read`; keep the returned small header reference asset-side.
+The header points to an ordered Tree of bounded page records and separate plans.
+Readback verifies original pages, survivor lineage, unchanged identities and exact
+subset projections under a shared operation budget. Predicted checkpoints are
+comparisons for later actual receipts, never acknowledgements of execution.
+
+This preparation has no apply/resume/cancel interface or approval token. It does
+not freeze provider births/grants, admit age policy, reserve execution witnesses
+or authorize claim release. The remaining controller obligations are controlled
+by [paged execution](../../specs/PAGED-EXECUTION.md).
+
 The controller must acknowledge separate exact historical-claim and final-copy
 decisions, page intents/plans, recovery admission and completion witnesses. It
 must validate only its admitted command history under final live fences, preserve

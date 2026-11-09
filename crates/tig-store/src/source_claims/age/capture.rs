@@ -203,8 +203,7 @@ impl Session<'_> {
         if r.namespace != *observer.identity() {
             return Err(Error::Authority);
         }
-        let (_, map) = self.current()?;
-        if map.contains_key(&r.path()?) {
+        if self.status(r, observer, minimum)?.evidence.is_some() {
             self.cleanup(&mut hook)?;
             return self.status(r, observer, minimum);
         }
@@ -235,7 +234,7 @@ impl Session<'_> {
         hook: &mut impl FnMut(Stage) -> Result<()>,
     ) -> Result<()> {
         let (s, map) = self.current()?;
-        let key = record.target.request.path()?;
+        let key = record.path()?;
         if map.contains_key(&key) {
             return Ok(());
         }
@@ -277,7 +276,7 @@ impl Session<'_> {
         }
         hook(Stage::MetadataFinished)?;
         self.meter.timed(self.limits)?;
-        let id = hash(&(self.enrollment.id()?, record.target.request.id()?))?;
+        let id = hash(&(self.enrollment.id()?, record.slot()?))?;
         self.registry.select(
             &Select {
                 prepare: operation("prepare", &id)?,
@@ -328,15 +327,31 @@ impl Session<'_> {
             source,
             predecessor_revision: v.revision,
         };
-        let target = target(self.enrollment, observer, minimum, &request)?;
-        if target.selection != v.selection || target.owner != old.owner || target.class != old.class
-        {
-            return Err(Error::Authority);
-        }
+        let plan_object = Object::from_bytes(&plan.to_json()?);
+        let key = path(&format!(
+            "age/{}",
+            inheritance_key(&request, &parent_object, &plan_object)?.as_str()
+        ))?;
         let (_, map) = self.current()?;
-        if map.contains_key(&request.path()?) {
+        // Acknowledged inheritance remains replayable after later owned pages
+        // retire this survivor. It never recreates the missing source claim.
+        if map.contains_key(&key) {
             return self.status(&request, observer, minimum);
         }
+        let survivor = observer.source(&request.source)?.ok_or(Error::Missing)?;
+        if survivor.owner != old.owner || survivor.kind.as_ref() != Some(&old.class) {
+            return Err(Error::Authority);
+        }
+        // Existing exact enrollment/prepare/adopt/withdraw/retire receipts prove
+        // this historical version even after a later page retired its leaf.
+        // Assessment still requires the occurrence to be currently present.
+        let target = Target {
+            request: request.clone(),
+            policy: old.policy,
+            owner: old.owner,
+            class: old.class,
+            selection: v.selection,
+        };
         let checkpoint = observer.checkpoint();
         let plan = {
             let mut w = Work::shared(self.metadata, self.limits, self.meter.clone())?;

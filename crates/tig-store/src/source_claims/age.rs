@@ -254,6 +254,29 @@ struct Record {
     target: Target,
     origin: Origin,
 }
+impl Record {
+    fn slot(&self) -> Result<Digest> {
+        match &self.origin {
+            Origin::Captured { .. } => self.target.request.id(),
+            Origin::Inherited { parent, plan, .. } => {
+                inheritance_key(&self.target.request, parent, plan)
+            }
+        }
+    }
+    fn path(&self) -> Result<LogicalPath> {
+        path(&format!("age/{}", self.slot()?.as_str()))
+    }
+    fn accepts(&self, key: &LogicalPath) -> Result<bool> {
+        // Prior writers stored inherited records at the primary occurrence key.
+        Ok(key == &self.target.request.path()? || key == &self.path()?)
+    }
+}
+fn inheritance_key(r: &Request, parent: &Object, plan: &Object) -> Result<Digest> {
+    hash(
+        &serde_json::json!({"schema":"tig.age-inheritance-key.design-1",
+        "request":r.id()?,"parent":parent,"plan":plan}),
+    )
+}
 #[derive(Clone, Debug, Serialize)]
 pub struct Status {
     pub schema: &'static str,
@@ -587,15 +610,36 @@ impl<S: NodeStore> Inspection<'_, '_, S> {
         let checkpoint = self.registry.checkpoint();
         let mut work = Work::shared(self.nodes, self.limits, meter.clone())?;
         let map = entries(self.enrollment, &s, &mut work)?;
-        let evidence = map.get(&r.path()?).cloned();
-        let (target, observed) = if let Some(o) = &evidence {
-            let (record, stamp) = verify_record(self.enrollment, o, observer, &mut work, 0)?;
-            if &record.target.request != r {
+        r.id()?;
+        let mut best: Option<(Object, Record, Stamp)> = None;
+        for (key, object) in &map {
+            if key.as_str() == "identity" {
+                continue;
+            }
+            let record = work.record(object, self.enrollment)?;
+            if !record.accepts(key)? {
                 return Err(Error::Recovery);
             }
-            (Some(record.target), Some(stamp))
+            if &record.target.request != r {
+                continue;
+            }
+            let (record, stamp) = verify_record(self.enrollment, object, observer, &mut work, 0)?;
+            if best
+                .as_ref()
+                .is_some_and(|(_, prior, _)| prior.target != record.target)
+            {
+                return Err(Error::Recovery);
+            }
+            if best.as_ref().is_none_or(|(o, _, s)| {
+                (stamp.latest, stamp.earliest, &object.sha256) < (s.latest, s.earliest, &o.sha256)
+            }) {
+                best = Some((object.clone(), record, stamp));
+            }
+        }
+        let (evidence, target, observed) = if let Some((object, record, stamp)) = best {
+            (Some(object), Some(record.target), Some(stamp))
         } else {
-            (None, None)
+            (None, None, None)
         };
         meter.timed(self.limits)?;
         Ok(Status {

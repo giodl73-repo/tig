@@ -62,8 +62,18 @@ finish/read back, then use existing atomic Namespace::select with stable keys.
 No transaction spans clock/metadata IO. Competing captures use scoped existing
 admission and optimistic source revisions; no global cache lock.
 
-An acknowledged same-occurrence retry returns its original observation without
-sampling a new clock or replacing its date. A crash before registry adoption may
+An acknowledged same-occurrence retry returns the strongest retained verified
+observation without sampling a new clock or replacing any acknowledged document.
+Captured facts keep their original primary occurrence key. Inherited facts append
+under a domain-separated key binding occurrence, parent evidence and subset plan;
+legacy primary inherited facts remain accepted. A later observer's direct capture
+cannot suppress an older proved inherited observation. Assessment selects the
+smallest verified latest bound, then earliest bound and evidence digest for ties.
+Search and ancestry share the operation budget; missing/corrupt records or
+exhaustion hold rather than silently selecting incomplete evidence. Record/event
+encodings and enrollment identities remain unchanged. Legacy readers may miss an
+alternate proof and conservatively report unknown or younger age.
+A crash before registry adoption may
 leave unacknowledged metadata; retry can only observe later, conservatively. A
 crash after atomic adoption recovers the exact acknowledged document. Conflicting
 pending/foreign state holds. Older registry predecessors retire only after the
@@ -83,11 +93,14 @@ dependency-aware registry-entry expiry remain required before sustained use.
 
 Owned subset inheritance requires an existing admitted parent record, exact
 original occurrence, recomputed unchanged survivor projection, and actual source
-Prepare/Adopt/Withdraw/Retire receipts for the declared subset plan. Header/hash
+Enroll/Prepare/Adopt/Withdraw/Retire receipts for the declared subset plan. Header/hash
 equality alone is insufficient. Store parent and plan references; verify bounded
 lineage and source-checkpoint ancestry on assessment. New independent occurrences
 have no inherited age. Current eligibility still requires the leaf occurrence to
 exist; historical receipts never recreate retired claims.
+Inheritance may acknowledge this historical fact after a later owned page retires
+the survivor, provided the complete historical enrollment/transition/projection
+proof remains available. That cannot make a missing occurrence eligible again.
 
 Assessment consumes a current admitted clock interval. Reject invalid/rollback
 bounds; old enough requires now.earliest >= observed.latest + required_age with

@@ -511,6 +511,13 @@ impl Namespace {
         self.journal.check_guarded_marker()?;
         Ok(self.journal.source(key)?)
     }
+    /// Owned pure planner snapshot, including existing slot/event/byte usage.
+    /// Mutating the returned value cannot change this journal or grant a permit.
+    pub(super) fn planning_state(&mut self) -> Result<super::State> {
+        self.journal.check_guarded_marker()?;
+        self.journal.sync()?;
+        Ok(self.journal.state.clone())
+    }
     /// Fixed policy changes require explicit creation/adoption of another epoch.
     pub fn policy(&self) -> &Policy {
         self.journal

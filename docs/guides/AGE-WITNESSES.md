@@ -41,8 +41,9 @@ from every observed namespace, so capture never edits the observed journal.
 
 A request has only `namespace`, `source` and `predecessor_revision`. Capture accepts
 no timestamp. Its first successful observation uses an explicit clock profile;
-acknowledged retries preserve the original evidence and do not open/sample the
-clock. Capture may finish bounded metadata, adopt its registry root and retire
+acknowledged retries preserve every original fact and do not open/sample the
+clock. A separately proved older inheritance can become the selected evidence;
+the newer capture stays intact. Capture may finish bounded metadata, adopt its registry root and retire
 superseded registry roots after proving all their bindings survive. Interrupted
 cleanup resumes without dropping facts. Unacknowledged metadata may remain after
 interruption; this interface does not scan or sweep it.
@@ -58,6 +59,9 @@ observation, recomputes the unchanged survivor projection and verifies actual
 source transition receipts. It retains parent/plan references and preserves the
 original observation. A proposed/unexecuted plan or matching hashes alone cannot
 grant inherited age. No clock profile is required for inheritance.
+An inherited fact can still be recorded after a later page retires its survivor;
+this preserves historical provenance and does not recreate or age-qualify a missing
+occurrence. Older readers can miss alternate inherited facts and hold conservatively.
 
 Reports distinguish registry, source and metadata checkpoints. Persist newly
 acknowledged minima outside this repository under the operator's existing trust

@@ -8,6 +8,65 @@ use std::{fs, path::PathBuf, process::Command as Process};
 fn key(s: &str) -> Key {
     Key::parse(s).unwrap()
 }
+
+#[test]
+fn original_pages_prepare_conditional_survivors_and_predict_actual_checkpoints() {
+    let mut f = Fixture::new();
+    let before = f.ns.checkpoint();
+    let requests = vec![f.request(&["delete"]), f.request(&["shared"])];
+    let steps = plan_pages(&f.e, &mut f.ns, requests, &mut f.metadata).unwrap();
+    assert_eq!(before, f.ns.checkpoint());
+    assert_eq!(steps.len(), 2);
+    assert_eq!(
+        steps[1].plan.request.source,
+        steps[0].plan.survivor_source().unwrap().unwrap()
+    );
+    assert_eq!(steps[1].plan.request.predecessor_revision, 3);
+    f.metadata.finish().unwrap();
+    for step in &steps {
+        assert!(f.apply(&step.plan).settlement_current);
+        let status = inspect(&f.e, &mut f.ns, &step.plan).unwrap();
+        assert_eq!(
+            status.historical_retirement.unwrap().checkpoint,
+            step.retirement_checkpoint
+        );
+    }
+    assert!(f.demands(&f.a.clone()).is_empty());
+    assert_eq!(f.demands(&f.b.clone()), vec!["D", "M"]);
+    // This is a historical plan prediction; the first survivor has now gone.
+    assert!(
+        !inspect(&f.e, &mut f.ns, &steps[0].plan)
+            .unwrap()
+            .survivor_protection_current
+    );
+}
+
+#[test]
+fn paged_preparation_rejects_duplicate_bindings_and_existing_survivor_slots() {
+    let mut f = Fixture::new();
+    let request = f.request(&["delete"]);
+    let before = f.ns.checkpoint();
+    assert!(matches!(
+        plan_pages(
+            &f.e,
+            &mut f.ns,
+            vec![request.clone(), request.clone()],
+            &mut f.metadata
+        ),
+        Err(Error::Invalid)
+    ));
+    assert_eq!(before, f.ns.checkpoint());
+    let p = f.plan(&["delete"]);
+    let source = p.survivor_source().unwrap().unwrap();
+    enroll(
+        &mut f.ns,
+        &f.metadata,
+        source.as_str(),
+        "owner",
+        Kind::Branch,
+    );
+    assert!(plan_pages(&f.e, &mut f.ns, vec![request], &mut f.metadata).is_err());
+}
 fn path(s: &str) -> LogicalPath {
     LogicalPath::parse(s).unwrap()
 }

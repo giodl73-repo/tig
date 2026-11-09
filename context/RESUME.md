@@ -8,7 +8,45 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/paged-retirement, inpute995b604e2218bc71897f51e874f65c59d3f5476.
+- Active lane: feat/paged-execution, input47af6dc7d2f6d88fd54df54b97e537d7b608d122.
+  specs/PAGED-EXECUTION.md controls the complete intended controller scope. Pending
+  source adds append-only alternate inherited age proofs, exact historical survivor
+  enrollment validation, pure conditional page planning over actual journal state,
+  shared accounted witness construction and asset-side persisted preparation.
+  The preparation reconstructs the current manifest, freezes every original page
+  through future survivors and reobserves the complete basis. Its historical
+  readback grants no consent or execution acknowledgement. Source/docs ceiling
+  becomes8MiB; runtime record/provider/journal limits are unchanged.
+  Initial13 paged tests passed (80865 terminal zero), including actual34-page
+  settlement across17 original roots, reopening and exact predicted/actual receipt
+  equality, with unselected aliases preserved. The follow-up62657 chain passes
+  all15 age entries including actual pinned older-reader/writer compatibility,
+  all15 paged entries including corruption/source drift, and15 subset entries
+  (one baseline artifact qualifier ignored). Its strict Clippy found a test-only
+  drop_non_drop; that redundant drop was removed. Later readback tightening checks
+  original-to-survivor lineage and recomputes projections, with new substitution/
+  false-survivor-summary regressions and independent preparation framing. Final
+  exact-source17 paged entries (including interleaved two-namespace predictions),
+  all15 age entries including the old artifact and strict store all-target Clippy
+  pass (97302 terminal zero). Earlier compatibility fixture
+  clock-profile/response-shape mistakes were corrected before the passing run.
+  First19 bulk tests pass with2 explicit artifact qualifiers ignored (83606
+  terminal zero); strict store all-target Clippy passed before the final test
+  additions (50938 terminal zero). Workspace default/500k/standalone/strict Clippy
+  chain9715 terminates zero. Its test compilation preceded final readback tightening,
+  which97302 qualifies separately. Fresh explicit bulk inspection/execution and
+  ordinary pending-cancellation artifact checks pass (83737 terminal zero).
+  All-feature/strict Clippy chain78449 still runs on its distinct explicit target;
+  observe its handle to terminal, do not restart on observation timeout. Its test
+  compilation also preceded final readback tightening; run final all-feature paged
+  focus after it terminates. Hosted exact-head qualification remains required.
+  Next: durably acknowledge the global decision and exact page intents before
+  effects, revalidate only admitted owned history under source/final-provider
+  fences, acknowledge actual page/age receipts, preserve original copy exclusions
+  and birth/grant identities, and compose truthful cancellation/status. No controller
+  completion, operational NB-07 closure, final removal or live use is claimed.
+
+- Previous lane: feat/paged-retirement, inpute995b604e2218bc71897f51e874f65c59d3f5476.
   Read specs/PAGED-RETIREMENT.md. Implementation3ee9ff3: asset-side exact
   selection request/manifest, complete-roster hypothetical protection and stable
   original-binding pages. No Source/provider mutation or consent is exposed.
@@ -31,11 +69,13 @@ source changes into running tools as a side effect. No startup cache operations.
   paged-final-artifacts.log. All local processes are terminal; no target is live.
   EVID-107 / docs/reviews/2026-11-09-paged-selection.md separately records
   verification, synthetic validation, trace and six producer lenses. Derive the
-  draft PR/hosted exact-head status from GitHub; this lane stacks on
+  PR/hosted exact-head status from GitHub; this lane stacks on
   feat/age-witnesses. Future durable paged intent/decision, conditional survivor
   translation, verified age inheritance and originally approved final actions
   remain necessary to resolve NB-07 operationally. The manifest is no lease or
   authority, and a cursor is no execution-completion proof. Full goal active.
+  PR38 exact head47af6dc rechecked: OPEN, ready; hosted run42635036960 has successful
+  Windows/Linux/secrets checks. No merge or live-operation acceptance follows.
 
 - Previous lane: feat/age-witnesses, input0dbc41f318b5acffacb3ed6562df839ae1ffe9d9.
   Read specs/AGE-WITNESSES.md and docs/guides/AGE-WITNESSES.md. Bounded local/
