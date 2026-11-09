@@ -8,7 +8,26 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active lane: feat/local-clock, input4aeebf8. Read specs/LOCAL-CLOCK.md.
+- Active lane: feat/bulk-execution, input6f8fdaa. Read specs/BULK-EXECUTION.md.
+  Separate tig-storage bulk execute apply/resume/cancel profile binds exact
+  admitted_plan, independent inspection enrollment/roster/jobs/minima and default-
+  disabled permissions. Apply/resume require explicit LocalClock; Cancellation
+  reuses the same internal controller without source metadata/time capability.
+  Inspection remains writer-free. Nineteen active bulk entries pass (two ignored
+  artifact qualifiers), including actual offline metadata cancellation. The fresh
+  execution CLI qualifier passes native-clock deletion/no-op replay, interrupted
+  source resume, separate preflight denials with reopened checkpoint/file proof,
+  expired-window hold/cancel and transient-use invalidation before/after settlement.
+  An initial assertion expected a report for pre-settlement stale basis; the
+  existing controller correctly errors. The test now distinguishes that refusal
+  from post-settlement provider holds; no safety check was weakened.
+  Strict Clippy/broad qualification is in progress in external bulk-execution
+  targets; derive terminal handles/results before closeout. Source/code changes
+  require fmt and reviewed-target updates before the implementation commit.
+  Native age/category/UI/Action, current authority/restore/host trust, real large
+  files/providers, lifetime and metadata retirement remain required. No live use.
+
+- Previous lane: feat/local-clock, input4aeebf8. Read specs/LOCAL-CLOCK.md.
   Proposed first local-clock profile after optional preference received no answer;
   no live trust/adoption is inferred. Fresh clock-enabled capacity ledger design-2
   reuses existing hashed commands/replay and retains a high-water timestamp.

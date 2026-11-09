@@ -189,3 +189,13 @@ negative/provider/bulk fixtures pass. Default workspace/standalone/strict Clippy
 and all-feature/fresh-artifact checks pass, including both500k fixtures. PR #34
 is draft pending exact-head hosted qualification. No live trust/adoption,
 mutation CLI, authority migration, lifetime or full pulse acceptance is implied.
+
+Bulk execution entry: input6f8fdaa; BULK-EXECUTION.md names
+WP-003/004/006/007/008/009/013/015, REQ-001/002/003/004/005/006/007/009,
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/003/004/005/006/008/012/013,
+PKG-002/003/004/007/008/009 and RUST/PROVIDER L0/L1/L2. Separate explicit
+profile binds exact plan and default-disabled permissions; source-metadata/time-
+free cancellation shares the existing controller. Nineteen active bulk entries
+and explicit fresh execution CLI qualifier pass; broad/Clippy qualification and
+separate evidence/validation/trace/six producer closeout remain in progress.
+No live storage, host-trust adoption, source merge or full acceptance.

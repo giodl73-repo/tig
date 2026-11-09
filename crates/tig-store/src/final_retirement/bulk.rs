@@ -17,7 +17,7 @@ mod execute;
 mod selection;
 mod witness;
 pub use crate::placement::Local;
-pub use execute::{Execution, Inspection, Phase, Report, Stage};
+pub use execute::{Cancellation, Execution, Inspection, Phase, Report, Stage};
 pub use selection::plan;
 
 const MAX_PLAN: usize = 49_152;
@@ -248,6 +248,11 @@ fn action_request(e: &Enrollment, request: &Request, copy: &Copy) -> Result<prov
     })
 }
 impl Plan {
+    /// Proposed enrollment identity for comparison with independent admission.
+    /// Reading it grants no authority.
+    pub fn enrollment(&self) -> &Enrollment {
+        &self.enrollment
+    }
     /// Map exact action order to independently admitted store jobs without
     /// parsing private serialized fields or deriving authority from the plan.
     pub fn actions(&self) -> impl ExactSizeIterator<Item = (&Digest, &provider::Plan)> {

@@ -40,6 +40,47 @@ pub struct Inspection<'a, 'b> {
     pub witness: &'a mut Local<'b>,
     pub admitted_context: &'a Digest,
 }
+/// Explicit cancellation capability, without source metadata or a fresh clock.
+/// Inspection itself remains observational; only this distinct port can mutate.
+pub struct Cancellation<'a, 'b> {
+    pub inspection: Inspection<'a, 'b>,
+}
+struct Runtime<'a, 'b> {
+    enrollment: &'a Enrollment,
+    roster: &'a claims::Roster,
+    namespaces: &'a mut [Namespace],
+    metadata: Option<&'a mut MetadataStore>,
+    metadata_identity: Digest,
+    places: &'a mut [Local<'b>],
+    action_jobs: &'a [JournalRef],
+    witness: &'a mut Local<'b>,
+    clock: &'a dyn provider::Clock,
+    admitted_context: &'a Digest,
+}
+struct NoTime;
+impl provider::Clock for NoTime {
+    fn now(&self, _: &Digest) -> provider::Result<u64> {
+        Err(provider::Error::Clock)
+    }
+}
+impl Cancellation<'_, '_> {
+    pub fn cancel(&mut self, p: &Plan, auth: &Authorization) -> Result<Report> {
+        let i = &mut self.inspection;
+        Runtime {
+            enrollment: i.enrollment,
+            roster: i.roster,
+            namespaces: i.namespaces,
+            metadata: None,
+            metadata_identity: i.metadata.clone(),
+            places: i.places,
+            action_jobs: i.action_jobs,
+            witness: i.witness,
+            clock: &NoTime,
+            admitted_context: i.admitted_context,
+        }
+        .run(p, auth, true, |_| Ok(()))
+    }
+}
 struct Control<'a, 'b> {
     enrollment: &'a Enrollment,
     roster: &'a claims::Roster,
@@ -394,20 +435,19 @@ impl<'a, 'b> Execution<'a, 'b> {
     pub fn status(&mut self, p: &Plan) -> Result<Report> {
         self.inspection().status(p)
     }
-    fn report(
-        &mut self,
-        p: &Plan,
-        witness: &Witness,
-        effects: Vec<Effect>,
-        holds: Vec<Failure>,
-    ) -> Result<Report> {
-        self.inspection().report(p, witness, effects, holds)
-    }
-    fn time(&self, p: &Plan) -> Result<()> {
-        p.request
-            .window
-            .check_clock(self.clock, &p.enrollment.clock, 0)?;
-        Ok(())
+    fn runtime(&mut self) -> Runtime<'_, 'b> {
+        Runtime {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            namespaces: self.namespaces,
+            metadata_identity: self.metadata.checkpoint().identity().clone(),
+            metadata: Some(self.metadata),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: &mut self.witness,
+            clock: self.clock,
+            admitted_context: self.admitted_context,
+        }
     }
     pub fn apply(&mut self, p: &Plan, auth: &Authorization) -> Result<Report> {
         self.apply_hook(p, auth, |_| Ok(()))
@@ -418,10 +458,10 @@ impl<'a, 'b> Execution<'a, 'b> {
         auth: &Authorization,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Report> {
-        self.run(p, auth, false, hook)
+        self.runtime().run(p, auth, false, hook)
     }
     pub fn cancel(&mut self, p: &Plan, auth: &Authorization) -> Result<Report> {
-        self.run(p, auth, true, |_| Ok(()))
+        self.runtime().run(p, auth, true, |_| Ok(()))
     }
     pub fn cancel_hook(
         &mut self,
@@ -429,7 +469,46 @@ impl<'a, 'b> Execution<'a, 'b> {
         auth: &Authorization,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Report> {
-        self.run(p, auth, true, hook)
+        self.runtime().run(p, auth, true, hook)
+    }
+}
+impl Runtime<'_, '_> {
+    fn common(&self, p: &Plan) -> Result<(Bindings, Witness)> {
+        Control {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            metadata: self.metadata_identity.clone(),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: self.witness,
+            admitted_context: self.admitted_context,
+        }
+        .common(p)
+    }
+    fn report(
+        &mut self,
+        p: &Plan,
+        witness: &Witness,
+        effects: Vec<Effect>,
+        holds: Vec<Failure>,
+    ) -> Result<Report> {
+        Inspection {
+            enrollment: self.enrollment,
+            roster: self.roster,
+            namespaces: self.namespaces,
+            metadata: self.metadata_identity.clone(),
+            places: self.places,
+            action_jobs: self.action_jobs,
+            witness: self.witness,
+            admitted_context: self.admitted_context,
+        }
+        .report(p, witness, effects, holds)
+    }
+    fn time(&self, p: &Plan) -> Result<()> {
+        p.request
+            .window
+            .check_clock(self.clock, &p.enrollment.clock, 0)?;
+        Ok(())
     }
     fn run(
         &mut self,
@@ -447,6 +526,8 @@ impl<'a, 'b> Execution<'a, 'b> {
             self.time(p)?;
             let reader = self
                 .metadata
+                .as_deref_mut()
+                .ok_or(Error::Authority)?
                 .finished_reader()
                 .map_err(|_| Error::Recovery)?;
             let stores = self.places.iter().map(|l| l.store).collect::<Vec<_>>();
@@ -530,7 +611,7 @@ impl<'a, 'b> Execution<'a, 'b> {
                     let result = subset::apply_hook(
                         profile,
                         &mut self.namespaces[at],
-                        self.metadata,
+                        self.metadata.as_deref_mut().ok_or(Error::Authority)?,
                         &s.plan,
                         |stage| {
                             hook(Stage::Source(index, stage)).map_err(|e| {
@@ -558,7 +639,11 @@ impl<'a, 'b> Execution<'a, 'b> {
         let reader = Reader(if cancelling {
             None
         } else {
-            self.metadata.finished_reader().ok()
+            self.metadata
+                .as_deref_mut()
+                .ok_or(Error::Authority)?
+                .finished_reader()
+                .ok()
         });
         for (index, action) in p.actions.iter().enumerate() {
             let Some(local) = self

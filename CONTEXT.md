@@ -1,5 +1,12 @@
 # Tig maintainer context
 
+Bulk execution lane: the distinct tig-storage bulk execute profile binds exact
+privately admitted consent and default-disabled apply/cancel permissions. Native
+clock admission is explicit; cancellation can operate without fresh time or source
+metadata. The existing controller is reused; inspection stays observational.
+Read specs/BULK-EXECUTION.md. Synthetic qualification is in progress; no live
+root, service, migration, trust adoption or full-plan acceptance is enabled.
+
 Local-clock lane: a fresh explicit clock-enabled capacity ledger and LocalClock
 adapter persist time floors and provide bounded native OS observations. Final
 window checks require the full earliest/latest interval; no generic SystemTime
@@ -8,8 +15,8 @@ restore/lifetime gates and qualification scope. This is not live clock adoption.
 
 Bulk operator inspection: tig-storage bulk describe/plan/peak/status uses explicit
 private enrollment and existing roots. bulk::Inspection requires no metadata
-writer or clock; source metadata may be offline for status. No bulk mutation
-command is enabled. Read specs/BULK-OPERATOR.md; full operator execution/native
+writer or clock; source metadata may be offline for status. Its profile grants no
+mutation permission. Read specs/BULK-OPERATOR.md; full operator execution/native
 selection, current clock/authority, provider/large-file/lifetime gates remain.
 
 Explicit fresh roster-scope bindings and design-2 placement enrollment now

@@ -80,6 +80,8 @@ jobs:
           $env:TIG_BULK_CLI = $env:TIG_RETIREMENT_CLI
           cargo test -p tig-store --lib --locked final_retirement::bulk::tests::explicit_cli_bulk_inspection_qualification -- --ignored --exact
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::operator::explicit_cli_bulk_execution_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo clippy --workspace --all-features --all-targets --locked -- -D warnings
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo check -p tig-git --no-default-features --locked

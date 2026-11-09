@@ -1,4 +1,4 @@
-//! Explicit existing-root bulk inspection. No writer, clock or mutation cookie.
+//! Existing-root bulk inspection with a separately admitted execution interface.
 use super::{Result, document, raw, report};
 use serde::Deserialize;
 use serde_json::json;
@@ -17,6 +17,8 @@ use tig_store::{
 };
 
 const SCHEMA: &str = "tig.bulk-inspection-profile.design-1";
+#[path = "bulk/execute.rs"]
+mod execute;
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Nodes {
@@ -79,6 +81,10 @@ impl Store {
 impl Profile {
     fn load(path: &Path) -> Result<Self> {
         let p: Self = document(path)?;
+        p.validate()
+    }
+    fn validate(self) -> Result<Self> {
+        let p = self;
         p.enrollment.id().map_err(code)?;
         p.roster.id().map_err(|_| "invalid_roster")?;
         if p.schema != SCHEMA
@@ -139,12 +145,16 @@ fn bounded(value: serde_json::Value) -> Result<Vec<u8>> {
     Ok(bytes)
 }
 pub(super) fn run(args: &[String]) -> Result<Vec<u8>> {
+    if args.first().is_some_and(|s| s == "execute") {
+        return execute::run(&args[1..]);
+    }
     if args.len() == 1 && args[0] == "describe" {
         return bounded(json!({"schema":"tig.bulk-inspection-interface.design-1",
             "profile_schema":SCHEMA,"operations":["plan PROFILE REQUEST","peak PROFILE PLAN","status PROFILE PLAN"],
             "max_document_bytes":65536,"max_plan_bytes":49152,"max_roots":bulk::MAX_ROOTS,
             "max_paths":bulk::MAX_PATHS,"max_objects":bulk::MAX_OBJECTS,
-            "inspect_only":true,"final_deletion":false,"removal_authority":false,"initializes_stores":false}));
+            "inspect_only":true,"final_deletion":false,"removal_authority":false,"initializes_stores":false,
+            "additional_interfaces":{"execution":"tig-storage bulk execute describe"}}));
     }
     if args.len() != 3 || !matches!(args[0].as_str(), "plan" | "peak" | "status") {
         return Err("usage");

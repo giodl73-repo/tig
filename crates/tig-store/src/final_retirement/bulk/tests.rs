@@ -57,10 +57,10 @@ fn policy() -> Policy {
         .collect(),
     }
 }
-struct Clock(Cell<u64>);
+struct Clock(Cell<u64>, Digest);
 impl provider::Clock for Clock {
     fn now(&self, policy: &Digest) -> provider::Result<u64> {
-        if policy != &d("clock") {
+        if policy != &self.1 {
             return Err(provider::Error::Clock);
         }
         Ok(self.0.get())
@@ -509,6 +509,9 @@ fn explicit_cli_bulk_inspection_qualification() {
 }
 impl Fixture {
     fn new() -> Self {
+        Self::with_clock(d("clock"), 1000)
+    }
+    fn with_clock(clock: Digest, max_window: u64) -> Self {
         let temp = tempfile::tempdir().unwrap();
         let mut metadata = MetadataStore::create(
             &temp.path().join("metadata"),
@@ -619,9 +622,9 @@ impl Fixture {
                 d("final-authority"),
                 d("epoch"),
                 roster.scope().unwrap(),
-                d("clock"),
+                clock.clone(),
                 vec![key("owner")],
-                1000,
+                max_window,
             )
             .unwrap(),
         )
@@ -705,10 +708,10 @@ impl Fixture {
             owner: key("owner"),
             context: d("batch-context"),
             scope: roster.scope().unwrap(),
-            clock: d("clock"),
+            clock: clock.clone(),
             witness: Place::local(&witness, 1).unwrap(),
             capacity: witness_ledger.identity().clone(),
-            max_window: 1000,
+            max_window,
             max_metadata_bytes: 16 * 1024 * 1024,
             sources: vec![source],
         };
@@ -724,7 +727,7 @@ impl Fixture {
             witness_ledger,
             witness_job,
             enrollment,
-            clock: Clock(Cell::new(100)),
+            clock: Clock(Cell::new(100), clock),
             publications,
         }
     }
@@ -805,6 +808,8 @@ impl Fixture {
         })
     }
 }
+
+mod operator;
 
 #[test]
 fn mixed_block_settles_several_predecessors_and_deletes_only_eligible_exact_bytes() {
@@ -1206,7 +1211,7 @@ fn batch_child() {
         ledger: &mut ledger,
         job: &saved.job,
     }];
-    let clock = Clock(Cell::new(100));
+    let clock = Clock(Cell::new(100), d("clock"));
     let stop = std::env::var("TIG_BULK_STOP").unwrap();
     let mut execution = Execution {
         enrollment: &saved.enrollment,
@@ -1677,7 +1682,7 @@ fn exact_batch_fence_blocks_a_process_peer_but_another_batch_uses_the_same_witne
                 let mut ledger =
                     CapacityLedger::open(&dir.join("witness-ledger"), &saved.witness).unwrap();
                 let mut places = [];
-                let clock = Clock(Cell::new(100));
+                let clock = Clock(Cell::new(100), d("clock"));
                 let report = Execution {
                     enrollment: &saved.enrollment,
                     roster: &saved.roster,

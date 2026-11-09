@@ -1,4 +1,4 @@
-//! Explicit storage plan/copy adapter. No initialization, discovery or deletion.
+//! Explicit profile storage operators. No implicit initialization or discovery.
 #![forbid(unsafe_code)]
 use serde::Deserialize;
 use serde_json::{Value, json};

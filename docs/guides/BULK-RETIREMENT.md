@@ -50,8 +50,41 @@ must be available to inspect historical intent/terminal evidence. Missing spent
 evidence cannot be repaired by status. A successful plan alone does not acknowledge
 witness availability; peak/status validate that existing enrollment separately.
 
-This surface intentionally has no apply/resume/cancel/reacquire operation. It does
-not make the full retirement workflow complete. Execution needs separately admitted
-clock/current authority, exact consent and enabled policy; native selectors,
-operator/UI integration, real providers/large files, journal/metadata lifetime and
-human acceptance remain required before sustained use.
+This inspection surface has no apply/resume/cancel/reacquire operation. The separate
+execution interface below requires a different profile and independent permission.
+
+## Execute an explicitly approved plan
+
+```text
+tig-storage bulk execute describe
+tig-storage bulk execute apply /absolute/execution-profile.json /absolute/exact-plan.json
+tig-storage bulk execute resume /absolute/execution-profile.json /absolute/exact-plan.json
+tig-storage bulk execute cancel /absolute/execution-profile.json /absolute/exact-plan.json
+```
+
+The strict tig.bulk-execution-profile.design-1 wraps the inspection profile as
+inspection, plus admitted_plan (the exact independently approved plan digest),
+permissions {apply, cancel} and optional clock {root, minimum, enrollment}.
+Missing permissions default false. A plan supplied on the command line cannot
+approve itself or choose a clock/root. Prepare and protect this profile outside
+project Git through the admitted operator/application. There is no approve verb.
+See [execution contract](../../specs/BULK-EXECUTION.md) for the trust boundary.
+
+Apply/resume require an existing explicitly enrolled LocalClock ledger with
+independently current minimum and exact enrollment matching the plan's clock.
+No fixed timestamp, fallback or clock initialization occurs. These verbs use the
+same resumable library controller, including durable intent, historical subset
+settlement, live protection checks, exact grants/birth and deletion validity.
+Read per-source/action holds and phase; a successful response can report partial
+progress, and prior deletion does not imply current content or complete reclaim.
+
+Cancel is separately enabled for the exact plan and needs neither fresh time nor
+source metadata availability. It records cancellation under the existing batch
+fence and stops future work. Already settled history/grant release/deletion stay
+historical; cancellation is not rollback. Missing providers remain explicit debt.
+Source metadata identity and witness/job bindings remain required even when its
+root is offline. Inspection remains available without either mutation permission.
+
+Full native selectors, UI/Action integration, live host/current authority trust,
+real providers/large files, journal/metadata lifetime and human acceptance remain
+required before sustained use. These commands neither enroll nor deploy a runtime.

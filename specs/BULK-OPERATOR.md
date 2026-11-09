@@ -21,6 +21,10 @@ operator execution, independently admitted native clock/authority, native age/
 category selection and UI integration remain required product work. Inspection
 is a prerequisite, never a substitute for those requirements.
 
+The separate [execution interface](BULK-EXECUTION.md) adds explicit
+tig-storage bulk execute apply/resume/cancel under a distinct private profile.
+It does not change inspection permissions or acquire a writer for status.
+
 The strict private profile schema is tig.bulk-inspection-profile.design-1:
 enrollment, complete roster, admitted_context, metadata {root, minimum}, namespace
 {root, minimum} entries, at most four stores and one witness. Each store names
