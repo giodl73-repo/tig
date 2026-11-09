@@ -8,7 +8,8 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active uncommitted lane: feat/index-lifecycle, input195bd0a. Read
+- Active lane: feat/index-lifecycle, input195bd0a, implementation51dd2b2,
+  stacked draft PR #26. Read
   specs/INDEX-LIFECYCLE.md for GIT/PROVIDER controls/scope/entry/exit. Default
   lifecycle::index/tig-lifecycle index compose exact staged pointer obligations,
   finished/read-back metadata, existing atomic source adoption and one existing
@@ -16,12 +17,16 @@ source changes into running tools as a side effect. No startup cache operations.
   content. Other source issues hold adoption. Fifteen focused entries pass (one
   helper, two actual abrupt process exits); linked indexes, stale/foreign/disabled
   plans, offline status and real CLI job-aware demotion/no-op catch-up execute.
-  Strict all-feature/all-target workspace Clippy passes. Broad default/all-feature
-  workspace suites are running in separate external targets; do not overlap builds
-  against a target under CLI tests. No source journal/event format changed.
-  Next: inspect those exact processes, run remaining checks, refresh target pins,
-  commit implementation separately from EVID-095 verification/validation/trace/
-  six-role closeout and inspect the stacked hosted qualification. No live cache,
+  Locked default/all-feature workspace suites pass in separate external targets,
+  including the large metadata case; strict all-feature/all-target workspace
+  Clippy, standalone Git, fmt, 70 Node flows, three restore-helper cases, both
+  explicitly executed artifact qualifiers and portable L0 pass. Do not overlap
+  builds against a target under CLI tests. No source journal/event format changed.
+  EVID-095 separately records verification/validation/trace/six producer lenses.
+  Hosted run42549064931 at51dd2b2 passes Linux/secrets with Windows still pending;
+  closeout creates another head, so derive current PR/run state before qualification.
+  Next: inspect exact current-head hosted checks; retain the draft until they pass,
+  then continue the remaining lifecycle/source settlement and full plan. No live cache,
   hook or consumer is attached. Branch withdrawal/rename, automatic commit/draft
   settlement, private overlays/native closure, provider/large-file/authority/
   lifetime, final deletion, metadata expiry and user acceptance remain open.

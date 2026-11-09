@@ -508,3 +508,13 @@ separate broader checks -> EVID-094, implementation503adca/fixb3aced0. Verificat
 synthetic validation and six producer lenses remain distinct. Full lifecycle,
 provider/large-file/authority/lifetime, final deletion, metadata expiry and user
 acceptance remain open; source availability does not install automation.
+
+Staged-index lifecycle: WP-004/005/008/009/015,
+REQ-001/002/004/005/007/008/009 -> SPEC-002/004/005/006/007/008/009,
+IF-002/004/005/006/008/009/013, PKG-002/003/004/008/009 -> INDEX-LIFECYCLE.md ->
+lifecycle::index, tig-lifecycle index, existing Repository/metadata/Namespace::select
+and placement executor -> fifteen focused entries including two actual child
+exits, linked worktrees and actual CLI/store job-end/no-op demotion -> EVID-095,
+implementation51dd2b2. Broader verification, synthetic validation and six producer
+lenses close separately; full lifecycle/native/authority/provider/lifetime, final
+deletion, metadata expiry and intended-use acceptance remain open.

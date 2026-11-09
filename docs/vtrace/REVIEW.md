@@ -1485,3 +1485,18 @@ late metadata failure, accumulating duplicate holds, oversized blob responses,
 cross-platform fixture pins and invalid coupled JWT time semantics. Disposition:
 pass_with_risk for bounded implementation; no independent/human acceptance or
 live-operation authority. Full roadmap and intended-use acceptance remain open.
+
+## Staged-index lifecycle producer review
+
+Input195bd0a, implementation51dd2b2; all six producer lenses and IL-01..06 are
+recorded in ../reviews/2026-11-09-index-lifecycle.md. EVID-095 separates focused
+Git/CLI/provider/abrupt-exit checks, broader qualification, synthetic validation
+and trace. Resolved counterexamples include fabricated merged conflict bindings,
+unsupported capture shrinking protection, stale index adoption, lost selection
+truth on provider failure and mismatched namespace roots. No new source event
+encoding, cache engine, global lock, hook or final-copy authority is introduced.
+Pass_with_risk for the bounded implementation and local qualification: default/
+all-feature workspace, strict Clippy, standalone Git, Node/restore, both explicit
+artifact qualifiers and L0 pass. Hosted Linux/secrets pass at51dd2b2; Windows/
+later current-head checks, independent review, real-provider/user adoption and
+full roadmap remain open.

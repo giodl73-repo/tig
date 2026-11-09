@@ -964,3 +964,50 @@ provider custody, large files, offline enrollment, unattended private-partial
 recovery, authority migration, operational lifetime, bulk final deletion and
 metadata expiry remain required. No service/consumer/cache is installed or
 enrolled, and no full VAL outcome or independent/human acceptance is claimed.
+
+## EVID-095: Staged-index draft protection and ordinary placement
+
+Input195bd0a, implementation51dd2b2. Controls/scope/entry/exit and GIT/PROVIDER
+L0/L1/L2: specs/INDEX-LIFECYCLE.md. Implementation, verification, synthetic
+intended-use rehearsal, trace and producer review remain distinct.
+
+Fifteen focused entries pass (fourteen active cases plus one child helper), with
+two actual abrupt exits after metadata verification and source adoption. Cases
+cover staged versus unstaged bytes, base/ours/theirs protection without a merged
+selection, resolved-stage history, linked-worktree independence, canonical plans,
+scope budgets, foreign owner/worktree/policy/class, disabled apply/copy, stale
+plans and Git drift before/after admission. Metadata interruption/reopen and
+offline status preserve exact acknowledged state. No Git index/worktree is written
+by the implementation. The helper's ordinary no-op entry is not abrupt-exit proof;
+the parent explicitly launches it and verifies exit73 at both requested stages.
+
+Actual tig-lifecycle index CLI -> three temporary providers copies working and
+retained bytes, keeps prior bytes working for an enrolled active job, then moves
+those prior bytes to history/backup after owner job withdrawal during a no-op
+index reconciliation. Old bytes are read back through the protected reader;
+duplicate reconciliation streams zero bytes. Bad/missing storage binding holds
+before draft adoption and does not initialize a root. Default copy permissions
+permit desired-selection acknowledgement while correctly reporting pending
+placement and no copies. Bare capture is never a custody acknowledgement.
+
+Locked default and all-feature workspace suites pass in separate isolated targets,
+including the 500000-binding metadata case and all fifteen new entries. Strict
+all-feature/all-target workspace Clippy, standalone Git, fmt, 70 shipped Node
+flows, three restore-helper cases and portable structure/link/budget/pin/diff
+checks pass. Both ignored artifact qualifiers execute successfully: current
+retirement CLI pending cancellation and pinned pre-pair source reader replay.
+No source journal bytes changed and no ignored row alone earns executed credit.
+Hosted run42549064931 at51dd2b2 passes Linux/secrets; Windows and later closeout
+current-head checks remain pending and separate.
+
+Early test failures were corrected: the protected-membership helper now unwraps
+the API result and checks None rather than interpreting errors as protection;
+the synthetic byte seed uses the existing Flat layout resolver, and actual byte
+readback uses ObjectRead. No provider/admission invariant was weakened.
+
+All repositories, jobs, providers and bytes are synthetic. Assigned repository/
+worktree IDs and private root bindings are operator authority, not automatic
+discovery or a hostile-filesystem/restore proof. Automatic branch rename/withdrawal,
+commit/draft settlement, private overlays/native coverage, real custody/large files,
+operational continuation, authority migration, bulk final deletion, metadata expiry
+and user acceptance remain open. No full requirement or VAL outcome is closed.

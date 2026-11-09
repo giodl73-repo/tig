@@ -673,3 +673,18 @@ Hosted run42546575041 explicitly passes the real issuer/foreground empty-scope
 fixture atb3aced0; it performs zero payload operations. Hosted Linux/secrets pass
 at that source; Windows/current-head closeout validation remains pending. Exact evidence timing,
 failure corrections and unqualified full-system boundaries remain in EVID-094.
+
+## Staged-index lifecycle
+
+EVID-095 / INDEX-LIFECYCLE.md, implementation51dd2b2: fifteen focused entries
+include one helper and two actual abrupt exits; the actual CLI/store fixture
+proves job-aware copy/retention/history demotion on no-op index catch-up. Conflict
+alternatives remain explicit draft byte obligations. Stale/incomplete captures,
+foreign enrollment, disabled permissions and unavailable storage preserve prior
+acknowledged state. Offline status recovers original receipts independently of Git
+and metadata. Locked default/all-feature workspace suites, strict all-feature/
+all-target workspace Clippy, standalone Git, fmt, shipped Node/restore checks,
+portable L0 and both explicitly executed artifact qualifiers pass. Hosted Linux/
+secrets pass at51dd2b2; Windows and later closeout exact-head checks remain pending.
+Inherited event compatibility and later full roadmap gates are
+separate; these component results establish no live adoption or final deletion.

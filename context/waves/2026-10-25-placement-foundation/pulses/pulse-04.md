@@ -147,3 +147,12 @@ signed nonempty temporary-store rehearsal, hosted real issuer empty-scope proof
 and six producer lenses. No service is installed. Full source/native/provider
 adoption, large files, authority/lifetime, final deletion and metadata expiry
 remain required; the pulse and whole goal stay open.
+
+Staged-index checkpoint: input195bd0a, implementation51dd2b2. INDEX-LIFECYCLE.md
+freezes controls and GIT/PROVIDER L0/L1/L2. EVID-095 records fifteen focused
+entries (one child helper/two actual exits), real CLI/job-aware ordinary placement,
+passing default/all-feature workspace/Clippy/artifact/L0 checks, synthetic
+validation, trace and six producer lenses. Conflict alternatives are draft byte
+obligations, never a merged selection. Hosted current-head checks and full
+branch/commit/private/native/provider/authority/lifetime/final-deletion/metadata
+acceptance remain open. No hook, consumer or live cache is attached.

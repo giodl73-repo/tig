@@ -332,3 +332,13 @@ foreground CLI against an empty synthetic scope with zero payload effects. These
 two evidence scopes are distinct. Neither is user acceptance of live automation,
 external ingress/OS isolation, actual F/D/M custody or final-deletion/metadata
 lifetime. Full intended-use VAL outcomes remain planned.
+
+EVID-095 contributes staged-work rehearsal to VAL-002/003/004: one real temporary
+Git index selects payload pointers, including all merge alternatives; a linked
+worktree keeps independent draft demand. Actual CLI reconciliation populates
+working/backup providers, preserves an old job, then demotes eligible working
+bytes after job end even when the index selection is unchanged. Protected old
+bytes remain readable. Disabled/bad-source/storage cases and abrupt exits preserve
+truthful held/historical outcomes. This does not validate automatic Git hooks,
+commit settlement, native producer coverage, real F/D/M custody or user acceptance.
+Full VAL outcomes and final-deletion/metadata/lifetime gates remain open.

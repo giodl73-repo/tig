@@ -38,11 +38,12 @@ The latter performs zero payload operations. An inert Action client installs
 nothing; external ingress/OS isolation, full lifecycle/provider/large-file/lifetime
 adoption and later final-deletion/metadata milestones remain open.
 
-The in-progress staged-index lane adds explicit draft-only plan/status/apply/
+The bounded staged-index lane adds explicit draft-only plan/status/apply/
 resume/reconcile over existing guarded metadata/placement. Conflict-stage pointer
 alternatives are unique byte obligations, never a merged source selection. Fifteen
-focused entries (one child helper/two abrupt exits) pass; broad qualification and
-separate evidence/review closeout remain pending. No hook or live cache is attached.
+focused entries (one child helper/two abrupt exits) pass; EVID-095 separately records
+passing local broad qualification, synthetic validation, trace and producer review.
+Hosted current-head qualification remains separate. No hook or live cache is attached.
 
 Existing-byte readers and explicit local publication/restore/retention primitives
 have bounded fixture evidence. The first tig-store orchestration slice composes

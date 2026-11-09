@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6754,
-      "sha256": "ced3bbfd66fa1a490f897b7569602639d5795e35edc67d7290e30ffcb3591fd9"
+      "bytes": 6840,
+      "sha256": "9d8506fa909b62f220be598e22395b95b9792156a590ab559508236cd357e0b7"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -109,8 +109,8 @@
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-04.md",
-      "bytes": 9197,
-      "sha256": "170f3803d579c1d0aba068573f75cbcb2026380c5c9e8b2e1d3b365e796c9bb6"
+      "bytes": 9820,
+      "sha256": "6da31e074de8c0ced0dbaabf1cc5069337922fd5c5913412addc7deae747b54b"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-05.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 77164,
-      "sha256": "73287ae9d456b256d3e39b86b1969851112a9581f5fe17a7be7b2fa7c2bfe984"
+      "bytes": 80288,
+      "sha256": "7c97609cd5d1c749dd643f0cfd4364d732a11ab3676948770f7652390b7a0200"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 119919,
-      "sha256": "917c299868dd747db66ff5fd40d5cd19a3082225df2791c00a4a4aec6639b81e"
+      "bytes": 120869,
+      "sha256": "65e9f0f5da07d28e50be9bd91d4d08e1e0f2fb6de141bea8afc2b88af3e714f2"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 35848,
-      "sha256": "0b195e3dca84db395bd00f63c9c22b3e47f5b1c92a2dbe833d1363ff4df85737"
+      "bytes": 36523,
+      "sha256": "e82a12755ed6138237402774e71c1f4e98b4a7a635baa3766a15ebeb5898378d"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 21998,
-      "sha256": "16235031f94a9720ab187fe1f25b872759d0caf55601056abc99ef366c227696"
+      "bytes": 22713,
+      "sha256": "fa7a04c7ad522f7c85e89adfd1d17ca0206c66f0432b0e550c294408222257e2"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 44577,
-      "sha256": "0f82efaae4aa21d628a9b14047de7b7b22e3db13d102724a183c925a5ec3c95b"
+      "bytes": 45553,
+      "sha256": "3b1372807621df59a27035f57b2cfe6e67ec41838f1a3af4eace6747fa3bf19c"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 34077,
-      "sha256": "57c07707e3373316f73738da2422593946ce0d26a81c358ea9dc73d1a78cec63"
+      "bytes": 34222,
+      "sha256": "af9dcbf8c9a502bffb47ba244325ae9c4e71b51b30a9251eb0833f0a936f38b5"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 18721,
+      "bytes": 19092,
       "path": "context/RESUME.md",
-      "sha256": "f060151ba2867c3808273697f63d2d62e336533660f0fccfdd9071a1a9c682eb"
+      "sha256": "5ef6bc900aa2baf96605313b5734b6f2f644a0892a5f7a060461eb0af5e4560f"
     },
     {
       "bytes": 16453,
@@ -2181,6 +2181,11 @@
       "sha256": "8d31e79e2747a74556725f04059581345d052a6e78649bb2c4c6a94f037265a5",
       "bytes": 5841,
       "path": "specs/INDEX-LIFECYCLE.md"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-index-lifecycle.md",
+      "sha256": "d898b14bfd074a9e2eb28abfb95791d290cc81b6ec6d6bbad8322dc76851a3f7",
+      "bytes": 4798
     }
   ]
 }
