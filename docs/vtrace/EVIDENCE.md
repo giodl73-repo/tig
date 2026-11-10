@@ -1,5 +1,15 @@
 # Evidence index
 
+EVID-118 (locally qualified candidate): input9310d0cbe48ba796f0feaa7847ed5fba10e74b48.
+[Review](../reviews/2026-11-09-teaching-backup-outage.md) separates actual SDK
+held outage/job-end/catchup from explicit unknown provider coverage and general
+hardware adoption. Native66637/final78266 pass five cases, actual partial HTTP ->
+shipped controls, ten semantic negatives and strict schema workspace Clippy.
+All76 controller cases pass. Default12177/all-feature3970 workspace/both500k/
+strict/standalone and fresh artifact25647 pass. Initial L0/source-secrets pass;
+final documentation pins and hosted remain pending. Real remote-byte/hardware, full faults/restart/final-loss/expiry,
+native/provider/lifetime/browser/human/full product acceptance remain open.
+
 EVID-117 (locally qualified candidate): runtime6812e1086bf4fc9fb58849a5e77718c4dd051da9; input27a6eb4f3ebd11743d2772694ec2ea2b3242732f.
 [Review](../reviews/2026-11-09-teaching-worktree.md) separates real linked
 worktree/index capture, dirty-removal preservation and job lifetime from general
@@ -7,7 +17,8 @@ writer coverage. Native70905/final81014 pass four cases, actual twelve-checkpoin
 HTTP -> shipped controls and strict schema workspace Clippy. All73 controller
 cases pass. Default71185/all-feature18682 workspace/both500k/strict/standalone
 and fresh artifact9072 pass. Initial L0/source-secrets pass; final documentation
-pins/commit-secrets and hosted remain separately recorded.
+pins/commit-secrets and hosted remain separately recorded. Exact-head run42753891927
+at9310d0c passes Windows/Linux/secrets; PR48 is ready for review.
 Full remote-byte/fault/final-loss/expiry course, browser/human/native/provider/
 lifetime/full product acceptance remain open.
 

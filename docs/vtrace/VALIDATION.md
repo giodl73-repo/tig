@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-118 rehearses unavailable M at merge and job end, truthful unknown coverage,
+preserved old F and same-plan catchup after current custody verification. Nine
+actual reports render in the existing catalogue. Configured-path unavailability
+is not real hardware-fault qualification or a completed VAL. Full remote-byte/
+native/fault/restart/final-loss/expiry course and browser/classroom acceptance
+remain open. See [review](../reviews/2026-11-09-teaching-backup-outage.md).
+
 EVID-117 rehearses independent linked worktree/index views, immutable captured
 native selection, preserved dirty removal and a job that outlives its checkout.
 Twelve actual reports render through the existing catalogue. No complete VAL,

@@ -14,11 +14,11 @@ function drawLessonsNavigation(){
  $('work-controls').hidden=false;$('assets').className='lesson-view';$('more').hidden=true;
  document.querySelector('main footer').textContent='Recorded synthetic rehearsal. Current custody, hardware independence and storage permission are separate.';
 }
-function lessonRoles(book,values,empty){
+function lessonRoles(book,values,empty,unknown=[]){
  if(values==null)return node('span','muted','Not recorded');
  const area=node('div','lesson-role-set');
- for(const role of book.roles)if(values.includes(role.id))area.append(node('span','copy-chip',role.label));
- if(!values.length)area.append(node('span','muted',empty));return area;
+ for(const role of book.roles){if(values.includes(role.id))area.append(node('span','copy-chip',role.label));else if(unknown.includes(role.id))area.append(node('span','copy-chip','Unknown · '+role.label));}
+ if(!values.length&&!unknown.length)area.append(node('span','muted',empty));return area;
 }
 function selectLesson(book,index){
  if(state.mode!=='lessons'||lessonView.book!==book)return;
@@ -35,11 +35,11 @@ function selectLesson(book,index){
  const before=book.lessons[index-1],all=new Map();
  for(const l of book.lessons)for(const o of l.objects)all.set(o.name,o.object);
  let knownCopies=0,copyBytes=0;for(const o of lesson.objects)if(Array.isArray(o.observed)){knownCopies+=o.observed.length;copyBytes+=o.object.bytes*o.observed.length;}
- const stats=document.querySelector('.stats');stats.replaceChildren();
- for(const [value,label] of [[(index+1)+' / '+book.lessons.length,'recorded checkpoint'],[all.size,'stable byte identities'],[knownCopies,'recorded copies'],[bytes(lesson.stream_bytes),'payload streamed this step']]){
+ const partial=lesson.objects.some(o=>o.unknown?.length),stats=document.querySelector('.stats');stats.replaceChildren();
+ for(const [value,label] of [[(index+1)+' / '+book.lessons.length,'recorded checkpoint'],[all.size,'stable byte identities'],[knownCopies,partial?'known recorded copies':'recorded copies'],[bytes(lesson.stream_bytes),'payload streamed this step']]){
   const s=node('div');s.append(node('span','',value),node('small','',label));stats.append(s);
  }
- $('category-heading').textContent=lesson.title;$('result-count').textContent=bytes(copyBytes)+' recorded copy bytes';
+ $('category-heading').textContent=lesson.title;$('result-count').textContent=bytes(copyBytes)+(partial?' known recorded copy bytes · partial coverage':' recorded copy bytes');
  const area=$('assets');area.replaceChildren();
  area.append(node('p','callout','Recorded rehearsal · synthetic admitted domains. These are saved verified observations, not a check of current hardware custody.'));
  area.append(node('p','lesson-event',lesson.event));
@@ -53,10 +53,10 @@ function selectLesson(book,index){
   const current=lesson.objects.find(o=>o.name===name),old=before?.objects.find(o=>o.name===name),row=node('tr');
   const identity=node('td');identity.append(node('strong','',name),node('small','',bytes(object.bytes)),node('div','mono',object.sha256.slice(0,12)));identity.title=object.sha256;
   const left=node('td'),desired=node('td'),after=node('td');
-  left.append(lessonRoles(book,old?.observed,'No managed copies recorded'));
+  left.append(lessonRoles(book,old?.observed,'No managed copies recorded',old?.unknown||[]));
   if(current?.desired==null)desired.append(node('span','muted','Not included in this recorded plan'));
   else desired.append(lessonRoles(book,current.desired,'No placements required in this plan'));
-  after.append(lessonRoles(book,current?.observed,'No managed copies recorded'));
+  after.append(lessonRoles(book,current?.observed,'No managed copies recorded',current?.unknown||[]));
   row.append(identity,left,desired,after);body.append(row);
  }
  table.append(body);wrap.append(table);area.append(wrap);
@@ -72,9 +72,14 @@ async function loadLessons(){
  $('assets').replaceChildren(node('div','empty','Reading hash-pinned lesson reports…'));
  try{
   const book=await api('/api/lessons');if(gen!==state.generation||state.mode!=='lessons')return;
-  if(book.schema!=='tig.catalogue-teaching.design-1'||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
+  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
    ||!state.projects.some(p=>p.id===book.project)||!Array.isArray(book.lessons)||!book.lessons.length||book.lessons.length>16||!Array.isArray(book.roles)||book.roles.length<2||book.roles.length>4
    ||book.lessons.some(l=>!Array.isArray(l.objects)||l.objects.length>32||!Array.isArray(l.holds)||!Array.isArray(l.effects)))throw Error('Unrecognized teaching response');
+  const roles=new Set(book.roles.map(r=>r.id));
+  for(const l of book.lessons)for(const o of l.objects){
+   if(book.schema==='tig.catalogue-teaching.design-1'){if(o.unknown!==undefined)throw Error('Unrecognized teaching coverage');}
+   else if(!Array.isArray(o.unknown)||o.unknown.some((r,i)=>!roles.has(r)||(i&&o.unknown[i-1]>=r)||o.observed?.includes(r))||(o.unknown.length&&(l.converged||l.storage_converged===true)))throw Error('Unrecognized teaching coverage');
+  }
   lessonView.book=book;const selected=book.lessons.findIndex(l=>l.id===lessonView.selection);selectLesson(book,Math.max(0,selected));
  }catch(e){if(gen===state.generation&&state.mode==='lessons'){
   lessonView.book=null;notice(e.message);$('assets').replaceChildren(node('div','empty','Recorded lessons are unavailable. No storage changes were requested.'));

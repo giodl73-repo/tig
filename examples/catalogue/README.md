@@ -78,6 +78,35 @@ stages a small record here. No hook discovers/enrolls real worktrees or uploads
 payloads. Worktree removal does not delete retained asset bytes. General native
 writer integration and complete command/failure/retirement lessons remain open.
 
+For backup unavailability, choose another fresh output root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-backup-outage ABSOLUTE_NEW_OUTPUT
+```
+
+This produces nine recorded checkpoints. M's configured path becomes unavailable
+during merge; then the old job ends while M remains unavailable. **Merge backup
+offline** and **job ended backup offline** show actual held SDK reports. The
+working copies remain; useful publication into history can proceed, but old F
+cannot be evicted without fresh retained-custody verification. **Backup catchup**
+restores that same provider and retries the same plan/source checkpoint, with
+seed reads disabled. Ordinary demotion finishes only after current verification.
+
+| Recorded state | Original | Fixed / shared | What remains unknown |
+| --- | --- | --- | --- |
+| Merge, M unavailable | F verified | F verified | M's current coverage |
+| Old job ends, M still unavailable | F and D verified; F still protected | F verified | M's current coverage |
+| M returns; same current plan retried | D+M verified | F+M verified | No unknown roles in this scoped observation |
+
+Known copies and **Unknown · Backup / M** appear together in the table; partial
+counts include only known copies. The next checkpoint's Before column preserves
+the earlier unknown coverage. Unavailable does not mean absent, and a previous
+backup receipt does not establish current custody. `backup.json` and the CLI
+result pin plan/source identities and zero seed-read attempts during recovery.
+This models configured-path unavailability by moving only a verified child
+directory inside the fresh root; it does not qualify actual hardware failure.
+No real drive is disconnected and no existing cache is changed.
+
 In the catalogue, choose **Learn Tig · sample lessons**. Use the lesson selector
 or Previous/Next to compare each object's earlier recorded copies, the plan's
 desired roles and the freshly verified copies recorded after that step. Follow
@@ -110,9 +139,10 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, sixteen specified checkpoints and seven baseline counterexamples.
+seeds, two works, nineteen specified checkpoints and seven baseline counterexamples.
 The ordinary runner executes seven; exchange executes ten; worktree executes
-twelve. Exchange/worktree add checked dirty-operation counterexamples. Final retirement remains
+twelve; backup-outage executes nine including held/catchup stages. Exchange/worktree
+add checked dirty-operation counterexamples. Final retirement remains
 a target-only checkpoint. Hashes
 and byte sizes identify real generated inputs. Expected copies are literal
 independent assertions for the existing executor; the file is not executed

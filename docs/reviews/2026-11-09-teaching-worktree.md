@@ -64,7 +64,9 @@ explicit schema bin build, twelve-checkpoint worktree CLI and catalogue check
 (read_only=true,payloads_opened=0 during enrollment validation). The persistent
 public sample is retained outside source. Initial structure/pins/diff/source-secret
 checks pass. Final documentation pins/diff and two-commit secret scan qualify the
-source pin; exact-head hosted checks remain open. Parent PR47 exact-head run42748580854 at
+source pin. Exact-head run42753891927 at9310d0cbe48ba796f0feaa7847ed5fba10e74b48
+passes Windows/Linux/secrets; PR48 is ready for review, no merge/deployment.
+Parent PR47 exact-head run42748580854 at
 27a6eb4 passes Windows/Linux/secrets and is ready for review; no merge/deployment.
 Parent qualification is not hosted proof of this new source.
 

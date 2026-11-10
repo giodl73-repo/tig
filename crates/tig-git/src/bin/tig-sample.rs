@@ -13,7 +13,7 @@ use tig_core::{
 use tig_git::source::{GitId, Limits, Repository, Scope, native};
 use tig_store::{
     Key,
-    existing::{Layout, ReadCache},
+    existing::{ByteSource, Layout, ReadCache},
     ledger::CapacityLedger,
     local::LocalStore,
     local_capacity::LocalCapacityProbe,
@@ -32,6 +32,22 @@ enum Mode {
     Ordinary,
     Exchange,
     Worktree,
+    BackupOutage,
+}
+struct SampleSeed {
+    reader: ReadCache,
+    disabled: bool,
+    attempts: u64,
+}
+impl ByteSource for SampleSeed {
+    type Reader = <ReadCache as ByteSource>::Reader;
+    fn open_verified(&mut self, object: &Object) -> tig_store::existing::Result<Self::Reader> {
+        self.attempts += 1;
+        if self.disabled {
+            return Err(tig_store::existing::Error::Denied);
+        }
+        self.reader.open_verified(object)
+    }
 }
 const FIXTURE: &str = include_str!(concat!(
     env!("CARGO_MANIFEST_DIR"),
@@ -162,7 +178,7 @@ struct Demo {
     stores: Vec<LocalStore>,
     ledgers: Vec<CapacityLedger>,
     config: placement::Config,
-    seed: ReadCache,
+    seed: SampleSeed,
     seed_identity: Digest,
     fixture: Value,
     objects: BTreeMap<String, Object>,
@@ -353,7 +369,11 @@ impl Demo {
             stores,
             ledgers,
             config,
-            seed: ReadCache::new(serde_json::from_value(byte_source)?)?,
+            seed: SampleSeed {
+                reader: ReadCache::new(serde_json::from_value(byte_source)?)?,
+                disabled: false,
+                attempts: 0,
+            },
             seed_identity,
             fixture,
             objects,
@@ -472,6 +492,16 @@ impl Demo {
         Ok(())
     }
     fn checkpoint(&mut self, index: usize, commit: &str) -> Result<()> {
+        self.checkpoint_coverage(index, commit, false, false)
+            .map(|_| ())
+    }
+    fn checkpoint_coverage(
+        &mut self,
+        index: usize,
+        commit: &str,
+        offline: bool,
+        held: bool,
+    ) -> Result<Digest> {
         let stage = &self.fixture["stages"][index];
         let id = stage["id"].as_str().ok_or("stage missing")?.to_owned();
         let mut places = self
@@ -500,16 +530,31 @@ impl Demo {
         };
         let plan = executor.plan(None)?;
         let receipt = executor.apply(&plan)?;
-        if !receipt.page_converged || receipt.next.is_some() || !receipt.holds.is_empty() {
+        if (held
+            && (receipt.page_converged
+                || receipt.storage_converged != Some(false)
+                || receipt.holds.is_empty()))
+            || (!held
+                && (!receipt.page_converged || receipt.next.is_some() || !receipt.holds.is_empty()))
+        {
             return Err(format!("{id}: unresolved placement: {:?}", receipt.holds).into());
         }
         let mut observations = BTreeMap::new();
         for (name, object) in &self.objects {
             let mut actual = BTreeSet::new();
+            let mut unknown = BTreeSet::new();
             for (role, store) in ["working", "history", "backup"]
                 .into_iter()
                 .zip(&self.stores)
             {
+                if offline && role == "backup" {
+                    if self.root.join("backup").exists() {
+                        return Err("offline backup unexpectedly accessible".into());
+                    }
+                    unknown.insert(role.to_owned());
+                    continue;
+                }
+                Place::local(store, 1)?;
                 let path = Layout::Flat.object_path(&self.root.join(role), &object.sha256);
                 match fs::symlink_metadata(&path) {
                     Ok(_) => {
@@ -531,9 +576,28 @@ impl Demo {
                     format!("{id}/{name}: expected {expected:?}, observed {actual:?}").into(),
                 );
             }
-            observations.insert(name, json!({"object":object,"verified_copies":actual}));
+            let expected_unknown = stage
+                .get("unknown_copies")
+                .and_then(|v| v.get(name))
+                .and_then(Value::as_array)
+                .map(|a| {
+                    a.iter()
+                        .map(|s| s.as_str().ok_or("unknown role missing").map(str::to_owned))
+                        .collect::<std::result::Result<BTreeSet<_>, _>>()
+                })
+                .transpose()?
+                .unwrap_or_default();
+            if unknown != expected_unknown {
+                return Err("unexpected unknown coverage".into());
+            }
+            let mut observation = json!({"object":object,"verified_copies":actual});
+            if offline {
+                observation["unknown_copies"] = json!(unknown);
+            }
+            observations.insert(name, observation);
         }
-        let report = json!({"schema":"tig.teaching-observation.design-1","lesson":id,"source_commit":commit,"source_checkpoint":self.namespaces[0].checkpoint(),"plan":plan,"receipt":receipt,"observations":observations,"declared_fixture_domains":3,"physical_domain_coverage":"not-established; portable fixture directories","independent_hardware_backup_proven":false});
+        let plan_id = plan.id()?;
+        let report = json!({"schema":if offline {"tig.teaching-observation.design-2"}else{"tig.teaching-observation.design-1"},"lesson":id,"source_commit":commit,"source_checkpoint":self.namespaces[0].checkpoint(),"plan":plan,"receipt":receipt,"observations":observations,"declared_fixture_domains":3,"physical_domain_coverage":"not-established; portable fixture directories","independent_hardware_backup_proven":false});
         let object = save(&self.root.join(format!("reports/{id}.json")), &report)?;
         fs::copy(
             self.root.join(format!("reports/{id}.json")),
@@ -546,7 +610,7 @@ impl Demo {
             &self.root.join("project"),
             &["tag", &format!("lesson-{id}"), commit],
         )?;
-        Ok(())
+        Ok(plan_id)
     }
     fn catalogue(&self, current: &str, trace: &Object) -> Result<()> {
         let profile = self.root.join("resolver.json");
@@ -621,8 +685,13 @@ impl Demo {
             &["branch", "-d", "fix-series"],
         )?;
         self.withdraw("draft", "settle-draft")?;
-        self.checkpoint(3, &merged)?;
-        self.withdraw("job", "finish-job")?;
+        let backup_evidence = if matches!(mode, Mode::BackupOutage) {
+            Some(self.backup_outage(&merged)?)
+        } else {
+            self.checkpoint(3, &merged)?;
+            self.withdraw("job", "finish-job")?;
+            None
+        };
         self.checkpoint(4, &merged)?;
         git(
             &self.git,
@@ -693,7 +762,55 @@ impl Demo {
         if let Some(evidence) = worktree_evidence {
             result["worktree_evidence"] = serde_json::to_value(evidence)?;
         }
+        if let Some(evidence) = backup_evidence {
+            result["backup_evidence"] = serde_json::to_value(evidence)?;
+        }
         Ok(result)
+    }
+
+    fn backup_outage(&mut self, commit: &str) -> Result<Object> {
+        let backup = self.root.join("backup");
+        let offline = self.root.join("offline-backup");
+        let verified = fs::canonicalize(&backup)?;
+        if verified.parent() != Some(self.root.as_path())
+            || verified.file_name() != Some(std::ffi::OsStr::new("backup"))
+            || offline.parent() != Some(self.root.as_path())
+            || offline.exists()
+        {
+            return Err("outage move outside fresh root".into());
+        }
+        let before = self.copy_snapshot()?;
+        fs::rename(&backup, &offline)?;
+        self.checkpoint_coverage(16, commit, true, true)?;
+        self.withdraw("job", "finish-job")?;
+        let source = self.namespaces[0].checkpoint();
+        let held = self.checkpoint_coverage(17, commit, true, true)?;
+        let offline_verified = fs::canonicalize(&offline)?;
+        if backup.exists()
+            || offline_verified.parent() != Some(self.root.as_path())
+            || offline_verified.file_name() != Some(std::ffi::OsStr::new("offline-backup"))
+            || backup.parent() != Some(self.root.as_path())
+        {
+            return Err("outage restore outside fresh root".into());
+        }
+        fs::rename(&offline, &backup)?;
+        if fs::canonicalize(&backup)? != verified {
+            return Err("restored a different backup path".into());
+        }
+        let attempts = self.seed.attempts;
+        self.seed.disabled = true;
+        let recovered = self.checkpoint_coverage(18, commit, false, false)?;
+        if recovered != held
+            || self.namespaces[0].checkpoint() != source
+            || self.seed.attempts != attempts
+        {
+            return Err("catchup changed source/plan or used the seed".into());
+        }
+        self.seed.disabled = false;
+        save(
+            &self.root.join("backup.json"),
+            &json!({"schema":"tig.sample-backup-outage.design-1","held_plan":held,"retry_plan":recovered,"source_checkpoint":source,"seed_attempts_during_retry":self.seed.attempts-attempts,"configured_path_restored":true,"before_outage":before,"physical_hardware_fault_qualified":false}),
+        )
     }
 
     fn worktree(&mut self, current: &str, first: &str) -> Result<Object> {
@@ -1018,16 +1135,17 @@ fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
-        return Err("usage: tig-sample describe | rehearse-ordinary|rehearse-exchange|rehearse-worktree NEW_ABSOLUTE_ROOT".into());
+        return Err("usage: tig-sample describe | rehearse-ordinary|rehearse-exchange|rehearse-worktree|rehearse-backup-outage NEW_ABSOLUTE_ROOT".into());
     }
     let mode = match args[0].to_str() {
         Some("rehearse-ordinary") => Mode::Ordinary,
         Some("rehearse-exchange") => Mode::Exchange,
         Some("rehearse-worktree") => Mode::Worktree,
+        Some("rehearse-backup-outage") => Mode::BackupOutage,
         _ => return Err("unknown sample operation".into()),
     };
     Demo::new(Path::new(&args[1]))?.run(mode)

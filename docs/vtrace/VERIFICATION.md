@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-118 candidate: native66637/final78266 pass five actual CLI/provider/catalogue
+cases, held backup outage, protected F copy, same-plan/source retry without seed,
+authenticated partial HTTP -> shipped controls and ten repinned semantic negatives.
+Strict schema workspace Clippy and all76 controller cases pass. Default12177/
+all-feature3970 workspace/both500k/strict/standalone and fresh artifact25647 pass.
+Initial L0/source-secrets pass; final documentation pins/hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-backup-outage.md) for exact scope.
+
 EVID-117 candidate: native70905/final81014 pass four actual CLI/provider/catalogue
 cases, authenticated HTTP -> shipped scripts for twelve checkpoints, exact index/
 native selections, dirty preservation, continued job protection and strict schema

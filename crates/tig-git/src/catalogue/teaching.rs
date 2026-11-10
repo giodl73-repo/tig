@@ -99,6 +99,21 @@ struct Entry {
 struct Observation {
     object: Object,
     verified_copies: Vec<String>,
+    #[serde(default, deserialize_with = "unknown_roles")]
+    unknown_copies: Option<Vec<String>>,
+}
+fn unknown_roles<'de, D: serde::Deserializer<'de>>(
+    decoder: D,
+) -> std::result::Result<Option<Vec<String>>, D::Error> {
+    Vec::<String>::deserialize(decoder).map(Some)
+}
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RecordedObserved {
+    object: Object,
+    provider: Digest,
+    required: bool,
+    state: Value,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -215,6 +230,7 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut objects = BTreeMap::<Digest, u64>::new();
     let mut identities = BTreeMap::<String, Object>::new();
     let mut providers = None;
+    let mut coverage_v2 = false;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -236,7 +252,8 @@ pub fn execute(request: Request) -> Result<Value> {
             report.plan.enrollment.clone(),
             report.plan.providers.clone(),
         );
-        if report.schema != "tig.teaching-observation.design-1"
+        let v2 = report.schema == "tig.teaching-observation.design-2";
+        if (!v2 && report.schema != "tig.teaching-observation.design-1")
             || report.lesson != entry.lesson
             || report.independent_hardware_backup_proven
             || report.declared_fixture_domains != p.roles.len()
@@ -297,9 +314,108 @@ pub fn execute(request: Request) -> Result<Value> {
             return Err("Inconsistent teaching report".into());
         }
         providers = Some(binding);
+        coverage_v2 |= v2;
+        let mut recorded = Vec::new();
+        if v2 {
+            let mut pairs = BTreeSet::new();
+            for value in &report.receipt.observations {
+                let observation: RecordedObserved = serde_json::from_value(value.clone())
+                    .map_err(|_| "Invalid partial receipt observation")?;
+                let column = report
+                    .plan
+                    .providers
+                    .iter()
+                    .position(|p| p == &observation.provider)
+                    .ok_or("Unknown partial receipt provider")?;
+                let row = report
+                    .plan
+                    .rows
+                    .iter()
+                    .find(|r| r.object == observation.object)
+                    .ok_or("Unknown partial receipt object")?;
+                let valid_state = observation.state.as_str().is_some_and(|s| {
+                    matches!(
+                        s,
+                        "not_started"
+                            | "untracked_present"
+                            | "partial"
+                            | "published"
+                            | "retained"
+                            | "released"
+                            | "retirement_pending"
+                            | "authorized_absence"
+                            | "cancelled"
+                    )
+                }) || observation.state.as_object().is_some_and(|m| {
+                    m.len() == 1
+                        && m.get("held")
+                            .and_then(Value::as_str)
+                            .is_some_and(|s| report.receipt.holds.iter().any(|h| h == s))
+                });
+                if row.required.len() != p.roles.len()
+                    || row.required[column] != observation.required
+                    || !valid_state
+                    || !pairs.insert((
+                        observation.object.sha256.clone(),
+                        observation.provider.clone(),
+                    ))
+                {
+                    return Err("Inconsistent partial receipt observation".into());
+                }
+                recorded.push(observation);
+            }
+            if recorded.len() != report.plan.rows.len() * p.roles.len() {
+                return Err("Incomplete partial receipt observations".into());
+            }
+        }
         let mut rows = Vec::new();
         for (name, observation) in report.observations {
             let object = &observation.object;
+            if v2 != observation.unknown_copies.is_some() {
+                return Err("Unknown teaching coverage version".into());
+            }
+            let unknown = observation.unknown_copies.unwrap_or_default();
+            if unknown.windows(2).any(|p| p[0] >= p[1])
+                || unknown.iter().any(|role| {
+                    !roles.contains(role.as_str()) || observation.verified_copies.contains(role)
+                })
+            {
+                return Err("Conflicting unknown teaching coverage".into());
+            }
+            if !unknown.is_empty()
+                && (report.receipt.page_converged || report.receipt.storage_converged == Some(true))
+            {
+                return Err("Unknown coverage cannot converge".into());
+            }
+            for role in &unknown {
+                let column = p
+                    .roles
+                    .iter()
+                    .position(|r| &r.id == role)
+                    .ok_or("Unknown teaching role")?;
+                if !recorded.iter().any(|r| {
+                    r.object == *object
+                        && r.provider == report.plan.providers[column]
+                        && r.state.get("held").and_then(Value::as_str).is_some()
+                }) {
+                    return Err("Unknown coverage lacks held provider evidence".into());
+                }
+            }
+            for r in recorded
+                .iter()
+                .filter(|r| r.object == *object && r.state.get("held").is_some())
+            {
+                let column = report
+                    .plan
+                    .providers
+                    .iter()
+                    .position(|p| p == &r.provider)
+                    .ok_or("Unknown partial provider")?;
+                let role = &p.roles[column].id;
+                if !observation.verified_copies.contains(role) && !unknown.contains(role) {
+                    return Err("Held provider coverage omitted".into());
+                }
+            }
             if !token(&name)
                 || observation
                     .verified_copies
@@ -330,7 +446,7 @@ pub fn execute(request: Request) -> Result<Value> {
                     .map(|(_, role)| role.id.clone())
                     .collect::<Vec<_>>()
             });
-            rows.push(json!({"name":name,"object":object,"desired":desired,"observed":observation.verified_copies}));
+            rows.push(json!({"name":name,"object":object,"desired":desired,"observed":observation.verified_copies,"unknown":unknown}));
         }
         if identities.len() > 32
             || report
@@ -370,7 +486,19 @@ pub fn execute(request: Request) -> Result<Value> {
             "basis_current":report.receipt.basis_current,"converged":report.receipt.page_converged,"storage_converged":report.receipt.storage_converged,
             "remaining_page":report.receipt.next.is_some(),"holds":report.receipt.holds,"effects":effects}));
     }
-    let response = json!({"schema":"tig.catalogue-teaching.design-1","basis":p.trace,"project":p.project,"roles":p.roles,
+    if !coverage_v2 {
+        for lesson in &mut lessons {
+            for row in lesson["objects"]
+                .as_array_mut()
+                .ok_or("Invalid lesson rows")?
+            {
+                row.as_object_mut()
+                    .ok_or("Invalid lesson row")?
+                    .remove("unknown");
+            }
+        }
+    }
+    let response = json!({"schema":if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)

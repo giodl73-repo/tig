@@ -49,3 +49,33 @@ test('enrolled lesson titles and events stay text, never executable markup',asyn
  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.lessons[0].event='<img src=x onerror=alert(1)>';return b;});
  await f.settle();await f.click(f.get('lessons'));assert.match(f.text('assets'),/<img src=x/);assert.equal(f.nodes().some(e=>e.tag==='img'),false);
 });
+
+test('partial provider coverage shows known copies plus unknown, including the next before column',async()=>{
+ const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-2';
+  for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
+  const l=b.lessons[3];l.converged=false;l.storage_converged=false;l.holds=['unavailable'];
+  for(const o of l.objects){o.observed=o.observed.filter(r=>r!=='backup');o.unknown=['backup'];}
+  return b;});
+ await f.settle();await f.click(f.get('lessons'));await pick(f,3);
+ assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
+ assert.match(f.get('result-count').textContent,/partial coverage/);await pick(f,4);assert.match(row(f,'original').children[1].textContent,/Unknown · Backup \/ M/);
+});
+
+test('unknown-only provider coverage cannot become zero recorded copies',async()=>{
+ const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-2';
+  for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
+  const l=b.lessons[0];l.converged=false;l.storage_converged=false;l.holds=['unavailable'];
+  for(const o of l.objects){o.observed=[];o.unknown=['backup'];}return b;});
+ await f.settle();await f.click(f.get('lessons'));assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
+ assert.doesNotMatch(row(f,'original').children[3].textContent,/No managed copies/);
+});
+
+test('conflicting, unversioned or falsely converged unknown coverage refuses',async()=>{
+ for(const bad of ['overlap','foreign','version','converged','missing']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-2';
+   for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
+   const l=b.lessons[1],o=l.objects[0];l.converged=false;l.storage_converged=false;o.unknown=['backup'];o.observed=o.observed.filter(r=>r!=='backup');
+   if(bad==='overlap')o.observed.push('backup');if(bad==='foreign')o.unknown=['elsewhere'];if(bad==='version')b.schema='tig.catalogue-teaching.design-1';if(bad==='converged')l.converged=true;if(bad==='missing')delete o.unknown;
+   return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized teaching coverage/);
+ }
+});

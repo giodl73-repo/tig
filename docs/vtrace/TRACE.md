@@ -1,5 +1,12 @@
 # Tig trace
 
+Backup-outage teaching: WP-004/008/009/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-BACKUP-OUTAGE.md ->
+existing SDK held effects, versioned coverage reader/UI, independent oracle and
+native/API/semantic-negative/controller cases -> EVID-118. Full hardware/native/
+course/final-loss/expiry and intended-use acceptance remain open.
+
 Worktree/index teaching: WP-004/008/010/015/016;
 REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
 IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-WORKTREE.md ->

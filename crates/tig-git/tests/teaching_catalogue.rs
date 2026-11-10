@@ -160,27 +160,7 @@ fn check_lessons_and_refusals(root: &std::path::Path, catalogue: &Catalogue) {
     let (code, received) = server.json("/api/lessons");
     assert_eq!(code, 200);
     assert_eq!(received, book);
-    let mut renderer = Command::new("node")
-        .arg(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/tests/ux/recorded-lesson.cjs"
-        ))
-        .stdin(std::process::Stdio::piped())
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped())
-        .spawn()
-        .expect("teaching UI qualification requires Node.js");
-    {
-        use std::io::Write;
-        renderer
-            .stdin
-            .take()
-            .unwrap()
-            .write_all(&serde_json::to_vec(&received).unwrap())
-            .unwrap();
-    }
-    let rendered = renderer.wait_with_output().unwrap();
-    assert!(rendered.status.success(), "{rendered:?}");
+    render_book(&received);
     assert_ne!(server.json("/api/lessons?path=unadmitted").0, 200);
     let (code, script) = server.get("/lessons.js", false);
     assert_eq!(code, 200);
@@ -337,27 +317,7 @@ fn public_exchange_preserves_dirty_work_and_reconciles_only_after_exact_pull() {
     let (code, received) = server.json("/api/lessons");
     assert_eq!(code, 200);
     assert_eq!(received, book);
-    let mut renderer = Command::new("node")
-        .arg(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/tests/ux/recorded-lesson.cjs"
-        ))
-        .stdin(std::process::Stdio::piped())
-        .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::piped())
-        .spawn()
-        .unwrap();
-    {
-        use std::io::Write;
-        renderer
-            .stdin
-            .take()
-            .unwrap()
-            .write_all(&serde_json::to_vec(&received).unwrap())
-            .unwrap();
-    }
-    let rendered = renderer.wait_with_output().unwrap();
-    assert!(rendered.status.success(), "{rendered:?}");
+    render_book(&received);
     let refused = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
         .arg("rehearse-exchange")
         .arg(&root)
@@ -439,6 +399,17 @@ fn public_worktree_index_is_exact_and_job_outlives_checkout() {
     let (code, received) = server.json("/api/lessons");
     assert_eq!(code, 200);
     assert_eq!(received, book);
+    render_book(&received);
+    let refused = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-worktree")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(!refused.status.success());
+    assert_eq!(fs::read(root.join("worktree.json")).unwrap(), raw);
+}
+
+fn render_book(received: &Value) {
     let mut renderer = Command::new("node")
         .arg(concat!(
             env!("CARGO_MANIFEST_DIR"),
@@ -448,23 +419,168 @@ fn public_worktree_index_is_exact_and_job_outlives_checkout() {
         .stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped())
         .spawn()
-        .unwrap();
+        .expect("teaching qualification requires Node.js");
     {
         use std::io::Write;
         renderer
             .stdin
             .take()
             .unwrap()
-            .write_all(&serde_json::to_vec(&received).unwrap())
+            .write_all(&serde_json::to_vec(received).unwrap())
             .unwrap();
     }
     let rendered = renderer.wait_with_output().unwrap();
     assert!(rendered.status.success(), "{rendered:?}");
-    let refused = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
-        .arg("rehearse-worktree")
+}
+
+#[test]
+fn public_backup_outage_holds_unknown_custody_and_retries_without_seed_or_new_selection() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("backup outage with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-backup-outage")
         .arg(&root)
         .output()
         .unwrap();
-    assert!(!refused.status.success());
-    assert_eq!(fs::read(root.join("worktree.json")).unwrap(), raw);
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 9);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("backup.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["backup_evidence"]
+    );
+    let proof: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(proof["held_plan"], proof["retry_plan"]);
+    assert_eq!(proof["seed_attempts_during_retry"], 0);
+    assert_eq!(proof["physical_hardware_fault_qualified"], false);
+    assert!(root.join("backup").is_dir());
+    assert!(!root.join("offline-backup").exists());
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    let catalogue = Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
+    let book =
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap();
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-2");
+    for id in ["merge-backup-offline", "job-ended-backup-offline"] {
+        let lesson = book["lessons"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|l| l["id"] == id)
+            .unwrap();
+        assert_eq!(lesson["converged"], false);
+        assert_eq!(lesson["storage_converged"], false);
+        for object in lesson["objects"].as_array().unwrap() {
+            assert_eq!(object["unknown"], serde_json::json!(["backup"]));
+            assert!(
+                !object["observed"]
+                    .as_array()
+                    .unwrap()
+                    .contains(&serde_json::json!("backup"))
+            );
+        }
+        let original = lesson["objects"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["name"] == "original")
+            .unwrap();
+        assert!(
+            original["observed"]
+                .as_array()
+                .unwrap()
+                .contains(&serde_json::json!("working"))
+        );
+    }
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, received) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(received, book);
+    render_book(&received);
+    drop(server);
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let index = trace["completed"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .position(|l| l["lesson"] == "job-ended-backup-offline")
+        .unwrap();
+    let raw = fs::read(root.join("reports/job-ended-backup-offline.json")).unwrap();
+    for bad in [
+        "overlap",
+        "foreign",
+        "missing",
+        "legacy",
+        "legacy-null",
+        "converged",
+        "no-held-evidence",
+        "hidden-unknown",
+        "duplicate",
+        "required",
+    ] {
+        let mut report: Value = serde_json::from_slice(&raw).unwrap();
+        match bad {
+            "overlap" => report["observations"]["original"]["verified_copies"]
+                .as_array_mut()
+                .unwrap()
+                .push("backup".into()),
+            "foreign" => {
+                report["observations"]["original"]["unknown_copies"] =
+                    serde_json::json!(["foreign"])
+            }
+            "missing" => {
+                report["observations"]["original"]
+                    .as_object_mut()
+                    .unwrap()
+                    .remove("unknown_copies");
+            }
+            "legacy" => report["schema"] = "tig.teaching-observation.design-1".into(),
+            "legacy-null" => {
+                report["schema"] = "tig.teaching-observation.design-1".into();
+                for observation in report["observations"].as_object_mut().unwrap().values_mut() {
+                    observation["unknown_copies"] = Value::Null;
+                }
+            }
+            "converged" => report["receipt"]["page_converged"] = true.into(),
+            "hidden-unknown" => {
+                report["observations"]["original"]["unknown_copies"] = serde_json::json!([])
+            }
+            "no-held-evidence" => {
+                for observation in report["receipt"]["observations"].as_array_mut().unwrap() {
+                    observation["state"] = "retained".into();
+                }
+            }
+            "duplicate" => {
+                let first = report["receipt"]["observations"][0].clone();
+                report["receipt"]["observations"]
+                    .as_array_mut()
+                    .unwrap()
+                    .push(first);
+            }
+            "required" => {
+                let old = report["receipt"]["observations"][0]["required"]
+                    .as_bool()
+                    .unwrap();
+                report["receipt"]["observations"][0]["required"] = (!old).into();
+            }
+            _ => unreachable!(),
+        }
+        let mut changed = trace.clone();
+        changed["completed"][index]["report"] = save_evidence(&root, &report);
+        let mut enrollment = config.clone();
+        enrollment["teaching"]["trace"] = save_evidence(&root, &changed);
+        let path = root.join("negative-coverage.json");
+        fs::write(&path, serde_json::to_vec(&enrollment).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    assert_eq!(
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap(),
+        book
+    );
 }

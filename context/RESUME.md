@@ -8,6 +8,34 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned lane: feat/teaching-backup-outage,
+  input9310d0cbe48ba796f0feaa7847ed5fba10e74b48. TEACHING-BACKUP-OUTAGE.md and
+  review/EVID-118 name controls/scope/entry/exit and separate closure records.
+  Fourth fresh-root mode makes its verified backup child unavailable at merge,
+  ends the old job, restores M and retries the same source/plan with seed reads
+  disabled. Actual SDK held reports keep old F while publishing useful history.
+  Partial report2 has explicit unknown_copies tied to typed held provider receipt
+  rows; response2 carries unknown coverage, while complete legacy books retain
+  response1 shape. UI keeps known and unknown separate, including Before/counts.
+  Native66637/final78266 pass five actual CLI/provider/catalogue cases, partial
+  HTTP -> shipped controls, ten semantic negatives and strict schema workspace
+  Clippy. All76 controller cases pass. Initial check6403 failed private identity
+  method use; fixed via public Place::local, without any SDK visibility change.
+  Default12177/all-feature3970 terminate0: workspace/both500k/strict/standalone.
+  Only CLI usage text changed after broad starts; all-feature strict and fresh
+  artifact25647 qualify it. Artifact25647 passes fmt, fresh schema bins, expanded
+  usage refusal, nine-checkpoint outage CLI and read-only catalogue check with
+  payloads_opened=0. Persistent root: backup-outage-public-ce0209ed4f924d32ab02b9bfb04eefcd
+  in external bulk-retirement dev temp. Targets teaching-playback /
+  teaching-playback-all; all local handles terminal. Initial L0/source-secrets
+  pass661 files/7113398 bytes. Source pin/push/draft and final documentation pins/
+  commit-secrets/hosted remain pending. Parent PR48 at9310d0c run42753891927 passes
+  Windows/Linux/secrets and is ready; no merge/deploy or existing-root operation.
+  Browser request remains unanswered; no browser interaction. Full real hardware/
+  remote byte publication, faults/restart/final-loss/expiry course and native/
+  provider/lifetime/browser/classroom/full product acceptance remain open.
+  Older lane notes below are historical; preserve viewers/runtime bindings.
+
 - Active owned lane: feat/teaching-worktree,
   input27a6eb4f3ebd11743d2772694ec2ea2b3242732f. TEACHING-WORKTREE.md and review/
   EVID-117 name controls/scope/entry/exit and separate closure records. Explicit

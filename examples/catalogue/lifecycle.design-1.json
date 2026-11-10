@@ -406,6 +406,97 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "merge-backup-offline",
+      "event": "M is unavailable at its configured provider path during merge. The real executor reports held; current coverage of M is unknown, while working copies remain protected.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working"
+        ],
+        "original": [
+          "working"
+        ],
+        "fixed": [
+          "working"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [
+          "backup"
+        ],
+        "original": [
+          "backup"
+        ],
+        "fixed": [
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "job-ended-backup-offline",
+      "event": "The old job ends while M remains unavailable. Desired placement changes to history, but missing fresh custody verification prevents eviction of the old working copy; useful history publication can proceed.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working"
+        ],
+        "original": [
+          "working",
+          "history"
+        ],
+        "fixed": [
+          "working"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [
+          "backup"
+        ],
+        "original": [
+          "backup"
+        ],
+        "fixed": [
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "backup-catchup",
+      "event": "The same M provider returns. Revalidation and retry of the same current plan finish ordinary demotion without a new source selection or seed read.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [],
+        "original": [],
+        "fixed": []
+      }
     }
   ],
   "counterexamples": [

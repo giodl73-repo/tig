@@ -68,6 +68,13 @@ use the existing source and placement APIs; the associated Git commit is distinc
 from contributing index/draft/job snapshots. General native writer/adoption and
 complete command/failure/final-loss/expiry teaching remain open.
 
+The [backup-outage rehearsal](specs/TEACHING-BACKUP-OUTAGE.md) adds actual held
+merge/job-end states, explicit unknown M coverage, preserved old F copies and
+same-plan catchup after custody revalidation with seed reads disabled. Versioned
+partial reports distinguish known copies from unknown coverage in the same
+read-only catalogue. Hardware faults, remote byte publication and full failure/
+restart/final-loss/expiry teaching remain separate open gates.
+
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
 witness peak/status and separately approved apply/resume/cancel through
