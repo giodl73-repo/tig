@@ -60,7 +60,8 @@ source changes into running tools as a side effect. No startup cache operations.
   isolated persistent rehearsal17108 also passes at teaching-catalogue-isolated-
   7409e69653654cbcaa759860cac7af5c. Broad compilation precedes this fixture Git
   wrapper change; final focused/strict checks qualify it. All local handles are
-  terminal. Refresh final documentation pins/L0/secrets, commit/pin runtime and
+  terminal. Runtime implementation:3ee533ce31d1f54075982976876a5a553a11933f.
+  Final L0/pins/fmt/diff/changed-source secrets pass. Push/pin source and
   publish a draft PR on feat/held-copy-followup; derive exact-head hosted results.
   Next owned runtime work is recorded lesson playback in the existing catalogue,
   over hash-pinned bounded reports and existing verified metadata readers; no

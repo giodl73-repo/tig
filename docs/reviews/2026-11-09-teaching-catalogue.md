@@ -1,5 +1,6 @@
 # Public teaching catalogue review
 
+Runtime implementation: 3ee533ce31d1f54075982976876a5a553a11933f.
 Input: 291156862d14874db481b7f2f16ba7152caa45c9; branch
 feat/teaching-catalogue. Full teaching requirement, controls, scope, entry/exit
 and RUST/GIT/PROVIDER/UI/INTEGRATION profiles:
@@ -61,8 +62,8 @@ CLI/catalogue-check rehearsal pass. No private user configuration is copied.
 Default37159 and all-feature22165 locked workspace/strict Clippy chains pass,
 including both500k metadata fixtures and standalone Git. Broad compilation
 precedes the final Git-isolation change; final47922/17108 focus and strict
-workspace Clippy qualify that change separately. Initial structural/pin checks,
-fmt/diff and changed-source Gitleaks pass; final documentation pins and hosted
+workspace Clippy qualify that change separately. Structural/pin checks,
+fmt/diff and changed-source Gitleaks pass; hosted
 checks remain pending. No browser layout or classroom acceptance is claimed.
 
 ## Validation and trace

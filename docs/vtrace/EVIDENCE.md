@@ -1,6 +1,6 @@
 # Evidence index
 
-EVID-114 (candidate under qualification): public teaching catalogue, input
+EVID-114 (locally qualified candidate): runtime3ee533ce31d1f54075982976876a5a553a11933f; input
 291156862d14874db481b7f2f16ba7152caa45c9. The
 [review](../reviews/2026-11-09-teaching-catalogue.md) separates public inputs/oracle,
 actual seven-checkpoint Git/source/provider rehearsal and catalogue export from

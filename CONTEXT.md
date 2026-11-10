@@ -1,5 +1,6 @@
 # Tig maintainer context
 
+Teaching runtime: 3ee533ce31d1f54075982976876a5a553a11933f.
 Teaching-catalogue lane: user requires public, portable Git-style teaching and
 fixtures at every workflow step. specs/TEACHING-CATALOGUE.md and
 examples/catalogue/README.md define the full course. New schema-gated tig-sample
