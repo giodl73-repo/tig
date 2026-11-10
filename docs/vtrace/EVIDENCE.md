@@ -1,6 +1,6 @@
 # Evidence index
 
-EVID-115 (implemented candidate): input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965.
+EVID-115 (locally qualified candidate): runtime3c423315d1901d9015572a5507643939e79605ae; input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965.
 [Review](../reviews/2026-11-09-teaching-playback.md) separates optional recorded
 lesson implementation, verification, synthetic validation, trace and six producer
 lenses. Focused native52463 passes actual sample/API/HTTP and metadata-refusal

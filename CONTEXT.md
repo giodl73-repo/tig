@@ -1,6 +1,7 @@
 # Tig maintainer context
 
-Active lane: feat/teaching-playback, input6d9a2e0. Read
+Active lane: feat/teaching-playback, input6d9a2e0; runtime
+3c423315d1901d9015572a5507643939e79605ae. Read
 specs/TEACHING-PLAYBACK.md and context/RESUME.md. Optional bounded recorded
 lesson API, actual sample evidence export and shipped controls are implemented
 and locally qualified. Native sample/HTTP -> shipped-controls, semantic negatives,

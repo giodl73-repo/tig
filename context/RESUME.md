@@ -23,7 +23,9 @@ source changes into running tools as a side effect. No startup cache operations.
   compilation predates only the final test bridge and fuller pending-course label;
   final1180 qualifies these. Final L0/pins/fmt/diff/source-secrets pass. All local
   handles are terminal; build targets teaching-playback / teaching-playback-all.
-  Source pin/commit/push/draft PR and exact-head hosted checks remain pending.
+  Runtime implementation: 3c423315d1901d9015572a5507643939e79605ae.
+  Source qualification is pinned; derive this branch's draft PR and exact-head
+  hosted status from GitHub before continuing. Hosted qualification remains open.
   Parent PR45 draft head6d9a2e0 run42737465924 passed Linux/secrets, failed Windows
   in inherited simultaneous age capture because neither peer acknowledged. Both
   current local suites pass that test; do not silently treat that as parent CI proof.

@@ -1,5 +1,7 @@
 # Recorded teaching playback review
 
+Runtime implementation: 3c423315d1901d9015572a5507643939e79605ae.
+
 Input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965; feat/teaching-playback.
 Controls, scope, entry/exit and L0/L1/L2 profiles are in
 [TEACHING-PLAYBACK](../../specs/TEACHING-PLAYBACK.md).
