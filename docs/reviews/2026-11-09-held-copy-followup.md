@@ -1,5 +1,6 @@
 # Held-copy follow-up review
 
+Runtime implementation: eb94c7228935549a0893456ca55bfacee54090e0.
 Input: 124642985af1a1b358611de6015b9d90c993c536; branch
 feat/held-copy-followup. Controls, allowed scope, entry/exit and RUST/PROVIDER
 L0/L1/L2 are in [the contract](../../specs/HELD-COPY-FOLLOWUP.md).

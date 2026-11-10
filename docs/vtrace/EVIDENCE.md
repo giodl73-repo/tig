@@ -1,6 +1,6 @@
 # Evidence index
 
-EVID-113 (candidate under qualification): fresh held-copy follow-up, input
+EVID-113 (locally qualified candidate): runtimeeb94c7228935549a0893456ca55bfacee54090e0; input
 124642985af1a1b358611de6015b9d90c993c536. The
 [review](../reviews/2026-11-09-held-copy-followup.md) separates copy-only
 decisions/runtime, actual original provenance/new approval, current protection,

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 16063,
-      "sha256": "18b68195d9e42132ecc451eead58371c4cbe16fde52cbef51ebfad998765f907"
+      "bytes": 16124,
+      "sha256": "68506fd7b01637d22ac735bcff0cab86170a05d035b312492c02a2766c14ddd7"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 104124,
-      "sha256": "9b85badadef894a169c4653b29cd0b54627e071ef3bb1204cd043798ef14ab55"
+      "bytes": 104144,
+      "sha256": "9037cc1c12812f6e467cbd627cd55103908059babfc5f7ec989735974791db44"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 63145,
+      "bytes": 63183,
       "path": "context/RESUME.md",
-      "sha256": "ba16edac5ea78978ebf88c51d272480b6fe3979584aaa63378e9c6ac6650c21d"
+      "sha256": "56db8ae7059c5541e77aa25467174f531724b7f6942061432a9e9d9e2de06fed"
     },
     {
       "bytes": 16453,
@@ -2789,8 +2789,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-held-copy-followup.md",
-      "bytes": 6127,
-      "sha256": "113c8ffbd315e9f537e3adf050651e0ffe985099f8d05a95f873049c687476d7"
+      "bytes": 6193,
+      "sha256": "33e6aec44b785d9effabee01567ded9e53ff991412b0aa4fa97b0d7165d664c1"
     },
     {
       "path": "tests/vectors/held-copy-followup.design-1.json",

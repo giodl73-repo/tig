@@ -31,7 +31,8 @@ source changes into running tools as a side effect. No startup cache operations.
   artifact and strict Clippy chain also terminates zero. All local handles are
   terminal. Final L0/pins/fmt/diff and changed-source/history secrets checks pass.
   Review/EVID-113/trace/validation records separate local closeout and full gates.
-  Next commit/pin the runtime, push draft PR on feat/paged-operator and derive
+  Runtime implementation:eb94c7228935549a0893456ca55bfacee54090e0.
+  Push draft PR on feat/paged-operator and derive
   exact-head hosted checks; no source merge or deployment.
   User additionally requests a public synthetic sample catalogue with a Git-like
   teaching/fixture sequence at every workflow step. This is a full-plan deliverable:

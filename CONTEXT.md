@@ -1,5 +1,6 @@
 # Tig maintainer context
 
+Held-copy runtime: eb94c7228935549a0893456ca55bfacee54090e0.
 Held-copy follow-up lane: specs/HELD-COPY-FOLLOWUP.md defines PO-07's fresh
 decision after original claim settlement. It retains original scope/outcome
 provenance, rechecks current content-wide protection/provider facts, and needs
