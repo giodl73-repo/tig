@@ -1,5 +1,14 @@
 # Verification record
 
+EVID-115 candidate: focused native52463 passes actual seven-checkpoint sample,
+verified reader, authenticated loopback HTTP and repinned semantic refusals.
+All73 shipped controller cases pass, including seven new lesson flows.
+Default26395 workspace/500k/strict/standalone and final1180 native HTTP -> shipped
+controls/schema strict/fresh persistent CLI pass. All-feature22256 workspace/
+second500k/strict and final L0/fmt/diff/source-secrets pass. Hosted remains pending. See
+[review](../reviews/2026-11-09-teaching-playback.md); producer review and DOM fixtures
+are not independent review or browser/user acceptance.
+
 EVID-112 candidate: locked default workspace/500k, strict workspace Clippy and
 standalone Git pass (chain42894). Fresh manual/actual-clock-aged20-page CLI and
 four copy-index regressions pass; the native index/select -> storage execution

@@ -1,5 +1,13 @@
 # Foundation review
 
+Recorded teaching review, input6d9a2e0:
+[six producer lenses](../reviews/2026-11-09-teaching-playback.md) challenge role
+binding, historical/current custody, unknown observations, stale replies, bounded
+metadata and adoption claims. Native sample/HTTP/refusals and73 controller cases
+pass; default26395, all-feature22256, final1180 and final L0/source-secrets pass.
+Hosted qualification and browser/human acceptance remain
+separate open gates; no full course or storage requirement is closed.
+
 Manual controller review, input88225ff/implementation4bcd433: PC-01..06 in
 [review](../reviews/2026-11-09-paged-controller.md) apply six producer lenses.
 Exact permissions, receipt-backed pages, original copy exclusions, shared budgets,

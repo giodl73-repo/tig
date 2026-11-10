@@ -2,9 +2,9 @@
 
 Delivery contract: [TEACHING-CATALOGUE](../../specs/TEACHING-CATALOGUE.md).
 The first runnable rehearsal covers seven ordinary lifecycle checkpoints using
-real Git, source journals and provider operations. The complete teaching course,
-interactive lesson playback, failure rehearsals and final-retirement/lifetime
-lessons remain in development.
+real Git, source journals and provider operations. The catalogue's **Learn Tig ·
+sample lessons** view reads their actual sealed reports. The complete teaching
+course, failure rehearsals and final-retirement/lifetime lessons remain in development.
 
 Configure external build and temporary roots using
 [development setup](../../docs/DEVELOPMENT.md), then choose a **new absolute output
@@ -25,7 +25,18 @@ are refused; repeat in another new directory. No viewer starts automatically.
 The runner uses an isolated Git configuration, an empty template and its own
 fixture identity.
 
-In the catalogue, open **Studies** and inspect the two works, then the managed
+In the catalogue, choose **Learn Tig · sample lessons**. Use the lesson selector
+or Previous/Next to compare each object's earlier recorded copies, the plan's
+desired roles and the freshly verified copies recorded after that step. Follow
+the original through **merge v2 job active**, **job ended** and **revert v1**:
+F+M becomes D+M, then F+M again, while its hash stays identical. These are recorded
+results; they do not claim current custody. Missing evidence is unavailable,
+and an absent observation stays unknown. The viewer cannot run storage actions.
+Choose **Inspect sample catalogue** to visit the actual works; returning to the
+lessons keeps your selection. This control appears only with explicit teaching
+enrollment. Report bytes are verified against the enrollment's pinned trace.
+
+Open **Studies** and inspect the two works, then the managed
 objects and named history stream. The final view shows current copies; earlier
 Git snapshots do not turn today's storage observation into a past observation.
 `trace.json` points to the actual per-checkpoint reports in `reports/`, containing

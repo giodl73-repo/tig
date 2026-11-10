@@ -8,6 +8,30 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned lane: feat/teaching-playback, input
+  6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965. Contract:
+  specs/TEACHING-PLAYBACK.md; review/EVID-115 name controls and separate implementation,
+  verification, validation, trace and six producer lenses. Optional teaching profile,
+  bounded verified metadata API outside catalogue mutex, actual sealed sample export
+  and shipped read-only lesson controls are locally qualified. No execution bridge.
+  Native52463 passes actual CLI/provider/catalogue/HTTP and repinned semantic refusals.
+  Final1180 passes actual HTTP -> shipped-controls bridge, all negative cases, strict
+  schema workspace Clippy and fresh persistent sample/catalogue-check. Public root:
+  teaching-playback-public-b9def27a1a964e999144d684b9eceaab in external dev temp.
+  All73 controller cases pass. Default26395 and all-feature22256 terminate zero:
+  both locked workspace suites/both500k/strict profiles and standalone Git. Broad
+  compilation predates only the final test bridge and fuller pending-course label;
+  final1180 qualifies these. Final L0/pins/fmt/diff/source-secrets pass. All local
+  handles are terminal; build targets teaching-playback / teaching-playback-all.
+  Source pin/commit/push/draft PR and exact-head hosted checks remain pending.
+  Parent PR45 draft head6d9a2e0 run42737465924 passed Linux/secrets, failed Windows
+  in inherited simultaneous age capture because neither peer acknowledged. Both
+  current local suites pass that test; do not silently treat that as parent CI proof.
+  Next: exact-head hosted qualification/investigate any repeated peer failure, then
+  public publish/fetch/pull and full command/fault/final-loss/metadata-expiry lessons.
+  Browser/classroom and native/provider/lifetime/full product acceptance remain open.
+  Older lane notes below are historical; no startup/cache operations or viewer launch.
+
 - Active lane: feat/teaching-catalogue; input
   291156862d14874db481b7f2f16ba7152caa45c9. User explicitly selected a portable
   public synthetic sample catalogue and Git-style teaching/fixtures at every step.

@@ -36,7 +36,8 @@ For reproducible public teaching, start with the
 [sample catalogue course](examples/catalogue/README.md). Its first runnable
 rehearsal follows real Git changes through seven source/provider checkpoints,
 checks actual copies against independent expectations, and exports a catalogue.
-The complete Git-style course and interactive lesson playback remain in development.
+The catalogue can play those recorded lessons with before/desired/observed copy
+sets. The complete Git-style course remains in development.
 
 ## What works today
 

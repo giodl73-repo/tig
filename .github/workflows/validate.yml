@@ -53,7 +53,7 @@ jobs:
       - name: Check explicit restore orchestration paths
         run: python -B tools/test_restore_project.py
       - name: Check catalogue collection interactions
-        run: node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs
+        run: node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs crates/tig-git/tests/lessons-flows.cjs
       - name: Check opt-in GitHub request client
         run: node --test examples/github/request.test.mjs
       - name: Rust format, handoff tests and Clippy

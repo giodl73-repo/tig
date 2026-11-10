@@ -22,6 +22,7 @@ pub mod http;
 pub mod query;
 pub mod shared;
 pub mod storage;
+pub mod teaching;
 pub mod works;
 
 pub type Result<T> = std::result::Result<T, String>;
@@ -90,6 +91,8 @@ pub struct Config {
     pub default_project: Option<String>,
     #[serde(default)]
     pub storage_domains: Vec<storage::global::Domain>,
+    #[serde(default)]
+    pub teaching: Option<teaching::Profile>,
 }
 fn read<T: serde::de::DeserializeOwned>(path: &Path, limit: u64) -> Result<T> {
     if !path.is_absolute() {
@@ -128,6 +131,9 @@ impl Config {
         }
         let mut ids = BTreeSet::new();
         storage::global::validate(&config.storage_domains)?;
+        if let Some(p) = &config.teaching {
+            p.validate()?;
+        }
         for p in &config.projects {
             works::validate(&p.collections)?;
             if let Some(s) = &p.storage {
@@ -467,10 +473,21 @@ pub struct Catalogue {
     pub projects: BTreeMap<String, Project>,
     pub default_project: Option<String>,
     storage_domains: Vec<storage::global::Domain>,
+    teaching: Option<teaching::Profile>,
 }
 impl Catalogue {
     pub fn load(config: Config) -> Result<Self> {
         storage::global::validate(&config.storage_domains)?;
+        if let Some(p) = &config.teaching {
+            p.validate()?;
+            if !config
+                .projects
+                .iter()
+                .any(|project| project.id == p.project)
+            {
+                return Err("Teaching project is not enrolled".into());
+            }
+        }
         let mut projects = BTreeMap::new();
         for p in config.projects {
             projects.insert(p.id.clone(), Project::open(p)?);
@@ -479,10 +496,11 @@ impl Catalogue {
             projects,
             default_project: config.default_project,
             storage_domains: config.storage_domains,
+            teaching: config.teaching,
         })
     }
     pub fn summaries(&self) -> Value {
-        json!({"projects":self.projects.values().map(Project::summary).collect::<Vec<_>>(),"default_project":self.default_project,"mode":"local-read-only","automatic_eviction":false})
+        json!({"projects":self.projects.values().map(Project::summary).collect::<Vec<_>>(),"default_project":self.default_project,"mode":"local-read-only","automatic_eviction":false,"teaching_available":self.teaching.is_some()})
     }
     pub fn list(
         &self,

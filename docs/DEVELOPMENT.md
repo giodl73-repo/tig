@@ -40,7 +40,7 @@ git diff --check
 For catalogue controller work, run the shipped-script synthetic workflows:
 
 ```text
-node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs
+node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs crates/tig-git/tests/lessons-flows.cjs
 ```
 
 Run appropriate locked native API tests when bundled scripts change. Rust changes

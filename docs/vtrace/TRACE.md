@@ -1,5 +1,12 @@
 # Tig trace
 
+Recorded teaching playback: WP-008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-PLAYBACK.md ->
+optional verified reader/API, actual sample export and shipped lesson controls ->
+native sample/HTTP/refusal and controller/stale/missing/text cases -> EVID-115.
+Complete course, hosted qualification and intended-use acceptance remain open.
+
 Public teaching catalogue: WP-003/004/006/007/008/009/010/015/016;
 REQ-001/002/003/004/005/006/007/009/010 ->
 SPEC-002/003/004/005/006/008/009/010/014,

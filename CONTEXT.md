@@ -1,5 +1,16 @@
 # Tig maintainer context
 
+Active lane: feat/teaching-playback, input6d9a2e0. Read
+specs/TEACHING-PLAYBACK.md and context/RESUME.md. Optional bounded recorded
+lesson API, actual sample evidence export and shipped controls are implemented
+and locally qualified. Native sample/HTTP -> shipped-controls, semantic negatives,
+all73 controller cases, default/500k/strict/standalone and final schema strict/
+persistent CLI, all-feature/second500k/strict and final L0/source-secrets pass.
+Hosted qualification and browser/human acceptance remain.
+Parent PR45 exact-head run42737465924 failed Windows in
+the inherited simultaneous age-capture test; Linux/secrets passed. Do not claim
+hosted qualification, start a viewer or touch existing cache roots.
+
 Teaching runtime: 3ee533ce31d1f54075982976876a5a553a11933f.
 Teaching-catalogue lane: user requires public, portable Git-style teaching and
 fixtures at every workflow step. specs/TEACHING-CATALOGUE.md and

@@ -441,3 +441,10 @@ returned hash, length and project snapshots before exposing actions. Empty,
 failed and changed-source responses offer explicit recovery. Late object or
 held-review responses cannot replace another inspector or tab. Reviews use the
 captured scope; none of these shortcuts grants movement or removal authority.
+
+Optional [recorded teaching enrollment](TEACHING-PLAYBACK.md) exposes a bounded,
+authenticated GET /api/lessons, with no query parameters or mutation commands.
+It reads hash-pinned sample reports through an existing privately enrolled byte
+reader outside the catalogue mutex. The lesson view separates before, desired
+and recorded after copies. It grants no current custody or storage authority;
+missing observations are unknown. Without enrollment no lesson IO is performed.

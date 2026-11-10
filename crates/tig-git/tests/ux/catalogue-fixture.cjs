@@ -4,7 +4,7 @@ const {documentFixture}=require('./dom.cjs');
 const web=join(__dirname,'../../src/catalogue/web'),html=readFileSync(join(web,'index.html'),'utf8');
 const clone=value=>JSON.parse(JSON.stringify(value));
 function reference(id,project='atlas'){const raw=Buffer.from('fixture/'+project+'/'+id);return {id,object:{sha256:createHash('sha256').update(raw).digest('hex'),bytes:raw.length}};}
-function catalogueFixture({count=2,partial=false,ruleCount=1,historical=false,selectedBytes=false,objectMode=false}={}){
+function catalogueFixture({count=2,partial=false,ruleCount=1,historical=false,selectedBytes=false,objectMode=false,teaching=false}={}){
  const dom=documentFixture(html),seen=[],overrides=new Map();
  const registered=partial?Math.max(count+2,ruleCount):count+2;
  const commit=project=>(project==='atlas'?'a':'b').repeat(40),basis=project=>(project==='atlas'?'c':'d').repeat(64);
@@ -17,7 +17,12 @@ function catalogueFixture({count=2,partial=false,ruleCount=1,historical=false,se
  const rows=project=>Array.from({length:count},(_,n)=>{const id='render-'+String(n+1).padStart(2,'0'),asset=reference(id,project),target=reference('source',project);if(historical&&n===0)asset.object=reference(id+'/previous',project).object;return {asset,class:'output',distance:1,path:[{from:asset,target,kind:'composition',pointer:'/inputs/0'}],target,navigation:historical&&n===0?null:card(id,project)};});
  function reply(path,q){
   const project=q.project||'atlas';
-  if(path==='/api/projects')return {projects:clone(projects),default_project:'atlas'};
+  if(path==='/api/projects')return {projects:clone(projects),default_project:'atlas',teaching_available:teaching};
+  if(path==='/api/lessons'&&teaching){
+   const corpus=JSON.parse(readFileSync(join(__dirname,'../../../../examples/catalogue/lifecycle.design-1.json'),'utf8'));
+   return {schema:'tig.catalogue-teaching.design-1',basis:reference('book').object,project:'atlas',roles:[{id:'working',label:'Working / F'},{id:'history',label:'History / D'},{id:'backup',label:'Backup / M'}],mode:'recorded-rehearsal',synthetic_domains:true,independent_hardware_backup_proven:false,authorizes_storage:false,pending:['final retirement','metadata lifetime'],
+    lessons:corpus.stages.slice(0,7).map((stage,index)=>({id:stage.id,title:stage.id.replaceAll('-',' '),event:stage.event,report:reference(stage.id).object,plan:'e'.repeat(64),source_commit:commit('atlas'),source_available:true,source_sequence:index,converged:true,basis_current:true,stream_bytes:0,holds:[],effects:[],objects:Object.entries(corpus.objects).map(([name,object])=>({name,object:{sha256:object.sha256,bytes:object.bytes},desired:stage.expected_copies[name].length?stage.expected_copies[name]:null,observed:stage.expected_copies[name]}))}))};
+  }
   if(path==='/api/works'){const selected=q.collections?q.collections.split(','):q.collection?[q.collection]:collections.map(c=>c.id),items=selected.map(c=>work(c,project));return {snapshots:{[project]:commit(project)},items,total:items.length};}
   if(path==='/api/work'){const w=work(q.collection,project);return {commit:commit(project),work:w,root:card(q.collection==='sequences'?'source':'board',project),parents:[],children_total:0,versions:[{label:'v2',current:true}],deliveries:[],members:[card('source',project)],member_total:1,member_categories:{items:1}};}
   if(path==='/api/asset')return {commit:commit(project),record:reference(q.id,project),definition:reference('type/item','shared'),card:card(q.id,project),fields:[],streams:objectMode&&q.id==='source'&&project==='boreal'?[retained()]:[],storage_locations:objectMode?2:0};

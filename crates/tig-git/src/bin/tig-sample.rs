@@ -193,6 +193,8 @@ impl Demo {
             fs::create_dir(repo.join(name))?;
         }
         fs::create_dir(root.join("reports"))?;
+        fs::create_dir(root.join("lesson-evidence"))?;
+        fs::create_dir(root.join("lesson-evidence/objects"))?;
         fs::create_dir(root.join("seed"))?;
         fs::create_dir(root.join("seed/objects"))?;
         let mut objects = BTreeMap::new();
@@ -513,8 +515,12 @@ impl Demo {
         }
         let report = json!({"schema":"tig.teaching-observation.design-1","lesson":id,"source_commit":commit,"source_checkpoint":self.namespaces[0].checkpoint(),"plan":plan,"receipt":receipt,"observations":observations,"declared_fixture_domains":3,"physical_domain_coverage":"not-established; portable fixture directories","independent_hardware_backup_proven":false});
         let object = save(&self.root.join(format!("reports/{id}.json")), &report)?;
+        fs::copy(
+            self.root.join(format!("reports/{id}.json")),
+            Layout::Flat.object_path(&self.root.join("lesson-evidence"), &object.sha256),
+        )?;
         self.reports
-            .push(json!({"lesson":id,"report":object,"file":format!("reports/{id}.json")}));
+            .push(json!({"lesson":id,"report":object,"file":format!("reports/{id}.json"),"title":id.replace('-'," "),"event":stage["event"]}));
         git(
             &self.git,
             &self.root.join("project"),
@@ -522,7 +528,7 @@ impl Demo {
         )?;
         Ok(())
     }
-    fn catalogue(&self, current: &str) -> Result<()> {
+    fn catalogue(&self, current: &str, trace: &Object) -> Result<()> {
         let profile = self.root.join("resolver.json");
         save(
             &profile,
@@ -531,10 +537,11 @@ impl Demo {
         let enrollment = self.root.join("catalogue.json");
         save(
             &enrollment,
-            &json!({"schema":"tig.catalogue-enrollment.experimental-1","default_project":"sample","projects":[{"id":"sample","label":"Tig public teaching sample","profile":profile,"display":[{"category":"Studies","title_pointers":["/authored/title"]}],"fields":[{"label":"Version","pointer":"/authored/version","section":"source"}],"collections":[{"id":"studies","label":"Studies","icon":"folder","roots":[{"pattern":"^work/(.+)$","key":"${1}"}],"stages":[{"label":"Released","pointer":"/status/lifecycle","pattern":"^released$"}],"count_state":"Released","version_pointer":"/authored/version","version_role":"result","version_slot_prefix":"history/"}],"storage":{"schema":"tig.catalogue-storage.experimental-1","inventory":null,"encoding":"json","max_decoded_bytes":1048576,"places":[{"label":"Working (F)","place_index":0,"report_tier":null,"live_probe":true},{"label":"History (D)","place_index":1,"report_tier":null,"live_probe":true},{"label":"Backup (M)","place_index":2,"report_tier":null,"live_probe":true}],"default_family":"Studies","default_cache":"Working (F)"}}]}),
+            &json!({"schema":"tig.catalogue-enrollment.experimental-1","teaching":{"schema":"tig.catalogue-teaching-profile.design-1","project":"sample","trace":trace,"roles":[{"id":"working","label":"Working / F"},{"id":"history","label":"History / D"},{"id":"backup","label":"Backup / M"}],"source":{"places":[{"root":self.root.join("lesson-evidence"),"layout":"flat"}],"required":"cooperative-immutable","limits":{"object_bytes":65536,"total_bytes":2097152,"requests":32,"verify_millis":30000,"live_readers":1}}},"default_project":"sample","projects":[{"id":"sample","label":"Tig public teaching sample","profile":profile,"display":[{"category":"Studies","title_pointers":["/authored/title"]}],"fields":[{"label":"Version","pointer":"/authored/version","section":"source"}],"collections":[{"id":"studies","label":"Studies","icon":"folder","roots":[{"pattern":"^work/(.+)$","key":"${1}"}],"stages":[{"label":"Released","pointer":"/status/lifecycle","pattern":"^released$"}],"count_state":"Released","version_pointer":"/authored/version","version_role":"result","version_slot_prefix":"history/"}],"storage":{"schema":"tig.catalogue-storage.experimental-1","inventory":null,"encoding":"json","max_decoded_bytes":1048576,"places":[{"label":"Working (F)","place_index":0,"report_tier":null,"live_probe":true},{"label":"History (D)","place_index":1,"report_tier":null,"live_probe":true},{"label":"Backup (M)","place_index":2,"report_tier":null,"live_probe":true}],"default_family":"Studies","default_cache":"Working (F)"}}]}),
         )?;
         let mut catalogue =
             tig_git::catalogue::Catalogue::load(tig_git::catalogue::Config::load(&enrollment)?)?;
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request()?)?;
         catalogue.observe_registered("sample", current, "")?;
         let inventory =
             catalogue.object_inventory(&tig_git::catalogue::storage::objects::Query {
@@ -621,11 +628,15 @@ impl Demo {
         )?;
         self.select("main", &current, "return-v2")?;
         self.checkpoint(6, &current)?;
-        self.catalogue(&current)?;
-        save(
+        let trace = save(
             &self.root.join("trace.json"),
-            &json!({"schema":"tig.teaching-trace.design-1","completed":self.reports,"pending":["publish/fetch/pull","catalogue lesson playback","failure rehearsals","final retirement","metadata lifetime"],"fixture_native_scope":"selected objects and fixture primary inputs; historical streams retain historical source obligations"}),
+            &json!({"schema":"tig.teaching-trace.design-2","providers":self.config.providers.iter().map(|p|json!({"instance":p.place.instance,"id":p.assignments[0].place.as_str()})).collect::<Vec<_>>(),"completed":self.reports,"pending":["full command-by-command Git curriculum","publish/fetch/pull","failure rehearsals","final retirement","metadata lifetime"],"fixture_native_scope":"selected objects and fixture primary inputs; historical streams retain historical source obligations"}),
         )?;
+        fs::copy(
+            self.root.join("trace.json"),
+            Layout::Flat.object_path(&self.root.join("lesson-evidence"), &trace.sha256),
+        )?;
+        self.catalogue(&current, &trace)?;
         Ok(
             json!({"schema":"tig.sample-result.design-1","root":self.root,"completed_checkpoints":7,"trace":"trace.json","catalogue":"catalogue.json","complete_course":false}),
         )

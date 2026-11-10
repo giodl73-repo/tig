@@ -13,3 +13,5 @@
 .object-selection{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:12px;background:#edf1e9;border:1px solid var(--line);border-radius:8px}.object-selection .muted{font-size:12px}.object-manager-table input[type=checkbox]{width:17px;height:17px;accent-color:var(--green)}
 
 .stats>.summary-filter{background:white;border:1px solid var(--line);border-radius:10px;padding:12px;text-align:left;color:var(--ink)}.stats>.summary-filter[aria-pressed=true]{background:var(--pale);border:2px solid var(--green);padding:11px}.stats>.summary-filter:hover{border-color:var(--green)}.stats>.summary-help{grid-column:1/-1;margin:0;color:var(--muted);font-size:11px}
+
+.lesson-view{display:grid;gap:16px}.lesson-event{font-size:17px;line-height:1.65;max-width:78ch;margin:0}.lesson-role-set{min-height:28px}.lesson-object-table th:first-child{width:20%}.lesson-object-table td{min-width:150px}.lesson-evidence{background:white;border:1px solid var(--line);border-radius:9px;padding:14px;overflow-wrap:anywhere}.lesson-evidence summary{cursor:pointer;color:var(--green);font-weight:650}.lesson-evidence p,.lesson-evidence li{font-size:12px}.lesson-view .callout{margin:0}

@@ -49,8 +49,10 @@ adapters, without a demo storage engine or private assets. See the
 [lesson sequence](examples/catalogue/README.md). A first schema-gated tig-sample
 runner now executes seven ordinary checkpoints with actual Git/source/provider
 effects, independent copy assertions and a real catalogue enrollment. Focused
-CLI/catalogue tests and strict Clippy pass. Interactive lesson playback,
-publish/fetch/pull, failure rehearsals, final retirement/lifetime lessons and
+CLI/catalogue tests and strict Clippy pass. Optional recorded lesson playback now
+reads sealed reports and shows before/desired/observed copies; qualification is
+tracked in [its contract](specs/TEACHING-PLAYBACK.md). Publish/fetch/pull,
+failure rehearsals, final retirement/lifetime lessons and
 full broad/hosted/browser/user qualification remain required for teaching parity.
 
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit

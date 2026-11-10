@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-115 adds recorded sample lesson playback: stable original bytes move from
+F+M to D+M after the job ends and back to F+M on revert. Native sample/API evidence
+and shipped controller fixtures are separate. No real browser/classroom acceptance
+or completed VAL is claimed. Full Git course/fault/final-loss/expiry and production
+native/provider/lifetime gates remain open. See
+[review](../reviews/2026-11-09-teaching-playback.md).
+
 EVID-114 rehearses seven ordinary teaching checkpoints with public generated
 bytes, actual Git/source/provider operations and a real catalogue. Job-held old
 bytes, job-end demotion, revert/reacquisition, shared copies and Git isolation

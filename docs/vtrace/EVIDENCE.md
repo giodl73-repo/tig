@@ -1,5 +1,17 @@
 # Evidence index
 
+EVID-115 (implemented candidate): input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965.
+[Review](../reviews/2026-11-09-teaching-playback.md) separates optional recorded
+lesson implementation, verification, synthetic validation, trace and six producer
+lenses. Focused native52463 passes actual sample/API/HTTP and metadata-refusal
+cases. Final1180 passes actual HTTP -> shipped-controls, semantic negatives,
+strict schema workspace Clippy and fresh persistent sample/catalogue check.
+Default26395 workspace/500k/strict/standalone and all73 controller cases pass.
+All-feature22256 workspace/second500k/strict and final L0/fmt/diff/source-secrets
+pass; hosted checks remain pending; full command/failure/final-loss/lifetime course and browser/human
+acceptance remain open. Parent PR45 run42737465924 passed Linux/secrets but failed
+Windows in inherited simultaneous age capture; parent qualification remains open.
+
 EVID-114 (locally qualified candidate): runtime3ee533ce31d1f54075982976876a5a553a11933f; input
 291156862d14874db481b7f2f16ba7152caa45c9. The
 [review](../reviews/2026-11-09-teaching-catalogue.md) separates public inputs/oracle,

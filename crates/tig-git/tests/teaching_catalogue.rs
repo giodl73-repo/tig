@@ -3,6 +3,8 @@ use serde_json::Value;
 use std::{fs, process::Command};
 use tig_core::Object;
 use tig_git::catalogue::{Catalogue, Config, storage::objects::Query};
+#[path = "common/catalogue_server.rs"]
+mod catalogue_server;
 
 #[test]
 fn public_course_runs_real_git_and_providers_then_loads_the_catalogue() {
@@ -97,6 +99,8 @@ fn public_course_runs_real_git_and_providers_then_loads_the_catalogue() {
     let mut catalogue =
         Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
     let summaries = catalogue.summaries();
+    assert_eq!(summaries["teaching_available"], true);
+    check_lessons_and_refusals(&root, &catalogue);
     assert_eq!(summaries["projects"][0]["work_count"], 2);
     let commit = summaries["projects"][0]["commit"].as_str().unwrap();
     catalogue.observe_registered("sample", commit, "").unwrap();
@@ -122,6 +126,135 @@ fn public_course_runs_real_git_and_providers_then_loads_the_catalogue() {
             .iter()
             .all(|row| row["copies"].as_array().unwrap().len() == 2)
     );
+}
+
+fn check_lessons_and_refusals(root: &std::path::Path, catalogue: &Catalogue) {
+    use tig_git::catalogue::teaching;
+    let book = teaching::execute(catalogue.teaching_request().unwrap()).unwrap();
+    assert_eq!(book["lessons"].as_array().unwrap().len(), 7);
+    assert_eq!(book["authorizes_storage"], false);
+    assert_eq!(book["independent_hardware_backup_proven"], false);
+    let original = |index: usize| {
+        book["lessons"][index]["objects"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["name"] == "original")
+            .unwrap()
+    };
+    assert_eq!(
+        original(3)["observed"],
+        serde_json::json!(["backup", "working"])
+    );
+    assert_eq!(
+        original(4)["observed"],
+        serde_json::json!(["backup", "history"])
+    );
+    assert_eq!(
+        original(5)["observed"],
+        serde_json::json!(["backup", "working"])
+    );
+    assert_eq!(original(3)["object"], original(5)["object"]);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    assert_ne!(server.get("/api/lessons", false).0, 200);
+    let (code, received) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(received, book);
+    let mut renderer = Command::new("node")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/ux/recorded-lesson.cjs"
+        ))
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .expect("teaching UI qualification requires Node.js");
+    {
+        use std::io::Write;
+        renderer
+            .stdin
+            .take()
+            .unwrap()
+            .write_all(&serde_json::to_vec(&received).unwrap())
+            .unwrap();
+    }
+    let rendered = renderer.wait_with_output().unwrap();
+    assert!(rendered.status.success(), "{rendered:?}");
+    assert_ne!(server.json("/api/lessons?path=unadmitted").0, 200);
+    let (code, script) = server.get("/lessons.js", false);
+    assert_eq!(code, 200);
+    assert!(script.contains("recorded-rehearsal"));
+    drop(server);
+
+    let original_config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let object: Object = serde_json::from_value(trace["completed"][0]["report"].clone()).unwrap();
+    let path = tig_store::existing::Layout::Flat
+        .object_path(&root.join("lesson-evidence"), &object.sha256);
+    let raw = fs::read(&path).unwrap();
+    fs::remove_file(&path).unwrap();
+    assert!(teaching::execute(catalogue.teaching_request().unwrap()).is_err());
+    fs::write(&path, b"corrupt").unwrap();
+    assert!(teaching::execute(catalogue.teaching_request().unwrap()).is_err());
+    fs::write(&path, &raw).unwrap();
+
+    let run = |config: &Value| {
+        let path = root.join("negative-catalogue.json");
+        fs::write(&path, serde_json::to_vec(config).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        teaching::execute(c.teaching_request().unwrap())
+    };
+    let mut swapped = original_config.clone();
+    swapped["teaching"]["roles"]
+        .as_array_mut()
+        .unwrap()
+        .swap(0, 1);
+    assert!(run(&swapped).is_err());
+
+    // Repin admitted synthetic negative metadata so semantic checks, rather
+    // than the hash guard alone, must reject it. No payload store is modified.
+    for mutation in ["schema", "plan", "role", "hardware", "size"] {
+        let mut report: Value = serde_json::from_slice(&raw).unwrap();
+        match mutation {
+            "schema" => report["schema"] = "unsupported".into(),
+            "plan" => {
+                report["receipt"]["plan"] =
+                    serde_json::to_value(Object::from_bytes(b"foreign").sha256).unwrap()
+            }
+            "role" => {
+                report["observations"]["original"]["verified_copies"] =
+                    serde_json::json!(["foreign"])
+            }
+            "hardware" => report["independent_hardware_backup_proven"] = true.into(),
+            "size" => report["observations"]["original"]["object"]["bytes"] = 999.into(),
+            _ => unreachable!(),
+        }
+        let mut edited = trace.clone();
+        edited["completed"][0]["report"] = save_evidence(root, &report);
+        let mut config = original_config.clone();
+        config["teaching"]["trace"] = save_evidence(root, &edited);
+        assert!(run(&config).is_err(), "accepted {mutation}");
+    }
+    let mut oversized = trace.clone();
+    oversized["completed"] = Value::Array(vec![trace["completed"][0].clone(); 17]);
+    let mut config = original_config;
+    config["teaching"]["trace"] = save_evidence(root, &oversized);
+    assert!(run(&config).is_err());
+    assert_eq!(
+        teaching::execute(catalogue.teaching_request().unwrap()).unwrap(),
+        book
+    );
+}
+
+fn save_evidence(root: &std::path::Path, value: &Value) -> Value {
+    let raw = tig_core::identity::canonical_json(value).unwrap();
+    let object = Object::from_bytes(&raw);
+    let path = tig_store::existing::Layout::Flat
+        .object_path(&root.join("lesson-evidence"), &object.sha256);
+    fs::write(path, raw).unwrap();
+    serde_json::to_value(object).unwrap()
 }
 
 #[test]
