@@ -1,0 +1,29 @@
+# Inert consumer example. Copy request.mjs to tools/tig-request.mjs and this file
+# to .github/workflows/tig-placement.yml only after independent enrollment.
+name: Tig placement
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: tig-placement-${{ github.repository_id }}-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+          lfs: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: tools/tig-request.mjs
+      - name: Request enrolled placement reconciliation
+        env:
+          TIG_ENDPOINT: ${{ vars.TIG_ENDPOINT }}
+          TIG_AUDIENCE: ${{ vars.TIG_AUDIENCE }}
+        run: node tools/tig-request.mjs

@@ -10,6 +10,14 @@ See docs/ARCHITECTURE.md for current scope. Private consumer checkpoints and
 runtime bindings remain owner-managed; docs/CONSUMER-ADOPTION.md defines generic
 gates. Registration and component tests do not close production or custody.
 
+Explicit aged paged execution candidate: existing controller now freezes exact
+retained original age proofs and acknowledges unchanged survivor inheritance
+before page completion. Source/provider fences recheck the conservative deadline.
+Read-only registry-aware status can clarify interrupted acknowledgement without
+writer/time; cancellation preserves unknown inheritance. EVID-110 separates
+focused qualification from pending broader/artifact/adoption gates. Full native,
+operator/agent/UI/Action and authority/provider/lifetime/human acceptance stay open.
+
 Validation: pwsh -NoProfile -File tools/validate.ps1; git diff --check.
 For implementation changes, run fmt/locked Rust tests/Clippy and exact focused
 failure fixtures before closing the pulse. Update docs/vtrace/REVIEW.md with
@@ -97,3 +105,19 @@ need no REEL dependency. Native claim/schema acceptance, source/job lifecycle an
 full placement/custody/consumer acceptance remain open.
 
 Explicit restoration pilot: EVID-065 adds default preview and explicit no-overwrite copying of one Git-selected stream through existing guarded readers. The optional project helper orchestrates bounded committed manifests. Synthetic tests stay here; private consumer media and verification receipts stay consumer-side. Full migration, custody and eviction remain open.
+
+Retained-subset prerequisite: EVID-097 and RETAINED-SUBSET.md qualify exact owned
+historical binding settlement with finished metadata, same-class survivor history
+and conditional original retirement. Atomic history adoption avoids transient
+active-use suppression. Focused/CLI/old-reader checks and six actual new exits
+pass; corrected locked default/all-feature workspace and explicit artifact
+qualification pass. Hosted current-head checks remain separate. No payload deletion, full
+bulk selector, metadata retirement, native/provider adoption or full VAL closure.
+
+Final-retirement claim prerequisite: EVID-098 / FINAL-RETIREMENT.md adds live
+content-wide membership clearance with exact namespace/policy/minimum pins.
+All source classes/roles, another-place use, actual restored history and process
+fences execute without grant release or payload mutation. Final-runtime locked
+default/all-feature workspace, focused/vector/old-reader, strict Clippy and L0
+pass. Hosted exact head and the actual final-provider/bulk/lifetime executor,
+native adoption and complete VAL outcomes remain open.

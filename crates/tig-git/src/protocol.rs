@@ -64,6 +64,10 @@ pub trait DownloadBackend {
     fn initialize(&mut self) -> Result<()>;
     fn download(&mut self, object: &Object) -> Result<Download>;
 }
+pub trait UploadBackend {
+    fn initialize(&mut self, remote: &str) -> Result<()>;
+    fn upload(&mut self, object: &Object, path: &std::path::Path) -> Result<()>;
+}
 fn send(out: &mut impl Write, value: &Value) -> Result<()> {
     serde_json::to_writer(&mut *out, value).map_err(|_| AgentError::Io)?;
     out.write_all(b"\n")?;
@@ -148,6 +152,99 @@ pub fn serve(
                         send(
                             &mut output,
                             &json!({"event":"complete","oid":object.sha256.as_str(),"path":path}),
+                        )?;
+                    }
+                    Err(e) => send(
+                        &mut output,
+                        &json!({"event":"complete","oid":oid.map(|d|d.as_str().to_owned()),"error":{"code":2,"message":e.to_string()}}),
+                    )?,
+                }
+            }
+            _ => return Err(AgentError::Unsupported),
+        }
+    }
+}
+
+/// Standard standalone upload messages. File/action admission stays backend-owned.
+pub fn serve_upload(
+    mut input: impl BufRead,
+    mut output: impl Write,
+    backend: &mut impl UploadBackend,
+) -> Result<()> {
+    let mut initialized = false;
+    let mut frames = 0;
+    loop {
+        let mut frame = Vec::new();
+        let n = std::io::Read::take(&mut input, 65538).read_until(b'\n', &mut frame)?;
+        if n == 0 {
+            return Ok(());
+        }
+        frames += 1;
+        if frames > 4096 {
+            return Err(AgentError::Limit);
+        }
+        if n > 65537 || frame.last() != Some(&b'\n') {
+            return Err(AgentError::Malformed);
+        }
+        frame.pop();
+        let request = identity::parse_json(&frame).map_err(|_| AgentError::Malformed)?;
+        match request["event"].as_str() {
+            Some("terminate") => return Ok(()),
+            Some("init") => {
+                if initialized {
+                    return Err(AgentError::State);
+                }
+                if request["operation"] != "upload" {
+                    send(
+                        &mut output,
+                        &json!({"error":{"code":1,"message":"This profile supports uploads only"}}),
+                    )?;
+                    return Ok(());
+                }
+                if request
+                    .get("concurrenttransfers")
+                    .is_some_and(|n| n.as_u64().is_none_or(|n| n == 0 || n > 64))
+                    || request.get("concurrent").is_some_and(|v| !v.is_boolean())
+                {
+                    return Err(AgentError::Malformed);
+                }
+                let remote = request["remote"].as_str().ok_or(AgentError::Malformed)?;
+                if let Err(e) = backend.initialize(remote) {
+                    send(
+                        &mut output,
+                        &json!({"error":{"code":2,"message":e.to_string()}}),
+                    )?;
+                    return Ok(());
+                }
+                initialized = true;
+                send(&mut output, &json!({}))?;
+            }
+            Some("upload") => {
+                if !initialized {
+                    return Err(AgentError::State);
+                }
+                let oid = request["oid"].as_str().and_then(|s| Digest::parse(s).ok());
+                let result = (|| {
+                    if !request["action"].is_null() {
+                        return Err(AgentError::Unsupported);
+                    }
+                    let o = Object {
+                        sha256: oid.clone().ok_or(AgentError::Malformed)?,
+                        bytes: request["size"].as_u64().ok_or(AgentError::Malformed)?,
+                    };
+                    let path = request["path"].as_str().ok_or(AgentError::Malformed)?;
+                    backend.upload(&o, std::path::Path::new(path))?;
+                    Ok(o)
+                })();
+                match result {
+                    Ok(o) => {
+                        send(
+                            &mut output,
+                            &json!({"event":"progress","oid":o.sha256.as_str(),"bytesSoFar":o.bytes,"bytesSinceLast":o.bytes}),
+                        )?;
+                        send(
+                            &mut output,
+                            &json!({"event":"complete","oid":o.sha256.as_str()}),
                         )?;
                     }
                     Err(e) => send(

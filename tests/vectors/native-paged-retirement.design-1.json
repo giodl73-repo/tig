@@ -1,0 +1,36 @@
+{
+  "schema": "tig.native-paged-vectors.design-1",
+  "method": "Independent Python ASCII compact sorted JSON and hashlib.sha256; framing only, placeholder references confer no authority.",
+  "cases": [
+    {
+      "kind": "enrollment",
+      "canonical": "{\"categories\":{\"drawing\":[{\"id\":\"types/primary\",\"object\":{\"bytes\":10,\"sha256\":\"4c4ed1afbfdaa1e4c3bf7bbb82d730cecb7e384da91eea4f3cc093fd545524d6\"}}]},\"metadata\":\"45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f\",\"owner\":\"owner\"}",
+      "sha256": "b1532f7e6b14ef86dd9cb35c3cf639d606bfdec9027e296c76631123ba438d19",
+      "id": "f3310d0f6bb329db2210aa6d1e85b40247b5851e1d3279ed2f7900e7d1f8e1ec"
+    },
+    {
+      "kind": "occurrence",
+      "canonical": "{\"header\":\"4c560938124545a7a513e6e6d3054305a27e101a965d72e9347d6992b055cc93\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"predecessor_revision\":3,\"source\":\"main\"}",
+      "sha256": "fb642f785ce4037c3e6e3c71ac6d75ede5a4e0485ac049e3d7604f5f5d41dde9",
+      "id": "0ddbbdf0b5956173d8099c817ecbba4cc1802d6657e117d3b07985df2272cf01"
+    },
+    {
+      "kind": "index",
+      "canonical": "{\"count\":1,\"root\":{\"bytes\":15,\"sha256\":\"95e790a571944b16e4288f2d36cd634701e51926222e4ae5cbcee9992b247988\"},\"schema\":\"tig.native-retirement-occurrences.design-1\"}",
+      "sha256": "580fff6a7eb438ef8fde922ebad77298548f45067239ca023a528363f25dd94e",
+      "id": "580fff6a7eb438ef8fde922ebad77298548f45067239ca023a528363f25dd94e"
+    },
+    {
+      "kind": "row",
+      "canonical": "{\"age\":null,\"asset_count\":1,\"assets\":{\"bytes\":10,\"sha256\":\"a7e34c18348f8cbebd2895f5e297c95504b082b7a045dad9be8925a76983b19b\"},\"binding_count\":1,\"bindings\":{\"bytes\":12,\"sha256\":\"6289a3564b640c7c73834e8bb0e5c12d64d4772668756d31ea6f58342599c039\"},\"hold\":null,\"occurrence\":{\"header\":\"4c560938124545a7a513e6e6d3054305a27e101a965d72e9347d6992b055cc93\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"predecessor_revision\":3,\"source\":\"main\"},\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"source_checkpoint\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4}}",
+      "sha256": "ea2aa43f2b645eaf2fc0b048de5a79bfd68aa88ac8a3cf2431ba5f83b919dce8",
+      "id": "ea2aa43f2b645eaf2fc0b048de5a79bfd68aa88ac8a3cf2431ba5f83b919dce8"
+    },
+    {
+      "kind": "candidate",
+      "canonical": "{\"bindings\":1,\"enrollment\":\"f3310d0f6bb329db2210aa6d1e85b40247b5851e1d3279ed2f7900e7d1f8e1ec\",\"filter\":{\"bytes\":38,\"sha256\":\"1a0d1446c46ae2450226eae837b7c1921c125afc7d207d3e095029ee92aa9508\"},\"input\":{\"bytes\":161,\"sha256\":\"580fff6a7eb438ef8fde922ebad77298548f45067239ca023a528363f25dd94e\"},\"matched_assets\":1,\"paging\":{\"max_bindings\":4,\"max_bytes\":49152},\"request\":{\"bytes\":21,\"sha256\":\"df708fc724caa9d66953dd64f58e5eba9d0727018240271e4edf83659ef0e56d\"},\"roots\":1,\"rows\":{\"bytes\":15,\"sha256\":\"72b16f9bc452a634a11d17987eccf37f5021c7ebb4a84140142744a031bd29d2\"},\"schema\":\"tig.native-paged-selection.design-1\",\"selected_roots\":1}",
+      "sha256": "4cb087dad8c997543e30c2e87248b608d6de328236a87b56631b4d3573c1f6e3",
+      "id": "4cb087dad8c997543e30c2e87248b608d6de328236a87b56631b4d3573c1f6e3"
+    }
+  ]
+}

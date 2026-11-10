@@ -86,3 +86,10 @@ scope does not close physical domain/quota discovery or complete enforcement.
 unacknowledged-partial discard under EVID-017. Publication rechecks durable
 cancellation after acquiring its attempt fence, closing the stale-status race.
 Cancelled operations cannot be republished; this is not final-object retirement.
+
+The [storage orchestration slice](STORAGE-ORCHESTRATION.md) adds optional
+PublicationPlan context identity. None keeps legacy canonical bytes unchanged;
+Some binds the whole orchestration plan into the existing allocation command and
+private-attempt binding. Reusing an operation with changed context rejects through
+existing replay. Cleanup preserves/revalidates the context. Old readers reject
+context-bearing records; explicitly enroll compatible readers before use.

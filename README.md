@@ -25,7 +25,19 @@ copies belong. Project schemas, names and storage locations are configuration.
 Objects can belong to several branches or bundles without a copy for each.
 Replacing one asset changes its reference; unchanged bytes stay shared.
 Another branch, retained version or active job may still need old bytes.
+
+Experimental partial history settlement is specified in
+[retained-subset handoff](specs/RETAINED-SUBSET.md). `tig-source subset` previews
+and explicitly settles an owner's selected historical binding paths while
+preserving unselected members. It performs no payload deletion.
 Dropping a reference **does not authorize deletion**.
+
+For reproducible public teaching, start with the
+[sample catalogue course](examples/catalogue/README.md). Its first runnable
+rehearsal follows real Git changes through seven source/provider checkpoints,
+checks actual copies against independent expectations, and exports a catalogue.
+The catalogue can play those recorded lessons with before/desired/observed copy
+sets. The complete Git-style course remains in development.
 
 ## What works today
 
@@ -33,7 +45,7 @@ Dropping a reference **does not authorize deletion**.
 | --- | --- |
 | Identity and metadata | Immutable objects/trees, bounded persistent metadata and exact Git snapshots |
 | Existing stores | Guarded verified reads from configured flat, CAS and Git LFS layouts |
-| Git LFS | Explicit download-only existing-cache transfer adapter; no initialization or upload |
+| Git LFS | Explicit existing-cache download adapter; optional bounded standalone Basic upload with full readback |
 | Local storage | Bounded publication, capacity admission, source journals, retention and recovery primitives |
 | Optional typed assets | Schema admission, declared graphs, sparse variants, production contexts and revision/delivery history |
 | Local catalogue | Multi-project works, child navigation, search, versions, metadata coverage and storage comparison |
@@ -42,11 +54,59 @@ Dropping a reference **does not authorize deletion**.
 
 These components are not a complete autonomous storage service. Full dependency/job
 coverage, end-to-end custody, automatic lifecycle reconciliation, remote transfer
-providers and safe payload eviction remain open. The catalogue cannot move or
+providers and production eviction qualification remain open. The catalogue cannot move or
 delete assets. Registration does not prove a remote copy exists.
 Read the [safety promise](docs/SAFETY-PROMISE.md).
 
+The [Git lifecycle selection interface](specs/GIT-LIFECYCLE-RECONCILIATION.md)
+adds `tig-lifecycle describe`, then explicit plan/status/apply/resume for an
+enrolled committed ref. It verifies persisted immutable metadata before atomic
+desired-claim adoption, preserves predecessors, and separates historical receipts
+from current ref observations. Those commands keep storage convergence unknown.
+The subsequent [local placement command](specs/PLACEMENT-RECONCILIATION.md),
+`tig-lifecycle reconcile PROFILE REQUEST PLACEMENT_PROFILE [CURSOR]`, composes
+copy, retained backup, handoff, ordinary cache eviction and exact-byte
+reacquisition in explicitly enrolled local stores. It processes one bounded page
+with private permissions and separate physical observations. A trusted GitHub
+trigger, production provider/large-file qualification and full lifecycle coverage
+remain required; no runner, hook or live cache is installed automatically.
+
+The optional `tig-git/upload` feature adds [Git LFS upload](specs/LFS-UPLOAD.md)
+through `tig-lfs upload describe` and an explicitly configured standalone agent.
+It authorizes exact OIDs, preserves verified local source bytes and uses bounded
+Batch/PUT/verify/full-download readback with existing accounted witnesses.
+Private scopes admit credentials; plans contain none. Uploaded availability is
+separate from retained backup custody. No live configuration or hooks are installed.
+
+The opt-in [managed local library](specs/MANAGED-REPLICA-RETIREMENT.md) now
+supports bounded ordinary replica retirement, cancellation and explicit
+reacquisition with retained-survivor and incarnation fences in synthetic stores.
+It does not enable live caches, automatic merge actions or final-copy deletion.
+
+The explicit [retirement CLI/agent interface](specs/RETIREMENT-AGENT-CLI.md)
+exposes the same mechanism through `tig-storage retire describe`, then
+plan/status/apply/resume/cancel and explicit reacquisition. Existing managed
+roots, reserved capacity and independently admitted private profiles are required;
+eviction, cancellation and reacquisition are separately disabled by default.
+Historical retirement and current byte availability are reported separately.
+
+The optional [native historical selector](docs/guides/NATIVE-RETIREMENT.md)
+uses `tig-retirement bind/select` to map exact native blocks and admitted
+definition categories to existing bulk selections. Shared objects retain separate
+asset bindings. Binding writes metadata only; source adoption and final deletion
+need their separate authority. Age filtering is not inferred or enabled.
+
+An optional [S3 upload interface](specs/S3-PUBLICATION.md) uses private presigned
+access, conditional PUT and full hash/length readback while preserving the local
+source. Build with the tig-store `s3` feature and start with `tig-storage s3 describe`.
+Local intent/completion reuse existing accounted publication. Verified remote
+availability does not establish retained backup custody or source-eviction authority.
+
 ## Build and try it
+
+Contributors and coding agents: follow [development startup](docs/DEVELOPMENT.md)
+and [resume state](context/RESUME.md) to continue from this repo without prior
+project-session history. The [roadmap](PRODUCT_PLAN.md) orders the next slices.
 
 Use current stable Rust, Git and Git LFS. Rust 1.98.0 is the recorded local
 qualification toolchain; no minimum supported Rust version is fixed yet.
@@ -133,6 +193,15 @@ use [the Rust project interface](specs/PROJECT-RESTORE.md).
 
 The automatic lifecycle arrows describe intended integration. Current components
 do not make every Git operation trigger transfers or eviction.
+The optional [GitHub trigger](specs/GITHUB-TRIGGER.md) adds explicit foreground
+OIDC intake and bounded placement coordination under private enrollment. Its
+Action example is opt-in; external ingress, executor isolation and live provider
+adoption require separate qualification.
+Explicit [staged-index protection](specs/INDEX-LIFECYCLE.md) adds
+`tig-lifecycle index` plan/status/apply/resume/reconcile. Conflict alternatives
+remain draft byte obligations, with no merged-version or storage-convergence claim.
+Explicit [source settlement](specs/SOURCE-SETTLEMENT.md) adds `tig-lifecycle settle`
+for owned branch-end and staged-to-committed handoff, preserving retained history.
 
 ## Learn and contribute
 

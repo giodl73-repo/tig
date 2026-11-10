@@ -85,8 +85,8 @@ pub(crate) struct RetentionRecord {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct RetentionGrant {
-    record: RetentionRecord,
-    sha256: Digest,
+    pub(crate) record: RetentionRecord,
+    pub(crate) sha256: Digest,
 }
 impl RetentionGrant {
     pub fn store(&self) -> &Digest {
@@ -172,6 +172,24 @@ pub fn coverage(
         eviction_authority: false,
     })
 }
+/// Caller has freshly verified the source under its exclusive provider fence.
+pub(crate) fn coverage_subject(
+    object: &tig_core::Object,
+    source: &Digest,
+    retained: &[RetainedReplica],
+    enrollments: &[replica::ReplicaEnrollment],
+    required_domains: usize,
+    ack: AckLevel,
+) -> Result<bool> {
+    if retained.iter().any(|r| !r.valid) {
+        return Err(RetentionError::Invalidated);
+    }
+    let live = retained.iter().map(|r| &r.replica).collect::<Vec<_>>();
+    Ok(
+        replica::coverage_subject(object, source, &live, enrollments, required_domains, ack)?
+            .meets_declared_coverage(),
+    )
+}
 pub fn plan(store: &LocalStore, request: &RetentionRequest) -> Result<RetentionPlan> {
     store.capabilities().check(&request.publication)?;
     if request.minimum_ack > request.publication.required {
@@ -209,6 +227,48 @@ fn keys(planned: &RetentionPlan) -> Result<(Key, Key)> {
         Key::parse(&format!("retained-{}", id.as_str()))?,
     ))
 }
+/// Inspect an exact retention request after restart, without admitting or
+/// repairing anything. A returned replica has fresh byte verification/protection.
+pub(crate) fn inspect(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &RetentionPlan,
+) -> Result<Option<RetainedReplica>> {
+    let Some(grant) = recorded(ledger, store, job, planned)? else {
+        return Ok(None);
+    };
+    Ok(Some(verify(ledger, store, &grant)?))
+}
+/// Recover the original settled grant binding. Callers must separately verify
+/// active custody or the exact handoff marker; this never grants a live guard.
+pub(crate) fn recorded(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &RetentionPlan,
+) -> Result<Option<RetentionGrant>> {
+    validate(store, planned)?;
+    let (operation, _) = keys(planned)?;
+    let Some(allocation) = ledger.allocation_reference(&operation, true)? else {
+        return Ok(None);
+    };
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    if ledger.retention_status(&allocation, &binding)?.is_none() {
+        return Ok(None);
+    }
+    let record = RetentionRecord {
+        schema: SCHEMA.into(),
+        plan: planned.clone(),
+        job: job.clone(),
+        allocation,
+    };
+    let grant = RetentionGrant {
+        sha256: Digest::blob(&encode(&record)?),
+        record,
+    };
+    Ok(Some(grant))
+}
 pub fn verify(
     ledger: &mut CapacityLedger,
     store: &LocalStore,
@@ -245,6 +305,13 @@ pub fn verify(
         grant: grant.clone(),
         valid: true,
     })
+}
+pub(crate) fn released(store: &LocalStore, grant: &RetentionGrant) -> Result<bool> {
+    validate(store, &grant.record.plan)?;
+    if grant.record.schema != SCHEMA || Digest::blob(&encode(&grant.record)?) != grant.sha256 {
+        return Err(RetentionError::InvalidPlan);
+    }
+    Ok(store.retention_released(&grant.record)?)
 }
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Stage {

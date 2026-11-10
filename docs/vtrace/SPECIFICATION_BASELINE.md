@@ -1,5 +1,42 @@
 # Tig controlled specification baseline
 
+SPEC-002/003/004/005/008/009/010/013/014 native selection prerequisite:
+[native historical bindings](../../specs/NATIVE-RETIREMENT-BINDINGS.md), EVID-105
+and [six-producer review](../reviews/2026-11-09-native-retirement-bindings.md)
+specify explicit declared storage closure, per-asset aliases, admitted immutable
+header/native interpretation and exact block/category selection. Production input
+rules remain. Native age, source/writer adoption, UI/Action/paging and live
+authority/provider/lifetime/metadata retirement acceptance remain target.
+
+SPEC-002/003/004/005/006/008/009/013/014 operator extension:
+[bulk execution](../../specs/BULK-EXECUTION.md), EVID-104 and
+[six-producer review](../reviews/2026-11-09-bulk-execution.md) specify separately
+enabled exact-plan apply/resume/cancel, explicit native clock admission and
+metadata/time-free cancellation over the existing controller. Inspection stays
+observational. Native/UI/Action/current authority/provider/lifetime adoption
+and full intended-use acceptance remain target requirements.
+
+SPEC-003/004/005/008/009/014 time-admission prerequisite:
+[local clock](../../specs/LOCAL-CLOCK.md), EVID-103 and
+[six-producer review](../reviews/2026-11-09-local-clock.md) specify fresh design-2
+clock-enabled capacity ledgers, explicit persisted OS observations and whole-window
+checks. Legacy bytes remain unchanged. Native trust/current authority, restored
+systems, operational continuation and operator mutation adoption remain target.
+
+SPEC-003/004/005/008/009/014 operator prerequisite:
+[bulk inspection](../../specs/BULK-OPERATOR.md), EVID-102 and
+[six-producer review](../reviews/2026-11-09-bulk-inspection.md) qualify exact
+existing-root plan/peak/status and writer-free historical observation. Mutation
+permissions, native selectors, clock/current authority, provider/large-file/
+lifetime and human acceptance remain target obligations.
+
+SPEC-004/008/009 explicit group profile:
+[roster precedence](../../specs/ROSTER-PRECEDENCE.md), EVID-101 and
+[six-producer review](../reviews/2026-11-09-roster-precedence.md) cover fresh
+roster-scope bindings and design-2 placement. Advisory history resolves against
+active use across the admitted group in both planning and live assessment;
+hard/additive obligations and legacy scope remain. Full adoption stays open.
+
 Input: 0a9a522, 13 pure handoff tests. `current` means observed experimental
 behavior, not released compatibility. `target` is controlled design with open
 implementation/validation. `unknown` decisions must be resolved or action-scoped
@@ -172,3 +209,88 @@ Consumed payload policy extends SPEC-005/010/011 under
 entry81965c7. A distinct opt-in identity hashes an explicit structural subset of
 captured payloads; full requirements/provenance and legacy calls stay unchanged.
 Native claim replay requires independent original policy, not inferred downgrade.
+
+The explicit retirement operator/agent interface extends SPEC-002/003/004/005/
+006/007/008/009/013 under [RETIREMENT-AGENT-CLI](../../specs/RETIREMENT-AGENT-CLI.md),
+input3e300ca. Canonical portable plans never replace private policy admission;
+status reports historical state separately from fresh byte evidence. Existing
+copy CLI schemas remain compatible. Final deletion, native/provider adoption and
+automatic Git lifecycle execution retain separate gates.
+
+The optional S3 adapter extends SPEC-002/003/004/007/008/009/013 under
+[S3-PUBLICATION](../../specs/S3-PUBLICATION.md), input3fd9918. Conditional upload and
+full readback reuse existing guarded local source and accounted witness ports.
+Private access is excluded from portable plans; verified remote availability is
+explicitly separate from retained custody, durability and removal authority.
+
+The optional standalone LFS upload extends SPEC-002/003/004/005/007/008/009/013
+under [LFS-UPLOAD](../../specs/LFS-UPLOAD.md), input9b8a689. It preserves exact
+source bytes and default download compatibility while adding Basic Batch/PUT/
+verify/readback and existing accounted witnesses. Private action credentials are
+explicitly scoped; no automatic discovery/helper or implicit Batch-token forwarding.
+Real server/custody/large-file qualification and Git event integration remain open.
+
+Committed-ref lifecycle selection extends SPEC-002/003/004/005/006/007/008/009/013
+under [GIT-LIFECYCLE-RECONCILIATION](../../specs/GIT-LIFECYCLE-RECONCILIATION.md),
+inputd81cabe. Current selection admission reuses existing source event encodings;
+new experimental plan/profile/status documents remain distinct. Atomic adoption
+is desired protection, never byte/custody/convergence acknowledgement. Old-reader
+qualification uses a pinned pre-pair artifact separately from ordinary tests.
+The full Git lifecycle/provider execution and trigger boundary remain open.
+
+The bounded local placement composition extends those same controls under
+[PLACEMENT-RECONCILIATION](../../specs/PLACEMENT-RECONCILIATION.md), inputa678381.
+Readonly requirements and explicit operator pages reuse existing event, accounted
+publication, retention/handoff and managed incarnation/removal contracts. No new
+journal encoding exists. Current private enrollment/page/report documents remain
+experimental; page convergence is not full selection convergence. EVID-093 scopes
+temporary-store verification separately from external trigger, native/provider/
+large-file/lifetime, final-deletion and metadata-retirement requirements.
+
+Optional trusted GitHub intake extends the same source/provider controls under
+[GITHUB-TRIGGER](../../specs/GITHUB-TRIGGER.md), input1c253ea. EVID-094 separates
+signed nonempty synthetic placement from actual issuer/foreground empty-scope
+compatibility; neither grants live enrollment or final-copy authority.
+
+Explicit staged-index protection extends SPEC-002/004/005/006/007/008/009 under
+[INDEX-LIFECYCLE](../../specs/INDEX-LIFECYCLE.md), input195bd0a. Object-set draft
+roots admit known conflict alternatives without relaxing merged extraction.
+Existing source journal bytes and placement/removal contracts remain unchanged;
+new index plan/profile/status documents are experimental and separately versioned.
+
+[SOURCE-SETTLEMENT](../../specs/SOURCE-SETTLEMENT.md), input9c2a29f, extends the
+same source/Git/placement controls with bounded transactional revision predicates,
+exact local ref absence and owned current-to-predecessor withdrawal. Event bytes
+remain unchanged; historical receipt, current source/Git and custody are distinct.
+
+[RETAINED-SUBSET](../../specs/RETAINED-SUBSET.md), input63f2c96, extends
+SPEC-002/004/005/006/008/009/014 with owner-authorized exact partial historical
+root settlement. Existing tree edits and Enroll/Prepare/Adopt/Withdraw/Retire
+encodings preserve the unselected set under the same immutable policy class.
+Atomic three-command history adoption exposes no transient current selection;
+draft-only subset plan/effect design-2 supersedes design-1 before release.
+New experimental plan/profile/status records grant no payload deletion authority.
+
+[FINAL-RETIREMENT](../../specs/FINAL-RETIREMENT.md), input59174b1, extends
+SPEC-002/003/004/005/006/008/009/013/014. Content-scope live claim clearance is
+current bounded infrastructure; final provider release/removal, bulk selection,
+new provider formats, cancellation effects and metadata lifetime remain target.
+Clearance checks membership in all admitted namespaces independent of placement
+and pins exact trusted minima with the shared journal ancestry verifier. The
+new roster/summary is experimental; no existing journal/provider format changes.
+
+[FINAL-PROVIDER](../../specs/FINAL-PROVIDER.md), input273e639, extends the same
+SPEC-002/003/004/005/006/008/009/013/014 controls with a fresh design-8 provider
+profile and bounded canonical final policy/plan/intent/release/terminal/status,
+plus separately authorized fresh reacquisition plan and context-bearing birth.
+Legacy provider encodings and ordinary keeper requirements remain. No existing
+root upgrade, journal command, bulk selector, live authority migration or metadata
+expiry is admitted. Implementation and qualification are separate records.
+
+[BULK-RETIREMENT](../../specs/BULK-RETIREMENT.md), input4478207, extends the same
+SPEC-002/003/004/005/006/008/009/013/014 controls with exact historical selection,
+held/eligible plan, accounted consent/terminal witnesses and source/final-provider
+composition. Source sequences reuse existing transitions and event bytes; final
+consent history is checked under the existing live content fences. The new bounded
+experimental wire records have independent framing vectors. No new journal/cache,
+provider format, native category/age interpretation or CLI permission is added.

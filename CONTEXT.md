@@ -1,5 +1,178 @@
 # Tig maintainer context
 
+Active owned lane: feat/teaching-stale-plan, input
+d200ed38e2594a6e82205067dd8aadd107a7bff4; runtime
+617540154fedfd7aa51d33c37f31cfd0223941a8. Contract:
+specs/TEACHING-STALE-PLAN.md; actual stale SDK apply is rejected before effects.
+Actual status against the new protection basis is recorded separately, never as
+a successful apply receipt. Fresh plans honor the new job and demote only after
+its explicit end. Final52714 passes six native cases, strict schema workspace,
+standalone Git, fmt and fresh ten-checkpoint executable/catalogue validation;
+all78 controller cases pass. Default89185 workspace/500k passes; its Clippy style
+failure is fixed and final52714 qualifies it. All-feature48441 workspace/500k/
+strict passes in the separate external target; all local handles are terminal.
+Logs stale-*.log in bulk-retirement dev temp. Source structure/pins/diff/secrets
+pass; derive the current branch PR and exact-head hosted status from GitHub.
+Parent PR49 exact-head run42762379566 passes Windows/Linux/secrets.
+No merge/deploy/live cache/viewer. Full goal and browser/human gates remain open.
+Older lane entries below are historical; see context/RESUME.md.
+
+Active owned lane: feat/teaching-backup-outage, input9310d0c; runtime
+73069222eaa0999b2eebb69786373917353f0162. Contract:
+specs/TEACHING-BACKUP-OUTAGE.md; review/EVID-118 separate implementation,
+verification/validation/trace/six producer lenses. Real SDK held merge/job-end,
+unknown M coverage, protected F and same-plan catchup with seed reads disabled
+are locally qualified. Five native/API/shipped-controls cases,76 controller cases,
+both workspace/both500k/strict/standalone profiles and fresh artifact pass. All
+local handles terminal. Parent PR48 exact-head run42753891927 passes Windows/
+Linux/secrets and is ready; no merge/deploy. Source is pinned; derive this branch
+draft PR/hosted status from GitHub. Browser/human qualification remains open.
+
+Active owned lane: feat/teaching-worktree, input27a6eb4; runtime
+6812e1086bf4fc9fb58849a5e77718c4dd051da9. Contract:
+specs/TEACHING-WORKTREE.md; review/EVID-117 separate implementation/verification/
+validation/trace/six producer lenses. Linked worktree/index capture, dirty-removal
+preservation and a job that outlives checkout closure are locally qualified.
+Four native/API/shipped-controls cases,73 controller cases, both workspace/
+both500k/strict/standalone profiles and fresh persistent artifact pass. All local
+handles are terminal. Parent PR47 exact-head run42748580854 passes Windows/Linux/
+secrets and is ready; no merge/deploy. Source is pinned; derive the branch draft
+PR/hosted status from GitHub. Browser/human qualification remains; see RESUME.
+
+Active owned lane: feat/teaching-exchange at input618628a; runtime
+8f17aa9a711fcb6d372fb2f267f67ef2ac313692. Contract:
+specs/TEACHING-EXCHANGE.md; review/EVID-116 separate implementation/verification/
+validation/trace/six producer lenses. Fresh-root local push/clone/fetch/pull,
+dirty-pull preservation and three extra actual placement checkpoints are locally
+qualified. Three native/API/shipped-controls cases,73 controller cases, both
+workspace/both500k/strict/standalone profiles and fresh persistent artifact pass.
+All local handles are terminal. Parent PR46 exact-head run42744449594 passes
+Windows/Linux/secrets; PR46 is ready, no merge/deploy. Current exchange source is pinned; derive its draft PR/hosted status from GitHub.
+Browser/human qualification remains; see RESUME.md.
+
+Active lane: feat/teaching-playback, input6d9a2e0; runtime
+3c423315d1901d9015572a5507643939e79605ae. Read
+specs/TEACHING-PLAYBACK.md and context/RESUME.md. Optional bounded recorded
+lesson API, actual sample evidence export and shipped controls are implemented
+and locally qualified. Native sample/HTTP -> shipped-controls, semantic negatives,
+all73 controller cases, default/500k/strict/standalone and final schema strict/
+persistent CLI, all-feature/second500k/strict and final L0/source-secrets pass.
+Hosted qualification and browser/human acceptance remain.
+Parent PR45 exact-head run42737465924 failed Windows in
+the inherited simultaneous age-capture test; Linux/secrets passed. Do not claim
+hosted qualification, start a viewer or touch existing cache roots.
+
+Teaching runtime: 3ee533ce31d1f54075982976876a5a553a11933f.
+Teaching-catalogue lane: user requires public, portable Git-style teaching and
+fixtures at every workflow step. specs/TEACHING-CATALOGUE.md and
+examples/catalogue/README.md define the full course. New schema-gated tig-sample
+rehearse-ordinary creates fresh external roots only, runs real Git/source/provider
+operations through seven independently checked checkpoints, and exports an actual
+catalogue plus bounded reports. Focused tests/strict Clippy and a persistent fresh
+CLI/catalogue-check rehearsal pass. Full playback/UI, publish/fetch/pull, failure
+rehearsals, final retirement/lifetime and broad/hosted/browser checks remain open.
+See context/RESUME.md; do not replace shared viewers or touch existing roots.
+
+Held-copy runtime: eb94c7228935549a0893456ca55bfacee54090e0.
+Held-copy follow-up lane: specs/HELD-COPY-FOLLOWUP.md defines PO-07's fresh
+decision after original claim settlement. It retains original scope/outcome
+provenance, rechecks current content-wide protection/provider facts, and needs
+new final-loss approval. Copy-only runtime and explicit CLI are implemented;
+focused/process/final artifact and local broad qualification pass. PR44 is ready:
+run42729638843 passes exact-head Windows/Linux/secrets at2911568. Parent PR43 has
+exact-head Windows/Linux/secrets
+checks passed; read context/RESUME.md for current evidence and remaining gates.
+
+Paged-operator lane: explicit tig-storage paged now composes existing-root copy
+index staging, exact decisions, original scope pagination, peak/status and
+separately approved apply/resume/cancel with the existing controller. Metadata
+Session views share budgets through finish/readback; cancellation acknowledges
+the witness stop before optional cleanup. Synthetic20-page manual/aged CLI,
+native-executable handoff, default/all-feature/500k/strict Clippy and standalone
+checks pass locally; hosted checks remain. Read context/RESUME.md for exact scope.
+Full native/current-authority, agent/UI/Action, provider/large-file/restore/lifetime,
+metadata expiry and intended-use acceptance remain open. No live roots are enabled.
+
+Native-paged lane: optional indexed occurrence/block/category/age selection now
+stages existing paged requests through a default-disabled metadata-only CLI.
+Unknown/recent exclusions remain fixed and source drift refuses. The native
+Session shares budgets through independent finish/readback. Synthetic17-root
+aged controller/copy effects and1000-asset/4000-binding selection pass locally;
+broad/framing/artifact qualification passes locally; exact-head CI remains.
+Read context/RESUME.md. Full
+operator/agent/UI/Action, actual writer/authority/provider/lifetime and acceptance
+remain open. No payload IO or source mutation occurs in selection.
+
+Paged-age lane: explicit `paged::control::aged` planning/execution now composes
+pinned retained age and exact survivor inheritance with page completion. It
+admits a separate metadata-only registry boundary, preserves manual framing and
+shares metadata budgets. Seven focused aged controller fixtures, four actual
+child exits and independent aged framing pass locally. Broad pre-tightening and
+final changed-scope/artifact qualification pass; exact-head hosted checks remain.
+Read context/RESUME.md. Full native/operator/agent/UI/Action, current
+authority/writer/time/provider/restore/lifetime and human acceptance remain open.
+
+Paged-controller lane: specs/PAGED-EXECUTION.md controls a synthetic manual Rust
+candidate over existing prepared pages, accounted witnesses and final providers.
+Separate exact claim/final-copy permissions, durable global/page intent, actual
+receipt/checkpoint completion, shared metadata budgets and cancellation/status
+are being qualified. It performs no live operations or startup discovery. Full
+age-aware/native/operator/UI/Action and authority/provider/lifetime acceptance
+remain open. Read context/RESUME.md for exact checks and the next integration.
+
+Paged-retirement lane: specs/PAGED-RETIREMENT.md freezes the whole-selection and
+future controller boundaries for NB-07. The in-progress final_retirement::paged
+library compiles asset-side requests/manifests and original-binding pages using
+existing metadata/source ports. It grants no claim-release/removal authority;
+the durable paged controller and user surfaces remain owed. Read context/RESUME.md.
+
+Age-witness lane: specs/AGE-WITNESSES.md defines exact historical occurrence
+observations over existing asset-side Trees and an enrolled Retention source.
+Capture preserves acknowledged dates across retries; executed unchanged subsets
+can inherit age. tig-storage age and optional tig-retirement select-aged use
+private existing-root profiles, with no claim-release/removal authority. Aggregate
+metadata/time budgets span phases. EVID-106 records local/hosted qualification;
+live adoption and the complete milestone remain open. Read context/RESUME.md.
+
+Native retirement binding lane: optional declared storage closure and asset-side
+native-to-flat roots give each root asset independent bindings for shared objects.
+Explicit metadata-only tig-retirement bind/select composes exact block/category
+selection with the existing bulk controller, without self-approval or age inference.
+Read specs/NATIVE-RETIREMENT-BINDINGS.md and EVID-105 for local qualification.
+Bounded age witnesses are separate in EVID-106; UI/Action, native writer/adoption,
+authority/provider/lifetime and full acceptance remain open.
+
+Bulk execution lane: the distinct tig-storage bulk execute profile binds exact
+privately admitted consent and default-disabled apply/cancel permissions. Native
+clock admission is explicit; cancellation can operate without fresh time or source
+metadata. The existing controller is reused; inspection stays observational.
+Read specs/BULK-EXECUTION.md and EVID-104 for bounded local qualification; no live
+root, service, migration, trust adoption or full-plan acceptance is enabled.
+
+Local-clock lane: a fresh explicit clock-enabled capacity ledger and LocalClock
+adapter persist time floors and provide bounded native OS observations. Final
+window checks require the full earliest/latest interval; no generic SystemTime
+fallback or CLI activation. specs/LOCAL-CLOCK.md records native trust/minimum/
+restore/lifetime gates and qualification scope. This is not live clock adoption.
+
+Bulk operator inspection: tig-storage bulk describe/plan/peak/status uses explicit
+private enrollment and existing roots. bulk::Inspection requires no metadata
+writer or clock; source metadata may be offline for status. Its profile grants no
+mutation permission. Read specs/BULK-OPERATOR.md; full operator execution/native
+selection, current clock/authority, provider/large-file/lifetime gates remain.
+
+Explicit fresh roster-scope bindings and design-2 placement enrollment now
+resolve advisory history against active use across admitted namespaces. Planner
+and live ordinary-retirement assessment share that rule; hard/additive retention
+survives. Legacy namespace-local scope remains unchanged. EVID-101 and
+specs/ROSTER-PRECEDENCE.md bound this synthetic qualification; live migration,
+native/provider/clock/authority/lifetime and human adoption remain open.
+
+This repository is the development source of truth. A new session can start here
+without an older consumer-repository conversation. Follow docs/DEVELOPMENT.md and
+context/RESUME.md; PRODUCT_PLAN.md orders the next product slices. Git/PR checks
+determine what actually merged. Source availability does not deploy a running UI.
+
 Tig is generic experimental Rust infrastructure. Machine-local enrollment,
 cache paths, credentials, producer bindings and private acceptance evidence belong
 outside this repository. docs/ARCHITECTURE.md maps the implementation;
@@ -12,11 +185,78 @@ schemas drive optional resolution, graphs, contexts, revisions and deliveries.
 The catalogue provides works, search, children, coverage and storage comparison.
 Project meaning remains external configuration.
 
+The explicit tig-lifecycle CLI/library connects an enrolled exact committed ref
+to verified persistent metadata and atomically adopted desired claims. Duplicate,
+stale, revert and active-job/history behavior have synthetic Git fixtures. Source
+journals reuse existing Prepare/Adopt event bytes in one transaction; status
+preserves historical receipts independently of Git/metadata availability.
+The explicit tig-lifecycle reconcile command now composes bounded local copy,
+retention/handoff, ordinary eviction, cancellation and exact-byte reacquisition
+through tig-store::placement. EVID-093 scopes temporary Git/store qualification;
+page success does not establish complete selection convergence. See
+specs/PLACEMENT-RECONCILIATION.md. Authenticated triggers, full lifecycle/native/
+provider adoption, unattended partial recovery, large files, bulk final deletion,
+authority handoff and lifetime remain required plan work.
+
+Optional github feature now adds strict OIDC verification, bounded independent
+GitHub metadata capture, foreground tig-trigger and multi-page coordination over
+the same selection/placement APIs. EVID-094 scopes synthetic signed-request
+working/backup copies and a separate actual hosted-issuer/CLI empty-scope test.
+The latter performs zero payload operations. An inert Action client installs
+nothing; external ingress/OS isolation, full lifecycle/provider/large-file/lifetime
+adoption and later final-deletion/metadata milestones remain open.
+
+The bounded staged-index lane adds explicit draft-only plan/status/apply/
+resume/reconcile over existing guarded metadata/placement. Conflict-stage pointer
+alternatives are unique byte obligations, never a merged source selection. Fifteen
+focused entries (one child helper/two abrupt exits) pass; EVID-095 separately records
+passing local broad qualification, synthetic validation, trace and producer review.
+Hosted current-head qualification remains separate. No hook or live cache is attached.
+
+Owned source settlement is bounded under SOURCE-SETTLEMENT.md: local branch
+absence and an adopted committed successor can authorize withdrawal of only the
+owned current source, preserving predecessors. Bounded source-revision conditions
+are checked in the existing transaction; event bytes are unchanged. Shared local
+storage preflight and fresh admitted-source observations prevent false convergence.
+EVID-096 separates passing local broad/focused checks, synthetic validation, trace
+and producer review from pending hosted current-head/adoption gates.
+
 Existing-byte readers and explicit local publication/restore/retention primitives
-have bounded fixture evidence. Full live-project custody, active-job/dependency
-coverage and payload eviction remain open. Catalogue alignment/older-copy actions
-are held previews; there is no removal executor. No cache initialization, scan,
+have bounded fixture evidence. The first tig-store orchestration slice composes
+input-bound plans and source-preserving copy/retention with an explicit tig-storage
+CLI; specs/STORAGE-ORCHESTRATION.md limits its scope. Protection completeness remains
+caller-declared for that copy-only CLI. The opt-in managed local library now adds
+bounded ordinary replica retirement/cancellation and explicit reacquisition under
+specs/MANAGED-REPLICA-RETIREMENT.md. It requires scoped protection, retained
+survivors and incarnation-bound recovery in synthetic stores. Full live-project
+custody, native dependency coverage and production eviction remain open. Catalogue
+alignment/older-copy actions are held previews. No cache initialization, scan,
 hydration, daemon or hook installation on resume.
+
+Optional tig-git feature upload adds an explicit standalone Git LFS Basic upload
+agent and tig-lfs upload plan/peak/status/apply/resume over existing OID authority,
+guarded source readers and accounted local witnesses. Full remote hash/length
+readback and optional verify notification precede completion. Private action
+credentials are explicitly scoped and excluded from plans; upload defaults off.
+See specs/LFS-UPLOAD.md. This is bounded 8 MiB source-preserving transfer, not
+retained backup custody, remote quota or automatic Git lifecycle reconciliation.
+
+The explicit `tig-storage retire` interface now composes that library over existing
+managed stores and private policy profiles: plan/apply/status/resume/cancel and
+new-operation reacquisition. See specs/RETIREMENT-AGENT-CLI.md. Survivor grants,
+domains, role assignments and finite budgets are admitted independently from
+portable plans; all three execution permissions default to disabled. Status
+separates historical outcomes from freshly verified present/absent/unproven bytes.
+This does not attach a catalogue action or enable automatic lifecycle execution.
+
+Optional tig-store feature s3 adds a source-preserving conditional S3 PUT/full GET
+readback adapter and explicit tig-storage s3 plan/peak/status/apply/resume. Small
+intent/completion witnesses reuse existing accounted local publication/ledger;
+presigned URLs remain private and absent from portable plans. The synthetic HTTP
+fixture covers collisions, lost replies, corrupt/missing readback, denied access,
+bounded cancellation and source preservation. It grants no retained custody or
+removal authority. See specs/S3-PUBLICATION.md; real cloud/IAM/TLS/provider and
+remote quota qualification, LFS upload and remaining roadmap gates stay separate.
 
 Read AGENTS.md and the active wave/pulse. docs/vtrace/README.md routes controls
 and evidence. Preserve stable IDs and distinguish historical results, current
@@ -28,10 +268,43 @@ evidence SHAs in documentation identify original checkpoints; they are not
 promises that those commits exist in public history. Port reviewed generic
 patches rather than importing private ancestry. See docs/PUBLIC-RELEASE.md.
 
-Source/docs remain below 4 MiB, individual files below 128 KiB. No media, builds,
+Source/docs remain below 8 MiB, individual files below 128 KiB. No media, builds,
 runtime databases, inventories, raw receipts or private fixtures in Git.
 Use explicit build/temp roots. No portfolio/renderer checkout is a runtime
 dependency. Vendored checkers retain source pins/licenses; see docs/INTAKE.md
 and NOTICE.md. Run tools/validate.ps1 and git diff --check before commits.
 Rust changes also require fmt, appropriate locked tests, strict Clippy and
 integration cases. Hosted Windows/Linux CI is a separate qualification.
+
+Historical subset prerequisite: source_claims::subset and explicit tig-source
+subset plan/status/apply/resume protect unselected flat bindings with a same-owner/
+class survivor predecessor before conditional original retirement. Atomic
+Prepare/Adopt/Withdraw exposes no artificial active use. See RETAINED-SUBSET.md
+and EVID-097. These are claim transitions, never payload deletion or full bulk/
+age/native selection. Source/journal lifetime and all later full-plan gates remain.
+
+Final-retirement prerequisite: final_retirement::claims guards object membership
+across a separately admitted content-scope namespace/policy/minimum roster,
+independent of target-place requirements. Shared ancestry checks refuse weaker
+handle minima/restored known history. Roster summaries grant no removal or release.
+FINAL-RETIREMENT.md and EVID-098 separate this bounded implementation from the
+remaining provider format, grant-release/intent/unlink/cancellation executor,
+intentional-absence placement integration, bulk selection and metadata lifetime.
+
+The bounded final-provider layer implements the fresh design-8 local layer
+under specs/FINAL-PROVIDER.md: immutable intent/release/terminal, exact owner grant
+release, unlink/cancellation, explicit fresh same-hash acquisition and read-only
+status, using existing capacity/publication/fences. It is under qualification,
+not live enabled or production accepted. Bulk selection/consent/source settlement,
+complete age/native closure, large-file/provider/authority qualification, operator
+interfaces and metadata lifetime remain required. Do not infer goal completion
+from this library layer; derive current checks from the active lane and PR.
+
+The bulk-retirement lane composes exact flat historical block selection, complete-
+scope held/eligible projection, durable consent and sequential owned subsets with
+the final provider. Source command history is checked under live content fences;
+transient prepared/aborted demand invalidates pending approval. Cancelled scopes
+cannot silently resume source work or expand held membership. Existing private
+cleanup closes unused metadata reservations. BULK-RETIREMENT.md separates this
+bounded library from remaining native age/category, operator/UI, current authority/
+clock/provider/large-file, metadata lifetime and human acceptance gates.

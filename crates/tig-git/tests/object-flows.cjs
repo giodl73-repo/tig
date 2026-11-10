@@ -80,7 +80,7 @@ test('owner navigation refuses when the captured project snapshot is stale',asyn
 test('mismatched owner responses clear record actions while preserving back to the object',async()=>{
  const f=catalogueFixture({objectMode:true});await references(f);
  f.override('/api/asset',q=>({...f.reply('/api/asset',q),commit:'0'.repeat(40)}));await f.click(owner('Compare owner record'));
- assert.match(f.text(),/Owner record source changed/);assert.equal(f.get('tabs').children.length,0);assert.equal(f.get('back-work').hidden,false);
+ assert.match(f.text(),/Record source changed/);assert.equal(f.get('tabs').children.length,0);assert.equal(f.get('back-work').hidden,false);
 });
 test('changed object source snapshots refuse before displaying placement or references',async()=>{
  const f=catalogueFixture({objectMode:true});await objects(f);f.override('/api/storage/objects',q=>({...f.reply('/api/storage/objects',q),snapshots:{atlas:'0'.repeat(40)}}));

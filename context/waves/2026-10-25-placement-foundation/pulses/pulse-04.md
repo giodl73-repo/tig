@@ -2,6 +2,25 @@
 
 Goal: Concurrency, recovery, custody, scratch and measured reclaim fixtures.
 
+Manual paged execution: input88225ff, implementation4bcd433. PAGED-EXECUTION.md
+names controls and RUST/PROVIDER L0/L1/L2. EVID-109 separates implementation from
+verification/validation/trace/six producer lenses: twenty pages across17 roots,
+actual eligible-copy effects, fourteen process exits, original exclusions,
+shared node budgets, known restore/stale/time refusal and metadata-offline stop/
+cleanup. Default/all-feature/both500k/standalone/final79 per profile/strict Clippy/
+fresh and pinned old artifacts pass. Hosted exact-head qualification and full
+aged/native/UI/Action/authority/provider/lifetime/human acceptance remain open.
+
+Paged preparation checkpoint: input47af6dc, implementation2dd9990.
+PAGED-EXECUTION.md names WP/REQ/SPEC/IF/PKG controls and RUST/PROVIDER L0/L1/L2.
+EVID-108 separates prepared conditional plans, actual34-page/two-namespace source
+receipt comparisons and append-only age/old-reader-writer qualification from
+durable global/page execution and final-provider composition. Final focused,
+default/500k/standalone/fresh CLI checks pass. All-feature/second500k/strict
+workspace Clippy and final17-entry feature focus pass; hosted checks remain open.
+Source/docs ceiling8MiB preserves runtime and per-file bounds. No live operation,
+full pulse/requirement closure or human acceptance is implied.
+
 Status: in progress. WP-000 choose/defer discovery is recorded. WP-003 adds a
 bounded local publication subset: 24 test entries including a child helper,
 ten injected protocol boundaries and four actual abrupt process exits. Full
@@ -115,3 +134,103 @@ entries pass, with full local suites/Clippy/format. Metadata-only retirement
 preserves old events/receipts and accounting while admitting past a filled
 working window. No payload IO, service deployment, compaction or complete
 restore authority is claimed; current-head CI remains pending.
+
+Storage orchestration checkpoint: inputbb51c5a; WP-003/004/006/007/008,
+REQ-001/002/003/004/005/007/009, SPEC-002/003/004/005/008/009,
+IF-002/003/004/005/006/012, PKG-002/003 and CLI PKG-008. The first shared
+plan/local copy slice composes accounted publication and retention; EVID-084
+records focused process/retry/source-preservation checks. Full protection registry,
+eviction, cloud/upload, lifecycle events, bulk final deletion and metadata retirement
+remain open. See specs/STORAGE-ORCHESTRATION.md for RUST/PROVIDER scope and levels.
+
+Protection demand checkpoint: inputd18afba, WP-004/006/008/009;
+REQ-001/002/004/005/007/009, SPEC-002/004/005/006/008;
+IF-002/004/005/006/008, PKG-001/003. EVID-085 records bounded actual journal/root
+projection and snapshot-to-copy integration. The View adapter still holds removal;
+effective mandatory admission and intentional-absence recovery remain open.
+
+Local placement composition checkpoint: inputa678381, implementation7432739;
+controls and GIT/PROVIDER L0/L1/L2 in specs/PLACEMENT-RECONCILIATION.md. EVID-093
+separately records sixteen placement entries, two projection cases, twelve Git/
+CLI entries, broad/final-focused qualification and six producer lenses. Existing
+mechanisms now compose bounded copy/retain/handoff/ordinary eviction/cancellation/
+reacquisition, including job-end/no-op/outage catch-up. The pulse remains open:
+trusted triggers, full lifecycle/native/provider adoption, large files, unattended
+partial recovery, authority/lifetime, final deletion and metadata expiry are not
+closed by this temporary-store checkpoint.
+
+Trusted-request checkpoint: input1c253ea, implementation503adca/fixb3aced0;
+GITHUB-TRIGGER.md freezes controls and GIT/PROVIDER L0/L1/L2. EVID-094 separates
+sixteen library/eight authentication/thirteen Git cases, broader verification,
+signed nonempty temporary-store rehearsal, hosted real issuer empty-scope proof
+and six producer lenses. No service is installed. Full source/native/provider
+adoption, large files, authority/lifetime, final deletion and metadata expiry
+remain required; the pulse and whole goal stay open.
+
+Staged-index checkpoint: input195bd0a, implementation51dd2b2. INDEX-LIFECYCLE.md
+freezes controls and GIT/PROVIDER L0/L1/L2. EVID-095 records fifteen focused
+entries (one child helper/two actual exits), real CLI/job-aware ordinary placement,
+passing default/all-feature workspace/Clippy/artifact/L0 checks, synthetic
+validation, trace and six producer lenses. Conflict alternatives are draft byte
+obligations, never a merged selection. Hosted current-head checks and full
+branch/commit/private/native/provider/authority/lifetime/final-deletion/metadata
+acceptance remain open. No hook, consumer or live cache is attached.
+
+Owned settlement checkpoint: input9c2a29f, implementation51c5acc;
+SOURCE-SETTLEMENT.md freezes controls/L0/L1/L2. EVID-096 records three condition,
+twelve settlement and one signed-source-withdrawal additions, broader regression/
+old-reader/artifact checks, synthetic validation and six producer lenses. Existing
+Withdraw/event bytes are unchanged. Source/docs ceiling is 6 MiB, with all runtime
+limits and exclusions preserved. Full workflow/native/provider/authority/lifetime,
+final deletion, metadata expiry, hosted current-head and user adoption stay open.
+
+
+Roster precedence entry: input106f6f5; WP-004/006/007/009, REQ-002/003/004/005/009,
+SPEC-004/008/009, IF-004/006/012, PKG-002/003/008. ROSTER-PRECEDENCE.md
+controls fresh explicit group enrollment and shared planning/live assessment.
+Legacy namespace behavior remains; synthetic qualification/closeout in progress.
+No live upgrade, cache operation, source merge or full acceptance.
+
+
+Bulk operator entry: input36fc91b; WP-003/004/007/008/009/015,
+REQ-001/003/004/005/007/009, SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/008/012, PKG-002/003/008/009. BULK-OPERATOR.md controls
+existing-root plan/peak/status and writer-free Inspection. Explicit CLI artifact
+qualification and full regressions close apart from implementation. No bulk
+mutation permission, native clock fallback, live stores or deployment.
+
+Local-clock checkpoint: input4aeebf8, implementation9802166, portable fixture
+pin43ad0f4. LOCAL-CLOCK.md names controls and RUST/PROVIDER L0/L1/L2.
+EVID-103 and the six-producer review separate implementation from verification
+and synthetic validation. Persisted high-water/native samples, complete-window
+checks, independent vectors, three actual exits, full command exhaustion and
+negative/provider/bulk fixtures pass. Default workspace/standalone/strict Clippy
+and all-feature/fresh-artifact checks pass, including both500k fixtures. PR #34
+is draft pending exact-head hosted qualification. No live trust/adoption,
+mutation CLI, authority migration, lifetime or full pulse acceptance is implied.
+
+Bulk execution entry: input6f8fdaa; BULK-EXECUTION.md names
+WP-003/004/006/007/008/009/013/015, REQ-001/002/003/004/005/006/007/009,
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/003/004/005/006/008/012/013,
+PKG-002/003/004/007/008/009 and RUST/PROVIDER L0/L1/L2. Separate explicit
+profile binds exact plan and default-disabled permissions; source-metadata/time-
+free cancellation shares the existing controller. Nineteen active bulk entries
+and explicit fresh execution CLI qualifier pass. EVID-104 and the six-producer
+review separately close verification, synthetic validation and trace for this
+bounded scope. Both locked workspace suites/both500k fixtures, final strict
+Clippy/fmt/standalone, expanded fresh execution/inspection/ordinary cancellation,
+pinned older-writer refusal/legacy control and L0/diff pass. PR #35 stays draft
+pending exact-head hosted qualification. Full pulse/product acceptance stays open.
+No live storage, host-trust adoption, source merge or full acceptance.
+
+Native binding entry: inputc241593; NATIVE-RETIREMENT-BINDINGS.md names
+WP-003/004/007/008/009/010/013/015, REQ-001/002/003/004/005/006/007/009/010,
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-001/003/004/006/008/009 and RUST/GIT/PROVIDER L0/L1/L2. Native storage
+closure, asset-specific flat aliases and exact block/category metadata CLI reuse
+existing trees and source/bulk controllers. Focused/vector/CLI/1000-root and
+actual temporary shared/unique byte effects pass. EVID-105 separately records
+verification/validation/trace/six producer lenses. Both locked workspace/both500k,
+standalone/fresh artifact/older-writer checks and final strengthened focus/strict
+Clippy/fmt/L0/diff pass. No runtime changed after00c229d. Hosted exact-head remains
+pending. NB-07 gates paged shared-claim settlement; age is not inferred or enabled.

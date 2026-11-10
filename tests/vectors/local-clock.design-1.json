@@ -1,0 +1,31 @@
+{
+  "schema": "tig.local-clock-vectors.design-1",
+  "method": "independent Python ASCII json sort_keys/separators and hashlib SHA-256; framing only, no time or authority proof",
+  "cases": [
+    {
+      "kind": "policy",
+      "canonical": "{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"boundary\":\"76b0e8e52339685987696e45bbee94ce1c901b7b6f1ac2371a6b36c31956a6ad\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"max_drift_millis\":5,\"max_sample_millis\":20,\"max_session_millis\":1000}",
+      "id": "d2130cde581e2e71a350a16a3e4fd0a70df36fdadc065002c6a15276abfa8dcb"
+    },
+    {
+      "kind": "legacy_marker",
+      "canonical": "{\"domain\":\"clock\",\"epoch\":\"epoch\",\"floor\":0,\"instance\":\"5e8c03a94c7835b87dd82c690f9f85c08592ef7433aa141ceaacb36a9f4da434\",\"schema\":\"tig.capacity-ledger.design-1\"}",
+      "id": "13b210a8c7850057dd5183ceeb52c6356b7745dc1bd70101dbc524e6e8ffc244"
+    },
+    {
+      "kind": "marker",
+      "canonical": "{\"clock\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"boundary\":\"76b0e8e52339685987696e45bbee94ce1c901b7b6f1ac2371a6b36c31956a6ad\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"max_drift_millis\":5,\"max_sample_millis\":20,\"max_session_millis\":1000},\"domain\":\"clock\",\"epoch\":\"epoch\",\"floor\":0,\"instance\":\"5e8c03a94c7835b87dd82c690f9f85c08592ef7433aa141ceaacb36a9f4da434\",\"schema\":\"tig.capacity-ledger.design-2\"}",
+      "id": "a3d6860e72fc33bf12372b30b6e77c306ca96c3e2b36eda4dde95876320c9505"
+    },
+    {
+      "kind": "enrollment",
+      "canonical": "{\"journal\":\"a3d6860e72fc33bf12372b30b6e77c306ca96c3e2b36eda4dde95876320c9505\",\"policy\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"boundary\":\"76b0e8e52339685987696e45bbee94ce1c901b7b6f1ac2371a6b36c31956a6ad\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"max_drift_millis\":5,\"max_sample_millis\":20,\"max_session_millis\":1000}}",
+      "id": "e1bc9dd663afa1bcd037e1bb205286939709f2a57c5fce4c093270fda6a564cb"
+    },
+    {
+      "kind": "event",
+      "canonical": "{\"previous\":\"a3d6860e72fc33bf12372b30b6e77c306ca96c3e2b36eda4dde95876320c9505\",\"request\":{\"command\":{\"kind\":\"observe_clock\",\"millis\":100,\"strict\":true},\"operation\":\"time-vector\"},\"schema\":\"tig.capacity-event.design-1\",\"sequence\":1}",
+      "id": "0f210d2b9ce509a1458a385fc0b20f72689831dbf4da406d7748ef4651a7bde9"
+    }
+  ]
+}

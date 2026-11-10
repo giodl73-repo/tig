@@ -29,6 +29,15 @@ retire(exact predecessor revision, same owner)
 ```
 
 None of these operations deletes payloads or proves another replica exists.
+
+`Namespace::select_predecessor` composes existing Prepare/Adopt/Withdraw commands
+in one guarded transaction. It admits the before/final historical-root placement,
+never exposing a transient current root that could suppress history proximity.
+The three distinct operation IDs, source/owner and expected revisions remain exact;
+all three command slots/bytes must fit. Exact replay recovers the final Withdraw
+receipt; a partial prior request set holds rather than silently completing it.
+No event encoding changes. Existing two-command select and its receipts remain
+compatible. See [retained-subset handoff](RETAINED-SUBSET.md).
 Current, pending and predecessor are generic claim roles; portable project policy
 maps them to places. Other branches/jobs remain independent sources. A source's
 absence or retirement cannot establish global claim completeness. Unregistered

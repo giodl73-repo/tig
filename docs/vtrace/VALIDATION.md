@@ -1,5 +1,158 @@
 # Intended-use validation
 
+EVID-119 demonstrates rejection of historical demotion after new job admission,
+unchanged observed F+M and fresh plans before/after job end. Ten actual reports
+render through read-only catalogue controls. Explicit fixture admission does not
+qualify general native writers/races/crashes. Browser/classroom, complete course
+and full VAL remain open; [review](../reviews/2026-11-10-teaching-stale-plan.md).
+
+EVID-118 rehearses unavailable M at merge and job end, truthful unknown coverage,
+preserved old F and same-plan catchup after current custody verification. Nine
+actual reports render in the existing catalogue. Configured-path unavailability
+is not real hardware-fault qualification or a completed VAL. Full remote-byte/
+native/fault/restart/final-loss/expiry course and browser/classroom acceptance
+remain open. See [review](../reviews/2026-11-09-teaching-backup-outage.md).
+
+EVID-117 rehearses independent linked worktree/index views, immutable captured
+native selection, preserved dirty removal and a job that outlives its checkout.
+Twelve actual reports render through the existing catalogue. No complete VAL,
+native writer/remote-byte/full fault/final-loss/expiry course or browser/classroom
+acceptance is closed. See [review](../reviews/2026-11-09-teaching-worktree.md).
+
+EVID-116 rehearses public Git metadata exchange through a local bare remote,
+unchanged fetch checkout, preserved dirty pull refusal and explicit post-pull
+source adoption/reconciliation. Ten actual reports render in the existing
+catalogue controls. No full VAL, remote byte publication/offline backup, general
+writer/worktree, fault/final-loss/expiry course or browser/classroom acceptance is
+closed. See [review](../reviews/2026-11-09-teaching-exchange.md).
+
+EVID-115 adds recorded sample lesson playback: stable original bytes move from
+F+M to D+M after the job ends and back to F+M on revert. Native sample/API evidence
+and shipped controller fixtures are separate. No real browser/classroom acceptance
+or completed VAL is claimed. Full Git course/fault/final-loss/expiry and production
+native/provider/lifetime gates remain open. See
+[review](../reviews/2026-11-09-teaching-playback.md).
+
+EVID-114 rehearses seven ordinary teaching checkpoints with public generated
+bytes, actual Git/source/provider operations and a real catalogue. Job-held old
+bytes, job-end demotion, revert/reacquisition, shared copies and Git isolation
+have focused/executable evidence. This does not close the full course or a VAL:
+interactive lesson playback, publish/fetch/pull, failure/restart, final-loss/expiry,
+native/provider/lifetime, browser and classroom acceptance remain open. See the
+[review](../reviews/2026-11-09-teaching-catalogue.md).
+
+EVID-113 rehearses recovered-provider and ended-foreign-job follow-ups after
+original claim settlement, including fixed original exclusions, new approval,
+current shared-byte protection, partial cancellation and unavailable-proof stop.
+Actual temporary source/provider/ledger effects, five process exits and a fresh
+LocalClock CLI workflow support this bounded rehearsal. It does not close a full
+VAL or establish native authority, project inactivity/reset policy, realistic
+provider/large-file/restore/lifetime, metadata expiry, agent/UI/Action or human
+F/D/M acceptance. See [the review](../reviews/2026-11-09-held-copy-followup.md).
+
+EVID-112 rehearses parts of VAL-002/003/004 through fresh explicit operator
+commands in temporary namespaces/metadata/providers/ledgers and actual LocalClock:
+manual/aged20-page resume, separate approvals, shared-byte survival, offline stop
+and native executable -> storage executable handoff. This does not close a full
+VAL or prove native writer/current authority, realistic provider/large-file/restore/
+lifetime behavior, held-copy follow-up, agent/UI/Action or human F/D/M acceptance.
+See the [scoped review](../reviews/2026-11-09-paged-operator.md).
+
+EVID-109 rehearses parts of VAL-002/003/004 with actual manual20-page/17-root
+settlement and final provider effects, shared/unselected byte survival, process
+restart, stale/restore refusal and metadata-offline cancellation/recovery. The
+[review](../reviews/2026-11-09-paged-controller.md) limits this to synthetic local
+scope and three one-byte eligible objects. Aged/native/user F/D/M adoption,
+representative large-file/provider/lifetime qualification and human acceptance
+remain open. No full VAL is closed.
+
+EVID-108 rehearses parts of VAL-002/003/004 through persisted prepared metadata,
+actual34-page source settlement, independent namespace checkpoints, retained
+unselected aliases and observer-race-resistant inherited age. The
+[review](../reviews/2026-11-09-paged-preparation.md) distinguishes these direct
+subset fixtures from durable controller execution, final loss, real F/D/M
+convergence and human acceptance. All full VALs remain open.
+
+EVID-107 rehearses parts of VAL-002/003/004: a whole historical block spanning
+seventeen roots or1100 bindings retains exact identity and complete page coverage,
+while current/foreign/unselected protection and incomplete metadata remain holds.
+[Review](../reviews/2026-11-09-paged-selection.md) separates these metadata fixtures
+from durable page decisions, actual claim settlement/final deletion, native/age/
+UI/Action/provider/authority/lifetime adoption and human acceptance. All full VALs open.
+
+EVID-106 rehearses parts of VAL-002/003/004: unknown age holds, actual historical
+observation precedes time sampling, retries preserve evidence and executed subsets
+inherit age; native exact blocks become candidates only after interval-based age
+assessment. [Review](../reviews/2026-11-09-age-witnesses.md) separates synthetic
+mechanism evidence from final broad qualification, live writer/time/authority/
+provider adoption, NB-07 paging, lifetime, UI/Action and human acceptance. All full
+VALs remain open; no removal or claim-release authority comes from an age report.
+
+EVID-105 contributes bounded VAL-002/003/004 rehearsal: exact native blocks and
+admitted definition categories map to independent aliases instead of withdrawing
+another asset's shared protection. An actual temporary bulk run deletes six
+unique bytes while six shared bytes remain readable; surviving partial native
+membership is inspectable without Git. [Review](../reviews/2026-11-09-native-retirement-bindings.md)
+separates declared mapping from full semantic/schema/adoption coverage, recorded
+age, native UI/Action/paging, real providers/large files, current authority/restore,
+lifetime/new metadata dependency expiry and human acceptance. All full VALs open.
+
+EVID-104 contributes bounded VAL-002/003/004 rehearsal: exact approved historical
+blocks can execute/resume/cancel through the CLI over the same controller as
+inspection. Shared siblings survive; expired/changed consent prevents further
+removal; absent source metadata or fresh time cannot trap cancellation. Source
+settlement/grant release/deletion remain truthful partial effects. Scope:
+[execution review](../reviews/2026-11-09-bulk-execution.md). Native age/category,
+UI/Action, real providers/large files, current authority/restore/host trust,
+lifetime/metadata retirement and human acceptance remain open.
+
+EVID-103 rehearses bounded VAL-002/003/004: explicit native time observations
+drive temporary final retirement, while uncertain/expired intervals hold release,
+unlink, new reacquisition birth and bulk settlement. Historical status cannot
+mint permission. [Clock review](../reviews/2026-11-09-local-clock.md) separates
+synthetic rehearsal from user adoption of host time, current authority/restore,
+native age/category semantics, live provider/large-file/lifetime qualification,
+operator mutation and human acceptance. All full VAL outcomes remain open.
+
+EVID-102 contributes bounded VAL-002/003/004 rehearsal: operators review exact
+eligible/held plans and inspect fresh/interrupted/completed history while source
+metadata is unavailable. Missing provider/source observations remain holds and
+missing witness cannot become a false not-started result. Actual CLI leaves
+reopened journals and provider files unchanged. This is inspection, not final
+deletion execution, native selection, trusted current clock/authority, real
+provider/large-file/lifetime or human acceptance. Scope:
+[operator review](../reviews/2026-11-09-bulk-inspection.md).
+
+EVID-101 rehearses bounded VAL-002/003/004: a job in another enrolled namespace
+restores F and removes advisory D; withdrawing it restores D and removes F while
+M remains. A real peer cannot remove the active-use basis while assessment is
+held. Hard/additive obligations remain; legacy namespace-local behavior stays
+separate. [Roster review](../reviews/2026-11-09-roster-precedence.md) limits this
+to fresh explicit synthetic enrollments. No actual native/provider/clock/authority,
+large-file/lifetime, operator UX or human acceptance is established.
+
+EVID-100 contributes bounded synthetic VAL-002/003/004 rehearsal: exact blocks
+across historical predecessors preserve shared/current job uses and unselected
+siblings; durable intent precedes source settlement; interruption/cancellation
+retains honest partial effects. Three actual temporary stores remove nine copies
+of three unique eligible bytes. This is not native age/category selection, live
+F/D/M custody/reclaim, operator UX, trusted clock/authority, metadata lifetime or
+human acceptance. [Bulk review](../reviews/2026-11-09-bulk-retirement.md) records
+scope and remaining gates, including separate placement finding PL-01.
+
+EVID-092 contributes exact-ref selection to VAL-001/002/004: actual synthetic
+merge/revert and job/history protection, interrupted atomic adoption, old-reader
+compatibility and explicit CLI replay. The operator grants authority independently
+of the request. Physical storage convergence is unknown; trusted GitHub trigger,
+copy/retention/eviction and complete consumer workflows remain required. This
+prerequisite accepts no full validation, private migration or live runner/store.
+
+EVID-091 contributes a bounded Git-only upload/recovery rehearsal to VAL-001/002/004:
+actual temporary Git LFS push, private admission, verified source preservation,
+lost replies, killed uploader, scoped peer refusal and another job's progress.
+This validates the synthetic client seam only. Full placement/custody, trusted Git
+events, actual consumer/UX acceptance and all five complete validations remain planned.
+
 EVID-076 exercises retained-subject selection and separate target bindings with
 synthetic API/CLI inputs. It accepts no actual consumer migration, remote
 publication, source/job lifecycle, custody, runtime switch or full VAL-005 run.
@@ -242,3 +395,128 @@ control/primary/output graph retains its full job requirements while an admitted
 producer excludes raw control bytes from its recipe. This does not qualify a
 real native semantic projector or actual media production. Full intended-use
 validation, global source/job protection and reversible private adoption stay OPEN.
+
+EVID-084 contributes bounded source-preserving copy/restart scenarios to VAL-002/
+003: generic CAD/report-like byte fixtures, shared plan/CLI identity, actual child
+exits, retained destination inspection and explicit partial-batch resumption. It
+is mechanism verification, not an owner-run live storage workflow or independent
+acceptance. Complete source/job coverage, catalogue application, merge automation,
+eviction, large media/provider scale and final deletion remain unvalidated.
+
+EVID-085 contributes exact source-root demand to VAL-003: branch/draft/job/
+retention roots retain old/current/pending declared bytes, shared obligations
+combine and missing coverage holds the pure planner. One temporary-store copy
+uses the actual snapshot basis and refuses a changed-context retry. This is not
+actual producer-consumption closure, enforced source admission, physical custody,
+Git-triggered orchestration, live adoption or final-deletion acceptance.
+
+EVID-086 adds guarded source mutation and live subject assessment toward VAL-003.
+Synthetic branches/jobs/retention exercise active versus inactive history and
+concurrent admission under actual local process locks. It does not attach a
+consumer, execute a Git-triggered merge lifecycle, bind all provider protection
+authorities or delete payloads. Full intended-use validation remains OPEN,
+including restore after eviction, finite-backup bulk retirement and metadata expiry.
+
+EVID-087 contributes store-level all-namespace assessment to VAL-003. Synthetic
+independent project namespaces protect one provider through exact configured place
+mappings. A held assessment excludes overlapping demand/read changes while an
+unrelated source enrolls; read-only status cannot reconstruct its guards. This
+is not owner acceptance of a live source registry, epoch handoff, independent
+custody, merge-triggered eviction, bulk final deletion or metadata retirement.
+
+EVID-088 contributes an actual local byte lifecycle to VAL-002/003: a generic main
+selection advances while another admitted job still needs old bytes; the old
+working copy becomes removable only after that use ends and retained survivors
+remain. A prior selection is then explicitly restored and old deletion retries
+preserve the new incarnation. This is synthetic intended-use rehearsal and
+mechanism verification, not user UX acceptance, producer/opaque dependency
+completeness, cloud/GitHub automation, final deletion or operational lifetime proof.
+
+EVID-089 contributes operator/agent rehearsal to VAL-002/003: separate processes
+plan, unlink, inspect, resume and restore exact bytes under independently admitted
+local policy. Another actual CLI cancels pending intent after a child exits,
+preserving current bytes without needing available keeper/source-tree authorities.
+Historical retirement remains visible beside freshly present reacquired bytes;
+damaged acknowledged bytes never masquerade as authorized absence. These synthetic
+cases do not close user UX acceptance, remote provider custody, trusted Git event
+convergence, bulk final deletion, metadata expiry or full operational lifetime.
+
+EVID-090 contributes source-preserving remote-upload rehearsal to VAL-002/003/004.
+Synthetic opaque bytes move through actual conditional HTTP PUT and verified GET;
+lost replies recover in a fresh CLI process and another job progresses while an
+operation scope is held. Denial, corruption, missing acknowledged data and unknown
+local witnesses preserve source instead of granting custody or deleting copies.
+This is a protocol/component rehearsal, not actual AWS/account/operator acceptance,
+retained backup or end-to-end Git lifecycle validation. LFS upload, full policy/
+claim coverage, live providers, bulk final deletion and metadata lifetime stay open.
+
+EVID-093 contributes temporary-store operator rehearsal to VAL-002/003: a real
+merge to main selects new bytes, reconciles retained backup/working/history
+placements and supports exact old-byte reacquisition on revert. A separate
+fixture keeps old working bytes for a job and demotes them after job withdrawal;
+another exits an actual process after backup publication, then resumes without
+the original source. Shared objects, reader/late-demand holds, known lost
+acknowledgements, backup outage/catch-up and independent permissions are visible.
+These are generic synthetic consumer rehearsals, not user UX acceptance, actual
+F/D/M enrollment, independently qualified devices, trusted GitHub automation or
+full lifecycle/native semantics. Page success remains scoped; full selection
+aggregation, unattended partial recovery and the later final-deletion/metadata/
+large-file/lifetime milestones remain required. Full VAL outcomes stay planned.
+
+EVID-094 contributes request-to-placement rehearsal to VAL-002/003/004: real
+synthetic RSA-signed HTTP intake independently captures admitted source metadata,
+adopts desired state and verifies working/retained copies in temporary stores.
+Paging, duplicate retry, expired/rollback clocks, outage and source drift preserve
+truthful partial progress. A separate actual GitHub-hosted token reaches the real
+foreground CLI against an empty synthetic scope with zero payload effects. These
+two evidence scopes are distinct. Neither is user acceptance of live automation,
+external ingress/OS isolation, actual F/D/M custody or final-deletion/metadata
+lifetime. Full intended-use VAL outcomes remain planned.
+
+EVID-095 contributes staged-work rehearsal to VAL-002/003/004: one real temporary
+Git index selects payload pointers, including all merge alternatives; a linked
+worktree keeps independent draft demand. Actual CLI reconciliation populates
+working/backup providers, preserves an old job, then demotes eligible working
+bytes after job end even when the index selection is unchanged. Protected old
+bytes remain readable. Disabled/bad-source/storage cases and abrupt exits preserve
+truthful held/historical outcomes. This does not validate automatic Git hooks,
+commit settlement, native producer coverage, real F/D/M custody or user acceptance.
+Full VAL outcomes and final-deletion/metadata/lifetime gates remain open.
+
+EVID-096 contributes owner-settlement rehearsal to VAL-002/003/004: staged ->
+adopted committed successor -> owned branch end -> job end -> ordinary history
+demotion, with exact retained byte readback and no-op catch-up. Missing/unknown
+source metadata and changing Git/source conditions preserve protection or report
+stale acknowledgement separately. Two abrupt settlement exits recover. All data
+is synthetic; actual F/D/M enrollment, automatic event routing, native closure,
+user acceptance, final deletion and metadata lifetime remain unvalidated.
+
+EVID-097 contributes only the historical claim-settlement prerequisite to
+VAL-002/003/004. Synthetic exact-path retirement preserves unselected/shared
+members under the original class and leaves another owner's job active. Atomic
+history adoption never exposes a current survivor to suppress history placement;
+interrupted steps and stale conditions preserve protection or truthful historical
+state. Actual default-disabled CLI resume and metadata-offline status execute.
+This is not bulk native/age/category eligibility, payload deletion, custody,
+capacity reclaim, final-deletion cancellation recovery or owner-run acceptance.
+All full VAL outcomes, eventual metadata retirement and live adoption remain open.
+
+EVID-098 contributes a content-protection prerequisite to VAL-002/003/004: the
+last recovery source cannot be declared clear solely because its own place is
+surplus. A job needing another place, any source role or another namespace keeps
+the object protected. Explicit owner retirement of every historical root permits
+only membership clearance, leaving provider grants untouched. Actual process
+fences, restored-prefix refusal and unrelated progress rehearse source protection
+without payload mutation. This is not actual final deletion, grant release,
+bulk/age/native eligibility, cancellation recovery, measured reclaim or acceptance.
+
+Final-provider synthetic intended-use validation (EVID-099), implementation9f5e8c0:
+explicit owner consent removes actual temporary last-copy bytes after content-wide
+clearance and durable exact release. Cancellation preserves bytes without falsely
+restoring released protection; same-hash fresh acquisition/new grants survive old
+retry. Public placement holds fresh demand for final absence, then converges after
+separately authorized acquisition. Read-only status separates historical effects
+and unverified current presence. This validates a bounded 8 MiB/process-restart
+library slice, not full bulk F/D/M, actual provider/clock/authority/large-file,
+metadata lifetime, operator UX or human acceptance. See
+../reviews/2026-11-09-final-provider.md; full product acceptance remains open.

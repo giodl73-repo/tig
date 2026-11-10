@@ -21,6 +21,7 @@ const BROWSE_JS: &str = include_str!("web/browse.js");
 const SHARED_JS: &str = include_str!("web/shared.js");
 const IMPACT_JS: &str = include_str!("web/impact.js");
 const COMPARE_JS: &str = include_str!("web/compare.js");
+const LESSONS_JS: &str = include_str!("web/lessons.js");
 pub struct Host {
     pub catalogue: Mutex<Catalogue>,
     secret: String,
@@ -157,6 +158,16 @@ impl Host {
         let q = query(path)?;
         let get = |key: &str| q.get(key).map(String::as_str).unwrap_or("");
         let route = path.split('?').next().unwrap_or(path);
+        if route == "/api/lessons" {
+            if !q.is_empty() {
+                return Err("Unknown teaching query".into());
+            }
+            let request = {
+                let c = self.catalogue.lock().map_err(|_| "Catalogue unavailable")?;
+                c.teaching_request()?
+            };
+            return teaching::execute(request);
+        }
         if route == "/api/storage/compare" {
             let request = {
                 let c = self.catalogue.lock().map_err(|_| "Catalogue unavailable")?;
@@ -439,6 +450,11 @@ impl Host {
                 HTML.replace("__TIG_SESSION__", &self.secret).into_bytes(),
             ),
             "/app.css" => (200, "text/css; charset=utf-8", CSS.as_bytes().to_vec()),
+            "/lessons.js" => (
+                200,
+                "text/javascript; charset=utf-8",
+                LESSONS_JS.as_bytes().to_vec(),
+            ),
             "/storage-objects.js" => (
                 200,
                 "text/javascript; charset=utf-8",
@@ -598,6 +614,7 @@ mod tests {
                 projects: BTreeMap::new(),
                 storage_domains: vec![],
                 default_project: None,
+                teaching: None,
             },
             8799,
         )

@@ -23,13 +23,65 @@ its boxes are not a claim that every service/provider already exists.
 | tig-core | Immutable object/tree identity, canonical records, binding views, claims, placement and pure worktree operations |
 | tig-store | Local publication, guarded existing-byte reads, capacity/operation ledgers, immutable metadata, source claims, replica verification and retention |
 | tig-assets | Optional native records/resolver port, declared graphs, sparse variants; schema-gated contracts, revisions, deliveries, edits and publication checks |
-| tig-git | Exact commit/index capture, Git identity/pointers, download-only LFS adapter, native resolution, project restore, sparse proposals, history and local catalogue |
+| tig-git | Exact commit/index capture, Git identity/pointers, existing-cache LFS download and optional Basic upload, native resolution, project restore, sparse proposals, history and local catalogue |
 
 The basic tig-git build uses tig-core and tig-store. Its **assets** feature adds
 tig-assets; **schema** adds assets plus schema validation, catalogue and history
 facilities. tig-assets/schema adds its JSON Schema-backed contracts. Low-level
 placement and byte access do not depend on typed assets, a renderer or project
 checkout. Crates are publish=false while interfaces are experimental.
+
+The independent **upload** feature enables the explicit standalone LFS upload
+agent and operator commands. It uses tig-store's network-free **upload-witness**
+feature over existing accounted publication; **s3** also reuses that witness
+composition without changing its wire identities. Only the optional HTTP adapters
+enable the maintained TLS client. Default Git/LFS downloads remain independent
+of HTTP and typed-asset features. Remote availability grants no retained custody.
+
+The default `tig-lifecycle` CLI and `lifecycle` library connect an exact enrolled
+committed Git ref to the existing guarded source namespace. Immutable metadata
+finishes and is read through a fresh reader before one transactional Prepare/Adopt
+pair publishes desired protection. Existing event encodings and roles are reused.
+No-op duplicates append no commands; historical replay cannot replace a newer
+selection. Current ref observations are separate from admitted state. This is
+the selection prerequisite. `tig-store::placement` adds generic requirements
+projection and bounded pages over existing accounted publication, retention,
+handoff and managed retirement/reacquisition. `tig-lifecycle reconcile` composes
+that executor after exact committed-ref admission, including no-op selections.
+Copies retain stable original operation/job bindings across later Git revisions.
+Required cache readers span conflicting source removal; existing all-namespace
+and provider fences still decide removal. No new cache engine or journal exists.
+Page convergence is distinct from full selection convergence. Complete lifecycle/
+provider adoption, large files and operational continuation remain required.
+No service starts on resume.
+
+The independent **github** feature adds fixed-issuer RS256 request verification,
+a bounded metadata-only GitHub CommittedSource adapter, foreground loopback
+`tig-trigger` intake and a coordinator over the same selection/placement APIs.
+Local Git implements that source seam without changing its listing/context
+identities. Private enrollment supplies authority; a signed commit request cannot
+choose roots or permissions. Complete same-basis passes, partial effects and
+source drift remain separate observations. The inert Action example installs
+nothing; external TLS ingress, workflow/executor OS separation, full issuer/
+provider qualification and adoption are separate gates. See
+[trusted requests](../specs/GITHUB-TRIGGER.md).
+
+Default `lifecycle::index` and `tig-lifecycle index` protect an explicitly enrolled
+worktree's staged pointer set as a Draft source. Distinct immutable contexts bind
+the index listing and unresolved stage counts; the flat obligation tree deduplicates
+payload identities rather than pretending conflict stages form one merged view.
+Known alternatives participate in existing placement/admission. Other extraction
+issues hold adoption, and source observations stay separate from durable receipts.
+No Git/index write, hook or journal format is added. See
+[staged-index contract](../specs/INDEX-LIFECYCLE.md).
+
+`lifecycle::settlement`/`tig-lifecycle settle` compose owner Withdraw with verified
+ref absence or adopted-successor byte coverage. Up to eight source-revision
+conditions are rechecked inside the existing journal transaction, preserving its
+event encoding and short SQL scope. Index/settlement share private local placement
+preflight; Git observations and current admitted-source state remain independent.
+Predecessor/history and retained backups are not deleted. See
+[owned settlement](../specs/SOURCE-SETTLEMENT.md).
 
 The schema-gated `tig-query` CLI and `catalogue::query` library reuse captured
 native metadata, catalogue projections and the graph engine. Machine-readable
@@ -170,6 +222,7 @@ management are future integration, not hidden behavior in the viewer.
 
 | Binary | Gate | Purpose |
 | --- | --- | --- |
+| tig-storage | tig-store basic | Explicit bounded plan/peak/status/apply/resume for source-preserving local copy and retention |
 | tig-source | tig-store basic | Explicit source-authority inspection and durable source-claim transitions |
 | tig-lfs | basic | Explicit existing-cache Git LFS transfer agent |
 | tig-propose | basic | Prepare bounded verified byte-to-Git proposals |
@@ -187,3 +240,18 @@ use the Rust project API. Python checker scripts are development tooling.
 
 The [roadmap](../PRODUCT_PLAN.md), [adoption gates](CONSUMER-ADOPTION.md) and
 [evidence register](vtrace/EVIDENCE.md) describe outstanding system obligations.
+
+## Storage orchestration entry
+
+The experimental tig-store::orchestration module binds a bounded exact plan to
+existing accounted publication and retention. `tig-storage` supplies explicit
+plan/peak/status/apply/resume JSON operations; source-preserving local copying
+uses an already admitted capacity job and has no optional typed-asset dependency.
+It adds no cache engine, source/job registry, eviction, automatic Git event
+installation or final deletion. See [scope and protocol](../specs/STORAGE-ORCHESTRATION.md).
+
+The tig-store::protection projection observes all registered sources in explicitly
+enrolled journals and resolves admitted flat byte-binding roots through existing
+Tree/NodeStore ports. It joins current/pending/predecessor demands with owner and
+kind provenance; missing/opaque/changing scope remains a bounded gap. Its View
+adapter keeps complete protection false. See [scope and limits](../specs/PROTECTION-DEMAND-SNAPSHOT.md).

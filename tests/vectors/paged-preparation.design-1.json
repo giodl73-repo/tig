@@ -1,0 +1,18 @@
+{
+  "schema": "tig.paged-preparation-vectors.design-1",
+  "method": "independent Python ASCII json sort_keys compact separators and hashlib.sha256; framing only, referenced example objects are not execution or authority evidence",
+  "cases": [
+    {
+      "kind": "header",
+      "canonical": "{\"basis\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"coverage\":\"c3a3091b9d32267d0b3175ee14f70a1e0b3d7292d0a0fa45020ced5fb764d620\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"format\":\"flat_binding_closure\",\"limits\":{\"associations\":500000,\"bindings\":500000,\"millis\":60000,\"read_bytes\":134217728,\"reads\":500000,\"roots\":4096},\"members\":[{\"minimum\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\"}],\"schema\":\"tig.final-claim-roster.design-1\"},\"bindings\":2,\"count\":1,\"enrollment\":\"13313e0c988282dce96415d07f238ee299531634948f72e39b4f996acb1c6c02\",\"manifest\":{\"bytes\":1344,\"sha256\":\"8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0\"},\"schema\":\"tig.paged-preparation.design-1\",\"sources\":[{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"limits\":{\"associations\":100000,\"bindings\":65536,\"millis\":60000,\"read_bytes\":67108864,\"reads\":100000,\"roots\":256},\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"write_bytes\":8388608,\"writes\":10000}],\"steps\":{\"bytes\":18,\"sha256\":\"08fb1e286fa1b02e585852710594ee624d45d200067f15e3523310465348becc\"}}",
+      "sha256": "10ac96c2c71fd980d98ec597d22db93752310ee7e4a3054cd328f09143a2ce4d",
+      "bytes": 1568
+    },
+    {
+      "kind": "step",
+      "canonical": "{\"bindings\":[{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"a\"},{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"b\"}],\"index\":0,\"origin\":{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"},\"plan\":{\"bytes\":19,\"sha256\":\"3ba71f30fc109971da55b1ca20bbcf3e30ddbad67a73e6e7cde83c05517d1b1d\"},\"retirement_checkpoint\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"schema\":\"tig.paged-preparation-step.design-1\"}",
+      "sha256": "6da2ec716d7005bbae66361d5ee1bf0c16f8939d56f5152f7b59e7c87163dc8e",
+      "bytes": 1003
+    }
+  ]
+}

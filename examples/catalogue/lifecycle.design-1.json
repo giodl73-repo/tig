@@ -1,0 +1,612 @@
+{
+  "schema": "tig.teaching-catalogue-fixture.design-1",
+  "status": "independent expected outcomes; runner qualification pending",
+  "purpose": "One reproducible Git/Tig story; literal expected results are an oracle for the existing executor, not an implementation of placement.",
+  "roles": [
+    "working",
+    "history",
+    "backup"
+  ],
+  "policy": {
+    "released": [
+      "working",
+      "backup"
+    ],
+    "inactive_history": [
+      "history",
+      "backup"
+    ],
+    "active_use_overrides_advisory_history": true,
+    "hard_retention_is_additive": true
+  },
+  "objects": {
+    "shared": {
+      "encoding": "utf-8",
+      "text": "Shared reference grid v1\n",
+      "bytes": 25,
+      "sha256": "75599499a84badeca739324745d818b3364abdca2fb523b80b448c9039e79f90"
+    },
+    "original": {
+      "encoding": "utf-8",
+      "text": "Measurement series: 2,4,8,16\n",
+      "bytes": 29,
+      "sha256": "432637cc7d95343a231b5e65ef54394a7dae86c8680d61ecdd06f187d26ba11d"
+    },
+    "fixed": {
+      "encoding": "utf-8",
+      "text": "Measurement series: 2,4,8,32\n",
+      "bytes": 29,
+      "sha256": "92fb95bc8732154fea836fd9e6e31105f2a69faa281dbbeefe7ccd5ce87ae4e3"
+    }
+  },
+  "works": [
+    {
+      "id": "series-study",
+      "title": "Series study",
+      "versions": {
+        "v1": [
+          "shared",
+          "original"
+        ],
+        "v2": [
+          "shared",
+          "fixed"
+        ]
+      }
+    },
+    {
+      "id": "reference-study",
+      "title": "Reference study",
+      "versions": {
+        "v1": [
+          "shared"
+        ]
+      }
+    }
+  ],
+  "stages": [
+    {
+      "id": "start",
+      "event": "Create fresh enrollment and an unmanaged synthetic input source.",
+      "requires": [],
+      "expected_copies": {
+        "shared": [],
+        "original": [],
+        "fixed": []
+      }
+    },
+    {
+      "id": "release-v1",
+      "event": "Commit and reconcile v1; reference-study uses the same shared object.",
+      "requires": [
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": []
+      }
+    },
+    {
+      "id": "draft-v2",
+      "event": "Stage fixed bytes while committed v1 and an active job still require original.",
+      "requires": [
+        "draft-admission"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "merge-v2-job-active",
+      "event": "Merge v2, delete the merged fix branch and settle its draft; the old job keeps original nearby.",
+      "requires": [
+        "trusted-exact-merge",
+        "owned-draft-settlement"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "job-ended",
+      "event": "End the job; establish history retention before evicting the original working copy.",
+      "requires": [
+        "owned-job-settlement",
+        "fresh-ordinary-eviction"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "revert-v1",
+      "event": "Revert selection to v1; reuse retained original bytes and protect v2 history.",
+      "requires": [
+        "exact-old-snapshot",
+        "explicit-reacquisition"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "history",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "return-v2",
+      "event": "Return to v2; current/shared bytes stay nearby while original is demoted.",
+      "requires": [
+        "exact-source-reconciliation"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "retire-original",
+      "event": "Separately approve final loss of original on history and backup; shared is excluded.",
+      "requires": [
+        "trusted-continuous-inactivity",
+        "exact-block-consent",
+        "current-full-protection",
+        "separate-final-loss-approval"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "publish-v2",
+      "event": "git push and git clone publish exact records only. Tig payload copies remain unchanged; Git exchange does not establish backup custody.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "pull-v1",
+      "event": "git fetch leaves HEAD unchanged. A dirty git pull refuses without a Tig action; after repairing the fixture edit, git pull --ff-only selects v1. Explicit Tig adoption and reconciliation then move the bytes.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "history",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "pull-return-v2",
+      "event": "git push, git fetch and git pull --ff-only return the observer to exact v2 records. Explicit Tig adoption and reconciliation return fixed bytes nearby; original bytes remain retained in history and backup.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "worktree-open-v1",
+      "event": "git worktree add --detach opens v1 while main remains v2. Explicit draft and job claims bring original nearby without duplicating shared bytes.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "index-staged-v2",
+      "event": "git add stages v2 in the review worktree index. Later working-file edits leave that captured index snapshot unchanged. Dirty git worktree remove refuses; the old job still protects original.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "index-unstaged-v1",
+      "event": "git restore --staged --source=HEAD returns the review index to v1. The previously captured v2 snapshot remains exact; explicit draft adoption changes only the draft source.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "worktree-closed-job-active",
+      "event": "Normal clean git worktree remove closes the review checkout, then its own draft is withdrawn. The separate old-version job still requires original nearby.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "worktree-job-ended",
+      "event": "Explicit job end permits a fresh reconciliation: original goes to history plus backup; current v2 and shared input stay nearby.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "merge-backup-offline",
+      "event": "M is unavailable at its configured provider path during merge. The real executor reports held; current coverage of M is unknown, while working copies remain protected.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working"
+        ],
+        "original": [
+          "working"
+        ],
+        "fixed": [
+          "working"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [
+          "backup"
+        ],
+        "original": [
+          "backup"
+        ],
+        "fixed": [
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "job-ended-backup-offline",
+      "event": "The old job ends while M remains unavailable. Desired placement changes to history, but missing fresh custody verification prevents eviction of the old working copy; useful history publication can proceed.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working"
+        ],
+        "original": [
+          "working",
+          "history"
+        ],
+        "fixed": [
+          "working"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [
+          "backup"
+        ],
+        "original": [
+          "backup"
+        ],
+        "fixed": [
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "backup-catchup",
+      "event": "The same M provider returns. Revalidation and retry of the same current plan finish ordinary demotion without a new source selection or seed read.",
+      "requires": [
+        "fresh-custody-revalidation",
+        "explicit-unknown-coverage",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      },
+      "unknown_copies": {
+        "shared": [],
+        "original": [],
+        "fixed": []
+      }
+    },
+    {
+      "id": "stale-plan-rejected",
+      "event": "An old demotion plan was captured after job end. A newly admitted old-version job changes protection before apply. The real SDK rejects Stale before storage effects; this desired column is the rejected plan, not current demand.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "fresh-plan-job-active",
+      "event": "A fresh plan uses the current source basis and keeps old bytes nearby for the newly admitted job. Shared input and current v2 remain nearby without duplicate copies.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "fresh-plan-job-ended",
+      "event": "The new job ends separately. A new current plan moves original to history plus backup; an older plan is never revived merely because desired placements look the same.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    }
+  ],
+  "counterexamples": [
+    {
+      "id": "same-byte-rename",
+      "assertion": "Rename changes authored bindings but no object identity or required physical copies."
+    },
+    {
+      "id": "backup-unavailable",
+      "assertion": "A merge may be accepted while placement is pending; unavailable custody cannot authorize eviction."
+    },
+    {
+      "id": "late-claim",
+      "assertion": "A new branch or job before removal holds the object and invalidates stale destructive consent."
+    },
+    {
+      "id": "interrupt-and-retry",
+      "assertion": "Resume the exact admitted operation; report historical effects without repeating loss."
+    },
+    {
+      "id": "cancel",
+      "assertion": "A durable stop prevents further deletion; completed loss is preserved and unknown cleanup stays unknown."
+    },
+    {
+      "id": "same-hash-new-birth",
+      "assertion": "An old deletion outcome cannot remove a separately authorized later acquisition."
+    },
+    {
+      "id": "metadata-expiry",
+      "assertion": "Detailed records can expire only after surviving authority/replay fences and dependencies are resolved; this lesson remains gated."
+    }
+  ],
+  "evidence_required_per_stage": [
+    "exact_source_snapshot",
+    "desired_requirements",
+    "real_plan",
+    "actual_provider_receipts",
+    "verified_current_copies",
+    "holds_and_coverage",
+    "unique_bytes",
+    "copy_bytes",
+    "physical_reclaim_basis"
+  ]
+}

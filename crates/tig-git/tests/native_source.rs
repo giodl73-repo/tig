@@ -6,6 +6,9 @@ mod lifecycle_cases;
 #[path = "native_source/payload_consumption_cases.rs"]
 mod payload_consumption_cases;
 #[cfg(feature = "schema")]
+#[path = "native_source/retirement_cases.rs"]
+mod retirement_cases;
+#[cfg(feature = "schema")]
 #[path = "native_source/schema_cases.rs"]
 mod schema_cases;
 #[cfg(feature = "schema")]

@@ -1,5 +1,11 @@
 # Restart-persistent reservation ledger
 
+Fresh optional clock profile: [LOCAL-CLOCK](LOCAL-CLOCK.md) adds a design-2 marker
+with immutable native-time policy and bounded ObserveClock commands to this same
+ledger engine. Legacy marker bytes/identity stay unchanged; older readers refuse
+the new marker. Capacity invalidation/retirement never resets the time floor.
+No existing root is upgraded, journal limit waived or time inferred from replay.
+
 Input a24d962cd0b47ed2045414dd67e1c17d37394fed. Bounded WP-003/004/006/008
 slice: REQ-003/004/005/007/009, SPEC-003/004/005/008, ARCH-002/003,
 IF-003/004/005/006, DES-003/004/005/008, PKG-003 in tig-store, PROVIDER profile.

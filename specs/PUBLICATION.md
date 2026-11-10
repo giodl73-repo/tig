@@ -94,3 +94,19 @@ provider-durable backend was tested.
 Commands: `cargo test -p tig-store --locked` (24 entries),
 `cargo test --workspace --locked` (154 total), fmt and all-target Clippy.
 EVID-010 records this scope; WP-003 remains in progress, not fully verified.
+
+The later [store protection boundary](STORE-PROTECTION-BOUNDARY.md) adds explicit
+creation of design-6 local stores with an immutable namespace/place roster.
+Ordinary design-5 creation and wire bytes remain unchanged; old readers reject
+the new marker. Publication, attempt accounting, reads and retention use the same
+provider primitives, with exact binding checks on each provider guard. No live
+root is migrated and no completed-object deletion is introduced by this mode.
+
+The opt-in [managed retirement profile](MANAGED-REPLICA-RETIREMENT.md) adds fresh
+design-7 stores. These require accounted publication and bind publication records
+to a placement incarnation. Completed authorized retirement is distinct from lost
+acknowledged active bytes. Existing operations cannot silently recreate retired
+bytes or verify old custody against a new incarnation. Explicit new-operation
+reacquisition streams and verifies exact content; cancellation before unlink
+preserves original publication identities. These rules do not change design-5/6
+encodings or permit migration, final-copy deletion or production adoption.

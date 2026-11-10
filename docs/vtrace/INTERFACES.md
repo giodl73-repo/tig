@@ -94,3 +94,54 @@ coalescing before admission does not promise to undo renders already started.
 This follow-up preserves truthful history and user-resolved bindings while
 requiring exact schema/semantic validation at the configured transition. No
 native format release, automatic render scheduler or merge driver is implemented.
+
+IF-002/003/004/005/006/008/012/013 retirement CLI extension, input3e300ca:
+[RETIREMENT-AGENT-CLI](../../specs/RETIREMENT-AGENT-CLI.md) defines strict versioned
+private profiles, canonical library plans and bounded redacted responses. Existing
+copy commands/wires remain compatible. Private owner/context, actual enrollment,
+survivor grants/domains and place coverage gate creation of a live execution token;
+portable status is never removal authority. This is explicit ordinary local
+retirement/reacquisition only, with no provider initialization or consumer switch.
+
+IF-002/003/004/005/006/012/013 S3 extension, input3fd9918:
+[S3-PUBLICATION](../../specs/S3-PUBLICATION.md) defines optional source-preserving
+conditional transfer, strict private admission, bounded canonical plans and redacted
+status/receipts. Existing accounted local publication stores small intent/completion
+witnesses; no new journal/caching engine or cloud retention proof is introduced.
+The standalone Git/LFS/default build has no dependency on the optional HTTP stack.
+
+IF-002/003/004/005/006/008/009/012/013 LFS upload extension, input9b8a689:
+[LFS-UPLOAD](../../specs/LFS-UPLOAD.md) defines the optional upload-only standalone
+protocol and explicit operator/agent JSON commands. Exact OID authorization,
+private origin/path/header scopes and default-disabled writes remain independent
+of portable plans. Shared upload witnesses reuse existing accounted publication;
+the S3 records/keys/context and default download-only path stay compatible.
+Remote byte availability is neither retained custody nor removal permission.
+
+IF-002/003/004/005/006/008/009/012/013 Git lifecycle selection, inputd81cabe:
+[GIT-LIFECYCLE-RECONCILIATION](../../specs/GIT-LIFECYCLE-RECONCILIATION.md) binds an
+enrolled committed ref, complete pointer scope and expected source state to
+verified persistent metadata and atomic desired-root adoption. Namespace::select
+composes existing Prepare/Adopt event bodies under scoped admission and one SQL
+transaction. Exact historical status needs no Git/metadata provider; current Git
+samples remain separate. This adds no persistent source command/schema or removal
+authority. Default-disabled operator profiles do not authenticate external events.
+
+IF-002/004/005/006/008/013 historical subset handoff, input63f2c96:
+[RETAINED-SUBSET](../../specs/RETAINED-SUBSET.md) exposes bounded generic
+source_claims::subset plan/inspect/apply and tig-source subset plan/status/apply/
+resume. Atomic Prepare/Adopt/Withdraw publishes same-class survivor predecessor
+protection without exposing artificial active use; transactional revision
+conditions precede original owner retirement. Metadata-offline status separates
+historical effects and currently observed claim state. No payload removal,
+automatic lifecycle selector or persistent source-event format is introduced.
+
+IF-002/003/004/005/006/008/012/013 final-retirement prerequisite, input59174b1:
+[FINAL-RETIREMENT](../../specs/FINAL-RETIREMENT.md) exposes
+final_retirement::claims::Roster/acquire and a live non-serializable Clearance.
+Canonical admitted namespace/policy/minimum pins and one aggregate tree budget
+produce exact membership holds or declared-scope clearance under existing subject
+fences. Authority scope excludes budgets/advancing minima; the concrete roster
+profile includes them. SourceJournal open and stricter minima share one ancestry
+verifier. No retention release, provider guard, deletion grant or payload action
+is supplied. The full destructive protocol and format/adoption gates remain target.

@@ -1,0 +1,42 @@
+{
+  "schema": "tig.age-vectors.design-1",
+  "method": "independent Python ASCII json sort_keys compact separators and hashlib.sha256; framing only, no timestamp authority or lineage proof",
+  "cases": [
+    {
+      "kind": "enrollment",
+      "canonical": "{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"clock\":\"d8198efa3604d164853468608c55efa148bc56e3564d5a30232bf98b8ab43aeb\",\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"metadata\":\"45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f\",\"observers\":[{\"classes\":[\"branch\",\"draft\"],\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"owners\":[\"owner\"],\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\"}],\"owner\":\"owner\",\"registry\":\"872491a30d60d598962de6e7b834ab76b2aa65fbab102c6ebaaae6acdc238822\",\"registry_policy\":\"4c21ba31d19dec19033ea20e758add6567efb5e69bff8f70f1821837072cfd9e\",\"source\":\"records\"}",
+      "sha256": "d9db088915e2383b43b4fa55b83e66992ca6b64830f0a5b20ef5f1b31250b90e",
+      "id": "f2dfc3c03bb267cf68f38db43cec9066e02a73caf9059cd8729cb8db72bff223"
+    },
+    {
+      "kind": "request",
+      "canonical": "{\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"predecessor_revision\":3,\"source\":\"main\"}",
+      "sha256": "af82e730f002eff77d36ea55b9308904474cc6c2af866e412d52c35202488a11",
+      "id": "f6e58f974dc9bdf16cd5f22b799ddfac56757f11a77112473d11180e218e71f2"
+    },
+    {
+      "kind": "identity",
+      "canonical": "{\"enrollment\":\"f2dfc3c03bb267cf68f38db43cec9066e02a73caf9059cd8729cb8db72bff223\",\"schema\":\"tig.age-registry-identity.design-1\"}",
+      "sha256": "d6e59c8c8b004c7dd6ff11feed926ca30f133365184555ad25674a70fcf6afba",
+      "id": "d6e59c8c8b004c7dd6ff11feed926ca30f133365184555ad25674a70fcf6afba"
+    },
+    {
+      "kind": "captured",
+      "canonical": "{\"enrollment\":\"f2dfc3c03bb267cf68f38db43cec9066e02a73caf9059cd8729cb8db72bff223\",\"origin\":{\"checkpoint\":{\"genesis\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"kind\":\"captured\",\"observed\":{\"earliest\":100,\"latest\":120}},\"schema\":\"tig.age-observation.design-1\",\"target\":{\"class\":\"branch\",\"owner\":\"owner\",\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\",\"request\":{\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"predecessor_revision\":3,\"source\":\"main\"},\"selection\":{\"context\":\"ea7792a26f405e2ae9c6f49ca93bbe6076ceac0a1fc53d83426c7d7f2d9377e4\",\"root\":{\"bytes\":4,\"sha256\":\"dc9c5edb8b2d479e697b4b0b8ab874f32b325138598ce9e7b759eb8292110622\"}}}}",
+      "sha256": "a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f",
+      "id": "a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f"
+    },
+    {
+      "kind": "inherited",
+      "canonical": "{\"enrollment\":\"f2dfc3c03bb267cf68f38db43cec9066e02a73caf9059cd8729cb8db72bff223\",\"origin\":{\"checkpoint\":{\"genesis\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"enrollment\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"limits\":{\"associations\":100000,\"bindings\":65536,\"millis\":60000,\"read_bytes\":67108864,\"reads\":100000,\"roots\":256},\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"owner\":\"owner\",\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\",\"write_bytes\":8388608,\"writes\":10000},\"kind\":\"inherited\",\"parent\":{\"bytes\":808,\"sha256\":\"a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f\"},\"plan\":{\"bytes\":11,\"sha256\":\"07d240f3361546a1b77720a68228d3ef61ec040189356f81dc72cd86c962be2c\"}},\"schema\":\"tig.age-observation.design-1\",\"target\":{\"class\":\"branch\",\"owner\":\"owner\",\"policy\":\"84e0505aa40e5e53664cef115107a050f0ab6052ba3c01a21bb19a5f8c21e8bd\",\"request\":{\"namespace\":\"e41f1d834710df8c7bc2befedb7b92339973a92288d8581b3696604c0d04c5f7\",\"predecessor_revision\":3,\"source\":\"survivor\"},\"selection\":{\"context\":\"ea7792a26f405e2ae9c6f49ca93bbe6076ceac0a1fc53d83426c7d7f2d9377e4\",\"root\":{\"bytes\":4,\"sha256\":\"dc9c5edb8b2d479e697b4b0b8ab874f32b325138598ce9e7b759eb8292110622\"}}}}",
+      "sha256": "8b8d2b429747db2fc3ec3b30e489cf7d0fc48d7404259962e187cc530b8ea0c0",
+      "id": "8b8d2b429747db2fc3ec3b30e489cf7d0fc48d7404259962e187cc530b8ea0c0"
+    },
+    {
+      "kind": "inheritance_key",
+      "canonical": "{\"parent\":{\"bytes\":808,\"sha256\":\"a8c468c5ae26f66825677fbb7eaa2db59cdfe5cf130f180e5eeeb1cea60f9c5f\"},\"plan\":{\"bytes\":11,\"sha256\":\"07d240f3361546a1b77720a68228d3ef61ec040189356f81dc72cd86c962be2c\"},\"request\":\"e6d4059b18fcdb1a87bef3ac6a9663cad45f6fb3087686864d34a9fc4fbd57b2\",\"schema\":\"tig.age-inheritance-key.design-1\"}",
+      "sha256": "22f212c9ddfcbbc0f5198395f041ee977df85a72450f12dc22c01f177baad86d",
+      "id": "22f212c9ddfcbbc0f5198395f041ee977df85a72450f12dc22c01f177baad86d"
+    }
+  ]
+}

@@ -6,10 +6,30 @@ use std::{
     collections::BTreeMap,
     fs::{self, OpenOptions},
     io::Write,
-    path::Path,
+    path::{Path, PathBuf},
     time::Duration,
 };
 use tig_core::{Digest, Object, identity};
+
+pub mod admission;
+pub mod age;
+pub mod subset;
+
+#[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum Kind {
+    Branch,
+    Draft,
+    Job,
+    Retention,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Places {
+    pub current: Vec<Key>,
+    pub pending: Vec<Key>,
+    pub predecessor: Vec<Key>,
+}
 
 pub const MAX_SOURCES: usize = 1024;
 pub const MAX_PREDECESSORS: usize = 64;
@@ -32,6 +52,7 @@ pub enum Error {
     Budget,
     NeedsRecovery,
     Injected,
+    AdmissionRequired,
 }
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -76,6 +97,8 @@ struct Config {
     project: Key,
     epoch: Key,
     instance: Digest,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    admission: Option<admission::Policy>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -120,6 +143,8 @@ pub struct Pending {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Source {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub kind: Option<Kind>,
     pub owner: Key,
     pub revision: u64,
     pub current: Option<Version>,
@@ -200,6 +225,11 @@ pub enum PreviewDisposition {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Command {
+    Enroll {
+        source: Key,
+        owner: Key,
+        class: Kind,
+    },
     Prepare {
         source: Key,
         owner: Key,
@@ -233,7 +263,8 @@ pub enum Command {
 impl Command {
     fn source(&self) -> &Key {
         match self {
-            Self::Prepare { source, .. }
+            Self::Enroll { source, .. }
+            | Self::Prepare { source, .. }
             | Self::Adopt { source, .. }
             | Self::Abort { source, .. }
             | Self::Retire { source, .. }
@@ -255,6 +286,7 @@ pub enum Stage {
 }
 #[derive(Clone)]
 struct State {
+    guarded: bool,
     sources: BTreeMap<String, Source>,
     outcomes: BTreeMap<String, u64>,
     head: Checkpoint,
@@ -262,6 +294,39 @@ struct State {
 }
 impl State {
     fn transition(&mut self, request: &Request) -> Result<u64> {
+        if let Command::Enroll {
+            source,
+            owner,
+            class,
+        } = &request.command
+        {
+            if !self.guarded {
+                return Err(Error::AdmissionRequired);
+            }
+            if let Some(existing) = self.sources.get(source.as_str()) {
+                return Err(if &existing.owner == owner {
+                    Error::Conflict
+                } else {
+                    Error::Owner
+                });
+            }
+            if self.sources.len() >= MAX_SOURCES {
+                return Err(Error::Budget);
+            }
+            self.sources.insert(
+                source.as_str().into(),
+                Source {
+                    kind: Some(class.clone()),
+                    owner: owner.clone(),
+                    revision: 1,
+                    current: None,
+                    pending: None,
+                    predecessors: Vec::new(),
+                },
+            );
+            self.outcomes.insert(request.operation.as_str().into(), 1);
+            return Ok(1);
+        }
         let (id, owner, expected) = match &request.command {
             Command::Prepare {
                 source,
@@ -292,8 +357,12 @@ impl State {
                 owner,
                 expected_revision,
             } => (source, owner, *expected_revision),
+            Command::Enroll { .. } => return Err(Error::AdmissionRequired),
         };
         let new_source = !self.sources.contains_key(id.as_str());
+        if self.guarded && new_source {
+            return Err(Error::AdmissionRequired);
+        }
         if new_source && !matches!(request.command, Command::Prepare { .. }) {
             return Err(Error::Missing);
         }
@@ -301,6 +370,7 @@ impl State {
             return Err(Error::Budget);
         }
         let mut source = self.sources.get(id.as_str()).cloned().unwrap_or(Source {
+            kind: None,
             owner: owner.clone(),
             revision: 0,
             current: None,
@@ -315,6 +385,7 @@ impl State {
         }
         let revision = source.revision.checked_add(1).ok_or(Error::Budget)?;
         match &request.command {
+            Command::Enroll { .. } => return Err(Error::AdmissionRequired),
             Command::Prepare { selection, .. } => {
                 if selection.root.bytes == 0 || selection.root.bytes > 65_536 {
                     return Err(Error::InvalidReference);
@@ -386,6 +457,8 @@ impl State {
     }
 }
 pub struct SourceJournal {
+    root: PathBuf,
+    config: Config,
     conn: Connection,
     state: State,
     poisoned: bool,
@@ -393,11 +466,25 @@ pub struct SourceJournal {
 impl SourceJournal {
     /// Explicit runtime-metadata creation only; caller owns root and disk budget.
     pub fn create(root: &Path, project: Key, epoch: Key) -> Result<Self> {
+        Self::create_mode(root, project, epoch, None)
+    }
+    fn create_mode(
+        root: &Path,
+        project: Key,
+        epoch: Key,
+        admission: Option<admission::Policy>,
+    ) -> Result<Self> {
         local::check_root_spelling(root)?;
         let mut nonce = [0; 32];
         getrandom::fill(&mut nonce).map_err(|_| Error::Io)?;
         let config = Config {
-            schema: "tig.source-claims.design-1".into(),
+            schema: if admission.is_some() {
+                "tig.source-claims.design-2"
+            } else {
+                "tig.source-claims.design-1"
+            }
+            .into(),
+            admission,
             project,
             epoch,
             instance: Digest::blob(&nonce),
@@ -405,6 +492,9 @@ impl SourceJournal {
         let bytes = encode(&config)?;
         let genesis = Digest::blob(&bytes);
         fs::create_dir(root)?;
+        if config.admission.is_some() {
+            admission::create_anchors(root)?;
+        }
         let mut marker = OpenOptions::new()
             .write(true)
             .create_new(true)
@@ -470,12 +560,39 @@ impl SourceJournal {
             sources: selected,
         })
     }
+    /// Observe every registered source in one bounded replay. This detects
+    /// unexpected sources omitted from a caller's enrollment; no global scope
+    /// or new source-admission fence is implied.
+    pub fn observe_all(
+        root: &Path,
+        witness: &Checkpoint,
+        max_sources: usize,
+    ) -> Result<BatchObservation> {
+        if max_sources == 0 || max_sources > MAX_SOURCES {
+            return Err(Error::Budget);
+        }
+        let journal = Self::open_mode(root, witness, true)?;
+        if journal.state.sources.len() > max_sources {
+            return Err(Error::Budget);
+        }
+        Ok(BatchObservation {
+            checkpoint: journal.state.head.clone(),
+            sources: journal
+                .state
+                .sources
+                .into_iter()
+                .map(|(id, source)| (id, Some(source)))
+                .collect(),
+        })
+    }
     fn open_mode(root: &Path, witness: &Checkpoint, read_only: bool) -> Result<Self> {
         local::check_root_spelling(root)?;
         local::directory(root)?;
         let config: Config = local::read_record(&root.join("claims.json"))?;
-        if config.schema != "tig.source-claims.design-1" {
-            return Err(Error::Corrupt);
+        match (&config.schema[..], &config.admission) {
+            ("tig.source-claims.design-1", None) => (),
+            ("tig.source-claims.design-2", Some(policy)) if policy.valid() => (),
+            _ => return Err(Error::Corrupt),
         }
         let genesis = Digest::blob(&encode(&config)?);
         if genesis != witness.genesis {
@@ -488,8 +605,11 @@ impl SourceJournal {
             connect(&root.join("claims.sqlite"))?
         };
         let mut journal = Self {
+            root: root.to_owned(),
+            config: config.clone(),
             conn,
             state: State {
+                guarded: config.admission.is_some(),
                 sources: BTreeMap::new(),
                 outcomes: BTreeMap::new(),
                 head: Checkpoint {
@@ -502,13 +622,21 @@ impl SourceJournal {
             poisoned: false,
         };
         journal.sync()?;
-        if journal.state.head.sequence < witness.sequence {
+        journal.verify_minimum(witness)?;
+        Ok(journal)
+    }
+    /// Shared exact ancestry check for open and stricter caller-admitted minima.
+    fn verify_minimum(&self, witness: &Checkpoint) -> Result<()> {
+        if self.identity() != witness.identity() {
+            return Err(Error::InvalidReference);
+        }
+        if self.state.head.sequence < witness.sequence {
             return Err(Error::Rollback);
         }
         let actual = if witness.sequence == 0 {
-            journal.state.head.genesis.as_str().to_owned()
+            self.state.head.genesis.as_str().to_owned()
         } else {
-            journal.conn.query_row(
+            self.conn.query_row(
                 "SELECT hash FROM events WHERE sequence=?1",
                 [number(witness.sequence)?],
                 |r| r.get::<_, String>(0),
@@ -517,7 +645,7 @@ impl SourceJournal {
         if actual != witness.hash.as_str() {
             return Err(Error::Rollback);
         }
-        Ok(journal)
+        Ok(())
     }
     pub fn checkpoint(&self) -> Checkpoint {
         self.state.head.clone()
@@ -603,7 +731,19 @@ impl SourceJournal {
         operation: Key,
         command: Command,
     ) -> Result<Preview> {
+        Self::preview_mode(root, minimum, operation, command, false)
+    }
+    fn preview_mode(
+        root: &Path,
+        minimum: &Checkpoint,
+        operation: Key,
+        command: Command,
+        admitted: bool,
+    ) -> Result<Preview> {
         let mut journal = Self::open_mode(root, minimum, true)?;
+        if journal.config.admission.is_some() && !admitted {
+            return Err(Error::AdmissionRequired);
+        }
         let request = Request { operation, command };
         let body = encode(&request).map_err(|_| Error::InvalidReference)?;
         let tx = journal
@@ -649,22 +789,110 @@ impl SourceJournal {
         command: Command,
         hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
+        if self.config.admission.is_some() {
+            return Err(Error::AdmissionRequired);
+        }
         let result = self.apply_once(operation, command, false, hook);
         self.mark_uncertain(&result);
         result
+    }
+    fn apply_admitted(
+        &mut self,
+        operation: Key,
+        command: Command,
+        permit: &admission::Permit,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Receipt> {
+        self.check_guarded_marker()?;
+        if !permit.matches(
+            self.identity(),
+            &Request {
+                operation: operation.clone(),
+                command: command.clone(),
+            },
+        )? {
+            return Err(Error::AdmissionRequired);
+        }
+        let result = self
+            .apply_requests_if(
+                &[Request { operation, command }],
+                false,
+                permit.conditions(),
+                hook,
+            )
+            .and_then(|mut receipts| receipts.pop().ok_or(Error::Corrupt));
+        self.mark_uncertain(&result);
+        result
+    }
+    fn check_guarded_marker(&self) -> Result<()> {
+        if self.config.admission.is_none() {
+            return Err(Error::AdmissionRequired);
+        }
+        local::directory(&self.root)?;
+        let actual: Config = local::read_record(&self.root.join("claims.json"))?;
+        if actual != self.config {
+            return Err(Error::InvalidReference);
+        }
+        Ok(())
     }
     fn apply_once(
         &mut self,
         operation: Key,
         command: Command,
         recorded_only: bool,
-        mut hook: impl FnMut(Stage) -> Result<()>,
+        hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
+        self.apply_requests(&[Request { operation, command }], recorded_only, hook)?
+            .pop()
+            .ok_or(Error::Corrupt)
+    }
+    fn apply_atomic_admitted(
+        &mut self,
+        requests: &[Request],
+        permit: &admission::AtomicPermit,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
+        self.check_guarded_marker()?;
+        if !permit.matches(self.identity(), requests)? {
+            return Err(Error::AdmissionRequired);
+        }
+        let result = self.apply_requests(requests, false, hook);
+        self.mark_uncertain(&result);
+        result
+    }
+    /// Up to three existing commands; no new event encoding or journal engine.
+    fn apply_requests(
+        &mut self,
+        requests: &[Request],
+        recorded_only: bool,
+        hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
+        self.apply_requests_if(requests, recorded_only, &[], hook)
+    }
+    fn apply_requests_if(
+        &mut self,
+        requests: &[Request],
+        recorded_only: bool,
+        conditions: &[admission::SourceCondition],
+        mut hook: impl FnMut(Stage) -> Result<()>,
+    ) -> Result<Vec<Receipt>> {
         if self.poisoned {
             return Err(Error::NeedsRecovery);
         }
-        let request = Request { operation, command };
-        let body = encode(&request).map_err(|_| Error::InvalidReference)?;
+        if requests.is_empty()
+            || requests.len() > 3
+            || requests.iter().enumerate().any(|(i, r)| {
+                requests[..i]
+                    .iter()
+                    .any(|prior| prior.operation == r.operation)
+            })
+        {
+            return Err(Error::Conflict);
+        }
+        let bodies = requests
+            .iter()
+            .map(|request| encode(request).map_err(|_| Error::InvalidReference))
+            .collect::<Result<Vec<_>>>()?;
         let tx = self.conn.transaction_with_behavior(if recorded_only {
             TransactionBehavior::Deferred
         } else {
@@ -672,50 +900,85 @@ impl SourceJournal {
         })?;
         let mut state = self.state.clone();
         catch_up(&tx, &mut state)?;
-        if let Some(receipt) = recorded_receipt(&tx, &state, &request, &body)? {
+        let recorded = requests
+            .iter()
+            .zip(&bodies)
+            .map(|(request, body)| recorded_receipt(&tx, &state, request, body))
+            .collect::<Result<Vec<_>>>()?;
+        let count = recorded.iter().filter(|r| r.is_some()).count();
+        if count != 0 && count != requests.len() {
+            return Err(Error::NeedsRecovery);
+        }
+        if count == requests.len() {
             tx.commit()?;
             self.state = state;
-            return Ok(receipt);
+            return Ok(recorded.into_iter().flatten().collect());
         }
         if recorded_only {
             return Err(Error::Missing);
         }
-        let bytes = growth_bytes(&state, body.len())?;
-        let revision = state.transition(&request)?;
-        let sequence = state.head.sequence.checked_add(1).ok_or(Error::Budget)?;
-        let hash = event_hash(sequence, &state.head.hash, &request)?;
-        hook(Stage::BeforeAppend).map_err(|_| Error::Injected)?;
-        tx.execute(
-            "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
-            params![
-                number(sequence)?,
-                request.operation.as_str(),
-                body,
-                state.head.hash.as_str(),
-                hash.as_str()
-            ],
-        )?;
-        tx.execute(
-            "UPDATE meta SET sequence=?1,hash=?2,bytes=?3 WHERE id=1",
-            params![number(sequence)?, hash.as_str(), number(bytes)?],
-        )?;
+        if conditions.iter().any(|c| {
+            state
+                .sources
+                .get(c.source.as_str())
+                .is_none_or(|s| s.revision != c.revision)
+        }) {
+            return Err(Error::Stale);
+        }
+        // Admit the complete group before its first append. One remaining event
+        // slot is not room for an atomic Prepare/Adopt pair.
+        if state
+            .head
+            .sequence
+            .checked_add(requests.len() as u64)
+            .ok_or(Error::Budget)?
+            > MAX_COMMANDS
+        {
+            return Err(Error::Budget);
+        }
+        let body_bytes = bodies.iter().try_fold(0usize, |total, b| {
+            total.checked_add(b.len()).ok_or(Error::Budget)
+        })?;
+        growth_bytes(&state, body_bytes)?;
+        let mut receipts = Vec::new();
+        for (request, body) in requests.iter().zip(bodies) {
+            let bytes = growth_bytes(&state, body.len())?;
+            let revision = state.transition(request)?;
+            let sequence = state.head.sequence.checked_add(1).ok_or(Error::Budget)?;
+            let hash = event_hash(sequence, &state.head.hash, request)?;
+            hook(Stage::BeforeAppend).map_err(|_| Error::Injected)?;
+            tx.execute(
+                "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
+                params![
+                    number(sequence)?,
+                    request.operation.as_str(),
+                    body,
+                    state.head.hash.as_str(),
+                    hash.as_str()
+                ],
+            )?;
+            tx.execute(
+                "UPDATE meta SET sequence=?1,hash=?2,bytes=?3 WHERE id=1",
+                params![number(sequence)?, hash.as_str(), number(bytes)?],
+            )?;
+            state.head.sequence = sequence;
+            state.head.hash = hash;
+            state.bytes = bytes;
+            receipts.push(Receipt {
+                reference: Reference {
+                    journal: state.head.genesis.clone(),
+                    operation: request.operation.clone(),
+                },
+                checkpoint: state.head.clone(),
+                source_revision: revision,
+                replayed: false,
+            });
+        }
         hook(Stage::BeforeCommit).map_err(|_| Error::Injected)?;
         tx.commit()?;
         hook(Stage::AfterCommit).map_err(|_| Error::Injected)?;
-        state.head.sequence = sequence;
-        state.head.hash = hash;
-        state.bytes = bytes;
-        let receipt = Receipt {
-            reference: Reference {
-                journal: state.head.genesis.clone(),
-                operation: request.operation,
-            },
-            checkpoint: state.head.clone(),
-            source_revision: revision,
-            replayed: false,
-        };
         self.state = state;
-        Ok(receipt)
+        Ok(receipts)
     }
 }
 fn growth_bytes(state: &State, body_len: usize) -> Result<u64> {

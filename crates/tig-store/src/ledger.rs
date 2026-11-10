@@ -37,6 +37,7 @@ pub enum LedgerError {
     Budget,
     Injected,
     Cancelled,
+    Clock,
 }
 impl std::fmt::Display for LedgerError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -81,6 +82,8 @@ struct Config {
     epoch: Key,
     instance: Digest,
     floor: u64,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    clock: Option<crate::clock::Policy>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -90,6 +93,10 @@ pub struct Checkpoint {
     hash: Digest,
 }
 impl Checkpoint {
+    /// Immutable enrolled journal identity; not evidence of current head/freshness.
+    pub fn identity(&self) -> &Digest {
+        &self.genesis
+    }
     pub fn sequence(&self) -> u64 {
         self.sequence
     }
@@ -102,6 +109,7 @@ pub struct JournalRef {
 }
 #[derive(Clone, Debug)]
 pub enum Response {
+    TimeObserved(u64),
     ReservationRetired,
     Reserved,
     AllocationStarted,
@@ -144,6 +152,10 @@ impl Receipt {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 enum Command {
+    ObserveClock {
+        millis: u64,
+        strict: bool,
+    },
     RetireClosed {
         reservation: Key,
     },
@@ -222,6 +234,7 @@ struct Request {
 }
 #[derive(Clone)]
 enum Output {
+    Clock(u64),
     Retired(RetiredReservation),
     Handoff {
         ticket: AllocationTicket,
@@ -253,6 +266,7 @@ enum Output {
 impl Output {
     fn response(&self) -> Response {
         match self {
+            Self::Clock(time) => Response::TimeObserved(*time),
             Self::Retired(_) => Response::ReservationRetired,
             Self::Handoff { .. } => Response::HandoffStarted,
             Self::HandoffSettled(bytes) => Response::HandoffSettled(*bytes),
@@ -285,6 +299,18 @@ enum Stage {
     Written,
     Committed,
 }
+#[derive(Default)]
+struct ClockState {
+    enabled: bool,
+    high: Option<u64>,
+}
+impl ClockState {
+    fn advance(&mut self, output: &Output) {
+        if let Output::Clock(time) = output {
+            self.high = Some(*time);
+        }
+    }
+}
 
 pub struct CapacityLedger {
     root: PathBuf,
@@ -298,18 +324,45 @@ pub struct CapacityLedger {
     fresh: Option<Instant>,
     poisoned: bool,
     last_replay: u64,
+    clock: ClockState,
 }
 impl CapacityLedger {
     pub fn create(root: &Path, domain: Key, epoch: Key, floor: u64) -> Result<Self> {
+        Self::create_profile(root, domain, epoch, floor, None)
+    }
+    /// Fresh explicit clock enrollment only; legacy roots are never upgraded.
+    pub fn create_clock(
+        root: &Path,
+        domain: Key,
+        epoch: Key,
+        floor: u64,
+        policy: crate::clock::Policy,
+    ) -> Result<Self> {
+        policy.id().map_err(|_| LedgerError::Clock)?;
+        Self::create_profile(root, domain, epoch, floor, Some(policy))
+    }
+    fn create_profile(
+        root: &Path,
+        domain: Key,
+        epoch: Key,
+        floor: u64,
+        clock: Option<crate::clock::Policy>,
+    ) -> Result<Self> {
         local::check_root_spelling(root)?;
         let mut nonce = [0u8; 32];
         getrandom::fill(&mut nonce).map_err(|_| LedgerError::Corrupt)?;
         let config = Config {
-            schema: "tig.capacity-ledger.design-1".into(),
+            schema: if clock.is_some() {
+                "tig.capacity-ledger.design-2"
+            } else {
+                "tig.capacity-ledger.design-1"
+            }
+            .into(),
             domain,
             epoch,
             instance: Digest::blob(&nonce),
             floor,
+            clock,
         };
         let body = encode(&config)?;
         let genesis = Digest::blob(&body);
@@ -349,9 +402,11 @@ impl CapacityLedger {
         local::check_root_spelling(root)?;
         local::directory(root)?;
         let config: Config = local::read_record(&root.join("domain.json"))?;
-        if config.schema != "tig.capacity-ledger.design-1" {
-            return Err(LedgerError::Corrupt);
-        }
+        let enabled = match (config.schema.as_str(), &config.clock) {
+            ("tig.capacity-ledger.design-1", None) => false,
+            ("tig.capacity-ledger.design-2", Some(policy)) if policy.id().is_ok() => true,
+            _ => return Err(LedgerError::Corrupt),
+        };
         let genesis = Digest::blob(&encode(&config)?);
         if genesis != witness.genesis {
             return Err(LedgerError::InvalidReference);
@@ -379,6 +434,10 @@ impl CapacityLedger {
             fresh: None,
             poisoned: false,
             last_replay: 0,
+            clock: ClockState {
+                enabled,
+                high: None,
+            },
         };
         ledger.sync()?;
         if ledger.checkpoint.sequence < witness.sequence {
@@ -407,6 +466,24 @@ impl CapacityLedger {
     }
     pub fn identity(&self) -> &Digest {
         &self.checkpoint.genesis
+    }
+    pub fn clock_enrollment(&self) -> Result<crate::clock::Enrollment> {
+        self.guard()?;
+        Ok(crate::clock::Enrollment {
+            journal: self.identity().clone(),
+            policy: self.config.clock.clone().ok_or(LedgerError::Clock)?,
+        })
+    }
+    /// Historical accepted lower bound, never current-time authority.
+    pub fn clock_high_water(&mut self) -> Result<Option<u64>> {
+        if !self.clock.enabled {
+            return Err(LedgerError::Clock);
+        }
+        self.sync()?;
+        Ok(self.clock.high)
+    }
+    pub(crate) fn observe_clock(&mut self, op: Key, millis: u64, strict: bool) -> Result<Receipt> {
+        self.apply(op, Command::ObserveClock { millis, strict })
     }
     pub(crate) fn check_history(&mut self) -> Result<()> {
         self.sync()
@@ -601,6 +678,40 @@ impl CapacityLedger {
             _ => Err(LedgerError::Corrupt),
         }
     }
+    /// Read-only exact-operation lookups; absence never implies absent demand.
+    pub(crate) fn allocation_reference(
+        &mut self,
+        op: &Key,
+        retention: bool,
+    ) -> Result<Option<JournalRef>> {
+        self.sync()?;
+        let Some(output) = self.outputs.get(op.as_str()) else {
+            return Ok(None);
+        };
+        if !matches!(
+            (retention, output),
+            (true, Output::Retention { .. }) | (false, Output::Publication { .. })
+        ) {
+            return Err(LedgerError::Conflict);
+        }
+        Ok(Some(JournalRef {
+            genesis: self.checkpoint.genesis.clone(),
+            operation: op.clone(),
+        }))
+    }
+    pub(crate) fn handoff_reference(&mut self, op: &Key) -> Result<Option<JournalRef>> {
+        self.sync()?;
+        let Some(output) = self.outputs.get(op.as_str()) else {
+            return Ok(None);
+        };
+        if !matches!(output, Output::Handoff { .. }) {
+            return Err(LedgerError::Conflict);
+        }
+        Ok(Some(JournalRef {
+            genesis: self.checkpoint.genesis.clone(),
+            operation: op.clone(),
+        }))
+    }
     pub(crate) fn publication_reference(&mut self, op: Key) -> Result<JournalRef> {
         self.sync()?;
         if !matches!(
@@ -792,6 +903,7 @@ impl CapacityLedger {
             &mut self.checkpoint,
             &mut self.bytes,
             &mut self.fresh,
+            &mut self.clock,
         );
         self.last_replay = self.checkpoint.sequence.saturating_sub(before);
         if result.is_err() {
@@ -840,6 +952,7 @@ impl CapacityLedger {
             &mut self.checkpoint,
             &mut self.bytes,
             &mut self.fresh,
+            &mut self.clock,
         ) {
             self.poisoned = true;
             return Err(e);
@@ -913,7 +1026,7 @@ impl CapacityLedger {
         let previous = self.checkpoint.hash.clone();
         let hash = event_hash(sequence, &previous, &request)?;
         let output = self.domain.try_transition(|staged| {
-            let output = execute(staged, &self.outputs, &request)?;
+            let output = execute(staged, &self.outputs, &request, &self.clock)?;
             hook(Stage::Validated)?;
             tx.execute(
                 "INSERT INTO events VALUES(?1,?2,?3,?4,?5)",
@@ -959,6 +1072,7 @@ impl CapacityLedger {
             }
             _ => (),
         }
+        self.clock.advance(&output);
         self.checkpoint.sequence = sequence;
         self.checkpoint.hash = hash.clone();
         self.bytes = bytes;
@@ -1002,12 +1116,24 @@ fn execute(
     domain: &mut CapacityDomain,
     outputs: &BTreeMap<String, Output>,
     request: &Request,
+    clock: &ClockState,
 ) -> Result<Output> {
     let reservation = |id: &Key| match outputs.get(id.as_str()) {
         Some(Output::Reservation(token)) => Ok(token),
         _ => Err(LedgerError::InvalidReference),
     };
     Ok(match &request.command {
+        Command::ObserveClock { millis, strict } => {
+            if !clock.enabled
+                || *millis == 0
+                || clock
+                    .high
+                    .is_some_and(|n| *millis < n || *strict && *millis == n)
+            {
+                return Err(LedgerError::Clock);
+            }
+            Output::Clock(*millis)
+        }
         Command::RetireClosed { reservation: id } => {
             if request.operation != retirement_key(id)? {
                 return Err(LedgerError::InvalidReference);
@@ -1205,6 +1331,7 @@ fn catch_up(
     checkpoint: &mut Checkpoint,
     bytes: &mut u64,
     fresh: &mut Option<Instant>,
+    clock: &mut ClockState,
 ) -> Result<()> {
     let (genesis, head, hash, total) = conn.query_row(
         "SELECT genesis,sequence,hash,bytes FROM meta WHERE id=1",
@@ -1245,7 +1372,8 @@ fn catch_up(
         {
             return Err(LedgerError::Corrupt);
         }
-        let output = execute(domain, outputs, &request)?;
+        let output = execute(domain, outputs, &request, clock)?;
+        clock.advance(&output);
         if matches!(
             request.command,
             Command::Invalidate | Command::RetireClosed { .. }
@@ -1324,6 +1452,9 @@ fn sql_number(value: u64) -> Result<i64> {
     i64::try_from(value).map_err(|_| LedgerError::Budget)
 }
 
+#[cfg(test)]
+#[path = "ledger_clock_tests.rs"]
+mod clock_tests;
 #[cfg(test)]
 #[path = "ledger_tests.rs"]
 mod tests;

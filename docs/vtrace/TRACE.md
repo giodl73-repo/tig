@@ -1,5 +1,165 @@
 # Tig trace
 
+Stale-plan teaching: WP-004/008/009/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-STALE-PLAN.md ->
+actual SDK rejection/status/fresh plans, independent oracle and native/API/
+negative/shipped controls -> EVID-119. Full course and product gates remain open.
+
+Backup-outage teaching: WP-004/008/009/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-BACKUP-OUTAGE.md ->
+existing SDK held effects, versioned coverage reader/UI, independent oracle and
+native/API/semantic-negative/controller cases -> EVID-118. Full hardware/native/
+course/final-loss/expiry and intended-use acceptance remain open.
+
+Worktree/index teaching: WP-004/008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-WORKTREE.md ->
+captured source/native snapshots and existing placement, independent copy oracle,
+dirty-removal/index/job/native/HTTP/shipped-controls cases -> EVID-117.
+Full writer/course/final-loss/expiry and intended-use acceptance remain open.
+
+Public Git exchange: WP-004/008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-EXCHANGE.md ->
+fresh-root local Git remote/observer over existing source and placement ports ->
+independent copy oracle, dirty/ref/commit/native/HTTP/shipped-controls cases ->
+EVID-116. Broader command/failure/final-loss/expiry and intended-use gates remain.
+
+Recorded teaching playback: WP-008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-PLAYBACK.md ->
+optional verified reader/API, actual sample export and shipped lesson controls ->
+native sample/HTTP/refusal and controller/stale/missing/text cases -> EVID-115.
+Complete course, hosted qualification and intended-use acceptance remain open.
+
+Public teaching catalogue: WP-003/004/006/007/008/009/010/015/016;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/006/008/009/010/014,
+IF-002/003/004/005/006/008/010/011/012/013,
+PKG-001/002/003/004/006/008/009 -> TEACHING-CATALOGUE.md -> public fixture/oracle,
+tig-sample over existing source/placement/provider adapters and actual catalogue
+export -> actual CLI/provider/catalogue/refusal/isolation cases -> EVID-114.
+Local broad/final-focus qualification passes; hosted,
+interactive/full-course, native/provider/lifetime and user validation remain open.
+
+Held-copy follow-up candidate: WP-003/004/006/007/008/009/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 ->
+HELD-COPY-FOLLOWUP.md -> paged::control::followup and tig-storage paged followup
+over existing current clearance, final providers and accounted witnesses ->
+independent frames, ended-job/recovered-provider, cancellation/proof/scope/race,
+five actual exits and fresh CLI -> EVID-113. Local broad qualification passes;
+final artifact and exact-head hosted qualification pass;
+native authority, UI/Action, provider/lifetime and full acceptance remain open.
+
+Paged operator candidate: WP-003/004/006/007/008/009/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 -> PAGED-OPERATOR.md ->
+tig-storage paged, shared paged::Session and canonical copy-index extension ->
+EVID-112. The native artifact qualifier additionally uses WP-010/REQ-010/
+SPEC-010/IF-010/PKG-004/006 through the existing optional adapter, without a
+typed/Git dependency in tig-store. Verification, synthetic rehearsal and producer
+review remain separate from held-copy follow-up, full intended use and acceptance.
+
+Manual paged execution: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-EXECUTION.md -> paged::control,
+protection::budget, subset::apply_metered and guarded provider hooks ->
+EVID-109/implementation4bcd433. [Review](../reviews/2026-11-09-paged-controller.md)
+separates actual manual execution from aged/native integration, hosted checks and
+full operational/provider/lifetime/independent/human acceptance.
+
+Paged conditional preparation: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-EXECUTION.md -> subset::plan_pages,
+paged::preparation, age append-only inheritance and shared bulk witness ->
+EVID-108/implementation2dd9990. [Review](../reviews/2026-11-09-paged-preparation.md)
+keeps prediction, actual subset receipts, future controller progress and full
+product/provider/lifetime/human acceptance separate.
+
+Paged historical selection: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> PAGED-RETIREMENT.md -> final_retirement::paged,
+admission::bulk::remaining_selected -> EVID-107/implementation3ee9ff3.
+[Review](../reviews/2026-11-09-paged-selection.md) separates metadata implementation,
+verification, synthetic validation and six producer lenses from NB-07 controller
+execution, hosted checks and complete adoption/lifetime/human acceptance.
+
+Recorded historical age: WP-003/004/006/007/008/009/010/013/015;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-002/003/004/006/008/009 -> AGE-WITNESSES.md -> source_claims::age,
+subset::historical_survivor, tig-storage age, tig-retirement select-aged ->
+EVID-106/implementation1a344fc. [Review](../reviews/2026-11-09-age-witnesses.md)
+separates implementation, focused verification, synthetic validation and six
+producer lenses from final broad/artifact checks and complete user acceptance.
+
+Native historical mapping: WP-003/004/007/008/009/010/013/015;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/008/009/010/013/014, IF-002/004/005/006/008/010/012/013,
+PKG-001/003/004/006/008/009 -> NATIVE-RETIREMENT-BINDINGS.md ->
+Graph::storage_objects, native::retirement build/build_from_archive/inspect/select,
+tig-retirement -> eight native entries, one framing entry/four independent cases,
+real Git/CLI/1000 roots and actual bulk byte effects -> EVID-105,
+implementation00c229d. [Review](../reviews/2026-11-09-native-retirement-bindings.md)
+keeps implementation, verification, synthetic validation and six producer lenses
+separate from age, live adoption/provider/lifetime and full acceptance.
+
+Bulk operator execution: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+BULK-EXECUTION.md -> separate execute profile, immutable enrollment accessor,
+shared private Runtime and Cancellation -> nineteen active bulk entries and
+actual fresh CLI execution/recovery/refusal qualifier -> EVID-104,
+implementation6b9016e. [Review](../reviews/2026-11-09-bulk-execution.md) separates
+six producer lenses, verification and synthetic validation from full native/
+UI/Action/current authority/provider/lifetime and human acceptance.
+
+Explicit local clock: WP-003/004/006/007/008/009/015;
+REQ-001/003/004/005/006/007/009 -> SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/012, PKG-002/003/008/009 -> LOCAL-CLOCK.md ->
+clock::LocalClock/Policy/Enrollment, existing capacity marker/ObserveClock/replay,
+Clock::bounds and Window::check_clock -> adapter/ledger/provider/bulk negatives,
+native samples, three actual exits, full budget and independent vectors ->
+EVID-103, implementation9802166. [Review](../reviews/2026-11-09-local-clock.md)
+keeps verification, synthetic validation and six producer lenses separate from
+live trust/authority/restore/lifetime, mutation integration and acceptance.
+
+Bulk operator inspection: WP-003/004/007/008/009/015;
+REQ-001/003/004/005/007/009 -> SPEC-003/004/005/008/009/014,
+IF-003/004/005/006/008/012, PKG-002/003/008/009 -> BULK-OPERATOR.md ->
+bulk::Inspection/shared control/report, tig-storage bulk, ledger checkpoint getter
+and explicit CLI CI qualifier -> seventeen focused entries, actual fresh-artifact
+offline phase/hold/binding/privacy/no-command/no-provider-effects qualification ->
+EVID-102, implementation29e87e7. [Review](../reviews/2026-11-09-bulk-inspection.md)
+separates six producer lenses, verification and synthetic validation from full
+operator execution/native/clock/authority/provider/lifetime and acceptance.
+
+PL-01 correction for explicit groups: WP-004/006/007/009;
+REQ-002/003/004/005/009 -> SPEC-004/008/009, IF-004/006/012,
+PKG-002/003/008 -> ROSTER-PRECEDENCE.md -> binding HistoryScope,
+admission::roster, design-2 placement and shared live assessment -> twenty-five
+placement/sixteen protection entries, real peer and three-store transitions,
+independent binding hashes and pinned old-reader refusal -> EVID-101,
+implementationada8b21. [Review](../reviews/2026-11-09-roster-precedence.md)
+keeps compatibility, verification, synthetic validation and six producer lenses
+separate from live migration/provider/authority/lifetime and full acceptance.
+
+Bulk composition: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+BULK-RETIREMENT.md -> final_retirement::bulk, existing subset/final-provider/
+accounted composition and admission history guard -> sixteen focused entries,
+ten actual exits, six independent canonical vectors and three-store copy/unique
+accounting -> EVID-100, implementationfe073a6/correctivef999e3a. See
+[bulk review](../reviews/2026-11-09-bulk-retirement.md). Native selection/operator/
+provider/clock/authority/lifetime and PL-01 remain open; no full REQ closure.
+
 WP-006/007/008/009/010/012; REQ-002/003/004/005/006/007/009 ->
 SPEC-003/004/005/006/007/008/009/010/012; IF-002/003/004/005/006/010/012;
 PKG-001/002/003/004/006 -> PROTECTED-WORKING-HANDOFF.md -> placement/handoff.rs
@@ -402,3 +562,160 @@ METADATA-PROVIDER-COPY.md -> metadata/copy.rs, tig-metadata.rs,
 metadata/copy/tests.rs and metadata_copy_cli.rs -> EVID-083.
 Exact provider snapshot verification is separate from capacity admission,
 source-journal authority, provider adoption, latest-source coverage and custody.
+
+Storage orchestration: WP-003/004/006/007/008, REQ-001/002/003/004/005/007/009 ->
+SPEC-002/003/004/005/008/009, IF-002/003/004/005/006/012, PKG-002/003 plus
+PKG-008 CLI -> STORAGE-ORCHESTRATION.md -> orchestration.rs, optional accounted
+context binding, exact ledger/retention inspection and tig-storage -> 15 library
+entries / five process CLI fixtures -> EVID-084. Scoped verification and intended-use
+validation dispositions are separate. Full packages and complete removal authority
+remain open; no added dependency on optional typed assets.
+
+Protection demand: WP-004/006/008/009, REQ-001/002/004/005/007/009 ->
+SPEC-002/004/005/006/008, IF-002/004/005/006/008, PKG-001/003 ->
+PROTECTION-DEMAND-SNAPSHOT.md -> SourceJournal::observe_all and protection.rs ->
+17 focused projection/copy tests plus 35 source-journal regression entries ->
+EVID-085. Metadata resolution, complete protection admission, effective removal
+fences, independent custody and intended-use acceptance remain distinct.
+
+Mandatory admission: WP-004/006/008/009, REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009, IF-002/004/005/006/008/012, PKG-002/003 ->
+MANDATORY-SOURCE-ADMISSION.md -> source_claims::admission and guarded journal
+mutation gate -> 20 admission entries, three actual child processes, guarded
+class/projection and legacy regressions -> EVID-086, implementation0b75664.
+PKG-009 controls the reviewed 5 MiB source/docs budget; runtime limits are unchanged.
+Store/namespace binding, authority epoch handoff, intentional absence/incarnation,
+custody and removal remain separate entry gates. No full WP/REQ is closed.
+
+Store boundary: WP-003/004/006/008/009, REQ-001/002/003/004/005/006/007/009 ->
+SPEC-002/003/004/005/006/008/009, IF-002/003/004/005/006/008/012, PKG-002/003 ->
+STORE-PROTECTION-BOUNDARY.md -> local design-6 binding, store_protection::assess,
+shared admission work budget and actual orchestration contract/generation checks ->
+15 focused entries/one actual child plus legacy/provider regressions -> EVID-087,
+implementationbe6f946. IF-003 explicitly covers the opt-in marker compatibility.
+Full work packages and live adoption/removal/custody/epoch gates remain open.
+
+Managed retirement: WP-003/004/006/007/008/009,
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009,
+IF-002/003/004/005/006/008/012, PKG-002/003 ->
+MANAGED-REPLICA-RETIREMENT.md -> local design-7 lifecycle, retirement::Execution/
+Reacquisition, accounted admission/binding and existing protection/retention ports
+-> 24 focused entries/eight actual child exits, real unlink/restore and legacy
+regressions -> EVID-088, implementationfe88c7c. Scoped verification, intended-use
+validation and producer review are separate. No full WP/REQ/VAL or designed
+scenario is closed; live/current-authority and remaining roadmap gates persist.
+
+Retirement operator/agent: WP-003/004/006/007/008/009/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008 -> RETIREMENT-AGENT-CLI.md ->
+tig-storage retire and retirement::status/canonical plans -> eight CLI process
+cases, 24 kernel regression entries with additional status assertions and separately
+executed real-child pending-intent CLI cancellation -> EVID-089,
+implementation19346c4. PKG-009 covers explicit cross-artifact CI qualification and
+external build/temp roots. Verification, validation rehearsal and producer review
+are separate; full requirements, adoption, event convergence and remaining roadmap
+milestones remain open.
+
+S3 publication: WP-003/005/006/007/014/015,
+REQ-001/003/004/005/006/007/009 -> SPEC-002/003/004/007/008/009/013,
+IF-002/003/004/005/006/012/013, PKG-002/003/004/008 -> S3-PUBLICATION.md ->
+optional s3::Client/Plan/Execution/status, existing accounted local witness and
+guarded reader ports, explicit tig-storage s3 -> 15 HTTP/process cases with
+conditional/readback, lost-reply restart, exact-peer contention, unrelated-job
+progress and refusal tests -> EVID-090, implementation4fc3060. Verification,
+synthetic validation and six-role producer review close separately. Full cloud/
+LFS/provider/adoption requirements and remaining roadmap milestones remain open.
+
+Standalone LFS upload: WP-003/005/006/007/014/015,
+REQ-001/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/007/008 -> LFS-UPLOAD.md ->
+optional tig-git upload backend, standard upload protocol/CLI, existing verified
+reader and shared accounted witnesses -> 13 HTTP/actual Git LFS/CLI/killed-process
+cases plus 15 S3 compatibility regressions -> EVID-091, implementation2f1173b.
+Verification, synthetic intended-use rehearsal and all six producer lenses close
+separately. Actual custody/server/large-file/lifetime qualification and subsequent
+Git lifecycle, bulk final-deletion and metadata-retirement delivery remain open.
+
+Committed-ref lifecycle selection: WP-003/004/005/006/008/009/011/012/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/008/009 ->
+GIT-LIFECYCLE-RECONCILIATION.md -> lifecycle library/tig-lifecycle, existing
+Namespace::select/Prepare/Adopt and finished metadata reader -> nine real Git/CLI
+cases, six added admission pair cases and separate pinned pre-pair reader test ->
+EVID-092, implementationfc3c57f. Verification, synthetic intended-use rehearsal
+and six producer lenses close separately. Full priority-6 provider/trigger and
+branch/draft/index integration plus later roadmap milestones remain open.
+
+Local placement reconciliation: WP-003/004/005/006/007/008/009/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/008/009 ->
+PLACEMENT-RECONCILIATION.md -> readonly namespace requirements, generic bounded
+placement executor and explicit tig-lifecycle reconcile over existing effect ports
+-> sixteen placement entries, two projection cases, twelve Git/CLI entries and
+separate artifact qualifications -> EVID-093, implementation7432739. Verification,
+synthetic intended-use rehearsal and six producer lenses close separately. Full
+priority 6, trusted triggers, branch/draft/index/native adoption, unattended partial
+recovery, provider/large-file/lifetime, bulk final deletion and metadata expiry
+remain required. No requirement or full-system VAL outcome is marked complete.
+
+Trusted GitHub intake: WP-004/005/007/008/009/013/015,
+REQ-001/002/003/004/005/006/007/008/009 -> SPEC-002/003/004/005/006/007/008/009/013,
+IF-002/003/004/005/006/008/009/012/013, PKG-002/003/004/007/008/009 ->
+GITHUB-TRIGGER.md -> optional RS256/intake/source/coordinator, CommittedSource,
+tig-trigger and inert Action client -> sixteen library/eight authentication/
+thirteen Git lifecycle entries, real hosted issuer empty-scope qualification and
+separate broader checks -> EVID-094, implementation503adca/fixb3aced0. Verification,
+synthetic validation and six producer lenses remain distinct. Full lifecycle,
+provider/large-file/authority/lifetime, final deletion, metadata expiry and user
+acceptance remain open; source availability does not install automation.
+
+Staged-index lifecycle: WP-004/005/008/009/015,
+REQ-001/002/004/005/007/008/009 -> SPEC-002/004/005/006/007/008/009,
+IF-002/004/005/006/008/009/013, PKG-002/003/004/008/009 -> INDEX-LIFECYCLE.md ->
+lifecycle::index, tig-lifecycle index, existing Repository/metadata/Namespace::select
+and placement executor -> fifteen focused entries including two actual child
+exits, linked worktrees and actual CLI/store job-end/no-op demotion -> EVID-095,
+implementation51dd2b2. Broader verification, synthetic validation and six producer
+lenses close separately; full lifecycle/native/authority/provider/lifetime, final
+deletion, metadata expiry and intended-use acceptance remain open.
+
+Owned settlement: WP-003/004/005/006/007/008/009/015;
+REQ-001/002/003/004/005/007/008/009 -> SPEC-002/004/005/006/007/008/009,
+IF-002/004/005/006/008/013, PKG-002/003/004/008/009 -> SOURCE-SETTLEMENT.md ->
+bounded transactional SourceCondition, exact ref lookup, lifecycle::settlement,
+tig-lifecycle settle/shared local placement and current-source convergence ->
+twelve settlement/three condition/one signed-source-withdrawal cases plus regression
+and explicit old-reader/artifact checks -> EVID-096, implementation51c5acc.
+Verification, synthetic validation and producer review are separate from full
+lifecycle/native/provider/authority/lifetime/final-deletion/metadata acceptance.
+
+Retained-subset prerequisite: WP-003/004/006/007/008/009/015;
+REQ-001/002/004/005/007/009 -> SPEC-002/004/005/006/008/009/014,
+IF-002/004/005/006/008/013, PKG-002/003/004/008/009 -> RETAINED-SUBSET.md ->
+source_claims::subset, Namespace::select_predecessor, existing sparse tree edits,
+metadata finish/readback and conditional original Retire -> fourteen subset
+library entries/four admission cases/two CLI cases/six actual new process exits
+and explicit old-reader state/receipt proof -> EVID-097, implementation2fecfab/
+corrective002a850. Implementation, verification, synthetic validation and six
+producer lenses remain separate from full bulk/final-deletion/metadata acceptance.
+
+Final-retirement prerequisite: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+FINAL-RETIREMENT.md -> final_retirement::claims, Namespace::absent_object,
+shared exact SourceJournal minimum ancestry and existing scoped admission/Work ->
+thirteen focused entries, one actual process exit, independent canonical vector,
+real restored-prefix and surplus-M/F-job fixtures -> EVID-098, implementation
+89d260e. Verification, synthetic validation and six producer lenses remain
+separate; the physical final-retirement/bulk/lifetime protocol remains target.
+
+Final-provider layer: WP-003/004/006/007/008/009/013/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/004/007/008/009 ->
+FINAL-PROVIDER.md -> final_retirement::provider/reacquire/status, LocalStore
+final-state/incarnation, accounted metadata, distinct portable contract and
+placement hold -> thirteen focused entries/nine actual exits, eleven canonical
+vectors, explicit old-writer refusal/legacy control and public reconciliation ->
+EVID-099, implementation9f5e8c0. Inherited S3 contention fixture additionally uses
+WP-005/014 and SPEC-007. Verification, synthetic validation and six producer
+lenses close separately from full bulk/authority/provider/lifetime acceptance.

@@ -18,6 +18,8 @@ use tig_store::{
 const LIMIT: usize = 65_536;
 #[path = "tig-source/diagnostics.rs"]
 mod diagnostics;
+#[path = "tig-source/subset.rs"]
+mod subset;
 #[path = "tig-source/transition.rs"]
 mod transition;
 #[derive(Deserialize)]
@@ -193,7 +195,13 @@ fn publish(report: &[u8], output: &Path) -> Result<(), Box<dyn std::error::Error
 }
 fn main() -> ExitCode {
     let args: Vec<_> = env::args_os().skip(1).take(5).collect();
-    let result = if args.len() == 3
+    let result = if args.len() == 4 && args[0] == "subset" {
+        subset::run(
+            args[1].to_str().unwrap_or(""),
+            Path::new(&args[2]),
+            Path::new(&args[3]),
+        )
+    } else if args.len() == 3
         && (args[0] == "inspect" || args[0] == "inspect-many" || args[0] == "acknowledge")
     {
         run(
@@ -211,7 +219,7 @@ fn main() -> ExitCode {
         )
     } else {
         eprintln!(
-            "usage: tig-source inspect|inspect-many|acknowledge|plan PRIVATE_PROFILE NEW_PRIVATE_REPORT; or apply PRIVATE_PLAN NEW_PRIVATE_REQUEST NEW_PRIVATE_REPORT"
+            "usage: tig-source inspect|inspect-many|acknowledge|plan PRIVATE_PROFILE NEW_PRIVATE_REPORT; or apply PRIVATE_PLAN NEW_PRIVATE_REQUEST NEW_PRIVATE_REPORT; or subset plan|status|apply|resume PRIVATE_PROFILE REQUEST_OR_PLAN"
         );
         return ExitCode::FAILURE;
     };

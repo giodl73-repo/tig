@@ -1,0 +1,81 @@
+{
+  "schema": "tig.paged-control-vectors.design-1",
+  "method": "independent Python ASCII json sort_keys compact separators and hashlib.sha256; framing only, example index references do not prove authority or source/provider effects",
+  "enrollment": "{\"capacity\":\"cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc\",\"clock\":\"7777777777777777777777777777777777777777777777777777777777777777\",\"context\":\"1762e1c83747b182b0f7f9055f1eb16deb7fa78f7ca97c1b7d7a4cacd914b7b5\",\"max_metadata_bytes\":536870912,\"max_window\":1000,\"selection\":{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"epoch\":\"afc9b31d9f3f3645ae563606e1ddbe4b0e72b247e3bc9dff6251f5ee8961ae48\",\"metadata\":\"45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f\",\"owner\":\"owner\",\"scope\":\"6240d2d8a87ee7f2736f605181279941d7d3b4b060d85042bb443140c8b0ac99\"},\"sources\":[{\"authority\":\"8f76fd501bb68ef71f4e276bc28f29bce1003b0c2c9d9478de81b5bfc0cde1e9\",\"classes\":[\"branch\",\"draft\"],\"limits\":{\"associations\":100000,\"bindings\":65536,\"millis\":60000,\"read_bytes\":67108864,\"reads\":100000,\"roots\":256},\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"write_bytes\":8388608,\"writes\":10000}],\"witness\":{\"contract\":\"00917ed077c165dcd189953fe9f26fbd47f4ace511b97c372ad8cd8e6e2591f4\",\"generation\":1,\"instance\":\"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\"}}",
+  "enrollment_id": "914aa5a8f25550839e3c206986adfa1355cbff99f8b2cde7b976f74b63d2468c",
+  "decision": "{\"action_count\":0,\"actions\":{\"bytes\":15,\"sha256\":\"1a4082a47680f1cbfd34bb60450e3258b224505e704fae0ca2ea3292e2a7b100\"},\"bindings\":1,\"enrollment\":\"914aa5a8f25550839e3c206986adfa1355cbff99f8b2cde7b976f74b63d2468c\",\"objects\":1,\"pages\":1,\"prepared\":{\"bytes\":1568,\"sha256\":\"10ac96c2c71fd980d98ec597d22db93752310ee7e4a3054cd328f09143a2ce4d\"},\"request\":{\"copies\":{\"bytes\":14,\"sha256\":\"066ba9968d439cdf56184d8e59ff979d5fc462cf4a3134117ee832cb201bc5ac\"},\"manifest\":{\"bytes\":1344,\"sha256\":\"8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0\"},\"operation\":\"example-block\",\"window\":{\"expires\":500,\"not_before\":50}},\"schema\":\"tig.paged-control-decision.design-1\",\"subjects\":{\"bytes\":16,\"sha256\":\"e00db101dc126b209054c0bb5e30965825f999decc57fd2fd37ae2fe1153fa18\"}}",
+  "decision_id": "5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106",
+  "bindings": {
+    "witness": {
+      "genesis": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "operation": "job"
+    },
+    "jobs": [],
+    "metadata": "45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f"
+  },
+  "step": "{\"bindings\":[{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"a\"},{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"b\"}],\"index\":0,\"origin\":{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"},\"plan\":{\"bytes\":19,\"sha256\":\"3ba71f30fc109971da55b1ca20bbcf3e30ddbad67a73e6e7cde83c05517d1b1d\"},\"retirement_checkpoint\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"schema\":\"tig.paged-preparation-step.design-1\"}",
+  "layouts": [
+    {
+      "kind": "global",
+      "key": "74c0082f79d8c27e837661b8450982e13b820da9adcf314990047eb34fe7e671",
+      "control_binding": "00231ed59071513e5eded8e43800b374ed2c5cb582b6e19ed8e6fbea900819a2",
+      "documents": [
+        "{\"bindings\":{\"jobs\":[],\"metadata\":\"45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f\",\"witness\":{\"genesis\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"operation\":\"job\"}},\"decision\":{\"action_count\":0,\"actions\":{\"bytes\":15,\"sha256\":\"1a4082a47680f1cbfd34bb60450e3258b224505e704fae0ca2ea3292e2a7b100\"},\"bindings\":1,\"enrollment\":\"914aa5a8f25550839e3c206986adfa1355cbff99f8b2cde7b976f74b63d2468c\",\"objects\":1,\"pages\":1,\"prepared\":{\"bytes\":1568,\"sha256\":\"10ac96c2c71fd980d98ec597d22db93752310ee7e4a3054cd328f09143a2ce4d\"},\"request\":{\"copies\":{\"bytes\":14,\"sha256\":\"066ba9968d439cdf56184d8e59ff979d5fc462cf4a3134117ee832cb201bc5ac\"},\"manifest\":{\"bytes\":1344,\"sha256\":\"8ff5196835a6e6df1cc5006ec8f15e736ce0965958a298cbc407c0877999cdb0\"},\"operation\":\"example-block\",\"window\":{\"expires\":500,\"not_before\":50}},\"schema\":\"tig.paged-control-decision.design-1\",\"subjects\":{\"bytes\":16,\"sha256\":\"e00db101dc126b209054c0bb5e30965825f999decc57fd2fd37ae2fe1153fa18\"}},\"schema\":\"tig.paged-control-intent.design-1\"}",
+        "{\"bindings\":\"2e05743fcc47a0bea16564b3c77521bed19c5eab7dda81a592e228d4d93c93e8\",\"cancelled\":true,\"decision\":\"5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106\",\"page\":null,\"schema\":\"tig.paged-control-terminal.design-1\"}",
+        "{\"bindings\":\"2e05743fcc47a0bea16564b3c77521bed19c5eab7dda81a592e228d4d93c93e8\",\"cancelled\":false,\"decision\":\"5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106\",\"page\":null,\"schema\":\"tig.paged-control-terminal.design-1\"}"
+      ],
+      "document_hashes": [
+        "dbc55e522df41a79996f63abd752c7baf3bd4c3487212bf7ca206273beb588c7",
+        "6db105e8a5ced69c19126706ed68a77df30d0e5731f9f0390be60af92dbfd6de",
+        "8ec4e390a6948583ca63eeed4ca6d82bbb0a4fdbc09a717b727a31459240ea46"
+      ]
+    },
+    {
+      "kind": "page",
+      "key": "6c8ebc119e87a6a1e8f0674ed65232308ba295b5645e417c29297e4580ac316a",
+      "control_binding": "8cc04e075a7e29918e309ba0aaa013302a0a0068a1a87e2501773fafd77636c8",
+      "documents": [
+        "{\"bindings\":\"2e05743fcc47a0bea16564b3c77521bed19c5eab7dda81a592e228d4d93c93e8\",\"decision\":\"5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106\",\"plan\":{\"bytes\":19,\"sha256\":\"3ba71f30fc109971da55b1ca20bbcf3e30ddbad67a73e6e7cde83c05517d1b1d\"},\"schema\":\"tig.paged-control-page-intent.design-1\",\"step\":{\"bindings\":[{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"a\"},{\"object\":{\"bytes\":6,\"sha256\":\"a4d26868017c0ccffe2efe50944ef4211834660cca834c6e9f86dec6a88246fa\"},\"path\":\"b\"}],\"index\":0,\"origin\":{\"class\":\"branch\",\"namespace\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"original\":{\"context\":\"e98f7a2ad74364bdbf2595692fe7526ae159022fec96a8a537571d8ab11715e3\",\"root\":{\"bytes\":13,\"sha256\":\"e6bcfae78eb44e3b2c4f0b9e9a3c3fa0ccc92e07044009bf42e3e3965d778f56\"}},\"owner\":\"owner\",\"policy\":\"823412d1eacb67956220e532959f0104603057c88704863ca38e7cd188fda812\",\"predecessor_revision\":3,\"source\":\"main\"},\"plan\":{\"bytes\":19,\"sha256\":\"3ba71f30fc109971da55b1ca20bbcf3e30ddbad67a73e6e7cde83c05517d1b1d\"},\"retirement_checkpoint\":{\"genesis\":\"9359f3bb2efa7aabd0264fb67fb1d99f91871778e9b887179d6b2debaa251ec6\",\"hash\":\"47320987f9a49d5b00119b960f247a956773f57543982b8bfcb6da5bb3afd9ef\",\"sequence\":4},\"schema\":\"tig.paged-preparation-step.design-1\"}}",
+        "{\"bindings\":\"2e05743fcc47a0bea16564b3c77521bed19c5eab7dda81a592e228d4d93c93e8\",\"cancelled\":true,\"decision\":\"5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106\",\"page\":0,\"schema\":\"tig.paged-control-terminal.design-1\"}",
+        "{\"bindings\":\"2e05743fcc47a0bea16564b3c77521bed19c5eab7dda81a592e228d4d93c93e8\",\"cancelled\":false,\"decision\":\"5c3e73b82559e4932762ec223df610ee2a8d0e6ae1e63205dcbf9815890af106\",\"page\":0,\"schema\":\"tig.paged-control-terminal.design-1\"}"
+      ],
+      "document_hashes": [
+        "1695e220fc8005dbf54d0eb2b237bb8988a0b050382bcbd5a6f6747258d94fbb",
+        "be83b23d1e9961df787c2860ffe894ecd8ea825a5f75fd0e4818e2153806892f",
+        "1daa86c5f50cd4b995b2aee226703132fc6828773874f43151641959d7e6de4f"
+      ]
+    }
+  ],
+  "records": [
+    {
+      "kind": "copy_index",
+      "canonical": "{\"count\":0,\"root\":{\"bytes\":17,\"sha256\":\"ca60b5681c516251b657610891868503fefd686cca7d54e5a8610e7d8c8c401d\"},\"schema\":\"tig.paged-control-copies.design-1\"}",
+      "sha256": "4cd00769d8128242ee3de1e2f6de32d510d0da748fb2916a7610f7404a8fee73"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":null,\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "f8f7659f222b1b76b885a92422c5e7c6a2fa0846dda2a72075c30ab955a93ec8"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"surviving_claims\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "4b7fb228aefbcff4ac242d8ac48ba378aa4505f6106ca261634ff72b3feac994"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"no_copy_scope\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "03fdb15043592f7a8b30c0cf1421b56d91ab1fd50937e2ca55c6a8596f2a26cd"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"provider_unavailable\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "52540dd88cd7406ec703d6d0785d3f38041d8bcd39b66453f1563250b5e7cba5"
+    },
+    {
+      "kind": "subject",
+      "canonical": "{\"hold\":\"provider_protection\",\"object\":{\"bytes\":13,\"sha256\":\"bf546fc6b7236f03a5a8e2dbaef5f094fdc4e86281b4915bf4e497ca91a550d5\"}}",
+      "sha256": "22cdc80f3a112352181dd9dbbd0484eae5ebec6a6ff3c2ed715cecb0bb79a821"
+    }
+  ]
+}

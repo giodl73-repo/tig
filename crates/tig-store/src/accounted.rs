@@ -44,6 +44,10 @@ pub struct PublicationPlan {
     quantum: u64,
     limit: u64,
     basis: String,
+    /// Optional admitted orchestration identity. Omitted legacy plans retain
+    /// their exact encoding and replay binding; older readers reject this field.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    context: Option<Digest>,
 }
 impl PublicationPlan {
     pub fn required_peak(&self) -> u64 {
@@ -94,6 +98,22 @@ enum Stage {
 }
 
 pub fn plan(store: &LocalStore, request: &Request) -> Result<PublicationPlan> {
+    plan_with_context(store, request, None)
+}
+/// Bind a higher-level immutable plan into the existing allocation/replay fence.
+/// The context is an identity, not authentication or removal authority.
+pub fn plan_bound(
+    store: &LocalStore,
+    request: &Request,
+    context: Digest,
+) -> Result<PublicationPlan> {
+    plan_with_context(store, request, Some(context))
+}
+fn plan_with_context(
+    store: &LocalStore,
+    request: &Request,
+    context: Option<Digest>,
+) -> Result<PublicationPlan> {
     store.capabilities().check(request)?;
     let quantum = store.allocation_quantum()?;
     let round = |n: u64| {
@@ -103,8 +123,15 @@ pub fn plan(store: &LocalStore, request: &Request) -> Result<PublicationPlan> {
             .ok_or(AccountedError::InvalidPlan)
     };
     let payload = round(request.object.bytes)?;
+    let lifecycle_files = if store.final_policy().is_some() {
+        crate::local::lifecycle::MAX_FINAL_FILES as u64
+    } else if store.supports_retirement() {
+        crate::local::lifecycle::MAX_FILES as u64
+    } else {
+        0
+    };
     let metadata = round(65_536)?
-        .checked_mul(MAX_SCOPE_FILES as u64 + 4)
+        .checked_mul(MAX_SCOPE_FILES as u64 + 4 + lifecycle_files)
         .ok_or(AccountedError::InvalidPlan)?;
     let limit = payload
         .checked_mul(2)
@@ -116,6 +143,7 @@ pub fn plan(store: &LocalStore, request: &Request) -> Result<PublicationPlan> {
         quantum,
         limit,
         basis: "conservative-allocated-file-data-footprint".into(),
+        context,
     })
 }
 pub fn publish_accounted(
@@ -127,6 +155,47 @@ pub fn publish_accounted(
 ) -> Result<AccountedReceipt> {
     publish_hook(ledger, store, job, plan, source, |_| Ok(()))
 }
+pub(crate) fn admit(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &PublicationPlan,
+) -> Result<JournalRef> {
+    let current = plan_with_context(store, &planned.request, planned.context.clone())?;
+    if encode(&current)? != encode(planned)? {
+        return Err(AccountedError::InvalidPlan);
+    }
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    let identity = Digest::blob(&encode(&(store.identity(), &planned.request.operation))?);
+    Ok(ledger
+        .begin_publication(
+            Key::parse(&format!("publish-{}", identity.as_str()))?,
+            job,
+            planned.request.owner.clone(),
+            binding,
+            planned.limit,
+        )?
+        .reference()
+        .clone())
+}
+pub(crate) fn prepare(
+    ledger: &mut CapacityLedger,
+    store: &LocalStore,
+    job: &JournalRef,
+    planned: &PublicationPlan,
+    allocation: &JournalRef,
+) -> Result<crate::local::LocalAttempt> {
+    let binding = Digest::blob(&encode(&(planned, job))?);
+    ledger.publication_status(allocation, &binding)?;
+    let attempt = store.attempt(&planned.request)?;
+    attempt.bind(&Binding {
+        schema: "tig.accounted-publication.design-1",
+        plan: planned,
+        job,
+        allocation,
+    })?;
+    Ok(attempt)
+}
 fn publish_hook(
     ledger: &mut CapacityLedger,
     store: &LocalStore,
@@ -135,7 +204,7 @@ fn publish_hook(
     source: &mut dyn Read,
     mut hook: impl FnMut(Stage) -> Result<()>,
 ) -> Result<AccountedReceipt> {
-    let current = plan(store, &planned.request)?;
+    let current = plan_with_context(store, &planned.request, planned.context.clone())?;
     if encode(&current)? != encode(planned)? {
         return Err(AccountedError::InvalidPlan);
     }

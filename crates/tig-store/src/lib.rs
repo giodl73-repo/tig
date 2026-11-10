@@ -1,14 +1,25 @@
 //! Experimental publication protocol. No startup discovery, eviction or daemon.
 #![forbid(unsafe_code)]
 pub mod accounted;
+pub mod clock;
 pub mod existing;
+pub mod final_retirement;
 pub mod ledger;
 pub mod local;
 pub mod local_capacity;
 pub mod metadata;
+pub mod orchestration;
+pub mod placement;
+pub mod protection;
 pub mod replica;
 pub mod retention;
+pub mod retirement;
+#[cfg(feature = "s3")]
+pub mod s3;
 pub mod source_claims;
+pub mod store_protection;
+#[cfg(feature = "upload-witness")]
+pub mod upload_witness;
 
 use serde::{Deserialize, Deserializer, Serialize, de};
 use std::io::{self, Read};
@@ -101,6 +112,9 @@ pub enum Error {
     InvalidRoot,
     Busy,
     Retained,
+    AuthorizedAbsence,
+    ReacquisitionRequired,
+    NeedsRecovery,
     Io(io::ErrorKind, String),
 }
 impl From<io::Error> for Error {

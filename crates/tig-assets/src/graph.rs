@@ -387,6 +387,28 @@ impl Graph {
         false
     }
 
+    /// Declared storage closure, including output bytes. This is not a production
+    /// input set, custody acknowledgement or complete semantic coverage claim.
+    pub fn storage_objects(&self) -> Result<BTreeSet<Object>> {
+        require(
+            self.complete_declared_coverage()
+                && self.kinds == BTreeSet::from([EdgeKind::Production, EdgeKind::Composition]),
+            "complete Production+Composition storage query required",
+        )?;
+        let mut objects = self.source_metadata.clone();
+        for reference in self.nodes.keys() {
+            objects.extend(
+                self.declared_payloads
+                    .get(reference)
+                    .and_then(Option::as_ref)
+                    .ok_or_else(|| Error("declared storage selections missing".into()))?
+                    .iter()
+                    .cloned(),
+            );
+        }
+        Ok(objects)
+    }
+
     /// Every admitted node's exact payloads plus bound interpretation documents.
     /// Opaque semantic coverage, source/job protection and custody stay separate.
     pub fn production_requirements(&self) -> Result<ProductionRequirements> {

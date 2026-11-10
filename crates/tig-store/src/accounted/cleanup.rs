@@ -85,7 +85,12 @@ fn allocation_key(store: &LocalStore, publication: &PublicationPlan) -> Result<K
     Ok(Key::parse(&format!("publish-{}", id.as_str()))?)
 }
 fn validate(store: &LocalStore, publication: &PublicationPlan) -> Result<()> {
-    if encode(&plan(store, &publication.request)?)? != encode(publication)? {
+    if encode(&plan_with_context(
+        store,
+        &publication.request,
+        publication.context.clone(),
+    )?)? != encode(publication)?
+    {
         return Err(CleanupError::StalePlan);
     }
     Ok(())

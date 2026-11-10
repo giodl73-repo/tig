@@ -1,8 +1,11 @@
 # From Git files to Tig-managed bytes
 
-This guide teaches the intended system. Tig currently has a small pure placement
-prototype; the native records, merge tooling, LFS adapter, providers and render
-engine shown here are not implemented yet. Hash labels are abbreviations, not
+This guide teaches the intended integrated system. Bounded native-record,
+Git/LFS, source-journal and placement/provider adapters are now implemented;
+[current evidence](../vtrace/EVIDENCE.md) limits each claim. Full native/runtime
+adoption and the complete teaching course remain open. For executable lessons,
+start with the [public sample catalogue](../../examples/catalogue/README.md).
+Hash labels below are abbreviations, not
 literal valid pointers. The design-1 fixture envelopes are not a released format.
 
 ## The mirror: Git branch operations become Tig placement transitions

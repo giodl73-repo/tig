@@ -53,7 +53,9 @@ jobs:
       - name: Check explicit restore orchestration paths
         run: python -B tools/test_restore_project.py
       - name: Check catalogue collection interactions
-        run: node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs
+        run: node --test crates/tig-git/tests/work-selection.cjs crates/tig-git/tests/impact.cjs crates/tig-git/tests/ux-flows.cjs crates/tig-git/tests/compare-flows.cjs crates/tig-git/tests/object-flows.cjs crates/tig-git/tests/lessons-flows.cjs
+      - name: Check opt-in GitHub request client
+        run: node --test examples/github/request.test.mjs
       - name: Rust format, handoff tests and Clippy
         shell: pwsh
         run: |
@@ -61,13 +63,80 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           git lfs version
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
           cargo fmt --all -- --check
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo build --workspace --all-features --bins --locked
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo test --workspace --all-features --locked
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_RETIREMENT_CLI = Join-Path $env:CARGO_TARGET_DIR "debug/tig-storage$suffix"
+          cargo test -p tig-store --lib --locked retirement::tests::explicit_cli_pending_cancellation_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TIG_BULK_CLI = $env:TIG_RETIREMENT_CLI
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::explicit_cli_bulk_inspection_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::operator::explicit_cli_bulk_execution_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TIG_PAGED_CLI = $env:TIG_RETIREMENT_CLI
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::paged::operator::explicit_cli_paged_operator_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::paged::operator::explicit_cli_aged_paged_operator_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TIG_FOLLOWUP_CLI = $env:TIG_RETIREMENT_CLI
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::paged::followup::operator::explicit_cli_held_copy_followup_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-git --features schema --test native_source --locked retirement_cases::paged_cases::operator::native_cli_selection_reaches_storage_operator_and_preserves_shared_bytes -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo clippy --workspace --all-features --all-targets --locked -- -D warnings
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo check -p tig-git --no-default-features --locked
+          exit $LASTEXITCODE
+      - name: Qualify pre-final provider writer refusal
+        shell: pwsh
+        run: |
+          $baseline = '273e639cd9515f0860140c926240b18e4ca69a1b'
+          $baselineRoot = Join-Path $env:RUNNER_TEMP 'tig-pre-final'
+          $baselineBuild = Join-Path $env:RUNNER_TEMP 'tig-pre-final-build'
+          $env:GIT_LFS_SKIP_SMUDGE = '1'
+          git -c core.hooksPath=NUL fetch --no-tags --depth=1 origin $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -c core.hooksPath=NUL worktree add --detach $baselineRoot $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          cargo build --manifest-path "$baselineRoot/crates/tig-store/Cargo.toml" --target-dir $baselineBuild --bin tig-storage --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_PRE_FINAL_CLI = Join-Path $baselineBuild "debug/tig-storage$suffix"
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          cargo test -p tig-store --test retirement_cli --locked pre_final_writer_refuses_new_manifest_and_accepts_legacy_control -- --ignored --exact
+          exit $LASTEXITCODE
+      - name: Qualify pre-pair source reader compatibility
+        shell: pwsh
+        run: |
+          $baseline = 'd81cabe662e0efb976f9ac1c230a1de2ace8e23f'
+          $baselineRoot = Join-Path $env:RUNNER_TEMP 'tig-source-baseline'
+          $baselineBuild = Join-Path $env:RUNNER_TEMP 'tig-source-baseline-build'
+          $env:GIT_LFS_SKIP_SMUDGE = '1'
+          git -c core.hooksPath=NUL fetch --no-tags --depth=1 origin $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          git -c core.hooksPath=NUL worktree add --detach $baselineRoot $baseline
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TEMP = $env:RUNNER_TEMP
+          $env:TMP = $env:RUNNER_TEMP
+          $env:TMPDIR = $env:RUNNER_TEMP
+          cargo build --manifest-path "$baselineRoot/crates/tig-store/Cargo.toml" --target-dir $baselineBuild --bin tig-source --locked
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $suffix = if ($IsWindows) { '.exe' } else { '' }
+          $env:TIG_BASELINE_SOURCE_CLI = Join-Path $baselineBuild "debug/tig-source$suffix"
+          $env:CARGO_TARGET_DIR = Join-Path $env:RUNNER_TEMP 'tig-build'
+          cargo test -p tig-store --lib --locked source_claims::admission::tests::baseline_cli_replays_atomic_pairs_without_format_migration -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cargo test -p tig-store --lib --locked source_claims::subset::tests::baseline_reader_preserves_subset_states_and_retirement_receipt -- --ignored --exact
           exit $LASTEXITCODE

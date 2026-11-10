@@ -202,46 +202,75 @@ impl CacheBackend {
         })
     }
     fn authorized(&self, object: &Object) -> Result<()> {
-        let mut nodes = self.nodes()?;
-        let path = LogicalPath::parse(object.sha256.as_str()).map_err(|_| AgentError::Authority)?;
-        let limits = TreeLimits {
-            max_entries: self.profile.max_authority_entries as usize,
-            max_reads: 128,
-            max_read_bytes: 8 * 1024 * 1024,
-            ..TreeLimits::default()
-        };
-        let (found, _) = Tree::from_root(self.profile.authority_root.clone())
-            .get(&path, &mut nodes, limits)
-            .map_err(|_| AgentError::Authority)?;
-        if found.as_ref() != Some(object) {
-            return Err(AgentError::Authority);
-        }
-        Ok(())
+        authorize_oid(
+            &self.profile.authority_root,
+            &self.profile.authority_nodes,
+            self.profile.authority_checkpoint.as_ref(),
+            self.profile.max_authority_entries,
+            object,
+        )
     }
     fn candidate(place: &Place, object: &Object) -> Result<Option<PathBuf>> {
-        let mut dirs = vec![place.root.clone()];
-        let mut path = place.root.clone();
-        for c in place.layout.components(&object.sha256) {
-            path.push(c);
-            dirs.push(path.clone());
-        }
-        for dir in dirs {
-            let Some(m) = optional_metadata(&dir)? else {
-                return Ok(None);
-            };
-            if !m.is_dir() || m.file_type().is_symlink() {
-                return Err(AgentError::Integrity);
-            }
-        }
-        let path = path.join(object.sha256.as_str());
-        let Some(m) = optional_metadata(&path)? else {
+        candidate(place, object)
+    }
+}
+/// Exact OID authorization shared by download and optional upload; no payload IO.
+pub fn authorize_oid(
+    root: &Object,
+    nodes: &Path,
+    checkpoint: Option<&tig_store::metadata::Checkpoint>,
+    entries: u32,
+    object: &Object,
+) -> Result<()> {
+    if entries == 0 || entries > 2_000_000 || root.bytes > 65536 {
+        return Err(AgentError::Authority);
+    }
+    absolute(nodes)?;
+    let mut nodes = match checkpoint {
+        Some(c) => AuthorityNodes::Sqlite(Box::new(
+            tig_store::metadata::MetadataReader::open(nodes, c)
+                .map_err(|_| AgentError::Authority)?,
+        )),
+        None => AuthorityNodes::Files(ReadNodes::new(nodes.to_owned())),
+    };
+    let path = LogicalPath::parse(object.sha256.as_str()).map_err(|_| AgentError::Authority)?;
+    let limits = TreeLimits {
+        max_entries: entries as usize,
+        max_reads: 128,
+        max_read_bytes: 8 * 1024 * 1024,
+        ..TreeLimits::default()
+    };
+    let (found, _) = Tree::from_root(root.clone())
+        .get(&path, &mut nodes, limits)
+        .map_err(|_| AgentError::Authority)?;
+    if found.as_ref() != Some(object) {
+        return Err(AgentError::Authority);
+    }
+    Ok(())
+}
+fn candidate(place: &Place, object: &Object) -> Result<Option<PathBuf>> {
+    let mut dirs = vec![place.root.clone()];
+    let mut path = place.root.clone();
+    for c in place.layout.components(&object.sha256) {
+        path.push(c);
+        dirs.push(path.clone());
+    }
+    for dir in dirs {
+        let Some(m) = optional_metadata(&dir)? else {
             return Ok(None);
         };
-        if !m.is_file() || m.file_type().is_symlink() || m.len() != object.bytes {
+        if !m.is_dir() || m.file_type().is_symlink() {
             return Err(AgentError::Integrity);
         }
-        Ok(Some(path))
     }
+    let path = path.join(object.sha256.as_str());
+    let Some(m) = optional_metadata(&path)? else {
+        return Ok(None);
+    };
+    if !m.is_file() || m.file_type().is_symlink() || m.len() != object.bytes {
+        return Err(AgentError::Integrity);
+    }
+    Ok(Some(path))
 }
 fn optional_metadata(path: &Path) -> Result<Option<fs::Metadata>> {
     match fs::symlink_metadata(path) {

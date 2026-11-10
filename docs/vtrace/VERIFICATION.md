@@ -1,5 +1,154 @@
 # Verification record
 
+EVID-119: six native CLI/provider/catalogue cases, actual HTTP -> shipped controls,
+eleven repinned rejection negatives and all78 controller cases pass. Default89185
+workspace/500k and all48441 workspace/500k/strict pass. Final52714 qualifies the
+Clippy style correction, final native cases, schema strict/standalone/fmt and
+fresh ten-checkpoint executable/catalogue check. Final pins/secrets/hosted remain
+separate from these terminal local jobs.
+See [review](../reviews/2026-11-10-teaching-stale-plan.md).
+
+EVID-118 candidate: native66637/final78266 pass five actual CLI/provider/catalogue
+cases, held backup outage, protected F copy, same-plan/source retry without seed,
+authenticated partial HTTP -> shipped controls and ten repinned semantic negatives.
+Strict schema workspace Clippy and all76 controller cases pass. Default12177/
+all-feature3970 workspace/both500k/strict/standalone and fresh artifact25647 pass.
+Initial L0/source-secrets pass; final documentation pins/hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-backup-outage.md) for exact scope.
+
+EVID-117 candidate: native70905/final81014 pass four actual CLI/provider/catalogue
+cases, authenticated HTTP -> shipped scripts for twelve checkpoints, exact index/
+native selections, dirty preservation, continued job protection and strict schema
+workspace Clippy. All73 controller cases pass. Default71185/all-feature18682
+workspace/both500k/strict/standalone and fresh artifact9072 pass. Initial L0/
+source-secrets pass; final documentation pins/hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-worktree.md) for scope and remaining gates.
+
+EVID-116 candidate: native65714/final45494 pass three actual CLI/provider/catalogue
+cases, authenticated HTTP -> shipped controls for ten checkpoints, metadata
+refusals, isolation and strict schema workspace Clippy. All73 controller cases
+pass. Default43090/all-feature54984 workspace/both500k/strict/standalone and
+fresh artifact91098 pass. Initial L0/source-secrets pass; final documentation pins
+and hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-exchange.md) for exact scope and limitations.
+
+EVID-115 candidate: focused native52463 passes actual seven-checkpoint sample,
+verified reader, authenticated loopback HTTP and repinned semantic refusals.
+All73 shipped controller cases pass, including seven new lesson flows.
+Default26395 workspace/500k/strict/standalone and final1180 native HTTP -> shipped
+controls/schema strict/fresh persistent CLI pass. All-feature22256 workspace/
+second500k/strict and final L0/fmt/diff/source-secrets pass. Hosted remains pending. See
+[review](../reviews/2026-11-09-teaching-playback.md); producer review and DOM fixtures
+are not independent review or browser/user acceptance.
+
+EVID-112 candidate: locked default workspace/500k, strict workspace Clippy and
+standalone Git pass (chain42894). Fresh manual/actual-clock-aged20-page CLI and
+four copy-index regressions pass; the native index/select -> storage execution
+qualifier and strict schema workspace Clippy pass (48425). Final all-feature
+workspace/second500k and strict all-feature/all-target Clippy pass (44984).
+L0/pins/fmt/diff/changed-source Gitleaks pass; hosted qualification remains. The
+[review](../reviews/2026-11-09-paged-operator.md) records compilation scope,
+fixture corrections and remaining product gates; no full requirement is closed.
+
+EVID-109/implementation4bcd433: thirteen controller entries,14 actual exits,
+independent framing and shared-budget tests pass. Default/all-feature/both500k/
+standalone/strict Clippy and final79 active retirement entries per feature profile
+pass; fresh and pinned old CLI qualifiers pass. [Review](../reviews/2026-11-09-paged-controller.md)
+names exact compilation/final-tightening scope and remaining hosted checks.
+Manual source/provider execution is proved within fixtures; full requirements open.
+
+EVID-108/implementation2dd9990: final17 paged entries,15 age entries including the
+pinned old reader/writer and strict store Clippy pass. Default workspace/500k/
+standalone/strict Clippy and fresh bulk/ordinary-cancellation CLI checks pass.
+[Review](../reviews/2026-11-09-paged-preparation.md) identifies the earlier broad
+test compilation versus final readback tightening, its focused qualification and
+passing all-feature/second500k/strict Clippy and final17-entry feature focus.
+Hosted checks remain pending. No full controller or requirement closure.
+
+EVID-107/implementation3ee9ff3: eleven focused entries/ten independent framing
+cases, full default/all-feature/both500k, strict workspace Clippy/standalone and
+fresh ordinary/bulk/older-writer artifacts pass. The stronger local projection
+limit case/strict Clippy also passes (19626). Runtime unchanged. [Review](../reviews/2026-11-09-paged-selection.md)
+limits this evidence to exact metadata/protection observation/paging, not the
+future durable paged mutation controller or full requirements. Hosted checks open.
+
+EVID-106/implementation1a344fc: focused exact-occurrence age, six actual exits,
+peer contention, five independent framing cases, CLI/native selection and strict
+workspace all-feature/all-target Clippy pass. Aggregate phase budgets and actual
+identity-helper framing are covered. [Review](../reviews/2026-11-09-age-witnesses.md)
+records passing default/500k/standalone and fresh ordinary/bulk/old-writer checks;
+final all-feature/second500k also passes (87689 terminal zero). Hosted e995b60
+Windows/Linux/secrets pass in Validate42624730574. It separates initial broad runs
+that predate meter tightening. No full-system safety or intended-use closure.
+
+EVID-105/implementation00c229d: eight native integration entries plus one framing
+entry/four independent cases pass. Actual metadata CLI independently reads back
+bind output, selects exact historical bindings without source/metadata commands,
+and operates with Git detached. Existing bulk execution removes only the unique
+payload while an unselected native alias protects shared bytes. Counted-provider
+acquisition, aggregate budgets,1000 roots and malformed/unknown scope refuse.
+Full locked default/all-feature workspace, both500k fixtures, standalone Git,
+fresh ordinary cancellation/bulk inspection/execution and pinned old-writer
+refusal/legacy control pass (22223/15766 terminal zero). Later strengthened
+Production-only-output/wrong-revision assertions and strict Clippy pass (48378
+terminal zero). Runtime unchanged after00c229d. Final fmt/L0/diff pass. Commands/scope:
+[native review](../reviews/2026-11-09-native-retirement-bindings.md). Hosted
+exact-head, intended-use adoption and full requirements remain separate.
+
+EVID-104/implementation6b9016e: nineteen active bulk entries and explicit fresh
+execution CLI qualifier pass. Metadata/time-free Cancellation preserves settled
+history and surviving bytes; apply uses independently enrolled LocalClock and
+exact private permission/plan admission. Denials preserve newly reopened journal
+checkpoints and provider files. Strict all-feature/all-target Clippy/fmt/L0/diff
+pass. Full default workspace/500k/standalone and expanded fresh execution CLI
+permission/wrong-store negatives pass. All-feature workspace/second500k and final
+fresh ordinary cancellation/bulk inspection/expanded execution/pinned old-writer
+refusal with legacy control pass; chain40830 terminated zero. No runtime changed
+after6b9016e. Commands and scope:
+[execution review](../reviews/2026-11-09-bulk-execution.md). Hosted exact-head, full
+requirements and intended-use acceptance remain separate.
+
+EVID-103/implementation9802166 verifies bounded explicit OS sampling and durable
+high-water replay in the existing capacity ledger. Five independent framing
+cases, clock/ledger/provider/bulk negatives, three actual abrupt exits, full
+command exhaustion and expanded pinned old-writer refusal/legacy control pass.
+Locked default/all-feature workspace (both500k), standalone Git, final strict
+Clippy/fmt/L0/diff and fresh ordinary cancellation/bulk inspection CLI artifact
+qualifiers pass; both command chains terminated zero. Exact commands/overlapping
+test scopes: [clock review](../reviews/2026-11-09-local-clock.md). Native host
+trust/current authority, globally unseen restore, operational lifetime, hosted
+exact-head and full requirement acceptance remain separate.
+
+EVID-102/implementation29e87e7 verifies writer-free bulk Inspection and explicit
+plan/peak/status CLI. Seventeen focused entries and the separate fresh-artifact
+ignored qualifier pass, with actual offline metadata, phase/hold/error/privacy,
+reopened command-checkpoint and provider-file preservation assertions. Locked
+default/all-feature workspace suites, both500k cases, strict Clippy/fmt, standalone
+Git, fresh ordinary CLI cancellation and pinned older-writer refusal/legacy
+control pass. No implementation changed after29e87e7. Exact commands/limits:
+[operator review](../reviews/2026-11-09-bulk-inspection.md). Hosted exact-head,
+independent/human review and full REQ/VAL outcomes remain separate.
+
+EVID-101/implementationada8b21: twenty-five placement and sixteen protection
+entries pass, including independent legacy/roster binding identity, real remote
+job fencing, actual three-store demotion/reacquisition, additive/hard policy,
+missing membership/closure, conflicting sizes and aggregate budget refusal.
+Locked default/all-feature workspace suites, both500k fixtures, strict Clippy,
+standalone Git, explicit fresh CLI cancellation and pinned pre-change reader
+refusal/legacy control pass. No runtime changed afterada8b21. Exact commands and
+limits: [roster review](../reviews/2026-11-09-roster-precedence.md). Hosted exact
+head, independent review and full REQ/VAL outcomes remain separate.
+
+EVID-100 verifies bounded bulk runtime atfe073a6 and read-only action binding at
+f999e3a. Sixteen focused entries, six independent canonical vectors, ten actual
+child exits, same-batch peer exclusion, another batch's concurrent progress and
+three-store unique/copy byte assertions pass. Locked default/all-feature broad
+runs cover the final mutation implementation; focused/strict Clippy/standalone
+also cover the later accessor/test addition. Explicit ordinary-retirement CLI
+cancellation and pinned pre-final writer refusal/legacy control pass. Exact
+commands and limits: [bulk review](../reviews/2026-11-09-bulk-retirement.md).
+Hosted exact-head, independent review and full REQ/VAL closure remain separate.
+
 EVID-076: all 35 publication cases pass (1.03 s), including six new cases and
 the extended explicit CLI fixture. The baseline reproduces six failures with
 the previous policy reader. Default selected-subject admission stays strict;
@@ -474,3 +623,271 @@ Git check pass. Tests cover the actual full working-set bound, exact old receipt
 unchanged old SQL rows and accounting, peer synchronization, read-only historic
 provider dispositions, pre/post-commit failures and two child exits. This is
 synthetic temporary-root qualification, not live consumer or full-disk recovery.
+
+## First storage orchestration slice
+
+EVID-084 / STORAGE-ORCHESTRATION.md: `cargo test -p tig-store --lib --locked
+orchestration::tests` passes 15 entries; `cargo test -p tig-store --test storage_cli
+--locked` passes five actual CLI process fixtures. The source-held/unrelated-scope
+assertion additionally passes its exact targeted case after review. Locked
+all-feature workspace regression, all-feature/all-target warnings-denied Clippy,
+fmt and standalone no-default-feature tig-git check pass. External synthetic roots
+only. Locked default workspace regression also passes.
+Read-only status means no journal commands, not an OS read-only SQLite connection.
+The reference provider still caps objects at 8 MiB and process-restart durability.
+Current-head hosted Windows/Linux qualification and the full roadmap remain open.
+
+EVID-084 implementation source: 390ac4a. Verification/validation/trace and
+producer review are recorded separately from that implementation commit.
+
+## Protection demand snapshot
+
+EVID-085 / PROTECTION-DEMAND-SNAPSHOT.md: `cargo test -p tig-store --lib --locked
+protection::tests` passes 17 Windows entries, including a 33,000-binding resource
+boundary and actual snapshot-to-copy integration. `cargo test -p tig-store --test
+source_claims --locked` passes all 35 existing journal entries. Default workspace
+regression passes, including a final default run. Final all-feature workspace
+regression also passes after the deadline and exact-selection-provenance fixes.
+The repeated-root case additionally checks two identical predecessor roots. Strict
+all-feature/all-target Clippy, standalone no-feature tig-git check and fmt pass.
+Explicit external build/temp roots only. No runtime file/payload removals are
+performed by this slice; hosted qualification remains separate.
+
+EVID-085 implementation source: 55a21e4. Verification, intended-use validation,
+trace and producer review closeout are separate from the implementation commit.
+
+## Mandatory scoped source admission
+
+EVID-086 / MANDATORY-SOURCE-ADMISSION.md, implementation0b75664: the locked default
+workspace suite passes, including 20 admission entries, existing journal/CLI,
+actual Git/LFS, provider and 500,000-binding regressions. Three real admission
+child processes cover cross-process contention/termination and exits immediately
+before/after commit. Exact retry, stale compiler refusal, active/history precedence,
+hard retained demand, direct-bypass refusal and legacy compatibility are checked.
+Final full default/all-feature suites, strict all-feature/all-target Clippy,
+standalone no-feature Git, fmt and L0 validate/diff pass. Hosted PR #17
+Windows/Linux qualification remains separate from these local Windows results.
+Builds, logs and temporary stores use explicit external development roots.
+This verifies cooperative process-restart behavior in the declared namespace,
+not physical removal, power-loss durability, cross-namespace closure or adoption.
+
+## Store-bound protection assessment
+
+EVID-087 / STORE-PROTECTION-BOUNDARY.md, implementationbe6f946: `cargo test -p
+tig-store --lib --locked store_protection::tests` passes 15 entries including a
+helper and one actual child process. Two guarded namespaces, mapped place aliases,
+provider readers/retention, exact enrollment/contract, failed marker revalidation,
+aggregate limits/deadline and read-only missing-anchor refusal are exercised.
+An actual accounted copy installs/verifies retention using the new provider marker.
+Final locked default/all-feature workspace regressions, strict all-feature/
+all-target Clippy, standalone no-feature Git, fmt and L0 pass. Explicit external
+build/temp roots only. These are cooperative
+local process/restart results, not epoch migration, authorized removal or live
+consumer validation. Hosted checks remain separate.
+
+## Managed replica retirement/reacquisition
+
+EVID-088 / MANAGED-REPLICA-RETIREMENT.md, implementationfe88c7c: `cargo test -p
+tig-store --lib --locked retirement::tests` passes 24 entries in 14.79s, including
+one helper and eight actual child exits. These inspect real absent/present paths
+and restored exact bytes, not only a success flag. The source object remains when
+claims/readers/retention or keeper authority prevent unlink; known settled-journal/
+missing-provider evidence holds repeat IO. Fifteen retirement/reacquisition cycles
+reach the finite history boundary; another retirement refuses while bytes remain.
+The module reuses existing accounted publication, retention/handoff, metadata
+allocations and OS fences. Final default/all-feature workspace, strict all-feature/
+all-target Clippy, standalone no-feature Git, fmt and L0 pass. Synthetic fixtures
+use explicit external build/temp roots. Hosted
+qualification, whole-volume reclaim, full restore/power-loss and live adoption
+remain separate; the first profile is ordinary replica retirement only.
+
+## Explicit retirement CLI/agent interface
+
+EVID-089 / RETIREMENT-AGENT-CLI.md, implementation19346c4:
+`cargo test -p tig-store --test retirement_cli --locked` passes eight process
+cases. Actual temporary object paths disappear after apply and exact bytes return
+after explicit reacquisition; old resume preserves that newer copy. Private policy
+forgery/default flags, unknown role, missing keeper, source reader/claim, malformed/
+oversized documents, unknown roots, acknowledged corruption and no-command status
+are exercised. The 24 kernel retirement entries retain actual interruption/restore
+proof and add status checks at pending/terminal/cancelled/restored-prefix states.
+
+After building the CLI, set TIG_RETIREMENT_CLI to its absolute artifact and run
+`cargo test -p tig-store --lib --locked retirement::tests::explicit_cli_pending_cancellation_qualification -- --ignored --exact`.
+That separately executed case passes: actual child exit after intent followed by
+CLI status/cancel/retry, offline keeper/tree/namespaces and original receipt replay.
+The ordinary-suite ignored entry is not the proof; this explicit command is also
+required by both hosted targets. Final default/all-feature workspace, strict
+all-feature/all-target Clippy, fmt, standalone Git and portable L0 pass locally.
+Hosted verification is separate. No full native/large-file/epoch/restore/lifetime,
+live-store or automatic lifecycle guarantee follows from these fixtures.
+
+## Source-preserving S3 publication
+
+EVID-090 / S3-PUBLICATION.md, implementation4fc3060: `cargo test -p tig-store
+--all-features --test s3_publication --locked` passes 15 cases. Actual HTTP headers,
+checksum/body and full readback are checked; source remains present and guarded.
+CLI process tests cover plan/peak/apply/status/resume and lost-reply restart.
+Concurrent peers and an unrelated job check scoped admission/progress with existing
+accounted witnesses; no SQL transaction spans remote IO. Fresh status preserves
+command counts, including source offline, while acknowledged remote loss or damaged
+witness evidence refuses repair/re-upload. Authentication refresh, bad/expired
+access, selector changes, malformed plans, bounds, unsupported guarantees, absent
+roots, conditional winners, corruption and cancellation are exercised.
+
+Final corrected-source default/all-feature workspace suites, strict all-feature/
+all-target Clippy, standalone Git, fmt/L0 and the separately invoked pending-
+cancellation retirement qualification pass locally. Both broad suites were rerun
+after the operation-guard/sampling correction; no stale pre-correction pass is
+used for closure. Hosted current-head qualification is separate. Loopback HTTP
+conformance does not prove real AWS IAM/TLS, retained custody, remote quota,
+large-file/native or complete operational lifetime guarantees.
+
+## Standalone Git LFS upload
+
+EVID-091 / LFS-UPLOAD.md, implementation2f1173b: `cargo test -p tig-git
+--features upload --test upload --locked` passes 13 integration cases. Actual Git
+LFS 3.4.0 push and real CLI/HTTP fixtures verify exact bytes, optional verify
+notification, lost-reply retry, private scope/credential admission and source
+preservation. A killed uploader holds its exact peer while another job progresses;
+fresh resume sends no second PUT. Wrong/unknown roots, stale/disabled authority,
+scope/header confusion, expiry/deadlines, unsupported transfer, corrupt/missing
+readback and missing settled evidence refuse without initialization or repair.
+Status creates no capacity commands and works without the source payload.
+
+Locked default/all-feature workspace suites pass, including 15 S3 shared-witness
+regressions. Final test-only missing-root assertions reran in the 13-case focused
+suite, followed by strict all-feature/all-target Clippy. Product code was unchanged
+after the broad suites. Fmt, standalone Git/dependency independence, explicit
+retirement CLI qualification, restore/catalogue checks and portable L0 also pass.
+Hosted current-head verification remains separate. No actual server/TLS/custody,
+remote quota, large-file/native, full authority restore or lifetime claim follows.
+
+## Committed-ref desired selection
+
+EVID-092 / GIT-LIFECYCLE-RECONCILIATION.md, implementationfc3c57f: nine
+`cargo test -p tig-git --test lifecycle --locked` integration cases pass against
+actual Git merges/reverts, exact/Unicode refs, catch-up/stale/no-op requests,
+active jobs, private enrollment, ref drift, real CLI and offline status. Metadata
+finishes and fresh readback precedes admission; status acknowledges no provider
+convergence. Six added pair cases bring active admission entries to 26, with
+three actual child exits and a full-history last-slot test. Existing journal
+regressions pass all 35 entries. Before/after scoped admission and one transaction
+protect pair visibility, replay and partial/collision refusal.
+
+The separate pre-pair reader qualification builds exact inputd81cabe's tig-source
+and executes the ignored compatibility test explicitly. It reads new pair history
+and recovers both command receipts. The ordinary ignored entry proves nothing.
+CI builds the pinned old reader separately on both platforms. Default/all-feature
+workspace suites, standalone Git, explicit retirement CLI and L0 pass locally;
+the final lifecycle status/discovery adjustment was followed by all nine focused
+cases and strict all-target/all-feature Clippy. Other package implementations
+were unchanged. Hosted current-head suites and complete physical lifecycle,
+trigger authentication, native/provider/large-file/lifetime acceptance remain open.
+
+## Bounded local placement composition
+
+EVID-093 / PLACEMENT-RECONCILIATION.md, implementation7432739: sixteen placement
+entries (one child helper/one actual exit), two new requirements-projection cases
+and twelve real Git/CLI lifecycle entries pass. The real main merge connects
+selection -> verified backup/cache -> history demotion -> ordinary unlink ->
+exact-byte reacquisition. Reader/late-claim holds, backup outage, missing known
+acknowledgement, cancellation, original publication/keeper reuse and byte budgets
+remain explicit. Current plan requirements are recompiled; providers/namespace
+pins and run bounds are validated independently of event input.
+
+Broad default/all-feature workspace suites pass within EVID-093's exact source
+timing: the last keeper-order correction was followed by final default/all-feature
+store library suites (262 active entries, two ignored), default lifecycle (twelve),
+and strict all-feature/all-target workspace Clippy. The final test-only reader
+assertions were followed by sixteen placement entries. Standalone Git, fmt,
+portable L0/pins/diff and both separately executed cross-artifact qualifiers pass.
+Hosted current-head verification remains separate. This is component/temporary
+provider proof; full system safety, independent native custody, trusted events,
+large files, lifetime/restore authority, final deletion and metadata expiry remain
+open. Detailed limitations and remaining entry gates are in the scoped contract.
+
+## Trusted GitHub placement requests
+
+EVID-094 / GITHUB-TRIGGER.md, implementation503adca with issuer-time fixb3aced0:
+sixteen GitHub library, eight signed authentication/CLI and thirteen local Git
+lifecycle entries pass at final focused scope. Default workspace, strict fresh-
+target all-feature/all-target Clippy, standalone Git, fmt, shipped Node/restore
+checks and both explicit artifact qualifiers pass. A fresh isolated all-feature
+workspace rerun passes before the final issuer-time correction, followed by final
+all-feature changed-package library/authentication/lifecycle suites after it.
+The earlier overlapping-target upload failures and stale-metadata compiler
+refusal are not successful qualification.
+Hosted run42546575041 explicitly passes the real issuer/foreground empty-scope
+fixture atb3aced0; it performs zero payload operations. Hosted Linux/secrets pass
+at that source; Windows/current-head closeout validation remains pending. Exact evidence timing,
+failure corrections and unqualified full-system boundaries remain in EVID-094.
+
+## Staged-index lifecycle
+
+EVID-095 / INDEX-LIFECYCLE.md, implementation51dd2b2: fifteen focused entries
+include one helper and two actual abrupt exits; the actual CLI/store fixture
+proves job-aware copy/retention/history demotion on no-op index catch-up. Conflict
+alternatives remain explicit draft byte obligations. Stale/incomplete captures,
+foreign enrollment, disabled permissions and unavailable storage preserve prior
+acknowledged state. Offline status recovers original receipts independently of Git
+and metadata. Locked default/all-feature workspace suites, strict all-feature/
+all-target workspace Clippy, standalone Git, fmt, shipped Node/restore checks,
+portable L0 and both explicitly executed artifact qualifiers pass. Hosted Linux/
+secrets pass at51dd2b2; Windows and later closeout exact-head checks remain pending.
+Inherited event compatibility and later full roadmap gates are
+separate; these component results establish no live adoption or final deletion.
+
+## Owned source settlement
+
+EVID-096 / SOURCE-SETTLEMENT.md, implementation51c5acc: twelve new settlement
+entries (one helper/two actual exits), 27 combined index entries, thirteen committed
+cases and 38 Git library cases pass; admission passes 31 active entries/one ignored.
+Conditions are checked after transaction catch-up, without new event bytes.
+Default/all-feature workspace, strict Clippy, standalone Git, Node/restore and L0
+pass. Explicit qualifiers prove retirement CLI compatibility and old-reader pair/
+conditional-Withdraw replay; final readback/test-only changes are separately run.
+Actual issuer empty-scope qualification passes at51c5acc. Hosted Linux/secrets
+pass; Windows/current closeout head remain pending. Full requirements remain open.
+
+## Partial historical-root settlement
+
+EVID-097 / RETAINED-SUBSET.md, implementation2fecfab/corrective002a850:
+48 active focused source-claim entries pass, including four new atomic-history
+admission cases. Fourteen subset library entries include one helper/one explicit
+old-reader qualifier; two actual CLI cases pass for Branch/Draft. Six new actual
+exits recover across source and internal transaction boundaries. Sparse replacement,
+foreign/shared demand, missing/corrupt closure and stale/replayed operation tests
+pass. Both pinned old-reader qualifiers explicitly pass; ignoring them is not proof.
+Final strict workspace Clippy, standalone Git, fmt, Node/restore and L0 pass.
+Corrected locked default/all-feature workspace suites pass in separate targets,
+including both 500,000-binding runs. Explicit fresh-artifact retirement CLI
+cancellation qualification passes. Hosted current-head qualification remains
+separate; no full requirement or live-operation acceptance follows.
+
+## Final-retirement content-scope clearance prerequisite
+
+EVID-098 / FINAL-RETIREMENT.md, implementation89d260e: thirteen focused entries
+include one helper/one actual process exit. A live F job defeats final M deletion
+clearance even when ordinary M-place assessment succeeds. Exact whole-scope
+membership, all source classes/roles, real restored SQLite history, forged minima,
+aggregate limits and nonoverlapping progress pass. Forty-eight source-claim
+regressions and both explicit pinned old-reader qualifiers pass. Final-runtime
+locked default/all-feature workspace suites include passing 500,000-binding cases;
+final independent-vector/focused and strict Clippy checks pass after runtime
+changes, alongside standalone Git/fmt/L0. Hosted exact-head qualification remains
+separate. This verifies no provider release, deletion, bulk or lifetime executor.
+Explicit ordinary-retirement CLI cancellation qualification also passes against
+the fresh final-runtime all-feature artifact; no ordinary keeper rule is weakened.
+
+Final-provider checkpoint (EVID-099), input273e639/implementation9f5e8c0:
+locked final-runtime default/all-feature workspace suites pass, including both
+500,000-binding runs. Thirteen focused entries (one helper/nine actual exits),
+eleven independent canonical vectors, explicit pre-final CLI refusal/legacy
+control, fresh ordinary-retirement CLI cancellation, strict all-feature/all-target
+Clippy, standalone Git, fmt and portable L0/diff pass. The inherited S3 concurrency
+assertion was corrected with deterministic both-Busy/serial-resume coverage;
+fifteen S3 entries and the final-runtime full all-feature rerun pass. No runtime
+code changed after9f5e8c0. Exact command/scope/caveats are in
+../reviews/2026-11-09-final-provider.md. Hosted Windows/Linux, full FR-06..15,
+independent review and full requirement closure remain separate and open.
