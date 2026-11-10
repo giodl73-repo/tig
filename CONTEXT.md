@@ -1,5 +1,20 @@
 # Tig maintainer context
 
+Active owned lane: feat/teaching-stale-plan, input
+d200ed38e2594a6e82205067dd8aadd107a7bff4. Contract:
+specs/TEACHING-STALE-PLAN.md; actual stale SDK apply is rejected before effects.
+Actual status against the new protection basis is recorded separately, never as
+a successful apply receipt. Fresh plans honor the new job and demote only after
+its explicit end. Final52714 passes six native cases, strict schema workspace,
+standalone Git, fmt and fresh ten-checkpoint executable/catalogue validation;
+all78 controller cases pass. Default89185 workspace/500k passes; its Clippy style
+failure is fixed and final52714 qualifies it. All-feature48441 workspace/500k/
+strict passes in the separate external target; all local handles are terminal.
+Logs stale-*.log in bulk-retirement dev temp. Source pins/hosted are separate.
+Parent PR49 exact-head run42762379566 passes Windows/Linux/secrets.
+No merge/deploy/live cache/viewer. Full goal and browser/human gates remain open.
+Older lane entries below are historical; see context/RESUME.md.
+
 Active owned lane: feat/teaching-backup-outage, input9310d0c; runtime
 73069222eaa0999b2eebb69786373917353f0162. Contract:
 specs/TEACHING-BACKUP-OUTAGE.md; review/EVID-118 separate implementation,

@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-119: six native CLI/provider/catalogue cases, actual HTTP -> shipped controls,
+eleven repinned rejection negatives and all78 controller cases pass. Default89185
+workspace/500k and all48441 workspace/500k/strict pass. Final52714 qualifies the
+Clippy style correction, final native cases, schema strict/standalone/fmt and
+fresh ten-checkpoint executable/catalogue check. Final pins/secrets/hosted remain
+separate from these terminal local jobs.
+See [review](../reviews/2026-11-10-teaching-stale-plan.md).
+
 EVID-118 candidate: native66637/final78266 pass five actual CLI/provider/catalogue
 cases, held backup outage, protected F copy, same-plan/source retry without seed,
 authenticated partial HTTP -> shipped controls and ten repinned semantic negatives.

@@ -1,5 +1,14 @@
 # Evidence index
 
+EVID-119 (locally qualified candidate), input d200ed38e2594a6e82205067dd8aadd107a7bff4:
+[review](../reviews/2026-11-10-teaching-stale-plan.md) separates actual stale apply
+rejection from current SDK status, immutable copies and fresh-plan outcomes.
+Six native cases, eleven repinned negatives and all78 controller cases pass.
+Default89185 workspace/500k, all48441 workspace/500k/strict and final52714 native/
+strict-schema/standalone/fmt/fresh executable/catalogue checks pass. Initial Clippy
+style failure was corrected and qualified by final52714. Final source pins/hosted
+and full course/product acceptance remain separate.
+
 EVID-118 (locally qualified candidate): runtime73069222eaa0999b2eebb69786373917353f0162; input9310d0cbe48ba796f0feaa7847ed5fba10e74b48.
 [Review](../reviews/2026-11-09-teaching-backup-outage.md) separates actual SDK
 held outage/job-end/catchup from explicit unknown provider coverage and general

@@ -8,6 +8,32 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Current owned lane: feat/teaching-stale-plan at input
+  d200ed38e2594a6e82205067dd8aadd107a7bff4. Contract TEACHING-STALE-PLAN.md
+  names controls, scope, entry/exit and L0/L1/L2. New fresh-root mode explicitly
+  admits a job after planning old-copy demotion. Actual SDK apply returns Stale,
+  copy/source snapshots remain unchanged by rejection, and actual SDK status
+  records the changed observed basis. Fresh plans retain F for the job, then
+  demote to D after its separate end. Report/response3 separate rejection from
+  successful apply, preserve old protocols and show historical desired state.
+  Six native CLI/provider/API/shipped-script cases and twelve lesson tests pass,
+  including eleven repinned negative rejection reports. All78 controller cases
+  pass. Default89185 workspace/500k passes; Clippy's collapsible-if failure was
+  corrected without changing validation semantics. Terminal final52714 passes
+  six final native cases, strict schema workspace/all-target Clippy, standalone
+  Git, fmt, fresh schema bins and ten-checkpoint persistent rehearsal/catalogue
+  check (read_only=true,payloads_opened=0). Public root:
+  stale-plan-public-17d2ccd7d6534d9d9c65a929cde216bf in external bulk-retirement
+  dev temp. All48441 workspace/500k/strict passes in teaching-playback-all;
+  all local handles are terminal. Final source pins/commit-secrets and exact-head
+  hosted checks remain separately recorded. Never overlap artifact/Cargo use.
+  Parent PR49 at d200ed38 run42762379566 passes
+  Windows/Linux/secrets and is ready for review.
+  No merge/deploy/live cache or browser interaction. Prior browser request is
+  unanswered; generic continuation has not been treated as browser permission.
+  Full remote-byte/hardware/fault/restart/final-loss/expiry course and full product
+  acceptance remain open. Older notes below are historical.
+
 - Active owned lane: feat/teaching-backup-outage,
   input9310d0cbe48ba796f0feaa7847ed5fba10e74b48. TEACHING-BACKUP-OUTAGE.md and
   review/EVID-118 name controls/scope/entry/exit and separate closure records.

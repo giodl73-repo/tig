@@ -497,6 +497,75 @@
         "original": [],
         "fixed": []
       }
+    },
+    {
+      "id": "stale-plan-rejected",
+      "event": "An old demotion plan was captured after job end. A newly admitted old-version job changes protection before apply. The real SDK rejects Stale before storage effects; this desired column is the rejected plan, not current demand.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "fresh-plan-job-active",
+      "event": "A fresh plan uses the current source basis and keeps old bytes nearby for the newly admitted job. Shared input and current v2 remain nearby without duplicate copies.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "fresh-plan-job-ended",
+      "event": "The new job ends separately. A new current plan moves original to history plus backup; an older plan is never revived merely because desired placements look the same.",
+      "requires": [
+        "current-source-fencing",
+        "new-protection-before-eviction",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [

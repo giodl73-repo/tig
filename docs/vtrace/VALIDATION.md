@@ -1,5 +1,11 @@
 # Intended-use validation
 
+EVID-119 demonstrates rejection of historical demotion after new job admission,
+unchanged observed F+M and fresh plans before/after job end. Ten actual reports
+render through read-only catalogue controls. Explicit fixture admission does not
+qualify general native writers/races/crashes. Browser/classroom, complete course
+and full VAL remain open; [review](../reviews/2026-11-10-teaching-stale-plan.md).
+
 EVID-118 rehearses unavailable M at merge and job end, truthful unknown coverage,
 preserved old F and same-plan catchup after current custody verification. Nine
 actual reports render in the existing catalogue. Configured-path unavailability

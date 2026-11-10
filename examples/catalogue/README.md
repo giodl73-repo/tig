@@ -48,8 +48,8 @@ pull refusal; the CLI result pins its exact hash and size.
 
 The observer is a metadata reader, not an enrolled asset writer/job. There is no
 automatic pull hook or general live-source adoption. The bare Git remote is not
-a payload backup. Remote byte publication, offline backup and complete command/
-worktree/failure lessons remain separate course obligations.
+a payload backup. Remote byte publication, real hardware failures and the complete
+command/failure course remain separate obligations.
 
 For linked worktree and index lessons, choose another fresh output root:
 
@@ -107,6 +107,29 @@ This models configured-path unavailability by moving only a verified child
 directory inside the fresh root; it does not qualify actual hardware failure.
 No real drive is disconnected and no existing cache is changed.
 
+For a protection change between planning and applying, use another fresh root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-stale-plan ABSOLUTE_NEW_OUTPUT
+```
+
+This records ten checkpoints. After the old job ends, the fixture plans demotion,
+then explicitly admits a new job before applying that plan. The actual SDK returns
+Stale before storage effects. The rejected step shows the old plan's desired D+M
+beside unchanged observed F+M, with both planned and newly observed basis IDs.
+Its receipt is a separate actual SDK status observation, not a successful apply.
+
+| Recorded step | Original's copies | Reason |
+| --- | --- | --- |
+| Stale plan rejected | F+M | New job invalidated the old plan before effects |
+| Fresh plan, job active | F+M | Current protection requires the working copy |
+| Fresh plan, job ended | D+M | Separately ending the job permits ordinary demotion |
+
+`stale.json` pins the real error, old/fresh plan IDs, changed source/basis IDs and
+equal before/after copy snapshots. A later equivalent desired set does not revive
+an earlier plan's authority. The new job is explicit fixture admission; this does
+not qualify arbitrary native writers, crash recovery or final deletion.
+
 In the catalogue, choose **Learn Tig · sample lessons**. Use the lesson selector
 or Previous/Next to compare each object's earlier recorded copies, the plan's
 desired roles and the freshly verified copies recorded after that step. Follow
@@ -139,11 +162,14 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, nineteen specified checkpoints and seven baseline counterexamples.
+seeds, two works, twenty-two specified checkpoints and seven baseline counterexamples.
 The ordinary runner executes seven; exchange executes ten; worktree executes
-twelve; backup-outage executes nine including held/catchup stages. Exchange/worktree
+twelve; backup-outage executes nine including held/catchup stages; stale-plan
+executes ten including rejected/fresh-plan stages. Exchange/worktree
 add checked dirty-operation counterexamples. Final retirement remains
-a target-only checkpoint. Hashes
+a target-only checkpoint. Each mode produces its own bounded rehearsal, with at
+most sixteen reports per book. A complete recorded course still needs bounded
+chapters or paging alongside the remaining lessons. Hashes
 and byte sizes identify real generated inputs. Expected copies are literal
 independent assertions for the existing executor; the file is not executed
 evidence. Runtime qualification must produce and check the matching observations.

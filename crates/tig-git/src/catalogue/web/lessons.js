@@ -45,7 +45,8 @@ function selectLesson(book,index){
  area.append(node('p','lesson-event',lesson.event));
  const source=node('p','muted','Associated Git commit '+lesson.source_commit.slice(0,12)+(lesson.source_available?' · available in this catalogue':' · source metadata unavailable here')+'. Drafts and jobs may contribute separate admitted snapshots.');
  source.title=lesson.source_commit;area.append(source);
- if(!lesson.converged||!lesson.basis_current||lesson.holds.length)area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
+ if(lesson.rejection)area.append(node('p','callout','Rejected before storage effects: stale plan. The desired column belongs to the rejected plan. A fresh plan is required for current protection.'));
+ else if(!lesson.converged||!lesson.basis_current||lesson.holds.length)area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
  const wrap=node('div','object-table-wrap'),table=node('table','object-manager-table lesson-object-table'),head=node('thead'),header=node('tr');
  for(const text of ['Same bytes','Before this step','Desired in this plan','Observed after'])header.append(node('th','',text));head.append(header);table.append(head);
  const body=node('tbody');
@@ -62,6 +63,7 @@ function selectLesson(book,index){
  table.append(body);wrap.append(table);area.append(wrap);
  const evidence=node('details','lesson-evidence');evidence.append(node('summary','','Recorded evidence'));
  evidence.append(node('p','muted','Report '+lesson.report.sha256),node('p','muted','Plan '+lesson.plan));
+ if(lesson.rejection)evidence.append(node('p','muted','Planned protection basis '+lesson.rejection.planning_basis),node('p','muted','Current observed basis '+lesson.rejection.observed_basis));
  const effects=node('ul');for(const effect of lesson.effects)effects.append(node('li','',effect.kind.replaceAll('_',' ')+' · '+(book.roles.find(r=>r.id===effect.role)?.label||effect.role)+' · '+effect.object.sha256.slice(0,12)+' · '+bytes(effect.logical_bytes)));
  if(!lesson.effects.length)evidence.append(node('p','muted','No new provider effects recorded.'));else evidence.append(effects);area.append(evidence);
  if(book.pending.length)area.append(node('p','muted','Remaining course work: '+book.pending.join(' · ')));
@@ -72,13 +74,16 @@ async function loadLessons(){
  $('assets').replaceChildren(node('div','empty','Reading hash-pinned lesson reports…'));
  try{
   const book=await api('/api/lessons');if(gen!==state.generation||state.mode!=='lessons')return;
-  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
+  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
    ||!state.projects.some(p=>p.id===book.project)||!Array.isArray(book.lessons)||!book.lessons.length||book.lessons.length>16||!Array.isArray(book.roles)||book.roles.length<2||book.roles.length>4
    ||book.lessons.some(l=>!Array.isArray(l.objects)||l.objects.length>32||!Array.isArray(l.holds)||!Array.isArray(l.effects)))throw Error('Unrecognized teaching response');
   const roles=new Set(book.roles.map(r=>r.id));
   for(const l of book.lessons)for(const o of l.objects){
    if(book.schema==='tig.catalogue-teaching.design-1'){if(o.unknown!==undefined)throw Error('Unrecognized teaching coverage');}
    else if(!Array.isArray(o.unknown)||o.unknown.some((r,i)=>!roles.has(r)||(i&&o.unknown[i-1]>=r)||o.observed?.includes(r))||(o.unknown.length&&(l.converged||l.storage_converged===true)))throw Error('Unrecognized teaching coverage');
+  }
+  for(const l of book.lessons)if(l.rejection!==undefined){const r=l.rejection;
+   if(book.schema!=='tig.catalogue-teaching.design-3'||!r||r.error!=='stale'||typeof r.planning_basis!=='string'||typeof r.observed_basis!=='string'||!r.planning_basis.match(/^[0-9a-f]{64}$/)||!r.observed_basis.match(/^[0-9a-f]{64}$/)||r.planning_basis===r.observed_basis||l.basis_current!==false||l.converged!==false||l.storage_converged!==false||l.stream_bytes!==0||l.effects.length||l.remaining_page)throw Error('Unrecognized rejected attempt');
   }
   lessonView.book=book;const selected=book.lessons.findIndex(l=>l.id===lessonView.selection);selectLesson(book,Math.max(0,selected));
  }catch(e){if(gen===state.generation&&state.mode==='lessons'){

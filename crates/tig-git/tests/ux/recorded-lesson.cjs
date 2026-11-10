@@ -36,7 +36,7 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(f.text('assets').includes('Associated Git commit'));
   assert.ok(f.text('assets').includes('separate admitted snapshots'));
  }
- if(book.schema==='tig.catalogue-teaching.design-2'){
+ if(book.lessons.some(l=>l.id==='merge-backup-offline')){
   for(const id of ['merge-backup-offline','job-ended-backup-offline']){
    const select=selector();select.value=String(book.lessons.findIndex(l=>l.id===id));await select.onchange();await f.settle();
    assert.ok(row('original').children[3].textContent.includes('Unknown · Backup / M'));
@@ -49,6 +49,19 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(row('original').children[3].textContent.includes('History / D'));
   assert.ok(row('original').children[3].textContent.includes('Backup / M'));
   assert.ok(!row('original').children[3].textContent.includes('Working / F'));
+ }
+ if(book.lessons.some(l=>l.id==='stale-plan-rejected')){
+  for(const [id,role] of [['stale-plan-rejected','working'],['fresh-plan-job-active','working'],['fresh-plan-job-ended','history']]){
+   const select=selector();select.value=String(book.lessons.findIndex(l=>l.id===id));await select.onchange();await f.settle();
+   assert.ok(row('original').children[3].textContent.includes(book.roles.find(r=>r.id===role).label));
+   assert.equal(row('original').children[0].title,identity);
+   if(id==='stale-plan-rejected'){
+    assert.ok(f.text('assets').includes('Rejected before storage effects'));
+    assert.ok(row('original').children[2].textContent.includes('History / D'));
+    assert.ok(!row('original').children[2].textContent.includes('Working / F'));
+    assert.ok(f.text('assets').includes('Current observed basis'));
+   }
+  }
  }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));

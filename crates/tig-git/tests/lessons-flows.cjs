@@ -79,3 +79,26 @@ test('conflicting, unversioned or falsely converged unknown coverage refuses',as
    return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized teaching coverage/);
  }
 });
+
+test('rejected stale attempts distinguish historical desire from unchanged protected copies',async()=>{
+ const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-3';
+  for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
+  const l=b.lessons[3];l.converged=false;l.basis_current=false;l.storage_converged=false;l.remaining_page=false;l.stream_bytes=0;l.effects=[];
+  l.rejection={error:'stale',planning_basis:'a'.repeat(64),observed_basis:'b'.repeat(64)};l.objects.find(o=>o.name==='original').desired=['history','backup'];return b;});
+ await f.settle();await f.click(f.get('lessons'));await pick(f,3);
+ assert.match(f.text('assets'),/Rejected before storage effects/);assert.match(f.text('assets'),/Current observed basis/);
+ assert.match(row(f,'original').children[2].textContent,/History \/ D/);assert.match(row(f,'original').children[3].textContent,/Working \/ F/);
+ assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
+});
+
+test('rejection evidence cannot hide effects, convergence, unchanged basis or older protocol versions',async()=>{
+ for(const bad of ['version','effects','stream','converged','current','same','page','null']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-3';
+   for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
+   const l=b.lessons[3];l.converged=false;l.basis_current=false;l.storage_converged=false;l.remaining_page=false;l.stream_bytes=0;l.effects=[];
+   l.rejection={error:'stale',planning_basis:'a'.repeat(64),observed_basis:'b'.repeat(64)};
+   if(bad==='version')b.schema='tig.catalogue-teaching.design-2';if(bad==='effects')l.effects=[{}];if(bad==='stream')l.stream_bytes=1;if(bad==='converged')l.converged=true;
+   if(bad==='current')l.basis_current=true;if(bad==='same')l.rejection.observed_basis=l.rejection.planning_basis;if(bad==='page')l.remaining_page=true;if(bad==='null')l.rejection=null;
+   return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized rejected attempt/);
+ }
+});

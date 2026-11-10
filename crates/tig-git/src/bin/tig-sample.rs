@@ -33,6 +33,7 @@ enum Mode {
     Exchange,
     Worktree,
     BackupOutage,
+    StalePlan,
 }
 struct SampleSeed {
     reader: ReadCache,
@@ -491,19 +492,12 @@ impl Demo {
         )?;
         Ok(())
     }
-    fn checkpoint(&mut self, index: usize, commit: &str) -> Result<()> {
-        self.checkpoint_coverage(index, commit, false, false)
-            .map(|_| ())
-    }
-    fn checkpoint_coverage(
+    fn with_placement<T>(
         &mut self,
-        index: usize,
-        commit: &str,
-        offline: bool,
-        held: bool,
-    ) -> Result<Digest> {
-        let stage = &self.fixture["stages"][index];
-        let id = stage["id"].as_str().ok_or("stage missing")?.to_owned();
+        action: impl FnOnce(
+            &mut placement::Execution<'_, '_, SampleSeed, tig_store::metadata::MetadataReader>,
+        ) -> placement::Result<T>,
+    ) -> Result<T> {
         let mut places = self
             .stores
             .iter()
@@ -528,8 +522,24 @@ impl Demo {
             allow_reacquisition: true,
             allow_cancellation: true,
         };
-        let plan = executor.plan(None)?;
-        let receipt = executor.apply(&plan)?;
+        Ok(action(&mut executor)?)
+    }
+    fn checkpoint(&mut self, index: usize, commit: &str) -> Result<()> {
+        self.checkpoint_coverage(index, commit, false, false)
+            .map(|_| ())
+    }
+    fn checkpoint_coverage(
+        &mut self,
+        index: usize,
+        commit: &str,
+        offline: bool,
+        held: bool,
+    ) -> Result<Digest> {
+        let (plan, receipt) = self.with_placement(|executor| {
+            let plan = executor.plan(None)?;
+            let receipt = executor.apply(&plan)?;
+            Ok((plan, receipt))
+        })?;
         if (held
             && (receipt.page_converged
                 || receipt.storage_converged != Some(false)
@@ -537,8 +547,21 @@ impl Demo {
             || (!held
                 && (!receipt.page_converged || receipt.next.is_some() || !receipt.holds.is_empty()))
         {
-            return Err(format!("{id}: unresolved placement: {:?}", receipt.holds).into());
+            return Err(format!("stage {index}: unresolved placement: {:?}", receipt.holds).into());
         }
+        self.record_checkpoint(index, commit, &plan, &receipt, offline, None)
+    }
+    fn record_checkpoint(
+        &mut self,
+        index: usize,
+        commit: &str,
+        plan: &placement::Plan,
+        receipt: &placement::Report,
+        offline: bool,
+        rejection: Option<Value>,
+    ) -> Result<Digest> {
+        let stage = &self.fixture["stages"][index];
+        let id = stage["id"].as_str().ok_or("stage missing")?.to_owned();
         let mut observations = BTreeMap::new();
         for (name, object) in &self.objects {
             let mut actual = BTreeSet::new();
@@ -591,13 +614,16 @@ impl Demo {
                 return Err("unexpected unknown coverage".into());
             }
             let mut observation = json!({"object":object,"verified_copies":actual});
-            if offline {
+            if offline || rejection.is_some() {
                 observation["unknown_copies"] = json!(unknown);
             }
             observations.insert(name, observation);
         }
         let plan_id = plan.id()?;
-        let report = json!({"schema":if offline {"tig.teaching-observation.design-2"}else{"tig.teaching-observation.design-1"},"lesson":id,"source_commit":commit,"source_checkpoint":self.namespaces[0].checkpoint(),"plan":plan,"receipt":receipt,"observations":observations,"declared_fixture_domains":3,"physical_domain_coverage":"not-established; portable fixture directories","independent_hardware_backup_proven":false});
+        let mut report = json!({"schema":if rejection.is_some(){"tig.teaching-observation.design-3"}else if offline {"tig.teaching-observation.design-2"}else{"tig.teaching-observation.design-1"},"lesson":id,"source_commit":commit,"source_checkpoint":self.namespaces[0].checkpoint(),"plan":plan,"receipt":receipt,"observations":observations,"declared_fixture_domains":3,"physical_domain_coverage":"not-established; portable fixture directories","independent_hardware_backup_proven":false});
+        if let Some(rejected) = rejection {
+            report["rejection"] = rejected;
+        }
         let object = save(&self.root.join(format!("reports/{id}.json")), &report)?;
         fs::copy(
             self.root.join(format!("reports/{id}.json")),
@@ -685,11 +711,15 @@ impl Demo {
             &["branch", "-d", "fix-series"],
         )?;
         self.withdraw("draft", "settle-draft")?;
+        let mut stale_evidence = None;
         let backup_evidence = if matches!(mode, Mode::BackupOutage) {
             Some(self.backup_outage(&merged)?)
         } else {
             self.checkpoint(3, &merged)?;
             self.withdraw("job", "finish-job")?;
+            if matches!(mode, Mode::StalePlan) {
+                stale_evidence = Some(self.stale_plan(&merged, &first)?);
+            }
             None
         };
         self.checkpoint(4, &merged)?;
@@ -765,7 +795,59 @@ impl Demo {
         if let Some(evidence) = backup_evidence {
             result["backup_evidence"] = serde_json::to_value(evidence)?;
         }
+        if let Some(evidence) = stale_evidence {
+            result["stale_evidence"] = serde_json::to_value(evidence)?;
+        }
         Ok(result)
+    }
+
+    fn stale_plan(&mut self, commit: &str, first: &str) -> Result<Object> {
+        let old = self.with_placement(|e| e.plan(None))?;
+        let planning_source = self.namespaces[0].checkpoint();
+        self.select("job", first, "stale-plan-new-job")?;
+        let protected_source = self.namespaces[0].checkpoint();
+        let before = self.copy_snapshot()?;
+        let rejected = self.with_placement(|e| Ok(e.apply(&old)))?;
+        let after = self.copy_snapshot()?;
+        if !matches!(rejected, Err(placement::Error::Stale))
+            || after != before
+            || self.namespaces[0].checkpoint() != protected_source
+            || protected_source == planning_source
+        {
+            return Err("stale plan did not refuse before effects".into());
+        }
+        let status = self.with_placement(|e| e.status(&old))?;
+        if status.basis_current
+            || status.page_converged
+            || status.storage_converged != Some(false)
+            || !status.effects.is_empty()
+            || status.stream_bytes != 0
+            || status.next.is_some()
+            || status.observed_basis == old.basis
+        {
+            return Err("stale status did not preserve the rejected basis".into());
+        }
+        let old_id = self.record_checkpoint(
+            19,
+            commit,
+            &old,
+            &status,
+            false,
+            Some(json!({"error":"stale","observed_basis":status.observed_basis})),
+        )?;
+        let fresh = self.checkpoint_coverage(20, commit, false, false)?;
+        if fresh == old_id {
+            return Err("fresh protection reused the stale plan".into());
+        }
+        self.withdraw("job", "stale-plan-job-ended")?;
+        let ended = self.checkpoint_coverage(21, commit, false, false)?;
+        if ended == old_id || ended == fresh {
+            return Err("job end revived old plan authority".into());
+        }
+        save(
+            &self.root.join("stale.json"),
+            &json!({"schema":"tig.sample-stale-plan.design-1","error":"stale","rejected_plan":old_id,"planning_basis":old.basis,"observed_basis":status.observed_basis,"planning_source":planning_source,"protected_source":protected_source,"copies_before_rejection":before,"copies_after_rejection":after,"fresh_job_plan":fresh,"fresh_job_ended_plan":ended,"status_stream_bytes":status.stream_bytes,"status_effects":status.effects,"new_job_admission_is_explicit_fixture":true}),
+        )
     }
 
     fn backup_outage(&mut self, commit: &str) -> Result<Object> {
@@ -1135,17 +1217,18 @@ fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
-        return Err("usage: tig-sample describe | rehearse-ordinary|rehearse-exchange|rehearse-worktree|rehearse-backup-outage NEW_ABSOLUTE_ROOT".into());
+        return Err("usage: tig-sample describe | OPERATION NEW_ABSOLUTE_ROOT (see describe for operations)".into());
     }
     let mode = match args[0].to_str() {
         Some("rehearse-ordinary") => Mode::Ordinary,
         Some("rehearse-exchange") => Mode::Exchange,
         Some("rehearse-worktree") => Mode::Worktree,
         Some("rehearse-backup-outage") => Mode::BackupOutage,
+        Some("rehearse-stale-plan") => Mode::StalePlan,
         _ => return Err("unknown sample operation".into()),
     };
     Demo::new(Path::new(&args[1]))?.run(mode)

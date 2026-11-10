@@ -1,5 +1,11 @@
 # Tig trace
 
+Stale-plan teaching: WP-004/008/009/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-STALE-PLAN.md ->
+actual SDK rejection/status/fresh plans, independent oracle and native/API/
+negative/shipped controls -> EVID-119. Full course and product gates remain open.
+
 Backup-outage teaching: WP-004/008/009/010/015/016;
 REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
 IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-BACKUP-OUTAGE.md ->

@@ -584,3 +584,150 @@ fn public_backup_outage_holds_unknown_custody_and_retries_without_seed_or_new_se
         book
     );
 }
+
+#[test]
+fn public_stale_plan_refuses_before_effects_then_fresh_plans_respect_new_job() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("stale plan with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-stale-plan")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 10);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("stale.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["stale_evidence"]
+    );
+    let proof: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(proof["error"], "stale");
+    assert_eq!(
+        proof["copies_before_rejection"],
+        proof["copies_after_rejection"]
+    );
+    assert_ne!(proof["planning_basis"], proof["observed_basis"]);
+    assert_ne!(proof["planning_source"], proof["protected_source"]);
+    assert_ne!(proof["rejected_plan"], proof["fresh_job_plan"]);
+    assert_ne!(proof["rejected_plan"], proof["fresh_job_ended_plan"]);
+    assert_eq!(proof["status_stream_bytes"], 0);
+    assert_eq!(proof["status_effects"], serde_json::json!([]));
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    let catalogue = Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
+    let book =
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap();
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-3");
+    for (id, expected) in [
+        (
+            "stale-plan-rejected",
+            serde_json::json!(["backup", "working"]),
+        ),
+        (
+            "fresh-plan-job-active",
+            serde_json::json!(["backup", "working"]),
+        ),
+        (
+            "fresh-plan-job-ended",
+            serde_json::json!(["backup", "history"]),
+        ),
+    ] {
+        let lesson = book["lessons"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|l| l["id"] == id)
+            .unwrap();
+        let original = lesson["objects"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["name"] == "original")
+            .unwrap();
+        assert_eq!(original["observed"], expected);
+        if id == "stale-plan-rejected" {
+            assert_eq!(
+                original["desired"],
+                serde_json::json!(["history", "backup"])
+            );
+            assert_eq!(lesson["rejection"]["error"], "stale");
+            assert_eq!(lesson["basis_current"], false);
+        }
+    }
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, received) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(received, book);
+    render_book(&received);
+    drop(server);
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let index = trace["completed"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .position(|l| l["lesson"] == "stale-plan-rejected")
+        .unwrap();
+    let raw = fs::read(root.join("reports/stale-plan-rejected.json")).unwrap();
+    let released: Value =
+        serde_json::from_slice(&fs::read(root.join("reports/release-v1.json")).unwrap()).unwrap();
+    let actual_effect = released["receipt"]["effects"][0].clone();
+    assert!(actual_effect.is_object());
+    for bad in [
+        "missing",
+        "null",
+        "version",
+        "error",
+        "basis",
+        "same",
+        "current",
+        "converged",
+        "stream",
+        "effects",
+        "page",
+    ] {
+        let mut report: Value = serde_json::from_slice(&raw).unwrap();
+        match bad {
+            "missing" => {
+                report.as_object_mut().unwrap().remove("rejection");
+            }
+            "null" => report["rejection"] = Value::Null,
+            "version" => report["schema"] = "tig.teaching-observation.design-2".into(),
+            "error" => report["rejection"]["error"] = "busy".into(),
+            "basis" => {
+                report["rejection"]["observed_basis"] =
+                    serde_json::to_value(Object::from_bytes(b"foreign-basis").sha256).unwrap()
+            }
+            "same" => {
+                let basis = report["plan"]["basis"].clone();
+                report["rejection"]["observed_basis"] = basis.clone();
+                report["receipt"]["observed_basis"] = basis;
+            }
+            "current" => report["receipt"]["basis_current"] = true.into(),
+            "converged" => report["receipt"]["page_converged"] = true.into(),
+            "stream" => report["receipt"]["stream_bytes"] = 1.into(),
+            "effects" => report["receipt"]["effects"] = serde_json::json!([actual_effect]),
+            "page" => {
+                report["receipt"]["next"] = serde_json::json!({"basis":report["plan"]["basis"],"after":report["plan"]["basis"]});
+            }
+            _ => unreachable!(),
+        }
+        let mut changed = trace.clone();
+        changed["completed"][index]["report"] = save_evidence(&root, &report);
+        let mut enrollment = config.clone();
+        enrollment["teaching"]["trace"] = save_evidence(&root, &changed);
+        let path = root.join("negative-rejection.json");
+        fs::write(&path, serde_json::to_vec(&enrollment).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    assert_eq!(
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap(),
+        book
+    );
+}

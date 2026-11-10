@@ -1,5 +1,8 @@
 # Foundation review
 
+EVID-119: [producer lenses](../reviews/2026-11-10-teaching-stale-plan.md).
+Local checks pass; hosted/human gates open.
+
 Backup-outage review, input9310d0c: [six producer lenses](../reviews/2026-11-09-teaching-backup-outage.md)
 challenge unknown versus absent, current custody, plan/source retry identity,
 bounded private-root moves and false convergence. Focused native/API/negative/

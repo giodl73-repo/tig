@@ -152,6 +152,19 @@ struct Report {
     declared_fixture_domains: usize,
     physical_domain_coverage: String,
     independent_hardware_backup_proven: bool,
+    #[serde(default, deserialize_with = "rejected_attempt")]
+    rejection: Option<Rejected>,
+}
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Rejected {
+    error: String,
+    observed_basis: Digest,
+}
+fn rejected_attempt<'de, D: serde::Deserializer<'de>>(
+    decoder: D,
+) -> std::result::Result<Option<Rejected>, D::Error> {
+    Rejected::deserialize(decoder).map(Some)
 }
 fn document<T: serde::de::DeserializeOwned>(
     reader: &mut ReadCache,
@@ -231,6 +244,7 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut identities = BTreeMap::<String, Object>::new();
     let mut providers = None;
     let mut coverage_v2 = false;
+    let mut rejection_v3 = false;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -252,7 +266,24 @@ pub fn execute(request: Request) -> Result<Value> {
             report.plan.enrollment.clone(),
             report.plan.providers.clone(),
         );
-        let v2 = report.schema == "tig.teaching-observation.design-2";
+        let v3 = report.schema == "tig.teaching-observation.design-3";
+        let v2 = v3 || report.schema == "tig.teaching-observation.design-2";
+        if v3 != report.rejection.is_some() {
+            return Err("Rejected attempt version mismatch".into());
+        }
+        if let Some(rejected) = &report.rejection
+            && (rejected.error != "stale"
+                || rejected.observed_basis != report.receipt.observed_basis
+                || rejected.observed_basis == report.plan.basis
+                || report.receipt.basis_current
+                || report.receipt.page_converged
+                || report.receipt.storage_converged != Some(false)
+                || report.receipt.stream_bytes != 0
+                || !report.receipt.effects.is_empty()
+                || report.receipt.next.is_some())
+        {
+            return Err("Inconsistent rejected attempt".into());
+        }
         if (!v2 && report.schema != "tig.teaching-observation.design-1")
             || report.lesson != entry.lesson
             || report.independent_hardware_backup_proven
@@ -272,7 +303,7 @@ pub fn execute(request: Request) -> Result<Value> {
             || providers.as_ref().is_some_and(|old| old != &binding)
             || report.receipt.schema != "tig.placement-report.design-1"
             || report.receipt.plan != id
-            || report.receipt.observed_basis != report.plan.basis
+            || (!v3 && report.receipt.observed_basis != report.plan.basis)
             || report.receipt.effects.len() > 128
             || report.receipt.observations.len() > 128
             || report.receipt.holds.len() > 64
@@ -315,6 +346,7 @@ pub fn execute(request: Request) -> Result<Value> {
         }
         providers = Some(binding);
         coverage_v2 |= v2;
+        rejection_v3 |= v3;
         let mut recorded = Vec::new();
         if v2 {
             let mut pairs = BTreeSet::new();
@@ -485,6 +517,10 @@ pub fn execute(request: Request) -> Result<Value> {
             "source_sequence":report.source_checkpoint.sequence(),"objects":rows,"stream_bytes":report.receipt.stream_bytes,
             "basis_current":report.receipt.basis_current,"converged":report.receipt.page_converged,"storage_converged":report.receipt.storage_converged,
             "remaining_page":report.receipt.next.is_some(),"holds":report.receipt.holds,"effects":effects}));
+        if let Some(rejected) = report.rejection {
+            let lesson = lessons.last_mut().ok_or("Missing rejected lesson")?;
+            lesson["rejection"] = json!({"error":rejected.error,"planning_basis":report.plan.basis,"observed_basis":rejected.observed_basis});
+        }
     }
     if !coverage_v2 {
         for lesson in &mut lessons {
@@ -498,7 +534,7 @@ pub fn execute(request: Request) -> Result<Value> {
             }
         }
     }
-    let response = json!({"schema":if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
+    let response = json!({"schema":if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)

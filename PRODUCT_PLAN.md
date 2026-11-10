@@ -75,6 +75,14 @@ partial reports distinguish known copies from unknown coverage in the same
 read-only catalogue. Hardware faults, remote byte publication and full failure/
 restart/final-loss/expiry teaching remain separate open gates.
 
+The [stale-plan rehearsal](specs/TEACHING-STALE-PLAN.md) explicitly admits a new
+job after planning demotion. The existing SDK rejects that stale apply before
+storage effects; separately recorded status shows the changed protection basis.
+Fresh plans retain the job's F copy and demote only after its explicit end.
+Ten recorded checkpoints expose historical desired versus observed state in the
+same read-only catalogue. General races, crash/restart and final-loss/expiry
+teaching remain separate open gates.
+
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
 witness peak/status and separately approved apply/resume/cancel through
