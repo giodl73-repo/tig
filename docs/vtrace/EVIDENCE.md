@@ -1,5 +1,15 @@
 # Evidence index
 
+EVID-116 (locally qualified candidate): input618628a1571082474576061de4510ee54a59f1ad.
+[Review](../reviews/2026-11-09-teaching-exchange.md) separates real local Git
+push/clone/fetch/pull and dirty-pull preservation from source adoption and byte
+placement. Native65714/final45494 pass three CLI/provider/catalogue/HTTP cases,
+actual ten-checkpoint HTTP -> shipped controls and strict schema workspace Clippy.
+All73 controller cases pass. Default43090/all-feature54984 workspace/both500k/
+strict/standalone and fresh artifact91098 pass. Initial L0/source-secrets pass;
+final documentation pins and hosted remain pending. Full remote-byte/fault/final-loss/expiry teaching and human/native/
+provider/lifetime/full product acceptance remain open.
+
 EVID-115 (locally qualified candidate): runtime3c423315d1901d9015572a5507643939e79605ae; input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965.
 [Review](../reviews/2026-11-09-teaching-playback.md) separates optional recorded
 lesson implementation, verification, synthetic validation, trace and six producer
@@ -8,7 +18,8 @@ cases. Final1180 passes actual HTTP -> shipped-controls, semantic negatives,
 strict schema workspace Clippy and fresh persistent sample/catalogue check.
 Default26395 workspace/500k/strict/standalone and all73 controller cases pass.
 All-feature22256 workspace/second500k/strict and final L0/fmt/diff/source-secrets
-pass; hosted checks remain pending; full command/failure/final-loss/lifetime course and browser/human
+pass. Exact-head run42744449594 at618628a passes Windows/Linux/secrets; PR46 is
+ready for review. Full command/failure/final-loss/lifetime course and browser/human
 acceptance remain open. Parent PR45 run42737465924 passed Linux/secrets but failed
 Windows in inherited simultaneous age capture; parent qualification remains open.
 

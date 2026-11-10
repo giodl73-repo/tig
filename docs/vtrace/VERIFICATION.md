@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-116 candidate: native65714/final45494 pass three actual CLI/provider/catalogue
+cases, authenticated HTTP -> shipped controls for ten checkpoints, metadata
+refusals, isolation and strict schema workspace Clippy. All73 controller cases
+pass. Default43090/all-feature54984 workspace/both500k/strict/standalone and
+fresh artifact91098 pass. Initial L0/source-secrets pass; final documentation pins
+and hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-exchange.md) for exact scope and limitations.
+
 EVID-115 candidate: focused native52463 passes actual seven-checkpoint sample,
 verified reader, authenticated loopback HTTP and repinned semantic refusals.
 All73 shipped controller cases pass, including seven new lesson flows.

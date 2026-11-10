@@ -281,3 +281,88 @@ fn sample_discovery_and_existing_or_checkout_roots_cannot_mutate_data() {
     assert!(!denied.status.success());
     assert!(!nested.exists());
 }
+
+#[test]
+fn public_exchange_preserves_dirty_work_and_reconciles_only_after_exact_pull() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("public exchange with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-exchange")
+        .arg(&root)
+        .env("GIT_ALLOW_PROTOCOL", "ssh")
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 10);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("exchange.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["exchange_evidence"]
+    );
+    let proof: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(proof["published"], proof["after_fetch"]);
+    assert_ne!(proof["published"], proof["pulled_v1"]);
+    assert_ne!(proof["pulled_v1"], proof["returned_v2"]);
+    assert_eq!(proof["dirty_pull_refused"], true);
+    assert_eq!(proof["selected_payloads_in_cloned_tree"], false);
+    assert_eq!(
+        proof["dirty_pull_reason"],
+        "local changes would be overwritten by merge"
+    );
+    assert_eq!(proof["observer_is_enrolled_writer"], false);
+    let catalogue = Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
+    let book =
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap();
+    assert_eq!(book["lessons"].as_array().unwrap().len(), 10);
+    for (index, id, expected) in [
+        (7, "publish-v2", serde_json::json!(["backup", "history"])),
+        (8, "pull-v1", serde_json::json!(["backup", "working"])),
+        (
+            9,
+            "pull-return-v2",
+            serde_json::json!(["backup", "history"]),
+        ),
+    ] {
+        assert_eq!(book["lessons"][index]["id"], id);
+        let rows = book["lessons"][index]["objects"].as_array().unwrap();
+        assert_eq!(
+            rows.iter().find(|row| row["name"] == "original").unwrap()["observed"],
+            expected
+        );
+    }
+    assert_eq!(book["lessons"][7]["stream_bytes"], 0);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, received) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(received, book);
+    let mut renderer = Command::new("node")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/ux/recorded-lesson.cjs"
+        ))
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    {
+        use std::io::Write;
+        renderer
+            .stdin
+            .take()
+            .unwrap()
+            .write_all(&serde_json::to_vec(&received).unwrap())
+            .unwrap();
+    }
+    let rendered = renderer.wait_with_output().unwrap();
+    assert!(rendered.status.success(), "{rendered:?}");
+    let refused = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-exchange")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(!refused.status.success());
+    assert_eq!(fs::read(root.join("exchange.json")).unwrap(), raw);
+}

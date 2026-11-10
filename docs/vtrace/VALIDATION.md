@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-116 rehearses public Git metadata exchange through a local bare remote,
+unchanged fetch checkout, preserved dirty pull refusal and explicit post-pull
+source adoption/reconciliation. Ten actual reports render in the existing
+catalogue controls. No full VAL, remote byte publication/offline backup, general
+writer/worktree, fault/final-loss/expiry course or browser/classroom acceptance is
+closed. See [review](../reviews/2026-11-09-teaching-exchange.md).
+
 EVID-115 adds recorded sample lesson playback: stable original bytes move from
 F+M to D+M after the job ends and back to F+M on revert. Native sample/API evidence
 and shipped controller fixtures are separate. No real browser/classroom acceptance

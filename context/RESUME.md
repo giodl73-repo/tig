@@ -8,6 +8,33 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned lane: feat/teaching-exchange,
+  input618628a1571082474576061de4510ee54a59f1ad. Contract TEACHING-EXCHANGE.md,
+  review/EVID-116 name controls, scope, entry/exit and separate closure records.
+  Explicit rehearse-exchange creates fresh local remote/observer, exercises real
+  push/clone/fetch/pull, preserves an overlapping dirty-pull refusal, then uses
+  existing source admission/placement APIs for three extra sealed checkpoints.
+  The same catalogue renders ten actual reports; observer is not an enrolled asset
+  writer. Remote byte publication/offline backup and general writer/worktree,
+  full faults/restart/final-loss/metadata-expiry course remain open.
+  Native65714 and final45494 pass three actual CLI/provider/catalogue cases,
+  authenticated HTTP -> shipped controls, semantic refusals, poisoned protocol,
+  exact commits/copy states and strict schema workspace Clippy. All73 controller
+  cases pass. Default43090/all-feature54984 terminate0, including both500k and
+  strict profiles/standalone Git. No Rust edits followed broad-profile starts.
+  Artifact91098 terminates0: fmt, fresh schema bins, ten-checkpoint exchange and
+  catalogue check (read_only=true,payloads_opened=0). Persistent public root:
+  exchange-public-57a8613ded2548cca92afde652645181 in external bulk-retirement
+  dev temp. Build targets teaching-playback / teaching-playback-all; all local
+  handles terminal. Initial L0/source-secrets pass657 files/7038221 bytes.
+  Source pin/push/draft and final docs/pins/commit secrets/hosted remain pending.
+  Parent PR46 at618628a run42744449594 passes exact-head Windows/Linux/secrets;
+  PR46 is ready for review. No merge/deploy or existing-root operation.
+  Browser check requested under DEVELOPMENT.md; no browser interaction authorized
+  or performed at this checkpoint. Derive user reply/current hosted state before
+  proceeding. Browser/classroom/native/provider/lifetime/full acceptance open.
+  Older lane notes below are historical; preserve viewers/runtime bindings.
+
 - Active owned lane: feat/teaching-playback, input
   6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965. Contract:
   specs/TEACHING-PLAYBACK.md; review/EVID-115 name controls and separate implementation,

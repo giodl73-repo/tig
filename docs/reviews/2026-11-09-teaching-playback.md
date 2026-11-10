@@ -56,7 +56,8 @@ the second500k and strict all-feature/all-target workspace Clippy. Broad
 compilation predates the final test bridge and fuller pending-course label;
 final1180 qualifies these. Initial structure/pins/diff and changed-source secrets
 pass. Final structure/pins/fmt/diff and changed-source secrets pass.
-Exact-head hosted qualification remains pending.
+Exact-head hosted run42744449594 at618628a1571082474576061de4510ee54a59f1ad
+passes Windows, Linux and secrets. PR46 is ready for review; no merge/deployment.
 Parent PR45 run42737465924 at6d9a2e0 passed Linux/secrets, failed Windows in the
 inherited simultaneous age-capture test because neither peer acknowledged.
 That failure remains open; it is not evidence against or proof of this reader.

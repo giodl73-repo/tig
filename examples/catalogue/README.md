@@ -25,6 +25,32 @@ are refused; repeat in another new directory. No viewer starts automatically.
 The runner uses an isolated Git configuration, an empty template and its own
 fixture identity.
 
+For the local Git exchange lesson, choose another fresh root and run:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-exchange ABSOLUTE_NEW_OUTPUT
+```
+
+This includes the ordinary seven checkpoints, then adds **publish v2**, **pull
+v1** and **pull return v2** to the same catalogue lessons. Open its generated
+catalogue with the check/serve commands above. Everything runs against a new
+local bare remote and observer checkout inside that root; no account or network
+endpoint is used. `exchange.json` records actual commit identities and the dirty
+pull refusal; the CLI result pins its exact hash and size.
+
+| Command / trigger | Checked result | Tig copy evidence |
+| --- | --- | --- |
+| `git push`, `git clone --no-local --no-hardlinks` | Observer selects the published commit and small records; selected payload seeds are absent from its tracked tree | Existing F/D/M copies remain; this checkpoint streams zero payload bytes |
+| `git fetch --no-tags` | Remote-tracking ref advances; observer HEAD remains unchanged | Fetch itself requests no Tig action |
+| `git pull --ff-only` with an overlapping local edit | Git refuses because the edit would be overwritten; edit, HEAD and all managed copies remain unchanged | No adoption or placement call runs for this failed pull |
+| Repair the exact fixture edit, then `git pull --ff-only` | Observer selects the exact v1 record | Explicit fixture source adoption/reconciliation brings original to F+M and fixed to D+M |
+| Push/fetch/pull the return to v2 | Observer selects exact v2 | Explicit reconciliation returns fixed to F+M and original to D+M |
+
+The observer is a metadata reader, not an enrolled asset writer/job. There is no
+automatic pull hook or general live-source adoption. The bare Git remote is not
+a payload backup. Remote byte publication, offline backup and complete command/
+worktree/failure lessons remain separate course obligations.
+
 In the catalogue, choose **Learn Tig · sample lessons**. Use the lesson selector
 or Previous/Next to compare each object's earlier recorded copies, the plan's
 desired roles and the freshly verified copies recorded after that step. Follow
@@ -57,7 +83,9 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, eight lifecycle checkpoints and seven counterexamples. Hashes
+seeds, two works, eleven specified checkpoints and seven counterexamples. The
+ordinary runner executes seven; exchange executes ten. Final retirement remains
+a target-only checkpoint. Hashes
 and byte sizes identify real generated inputs. Expected copies are literal
 independent assertions for the existing executor; the file is not executed
 evidence. Runtime qualification must produce and check the matching observations.

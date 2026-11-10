@@ -54,6 +54,10 @@ fn save(path: &Path, value: &impl serde::Serialize) -> Result<Object> {
     Ok(Object::from_bytes(&raw))
 }
 fn git(exe: &Path, repo: &Path, args: &[&str]) -> Result<String> {
+    git_transport(exe, repo, args, false)
+}
+// Only the fixed exchange fixture calls this with file transport enabled.
+fn git_transport(exe: &Path, repo: &Path, args: &[&str], file: bool) -> Result<String> {
     let null = if cfg!(windows) { "NUL" } else { "/dev/null" };
     let mut command = Git::new(exe);
     for (name, _) in std::env::vars_os() {
@@ -93,8 +97,10 @@ fn git(exe: &Path, repo: &Path, args: &[&str]) -> Result<String> {
         .env("GIT_CONFIG_GLOBAL", null)
         .env("GIT_ATTR_NOSYSTEM", "1")
         .env("GIT_NO_LAZY_FETCH", "1")
-        .env("GIT_ALLOW_PROTOCOL", "")
+        .env("GIT_ALLOW_PROTOCOL", if file { "file" } else { "" })
         .env("GIT_TERMINAL_PROMPT", "0")
+        .env("LC_ALL", "C")
+        .env("LANG", "C")
         .env("GIT_LFS_SKIP_SMUDGE", "1")
         .stdin(std::process::Stdio::null())
         .output()?;
@@ -559,7 +565,7 @@ impl Demo {
         save(&self.root.join("catalogue-observations.json"), &inventory)?;
         Ok(())
     }
-    fn run(mut self) -> Result<Value> {
+    fn run(mut self, exchange: bool) -> Result<Value> {
         self.write_version("v1")?;
         let first = self.commit("Sample: release v1")?;
         self.checkpoint(0, &first)?;
@@ -621,38 +627,260 @@ impl Demo {
             &self.root.join("project"),
             &["revert", "--no-edit", &reverted],
         )?;
-        let current = git(
+        let mut current = git(
             &self.git,
             &self.root.join("project"),
             &["rev-parse", "HEAD"],
         )?;
         self.select("main", &current, "return-v2")?;
         self.checkpoint(6, &current)?;
+        let exchange_evidence = if exchange {
+            let (head, evidence) = self.exchange(&current)?;
+            current = head;
+            Some(evidence)
+        } else {
+            None
+        };
+        let pending = if exchange {
+            json!([
+                "full command-by-command Git curriculum",
+                "remote byte publication and offline backup",
+                "failure rehearsals",
+                "final retirement",
+                "metadata lifetime"
+            ])
+        } else {
+            json!([
+                "full command-by-command Git curriculum",
+                "publish/fetch/pull",
+                "failure rehearsals",
+                "final retirement",
+                "metadata lifetime"
+            ])
+        };
         let trace = save(
             &self.root.join("trace.json"),
-            &json!({"schema":"tig.teaching-trace.design-2","providers":self.config.providers.iter().map(|p|json!({"instance":p.place.instance,"id":p.assignments[0].place.as_str()})).collect::<Vec<_>>(),"completed":self.reports,"pending":["full command-by-command Git curriculum","publish/fetch/pull","failure rehearsals","final retirement","metadata lifetime"],"fixture_native_scope":"selected objects and fixture primary inputs; historical streams retain historical source obligations"}),
+            &json!({"schema":"tig.teaching-trace.design-2","providers":self.config.providers.iter().map(|p|json!({"instance":p.place.instance,"id":p.assignments[0].place.as_str()})).collect::<Vec<_>>(),"completed":self.reports,"pending":pending,"fixture_native_scope":"selected objects and fixture primary inputs; historical streams retain historical source obligations"}),
         )?;
         fs::copy(
             self.root.join("trace.json"),
             Layout::Flat.object_path(&self.root.join("lesson-evidence"), &trace.sha256),
         )?;
         self.catalogue(&current, &trace)?;
-        Ok(
-            json!({"schema":"tig.sample-result.design-1","root":self.root,"completed_checkpoints":7,"trace":"trace.json","catalogue":"catalogue.json","complete_course":false}),
+        let mut result = json!({"schema":"tig.sample-result.design-1","root":self.root,"completed_checkpoints":self.reports.len(),"trace":"trace.json","catalogue":"catalogue.json","complete_course":false});
+        if let Some(evidence) = exchange_evidence {
+            result["exchange_evidence"] = serde_json::to_value(evidence)?;
+        }
+        Ok(result)
+    }
+
+    fn exchange(&mut self, first: &str) -> Result<(String, Object)> {
+        let project = self.root.join("project");
+        let observer = self.root.join("observer");
+        // These paths are generated under a fresh root, never caller-supplied URLs.
+        git(
+            &self.git,
+            &self.root,
+            &[
+                "init",
+                "--bare",
+                "--template=git-template",
+                "-b",
+                "main",
+                "exchange.git",
+            ],
+        )?;
+        git(
+            &self.git,
+            &project,
+            &["remote", "add", "sample", "../exchange.git"],
+        )?;
+        git_transport(
+            &self.git,
+            &project,
+            &["push", "sample", "refs/heads/main:refs/heads/main"],
+            true,
+        )?;
+        git_transport(
+            &self.git,
+            &self.root,
+            &[
+                "clone",
+                "--no-local",
+                "--no-hardlinks",
+                "--template=git-template",
+                "--branch",
+                "main",
+                "exchange.git",
+                "observer",
+            ],
+            true,
+        )?;
+        if git(&self.git, &observer, &["rev-parse", "HEAD"])? != first {
+            return Err("clone selected a different commit".into());
+        }
+        // Native payload seeds must not have been smuggled into the Git tree.
+        let files = git(
+            &self.git,
+            &observer,
+            &["ls-tree", "-r", "--name-only", "HEAD"],
+        )?;
+        for file in files.lines() {
+            let bytes = fs::read(observer.join(file))?;
+            if self
+                .objects
+                .values()
+                .any(|object| *object == Object::from_bytes(&bytes))
+            {
+                return Err("payload was transported as a Git blob".into());
+            }
+        }
+        self.checkpoint(8, first)?;
+
+        git(&self.git, &project, &["revert", "--no-edit", first])?;
+        let old = git(&self.git, &project, &["rev-parse", "HEAD"])?;
+        git_transport(
+            &self.git,
+            &project,
+            &["push", "sample", "refs/heads/main:refs/heads/main"],
+            true,
+        )?;
+        git_transport(
+            &self.git,
+            &observer,
+            &[
+                "fetch",
+                "--no-tags",
+                "origin",
+                "refs/heads/main:refs/remotes/origin/main",
+            ],
+            true,
+        )?;
+        let after_fetch = git(&self.git, &observer, &["rev-parse", "HEAD"])?;
+        if after_fetch != first
+            || git(
+                &self.git,
+                &observer,
+                &["rev-parse", "refs/remotes/origin/main"],
+            )? != old
+        {
+            return Err("fetch changed the checkout or selected a different ref".into());
+        }
+        let record_path = observer.join("records/series.tig");
+        let clean = fs::read(&record_path)?;
+        let mut dirty: Value = serde_json::from_slice(&clean)?;
+        dirty["authored"]["version"] = "uncommitted-learner-edit".into();
+        let dirty = identity::canonical_json(&dirty)?;
+        fs::write(&record_path, &dirty)?;
+        let before = self.copy_snapshot()?;
+        let refused = git_transport(
+            &self.git,
+            &observer,
+            &["pull", "--ff-only", "origin", "main"],
+            true,
         )
+        .err()
+        .is_some_and(|error| error.to_string().contains("would be overwritten by merge"));
+        if !refused
+            || fs::read(&record_path)? != dirty
+            || git(&self.git, &observer, &["rev-parse", "HEAD"])? != first
+            || self.copy_snapshot()? != before
+        {
+            return Err("dirty pull did not preserve the checkout and managed copies".into());
+        }
+        // Repair only the exact synthetic edit made above; no user checkout is admitted.
+        fs::write(&record_path, clean)?;
+        git_transport(
+            &self.git,
+            &observer,
+            &["pull", "--ff-only", "origin", "main"],
+            true,
+        )?;
+        self.check_observer(&observer, &old, "original")?;
+        self.select("main", &old, "exchange-v1")?;
+        self.checkpoint(9, &old)?;
+
+        git(&self.git, &project, &["revert", "--no-edit", &old])?;
+        let current = git(&self.git, &project, &["rev-parse", "HEAD"])?;
+        git_transport(
+            &self.git,
+            &project,
+            &["push", "sample", "refs/heads/main:refs/heads/main"],
+            true,
+        )?;
+        git_transport(
+            &self.git,
+            &observer,
+            &[
+                "fetch",
+                "--no-tags",
+                "origin",
+                "refs/heads/main:refs/remotes/origin/main",
+            ],
+            true,
+        )?;
+        if git(&self.git, &observer, &["rev-parse", "HEAD"])? != old {
+            return Err("fetch advanced observer HEAD".into());
+        }
+        git_transport(
+            &self.git,
+            &observer,
+            &["pull", "--ff-only", "origin", "main"],
+            true,
+        )?;
+        self.check_observer(&observer, &current, "fixed")?;
+        self.select("main", &current, "exchange-v2")?;
+        self.checkpoint(10, &current)?;
+        let evidence = save(
+            &self.root.join("exchange.json"),
+            &json!({"schema":"tig.sample-exchange.design-1","published":first,"after_fetch":after_fetch,"pulled_v1":old,"returned_v2":current,"dirty_pull_refused":refused,"dirty_pull_reason":"local changes would be overwritten by merge","dirty_copy_snapshot":before,"selected_payloads_in_cloned_tree":false,"observer_is_enrolled_writer":false,"remote_transport":"fresh-root-local-file-only"}),
+        )?;
+        Ok((current, evidence))
+    }
+    fn check_observer(&self, observer: &Path, commit: &str, name: &str) -> Result<()> {
+        let record: Value =
+            serde_json::from_slice(&fs::read(observer.join("records/series.tig"))?)?;
+        if git(&self.git, observer, &["rev-parse", "HEAD"])? != commit
+            || record["selected"] != serde_json::to_value(&self.objects[name])?
+            || !git(&self.git, observer, &["status", "--porcelain=v1"])?.is_empty()
+        {
+            return Err("observer did not select exact clean records".into());
+        }
+        Ok(())
+    }
+    fn copy_snapshot(&self) -> Result<Value> {
+        let mut observed = BTreeMap::new();
+        for role in ["working", "history", "backup"] {
+            let mut copies = BTreeMap::new();
+            for (name, object) in &self.objects {
+                let path = Layout::Flat.object_path(&self.root.join(role), &object.sha256);
+                match fs::read(path) {
+                    Ok(bytes) => {
+                        if Object::from_bytes(&bytes) != *object {
+                            return Err("copy changed during Git exchange".into());
+                        }
+                        copies.insert(name, object);
+                    }
+                    Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+                    Err(e) => return Err(e.into()),
+                }
+            }
+            observed.insert(role, copies);
+        }
+        Ok(serde_json::to_value(observed)?)
     }
 }
 fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
-    if args.len() != 2 || args[0] != "rehearse-ordinary" {
-        return Err("usage: tig-sample describe | rehearse-ordinary NEW_ABSOLUTE_ROOT".into());
+    if args.len() != 2 || (args[0] != "rehearse-ordinary" && args[0] != "rehearse-exchange") {
+        return Err("usage: tig-sample describe | rehearse-ordinary NEW_ABSOLUTE_ROOT | rehearse-exchange NEW_ABSOLUTE_ROOT".into());
     }
-    Demo::new(Path::new(&args[1]))?.run()
+    Demo::new(Path::new(&args[1]))?.run(args[0] == "rehearse-exchange")
 }
 fn main() -> ExitCode {
     match run() {

@@ -1,5 +1,12 @@
 # Tig trace
 
+Public Git exchange: WP-004/008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-EXCHANGE.md ->
+fresh-root local Git remote/observer over existing source and placement ports ->
+independent copy oracle, dirty/ref/commit/native/HTTP/shipped-controls cases ->
+EVID-116. Broader command/failure/final-loss/expiry and intended-use gates remain.
+
 Recorded teaching playback: WP-008/010/015/016;
 REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
 IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-PLAYBACK.md ->

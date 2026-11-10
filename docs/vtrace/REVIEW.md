@@ -1,5 +1,11 @@
 # Foundation review
 
+Public Git exchange review, input618628a: [six producer lenses](../reviews/2026-11-09-teaching-exchange.md)
+challenge ref/checkout identity, metadata versus custody, failed-pull preservation,
+bounded local transport and writer-adoption claims. Focused native/API/shipped
+controls, default/all-feature/both500k/strict/standalone and fresh artifact checks
+pass; hosted and intended-use gates remain open.
+
 Recorded teaching review, input6d9a2e0:
 [six producer lenses](../reviews/2026-11-09-teaching-playback.md) challenge role
 binding, historical/current custody, unknown observations, stale replies, bounded

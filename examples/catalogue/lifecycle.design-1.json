@@ -222,6 +222,75 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "publish-v2",
+      "event": "git push and git clone publish exact records only. Tig payload copies remain unchanged; Git exchange does not establish backup custody.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "pull-v1",
+      "event": "git fetch leaves HEAD unchanged. A dirty git pull refuses without a Tig action; after repairing the fixture edit, git pull --ff-only selects v1. Explicit Tig adoption and reconciliation then move the bytes.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "history",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "pull-return-v2",
+      "event": "git push, git fetch and git pull --ff-only return the observer to exact v2 records. Explicit Tig adoption and reconciliation return fixed bytes nearby; original bytes remain retained in history and backup.",
+      "requires": [
+        "local-git-exchange",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [

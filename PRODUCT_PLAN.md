@@ -51,9 +51,15 @@ runner now executes seven ordinary checkpoints with actual Git/source/provider
 effects, independent copy assertions and a real catalogue enrollment. Focused
 CLI/catalogue tests and strict Clippy pass. Optional recorded lesson playback now
 reads sealed reports and shows before/desired/observed copies; qualification is
-tracked in [its contract](specs/TEACHING-PLAYBACK.md). Publish/fetch/pull,
-failure rehearsals, final retirement/lifetime lessons and
-full broad/hosted/browser/user qualification remain required for teaching parity.
+tracked in [its contract](specs/TEACHING-PLAYBACK.md). Further command/worktree,
+remote-byte/failure, final retirement/lifetime lessons and separate
+browser/user qualification remain required for teaching parity.
+
+The [local Git exchange rehearsal](specs/TEACHING-EXCHANGE.md) adds actual
+push/clone/fetch/pull over a fresh bare remote, preserved dirty-pull refusal and
+three existing-engine placement checkpoints in the same recorded catalogue.
+It separates metadata transport from explicit source adoption and byte placement;
+remote byte publication/offline backup and full course acceptance remain open.
 
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
