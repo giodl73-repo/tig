@@ -8,6 +8,32 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned worktree: teaching-rename, branch feat/teaching-rename,
+  input21a70f5abc4340582cda3a075a3c5fe1cee13e40 (merged PR50). PR50's exact head
+  2407433 run42833301686 passed Windows/Linux/secrets. No open PRs observed at
+  startup. Contract TEACHING-RENAME.md controls same-byte rename teaching using
+  existing SDKs. New eight-step mode, conflict refusal preserving index/HEAD/
+  bytes/copies, actual zero-effect apply and HTTP fixture are implemented;
+  terminal95832 passes focused native/HTTP/shipped-script test and strict schema
+  all-target Clippy; log rename-native.log in external bulk-retirement dev temp.
+  Broad/schema15009 and all-feature80546 are live in separate teaching-playback /
+  teaching-playback-all targets; logs rename-default.log/rename-all.log in external
+  bulk-retirement dev temp. Do not overlap Cargo/artifact use or restart due to
+  observation timeout. Both include workspace/500k/strict; schema also standalone.
+  All78 controller cases pass. EVID-120 review separates six producer lenses,
+  implementation/verification/validation/trace; broad/artifact/hosted still open.
+  No commit/PR yet. Initial review-index file-limit failure is corrected by
+  summarizing the backup-outage entry while retaining its detailed review link.
+  Terminal artifact3407 passes fmt, fresh schema bins, eight-step rename sample
+  and read-only catalogue check (payloads_opened=0). It uses its own external
+  teaching-rename-artifact target, leaving both active suite targets untouched.
+  Persistent root rename-public-bfe88ef894a84697bd20b790bc45c8df in external
+  bulk-retirement dev temp; rename-artifact.log records actual outputs.
+  Both suites are terminal0: schema15009/all80546 pass workspace/both500k/strict,
+  and schema standalone Git. All seven native teaching cases pass, including
+  explicit rename-lesson rendering. Final pins/secrets/commit/PR remain separate.
+  Earlier live-job notes above are historical. Preserve old worktrees.
+
 - Current owned lane: feat/teaching-stale-plan at input
   d200ed38e2594a6e82205067dd8aadd107a7bff4; runtime
   617540154fedfd7aa51d33c37f31cfd0223941a8. Contract TEACHING-STALE-PLAN.md

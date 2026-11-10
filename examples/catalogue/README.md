@@ -107,6 +107,20 @@ This models configured-path unavailability by moving only a verified child
 directory inside the fresh root; it does not qualify actual hardware failure.
 No real drive is disconnected and no existing cache is changed.
 
+For a same-byte rename, choose another fresh root and run:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-rename ABSOLUTE_NEW_OUTPUT
+```
+
+Eight recorded steps include the ordinary seven and a final Git rename of the
+small authored record. A conflicting destination refuses first, preserving the
+index, HEAD, authored bytes and managed copies. Successful `git mv` preserves
+the record's Git blob and asset IDs; explicit adoption changes source context.
+Actual SDK reconciliation streams zero bytes and records no provider effects.
+`rename.json` pins both commits, paths, record object and unchanged copy snapshots.
+Provider-owned payload paths are independent of this authored Git path.
+
 For a protection change between planning and applying, use another fresh root:
 
 ```text
@@ -162,10 +176,11 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, twenty-two specified checkpoints and seven baseline counterexamples.
+seeds, two works, twenty-three specified checkpoints and seven baseline counterexamples.
 The ordinary runner executes seven; exchange executes ten; worktree executes
 twelve; backup-outage executes nine including held/catchup stages; stale-plan
-executes ten including rejected/fresh-plan stages. Exchange/worktree
+executes ten including rejected/fresh-plan stages; rename executes eight with
+unchanged bytes and zero new provider effects. Exchange/worktree
 add checked dirty-operation counterexamples. Final retirement remains
 a target-only checkpoint. Each mode produces its own bounded rehearsal, with at
 most sixteen reports per book. A complete recorded course still needs bounded

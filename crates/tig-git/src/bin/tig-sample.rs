@@ -34,6 +34,7 @@ enum Mode {
     Worktree,
     BackupOutage,
     StalePlan,
+    Rename,
 }
 struct SampleSeed {
     reader: ReadCache,
@@ -747,6 +748,13 @@ impl Demo {
         )?;
         self.select("main", &current, "return-v2")?;
         self.checkpoint(6, &current)?;
+        let rename_evidence = if matches!(mode, Mode::Rename) {
+            let (head, evidence) = self.rename(&current)?;
+            current = head;
+            Some(evidence)
+        } else {
+            None
+        };
         let exchange_evidence = if matches!(mode, Mode::Exchange) {
             let (head, evidence) = self.exchange(&current)?;
             current = head;
@@ -798,7 +806,66 @@ impl Demo {
         if let Some(evidence) = stale_evidence {
             result["stale_evidence"] = serde_json::to_value(evidence)?;
         }
+        if let Some(evidence) = rename_evidence {
+            result["rename_evidence"] = serde_json::to_value(evidence)?;
+        }
         Ok(result)
+    }
+
+    fn rename(&mut self, before_commit: &str) -> Result<(String, Object)> {
+        let repo = self.root.join("project");
+        let old = "records/series.tig";
+        let new = "records/renamed-series.tig";
+        let bytes = fs::read(repo.join(old))?;
+        let occupied = fs::read(repo.join("records/reference.tig"))?;
+        let copies = self.copy_snapshot()?;
+        let index = git(&self.git, &repo, &["write-tree"])?;
+        if git(&self.git, &repo, &["mv", old, "records/reference.tig"]).is_ok()
+            || fs::read(repo.join(old))? != bytes
+            || fs::read(repo.join("records/reference.tig"))? != occupied
+            || git(&self.git, &repo, &["rev-parse", "HEAD"])? != before_commit
+            || git(&self.git, &repo, &["write-tree"])? != index
+            || self.copy_snapshot()? != copies
+        {
+            return Err("conflicting rename did not preserve exact state".into());
+        }
+        let blob = git(&self.git, &repo, &["rev-parse", &format!("HEAD:{old}")])?;
+        git(&self.git, &repo, &["mv", old, new])?;
+        let head = self.commit("Sample: rename a record without changing its bytes")?;
+        if fs::read(repo.join(new))? != bytes
+            || repo.join(old).exists()
+            || git(&self.git, &repo, &["rev-parse", &format!("HEAD:{new}")])? != blob
+        {
+            return Err("rename changed authored bytes".into());
+        }
+        self.select("main", &head, "same-byte-rename")?;
+        let (plan, receipt) = self.with_placement(|e| {
+            let plan = e.plan(None)?;
+            let receipt = e.apply(&plan)?;
+            Ok((plan, receipt))
+        })?;
+        if !receipt.page_converged
+            || !receipt.basis_current
+            || receipt.next.is_some()
+            || !receipt.holds.is_empty()
+            || !receipt.effects.is_empty()
+            || receipt.stream_bytes != 0
+            || self.copy_snapshot()? != copies
+        {
+            return Err("same-byte rename changed placement".into());
+        }
+        self.record_checkpoint(22, &head, &plan, &receipt, false, None)?;
+        let evidence = save(
+            &self.root.join("rename.json"),
+            &json!({
+                "schema":"tig.sample-rename.design-1","before_commit":before_commit,
+                "after_commit":head,"old_path":old,"new_path":new,"git_blob":blob,
+                "record_object":Object::from_bytes(&bytes),"conflicting_destination_refused":true,
+                "copies_before":copies,"copies_after":self.copy_snapshot()?,
+                "stream_bytes":receipt.stream_bytes,"effects":receipt.effects
+            }),
+        )?;
+        Ok((head, evidence))
     }
 
     fn stale_plan(&mut self, commit: &str, first: &str) -> Result<Object> {
@@ -1217,7 +1284,7 @@ fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
@@ -1229,6 +1296,7 @@ fn run() -> Result<Value> {
         Some("rehearse-worktree") => Mode::Worktree,
         Some("rehearse-backup-outage") => Mode::BackupOutage,
         Some("rehearse-stale-plan") => Mode::StalePlan,
+        Some("rehearse-rename") => Mode::Rename,
         _ => return Err("unknown sample operation".into()),
     };
     Demo::new(Path::new(&args[1]))?.run(mode)

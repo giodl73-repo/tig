@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 21188,
-      "sha256": "388a680c2f25c675404b2a55258664b9fe1ee912d82ac553ff8459fd04c3cc3d"
+      "bytes": 22058,
+      "sha256": "d832e036ec90c5d972aa00247e60d99c9fffceeae7ccbe9f8e6f2cdbe5119589"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 109581,
-      "sha256": "141e073e1443a9324fdf4929418934d20c359ae0a3321e51a5365043abb88ed2"
+      "bytes": 110120,
+      "sha256": "8f8a8d0cab594ddbfacb7d7543ae36b426fd02f711756797ba5e604cc93ad916"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 131028,
-      "sha256": "7409ebf26878a1c834e4a52239c6ca96c0f1606ee83a5f72316a1834f3e16ee8"
+      "bytes": 130933,
+      "sha256": "d23719bad669840617e290e66f6e775b34bfc1936c3bef448e943eef94a45cb3"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 49464,
-      "sha256": "a360ec8fa11613a1ad67dc01ac1c161e16abe093cff50074acd64c3b3f018ca5"
+      "bytes": 49774,
+      "sha256": "9c29259f61613f04f0c0cbb6370a57cbcc01710aa12e65e36c1e4b868cf1114c"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 34946,
-      "sha256": "ac5b2901a47e9bdf9ea47f165cfae7ef4bf78f86308d44e9703ab03032d2fb82"
+      "bytes": 35246,
+      "sha256": "94770e026c09f6a346a12196980e136d0f68198e47dfab63dd898e8d27ee1a64"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 59618,
-      "sha256": "9d4ea1ea33e98ab0329476b794656e0126f6a745a9e4682052b2fe66c6425729"
+      "bytes": 60243,
+      "sha256": "d2888889ac2422d4b8aef4f8aa8a28abf8cb0a0c68f7b7a03fcccf692b8d2bc6"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 49438,
-      "sha256": "34de89d2d3da895b96208ef83b311537b2ee4f459f40aa641e23101977a22763"
+      "bytes": 49822,
+      "sha256": "c31504cdb47fdf332c1e75a3718b6f8d1721270721d4962be278a3ff0d506428"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 78655,
+      "bytes": 80626,
       "path": "context/RESUME.md",
-      "sha256": "ea2dba53d7c0ec96fb6f2e6bd45f2069329fc57c9f067aaf4d7217acab4ca000"
+      "sha256": "728458058d4cfde72d529dacf5a52d727da2f7382727aa4ea6b66bb5cd2a38eb"
     },
     {
       "bytes": 16453,
@@ -2799,13 +2799,13 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-sample.rs",
-      "bytes": 51939,
-      "sha256": "1f5f53ac98e423ec7d3068af4b482928c1344660f025a9e1a7b537e4e4c6afdb"
+      "bytes": 55060,
+      "sha256": "78e5ecdb44f2626af9c413b503752f6314780d45d42cfa53d6fdf933a3feef6a"
     },
     {
       "path": "crates/tig-git/tests/teaching_catalogue.rs",
-      "bytes": 29424,
-      "sha256": "3b1406eaa9d712f658867bb1602fae1ee0999570a087f0de58c2f9785c2690c2"
+      "bytes": 31122,
+      "sha256": "a217aefd4bdfc3a5d88aeef30e39d4c4732411a008775793f725e0a4d6844482"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-catalogue.md",
@@ -2814,13 +2814,13 @@
     },
     {
       "path": "examples/catalogue/lifecycle.design-1.json",
-      "bytes": 15655,
-      "sha256": "b37d6e48aca696af4c664d9ea4e18ea014141a43091f57a38f971eccebee57eb"
+      "bytes": 16334,
+      "sha256": "a228bd4a9ea6a3740f536fbded72dbd59ae753bf0c8777f402b9b7955d2fe7df"
     },
     {
       "path": "examples/catalogue/README.md",
-      "bytes": 15002,
-      "sha256": "417c1bd0f97e11f3e2508aa42b5813db61da2cd68ab0de25956e9b2aa269ab24"
+      "bytes": 15804,
+      "sha256": "ebefff5ef4bd126da9f4991bdc4aa02ac11a1feb357189ed8147d25744d30092"
     },
     {
       "path": "specs/TEACHING-CATALOGUE.md",
@@ -2859,8 +2859,8 @@
     },
     {
       "path": "crates/tig-git/tests/ux/recorded-lesson.cjs",
-      "bytes": 4623,
-      "sha256": "3a935b865bae274b8264e8570c4a60da94275070d3125d1c9ffb496f9cdd5a9e"
+      "bytes": 5287,
+      "sha256": "dee5e465303098dadbc071c6291b6e32e1c8bf4441a7b50fbd4ec50e2fdda5a0"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-exchange.md",
@@ -2901,6 +2901,16 @@
       "path": "specs/TEACHING-STALE-PLAN.md",
       "bytes": 3293,
       "sha256": "f686294b7132cbf6cefa74b9cdee4512a0e7bc0886ad25867cf23445e197c7e7"
+    },
+    {
+      "path": "specs/TEACHING-RENAME.md",
+      "bytes": 1582,
+      "sha256": "efd429f465802d7b1d52384d2256f0a05ba58ce94bbe2ff60e0e3a2dc2b1106b"
+    },
+    {
+      "path": "docs/reviews/2026-11-10-teaching-rename.md",
+      "bytes": 5366,
+      "sha256": "f978200dad679637adb3ec569e26cb010121369d84c03a4290ed2d1a87c4cfcd"
     }
   ]
 }

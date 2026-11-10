@@ -1,5 +1,14 @@
 # Verification record
 
+EVID-120: terminal95832 focused actual CLI/provider/API/shipped-script case and
+strict schema all-target Clippy pass; all78 controller cases pass. Explicit
+rename-lesson rendering assertion is included in broad15009/80546 qualification.
+Artifact3407 passes fmt/fresh bins/eight-step persistent sample/catalogue check
+(read_only=true,payloads_opened=0) in its own external build target. See
+[review](../reviews/2026-11-10-teaching-rename.md). Terminal15009/80546 pass both
+workspace/both500k/strict profiles, seven teaching cases and standalone Git.
+Final source pins/commit-secrets and hosted results remain separate gates.
+
 EVID-119: six native CLI/provider/catalogue cases, actual HTTP -> shipped controls,
 eleven repinned rejection negatives and all78 controller cases pass. Default89185
 workspace/500k and all48441 workspace/500k/strict pass. Final52714 qualifies the

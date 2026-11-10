@@ -1,5 +1,13 @@
 # Evidence index
 
+EVID-120 (focused candidate), input21a70f5abc4340582cda3a075a3c5fe1cee13e40:
+[review](../reviews/2026-11-10-teaching-rename.md) separates actual rename/conflict,
+stable bytes/copies and zero SDK effects from general native rename semantics.
+Terminal95832 focused native/strict and all78 controller cases pass. Broad runs
+15009/80546 terminate0: workspace/both500k/strict/standalone and seven native cases.
+Artifact3407 passes fmt/fresh bins/eight-step sample/
+read-only catalogue validation. Final pins/hosted/human gates remain pending.
+
 EVID-119 (locally qualified candidate), input d200ed38e2594a6e82205067dd8aadd107a7bff4:
 runtime617540154fedfd7aa51d33c37f31cfd0223941a8.
 [review](../reviews/2026-11-10-teaching-stale-plan.md) separates actual stale apply

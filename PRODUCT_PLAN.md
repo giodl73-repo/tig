@@ -83,6 +83,12 @@ Ten recorded checkpoints expose historical desired versus observed state in the
 same read-only catalogue. General races, crash/restart and final-loss/expiry
 teaching remain separate open gates.
 
+The [same-byte rename rehearsal](specs/TEACHING-RENAME.md) adds a real conflicting
+destination refusal and successful Git record rename with unchanged blob/asset
+identity. Explicit native adoption and SDK reconciliation preserve verified
+copies with zero streaming/provider effects. Eight recorded checkpoints use
+the same catalogue; qualification is tracked separately in EVID-120.
+
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
 witness peak/status and separately approved apply/resume/cancel through
