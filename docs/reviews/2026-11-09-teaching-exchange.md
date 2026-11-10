@@ -1,5 +1,7 @@
 # Public Git exchange review
 
+Runtime implementation: 8f17aa9a711fcb6d372fb2f267f67ef2ac313692.
+
 Input618628a1571082474576061de4510ee54a59f1ad; feat/teaching-exchange.
 [Contract](../../specs/TEACHING-EXCHANGE.md) names controls, allowed scope,
 entry/exit and L0/L1/L2 profiles. Targets: the public oracle, fresh-root sample
@@ -56,7 +58,8 @@ No Rust edits followed their start. Fresh artifact91098 also terminates zero:
 fmt check, explicit schema bin build, ten-checkpoint exchange CLI and catalogue
 check (read_only=true,payloads_opened=0 during enrollment validation). The public
 persistent sample is retained outside source. Structural/pin/diff and changed-source
-secret checks pass; final documentation pins and exact-head hosted checks remain.
+secret checks pass. Final documentation pins/diff and the two-commit secret scan
+qualify the source pin; exact-head hosted checks remain open.
 Browser/layout/keyboard acceptance is separate from the shipped-script fixtures.
 Parent PR46 exact-head run42744449594 at618628a terminates SUCCESS for Windows,
 Linux and secrets; PR46 is ready for review. No merge/deployment. This is parent

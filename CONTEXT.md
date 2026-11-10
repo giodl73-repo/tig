@@ -1,14 +1,15 @@
 # Tig maintainer context
 
-Active owned lane: feat/teaching-exchange at input618628a. Contract:
+Active owned lane: feat/teaching-exchange at input618628a; runtime
+8f17aa9a711fcb6d372fb2f267f67ef2ac313692. Contract:
 specs/TEACHING-EXCHANGE.md; review/EVID-116 separate implementation/verification/
 validation/trace/six producer lenses. Fresh-root local push/clone/fetch/pull,
 dirty-pull preservation and three extra actual placement checkpoints are locally
 qualified. Three native/API/shipped-controls cases,73 controller cases, both
 workspace/both500k/strict/standalone profiles and fresh persistent artifact pass.
 All local handles are terminal. Parent PR46 exact-head run42744449594 passes
-Windows/Linux/secrets; PR46 is ready, no merge/deploy. Current exchange source
-pin/push/draft and hosted/browser/human qualification remain; see RESUME.md.
+Windows/Linux/secrets; PR46 is ready, no merge/deploy. Current exchange source is pinned; derive its draft PR/hosted status from GitHub.
+Browser/human qualification remains; see RESUME.md.
 
 Active lane: feat/teaching-playback, input6d9a2e0; runtime
 3c423315d1901d9015572a5507643939e79605ae. Read

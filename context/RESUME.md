@@ -27,7 +27,9 @@ source changes into running tools as a side effect. No startup cache operations.
   exchange-public-57a8613ded2548cca92afde652645181 in external bulk-retirement
   dev temp. Build targets teaching-playback / teaching-playback-all; all local
   handles terminal. Initial L0/source-secrets pass657 files/7038221 bytes.
-  Source pin/push/draft and final docs/pins/commit secrets/hosted remain pending.
+  Runtime implementation: 8f17aa9a711fcb6d372fb2f267f67ef2ac313692.
+  Source is pinned; derive this branch's draft PR and exact-head hosted status
+  from GitHub. Final docs/pins/commit-secret checks and hosted remain separate.
   Parent PR46 at618628a run42744449594 passes exact-head Windows/Linux/secrets;
   PR46 is ready for review. No merge/deploy or existing-root operation.
   Browser check requested under DEVELOPMENT.md; no browser interaction authorized
