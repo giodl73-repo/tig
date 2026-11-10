@@ -26,8 +26,10 @@ source changes into running tools as a side effect. No startup cache operations.
   read_only=true,payloads_opened=0. Persistent public root:
   worktree-public-6bdc5fecc7a44f2c8e0696f4a2366418 in external bulk-retirement
   dev temp. Targets teaching-playback / teaching-playback-all; all local handles
-  terminal. Initial L0/source-secrets pass659 files/7071833 bytes. Source pin/push/
-  draft and final documentation pins/commit-secrets/hosted remain pending.
+  terminal. Initial L0/source-secrets pass659 files/7071833 bytes.
+  Runtime implementation: 6812e1086bf4fc9fb58849a5e77718c4dd051da9.
+  Source is pinned; derive this branch's draft PR and exact-head hosted status
+  from GitHub. Final documentation pins/commit-secrets/hosted remain separate.
   Parent PR47 at27a6eb4 run42748580854 passes Windows/Linux/secrets and is ready.
   No merge/deploy, existing-root operations or browser interaction. Prior browser
   approval request remains unanswered; generic continue was not treated as explicit

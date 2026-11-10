@@ -1,13 +1,13 @@
 # Evidence index
 
-EVID-117 (locally qualified candidate): input27a6eb4f3ebd11743d2772694ec2ea2b3242732f.
+EVID-117 (locally qualified candidate): runtime6812e1086bf4fc9fb58849a5e77718c4dd051da9; input27a6eb4f3ebd11743d2772694ec2ea2b3242732f.
 [Review](../reviews/2026-11-09-teaching-worktree.md) separates real linked
 worktree/index capture, dirty-removal preservation and job lifetime from general
 writer coverage. Native70905/final81014 pass four cases, actual twelve-checkpoint
 HTTP -> shipped controls and strict schema workspace Clippy. All73 controller
 cases pass. Default71185/all-feature18682 workspace/both500k/strict/standalone
 and fresh artifact9072 pass. Initial L0/source-secrets pass; final documentation
-pins and hosted remain pending.
+pins/commit-secrets and hosted remain separately recorded.
 Full remote-byte/fault/final-loss/expiry course, browser/human/native/provider/
 lifetime/full product acceptance remain open.
 

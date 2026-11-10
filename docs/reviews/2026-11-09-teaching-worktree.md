@@ -1,5 +1,7 @@
 # Worktree and index teaching review
 
+Runtime implementation: 6812e1086bf4fc9fb58849a5e77718c4dd051da9.
+
 Input27a6eb4f3ebd11743d2772694ec2ea2b3242732f; feat/teaching-worktree.
 [Contract](../../specs/TEACHING-WORKTREE.md) names controls, scope, entry/exit
 and L0/L1/L2 profiles. Targets: fresh-root sample mode, independent public oracle,
@@ -61,7 +63,8 @@ No Rust edits followed their start. Fresh artifact9072 also terminates zero: fmt
 explicit schema bin build, twelve-checkpoint worktree CLI and catalogue check
 (read_only=true,payloads_opened=0 during enrollment validation). The persistent
 public sample is retained outside source. Initial structure/pins/diff/source-secret
-checks pass; final documentation pins and exact-head hosted checks remain. Parent PR47 exact-head run42748580854 at
+checks pass. Final documentation pins/diff and two-commit secret scan qualify the
+source pin; exact-head hosted checks remain open. Parent PR47 exact-head run42748580854 at
 27a6eb4 passes Windows/Linux/secrets and is ready for review; no merge/deployment.
 Parent qualification is not hosted proof of this new source.
 
