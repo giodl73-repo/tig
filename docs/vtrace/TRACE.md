@@ -1,5 +1,15 @@
 # Tig trace
 
+Public teaching catalogue: WP-003/004/006/007/008/009/010/015/016;
+REQ-001/002/003/004/005/006/007/009/010 ->
+SPEC-002/003/004/005/006/008/009/010/014,
+IF-002/003/004/005/006/008/010/011/012/013,
+PKG-001/002/003/004/006/008/009 -> TEACHING-CATALOGUE.md -> public fixture/oracle,
+tig-sample over existing source/placement/provider adapters and actual catalogue
+export -> actual CLI/provider/catalogue/refusal/isolation cases -> EVID-114.
+Local broad/final-focus qualification passes; hosted,
+interactive/full-course, native/provider/lifetime and user validation remain open.
+
 Held-copy follow-up candidate: WP-003/004/006/007/008/009/015;
 REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
 IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 ->
@@ -7,7 +17,7 @@ HELD-COPY-FOLLOWUP.md -> paged::control::followup and tig-storage paged followup
 over existing current clearance, final providers and accounted witnesses ->
 independent frames, ended-job/recovered-provider, cancellation/proof/scope/race,
 five actual exits and fresh CLI -> EVID-113. Local broad qualification passes;
-final artifact qualification passes and hosted qualification is pending;
+final artifact and exact-head hosted qualification pass;
 native authority, UI/Action, provider/lifetime and full acceptance remain open.
 
 Paged operator candidate: WP-003/004/006/007/008/009/015;

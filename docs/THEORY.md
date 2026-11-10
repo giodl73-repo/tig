@@ -4,8 +4,10 @@ Tig separates the identity of content from its physical placement. Git can versi
 the authored records that choose content; Tig can reconcile copies without
 rewriting those versions. Art's semantic asset/dependency value is now planned
 as an optional layer of Tig under the [unified design](UNIFIED-DESIGN.md),
-superseding the earlier separate-product boundary. This is a target theory with a small implemented pure
-mechanism, not a released storage protocol. See [current evidence](vtrace/VERIFICATION.md).
+superseding the earlier separate-product boundary. This is target theory with
+bounded Rust mechanism/provider adapters, not a released storage protocol.
+See [current evidence](vtrace/VERIFICATION.md) and the
+[public teaching catalogue](../examples/catalogue/README.md).
 
 ## Identity, naming and location
 

@@ -51,7 +51,8 @@ including both500k metadata runs and standalone Git. Their test compilation
 precedes only the stronger corruption fixture;73066 executes that final focused
 case. Final73066 also passes six explicit fresh CLI qualifiers (ordinary cancel,
 bulk inspection/execution, manual/aged paged and follow-up) and strict workspace
-Clippy. Final L0/pins/fmt/diff pass. Hosted checks remain pending. Changed-source
+Clippy. Final L0/pins/fmt/diff pass. Hosted Windows/Linux/secrets checks pass in
+run42729638843 at291156862d14874db481b7f2f16ba7152caa45c9. Changed-source
 Gitleaks8.30.1 reports no findings. Whole-directory scanning finds only two
 inherited public synthetic paged-control digests; history-specific exclusions
 are unchanged. Available-history scanning also passes (100 scanned commits).
@@ -72,8 +73,9 @@ block-retirement acceptance remains separate.
 
 One producer applies all six [.roles](../../.roles/ROLE.md) checklists, not
 independent reviewers or human approval. Owners: maintainers through the named
-lenses/work packages. Decision: pass_with_risk for the locally qualified candidate,
-pending exact-head hosted checks. This does not close full product acceptance.
+lenses/work packages. Decision: pass_with_risk for the qualified candidate;
+PR44 is ready after exact-head hosted checks pass. This does not close full
+product acceptance.
 
 | Finding / lens | Severity | Disposition and remaining evidence |
 | --- | --- | --- |

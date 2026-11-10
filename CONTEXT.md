@@ -1,12 +1,23 @@
 # Tig maintainer context
 
+Teaching-catalogue lane: user requires public, portable Git-style teaching and
+fixtures at every workflow step. specs/TEACHING-CATALOGUE.md and
+examples/catalogue/README.md define the full course. New schema-gated tig-sample
+rehearse-ordinary creates fresh external roots only, runs real Git/source/provider
+operations through seven independently checked checkpoints, and exports an actual
+catalogue plus bounded reports. Focused tests/strict Clippy and a persistent fresh
+CLI/catalogue-check rehearsal pass. Full playback/UI, publish/fetch/pull, failure
+rehearsals, final retirement/lifetime and broad/hosted/browser checks remain open.
+See context/RESUME.md; do not replace shared viewers or touch existing roots.
+
 Held-copy runtime: eb94c7228935549a0893456ca55bfacee54090e0.
 Held-copy follow-up lane: specs/HELD-COPY-FOLLOWUP.md defines PO-07's fresh
 decision after original claim settlement. It retains original scope/outcome
 provenance, rechecks current content-wide protection/provider facts, and needs
 new final-loss approval. Copy-only runtime and explicit CLI are implemented;
-focused/process/final artifact and local broad qualification pass, with hosted
-checks pending. Parent PR43 has exact-head Windows/Linux/secrets
+focused/process/final artifact and local broad qualification pass. PR44 is ready:
+run42729638843 passes exact-head Windows/Linux/secrets at2911568. Parent PR43 has
+exact-head Windows/Linux/secrets
 checks passed; read context/RESUME.md for current evidence and remaining gates.
 
 Paged-operator lane: explicit tig-storage paged now composes existing-root copy

@@ -32,6 +32,12 @@ and explicitly settles an owner's selected historical binding paths while
 preserving unselected members. It performs no payload deletion.
 Dropping a reference **does not authorize deletion**.
 
+For reproducible public teaching, start with the
+[sample catalogue course](examples/catalogue/README.md). Its first runnable
+rehearsal follows real Git changes through seven source/provider checkpoints,
+checks actual copies against independent expectations, and exports a catalogue.
+The complete Git-style course and interactive lesson playback remain in development.
+
 ## What works today
 
 | Capability | Implemented experimental scope |

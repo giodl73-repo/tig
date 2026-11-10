@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 16124,
-      "sha256": "68506fd7b01637d22ac735bcff0cab86170a05d035b312492c02a2766c14ddd7"
+      "bytes": 16894,
+      "sha256": "e3ffdd2343402aaba52d5ba1179cd35491f03b1fdbd1d1e3cb2821a7546635e0"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -184,8 +184,8 @@
     },
     {
       "path": "docs/guides/GIT-TO-TIG.md",
-      "bytes": 12038,
-      "sha256": "54f98cb291585e70cbacce06f65c28b30fb49e44ca7cd194e29472f02a8e8faf"
+      "bytes": 12229,
+      "sha256": "77558dc1ad473d1578737bca703d10d91dd6f1d172c182867cc373c65f9f2644"
     },
     {
       "path": "docs/guides/LOOKUP-AND-LFS.md",
@@ -259,8 +259,8 @@
     },
     {
       "path": "docs/THEORY.md",
-      "bytes": 7044,
-      "sha256": "414068dfe3d9b7f09c28719281a8d7de7baf70997590522790dced2af0843872"
+      "bytes": 7117,
+      "sha256": "8ac77b4ff83a013d9ae335ad10c0d77f8bf1e20b96a185e263baeda011d0414d"
     },
     {
       "path": "docs/UNIFIED-DESIGN.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 104144,
-      "sha256": "9037cc1c12812f6e467cbd627cd55103908059babfc5f7ec989735974791db44"
+      "bytes": 105193,
+      "sha256": "5bf6706774c0af2fd388a05c9fbbff3bdee48d1c82be1a9bd563d62fbb285dc8"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -379,13 +379,13 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 46880,
-      "sha256": "1183eb700ea99f14931ccff32821b7bc6fb7a74892a2d2946eed5f56ab097ed6"
+      "bytes": 47439,
+      "sha256": "406006929cbd0500afe3a8f205905576b318536bd75aa873e758cbafb22a8677"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 32234,
-      "sha256": "41bc5b83d8f35206fee27284c5b4eb2aac51705a53c566643a4f0b8a45cb8814"
+      "bytes": 32771,
+      "sha256": "72343c7a127c12f159dca8a24b980c8a32738e4f51f2ec2f21a24b23215f8cf4"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
@@ -409,13 +409,13 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 46487,
-      "sha256": "e76cf3c7c398b32db8dfa7f2309b052934735c93c036a9bdd7f1132bcbe7d862"
+      "bytes": 47466,
+      "sha256": "bf76ed50487ed430f42e76effe12f40e10b979dc1c41a2eaa80100c503d04a44"
     },
     {
       "path": "README.md",
-      "bytes": 12291,
-      "sha256": "eae4aed547b05d00872faabbb6477064b543f7a1cdb4e221f585fb15dc7ce154"
+      "bytes": 12660,
+      "sha256": "ad2b60371b2f0c1b764e39e2aca1a26d42c2a2ca2ea7edd4e6ee6b5d06bada4f"
     },
     {
       "path": "specs/BYTE-WORKTREE.md",
@@ -734,8 +734,8 @@
     },
     {
       "path": "crates/tig-git/Cargo.toml",
-      "bytes": 1968,
-      "sha256": "1a81ddda45e6a866277b47e74744b4f04b92d32cf72485c72238d35525c6254b"
+      "bytes": 2059,
+      "sha256": "95ba8c2a4b72a82b840320465b8cf4c523f2dc900a6c2ed3c3b3a9bd78df9f3f"
     },
     {
       "path": "crates/tig-git/src/bin/tig-lfs.rs",
@@ -1848,9 +1848,9 @@
       "sha256": "f514e5780c0f1ed36dd1e3cc2c7866702aa39564f56ed323469a0fd0b25351f2"
     },
     {
-      "bytes": 63183,
+      "bytes": 67827,
       "path": "context/RESUME.md",
-      "sha256": "56db8ae7059c5541e77aa25467174f531724b7f6942061432a9e9d9e2de06fed"
+      "sha256": "443f23e0eb57750f3d49e3afa733f562aa8fc9c16f8ed893d7743636cf859f42"
     },
     {
       "bytes": 16453,
@@ -2789,13 +2789,43 @@
     },
     {
       "path": "docs/reviews/2026-11-09-held-copy-followup.md",
-      "bytes": 6193,
-      "sha256": "33e6aec44b785d9effabee01567ded9e53ff991412b0aa4fa97b0d7165d664c1"
+      "bytes": 6275,
+      "sha256": "6600690f5d7bfc76f3f472711ab9a10bc05d5aedbe6c4ab19c1b0bf6f0eb365d"
     },
     {
       "path": "tests/vectors/held-copy-followup.design-1.json",
       "bytes": 11588,
       "sha256": "9cf0e17cb882699a89efe5d6b58772f1d86a93cde8cb2975d1abad2565d7cd41"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-sample.rs",
+      "bytes": 26572,
+      "sha256": "1f62bdd7a0d56e031d4a1a3165844800829aa4470e38a0fa8c2c39fc6406e65e"
+    },
+    {
+      "path": "crates/tig-git/tests/teaching_catalogue.rs",
+      "bytes": 5756,
+      "sha256": "7ab4bd3ca682fb40dbe8729777a2fae84a14768a8b4668157db33a9708fac5c7"
+    },
+    {
+      "path": "docs/reviews/2026-11-09-teaching-catalogue.md",
+      "bytes": 6505,
+      "sha256": "1d7cecae19fd071de257b82d3cf86787a50d7f346209197e47928ad5ab0d3095"
+    },
+    {
+      "path": "examples/catalogue/lifecycle.design-1.json",
+      "bytes": 6572,
+      "sha256": "a7caeb42efbe5bd4e1b63b971f4086fd093660859caa141b458477389b4e3036"
+    },
+    {
+      "path": "examples/catalogue/README.md",
+      "bytes": 6511,
+      "sha256": "5cf97258fd1709af3f0281cf7df11f4d94b597564b8939274b2201afbe239e39"
+    },
+    {
+      "path": "specs/TEACHING-CATALOGUE.md",
+      "bytes": 5815,
+      "sha256": "51adcc80b096d7af774c725c25450508f99647f7435e402b25f5f629d47a2223"
     }
   ]
 }

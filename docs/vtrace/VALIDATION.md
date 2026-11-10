@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-114 rehearses seven ordinary teaching checkpoints with public generated
+bytes, actual Git/source/provider operations and a real catalogue. Job-held old
+bytes, job-end demotion, revert/reacquisition, shared copies and Git isolation
+have focused/executable evidence. This does not close the full course or a VAL:
+interactive lesson playback, publish/fetch/pull, failure/restart, final-loss/expiry,
+native/provider/lifetime, browser and classroom acceptance remain open. See the
+[review](../reviews/2026-11-09-teaching-catalogue.md).
+
 EVID-113 rehearses recovered-provider and ended-foreign-job follow-ups after
 original claim settlement, including fixed original exclusions, new approval,
 current shared-byte protection, partial cancellation and unavailable-proof stop.

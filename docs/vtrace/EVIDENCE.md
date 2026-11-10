@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-114 (candidate under qualification): public teaching catalogue, input
+291156862d14874db481b7f2f16ba7152caa45c9. The
+[review](../reviews/2026-11-09-teaching-catalogue.md) separates public inputs/oracle,
+actual seven-checkpoint Git/source/provider rehearsal and catalogue export from
+the complete teaching course. Two focused CLI/provider/catalogue tests, strict
+schema bin/test Clippy and a fresh persistent CLI plus catalogue-check pass.
+Default37159/all-feature22165 workspace/strict Clippy/both500k/standalone checks
+pass. Final3785 verifies branch deletion; final47922 schema/17108 all-feature
+focus and strict workspace Clippy qualify Git environment/template isolation.
+Final17108 persistent CLI/catalogue-check passes. Initial L0/fmt/diff/secrets pass;
+final documentation pins and hosted checks remain pending. Interactive playback,
+publish/fetch/pull, failure/restart lessons, final retirement/metadata lifetime,
+native/provider/large-file qualification and browser/human acceptance remain open.
+
 EVID-113 (locally qualified candidate): runtimeeb94c7228935549a0893456ca55bfacee54090e0; input
 124642985af1a1b358611de6015b9d90c993c536. The
 [review](../reviews/2026-11-09-held-copy-followup.md) separates copy-only
@@ -9,8 +23,8 @@ Initial focused/process/fresh-CLI/strict store Clippy chain69506 passes. Expande
 12-entry focus passes in83712 and final73066, including actual acknowledged-node
 corruption. Default83712 and all-feature51119 workspace/strict Clippy chains pass,
 including both500k runs and standalone Git. Final73066 also passes six fresh CLI
-qualifiers and strict workspace Clippy. L0/pins/fmt/diff pass; exact-head hosted
-qualification remains pending.
+qualifiers and strict workspace Clippy. L0/pins/fmt/diff pass. Exact-head hosted
+Windows/Linux/secrets run42729638843 passes at2911568; PR44 is ready.
 Native/current-authority/provider/large-file/restore/lifetime, metadata expiry,
 agent/UI/Action and intended-use acceptance remain open.
 

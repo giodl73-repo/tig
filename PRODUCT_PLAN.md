@@ -39,6 +39,20 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Public teaching parity is now a required deliverable: a portable synthetic sample
+catalogue carries the same assets through Git-style init/add/status/diff/commit,
+branch/worktree, publish, merge, revert/restore and retirement lessons. Every step
+needs an executable fixture, checked expected results, a failure case and a
+catalogue view of actual engine plans and physical copies. Reuse existing
+adapters, without a demo storage engine or private assets. See the
+[teaching contract](specs/TEACHING-CATALOGUE.md) and
+[lesson sequence](examples/catalogue/README.md). A first schema-gated tig-sample
+runner now executes seven ordinary checkpoints with actual Git/source/provider
+effects, independent copy assertions and a real catalogue enrollment. Focused
+CLI/catalogue tests and strict Clippy pass. Interactive lesson playback,
+publish/fetch/pull, failure rehearsals, final retirement/lifetime lessons and
+full broad/hosted/browser/user qualification remain required for teaching parity.
+
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
 witness peak/status and separately approved apply/resume/cancel through
@@ -59,7 +73,7 @@ The [held-copy follow-up](specs/HELD-COPY-FOLLOWUP.md) now implements a new
 copy-only candidate/runtime and explicit default-disabled CLI over original
 provenance, current content-wide protection and new final-loss approval. Focused
 recovered-provider/ended-job, cancellation/race/process and fresh CLI qualifiers
-pass; local broad and final artifact qualification pass, with hosted checks pending. No source
+pass; local broad, final artifact and exact-head hosted qualification pass. No source
 history is recreated. Native/current-authority, provider/lifetime and complete
 block-retirement acceptance remain open; see [the guide](docs/guides/HELD-COPY-FOLLOWUP.md).
 

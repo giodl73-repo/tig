@@ -8,7 +8,66 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Next active lane: feat/held-copy-followup, input
+- Active lane: feat/teaching-catalogue; input
+  291156862d14874db481b7f2f16ba7152caa45c9. User explicitly selected a portable
+  public synthetic sample catalogue and Git-style teaching/fixtures at every step.
+  specs/TEACHING-CATALOGUE.md names controls and full entry/exit. Corpus:
+  examples/catalogue/lifecycle.design-1.json, three pinned UTF-8 objects, two works,
+  eight expected lifecycle stages and seven required counterexamples. The new
+  schema-gated tig-sample rehearse-ordinary NEW_ABSOLUTE_ROOT uses actual Git,
+  Native capture/schema checks, source admission and existing placement/providers.
+  It executes seven ordinary checkpoints, checks literal independent copies, saves
+  plans/receipts/verified observations and emits a real catalogue enrollment.
+  It refuses existing roots and outputs beneath a Git checkout. No storage engine
+  or public mutation bridge is added. Input streams are a fixture-only admitted
+  selected/primary/history mapping, not general native closure/writer authority.
+  Initial InvalidPolicy came from clearing job predecessor places; restored normal
+  history policy, without weakening runtime checks. Same-domain handoff correctly
+  refused; fixture now models three declared synthetic domains and explicitly denies
+  actual hardware independence in every report. Empty catalogue sort also refused;
+  the caller now uses the existing bytes sort. Initial check lacked a nonexistent
+  Limits::default; explicit finite limits resolve compilation.
+  Final chain45958 is terminal zero: two actual CLI/provider/catalogue tests and
+  strict schema bin/test Clippy. Persistent fresh rehearsal20389 terminates zero:
+  seven verified checkpoints plus real tig-catalogue check, no viewer launched.
+  External evidence root is in the dev temp root, teaching-catalogue-public-
+  c45d99a0d2f74842bca17ad130e53502. Build target: teaching-catalogue. No process is
+  live from that rehearsal. Broad default37159 and all-feature22165 chains are
+  now live in separate teaching-catalogue / teaching-catalogue-all targets; logs
+  teaching-default.log and teaching-all.log are in the external dev temp root.
+  Do not overlap another Cargo/artifact run on those targets. Review subsequently
+  caught an undeleted merged fix branch: it must be removed before draft withdrawal
+  so later v2 demotion during revert is honest. The runner now performs real
+  git branch -d; a final focused test asserts only main remains. Broad compilation
+  may precede that fixture-only fix, so execute final focus/artifact after these
+  chains terminate. All runtime/demo data remains external. Source is uncommitted.
+  Next: interactive catalogue lesson playback from real sealed
+  reports, actual publish/fetch/pull and failure rehearsals, final retirement and
+  metadata-lifetime lessons, full broad/L0/pins/secrets/hosted qualification and
+  explicit browser/user rehearsal. Do not equate the seven-checkpoint slice with
+  the full course or whole PRODUCT_PLAN goal. No new teaching commit/PR yet.
+  Parent PR44 is OPEN/ready at291156862d14874db481b7f2f16ba7152caa45c9;
+  exact-head run42729638843 now terminates SUCCESS for Windows/Linux/secrets.
+  Ready state and PR body were updated from that observed result. Held-copy source
+  is clean/pushed, runtime eb94c7228935549a0893456ca55bfacee54090e0. No merge/deploy.
+  Default37159 and all-feature22165 are terminal zero, including both500k fixtures,
+  strict workspace Clippy and standalone Git. Final3785 covers branch deletion/
+  main-only assertion, strict Clippy and a fresh persistent sample/catalogue check.
+  Later privacy review hardened Git environment/template isolation. Schema47922
+  and all-feature17108 focus plus strict workspace Clippy pass. Poisoned GIT_DIR/
+  WORK_TREE/INDEX/config/template settings cannot touch outside fixtures. Source
+  Repository already uses isolated Git; the test observer now reuses it. Final
+  isolated persistent rehearsal17108 also passes at teaching-catalogue-isolated-
+  7409e69653654cbcaa759860cac7af5c. Broad compilation precedes this fixture Git
+  wrapper change; final focused/strict checks qualify it. All local handles are
+  terminal. Refresh final documentation pins/L0/secrets, commit/pin runtime and
+  publish a draft PR on feat/held-copy-followup; derive exact-head hosted results.
+  Next owned runtime work is recorded lesson playback in the existing catalogue,
+  over hash-pinned bounded reports and existing verified metadata readers; no
+  arbitrary browser paths or new storage execution authority. Keep the entire
+  command/failure/final-loss/lifetime curriculum and full product goal intact.
+
+- Parent lane: feat/held-copy-followup, input
   124642985af1a1b358611de6015b9d90c993c536. Contract:
   specs/HELD-COPY-FOLLOWUP.md. Copy-only library/runtime and explicit default-
   disabled CLI are implemented in the working tree; no source commands.
@@ -32,8 +91,8 @@ source changes into running tools as a side effect. No startup cache operations.
   terminal. Final L0/pins/fmt/diff and changed-source/history secrets checks pass.
   Review/EVID-113/trace/validation records separate local closeout and full gates.
   Runtime implementation:eb94c7228935549a0893456ca55bfacee54090e0.
-  Push draft PR on feat/paged-operator and derive
-  exact-head hosted checks; no source merge or deployment.
+  PR44 on feat/paged-operator is ready after exact-head42729638843 passes all
+  Windows/Linux/secrets checks. No source merge or deployment.
   User additionally requests a public synthetic sample catalogue with a Git-like
   teaching/fixture sequence at every workflow step. This is a full-plan deliverable:
   reproducible init/add/status/commit/branch/publish/merge/revert/restore/retirement
