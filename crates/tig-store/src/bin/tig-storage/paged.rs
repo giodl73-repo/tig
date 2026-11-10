@@ -21,6 +21,8 @@ use tig_store::{
 };
 #[path = "paged/execute.rs"]
 mod execute;
+#[path = "paged/followup.rs"]
+mod followup;
 const SCHEMA: &str = "tig.paged-operator-profile.design-1";
 #[derive(Default, Deserialize)]
 #[serde(default, deny_unknown_fields)]
@@ -95,6 +97,10 @@ fn bounded(value: Value) -> Result<Vec<u8>> {
 impl Profile {
     fn load(path: &Path) -> Result<Self> {
         let p: Self = document(path)?;
+        p.validate()
+    }
+    fn validate(self) -> Result<Self> {
+        let p = self;
         p.enrollment.id().map_err(code)?;
         p.roster.id().map_err(|_| "invalid_roster")?;
         p.limits.validate().map_err(selection_code)?;
@@ -445,9 +451,12 @@ fn scope_page(id: Digest, kind: &str, rows: Vec<Value>, start: usize) -> Result<
 }
 
 pub(super) fn run(args: &[String]) -> Result<Vec<u8>> {
+    if args.first().is_some_and(|s| s == "followup") {
+        return followup::run(&args[1..]);
+    }
     if args.len() == 1 && args[0] == "describe" {
         return bounded(
-            json!({"schema":"tig.paged-operator-interface.design-1","profile_schema":SCHEMA,"operations":["copies PROFILE REQUEST","plan PROFILE REQUEST","inspect PROFILE DECISION","subjects PROFILE DECISION [CURSOR]","actions PROFILE DECISION [CURSOR]","peak PROFILE DECISION","status PROFILE DECISION","apply PROFILE DECISION","resume PROFILE DECISION","cancel PROFILE DECISION"],"max_document_bytes":65536,"max_scope_rows":64,"permissions_default_enabled":false,"separate_claim_release_and_final_loss":true,"cancel_requires_clock":false,"initializes_stores":false}),
+            json!({"schema":"tig.paged-operator-interface.design-1","profile_schema":SCHEMA,"operations":["copies PROFILE REQUEST","plan PROFILE REQUEST","inspect PROFILE DECISION","subjects PROFILE DECISION [CURSOR]","actions PROFILE DECISION [CURSOR]","peak PROFILE DECISION","status PROFILE DECISION","apply PROFILE DECISION","resume PROFILE DECISION","cancel PROFILE DECISION"],"additional_interfaces":["paged followup describe"],"max_document_bytes":65536,"max_scope_rows":64,"permissions_default_enabled":false,"separate_claim_release_and_final_loss":true,"cancel_requires_clock":false,"initializes_stores":false}),
         );
     }
     if !(3..=4).contains(&args.len())

@@ -1,6 +1,7 @@
 use super::*;
 use crate::final_retirement::paged::{self as selection, control};
 mod aged;
+mod followup;
 mod operator;
 
 fn compile(

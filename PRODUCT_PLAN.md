@@ -55,6 +55,13 @@ history settlement, for example when an offline provider returns or another job
 ends. Preserve the original scope/receipts for discovery and recheck current
 protection; neither expanding an old decision nor recreating retired history is
 an acceptable substitute. This remains an explicit priority-7 delivery gate.
+The [held-copy follow-up](specs/HELD-COPY-FOLLOWUP.md) now implements a new
+copy-only candidate/runtime and explicit default-disabled CLI over original
+provenance, current content-wide protection and new final-loss approval. Focused
+recovered-provider/ended-job, cancellation/race/process and fresh CLI qualifiers
+pass; local broad and final artifact qualification pass, with hosted checks pending. No source
+history is recreated. Native/current-authority, provider/lifetime and complete
+block-retirement acceptance remain open; see [the guide](docs/guides/HELD-COPY-FOLLOWUP.md).
 
 The indexed native selection candidate now connects multiple archived historical
 roots and large block/category scopes to existing paged requests. Explicit

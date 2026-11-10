@@ -8,6 +8,7 @@ use crate::{
 pub mod aged;
 mod decision;
 mod execute;
+pub mod followup;
 pub use decision::inspect;
 pub use decision::{copies, extend_copies, plan, read_copies};
 pub use execute::{Cancellation, Execution, Inspection, Phase, Report, RunLimits, Stage, StoreJob};

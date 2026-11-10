@@ -1,5 +1,13 @@
 # Tig maintainer context
 
+Held-copy follow-up lane: specs/HELD-COPY-FOLLOWUP.md defines PO-07's fresh
+decision after original claim settlement. It retains original scope/outcome
+provenance, rechecks current content-wide protection/provider facts, and needs
+new final-loss approval. Copy-only runtime and explicit CLI are implemented;
+focused/process/final artifact and local broad qualification pass, with hosted
+checks pending. Parent PR43 has exact-head Windows/Linux/secrets
+checks passed; read context/RESUME.md for current evidence and remaining gates.
+
 Paged-operator lane: explicit tig-storage paged now composes existing-root copy
 index staging, exact decisions, original scope pagination, peak/status and
 separately approved apply/resume/cancel with the existing controller. Metadata

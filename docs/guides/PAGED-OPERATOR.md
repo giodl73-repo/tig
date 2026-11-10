@@ -74,6 +74,11 @@ sources, metadata or providers for cleanup. Cleanup failure retains that stop,
 reports unknown debt and can add `cleanup_error`. Cancellation cannot undo
 retired history or deleted bytes. Subsequent resume cannot restart cancelled work.
 
+After the operation is sealed, originally held copies can use a
+[fresh held-copy follow-up](HELD-COPY-FOLLOWUP.md) with new approval and current
+protection checks. It reads retained original scope without reconstructing the
+retired predecessor or expanding the original action set.
+
 Exact source/current-authority enrollment, native writer coverage, real-provider
 and large-file qualification, journal/metadata lifetime, agent/UI/Action integration
 and intended-use acceptance remain separate delivery obligations.

@@ -87,6 +87,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo test -p tig-store --lib --locked final_retirement::bulk::tests::paged::operator::explicit_cli_aged_paged_operator_qualification -- --ignored --exact
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:TIG_FOLLOWUP_CLI = $env:TIG_RETIREMENT_CLI
+          cargo test -p tig-store --lib --locked final_retirement::bulk::tests::paged::followup::operator::explicit_cli_held_copy_followup_qualification -- --ignored --exact
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo test -p tig-git --features schema --test native_source --locked retirement_cases::paged_cases::operator::native_cli_selection_reaches_storage_operator_and_preserves_shared_bytes -- --ignored --exact
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           cargo clippy --workspace --all-features --all-targets --locked -- -D warnings

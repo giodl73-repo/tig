@@ -1,5 +1,15 @@
 # Tig trace
 
+Held-copy follow-up candidate: WP-003/004/006/007/008/009/015;
+REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
+IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 ->
+HELD-COPY-FOLLOWUP.md -> paged::control::followup and tig-storage paged followup
+over existing current clearance, final providers and accounted witnesses ->
+independent frames, ended-job/recovered-provider, cancellation/proof/scope/race,
+five actual exits and fresh CLI -> EVID-113. Local broad qualification passes;
+final artifact qualification passes and hosted qualification is pending;
+native authority, UI/Action, provider/lifetime and full acceptance remain open.
+
 Paged operator candidate: WP-003/004/006/007/008/009/015;
 REQ-001/002/003/004/005/006/007/009 -> SPEC-002/003/004/005/008/009/014,
 IF-002/003/004/005/006/008/012/013, PKG-002/003/008/009 -> PAGED-OPERATOR.md ->

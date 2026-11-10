@@ -8,7 +8,43 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active continuation lane: feat/paged-operator, input
+- Next active lane: feat/held-copy-followup, input
+  124642985af1a1b358611de6015b9d90c993c536. Contract:
+  specs/HELD-COPY-FOLLOWUP.md. Copy-only library/runtime and explicit default-
+  disabled CLI are implemented in the working tree; no source commands.
+  PO-07 requires a fresh exact-copy operation from retained original scope and
+  sealed completed/cancelled outcome under independently current protection,
+  separate new approval and actual provider/clock fences. It cannot grow an old
+  action set, reconstruct retired source history or create another cache engine.
+  Chain69506 terminates zero: focused9 pass/1 ignored, fresh executable build,
+  explicit CLI qualifier and strict store all-target Clippy. This includes
+  per-attempt provider admission (one-action run admits one action), reader-only
+  execution, recovered provider, ended foreign job, aged origin, transient
+  Prepare/Abort invalidation, offline stop and five actual child exits. Two
+  independent framing cases pin fresh decision and three witness records.
+  Expanded12-entry focus passes in83712 and73066.73066 strengthens unavailable
+  proof to actual corruption of an acknowledged node, keeping size/counters;
+  apply refuses and cancellation persists stop with unknown cleanup. Default83712
+  and all-feature51119 chains terminate zero, including both500k fixtures, strict
+  workspace Clippy and standalone Git. Broad test compilation precedes only that
+  corruption-test strengthening;73066 executes it.73066 final fresh six-CLI
+  artifact and strict Clippy chain also terminates zero. All local handles are
+  terminal. Final L0/pins/fmt/diff and changed-source/history secrets checks pass.
+  Review/EVID-113/trace/validation records separate local closeout and full gates.
+  Next commit/pin the runtime, push draft PR on feat/paged-operator and derive
+  exact-head hosted checks; no source merge or deployment.
+  User additionally requests a public synthetic sample catalogue with a Git-like
+  teaching/fixture sequence at every workflow step. This is a full-plan deliverable:
+  reproducible init/add/status/commit/branch/publish/merge/revert/restore/retirement
+  lessons, actual engine plans/effects and catalogue observations, expected
+  outcomes/failure cases, shared/job/offline holds, no separate demo storage engine.
+  Start its owned lane after freezing this component. Preserve shared viewers.
+  Keep full roadmap/metadata lifetime and native adoption gates open.
+  Parent operator PR43 is OPEN/ready at124642985af1a1b358611de6015b9d90c993c536.
+  Exact-head run42718416602 is terminal SUCCESS for secrets, Windows and Linux,
+  confirmed directly this turn. Parent worktree is clean and pushed; no merge.
+
+- Parent implemented lane: feat/paged-operator, input
   cec0217f5bae71b43f5ca43a3e3027b4c2fbb426. See specs/PAGED-OPERATOR.md.
   Implementation:8f5d39edb25129ad26f750e257faf2584b72cbbd; runtime is frozen here.
   Locally qualified existing-root tig-storage paged commands compose copy-index chunks,

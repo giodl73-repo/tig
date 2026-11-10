@@ -1,5 +1,19 @@
 # Evidence index
 
+EVID-113 (candidate under qualification): fresh held-copy follow-up, input
+124642985af1a1b358611de6015b9d90c993c536. The
+[review](../reviews/2026-11-09-held-copy-followup.md) separates copy-only
+decisions/runtime, actual original provenance/new approval, current protection,
+reader-only execution and witness-first cancellation from full acceptance.
+Initial focused/process/fresh-CLI/strict store Clippy chain69506 passes. Expanded
+12-entry focus passes in83712 and final73066, including actual acknowledged-node
+corruption. Default83712 and all-feature51119 workspace/strict Clippy chains pass,
+including both500k runs and standalone Git. Final73066 also passes six fresh CLI
+qualifiers and strict workspace Clippy. L0/pins/fmt/diff pass; exact-head hosted
+qualification remains pending.
+Native/current-authority/provider/large-file/restore/lifetime, metadata expiry,
+agent/UI/Action and intended-use acceptance remain open.
+
 EVID-112 (locally qualified candidate): paged operator, input
 cec0217f5bae71b43f5ca43a3e3027b4c2fbb426, implementation
 8f5d39edb25129ad26f750e257faf2584b72cbbd. The

@@ -1,5 +1,14 @@
 # Intended-use validation
 
+EVID-113 rehearses recovered-provider and ended-foreign-job follow-ups after
+original claim settlement, including fixed original exclusions, new approval,
+current shared-byte protection, partial cancellation and unavailable-proof stop.
+Actual temporary source/provider/ledger effects, five process exits and a fresh
+LocalClock CLI workflow support this bounded rehearsal. It does not close a full
+VAL or establish native authority, project inactivity/reset policy, realistic
+provider/large-file/restore/lifetime, metadata expiry, agent/UI/Action or human
+F/D/M acceptance. See [the review](../reviews/2026-11-09-held-copy-followup.md).
+
 EVID-112 rehearses parts of VAL-002/003/004 through fresh explicit operator
 commands in temporary namespaces/metadata/providers/ledgers and actual LocalClock:
 manual/aged20-page resume, separate approvals, shared-byte survival, offline stop

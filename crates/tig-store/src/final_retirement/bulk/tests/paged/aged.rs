@@ -86,7 +86,7 @@ impl AgeFixture {
         result.capture_api(f, e).initialize().unwrap();
         result
     }
-    fn context(&mut self) -> control::aged::Context<'_> {
+    pub(super) fn context(&mut self) -> control::aged::Context<'_> {
         control::aged::Context {
             registry: &mut self.registry,
             minimum: &self.minimum,
@@ -106,7 +106,12 @@ impl AgeFixture {
             limits: &self.limits,
         }
     }
-    fn capture(&mut self, f: &mut Fixture, e: &control::Enrollment, d: &control::Decision) {
+    pub(super) fn capture(
+        &mut self,
+        f: &mut Fixture,
+        e: &control::Enrollment,
+        d: &control::Decision,
+    ) {
         let inventory = selection::inspect(
             &e.selection,
             &d.request().manifest,
@@ -141,7 +146,7 @@ impl AgeFixture {
             .unwrap();
         }
     }
-    fn plan(
+    pub(super) fn plan(
         &mut self,
         f: &mut Fixture,
         e: &control::Enrollment,
