@@ -9,7 +9,8 @@ source changes into running tools as a side effect. No startup cache operations.
 ## Current delivery state
 
 - Current owned lane: feat/teaching-stale-plan at input
-  d200ed38e2594a6e82205067dd8aadd107a7bff4. Contract TEACHING-STALE-PLAN.md
+  d200ed38e2594a6e82205067dd8aadd107a7bff4; runtime
+  617540154fedfd7aa51d33c37f31cfd0223941a8. Contract TEACHING-STALE-PLAN.md
   names controls, scope, entry/exit and L0/L1/L2. New fresh-root mode explicitly
   admits a job after planning old-copy demotion. Actual SDK apply returns Stale,
   copy/source snapshots remain unchanged by rejection, and actual SDK status
@@ -25,8 +26,10 @@ source changes into running tools as a side effect. No startup cache operations.
   check (read_only=true,payloads_opened=0). Public root:
   stale-plan-public-17d2ccd7d6534d9d9c65a929cde216bf in external bulk-retirement
   dev temp. All48441 workspace/500k/strict passes in teaching-playback-all;
-  all local handles are terminal. Final source pins/commit-secrets and exact-head
-  hosted checks remain separately recorded. Never overlap artifact/Cargo use.
+  all local handles are terminal. Final structure/pins/diff/source secrets pass
+  (663 files/7149701 bytes before runtime-pin followup). Derive current branch
+  draft PR and exact-head hosted checks from GitHub; commit-secrets remain a
+  separate gate for the pin commit. Never overlap artifact/Cargo use.
   Parent PR49 at d200ed38 run42762379566 passes
   Windows/Linux/secrets and is ready for review.
   No merge/deploy/live cache or browser interaction. Prior browser request is

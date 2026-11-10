@@ -1,5 +1,7 @@
 # Stale-plan teaching review
 
+Runtime implementation: 617540154fedfd7aa51d33c37f31cfd0223941a8.
+
 Input d200ed38e2594a6e82205067dd8aadd107a7bff4; feat/teaching-stale-plan.
 [Contract](../../specs/TEACHING-STALE-PLAN.md) names controls, allowed scope,
 entry/exit and L0/L1/L2. Owner: maintainers. Producer review is not independent
@@ -55,7 +57,9 @@ and a persistent ten-checkpoint rehearsal/catalogue check. Enrollment validation
 reports read_only=true,payloads_opened=0. All-feature48441 terminates zero in its
 separate external target: full locked workspace/second500k and strict all-target
 Clippy. All local handles are terminal. Initial structure/pins/diff/source-secrets pass; final
-pins/commit-secrets and exact-head hosted results remain separately pending.
+source structure/pins/diff/source-secrets pass at663 files/7149701 bytes before
+this runtime-pin followup. Final pin-commit secrets and exact-head hosted results
+remain separate gates.
 Parent PR49 at d200ed38 has successful Windows/Linux/secrets in run42762379566
 and is ready for review. This does not qualify this new protocol boundary.
 

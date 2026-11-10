@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 21059,
-      "sha256": "ccb4c0f3b1e3f23bd404bc91a70424ca0f5e8fd6904a21a38e61b489ebb5f1d2"
+      "bytes": 21188,
+      "sha256": "388a680c2f25c675404b2a55258664b9fe1ee912d82ac553ff8459fd04c3cc3d"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 109498,
-      "sha256": "15a947b5e5e7ffa2483c99cab6042cc3804b701b415c6bd4dcb265c11f2c6a54"
+      "bytes": 109581,
+      "sha256": "141e073e1443a9324fdf4929418934d20c359ae0a3321e51a5365043abb88ed2"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 78457,
+      "bytes": 78655,
       "path": "context/RESUME.md",
-      "sha256": "6f0a227e49c9577e1fc3ca389e215e7349f00d4d71ccb38d3fe7cc57ca4fa81d"
+      "sha256": "ea2dba53d7c0ec96fb6f2e6bd45f2069329fc57c9f067aaf4d7217acab4ca000"
     },
     {
       "bytes": 16453,
@@ -2894,8 +2894,8 @@
     },
     {
       "path": "docs/reviews/2026-11-10-teaching-stale-plan.md",
-      "bytes": 6861,
-      "sha256": "e05e493f70d46bd560c3c49f8bd440fe97665f1983015191a2fb2ed5f023ad00"
+      "bytes": 7036,
+      "sha256": "d7527fd8c44aa5ab12f2b52382011545de39bb5fc758bb5dec4bbdd1a2b57ec4"
     },
     {
       "path": "specs/TEACHING-STALE-PLAN.md",
