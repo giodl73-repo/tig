@@ -1,13 +1,13 @@
 # Foundation review
 
+EVID-120: [rename lenses](../reviews/2026-11-10-teaching-rename.md); local pass; hosted/human open.
+
 EVID-119: [producer lenses](../reviews/2026-11-10-teaching-stale-plan.md).
 Local checks pass; hosted/human gates open.
 
-Backup-outage review, input9310d0c: [six producer lenses](../reviews/2026-11-09-teaching-backup-outage.md)
-challenge unknown versus absent, current custody, plan/source retry identity,
-bounded private-root moves and false convergence. Focused native/API/negative/
-shipped controls, both workspace/both500k/strict/standalone and fresh artifact
-checks pass; hosted/human gates remain open.
+EVID-118: [backup-outage lenses](../reviews/2026-11-09-teaching-backup-outage.md)
+record input9310d0c, unknown custody/retry findings and local qualification;
+hosted/human gates are separate.
 
 Worktree/index review, input27a6eb4: [six producer lenses](../reviews/2026-11-09-teaching-worktree.md)
 challenge immutable view identity, continuing job protection, safe checkout

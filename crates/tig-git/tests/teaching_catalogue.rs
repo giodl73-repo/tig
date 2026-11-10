@@ -7,6 +7,44 @@ use tig_git::catalogue::{Catalogue, Config, storage::objects::Query};
 mod catalogue_server;
 
 #[test]
+fn public_rename_preserves_bytes_and_copies_and_refuses_conflicting_destination() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("rename sample with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-rename")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 8);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("rename.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["rename_evidence"]
+    );
+    let proof: Value = serde_json::from_slice(&raw).unwrap();
+    assert_ne!(proof["before_commit"], proof["after_commit"]);
+    assert_eq!(proof["copies_before"], proof["copies_after"]);
+    assert_eq!(proof["conflicting_destination_refused"], true);
+    assert_eq!(proof["stream_bytes"], 0);
+    assert_eq!(proof["effects"], serde_json::json!([]));
+    assert!(!root.join("project/records/series.tig").exists());
+    let record = fs::read(root.join("project/records/renamed-series.tig")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&record)).unwrap(),
+        proof["record_object"]
+    );
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["lessons"][7]["id"], "same-byte-rename");
+    assert_eq!(book["lessons"][7]["effects"], serde_json::json!([]));
+    render_book(&book);
+}
+
+#[test]
 fn public_course_runs_real_git_and_providers_then_loads_the_catalogue() {
     let temp = tempfile::tempdir().unwrap();
     let root = temp.path().join("public sample");

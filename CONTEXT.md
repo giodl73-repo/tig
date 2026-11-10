@@ -1,5 +1,19 @@
 # Tig maintainer context
 
+Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
+
+Current lane: feat/teaching-rename, input21a70f5abc4340582cda3a075a3c5fe1cee13e40
+(merged PR50; exact-head run42833301686 passed Windows/Linux/secrets).
+TEACHING-RENAME.md names scope and controls. Fresh-root same-byte Git rename,
+conflicting destination refusal, actual zero-effect reconciliation and literal
+stage/native HTTP fixture pass focused qualification: terminal95832 native
+test and strict schema all-target Clippy. Terminal15009/80546 pass both workspace/
+500k/strict profiles and standalone Git. Artifact3407 passes fmt/fresh bins/eight
+checkpoints/read-only catalogue validation. All78 controller cases pass. See
+EVID-120 review for separate implementation/verification/validation/role closure.
+All local handles terminal; final source/hosted and human gates remain separate.
+No live root/viewer/deployment; full plan and separate acceptance remain open.
+
 Active owned lane: feat/teaching-stale-plan, input
 d200ed38e2594a6e82205067dd8aadd107a7bff4; runtime
 617540154fedfd7aa51d33c37f31cfd0223941a8. Contract:

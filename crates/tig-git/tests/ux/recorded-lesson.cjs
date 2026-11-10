@@ -63,6 +63,17 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
    }
   }
  }
+ if(book.lessons.some(l=>l.id==='same-byte-rename')){
+  const index=book.lessons.findIndex(l=>l.id==='same-byte-rename');
+  const select=selector();select.value=String(index);await select.onchange();await f.settle();
+  assert.equal(row('original').children[0].title,identity);
+  for(const name of ['original','fixed','shared']){
+   const object=book.lessons[index].objects.find(o=>o.name===name);
+   for(const role of object.observed)assert.ok(row(name).children[3].textContent.includes(book.roles.find(r=>r.id===role).label));
+  }
+  assert.ok(f.text('assets').includes('No new provider effects recorded.'));
+  assert.deepEqual(book.lessons[index].effects,[]);
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

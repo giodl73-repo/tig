@@ -1,5 +1,10 @@
 # Tig trace
 
+Rename teaching: WP-004/008/010/015/016; REQ-001/005/006/007/009/010 ->
+SPEC-002/005/008/010/014, IF-002/005/008/010/011/013, PKG-002/004/006/008 ->
+TEACHING-RENAME.md -> actual Git/native/SDK + independent oracle + native/API/
+shipped controls -> EVID-120. Full course, native and product gates remain open.
+
 Stale-plan teaching: WP-004/008/009/010/015/016;
 REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
 IF-002/005/008/010/011/013, PKG-002/003/004/006/008 -> TEACHING-STALE-PLAN.md ->

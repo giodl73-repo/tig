@@ -1,5 +1,10 @@
 # Intended-use validation
 
+EVID-120 teaches authored Git path versus immutable bytes through real conflict
+refusal and zero-effect rename reconciliation. Eight recorded reports; no
+browser/classroom or general native writer acceptance. See
+[review](../reviews/2026-11-10-teaching-rename.md). Full course/product remains open.
+
 EVID-119 demonstrates rejection of historical demotion after new job admission,
 unchanged observed F+M and fresh plans before/after job end. Ten actual reports
 render through read-only catalogue controls. Explicit fixture admission does not

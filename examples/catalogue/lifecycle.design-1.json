@@ -566,6 +566,28 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "same-byte-rename",
+      "event": "Git renames the authored record without changing its bytes or asset ID. Explicit adoption changes source context, while actual placement streams zero bytes and records no provider effects. A conflicting destination refuses without changing the index, HEAD or copies.",
+      "requires": [
+        "current-source-fencing",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [
