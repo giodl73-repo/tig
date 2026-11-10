@@ -83,6 +83,12 @@ Ten recorded checkpoints expose historical desired versus observed state in the
 same read-only catalogue. General races, crash/restart and final-loss/expiry
 teaching remain separate open gates.
 
+The [final-loss teaching contract](specs/TEACHING-FINAL-RETIREMENT.md) defines
+fresh final-capable sample enrollment, actual block/category/age selection,
+separate owner consent, guarded bulk effects and retry/cancel/reacquisition
+evidence. Implementation and a distinct validated final-report reader are still
+required; current placement reports cannot stand in for bulk deletion receipts.
+
 The [same-byte rename rehearsal](specs/TEACHING-RENAME.md) adds a real conflicting
 destination refusal and successful Git record rename with unchanged blob/asset
 identity. Explicit native adoption and SDK reconciliation preserve verified

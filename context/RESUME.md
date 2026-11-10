@@ -10,6 +10,19 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned lane: teaching-final-retirement, branch feat/teaching-final-retirement,
+  input2ca3e18f2c506c9d5546db63396b90b49d74f509. No code changes yet. New contract
+  TEACHING-FINAL-RETIREMENT.md names controls/scope/entry/exit/L0/L1/L2 and all
+  block/category/age/shared/job/retry/cancel/reacquisition teaching gates. Existing
+  sample M uses a non-final format: create fresh final-capable providers, no
+  upgrade. Current reader accepts only placement reports; tagged final bulk
+  evidence must be designed/validated before publishing such lessons. Reuse
+  existing native/age/subset/bulk/provider APIs; unit Fixture is not a demo API.
+  Parent PR51 exact-head42901536923 Windows/Linux live, secrets passed at startup.
+  Both previous local suites and artifact are terminal0; targets are free.
+  Next: implement fresh fixture enrollment and real independently checked bulk
+  plan/effects, then explicit final evidence reader/UI; preserve complete scope.
+
 - Active owned worktree: teaching-rename, branch feat/teaching-rename,
   input21a70f5abc4340582cda3a075a3c5fe1cee13e40 (merged PR50). PR50's exact head
   2407433 run42833301686 passed Windows/Linux/secrets. No open PRs observed at

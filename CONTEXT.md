@@ -1,5 +1,12 @@
 # Tig maintainer context
 
+Current lane: feat/teaching-final-retirement at input2ca3e18f2c506c9d5546db63396b90b49d74f509.
+TEACHING-FINAL-RETIREMENT.md freezes finite-backup teaching, fresh final-capable
+enrollment and distinct versioned bulk evidence. No implementation/acceptance
+claim yet. Existing ordinary M has no final policy; never upgrade it on resume.
+Parent PR51 run42901536923 is live on Windows/Linux; secrets passed at startup.
+Full plan remains active; no browser/live root/daemon/deployment.
+
 Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
 
 Current lane: feat/teaching-rename, input21a70f5abc4340582cda3a075a3c5fe1cee13e40

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 22190,
-      "sha256": "bf387072c1bffbb36464720bb5e9764febe7376dc59da95297378f6cac2164f6"
+      "bytes": 22671,
+      "sha256": "13794666039996419e96c4fa1618dfcf4b0b8faa35b1ea0a9800328941a1083c"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 49822,
-      "sha256": "c31504cdb47fdf332c1e75a3718b6f8d1721270721d4962be278a3ff0d506428"
+      "bytes": 50214,
+      "sha256": "de7a9c52dfd266503f98794989184566092f3e37892295657b3b1ad388f4aabb"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 80758,
+      "bytes": 81721,
       "path": "context/RESUME.md",
-      "sha256": "71a69e54dd376004c4445b3f8cebec2a2c4fe19dc7eb00d37229ac32fc002ba7"
+      "sha256": "853f31cb30a89f04c365464ef0cb11cf68ec0eaa6cd22630c6058e88e6024a46"
     },
     {
       "bytes": 16453,
@@ -2911,6 +2911,11 @@
       "path": "docs/reviews/2026-11-10-teaching-rename.md",
       "bytes": 5498,
       "sha256": "0420a07a4bde8796ec224bf0db865b7d9f4da3dad09fd62fc181114321feaaab"
+    },
+    {
+      "path": "specs/TEACHING-FINAL-RETIREMENT.md",
+      "bytes": 5919,
+      "sha256": "98ac62b0b66c9b63cbffa14f6089922db57a98b5c22cadaf0456a473b8d99465"
     }
   ]
 }
