@@ -1,5 +1,7 @@
 # Tig maintainer context
 
+Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
+
 Current lane: feat/teaching-rename, input21a70f5abc4340582cda3a075a3c5fe1cee13e40
 (merged PR50; exact-head run42833301686 passed Windows/Linux/secrets).
 TEACHING-RENAME.md names scope and controls. Fresh-root same-byte Git rename,

@@ -1,5 +1,7 @@
 # Tig resume state
 
+Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
+
 Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
 bulk final deletion and eventual metadata retirement. The full goal is not done.
 Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.

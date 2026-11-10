@@ -1,5 +1,7 @@
 # Same-byte rename teaching review
 
+Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
+
 Input21a70f5abc4340582cda3a075a3c5fe1cee13e40; feat/teaching-rename.
 [Contract](../../specs/TEACHING-RENAME.md) names controls, scope, entry/exit and
 L0/L1/L2 profiles. Owner: maintainers. Producer review is not independent review

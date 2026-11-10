@@ -1,5 +1,7 @@
 # Evidence index
 
+Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
+
 EVID-120 (focused candidate), input21a70f5abc4340582cda3a075a3c5fe1cee13e40:
 [review](../reviews/2026-11-10-teaching-rename.md) separates actual rename/conflict,
 stable bytes/copies and zero SDK effects from general native rename semantics.
