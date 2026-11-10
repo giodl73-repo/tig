@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 19968,
-      "sha256": "59783dd926e17b105b588318f71a294d320954994d729558a59dfc8780deb544"
+      "bytes": 20024,
+      "sha256": "22467e7fdbfa742306ccd3f650e963153f256d839ac7098a313d2384f4b640b6"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 108794,
-      "sha256": "6d04ded28cb988127a968462954da1b8e67a4f3e50ad3caab12bbb1ec25e4b33"
+      "bytes": 108870,
+      "sha256": "94840130836b11a11497b51b4a74a58ec7329e0e18dfea747ce1e8f5117819a3"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 76467,
+      "bytes": 76601,
       "path": "context/RESUME.md",
-      "sha256": "e0328e2aa4382aefcee557c0470d9f5dd6393a19c49c5a70d1b375b1e8bcc559"
+      "sha256": "7867922101e5a1af41bd7ccf2845eb7344dab4b1c67f76e1f40a10a98ce225fd"
     },
     {
       "bytes": 16453,
@@ -2884,8 +2884,8 @@
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-backup-outage.md",
-      "bytes": 7042,
-      "sha256": "d8849598990fcc036cd093a1bd5df38eb465238b9dbb4000f7d11a994bd5e539"
+      "bytes": 7166,
+      "sha256": "66022fbffc87e9a83e701c39f0828a25c68f6870997f541b9b2dc11b07732b7f"
     },
     {
       "path": "specs/TEACHING-BACKUP-OUTAGE.md",

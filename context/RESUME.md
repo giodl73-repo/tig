@@ -28,8 +28,10 @@ source changes into running tools as a side effect. No startup cache operations.
   payloads_opened=0. Persistent root: backup-outage-public-ce0209ed4f924d32ab02b9bfb04eefcd
   in external bulk-retirement dev temp. Targets teaching-playback /
   teaching-playback-all; all local handles terminal. Initial L0/source-secrets
-  pass661 files/7113398 bytes. Source pin/push/draft and final documentation pins/
-  commit-secrets/hosted remain pending. Parent PR48 at9310d0c run42753891927 passes
+  pass661 files/7113398 bytes.
+  Runtime implementation: 73069222eaa0999b2eebb69786373917353f0162.
+  Source is pinned; derive this branch's draft PR and exact-head hosted status
+  from GitHub. Final documentation pins/commit-secrets/hosted remain separate. Parent PR48 at9310d0c run42753891927 passes
   Windows/Linux/secrets and is ready; no merge/deploy or existing-root operation.
   Browser request remains unanswered; no browser interaction. Full real hardware/
   remote byte publication, faults/restart/final-loss/expiry course and native/

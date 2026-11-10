@@ -1,5 +1,7 @@
 # Backup-outage teaching review
 
+Runtime implementation: 73069222eaa0999b2eebb69786373917353f0162.
+
 Input9310d0cbe48ba796f0feaa7847ed5fba10e74b48; feat/teaching-backup-outage.
 [Contract](../../specs/TEACHING-BACKUP-OUTAGE.md) names controls, allowed scope,
 entry/exit and L0/L1/L2 profiles. Targets: fresh-root outage sample, explicit
@@ -65,7 +67,8 @@ fresh artifact25647 qualify it. Artifact25647 terminates zero: fmt, fresh schema
 bins, explicit expanded-usage refusal, nine-checkpoint outage CLI and catalogue
 check (read_only=true,payloads_opened=0 during enrollment validation). The public
 persistent sample is retained outside source. Initial structure/pins/diff/source
-secrets pass; final documentation pins and exact-head hosted checks remain. Parent PR48 run42753891927 at9310d0c passes
+secrets pass. Final documentation pins/diff and two-commit secret scan qualify
+the source pin; exact-head hosted checks remain open. Parent PR48 run42753891927 at9310d0c passes
 Windows/Linux/secrets and is ready; no merge/deployment. Parent qualification is
 not hosted proof of the new partial-observation boundary.
 

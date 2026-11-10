@@ -1,13 +1,13 @@
 # Evidence index
 
-EVID-118 (locally qualified candidate): input9310d0cbe48ba796f0feaa7847ed5fba10e74b48.
+EVID-118 (locally qualified candidate): runtime73069222eaa0999b2eebb69786373917353f0162; input9310d0cbe48ba796f0feaa7847ed5fba10e74b48.
 [Review](../reviews/2026-11-09-teaching-backup-outage.md) separates actual SDK
 held outage/job-end/catchup from explicit unknown provider coverage and general
 hardware adoption. Native66637/final78266 pass five cases, actual partial HTTP ->
 shipped controls, ten semantic negatives and strict schema workspace Clippy.
 All76 controller cases pass. Default12177/all-feature3970 workspace/both500k/
 strict/standalone and fresh artifact25647 pass. Initial L0/source-secrets pass;
-final documentation pins and hosted remain pending. Real remote-byte/hardware, full faults/restart/final-loss/expiry,
+final documentation pins/commit-secrets and hosted remain separately recorded. Real remote-byte/hardware, full faults/restart/final-loss/expiry,
 native/provider/lifetime/browser/human/full product acceptance remain open.
 
 EVID-117 (locally qualified candidate): runtime6812e1086bf4fc9fb58849a5e77718c4dd051da9; input27a6eb4f3ebd11743d2772694ec2ea2b3242732f.

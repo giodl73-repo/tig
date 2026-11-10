@@ -1,14 +1,15 @@
 # Tig maintainer context
 
-Active owned lane: feat/teaching-backup-outage, input9310d0c. Contract:
+Active owned lane: feat/teaching-backup-outage, input9310d0c; runtime
+73069222eaa0999b2eebb69786373917353f0162. Contract:
 specs/TEACHING-BACKUP-OUTAGE.md; review/EVID-118 separate implementation,
 verification/validation/trace/six producer lenses. Real SDK held merge/job-end,
 unknown M coverage, protected F and same-plan catchup with seed reads disabled
 are locally qualified. Five native/API/shipped-controls cases,76 controller cases,
 both workspace/both500k/strict/standalone profiles and fresh artifact pass. All
 local handles terminal. Parent PR48 exact-head run42753891927 passes Windows/
-Linux/secrets and is ready; no merge/deploy. Current source pin/push/draft and
-hosted/browser/human qualification remain; no browser permission received.
+Linux/secrets and is ready; no merge/deploy. Source is pinned; derive this branch
+draft PR/hosted status from GitHub. Browser/human qualification remains open.
 
 Active owned lane: feat/teaching-worktree, input27a6eb4; runtime
 6812e1086bf4fc9fb58849a5e77718c4dd051da9. Contract:
