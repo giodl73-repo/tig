@@ -366,3 +366,105 @@ fn public_exchange_preserves_dirty_work_and_reconciles_only_after_exact_pull() {
     assert!(!refused.status.success());
     assert_eq!(fs::read(root.join("exchange.json")).unwrap(), raw);
 }
+
+#[test]
+fn public_worktree_index_is_exact_and_job_outlives_checkout() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("public worktree with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-worktree")
+        .arg(&root)
+        .env("GIT_INDEX_FILE", temp.path().join("must-not-create-index"))
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    assert!(!temp.path().join("must-not-create-index").exists());
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 12);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("worktree.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["worktree_evidence"]
+    );
+    let proof: Value = serde_json::from_slice(&raw).unwrap();
+    let corpus: Value = serde_json::from_str(include_str!(
+        "../../../examples/catalogue/lifecycle.design-1.json"
+    ))
+    .unwrap();
+    assert_ne!(proof["main_commit"], proof["worktree_commit"]);
+    assert_ne!(proof["staged_index"], proof["unstaged_index"]);
+    assert_ne!(proof["staged_native"], proof["unstaged_native"]);
+    assert_eq!(
+        proof["staged_selected"]["sha256"],
+        corpus["objects"]["fixed"]["sha256"]
+    );
+    assert_eq!(
+        proof["unstaged_selected"]["sha256"],
+        corpus["objects"]["original"]["sha256"]
+    );
+    assert_eq!(proof["dirty_status"], "MM records/series.tig");
+    assert_eq!(proof["dirty_remove_refused"], true);
+    assert_eq!(proof["worktree_removed"], true);
+    assert_eq!(proof["automatic_writer_enrollment"], false);
+    assert!(!root.join("study").exists());
+    let catalogue = Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
+    let book =
+        tig_git::catalogue::teaching::execute(catalogue.teaching_request().unwrap()).unwrap();
+    assert_eq!(book["lessons"].as_array().unwrap().len(), 12);
+    for (index, id) in [
+        (7, "worktree-open-v1"),
+        (8, "index-staged-v2"),
+        (9, "index-unstaged-v1"),
+        (10, "worktree-closed-job-active"),
+        (11, "worktree-job-ended"),
+    ] {
+        assert_eq!(book["lessons"][index]["id"], id);
+        let original = book["lessons"][index]["objects"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|o| o["name"] == "original")
+            .unwrap();
+        assert_eq!(
+            original["observed"],
+            if index == 11 {
+                serde_json::json!(["backup", "history"])
+            } else {
+                serde_json::json!(["backup", "working"])
+            }
+        );
+    }
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, received) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(received, book);
+    let mut renderer = Command::new("node")
+        .arg(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/tests/ux/recorded-lesson.cjs"
+        ))
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    {
+        use std::io::Write;
+        renderer
+            .stdin
+            .take()
+            .unwrap()
+            .write_all(&serde_json::to_vec(&received).unwrap())
+            .unwrap();
+    }
+    let rendered = renderer.wait_with_output().unwrap();
+    assert!(rendered.status.success(), "{rendered:?}");
+    let refused = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-worktree")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(!refused.status.success());
+    assert_eq!(fs::read(root.join("worktree.json")).unwrap(), raw);
+}

@@ -291,6 +291,121 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "worktree-open-v1",
+      "event": "git worktree add --detach opens v1 while main remains v2. Explicit draft and job claims bring original nearby without duplicating shared bytes.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "index-staged-v2",
+      "event": "git add stages v2 in the review worktree index. Later working-file edits leave that captured index snapshot unchanged. Dirty git worktree remove refuses; the old job still protects original.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "index-unstaged-v1",
+      "event": "git restore --staged --source=HEAD returns the review index to v1. The previously captured v2 snapshot remains exact; explicit draft adoption changes only the draft source.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "worktree-closed-job-active",
+      "event": "Normal clean git worktree remove closes the review checkout, then its own draft is withdrawn. The separate old-version job still requires original nearby.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "worktree-job-ended",
+      "event": "Explicit job end permits a fresh reconciliation: original goes to history plus backup; current v2 and shared input stay nearby.",
+      "requires": [
+        "linked-worktree-index",
+        "exact-source-admission",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [

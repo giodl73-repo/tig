@@ -1,5 +1,12 @@
 # Tig trace
 
+Worktree/index teaching: WP-004/008/010/015/016;
+REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
+IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-WORKTREE.md ->
+captured source/native snapshots and existing placement, independent copy oracle,
+dirty-removal/index/job/native/HTTP/shipped-controls cases -> EVID-117.
+Full writer/course/final-loss/expiry and intended-use acceptance remain open.
+
 Public Git exchange: WP-004/008/010/015/016;
 REQ-001/005/006/007/009/010 -> SPEC-002/005/008/010/014,
 IF-002/005/008/010/011/013, PKG-002/004/006/008 -> TEACHING-EXCHANGE.md ->

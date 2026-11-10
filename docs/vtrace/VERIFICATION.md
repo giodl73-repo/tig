@@ -1,5 +1,13 @@
 # Verification record
 
+EVID-117 candidate: native70905/final81014 pass four actual CLI/provider/catalogue
+cases, authenticated HTTP -> shipped scripts for twelve checkpoints, exact index/
+native selections, dirty preservation, continued job protection and strict schema
+workspace Clippy. All73 controller cases pass. Default71185/all-feature18682
+workspace/both500k/strict/standalone and fresh artifact9072 pass. Initial L0/
+source-secrets pass; final documentation pins/hosted remain pending. See
+[review](../reviews/2026-11-09-teaching-worktree.md) for scope and remaining gates.
+
 EVID-116 candidate: native65714/final45494 pass three actual CLI/provider/catalogue
 cases, authenticated HTTP -> shipped controls for ten checkpoints, metadata
 refusals, isolation and strict schema workspace Clippy. All73 controller cases

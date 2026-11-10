@@ -1,5 +1,16 @@
 # Evidence index
 
+EVID-117 (locally qualified candidate): input27a6eb4f3ebd11743d2772694ec2ea2b3242732f.
+[Review](../reviews/2026-11-09-teaching-worktree.md) separates real linked
+worktree/index capture, dirty-removal preservation and job lifetime from general
+writer coverage. Native70905/final81014 pass four cases, actual twelve-checkpoint
+HTTP -> shipped controls and strict schema workspace Clippy. All73 controller
+cases pass. Default71185/all-feature18682 workspace/both500k/strict/standalone
+and fresh artifact9072 pass. Initial L0/source-secrets pass; final documentation
+pins and hosted remain pending.
+Full remote-byte/fault/final-loss/expiry course, browser/human/native/provider/
+lifetime/full product acceptance remain open.
+
 EVID-116 (locally qualified candidate): runtime8f17aa9a711fcb6d372fb2f267f67ef2ac313692; input618628a1571082474576061de4510ee54a59f1ad.
 [Review](../reviews/2026-11-09-teaching-exchange.md) separates real local Git
 push/clone/fetch/pull and dirty-pull preservation from source adoption and byte
@@ -7,7 +18,9 @@ placement. Native65714/final45494 pass three CLI/provider/catalogue/HTTP cases,
 actual ten-checkpoint HTTP -> shipped controls and strict schema workspace Clippy.
 All73 controller cases pass. Default43090/all-feature54984 workspace/both500k/
 strict/standalone and fresh artifact91098 pass. Initial L0/source-secrets pass;
-final documentation pins/commit-secrets and hosted remain separately recorded. Full remote-byte/fault/final-loss/expiry teaching and human/native/
+final documentation pins/commit-secrets and hosted remain separately recorded. Exact-head
+run42748580854 at27a6eb4 passes Windows/Linux/secrets; PR47 is ready for review.
+Full remote-byte/fault/final-loss/expiry teaching and human/native/
 provider/lifetime/full product acceptance remain open.
 
 EVID-115 (locally qualified candidate): runtime3c423315d1901d9015572a5507643939e79605ae; input6d9a2e024a2ddaeae5409a4df3d7077a8c9b1965.

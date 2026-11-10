@@ -26,6 +26,15 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
    assert.equal(row('original').children[0].title,identity);
   }
  }
+ if(book.lessons.length===12){
+  for(const [index,role] of [[7,'working'],[8,'working'],[9,'working'],[10,'working'],[11,'history']]){
+   const select=selector();select.value=String(index);await select.onchange();await f.settle();
+   assert.ok(row('original').children[3].textContent.includes(book.roles.find(r=>r.id===role).label));
+   assert.equal(row('original').children[0].title,identity);
+  }
+  assert.ok(f.text('assets').includes('Associated Git commit'));
+  assert.ok(f.text('assets').includes('separate admitted snapshots'));
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

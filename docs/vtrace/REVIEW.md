@@ -1,5 +1,11 @@
 # Foundation review
 
+Worktree/index review, input27a6eb4: [six producer lenses](../reviews/2026-11-09-teaching-worktree.md)
+challenge immutable view identity, continuing job protection, safe checkout
+removal and associated-commit claims. Focused native/API/shipped controls and
+strict schema, both workspace/both500k/strict/standalone and fresh artifact checks
+pass; hosted and intended-use gates remain open.
+
 Public Git exchange review, input618628a: [six producer lenses](../reviews/2026-11-09-teaching-exchange.md)
 challenge ref/checkout identity, metadata versus custody, failed-pull preservation,
 bounded local transport and writer-adoption claims. Focused native/API/shipped

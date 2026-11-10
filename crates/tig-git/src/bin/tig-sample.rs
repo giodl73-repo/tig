@@ -27,6 +27,12 @@ use tig_store::{
     store_protection::{Binding, Member},
 };
 type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+#[derive(Clone, Copy)]
+enum Mode {
+    Ordinary,
+    Exchange,
+    Worktree,
+}
 const FIXTURE: &str = include_str!(concat!(
     env!("CARGO_MANIFEST_DIR"),
     "/../../examples/catalogue/lifecycle.design-1.json"
@@ -392,6 +398,14 @@ impl Demo {
         let snapshot =
             self.repository
                 .native(&view, records, definitions, native::Limits::default())?;
+        self.select_snapshot(source, &snapshot, operation)
+    }
+    fn select_snapshot(
+        &mut self,
+        source: &str,
+        snapshot: &native::AssetSnapshot,
+        operation: &str,
+    ) -> Result<()> {
         snapshot.validate_authored_schemas(tig_assets::schema::Dialect::Draft202012)?;
         let mut entries = BTreeMap::new();
         for record in snapshot.selected_records() {
@@ -565,7 +579,7 @@ impl Demo {
         save(&self.root.join("catalogue-observations.json"), &inventory)?;
         Ok(())
     }
-    fn run(mut self, exchange: bool) -> Result<Value> {
+    fn run(mut self, mode: Mode) -> Result<Value> {
         self.write_version("v1")?;
         let first = self.commit("Sample: release v1")?;
         self.checkpoint(0, &first)?;
@@ -634,14 +648,19 @@ impl Demo {
         )?;
         self.select("main", &current, "return-v2")?;
         self.checkpoint(6, &current)?;
-        let exchange_evidence = if exchange {
+        let exchange_evidence = if matches!(mode, Mode::Exchange) {
             let (head, evidence) = self.exchange(&current)?;
             current = head;
             Some(evidence)
         } else {
             None
         };
-        let pending = if exchange {
+        let worktree_evidence = if matches!(mode, Mode::Worktree) {
+            Some(self.worktree(&current, &first)?)
+        } else {
+            None
+        };
+        let pending = if matches!(mode, Mode::Exchange) {
             json!([
                 "full command-by-command Git curriculum",
                 "remote byte publication and offline backup",
@@ -671,7 +690,132 @@ impl Demo {
         if let Some(evidence) = exchange_evidence {
             result["exchange_evidence"] = serde_json::to_value(evidence)?;
         }
+        if let Some(evidence) = worktree_evidence {
+            result["worktree_evidence"] = serde_json::to_value(evidence)?;
+        }
         Ok(result)
+    }
+
+    fn worktree(&mut self, current: &str, first: &str) -> Result<Object> {
+        let project = self.root.join("project");
+        let study = self.root.join("study");
+        let primary_index = self.repository.index()?.checkpoint().listing.clone();
+        git(
+            &self.git,
+            &project,
+            &["worktree", "add", "--detach", "../study", first],
+        )?;
+        let verified = fs::canonicalize(&study)?;
+        if verified.parent() != Some(self.root.as_path())
+            || verified.file_name() != Some(std::ffi::OsStr::new("study"))
+        {
+            return Err("worktree is outside the fresh fixture root".into());
+        }
+        if git(&self.git, &study, &["rev-parse", "HEAD"])? != first {
+            return Err("worktree selected a different commit".into());
+        }
+        self.select("draft", first, "worktree-open")?;
+        self.select("job", first, "worktree-start-job")?;
+        self.checkpoint(11, current)?;
+
+        let repo = Repository::new(self.git.clone(), study.clone(), Limits::default())?;
+        let capture = |view: &tig_git::source::Snapshot| -> Result<native::AssetSnapshot> {
+            Ok(repo.native(
+                view,
+                Scope::new([LogicalPath::parse("records")?])?,
+                Scope::new([LogicalPath::parse("definitions")?])?,
+                native::Limits::default(),
+            )?)
+        };
+        let series = |snapshot: &native::AssetSnapshot| -> Result<Object> {
+            Ok(snapshot
+                .selected_records()
+                .find(|r| r.reference().id == "work/series")
+                .ok_or("series missing")?
+                .selected()?
+                .clone())
+        };
+        let record = study.join("records/series.tig");
+        let old_record = fs::read(&record)?;
+        fs::write(&record, fs::read(project.join("records/series.tig"))?)?;
+        git(&self.git, &study, &["add", "records/series.tig"])?;
+        let staged_view = repo.index()?;
+        let staged = capture(&staged_view)?;
+        if series(&staged)? != self.objects["fixed"] {
+            return Err("index did not stage fixed bytes".into());
+        }
+        let cached_diff = git(&self.git, &study, &["diff", "--cached", "--name-only"])?;
+        fs::write(&record, &old_record)?;
+        let working_diff = git(&self.git, &study, &["diff", "--name-only"])?;
+        let dirty_status = git(&self.git, &study, &["status", "--porcelain=v1"])?;
+        if cached_diff != "records/series.tig"
+            || working_diff != cached_diff
+            || dirty_status != "MM records/series.tig"
+            || series(&capture(&staged_view)?)? != self.objects["fixed"]
+        {
+            return Err("captured index was replaced by working-file state".into());
+        }
+        let copies_before = self.copy_snapshot()?;
+        let dirty_remove_refused = git(&self.git, &project, &["worktree", "remove", "../study"])
+            .err()
+            .is_some_and(|e| {
+                e.to_string()
+                    .contains("contains modified or untracked files")
+            });
+        if !dirty_remove_refused
+            || fs::read(&record)? != old_record
+            || self.copy_snapshot()? != copies_before
+        {
+            return Err("dirty worktree removal did not preserve fixture state".into());
+        }
+        self.select_snapshot("draft", &staged, "worktree-stage-index")?;
+        self.checkpoint(12, current)?;
+
+        git(
+            &self.git,
+            &study,
+            &[
+                "restore",
+                "--staged",
+                "--source=HEAD",
+                "--",
+                "records/series.tig",
+            ],
+        )?;
+        let unstaged_view = repo.index()?;
+        let unstaged = capture(&unstaged_view)?;
+        if series(&unstaged)? != self.objects["original"]
+            || series(&staged)? != self.objects["fixed"]
+            || series(&capture(&staged_view)?)? != self.objects["fixed"]
+            || !git(&self.git, &study, &["status", "--porcelain=v1"])?.is_empty()
+            || staged_view.checkpoint().listing == unstaged_view.checkpoint().listing
+        {
+            return Err("unstaging changed an old snapshot or selected wrong bytes".into());
+        }
+        self.select_snapshot("draft", &unstaged, "worktree-unstage-index")?;
+        self.checkpoint(13, current)?;
+        if self.repository.index()?.checkpoint().listing != primary_index
+            || git(&self.git, &project, &["rev-parse", "HEAD"])? != current
+            || git(&self.git, &study, &["rev-parse", "HEAD"])? != first
+        {
+            return Err("linked worktree changed the primary HEAD or index".into());
+        }
+        // Verify the canonical target immediately before normal, non-forced removal.
+        if fs::canonicalize(&study)? != verified || verified.parent() != Some(self.root.as_path()) {
+            return Err("worktree target changed".into());
+        }
+        git(&self.git, &project, &["worktree", "remove", "../study"])?;
+        if study.exists() {
+            return Err("worktree was not removed".into());
+        }
+        self.withdraw("draft", "worktree-close-draft")?;
+        self.checkpoint(14, current)?;
+        self.withdraw("job", "worktree-end-job")?;
+        self.checkpoint(15, current)?;
+        save(
+            &self.root.join("worktree.json"),
+            &json!({"schema":"tig.sample-worktree.design-1","main_commit":current,"worktree_commit":first,"primary_index":primary_index,"staged_index":staged_view.checkpoint().listing,"unstaged_index":unstaged_view.checkpoint().listing,"staged_native":staged.checkpoint(),"unstaged_native":unstaged.checkpoint(),"staged_selected":series(&staged)?,"unstaged_selected":series(&unstaged)?,"cached_diff":cached_diff,"working_diff":working_diff,"dirty_status":dirty_status,"dirty_remove_refused":dirty_remove_refused,"copy_snapshot_during_refusal":copies_before,"worktree_removed":true,"job_ended_after_worktree":true,"automatic_writer_enrollment":false}),
+        )
     }
 
     fn exchange(&mut self, first: &str) -> Result<(String, Object)> {
@@ -857,7 +1001,7 @@ impl Demo {
                 match fs::read(path) {
                     Ok(bytes) => {
                         if Object::from_bytes(&bytes) != *object {
-                            return Err("copy changed during Git exchange".into());
+                            return Err("copy changed during sample rehearsal".into());
                         }
                         copies.insert(name, object);
                     }
@@ -874,13 +1018,19 @@ fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
-    if args.len() != 2 || (args[0] != "rehearse-ordinary" && args[0] != "rehearse-exchange") {
-        return Err("usage: tig-sample describe | rehearse-ordinary NEW_ABSOLUTE_ROOT | rehearse-exchange NEW_ABSOLUTE_ROOT".into());
+    if args.len() != 2 {
+        return Err("usage: tig-sample describe | rehearse-ordinary|rehearse-exchange|rehearse-worktree NEW_ABSOLUTE_ROOT".into());
     }
-    Demo::new(Path::new(&args[1]))?.run(args[0] == "rehearse-exchange")
+    let mode = match args[0].to_str() {
+        Some("rehearse-ordinary") => Mode::Ordinary,
+        Some("rehearse-exchange") => Mode::Exchange,
+        Some("rehearse-worktree") => Mode::Worktree,
+        _ => return Err("unknown sample operation".into()),
+    };
+    Demo::new(Path::new(&args[1]))?.run(mode)
 }
 fn main() -> ExitCode {
     match run() {

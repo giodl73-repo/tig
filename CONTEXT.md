@@ -1,5 +1,15 @@
 # Tig maintainer context
 
+Active owned lane: feat/teaching-worktree, input27a6eb4. Contract:
+specs/TEACHING-WORKTREE.md; review/EVID-117 separate implementation/verification/
+validation/trace/six producer lenses. Linked worktree/index capture, dirty-removal
+preservation and a job that outlives checkout closure are locally qualified.
+Four native/API/shipped-controls cases,73 controller cases, both workspace/
+both500k/strict/standalone profiles and fresh persistent artifact pass. All local
+handles are terminal. Parent PR47 exact-head run42748580854 passes Windows/Linux/
+secrets and is ready; no merge/deploy. Current source pin/push/draft and hosted/
+browser/human qualification remain. Browser permission is unanswered; see RESUME.
+
 Active owned lane: feat/teaching-exchange at input618628a; runtime
 8f17aa9a711fcb6d372fb2f267f67ef2ac313692. Contract:
 specs/TEACHING-EXCHANGE.md; review/EVID-116 separate implementation/verification/

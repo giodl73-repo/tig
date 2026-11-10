@@ -51,6 +51,33 @@ automatic pull hook or general live-source adoption. The bare Git remote is not
 a payload backup. Remote byte publication, offline backup and complete command/
 worktree/failure lessons remain separate course obligations.
 
+For linked worktree and index lessons, choose another fresh output root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-worktree ABSOLUTE_NEW_OUTPUT
+```
+
+Its twelve recorded checkpoints include the ordinary seven, then **worktree open
+v1**, **index staged v2**, **index unstaged v1**, **worktree closed job active**
+and **worktree job ended**. The primary checkout stays at v2 throughout.
+
+| Command / trigger | Checked Git/source result | Verified placement |
+| --- | --- | --- |
+| `git worktree add --detach` | Separate review checkout/index at v1; explicit fixture draft and job admitted | Original returns to F+M; current fixed version and shared input remain F+M |
+| `git add`, `git diff --cached`, `git diff`, `git status` | Review index selects v2; a later working-file edit selects v1 and yields `MM`; captured index/native snapshot still selects v2 | Old job preserves original nearby across draft changes |
+| Dirty `git worktree remove` | Refuses without force; exact edited file and managed copies remain | No claim withdrawal or placement call for the refusal |
+| `git restore --staged --source=HEAD` | Review index returns to v1; old captured v2 snapshot stays exact; primary index/HEAD remain unchanged | Explicit index-draft adoption keeps the independent old job protected |
+| Clean `git worktree remove`, then draft withdrawal | Removes only the verified fresh child checkout | Original remains F+M because the job is still active |
+| Explicit job end and fresh reconciliation | Job obligation ends separately | Original demotes to D+M; fixed version and shared input remain F+M |
+
+`worktree.json` pins actual commit, index and native-context identities, status/
+diff results and dirty-removal preservation. Its hash/size is in the CLI result.
+The catalogue's **Associated Git commit** is a reference for the lesson; separate
+admitted index/draft/job snapshots also contribute placement demand. `git add`
+stages a small record here. No hook discovers/enrolls real worktrees or uploads
+payloads. Worktree removal does not delete retained asset bytes. General native
+writer integration and complete command/failure/retirement lessons remain open.
+
 In the catalogue, choose **Learn Tig · sample lessons**. Use the lesson selector
 or Previous/Next to compare each object's earlier recorded copies, the plan's
 desired roles and the freshly verified copies recorded after that step. Follow
@@ -83,8 +110,9 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, eleven specified checkpoints and seven counterexamples. The
-ordinary runner executes seven; exchange executes ten. Final retirement remains
+seeds, two works, sixteen specified checkpoints and seven baseline counterexamples.
+The ordinary runner executes seven; exchange executes ten; worktree executes
+twelve. Exchange/worktree add checked dirty-operation counterexamples. Final retirement remains
 a target-only checkpoint. Hashes
 and byte sizes identify real generated inputs. Expected copies are literal
 independent assertions for the existing executor; the file is not executed

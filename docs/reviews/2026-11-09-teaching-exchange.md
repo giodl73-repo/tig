@@ -59,7 +59,8 @@ fmt check, explicit schema bin build, ten-checkpoint exchange CLI and catalogue
 check (read_only=true,payloads_opened=0 during enrollment validation). The public
 persistent sample is retained outside source. Structural/pin/diff and changed-source
 secret checks pass. Final documentation pins/diff and the two-commit secret scan
-qualify the source pin; exact-head hosted checks remain open.
+qualify the source pin. Exact-head run42748580854 at27a6eb4f3ebd11743d2772694ec2ea2b3242732f
+passes Windows, Linux and secrets; PR47 is ready for review, no merge/deployment.
 Browser/layout/keyboard acceptance is separate from the shipped-script fixtures.
 Parent PR46 exact-head run42744449594 at618628a terminates SUCCESS for Windows,
 Linux and secrets; PR46 is ready for review. No merge/deployment. This is parent

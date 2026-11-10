@@ -8,6 +8,34 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Active owned lane: feat/teaching-worktree,
+  input27a6eb4f3ebd11743d2772694ec2ea2b3242732f. TEACHING-WORKTREE.md and review/
+  EVID-117 name controls/scope/entry/exit and separate closure records. Explicit
+  rehearse-worktree adds five actual checkpoints to the ordinary seven: captured
+  linked worktree/index, dirty-removal refusal, unstaging, clean checkout closure
+  with job still active, then explicit job end. Existing source/placement/provider
+  APIs are reused; select_snapshot admits exact native commit/index views.
+  Caption says Associated Git commit because draft/job/index snapshots contribute
+  separate demand. No core SDK/general writer enrollment or browser command bridge.
+  Native70905/final81014 pass four actual CLI/provider/catalogue cases, metadata
+  refusals/isolation and authenticated HTTP -> twelve shipped lesson controls;
+  final81014 also passes strict schema workspace Clippy. All73 controller cases
+  pass. Default71185/all-feature18682 terminate0: workspace/both500k/strict and
+  standalone Git. No Rust edits followed broad starts. Artifact9072 terminates0:
+  fmt, fresh schema bins, twelve-checkpoint CLI and catalogue check with
+  read_only=true,payloads_opened=0. Persistent public root:
+  worktree-public-6bdc5fecc7a44f2c8e0696f4a2366418 in external bulk-retirement
+  dev temp. Targets teaching-playback / teaching-playback-all; all local handles
+  terminal. Initial L0/source-secrets pass659 files/7071833 bytes. Source pin/push/
+  draft and final documentation pins/commit-secrets/hosted remain pending.
+  Parent PR47 at27a6eb4 run42748580854 passes Windows/Linux/secrets and is ready.
+  No merge/deploy, existing-root operations or browser interaction. Prior browser
+  approval request remains unanswered; generic continue was not treated as explicit
+  browser permission. Continue independent CLI/fixture work while awaiting it.
+  Full remote-byte/offline-backup, command/fault/restart/final-loss/expiry course,
+  native/provider/lifetime and browser/classroom/full product acceptance stay open.
+  Older lane notes below are historical; preserve viewers/runtime bindings.
+
 - Active owned lane: feat/teaching-exchange,
   input618628a1571082474576061de4510ee54a59f1ad. Contract TEACHING-EXCHANGE.md,
   review/EVID-116 name controls, scope, entry/exit and separate closure records.

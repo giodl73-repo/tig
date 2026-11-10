@@ -61,6 +61,13 @@ three existing-engine placement checkpoints in the same recorded catalogue.
 It separates metadata transport from explicit source adoption and byte placement;
 remote byte publication/offline backup and full course acceptance remain open.
 
+The [worktree/index rehearsal](specs/TEACHING-WORKTREE.md) adds an independent
+linked checkout and captured index, staging/unstaging, dirty-removal refusal and
+job protection that survives checkout closure. Twelve actual sealed checkpoints
+use the existing source and placement APIs; the associated Git commit is distinct
+from contributing index/draft/job snapshots. General native writer/adoption and
+complete command/failure/final-loss/expiry teaching remain open.
+
 The [paged operator candidate](specs/PAGED-OPERATOR.md) now exposes explicit
 existing-root copy-index staging, whole-selection planning, original scope pages,
 witness peak/status and separately approved apply/resume/cancel through

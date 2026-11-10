@@ -1,5 +1,11 @@
 # Intended-use validation
 
+EVID-117 rehearses independent linked worktree/index views, immutable captured
+native selection, preserved dirty removal and a job that outlives its checkout.
+Twelve actual reports render through the existing catalogue. No complete VAL,
+native writer/remote-byte/full fault/final-loss/expiry course or browser/classroom
+acceptance is closed. See [review](../reviews/2026-11-09-teaching-worktree.md).
+
 EVID-116 rehearses public Git metadata exchange through a local bare remote,
 unchanged fetch checkout, preserved dirty pull refusal and explicit post-pull
 source adoption/reconciliation. Ten actual reports render in the existing

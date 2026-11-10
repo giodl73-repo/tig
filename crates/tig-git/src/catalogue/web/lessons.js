@@ -43,7 +43,7 @@ function selectLesson(book,index){
  const area=$('assets');area.replaceChildren();
  area.append(node('p','callout','Recorded rehearsal · synthetic admitted domains. These are saved verified observations, not a check of current hardware custody.'));
  area.append(node('p','lesson-event',lesson.event));
- const source=node('p','muted','Git snapshot '+lesson.source_commit.slice(0,12)+(lesson.source_available?' · available in this catalogue':' · source metadata unavailable here'));
+ const source=node('p','muted','Associated Git commit '+lesson.source_commit.slice(0,12)+(lesson.source_available?' · available in this catalogue':' · source metadata unavailable here')+'. Drafts and jobs may contribute separate admitted snapshots.');
  source.title=lesson.source_commit;area.append(source);
  if(!lesson.converged||!lesson.basis_current||lesson.holds.length)area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
  const wrap=node('div','object-table-wrap'),table=node('table','object-manager-table lesson-object-table'),head=node('thead'),header=node('tr');
