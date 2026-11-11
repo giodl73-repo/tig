@@ -1,19 +1,23 @@
 # Tig resume state
 
-Active owned lane: feat/placement-final-absence in placement-final-absence
-worktree, input81ecc27eba6289f2639174c7872be3c53583f5ee. Contract-only EVID-124:
-specs/PLACEMENT-FINAL-ABSENCE.md and its entry review precede code. Current-birth,
-settled final status and physical absence may satisfy only an unrequired cache;
-required destinations keep explicit reacquisition. No runtime change yet.
-Parent PR54 at81ecc27: focused15/23/81/strict pass, full workspace handles6457
-(all-feature teaching-playback-all) and57936(schema teaching-playback, then
-standalone/fresh artifact) remain LIVE. Do not overlap either target or restart
-on timeout. Their per-phase .exit files/logs stay in external bulk-retirement temp.
-Exact PR54 run43059041378 is running. Parent PR53 correctedad64f03 Linux/secrets
-pass in43057224855; Windows still running. No ready/merge/deploy inference.
-Next: contract commit, read-only helper and full refusal/restore proof matrix;
-wait for free targets before Cargo. Full goal/provider/authority/lifetime/human
-acceptance remains OPEN. No live cache/daemon/viewer/browser operations.
+Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29
+precedes runtime code. Private settled-final-absence observation/no-effect skip
+is implemented; required destinations keep FinalRetirement. Final13 focused SDK
+entries/3 actual exits/fmt/strict63500 pass. All15 teaching82636 and81 controls
+pass; final ordinary-provider fast path is covered by13/strict and live broad runs.
+EVID-124 records initial fixture assertion/setup failures separately from passes.
+Both full workspace/500k/strict runs LIVE: default24981 in teaching-playback,
+all-feature61132 in teaching-playback-all. Default continues standalone Git/fmt/
+fresh bins and persisted final-git-return/final-reacquire catalogue checks. Phase
+.exit files and placement-final-absence-*.log are external. Never overlap targets
+or restart on observation timeout. No further runtime changes planned.
+Next: source checkpoint, merge parent closeout71d7028, final source gates and
+broad/artifact terminals, then draft PR/exact-head hosted checks. Parent runtime
+81ecc27 PR54 passes both hosts/secrets43059041378 and all local gates; documentation
+closeout71d7028 has separate pending CI. PR53/ad64f03 passes43057224855 and is ready.
+Full joined teaching/provider/current authority/large-file/restore/lifetime/
+metadata expiry and human acceptance remain OPEN. No live cache, daemon,
+viewer/browser, deployment or PR merge. Explicit UTF8 and external roots only.
 Older lane notes below describe the input implementation.
 
 Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,

@@ -42,8 +42,10 @@ certifying full requirements or every consumer.
 Next reconciliation integration: [completed final absence](specs/PLACEMENT-FINAL-ABSENCE.md)
 will allow an unrequired, validated completed-deleted history copy to remain
 absent after explicit backup reacquisition and working restoration. Required
-stores keep their final-reacquisition fence. This contract-only slice precedes
-the joined public Git-return/acquisition/restore lesson; full qualification remains.
+stores keep their final-reacquisition fence. The private helper now passes13
+focused SDK entries/3 actual exits, strict Clippy, all15 teaching regressions and81
+controls; full profiles/source/artifact/hosted checks remain. The joined public
+Git-return/acquisition/restore lesson is still required.
 
 Next bounded teaching slice: [Git return after final loss](specs/TEACHING-GIT-RETURN.md)
 will admit an exact old-version snapshot under a new Git/source revision and show

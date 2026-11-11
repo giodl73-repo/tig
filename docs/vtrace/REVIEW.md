@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-124: [final absence](../reviews/2026-11-11-placement-final-absence.md); entry.
+EVID-124: [final absence](../reviews/2026-11-11-placement-final-absence.md); focused.
 
 EVID-123: [Git return lenses](../reviews/2026-11-11-teaching-git-return.md); focused.
 

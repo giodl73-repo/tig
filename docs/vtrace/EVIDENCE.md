@@ -1,8 +1,9 @@
 # Evidence index
 
-EVID-124 (contract only): [final-absence entry review](../reviews/2026-11-11-placement-final-absence.md)
-names read-only/no-effect placement refinement and required-destination fences.
-No runtime or qualification claim yet. Full plan remains active.
+EVID-124 (focused candidate): [final-absence entry review](../reviews/2026-11-11-placement-final-absence.md)
+records read-only/no-effect settled absence with required-destination fences.
+Final13/3 actual exits/strict63500, all15 teaching82636 and81 controls pass; full
+profiles24981/61132 and source/artifact/hosted/full intended-use gates remain.
 
 EVID-123 (focused candidate): [Git return review](../reviews/2026-11-11-teaching-git-return.md)
 records actual new Git/source selection after final loss, held missing bytes and

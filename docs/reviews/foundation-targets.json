@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 28102,
-      "sha256": "12ef9ca576ee503dac4e127c72913416aa51b94effb4ed9ed89126e9b87a0fc1"
+      "bytes": 28439,
+      "sha256": "fb33d37d7b0014d2dc5cf5259e57c80b384e11666128dd85f8db9f4e2c0bdcbd"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 112007,
-      "sha256": "845170dcd4f5c3bf72d8109f8321e48a5047aec063100751fb80f9d78e49813e"
+      "bytes": 112105,
+      "sha256": "69c35898db515dba402072cd7713e54b8de4e98d3024e745c7b19ab228a795d9"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130875,
-      "sha256": "273dd8f6f2adfd4f71d2da3cb998896eeeb40e9d568f27341fda35c2904bc6cd"
+      "bytes": 130877,
+      "sha256": "f7c98f1d417553e0d634018c781398f61e3b2943e8d79460c1bb9fc7653df47b"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 50926,
-      "sha256": "30696c8b8eb2ab0c6e74dea5354a7855b29b910a2717cbfaf706e0bd4a67fd12"
+      "bytes": 51031,
+      "sha256": "7af6474667f606a56917a41a49b269c92046f8ed79d995a1bb59061a0574f15c"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 52527,
-      "sha256": "e16bd09292143074f50f41f3a92afa6719f31c1e9cc235bce123ecff91ce35ed"
+      "bytes": 52661,
+      "sha256": "a0bfe832c704b97b3680fc29aa4b1fdc1686b3ca21cb4b78d1d75e01f0d37fd5"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 91427,
+      "bytes": 91764,
       "path": "context/RESUME.md",
-      "sha256": "b712e3e2b6f7cc603a965277700b3fa9dc65badb46f55f1a2c63743848d7283a"
+      "sha256": "bea7f8ab32643f1d5c22dbb4a430c649e8a17bdc53735745777f80131b857feb"
     },
     {
       "bytes": 16453,
@@ -2064,8 +2064,8 @@
     },
     {
       "path": "crates/tig-store/src/placement/execute.rs",
-      "bytes": 39704,
-      "sha256": "acef5c94b5b6c455f91217d725dc7e5b4dd401aebceaa08a1e90b252c784e4ce"
+      "bytes": 42224,
+      "sha256": "80b14ba79778370397747a210c3e1f2149065ba167ee9f7045a468f19ac85841"
     },
     {
       "path": "crates/tig-store/src/placement/tests.rs",
@@ -2074,8 +2074,8 @@
     },
     {
       "path": "specs/PLACEMENT-RECONCILIATION.md",
-      "bytes": 9755,
-      "sha256": "8f6a95673fa980db762a433bfe1cf8d601fa1a8d836d8c44c50ba6b86be5d77d"
+      "bytes": 9911,
+      "sha256": "3544247994266c765c8895090d3bfe30819f68e248fa8e5df6752908c4c2202d"
     },
     {
       "sha256": "7bf1b26bd35e3ed596cbcdc099f1b5e8ef39fcc2592e02f463b5064974027ca6",
@@ -2314,8 +2314,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases.rs",
-      "bytes": 5184,
-      "sha256": "6bebaac74a38a06214cb9d7f7259c2a4bcc2c4bf02394d0a0fcb7e4c0bc553ae"
+      "bytes": 5203,
+      "sha256": "c11dd782eb5bfb78ff6abc8acb29eb46538721813dd83688b7a77854f49069cb"
     },
     {
       "path": "docs/reviews/2026-11-09-final-provider.md",
@@ -2999,13 +2999,18 @@
     },
     {
       "path": "docs/reviews/2026-11-11-placement-final-absence.md",
-      "bytes": 3150,
-      "sha256": "058ff73ef6485746671f06b4f920cb0213ec7e3789a1038e92883b0a1e1e21ab"
+      "bytes": 7502,
+      "sha256": "836693bf68cb5b9bb9965880e71b9dc94712f358e7f4071808b070670235ddfa"
     },
     {
       "path": "specs/PLACEMENT-FINAL-ABSENCE.md",
       "bytes": 6744,
       "sha256": "1ed388107ce8ea7a79cb0945cb55ad8721478a52a543f3d8677f0385be982f12"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases/final_absence.rs",
+      "bytes": 31293,
+      "sha256": "8b47b443c73c0a7767cd8c546f36d55034a366d189c3523edf4e4b6d5e1521e7"
     }
   ]
 }
