@@ -1,5 +1,9 @@
 # Tig trace
 
+Completed final absence: PLACEMENT-FINAL-ABSENCE -> current-birth/final-status/
+settled-capacity proof + unrequired-cache no-effect branch -> EVID-124 entry.
+Implementation and runtime qualification remain OPEN.
+
 Git return: TEACHING-GIT-RETURN -> frozen physical oracle/actual Git/source/SDK
 held attempt -> distinct recorded decoder/response4 -> literal bytes/absence,
 HTTP/shipped controls/21 semantic refusals -> EVID-123 focused candidate.

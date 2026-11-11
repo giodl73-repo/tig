@@ -1,5 +1,21 @@
 # Tig resume state
 
+Active owned lane: feat/placement-final-absence in placement-final-absence
+worktree, input81ecc27eba6289f2639174c7872be3c53583f5ee. Contract-only EVID-124:
+specs/PLACEMENT-FINAL-ABSENCE.md and its entry review precede code. Current-birth,
+settled final status and physical absence may satisfy only an unrequired cache;
+required destinations keep explicit reacquisition. No runtime change yet.
+Parent PR54 at81ecc27: focused15/23/81/strict pass, full workspace handles6457
+(all-feature teaching-playback-all) and57936(schema teaching-playback, then
+standalone/fresh artifact) remain LIVE. Do not overlap either target or restart
+on timeout. Their per-phase .exit files/logs stay in external bulk-retirement temp.
+Exact PR54 run43059041378 is running. Parent PR53 correctedad64f03 Linux/secrets
+pass in43057224855; Windows still running. No ready/merge/deploy inference.
+Next: contract commit, read-only helper and full refusal/restore proof matrix;
+wait for free targets before Cargo. Full goal/provider/authority/lifetime/human
+acceptance remains OPEN. No live cache/daemon/viewer/browser operations.
+Older lane notes below describe the input implementation.
+
 Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
 bulk final deletion and eventual metadata retirement. The full goal is not done.
 Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.
