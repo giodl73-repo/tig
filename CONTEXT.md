@@ -1,5 +1,15 @@
 # Tig maintainer context
 
+Current reacquisition source3c2e5cb is pushed as draft PR53. Exact hosted
+run43054770000 failed Linux on Tree(Store("metadata busy")) in the strengthened
+age peer test; Windows cancelled, secrets/structure/controllers passed. The
+metadata adapter explicitly maps Busy to this exact wrapper. Test-only guard
+now admits that exact wrapper; other Store failures remain rejected. All15 age
+cases and strict all-feature Clippy pass in terminal18570. No production change.
+Commit/push correction, then inspect exact-head hosted checks. Full plan stays
+active; Git-return implementation continues in its separate owned worktree.
+Older implementation/qualification notes below are historical.
+
 Current owned lane: feat/teaching-reacquisition, input
 3f3adc74b351e9f36323abe47374ef8c32692b2a; contract commit185865b precedes code.
 Runtime remains uncommitted. EVID-122/TEACHING-REACQUISITION.md record separate

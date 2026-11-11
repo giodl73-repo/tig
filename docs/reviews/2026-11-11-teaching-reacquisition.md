@@ -103,3 +103,14 @@ runner/export/decoder/UI/tests; roles are not independent reviewers or authority
 Disposition: pass_with_risk for focused synthetic behavior. Local implementation, verification, synthetic validation, trace and six producer
 lenses close separately for this candidate. Exact-head hosted qualification and
 full contract/product/human acceptance remain open.
+
+## Hosted contention wrapper correction
+
+Exact-head run43054770000 at3c2e5cb passes secrets/structure/controllers but
+fails Linux on the strengthened race's unexpected-error guard:
+Tree(Store("metadata busy")). Windows is cancelled by fail-fast. The deterministic
+both-Busy recovery case passed on Linux. metadata.rs::tree_error explicitly maps
+Metadata::Busy to exactly this TreeError wrapper. Admit only that exact spelling
+alongside the typed Busy/conflict cases; all other Store errors remain failures.
+No production capture or metadata algorithm changes. Terminal18570 passes all15 age cases and strict all-feature workspace/all-target
+Clippy. Hosted correction qualification remains pending; the failed run is not a pass.
