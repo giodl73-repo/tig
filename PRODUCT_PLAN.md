@@ -39,6 +39,12 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next public integration: [joined return and restore](specs/TEACHING-RETURN-RESTORE.md)
+will carry one catalogue through final loss, accepted Git return with missing
+bytes, explicit M reacquisition, then actual F/M convergence with D left absent.
+Both new streams and the expired old deletion replay need independent evidence.
+Contract only at entry; this is required before claiming the joined lesson.
+
 Next reconciliation integration: [completed final absence](specs/PLACEMENT-FINAL-ABSENCE.md)
 will allow an unrequired, validated completed-deleted history copy to remain
 absent after explicit backup reacquisition and working restoration. Required

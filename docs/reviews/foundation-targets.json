@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 28482,
-      "sha256": "a0a69793fde4e85bb8a32afa45c041880749b5cdc4f5a9bf0203f0211f69c8b8"
+      "bytes": 29665,
+      "sha256": "1a5c09712e04f7200da2192f61c3d1330b5747107b79fe5a21047b8525d3ebb5"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 52734,
-      "sha256": "353a4dc383229669b6f5c5fecbddf3c1f735fada8f3b822d220198bf42fccb39"
+      "bytes": 53137,
+      "sha256": "bd836b963fe2738ab8586464722d0d717a6f45b05d4faa9fab5627464adc4cb4"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 91807,
+      "bytes": 92990,
       "path": "context/RESUME.md",
-      "sha256": "02dd06fe30b9ceb45871162b80dc2bc4399a0b37c316493bc08484138e724c55"
+      "sha256": "59e9aa621a2b08b13e123110fe7f8f85249c199045a501771f07f737b659047d"
     },
     {
       "bytes": 16453,
@@ -3011,6 +3011,11 @@
       "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases/final_absence.rs",
       "bytes": 31293,
       "sha256": "8b47b443c73c0a7767cd8c546f36d55034a366d189c3523edf4e4b6d5e1521e7"
+    },
+    {
+      "path": "specs/TEACHING-RETURN-RESTORE.md",
+      "bytes": 6461,
+      "sha256": "bcdfa85e371f0e4df45e86cf6d9758b2e65b678cf1a468037534b4095a458735"
     }
   ]
 }

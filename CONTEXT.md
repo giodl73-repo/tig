@@ -1,5 +1,21 @@
 # Tig maintainer context
 
+Active owned lane feat/teaching-return-restore, input8e948d4. Read
+specs/TEACHING-RETURN-RESTORE.md before code. Contract-only; goal remains full
+PRODUCT_PLAN. Required11-step fresh public story: final loss -> returned source
+with missing O -> explicit retained M birth -> actual F/M restoration, D absent,
+old expired bulk replay with0 new/58 historical loss. General seed stays disabled.
+No provider replacement, lifecycle reset or relaxation of old readers. All private
+SDK APIs already exist; use actual accessor facts and independent literal oracles.
+Parent PR55/source8e948d4 has full local13/3 exits/15/81/both workspace+500k/strict/
+standalone/two persisted artifacts passed; exact43069646518 Linux/secrets pass,
+Windows pending at entry. Parent closeout docs are dirty in its own worktree.
+No task-owned Cargo processes; ignore other projects' builds. Both Tig dev targets
+are free. Use explicit external TEMP/TMP/target/debug0/incremental0/jobs4/threads4.
+No viewer/browser/live cache/daemon/deploy/PR merge. Full native/provider/current
+identity/time/large-file/lifetime/metadata expiry/human acceptance remains OPEN.
+Older notes below describe the input implementation.
+
 Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29
 precedes runtime code. Private settled-final-absence observation/no-effect skip
 is implemented; required destinations keep FinalRetirement. Final13 focused SDK
