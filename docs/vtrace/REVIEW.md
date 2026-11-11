@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-127: [working checkpoint](../reviews/2026-11-11-capacity-checkpoint.md); design.
+EVID-127: [working checkpoint](../reviews/2026-11-11-capacity-checkpoint.md); focused.
 
 EVID-126: [remote publication](../reviews/2026-11-11-teaching-remote-publication.md); focused.
 

@@ -44,7 +44,8 @@ requires active/in-flight accounting, exact historical replies and scoped durabl
 activation before sustained use; expiry additionally needs surviving authority/
 replay fences. First [paged working checkpoint](specs/CAPACITY-CHECKPOINT.md)
 builds a bounded core state codec and read-only existing-ledger export. This is
-contract-only and does not deliver segment activation, history pruning or expiry.
+implemented with focused recovery/export evidence; broader qualification remains
+open. It does not deliver segment activation, history pruning or expiry.
 No current cap, format or root is changed. Full plan/acceptance remains open.
 
 Next teaching integration: [remote byte publication](specs/TEACHING-REMOTE-PUBLICATION.md)
