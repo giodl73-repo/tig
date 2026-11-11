@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 26684,
-      "sha256": "e01c800ba5f51987d816af2d230b58a7c22cdd60bf17509efa7cdb42236b3035"
+      "bytes": 26698,
+      "sha256": "8a3193fc9c58ad92462d0784857140061d301974dd31fa9c06baa0bfd92a1224"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 89919,
+      "bytes": 89947,
       "path": "context/RESUME.md",
-      "sha256": "28b6f417d20bb425765d5bc013a43059bda2303dbe5e0b4556c6defdef10d400"
+      "sha256": "f0aa66b14731a8e02c7c8bfc8acb4d3343b354121d680c54529dfd15aef94a32"
     },
     {
       "bytes": 16453,
@@ -2524,8 +2524,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/age/tests.rs",
-      "bytes": 47507,
-      "sha256": "568573d3870d8ea3623e68616885c58e858622b206932c4a755ad111381a7885"
+      "bytes": 47596,
+      "sha256": "a77ef2c24ac653c47d82fb28daf9f1710a5cf5cbed7c34eb9e919342ec71f0b6"
     },
     {
       "path": "crates/tig-store/tests/age_cli.rs",
@@ -2959,8 +2959,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-reacquisition.md",
-      "bytes": 8527,
-      "sha256": "4a03ec369b19fa0ed95670f54d065f4f53dc235ffb788fa6a1e6ac31f9270692"
+      "bytes": 9256,
+      "sha256": "e709adeb4b086b6d7d0faed4201db1fc66a5113ff90ec25316b1600939ec026c"
     },
     {
       "path": "specs/TEACHING-REACQUISITION.md",

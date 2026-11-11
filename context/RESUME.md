@@ -21,7 +21,7 @@ source changes into running tools as a side effect. No startup cache operations.
   Terminal12251 native/physical/HTTP/shipped/21 semantic negatives and97155
   all15 teaching cases/final-stage rendering/strict schema pass. No Cargo live.
   Logs git-return-{probe,native,teaching}.log outside Git under bulk-retirement temp.
-  Next: checkpoint source, merge parent correction, full schema/all-feature/500k
+  Runtime23a15c7 is committed; parent correctionad64f03 integrated. Next: full schema/all-feature/500k
   profiles and strict checks, standalone Git, fresh persisted artifact,81 controls,
   source/secret gates, draft PR and exact-head hosted qualification. Keep explicit
   external TEMP/TMP/target and debug0/incremental0/jobs4/threads4 before Cargo.
@@ -29,7 +29,7 @@ source changes into running tools as a side effect. No startup cache operations.
   Windows cancelled, secrets/structure/controllers pass. Test-only correctionad64f03
   admits only this explicit metadata adapter wrapper; other Store failures reject.
   All15 age/strict all-feature18570 pass. New exact run43057224855 is pending.
-  Integrate parent source correction before final broad/hosted qualification.
+  Parent source correction is integrated; final broad/hosted qualification remains.
   Full PRODUCT_PLAN remains active; joined acquisition/restoration, complete
   course/provider/current-authority/large-file/lifetime/human acceptance stay OPEN.
   No viewer/browser/live caches/deployment or PR merge.
