@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 30686,
-      "sha256": "5d0d4cca1cae36db4d6cd5f2a6b0447037cd4fba0c31b8513ee368c8e145471c"
+      "bytes": 31906,
+      "sha256": "c525c846ddbe73c4177e482294732e67d1f0f5488f952fa4826d9b9386dc878a"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130981,
-      "sha256": "3016feb46ce8a040b7fd9309c61f40885d9ae4057f4621449df64c51d0e373bd"
+      "bytes": 130626,
+      "sha256": "4df1279af3c66d435e591c8a5153b3c8ef34854ad517b49502ad9224b26e94b0"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 53777,
-      "sha256": "6e214c42cfa2dfe6bf5fe6f6b37ce4474bc6056e1b64b4a05a065e99005e50c8"
+      "bytes": 54346,
+      "sha256": "c8e1342c63bba43f2c8874a67b14f8f7701372aa6e93db3fe7a9d759d8ed5e0f"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 94011,
-      "sha256": "fc3c683c5d43a685a4cad37cfafd3423a19699b24b923e4b4b58d0ae007cd7f1"
+      "bytes": 95231,
+      "sha256": "dc1272dd4f5945cb76fc77d770f8b91a26217115e15014590a684a1195b1f190"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -2814,13 +2814,13 @@
     },
     {
       "path": "examples/catalogue/lifecycle.design-1.json",
-      "bytes": 18130,
-      "sha256": "1fe7065600f9b7930d05a65f61d0004e0cd65084a366f51a8eb79d6d09883864"
+      "bytes": 20711,
+      "sha256": "e5d19a569ef9c12d334035a50bfc265ab4b5129968c9481f7ac89159a7a78ced"
     },
     {
       "path": "examples/catalogue/README.md",
-      "bytes": 22333,
-      "sha256": "81538c6060aae7eec80d3c29c1115715b1d27320d10d2292050246f35ade4b6f"
+      "bytes": 22627,
+      "sha256": "840487bfeb9951fb4424d4fce16475089be9435cdd802d8fb78eb9fe74f93fdd"
     },
     {
       "path": "specs/TEACHING-CATALOGUE.md",
@@ -3436,6 +3436,16 @@
       "path": "specs/PROTECTED-WORKING-HANDOFF.md",
       "bytes": 4501,
       "sha256": "dc019cc386d375d718f563211047c954c59a8141299786da5679ce7788b5c340"
+    },
+    {
+      "path": "specs/TEACHING-REMOTE-PUBLICATION.md",
+      "bytes": 7963,
+      "sha256": "0d5a1e1e329620811b1d619f908b1284c2bfe0da5c940c2dab1f26e8f7f3f487"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-teaching-remote-publication.md",
+      "bytes": 3118,
+      "sha256": "6acc195aadcf1d11a7c8dc6baedf35868725468284b4baeb554976227aede9f5"
     }
   ]
 }

@@ -1,5 +1,21 @@
 # Tig maintainer context
 
+Active owned lane feat/teaching-remote-publication, input2ec1a2e8c9e22227d53b548fc72c7fdb7c42830d.
+Read specs/TEACHING-REMOTE-PUBLICATION.md before code. Contract-only: new optional
+schema+upload fresh14-step story adds disabled upload, actual current N/S54-byte
+publication, corrupt-readback hold and same-plan recheck after actual Git exchange.
+Fixed sibling existing tig-lfs CLI and fixture-only bounded loopback endpoint over
+existing accounted LocalStore; no new engine or SDK production algorithm/format.
+Literal oracle frozen before code: all four stages O D/M, N+S F/M; R empty then
+N/S, with client retained_custody/removal_authority false throughout. Separate
+staging/PUT/bodyIO counts. Read-only catalogue must not turn R into a backup role.
+Both external targets are free. No task-owned Cargo processes or live caches.
+Parent PR56/source2ec1a2e exact43084141022 Windows/Linux LIVE, secrets pass at entry;
+parent local both workspace/500k/strict/standalone/fresh11-step artifact qualify.
+Full PRODUCT_PLAN remains active. No browser/viewer/daemon/live root/deploy/merge.
+Use explicit external TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8.
+Older notes below describe the input implementation.
+
 Active owned lane feat/teaching-return-restore; PR56 (base feat/placement-final-absence).
 Input8e948d4/contractaa63946 precede teaching runtimeacbd4a9. Contract8a01079
 precedes test-only age Journal(Busy) correctionc2fcd06; no SDK production change.

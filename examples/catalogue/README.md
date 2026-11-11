@@ -176,7 +176,7 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, twenty-six specified checkpoints and seven baseline counterexamples.
+seeds, two works, thirty specified checkpoints and seven baseline counterexamples.
 The ordinary runner executes seven; exchange executes ten; worktree executes
 twelve; backup-outage executes nine including held/catchup stages; stale-plan
 executes ten including rejected/fresh-plan stages; rename executes eight with
@@ -328,3 +328,9 @@ only; changing lessons cannot execute movement or deletion. These eleven steps
 do not yet complete the full course or qualify real providers, current authority,
 clock, large files, metadata expiry or classroom acceptance. See the
 [joined contract](../../specs/TEACHING-RETURN-RESTORE.md).
+
+
+Remote byte publication is the next contract-only chapter: see
+[its scope and frozen oracle](../../specs/TEACHING-REMOTE-PUBLICATION.md).
+The planned14-step mode is not available yet. Existing Git exchange moves small
+metadata; it does not imply that payloads were uploaded or retained remotely.

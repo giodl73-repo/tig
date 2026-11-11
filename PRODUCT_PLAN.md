@@ -39,6 +39,14 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next teaching integration: [remote byte publication](specs/TEACHING-REMOTE-PUBLICATION.md)
+composes actual Git exchange with the existing optional LFS upload CLI and a
+fresh bounded loopback receiver over existing providers. Its four frozen stages
+require disabled0HTTP, actual54-byte publication, corrupt-readback hold and exact
+recheck without new PUTs; F/D/M remain unchanged and remote custody stays false.
+This is contract-only; no new mode is available or qualified. Full course,
+provider/current authority/clock/lifetime/metadata expiry and human gates remain.
+
 The [joined return and restore](specs/TEACHING-RETURN-RESTORE.md) now
 carries one fresh catalogue through final loss, accepted Git return with missing
 bytes, explicit retained M reacquisition and actual F/M convergence with D absent.
