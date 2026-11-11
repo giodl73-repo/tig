@@ -14,7 +14,8 @@ targets; durable return-restore phase.exit files/logs outside Git. Default also
 runs standalone/fmt/fresh schema bins/persisted11-step sample/readonly check.
 Never overlap/restart targets on observation timeout. No runtime edits planned.
 Parent PR55 source8e948d4 exact43069646518 Windows/Linux/secrets all pass; ready.
-Parent closeout docs remain dirty in its own worktree; integrate after checkpoint.
+Parent documentation closeouta25552a is integrated; runtime remains acbd4a9.
+Its source-only exact hosted check is separate from passed runtime8e948d4.
 Full PRODUCT_PLAN/course/native/provider/current-authority/time/large-file/
 lifetime/metadata expiry/operator/UI/Action/human acceptance remain OPEN.
 No viewer/browser/live cache/daemon/deploy/merge. Use UTF8 and explicit external

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 30041,
-      "sha256": "54e809042581163aa28e3749db2c88baeb15fe1bfda704e24708845f43e8becb"
+      "bytes": 30110,
+      "sha256": "2e5687f4b2191bf94981cae3c1c952256e6210539923efa0574f6e9ee587d467"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 93366,
-      "sha256": "72e3f5df0d803ab6505d8cf16bb68ca6fb4bdfcb2b7d4eb0e56bfacfa6eb8eed"
+      "bytes": 93435,
+      "sha256": "9c2184692adb99488bf991665ce3e24bf8cd813cce05fc52dec5f9d8851fe37d"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -2999,8 +2999,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-placement-final-absence.md",
-      "bytes": 7502,
-      "sha256": "836693bf68cb5b9bb9965880e71b9dc94712f358e7f4071808b070670235ddfa"
+      "bytes": 8216,
+      "sha256": "a0209d441bdf47dcad5ca6bf3086836746d30a61012096d60a1b9481f47dad21"
     },
     {
       "path": "specs/PLACEMENT-FINAL-ABSENCE.md",
