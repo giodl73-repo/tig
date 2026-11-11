@@ -3509,8 +3509,8 @@
     },
     {
       "path": "specs/LEDGER-HISTORY.md",
-      "bytes": 13434,
-      "sha256": "afd6f51c6238f9c4a48c301b2c8a1464c4b3f4398fd21780d771bfd6a55b327d"
+      "bytes": 14461,
+      "sha256": "8ee7cbd3e0f8b86807886be3f4109185b9ca818a5ac6fc69491f9affc185ab4b"
     },
     {
       "path": "crates/tig-core/src/capacity/history.rs",
