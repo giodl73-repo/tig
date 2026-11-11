@@ -1,19 +1,66 @@
 # Tig maintainer context
 
-Git-return runtime81ecc27eba6289f2639174c7872be3c53583f5ee is qualified:
-all15/23 negatives/81 controls, both workspace/500k/strict profiles6457/57936,
-standalone Git, fmt and fresh persisted nine-checkpoint sample all pass. All
-phase exits and local handles are terminal0. Exact run43059041378 passes
-Windows/Linux/secrets; PR54 is ready, no merge/deploy. EVID-123 closes scoped
-implementation/verification/validation/trace/producer review separately.
-This documentation closeout has its own source/CI gate; runtime code is frozen.
-Parent PR53 ad64f03 also passes exact43057224855 and is ready. Source qualification
-is not browser, human, current authority/provider/lifetime or full-plan acceptance.
-Next owned work: feat/placement-final-absence, contracta36aa29, input81ecc27.
-Its private read-only helper and synthetic refusal/restore fixtures are separate
-uncommitted work; never use this parent qualification as proof of that SDK delta.
-No live caches, startup jobs, viewer/browser or runtime deployment are enabled.
-Use explicit UTF8 text IO and external build/temp roots. Full goal remains active.
+Current source8e948d4791c64f41a4d76d66195a709a73890e54 is pushed as ready PR55:
+https://github.com/giodl73-repo/tig/pull/55 (base feat/teaching-git-return).
+Runtime923a40c; contracta36aa29 precedes code. Exact run43069646518 passes
+Windows/Linux/secrets; PR55 is ready for review. Parent PR54 doc head
+71d7028 passes exact43066253510 Windows/Linux/secrets; ready, no merge/deploy.
+SDK broad24981/default and61132/all-feature are now TERMINAL0, including both
+workspace/500k/strict profiles. Default also passes standalone/fmt/fresh schema
+bins and persisted final-git-return/final-reacquire catalogue checks. All phase
+.exit files are0; no task-owned Cargo process remains. Earlier LIVE notes below
+are historical. Final13/3 actual exits/strict63500, all15 teaching82636 and81
+controllers pass. Source/history secrets and structure/pins/diff pass at8e948d4.
+This documentation closeout records hosted success separately from runtime.
+Artifacts are listed in external placement-final-absence-artifact-roots.txt:
+final-git-return-28f79577b2c64d398f4bcb19b580586f and
+final-reacquire-5cedd06eee6c4abe8e0becc0997a57bf, both prefixed placement-final-
+absence-. Each records9 checkpoints, complete_course=false; readonly check opens
+0 payloads and automatic_eviction=false. No viewer/browser/live cache was used.
+Next: exact-head PR55 hosted terminal/closeout, then joined public return ->
+explicit M reacquisition -> F restoration without D resurrection and old-retry
+preservation. Full course/provider/current authority/large-file/lifetime/metadata
+expiry and human/full-product gates remain OPEN. Keep full PRODUCT_PLAN active.
+
+Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29
+precedes runtime code. Private settled-final-absence observation/no-effect skip
+is implemented; required destinations keep FinalRetirement. Final13 focused SDK
+entries/3 actual exits/fmt/strict63500 pass. All15 teaching82636 and81 controls
+pass; final ordinary-provider fast path is covered by13/strict and live broad runs.
+EVID-124 records initial fixture assertion/setup failures separately from passes.
+Both full workspace/500k/strict runs LIVE: default24981 in teaching-playback,
+all-feature61132 in teaching-playback-all. Default continues standalone Git/fmt/
+fresh bins and persisted final-git-return/final-reacquire catalogue checks. Phase
+.exit files and placement-final-absence-*.log are external. Never overlap targets
+or restart on observation timeout. No further runtime changes planned.
+Runtime923a40c is committed; parent documentation closeout71d7028 is integrated.
+Next: final source gates and
+broad/artifact terminals, then draft PR/exact-head hosted checks. Parent runtime
+81ecc27 PR54 passes both hosts/secrets43059041378 and all local gates; documentation
+closeout71d7028 has separate pending CI43066253510. PR53/ad64f03 passes43057224855 and is ready.
+Full joined teaching/provider/current authority/large-file/restore/lifetime/
+metadata expiry and human acceptance remain OPEN. No live cache, daemon,
+viewer/browser, deployment or PR merge. Explicit UTF8 and external roots only.
+Older lane notes below describe the input implementation.
+
+Current owned lane: feat/teaching-git-return, input
+3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contractb82b98b precedes code.
+Actual ninth Git/source return and held placement are implemented. Original
+remains absent; fixed moves to D/M; shared stays F/M. New strict recorded variant
+uses existing response4 and no viewer execution port. First probe20895 reached
+physical oracle then refused the not-yet-built reader. Terminal12251 native/HTTP/
+21 semantic refusals and97155 all15 teaching/shipped/strict schema pass.
+EVID-123 review separates implementation/verification/validation/trace/roles.
+Runtime23a15c7 is committed; parent test correctionad64f03 is integrated. Next: both workspace/
+500k profiles, standalone/fresh artifact/secrets and exact-head hosted checks.
+Parent PR53 original43054770000 failed Linux on exact metadata Busy tree wrapper;
+Windows cancelled. Correctionad64f03 passes15/strict18570; run43057224855 pending.
+All-feature workspace/500k/strict6457 is LIVE in teaching-playback-all. Final
+23-negative/native/raw-Git/HTTP/shipped/strict63290 passes. Default target is free
+for schema workspace then standalone/fresh artifact. Logs git-return-*.log are
+external, with phase .exit files. Never overlap targets/restart on timeout.
+Full roadmap/course/current-authority/provider/lifetime/human gates remain open.
+No viewer/browser/live cache/merge/deployment. Use explicit UTF8 text IO.
 
 Earlier reacquisition lane notes below describe the input implementation.
 Current owned lane: feat/teaching-reacquisition, input

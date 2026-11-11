@@ -1,5 +1,10 @@
 # Tig trace
 
+Completed final absence: PLACEMENT-FINAL-ABSENCE -> current-birth/final-status/
+settled-capacity proof + unrequired-cache no-effect branch -> actual three-store
+bytes/grants/replay/refusals/3 exits/15 teaching cases -> EVID-124 focused candidate.
+Broad/source/artifact/hosted and full intended-use gates remain open.
+
 Git return: TEACHING-GIT-RETURN -> frozen physical oracle/actual Git/source/SDK
 held attempt -> distinct recorded decoder/response4 -> literal bytes/absence,
 HTTP/shipped controls/23 refusals/both workspace+500k/strict/standalone/fresh

@@ -1,5 +1,10 @@
 # Evidence index
 
+EVID-124 (focused candidate): [final-absence entry review](../reviews/2026-11-11-placement-final-absence.md)
+records read-only/no-effect settled absence with required-destination fences.
+Final13/3 actual exits/strict63500, all15 teaching82636 and81 controls pass; full
+profiles24981/61132 and source/artifact/hosted/full intended-use gates remain.
+
 EVID-123 (qualified synthetic runtime81ecc27): [Git return review](../reviews/2026-11-11-teaching-git-return.md)
 records accepted exact Git/source return, held missing bytes and useful sibling
 work. All15/23/81/focused strict, both workspace/500k/strict6457/57936, standalone,

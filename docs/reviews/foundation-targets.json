@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 26641,
-      "sha256": "56eba671517cde868805bcc359395312d0a4239f6a84acc99f88320dec20991e"
+      "bytes": 30108,
+      "sha256": "efbe2ddf34edc417c54347197013e3d1838dd9ff76bd5895d938e49edf5c11b5"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 111791,
-      "sha256": "1896899a619b7369dd62f79b2592e737545ed66e5acb918b7ad7d5d1ebf13d81"
+      "bytes": 112140,
+      "sha256": "9d521a684c9f6dea2752570528c9531c179d76e3a604868b6922fc29c6873fb3"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130837,
-      "sha256": "f8ac42f9f0c33aedc8e83ec89885913706f2e27f643ac572f238f1592baac729"
+      "bytes": 130886,
+      "sha256": "d07b0c0d9938467e0b7b0f0867c4bf81049705a61743b7435d6cd47437881006"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 50784,
-      "sha256": "0f3a224be9b9a779375ed662730cb702e0730ee7616f879253bb7764dde6ee55"
+      "bytes": 51102,
+      "sha256": "caf30def0c0301441ac122d06dcf1b183756e80df68a15d4b8492fbe2c4d7c61"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 52188,
-      "sha256": "a56bc4256f5f1a4d65d59a9228caa2d66469bc3e349a91f2fcb6185344611fa9"
+      "bytes": 52734,
+      "sha256": "353a4dc383229669b6f5c5fecbddf3c1f735fada8f3b822d220198bf42fccb39"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 89758,
+      "bytes": 93433,
       "path": "context/RESUME.md",
-      "sha256": "a0915af96a6830da2f942173d5b2b9b357edc8e600f0410c8884dc1b04098b21"
+      "sha256": "ef426ccb47b8f894fec9ad0dfdfb02cd252630fbd0890173f1913b58743cd1d1"
     },
     {
       "bytes": 16453,
@@ -2064,8 +2064,8 @@
     },
     {
       "path": "crates/tig-store/src/placement/execute.rs",
-      "bytes": 39704,
-      "sha256": "acef5c94b5b6c455f91217d725dc7e5b4dd401aebceaa08a1e90b252c784e4ce"
+      "bytes": 42224,
+      "sha256": "80b14ba79778370397747a210c3e1f2149065ba167ee9f7045a468f19ac85841"
     },
     {
       "path": "crates/tig-store/src/placement/tests.rs",
@@ -2074,8 +2074,8 @@
     },
     {
       "path": "specs/PLACEMENT-RECONCILIATION.md",
-      "bytes": 9371,
-      "sha256": "05fc87641f689e29118aee1364fb91783cea6547962820d69cf83a7820bb695a"
+      "bytes": 9911,
+      "sha256": "3544247994266c765c8895090d3bfe30819f68e248fa8e5df6752908c4c2202d"
     },
     {
       "sha256": "7bf1b26bd35e3ed596cbcdc099f1b5e8ef39fcc2592e02f463b5064974027ca6",
@@ -2314,8 +2314,8 @@
     },
     {
       "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases.rs",
-      "bytes": 5184,
-      "sha256": "6bebaac74a38a06214cb9d7f7259c2a4bcc2c4bf02394d0a0fcb7e4c0bc553ae"
+      "bytes": 5203,
+      "sha256": "c11dd782eb5bfb78ff6abc8acb29eb46538721813dd83688b7a77854f49069cb"
     },
     {
       "path": "docs/reviews/2026-11-09-final-provider.md",
@@ -2996,6 +2996,21 @@
       "path": "docs/reviews/2026-11-11-teaching-git-return.md",
       "bytes": 6920,
       "sha256": "d09606511950389522b6c37f1400562c468717e77f1593810a242d98c44d8f6e"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-placement-final-absence.md",
+      "bytes": 8216,
+      "sha256": "a0209d441bdf47dcad5ca6bf3086836746d30a61012096d60a1b9481f47dad21"
+    },
+    {
+      "path": "specs/PLACEMENT-FINAL-ABSENCE.md",
+      "bytes": 6744,
+      "sha256": "1ed388107ce8ea7a79cb0945cb55ad8721478a52a543f3d8677f0385be982f12"
+    },
+    {
+      "path": "crates/tig-store/src/final_retirement/provider/tests/placement_cases/final_absence.rs",
+      "bytes": 31293,
+      "sha256": "8b47b443c73c0a7767cd8c546f36d55034a366d189c3523edf4e4b6d5e1521e7"
     }
   ]
 }

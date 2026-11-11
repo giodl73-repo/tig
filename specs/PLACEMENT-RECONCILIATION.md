@@ -138,3 +138,11 @@ Missing acknowledged data/evidence holds; never reinterpret it as a new miss.
 Interrupted private partials use the existing separately authorized cleanup API;
 this controller does not sweep or discard them. Full unattended partial recovery,
 provider qualification and aggregate verification-IO reporting remain open.
+
+Completed final-absence refinement is controlled separately by
+[PLACEMENT-FINAL-ABSENCE](PLACEMENT-FINAL-ABSENCE.md). It permits only read-only
+recognition and no-effect handling of an unrequired, validated completed/settled
+absent cache birth. Required destinations keep explicit final reacquisition;
+provider formats and removal authority remain unchanged. The private helper and
+13 focused SDK entries/3 actual exits are implemented and strictly checked; broad
+profiles/source/artifact/hosted and full acceptance remain separate gates.

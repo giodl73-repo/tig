@@ -1,3 +1,4 @@
+mod final_absence;
 use super::*;
 use crate::{existing::ByteSource, orchestration::Place, placement as p};
 
