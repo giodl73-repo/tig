@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 35268,
-      "sha256": "57cb9f5374ae86d10ab1b8267741dd8dc232cd56addeaa3d0f98f4076f9cde03"
+      "bytes": 35670,
+      "sha256": "d21f0894df99f4e0e3bc9b1c813c3297c02b937b6c7cf054a3c1c6b544975e7d"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -604,8 +604,8 @@
     },
     {
       "path": "crates/tig-core/src/capacity.rs",
-      "bytes": 14522,
-      "sha256": "241c9b710a5e702fec031f80640e5a9ee59da4603a87b2a430c80d65211079ef"
+      "bytes": 14539,
+      "sha256": "9d22199341287f86d76d86fb3b1e771e593a6c742b47977febc5cf707f657245"
     },
     {
       "path": "crates/tig-core/tests/capacity.rs",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 98593,
-      "sha256": "002013480a4f34780e3b12a1b5ab7a532d368070830066618e21d877d9ab040b"
+      "bytes": 98995,
+      "sha256": "5da92a1294622123763cda8c72fd4101daeb784558ec0a2b3d66915becc06f14"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3484,8 +3484,8 @@
     },
     {
       "path": "crates/tig-core/src/capacity/checkpoint.rs",
-      "bytes": 18642,
-      "sha256": "0d31abca0dd81be824aa39cb22dff5455948fbb155c872560a7f7d93e28d1f87"
+      "bytes": 18730,
+      "sha256": "afec4267a28fee9b7578fbcbb4c7195fc38c3eb644b25c398e9edc784151ed97"
     },
     {
       "path": "crates/tig-core/src/capacity/checkpoint/tests.rs",
@@ -3504,13 +3504,23 @@
     },
     {
       "path": "docs/reviews/2026-11-11-ledger-history.md",
-      "bytes": 2467,
-      "sha256": "db95521af5c776daa8fabda94ac1ebe70fd7a7ee389687302e51017d8c5293dc"
+      "bytes": 5338,
+      "sha256": "848b7c389a24ba27c1bc71fb2c85f9223716365f2c0adf4a901c128e7ee13094"
     },
     {
       "path": "specs/LEDGER-HISTORY.md",
       "bytes": 11803,
       "sha256": "bd04583660876e913ff48544f4e62e2bd0318949b797bc45e96c3ccbee6ab79f"
+    },
+    {
+      "path": "crates/tig-core/src/capacity/history.rs",
+      "bytes": 13519,
+      "sha256": "f3e627173d26416dea227eb52c59fdf32dac2ab631ed1159ff37119285247efb"
+    },
+    {
+      "path": "crates/tig-core/src/capacity/history/tests.rs",
+      "bytes": 12094,
+      "sha256": "834a2d82278dafb37b62776930c015b54978b08e942f9c99e507d9f17785e99b"
     }
   ]
 }

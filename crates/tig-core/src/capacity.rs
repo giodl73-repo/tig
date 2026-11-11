@@ -3,6 +3,7 @@
 //! to admitted provider/engine adapters.
 use std::collections::BTreeMap;
 pub mod checkpoint;
+pub mod history;
 
 pub const MAX_RESERVATIONS: usize = 1024;
 pub const MAX_EVENTS: usize = 4096;

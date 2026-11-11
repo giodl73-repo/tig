@@ -20,3 +20,45 @@ Disposition: pass_design_with_risk for the stated archive scope. Exact wire fiel
 and API mapping must be frozen before code. Parent PR58 full local/hosted checks
 remain live at entry. All implementation/verification/validation/trace and full
 continuation gates remain OPEN. No root migration, metadata expiry or payload IO.
+
+## Core primitives: intermediate implementation
+
+Contractc4280c6 and exact wire7ac2c21 precede code. Additive capacity::history
+records preserve reservation/allocation matching identity. ProbeEvidence captures
+historical fields, with no live-ticket conversion. Positive documentation and a
+compile-fail conversion example check that boundary. Public pure matching data
+still confers no caller authorization, current observation or provider custody.
+
+RetiredArchive stores one header and separate completed event leaves through the
+existing Tree/NodeStore. Full read restores only the existing read-only history
+type, validating canonical framing/path/count/tokens, completed limits/charges,
+unique original sequences and aggregate charge<=peak. Point inspection binds the
+exact caller ticket and admitted root, returns original charge/sequence and does
+not claim complete coverage. The existing checkpoint meter is reused through
+capacity-module-private visibility; its algorithm and old bytes are unchanged.
+One budget spans leaf and Tree phases. Partial export installs no active root.
+
+Core22592: initial five history cases pass. Core28528: all16 unit cases (nine
+prior checkpoint/seven new history), positive and compile-fail probe docs, and
+strict core/all-target Clippy TERMINAL0. A literal retired header/digest is
+independently pinned. Thirteen re-pinned malformed groups, altered provider bytes,
+missing nodes, source-preserving budget failures, same-name new generation and
+zero/original sequence cases pass. Maximum4096-event/128-byte token fixture stays
+within frozen record/IO limits; point inspection asserts fewer than100 calls and
+less than1/100 of the full read's calls. This does not establish provider durability.
+
+The Identity lens has core literal/framing evidence; Placement has the critical
+probe non-rehydration evidence; Custody has retired exact-token/outcome evidence;
+Provider/privacy has bounded pure NodeStore evidence. Concurrency and complete
+ledger dependency/adoption findings are still OPEN. Historical output export,
+lazy original-request/reply lookup, actual metadata finish/reopen/peer races and
+all ledger output-kind/binding tests remain required. No implementation closure
+for the full archive or journal continuation is claimed.
+
+Broader regression35189 is TERMINAL0: all core tests,36 actual-ledger cases
+and strict schema workspace/all-target Clippy pass. Both targets are free. Full candidate profiles/source/hosted gates remain required
+after original-output integration. Parent PR58 runtime9122ccf now passes both
+full profiles/500k/strict/standalone/fresh14-step artifact and exact43100104758
+Windows/Linux/secrets; ready for review, no merge. Parent artifact is
+capacity-checkpoint-qualified-5f5d8bef786b44cb97f466d49698bd8f. Full PRODUCT_PLAN
+remains active; no sustainable-lifetime/expiry/independent/human acceptance.
