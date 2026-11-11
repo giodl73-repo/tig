@@ -85,6 +85,17 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(row('fixed').children[2].textContent.includes(fixed.final_selection==='unselected'?'Not selected in this block':'Protected'));
   if(lesson.final_loss.phase==='completed')assert.ok(row('original').children[3].textContent.includes('No managed copies recorded'));
  }
+ for(const [index,lesson] of book.lessons.entries())if(lesson.reacquisition){
+  const select=selector();select.value=String(index);await select.onchange();await f.settle();
+  assert.ok(f.text('assets').includes('Explicit reacquisition'));
+  assert.ok(f.text('assets').includes('Retention verified at recording'));
+  assert.ok(f.text('assets').includes('Old deletion retry: 0 B new removal'));
+  assert.ok(row('original').children[1].textContent.includes('No managed copies recorded'));
+  assert.ok(row('original').children[2].textContent.includes('New retained storage birth'));
+  assert.ok(row('original').children[3].textContent.includes('Backup / M'));
+  assert.ok(!row('original').children[3].textContent.includes('Working / F'));
+  assert.ok(row('fixed').children[2].textContent.includes('Unchanged'));
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

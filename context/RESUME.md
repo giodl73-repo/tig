@@ -1,5 +1,15 @@
 # Tig resume state
 
+Current reacquisition source3c2e5cb is pushed as draft PR53. Exact hosted
+run43054770000 failed Linux on Tree(Store("metadata busy")) in the strengthened
+age peer test; Windows cancelled, secrets/structure/controllers passed. The
+metadata adapter explicitly maps Busy to this exact wrapper. Test-only guard
+now admits that exact wrapper; other Store failures remain rejected. All15 age
+cases and strict all-feature Clippy pass in terminal18570. No production change.
+Commit/push correction, then inspect exact-head hosted checks. Full plan stays
+active; Git-return implementation continues in its separate owned worktree.
+Older implementation/qualification notes below are historical.
+
 Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
 bulk final deletion and eventual metadata retirement. The full goal is not done.
 Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.
@@ -8,6 +18,48 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Owned lane: feat/teaching-reacquisition in teaching-reacquisition worktree,
+  input3f3adc74b351e9f36323abe47374ef8c32692b2a; contract185865b precedes code.
+  Runtime uncommitted. Read specs/TEACHING-REACQUISITION.md/EVID-122 review.
+  Implemented actual ninth chapter after completed loss: SDK AccountedReceipt
+  accessor facts plus29-byte Cursor read count, new M birth/retention, old replay
+  at700 with0 new/58 historical removal and unchanged source/ledgers/witness.
+  Dedicated producer projection/export, SDK plan/grant + prior bulk/action/source/
+  capacity/birth/ack/clock/state/copy binding, response5 and readonly UI. Before
+  empty original -> M only; fixed/shared stay F/M. Ack/charge/recorded retention
+  do not imply hardware custody, net growth or live authority. Legacy versions1..4
+  retained; no new engine, provider format or browser execution bridge.
+  Terminal96542 first actual native/HTTP/shipped9 passes. Terminal89877 passes28
+  repinned negatives and strict schema workspace/all-target Clippy. Terminal61275
+  passes final all14 teaching/30 negatives (rehashed grant capacity and witness
+  floor added), independent original/fixed/shared literal reads and strict schema.
+  All81 controls pass, including acquisition/GET-only and10 malformed UI cases.
+  Schema5050 full workspace/500k/strict passes. All-feature60167 failed inherited
+  age race initial-winner assertion (original errors unavailable). Thirty diagnostic
+  races99507 each acknowledged a fact; observed losses were Busy/conflict. Only
+  age tests/contracts changed: explicit retry, unexpected-error rejection and
+  deterministic real-writer both-Busy/no-fact/later-observation/no-clock replay.
+  All15 all-feature age cases and strict11506 pass; default15/fmt pass as well.
+  One separately admitted baseline-CLI case remains ignored, not passed.
+  All-feature full rerun completes71 successful Cargo summaries/1335 passed,
+  including500k; conditional strict Clippy completes. Original shell exit was
+  unavailable; observer12128's external ExitCode is null (not a native0 receipt).
+  Log reacquisition-all-qualified.log external. Final direct all-feature strict
+  Clippy terminal0; all task-owned Cargo processes are finished. No overlap.
+  Standalone Git/fmt/fresh schema binaries/persisted ninth artifact82212 pass.
+  Artifact: reacquisition-qualified-f26ae5e36a8e485897e6a4f764f3438a under external
+  bulk-retirement temp; catalogue check opens0 payloads, automatic_eviction false.
+  Source pins/L0/diff/history+changed+new-source secrets pass. Producer review
+  separately closes the scoped candidate; final pins/checks precede commit. Next:
+  commit/push/draft PR and exact-head hosted checks. No runtime changes planned.
+  External TEMP/TMP/target; debug0/incremental0/jobs4/threads4 before Cargo.
+  Explicit encoding='utf-8' for Python text IO; no locale-default rewrites.
+  Parent PR52 current3f3adc7, exact run43038012291 Windows/Linux/secrets SUCCESS;
+  marked ready via gh, not merged. GitHub connector reads work; metadata writes
+  get403 integration permission, use existing authenticated CLI when needed.
+  No viewer/browser/live stores/deployment. Full PRODUCT_PLAN unchanged: Git
+  return after final loss, complete course, wider native/current authority/clock/
+  providers/large files/restore/lifetime/metadata expiry and human gates OPEN.
 - Owned lane: teaching-final-retirement / feat/teaching-final-retirement;
   input2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81 precedes
   implementation. Derive current commit/PR from Git. Contract and EVID-121 review

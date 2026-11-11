@@ -373,6 +373,148 @@ fn old_final_retry_spares_explicit_same_hash_reacquisition_and_retention() {
         .output()
         .unwrap();
     assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 9);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-5");
+    let chapter = &book["lessons"][8];
+    assert_eq!(chapter["stream_bytes"], 29);
+    assert_eq!(chapter["reacquisition"]["added_logical_copy_bytes"], 29);
+    assert_eq!(chapter["reacquisition"]["old_retry_new_removed_bytes"], 0);
+    assert_eq!(
+        chapter["reacquisition"]["old_retry_historical_removed_bytes"],
+        58
+    );
+    render_book(&book);
+    drop(server);
+    let observation: Value =
+        serde_json::from_slice(&fs::read(root.join("reports/same-hash-reacquired.json")).unwrap())
+            .unwrap();
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    assert_eq!(observation["before_replay"], observation["after_replay"]);
+    for bad in [
+        "consent",
+        "clock",
+        "verified",
+        "authority",
+        "providers",
+        "role",
+        "old_plan",
+        "parent",
+        "birth_object",
+        "birth_index",
+        "publication",
+        "ack",
+        "stream",
+        "replayed",
+        "charge",
+        "grant",
+        "grant_capacity",
+        "allocation",
+        "checkpoint",
+        "source",
+        "before",
+        "after",
+        "unknown",
+        "replay_new",
+        "replay_history",
+        "replay_count",
+        "replay_drift",
+        "replay_floor",
+        "acquisition_expiry",
+        "replay_time",
+    ] {
+        let mut changed = observation.clone();
+        let foreign =
+            serde_json::to_value(tig_core::Digest::blob(b"foreign reacquisition identity"))
+                .unwrap();
+        match bad {
+            "consent" => changed["synthetic_owner_consent"] = false.into(),
+            "clock" => changed["simulated_clock"] = false.into(),
+            "verified" => changed["retention_verified_at_capture"] = false.into(),
+            "authority" => changed["authorizes_storage"] = true.into(),
+            "providers" => changed["providers"].as_array_mut().unwrap().reverse(),
+            "role" => changed["target_role"] = "history".into(),
+            "old_plan" => changed["old_retry"]["plan"] = foreign,
+            "parent" => {
+                changed["plan"]["parent"]["request"]["publication"]["operation"] =
+                    "foreign-parent".into()
+            }
+            "birth_object" => {
+                changed["plan"]["birth"]["object"] =
+                    serde_json::to_value(Object::from_bytes(b"wrong new birth")).unwrap()
+            }
+            "birth_index" => {
+                changed["plan"]["birth"]["index"] =
+                    changed["plan"]["parent"]["birth"]["index"].clone()
+            }
+            "publication" => {
+                changed["publication"]["request"]["operation"] = "foreign-publication".into()
+            }
+            "ack" => changed["publication"]["ack"] = "verified_local".into(),
+            "stream" => changed["publication"]["streamed_bytes"] = 0.into(),
+            "replayed" => changed["publication"]["was_replayed"] = true.into(),
+            "charge" => changed["publication"]["charged_footprint"] = 0.into(),
+            "grant" => {
+                changed["retention"]["record"]["plan"]["request"]["publication"]["operation"] =
+                    "foreign-grant".into();
+                let bytes =
+                    tig_core::identity::canonical_json(&changed["retention"]["record"]).unwrap();
+                changed["retention"]["sha256"] =
+                    serde_json::to_value(tig_core::Digest::blob(&bytes)).unwrap();
+            }
+            "grant_capacity" => {
+                changed["retention"]["record"]["allocation"]["genesis"] = foreign;
+                let bytes =
+                    tig_core::identity::canonical_json(&changed["retention"]["record"]).unwrap();
+                changed["retention"]["sha256"] =
+                    serde_json::to_value(tig_core::Digest::blob(&bytes)).unwrap();
+            }
+            "allocation" => changed["publication"]["allocation"]["genesis"] = foreign,
+            "checkpoint" => changed["publication"]["checkpoint"]["genesis"] = foreign,
+            "source" => changed["source_checkpoint"]["genesis"] = foreign,
+            "before" => {
+                changed["observations"]["fixed"]["before_copies"] = serde_json::json!([]);
+                changed["observations"]["fixed"]["verified_copies"] = serde_json::json!([]);
+            }
+            "after" => {
+                changed["observations"]["original"]["verified_copies"] = serde_json::json!([])
+            }
+            "unknown" => {
+                changed["observations"]["original"]["unknown_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            "replay_new" => changed["old_retry"]["new_removed_bytes"] = 1.into(),
+            "replay_history" => changed["old_retry"]["historical_removed_bytes"] = 0.into(),
+            "replay_count" => changed["old_retry"]["selected_bindings"] = 0.into(),
+            "replay_drift" => changed["after_replay"]["witness"]["hash"] = foreign,
+            "replay_floor" => {
+                changed["before_replay"]["witness"]["sequence"] = 0.into();
+                changed["after_replay"]["witness"]["sequence"] = 0.into();
+            }
+            "acquisition_expiry" => {
+                changed["acquisition_time"] =
+                    changed["plan"]["request"]["window"]["expires"].clone()
+            }
+            "replay_time" => changed["retry_time"] = 100.into(),
+            _ => unreachable!(),
+        }
+        let mut altered_trace = trace.clone();
+        altered_trace["completed"][8]["report"] = save_evidence(&root, &changed);
+        let mut enrolled = config.clone();
+        enrolled["teaching"]["trace"] = save_evidence(&root, &altered_trace);
+        let path = root.join("negative-reacquisition.json");
+        fs::write(&path, serde_json::to_vec(&enrolled).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
     let loss: Value =
         serde_json::from_slice(&fs::read(root.join("final-loss.json")).unwrap()).unwrap();
     let raw = fs::read(root.join("final-reacquisition.json")).unwrap();
@@ -422,6 +564,23 @@ fn old_final_retry_spares_explicit_same_hash_reacquisition_and_retention() {
             );
         } else {
             assert!(!path.exists());
+        }
+    }
+    for role in ["working", "backup"] {
+        for name in ["shared", "fixed"] {
+            let digest =
+                tig_core::Digest::parse(fixture["objects"][name]["sha256"].as_str().unwrap())
+                    .unwrap();
+            let bytes =
+                fs::read(tig_store::existing::Layout::Flat.object_path(&root.join(role), &digest))
+                    .unwrap();
+            assert_eq!(
+                bytes,
+                fixture["objects"][name]["text"]
+                    .as_str()
+                    .unwrap()
+                    .as_bytes()
+            );
         }
     }
 }

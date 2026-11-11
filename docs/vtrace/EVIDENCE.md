@@ -1,5 +1,13 @@
 # Evidence index
 
+EVID-122 (locally qualified candidate): [reacquisition review](../reviews/2026-11-11-teaching-reacquisition.md)
+records actual ninth-chapter SDK/publication/grant/replay and readonly observations.
+Native96542,28-negative/strict89877, final30-negative/full14/strict61275 and81
+controllers pass. Schema5050/500k/strict, artifact82212 and all-feature complete
+Cargo output (71 summaries/1335 passes/500k) qualify locally; original broad shell
+exit is unavailable, final strict Clippy exits0. The review records inherited age
+test failure and explicit Busy recovery. Hosted/full intended-use gates remain open.
+
 EVID-121 (locally qualified candidate): [review](../reviews/2026-11-10-teaching-final-retirement.md)
 records actual manual and aged/category loss, retry/cancel/new-birth/process
 recovery and strict readonly bulk/paged playback. Workspace/500k/strict4118/61973

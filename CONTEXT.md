@@ -1,5 +1,35 @@
 # Tig maintainer context
 
+Current reacquisition source3c2e5cb is pushed as draft PR53. Exact hosted
+run43054770000 failed Linux on Tree(Store("metadata busy")) in the strengthened
+age peer test; Windows cancelled, secrets/structure/controllers passed. The
+metadata adapter explicitly maps Busy to this exact wrapper. Test-only guard
+now admits that exact wrapper; other Store failures remain rejected. All15 age
+cases and strict all-feature Clippy pass in terminal18570. No production change.
+Commit/push correction, then inspect exact-head hosted checks. Full plan stays
+active; Git-return implementation continues in its separate owned worktree.
+Older implementation/qualification notes below are historical.
+
+Current owned lane: feat/teaching-reacquisition, input
+3f3adc74b351e9f36323abe47374ef8c32692b2a; contract commit185865b precedes code.
+Runtime remains uncommitted. EVID-122/TEACHING-REACQUISITION.md record separate
+implementation/verification/validation/trace/producer gates. Full plan stays active.
+Ninth actual new-birth/retention/old-retry chapter, strict response5 and readonly
+UI are implemented. First native96542,28-negative/strict89877, final30-negative/
+all14/strict61275 and81 controllers pass. Other book output versions remain1..4.
+Schema5050/500k/strict and standalone/fresh ninth artifact82212 pass. All-feature
+60167 failed an inherited age race's initial-winner assumption. Only age tests and
+contract clarification changed: reject unexpected errors, explicit retry and real
+both-Busy transaction fixture; no production age algorithm change. All15 age
+cases/default fmt and all-feature strict11506 pass. Broad all-feature rerun completes71 successful Cargo summaries/1335 passed,
+including500k, and conditional Clippy. Original shell exit unavailable; observer
+12128 ExitCode is null. Final direct strict Clippy exits0. Source/secret checks
+pass. Next: closeout pins/L0, commit/push/draft PR and exact-head hosted checks.
+Use explicit UTF8 text IO. Parent PR52 at3f3adc7 passes run43038012291 and is ready for review.
+No merge/deploy/browser/live-cache work.
+Git return after loss, full course/provider/authority/clock/large-file/lifetime/
+human acceptance remain open. Older lane notes below are historical.
+
 Owned lane: feat/teaching-final-retirement; input
 2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81.
 Runtime source is defined by foundation-target pins; derive commit/PR from Git.

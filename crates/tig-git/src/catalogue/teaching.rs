@@ -2,6 +2,7 @@
 use super::*;
 mod final_observation;
 mod paged_observation;
+mod reacquisition;
 use std::io::Read;
 use tig_core::{Digest, identity};
 use tig_store::{
@@ -252,6 +253,7 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut coverage_v2 = false;
     let mut rejection_v3 = false;
     let mut final_v4 = false;
+    let mut reacquisition_v5 = false;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -268,6 +270,24 @@ pub fn execute(request: Request) -> Result<Value> {
             return Err("Invalid teaching lesson".into());
         }
         let value: Value = document(&mut reader, &entry.report, &mut left)?;
+        if value["schema"] == "tig.teaching-reacquisition-observation.design-1" {
+            lessons.push(reacquisition::decode(
+                value,
+                reacquisition::Context {
+                    entry: &entry,
+                    previous: lessons
+                        .last()
+                        .ok_or("Missing preceding acquisition lesson")?,
+                    expected: &expected_providers,
+                    roles: &p.roles,
+                    identities: &identities,
+                    commits: &request.commits,
+                },
+            )?);
+            reacquisition_v5 = true;
+            coverage_v2 = true;
+            continue;
+        }
         if value["schema"] == "tig.teaching-paged-final-observation.design-1" {
             lessons.push(paged_observation::decode(
                 value,
@@ -575,7 +595,7 @@ pub fn execute(request: Request) -> Result<Value> {
             }
         }
     }
-    let response = json!({"schema":if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
+    let response = json!({"schema":if reacquisition_v5 {"tig.catalogue-teaching.design-5"}else if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)

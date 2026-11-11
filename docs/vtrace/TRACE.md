@@ -1,5 +1,11 @@
 # Tig trace
 
+Reacquisition teaching: TEACHING-REACQUISITION.md controls -> actual SDK accessor
+projection/new-birth grant/replay -> strict response5/read-only chapter -> native/
+physical/HTTP/30 negatives/81 controls/both workspace+500k profiles -> EVID-122
+local candidate. AGE-WITNESSES -> test-only Busy/retry correction -> exact error/
+real writer/later observation/replay evidence. Hosted/full intended-use gates stay open.
+
 Final teaching: TEACHING-FINAL-RETIREMENT.md controls -> actual SDK/independent
 bytes/native/API/negative/shipped controls -> EVID-121. Full control mapping and
 remaining hosted/provider/lifetime/intended-use gates are in the

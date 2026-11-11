@@ -7,6 +7,8 @@ mod aged_execution;
 mod category_preview;
 #[path = "tig-sample/paged_playback.rs"]
 mod paged_playback;
+#[path = "tig-sample/reacquisition_playback.rs"]
+mod reacquisition_playback;
 #[path = "tig-sample/recovery.rs"]
 mod recovery;
 use serde_json::{Value, json};
@@ -1321,7 +1323,13 @@ impl Demo {
             return Err("final report did not complete exact two-copy loss".into());
         }
         let final_source = self.namespaces[0].checkpoint();
+        let mut reacquisition_observation = None;
         let reacquisition = if matches!(mode, Mode::FinalReacquire) {
+            let acquisition_commit = git(
+                &self.git,
+                &self.root.join("project"),
+                &["rev-parse", "HEAD"],
+            )?;
             let at = self
                 .config
                 .providers
@@ -1354,14 +1362,20 @@ impl Demo {
                 .as_str()
                 .ok_or("original seed missing")?
                 .as_bytes();
-            final_provider::reacquire::Execution {
+            let mut input = std::io::Cursor::new(bytes);
+            let publication_receipt = final_provider::reacquire::Execution {
                 store: &self.stores[at],
                 ledger: &mut self.ledgers[at],
                 job: &self.config.providers[at].job,
                 clock: &clock,
                 admitted_context: &context,
             }
-            .apply(&rp, &rp.authorize()?, &mut std::io::Cursor::new(bytes))?;
+            .apply(&rp, &rp.authorize()?, &mut input)?;
+            let publication_observation =
+                reacquisition_playback::publication(&publication_receipt, input.position())?;
+            if input.position() != publication_receipt.publication().request().object.bytes {
+                return Err("fresh acquisition did not read exact original bytes".into());
+            }
             let retained = tig_store::retention::plan(
                 &self.stores[at],
                 &tig_store::retention::RetentionRequest {
@@ -1428,10 +1442,32 @@ impl Demo {
                     != prior_ledgers
                 || ledger.checkpoint() != prior_witness
                 || self.namespaces[0].checkpoint() != prior_source
+                || git(
+                    &self.git,
+                    &self.root.join("project"),
+                    &["rev-parse", "HEAD"],
+                )? != acquisition_commit
             {
                 return Err("old deletion retry changed fresh same-hash acquisition".into());
             }
             tig_store::retention::verify(&mut self.ledgers[at], &self.stores[at], &grant)?;
+            reacquisition_observation = Some(json!({
+                "schema":"tig.teaching-reacquisition-observation.design-1","lesson":"same-hash-reacquired",
+                "source_commit":acquisition_commit,"source_checkpoint":prior_source,
+                "providers":self.config.providers.iter().map(|p|&p.place.instance).collect::<Vec<_>>(),
+                "old_bulk_plan":serde_json::from_slice::<Value>(&fresh.to_json()?)?,
+                "plan":serde_json::from_slice::<Value>(&rp.to_json()?)?,"retention":grant,
+                "publication":publication_observation,"target_role":"backup",
+                "old_retry":{"plan":replay.plan,"phase":replay.phase,"intent_acknowledged":replay.intent_acknowledged,
+                    "selected_roots":replay.selected_roots,"selected_bindings":replay.selected_bindings,"unique_objects":replay.unique_objects,
+                    "planned_copy_bytes":replay.planned_copy_bytes,"new_removed_bytes":replay.new_logical_copy_bytes_removed,
+                    "historical_removed_bytes":replay.historical_deleted_copy_bytes,"holds":replay.holds,"removal_authority":replay.removal_authority},
+                "before_replay":{"source":prior_source,"ledgers":prior_ledgers,"witness":prior_witness},
+                "after_replay":{"source":self.namespaces[0].checkpoint(),"ledgers":self.ledgers.iter().map(CapacityLedger::checkpoint).collect::<Vec<_>>(),"witness":ledger.checkpoint()},
+                "observations":reacquisition_playback::copies(self,&after,&acquired),"acquisition_time":100,"retry_time":700,
+                "synthetic_owner_consent":true,"simulated_clock":true,"retention_verified_at_capture":true,
+                "independent_hardware_backup_proven":false,"authorizes_storage":false
+            }));
             Some(save(
                 &self.root.join("final-reacquisition.json"),
                 &json!({
@@ -1493,6 +1529,9 @@ impl Demo {
         )?;
         self.reports.push(json!({"lesson":id,"report":recorded,"file":file,"title":if cancelled {"Final loss cancelled"}else{"Explicit final loss completed"},
             "event":"Manual exact historical block with separate synthetic owner consent and simulated clock. Claim retirement and final-copy deletion are separate. Recorded observation only."}));
+        if let Some(observation) = reacquisition_observation {
+            reacquisition_playback::record(self, observation)?;
+        }
         Ok((preview, Some(loss)))
     }
 

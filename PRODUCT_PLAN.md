@@ -98,6 +98,14 @@ authority/clock/large-file qualification, metadata lifetime and human acceptance
 Exact-head hosted checks remain required. This does not complete priority7 or the
 full product plan.
 
+The [reacquisition chapter](specs/TEACHING-REACQUISITION.md) now exposes actual
+same-hash ingest/retention and old deletion retry as a ninth readonly checkpoint.
+It captures SDK receipt accessors and validates new-birth/source/grant/capacity/
+replay bindings, with truthful copy/ack/charge observations. Fourteen teaching
+cases/strict checks,30 repinned acquisition negatives and81 controller cases pass
+locally; broader/fresh/hosted qualification remains pending. Git return after
+final loss, complete teaching and lifetime remain open.
+
 The [same-byte rename rehearsal](specs/TEACHING-RENAME.md) adds a real conflicting
 destination refusal and successful Git record rename with unchanged blob/asset
 identity. Explicit native adoption and SDK reconciliation preserve verified

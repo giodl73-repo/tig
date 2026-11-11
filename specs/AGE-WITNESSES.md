@@ -61,6 +61,10 @@ Persist the immutable document and edited registry root through MetadataStore,
 finish/read back, then use existing atomic Namespace::select with stable keys.
 No transaction spans clock/metadata IO. Competing captures use scoped existing
 admission and optimistic source revisions; no global cache lock.
+Nonblocking contention may leave every initial caller unacknowledged. Callers
+retry explicitly after contention clears; no per-round winner or scheduling
+fairness is promised. An already adopted fact must replay unchanged without a
+new clock sample. If none was adopted, retry samples later, conservatively.
 
 An acknowledged same-occurrence retry returns the strongest retained verified
 observation without sampling a new clock or replacing any acknowledged document.
