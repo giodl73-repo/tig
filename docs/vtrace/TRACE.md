@@ -1,5 +1,9 @@
 # Tig trace
 
+Reacquisition teaching: TEACHING-REACQUISITION.md controls -> planned actual SDK
+receipt projection/new-birth grant/replay -> distinct readonly chapter -> EVID-122
+design entry. Implementation/verification/validation remain open.
+
 Final teaching: TEACHING-FINAL-RETIREMENT.md controls -> actual SDK/independent
 bytes/native/API/negative/shipped controls -> EVID-121. Full control mapping and
 remaining hosted/provider/lifetime/intended-use gates are in the

@@ -8,6 +8,30 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Owned lane: feat/teaching-reacquisition in teaching-reacquisition worktree,
+  input3f3adc74b351e9f36323abe47374ef8c32692b2a. Contract
+  specs/TEACHING-REACQUISITION.md and EVID-122 entry review are design only.
+  Ninth chapter extends existing rehearse-final-reacquire: retain actual SDK
+  AccountedReceipt accessor observations, SDK plan/grant, new29-byte M copy,
+  old bulk retry with0 new/58 historical removal and unchanged source/ledger/
+  witness/copies. Bind exact prior bulk action, new birth/operation, ack/grant,
+  before/after and capacity/source/provider/clock identities. Distinct observation
+  and response5; never fake placement/final reports or add execution to the view.
+  Shared64KiB/2MiB/16-report/32-object limits; preserve legacy output versions.
+  Source remains synthetic/fresh-root only. Complete course/Git return after
+  final loss/provider/authority/time/lifetime/human acceptance remain open.
+  Next: finish contract source pins/L0 and commit before implementation. Then
+  capture exact SDK accessor facts, add producer export/sealing, strict reader/UI,
+  actual native HTTP/shipped-script and independent physical/negative/legacy
+  tests, appropriate workspace/500k/strict/standalone/fresh/hosted qualification.
+  No local process live; shared teaching-playback/all targets free. Set external
+  TEMP/TMP and Cargo target/debug/incremental/thread limits before every Cargo run.
+  Use explicit encoding='utf-8' for all Python text reads/writes.
+  Parent PR52 at3f3adc7, run43038012291 LIVE: corrected controllers/secrets pass,
+  full Windows/Linux jobs still running. Read with GitHub connector; PR metadata
+  write gets403 integration permission, so use existing authenticated gh CLI if
+  needed. No merge/deploy/viewer/browser/live store. Preserve parent worktree.
+
 - Owned lane: teaching-final-retirement / feat/teaching-final-retirement;
   input2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81 precedes
   implementation. Derive current commit/PR from Git. Contract and EVID-121 review

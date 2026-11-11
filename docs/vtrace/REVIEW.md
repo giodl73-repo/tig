@@ -1,5 +1,7 @@
 # Foundation review
 
+EVID-122: [reacquisition entry](../reviews/2026-11-11-teaching-reacquisition.md); design only.
+
 EVID-121: [final teaching lenses](../reviews/2026-11-10-teaching-final-retirement.md); incomplete candidate.
 
 EVID-120: [rename lenses](../reviews/2026-11-10-teaching-rename.md); local pass; hosted/human open.
@@ -7,9 +9,7 @@ EVID-120: [rename lenses](../reviews/2026-11-10-teaching-rename.md); local pass;
 EVID-119: [producer lenses](../reviews/2026-11-10-teaching-stale-plan.md).
 Local checks pass; hosted/human gates open.
 
-EVID-118: [backup-outage lenses](../reviews/2026-11-09-teaching-backup-outage.md)
-record input9310d0c, unknown custody/retry findings and local qualification;
-hosted/human gates are separate.
+EVID-118: [backup-outage](../reviews/2026-11-09-teaching-backup-outage.md); see scoped review.
 
 Worktree/index review, input27a6eb4: [six producer lenses](../reviews/2026-11-09-teaching-worktree.md)
 challenge immutable view identity, continuing job protection, safe checkout

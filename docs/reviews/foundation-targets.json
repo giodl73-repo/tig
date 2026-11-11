@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 23935,
-      "sha256": "37d690f1644e60802a62c76dc45c8ea022d5e3fb27ad38df9eb5629a1fab450f"
+      "bytes": 24849,
+      "sha256": "90c72dbe61885bfa4226c078fe5be0545e483141d211428497342a85fbfafbce"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 110754,
-      "sha256": "20693004604cc944874c7ff72073d9272b0e2fa757688a161c8bf1efc48dbc74"
+      "bytes": 111015,
+      "sha256": "d538182d96333b134036284334fcebf7a799225ed20951b07f2c9453f211dd07"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 131043,
-      "sha256": "4de6e3262a7d63b7f0fa86e6dc563d1a46e608dc433d17a415b82b695a2d7735"
+      "bytes": 131042,
+      "sha256": "89fdbf19753be170f5d4cb1c4ef44acb71cf7ba60774b66a4190c383aaa73901"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 50063,
-      "sha256": "1e08ec5f604765ef978fac71bda1091f319de6c7c775d5319799efa55a94c0f5"
+      "bytes": 50294,
+      "sha256": "8ac8ecfd598c4d1e3354af6b52f644c1b5940f927ed3dd0a16889afecf6458c0"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 50886,
-      "sha256": "a888ecc466a216aabda0af15da0d711b47fa36302de37829a6d214dedd01903f"
+      "bytes": 51282,
+      "sha256": "dfe7a07d003c33690819341c622b5bd0c7a4ed6c87b96b050971e3feca84b1ff"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 84490,
+      "bytes": 86287,
       "path": "context/RESUME.md",
-      "sha256": "9098aa9ec7d9ef8725dc6568acc00b42befa1c7139e6f30f30b3f0b445f5f26f"
+      "sha256": "83f675fad9c3e1c7f81c77c9497185e3725f67ff6ee24109e9dff31a18308e03"
     },
     {
       "bytes": 16453,
@@ -2956,6 +2956,16 @@
       "path": "crates/tig-git/src/catalogue/teaching/paged_observation.rs",
       "bytes": 11691,
       "sha256": "60d17f917c1215fe475b514ce24aff155355ad1950bb35c92b40596d9cd6860d"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-teaching-reacquisition.md",
+      "bytes": 2617,
+      "sha256": "f48d16c7a859607551c9fde362aa15c81f427b78a73c876827c4284726729f25"
+    },
+    {
+      "path": "specs/TEACHING-REACQUISITION.md",
+      "bytes": 6426,
+      "sha256": "933c5ff3bfc81bce605b2f3cbe6c9195f87918be19322a84197fb8a58171b9b5"
     }
   ]
 }

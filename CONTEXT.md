@@ -1,5 +1,18 @@
 # Tig maintainer context
 
+Current owned lane: feat/teaching-reacquisition, input
+3f3adc74b351e9f36323abe47374ef8c32692b2a (draft PR52). New contract
+TEACHING-REACQUISITION.md/EVID-122 freezes the ninth readonly chapter over the
+already actual SDK ingest, retention and old-retry operations. Implementation
+is pending; no new runtime evidence. Full PRODUCT_PLAN remains active.
+Parent PR52 run43038012291 is live: corrected controllers/secrets pass, full
+Windows/Linux Rust jobs pending. Do not alter its worktree or claim hosted pass.
+No local Cargo job is live. Next: contract/pin/L0 close and commit before code;
+then actual receipt accessor projection, distinct bounded decoder/design5 UI,
+native HTTP/physical/negative/legacy qualification. UTF8 text IO must be explicit.
+No viewer/browser/live caches/deployment; human/full contract/lifetime remain open.
+Older lane notes below are historical; derive all live status from Git/GitHub.
+
 Owned lane: feat/teaching-final-retirement; input
 2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81.
 Runtime source is defined by foundation-target pins; derive commit/PR from Git.

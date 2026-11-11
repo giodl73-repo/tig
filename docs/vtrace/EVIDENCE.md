@@ -1,5 +1,9 @@
 # Evidence index
 
+EVID-122 (design entry only): [reacquisition review](../reviews/2026-11-11-teaching-reacquisition.md)
+freezes the ninth chapter's SDK/publication/grant/replay and readonly boundaries.
+No new implementation, runtime verification or intended-use acceptance yet.
+
 EVID-121 (locally qualified candidate): [review](../reviews/2026-11-10-teaching-final-retirement.md)
 records actual manual and aged/category loss, retry/cancel/new-birth/process
 recovery and strict readonly bulk/paged playback. Workspace/500k/strict4118/61973
