@@ -2,7 +2,8 @@
 
 Git return: TEACHING-GIT-RETURN -> frozen physical oracle/actual Git/source/SDK
 held attempt -> distinct recorded decoder/response4 -> literal bytes/absence,
-HTTP/shipped controls/21 semantic refusals -> EVID-123 focused candidate.
+HTTP/shipped controls/23 refusals/both workspace+500k/strict/standalone/fresh
+artifact/exact CI43059041378 -> EVID-123 qualified runtime81ecc27.
 
 Reacquisition teaching: TEACHING-REACQUISITION.md controls -> actual SDK accessor
 projection/new-birth grant/replay -> strict response5/read-only chapter -> native/

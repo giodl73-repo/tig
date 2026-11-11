@@ -1,23 +1,19 @@
 # Tig maintainer context
 
-Current owned lane: feat/teaching-git-return, input
-3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contractb82b98b precedes code.
-Actual ninth Git/source return and held placement are implemented. Original
-remains absent; fixed moves to D/M; shared stays F/M. New strict recorded variant
-uses existing response4 and no viewer execution port. First probe20895 reached
-physical oracle then refused the not-yet-built reader. Terminal12251 native/HTTP/
-21 semantic refusals and97155 all15 teaching/shipped/strict schema pass.
-EVID-123 review separates implementation/verification/validation/trace/roles.
-Runtime23a15c7 is committed; parent test correctionad64f03 is integrated. Next: both workspace/
-500k profiles, standalone/fresh artifact/secrets and exact-head hosted checks.
-Parent PR53 original43054770000 failed Linux on exact metadata Busy tree wrapper;
-Windows cancelled. Correctionad64f03 passes15/strict18570; run43057224855 pending.
-All-feature workspace/500k/strict6457 is LIVE in teaching-playback-all. Final
-23-negative/native/raw-Git/HTTP/shipped/strict63290 passes. Default target is free
-for schema workspace then standalone/fresh artifact. Logs git-return-*.log are
-external, with phase .exit files. Never overlap targets/restart on timeout.
-Full roadmap/course/current-authority/provider/lifetime/human gates remain open.
-No viewer/browser/live cache/merge/deployment. Use explicit UTF8 text IO.
+Git-return runtime81ecc27eba6289f2639174c7872be3c53583f5ee is qualified:
+all15/23 negatives/81 controls, both workspace/500k/strict profiles6457/57936,
+standalone Git, fmt and fresh persisted nine-checkpoint sample all pass. All
+phase exits and local handles are terminal0. Exact run43059041378 passes
+Windows/Linux/secrets; PR54 is ready, no merge/deploy. EVID-123 closes scoped
+implementation/verification/validation/trace/producer review separately.
+This documentation closeout has its own source/CI gate; runtime code is frozen.
+Parent PR53 ad64f03 also passes exact43057224855 and is ready. Source qualification
+is not browser, human, current authority/provider/lifetime or full-plan acceptance.
+Next owned work: feat/placement-final-absence, contracta36aa29, input81ecc27.
+Its private read-only helper and synthetic refusal/restore fixtures are separate
+uncommitted work; never use this parent qualification as proof of that SDK delta.
+No live caches, startup jobs, viewer/browser or runtime deployment are enabled.
+Use explicit UTF8 text IO and external build/temp roots. Full goal remains active.
 
 Earlier reacquisition lane notes below describe the input implementation.
 Current owned lane: feat/teaching-reacquisition, input

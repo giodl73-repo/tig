@@ -1,42 +1,39 @@
 # Tig resume state
 
-Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
-bulk final deletion and eventual metadata retirement. The full goal is not done.
-Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.
-Derive branch/worktree/PR status from Git/GitHub; do not trust old chat or deploy
-source changes into running tools as a side effect. No startup cache operations.
+Active goal: deliver all PRODUCT_PLAN.md, including merge-driven placement,
+finite-backup final deletion and bounded metadata retirement/replay protection.
+The goal is not complete. Read AGENTS/context/roadmap/wave/pulse and exact lane
+contracts. Preserve other worktrees/runtimes; resume does no cache operations.
 
 ## Current delivery state
 
-- Owned lane: feat/teaching-git-return in teaching-git-return worktree;
-  input3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19, contractb82b98b precedes code.
-  Actual ninth Git restore/new commit/source admission/held placement implemented.
-  Independent oracle: O absent all roles, N D/M, S F/M;29 actual stream bytes for
-  N, one denied seed attempt for O. Dedicated strict recorded reader checks prior
-  final loss/source/record/native context, plan/apply/status/providers/physical sets.
-  Existing response4 and shipped controls show desired F/M versus known absence;
-  unknown provider errors are not silently converted to absence in generic readers.
-  Terminal79800 compiles initial producer. Probe20895 passes physical oracle then
-  fails because its new report decoder was not built yet; not an E2E pass.
-  Terminal12251 native/physical/HTTP/shipped/21 semantic negatives and97155
-  all15 teaching cases/final-stage rendering/strict schema pass. Terminal63290
-  adds final23 refusals, rehashed enrollment/stream binding, literal Git record
-  readback and strict schema. All-feature full workspace/500k/strict6457 LIVE in
-  teaching-playback-all; logs git-return-all.log plus separate phase .exit files.
-  Default target is free for schema workspace then standalone/fresh artifact.
-  Logs git-return-{probe,native,teaching}.log outside Git under bulk-retirement temp.
-  Runtime23a15c7 is committed; parent correctionad64f03 integrated. Next: full schema/all-feature/500k
-  profiles and strict checks, standalone Git, fresh persisted artifact,81 controls,
-  source/secret gates, draft PR and exact-head hosted qualification. Keep explicit
-  external TEMP/TMP/target and debug0/incremental0/jobs4/threads4 before Cargo.
-  Parent PR53 initial run43054770000 fails Linux exact Tree(Store("metadata busy"));
-  Windows cancelled, secrets/structure/controllers pass. Test-only correctionad64f03
-  admits only this explicit metadata adapter wrapper; other Store failures reject.
-  All15 age/strict all-feature18570 pass. New exact run43057224855 is pending.
-  Parent source correction is integrated; final broad/hosted qualification remains.
-  Full PRODUCT_PLAN remains active; joined acquisition/restoration, complete
-  course/provider/current-authority/large-file/lifetime/human acceptance stay OPEN.
-  No viewer/browser/live caches/deployment or PR merge.
+Git-return runtime81ecc27eba6289f2639174c7872be3c53583f5ee is frozen and qualified.
+PR54 https://github.com/giodl73-repo/tig/pull/54 stacks on ready PR53/ad64f03.
+Exact runtime run43059041378 passes Windows/Linux/secrets. Parent exact run
+43057224855 also passes all three; both PRs are ready, neither merged/deployed.
+This documentation-only closeout requires its own latest-head source/CI checks.
+
+Terminal12251 initial native/21 refusals;97155 all15 teaching/final-stage shipped
+view/strict schema;63290 final23/rehashed enrollment/stream/raw Git/native/HTTP/
+shipped/strict;81 controllers pass. Integrated parent15-age/fmt/source28550 passes.
+Broad6457 all-feature workspace/500k/strict and57936 schema workspace/500k/strict,
+standalone Git, fmt, fresh schema bins and persisted CLI/catalogue check terminal0.
+Every git-return phase .exit is0; there is no live parent Cargo process.
+
+External artifact git-return-qualified-a18848222e204305a8cc0a32a14e5ce6 under
+bulk-retirement dev temp has9 checkpoints, complete_course=false. Catalogue check:
+read_only=true, payloads_opened0, automatic_eviction=false. See EVID-123 review
+for separate implementation/verification/scoped validation/trace/producer closure.
+No actual browser, human, hardware-domain, private-store or full-product claim.
+
+Next active owned branch feat/placement-final-absence, input81ecc27, contract
+commita36aa29. Its read-only completed/settled absence helper and SDK fixtures are
+separate work, not qualified by this parent's results. Poll that lane's exact
+handles/logs before starting Cargo in shared targets; do not overlap or restart
+on observation timeout. Full joined teaching, native/current authority/provider/
+large-file/restore/lifetime/metadata expiry and human acceptance remain OPEN.
+Use explicit external TEMP/TMP/target, debug0/incremental0/jobs4/threads4 before
+Cargo and explicit UTF8 Python text IO. No viewer/browser/cache/daemon startup.
 
 Historical parent implementation entry (runtime is now committed/pushed):
 - Owned lane: feat/teaching-reacquisition in teaching-reacquisition worktree,

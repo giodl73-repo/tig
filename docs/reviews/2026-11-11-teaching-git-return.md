@@ -1,8 +1,9 @@
 # Git return after final-loss candidate review
 
-Input3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contract commitb82b98b precedes
-runtime implementation. Runtime23a15c7 is committed; parent correction merged
-in296997a. Final enrollment/stream-counter strengthening is under qualification.
+Input3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contractb82b98b precedes code.
+Runtime81ecc27eba6289f2639174c7872be3c53583f5ee is frozen. Parent contention
+correctionad64f03 is integrated in296997a. This closeout changes documentation
+only; derive latest documentation-head CI from GitHub separately.
 [Contract](../../specs/TEACHING-GIT-RETURN.md) names controls, scope, entry/exit
 and L0/L1/L2. Full PRODUCT_PLAN remains active. This is EVID-123.
 
@@ -27,41 +28,54 @@ there is no new response version or viewer execution port. Metadata consistency
 establishes neither present-day custody nor storage permission. No SDK storage,
 event, authority or final-retirement algorithm changes.
 
+The returned plan also binds the ordinary lessons' exact enrollment. A rehashed
+substituted plan/receipt/status cannot bypass that binding. Streamed bytes equal
+actual publication/reacquisition effects within budget and full object lengths.
+Native fixtures independently read raw first/returned Git blobs without trimming.
+
 ## Verification
 
 | Evidence | Actual result |
 | --- | --- |
 | 79800 | Terminal0: initial producer compiles |
-| 20895 | Initial fresh producer satisfies physical oracle, then refuses catalogue because its new report reader was not yet present in that build; not an end-to-end pass |
-| 12251 | Terminal0: native Git/source/SDK run, literal physical bytes/absence, real HTTP and shipped controls;21 repinned semantic negatives |
-| 97155 | Terminal0: all15 teaching cases, strengthened new-stage shipped rendering and strict schema workspace/all-target Clippy |
+| 20895 | Initial physical oracle passes, then catalogue refuses the not-yet-built reader; not an end-to-end pass |
+| 12251 | Terminal0: native Git/source/SDK, literal physical bytes/absence, real HTTP/shipped controls and21 semantic refusals |
+| 97155 | Terminal0: all15 teaching cases/final-stage rendering and strict schema workspace/all-target Clippy |
+| 63290 | Terminal0: final23 refusals including rehashed enrollment/stream binding, raw Git blobs, native/HTTP/shipped controls and strict schema |
+| Controllers | All81 shipped controller cases pass |
+| 28550 | Terminal0: integrated parent correction,15 age cases, fmt/source; merge296997a |
+| 6457 | Terminal0: full all-feature workspace/500k and strict all-target Clippy |
+| 57936 | Terminal0: full schema workspace/500k/strict, standalone Git, fmt, fresh schema binaries and persisted nine-checkpoint sample/check |
+| Runtime CI | Exact81ecc27 run43059041378 passes Windows, Linux and secrets; PR54 ready for review, no merge |
 
-Logs git-return-{probe,native,teaching}.log remain outside Git. Both full workspace/
-500k profiles, standalone Git, final source pins/fmt/L0/diff/secrets, fresh persisted
-artifact and current-head hosted checks remain pending. No viewer/browser, live
-provider or private cache was used.
+Every git-return-{all-tests,all-clippy,default-tests,default-clippy,standalone,
+artifact,default-script}.exit is0. Logs stay outside Git. Persisted sample
+`git-return-qualified-a18848222e204305a8cc0a32a14e5ce6` records9 checkpoints,
+complete_course=false; readonly catalogue validation opens0 payloads and reports
+automatic_eviction=false. Source pins/fmt/L0/diff and staged/new-source/history
+secret checks pass for the runtime checkpoint; final documentation pins are
+checked before its commit. No viewer/browser/private/live provider was used.
 
 ## Synthetic validation and trace
 
-The catalogue now distinguishes accepted Git/source revision from held payload
-restoration. Actual29-byte copy progress for another object does not restore O.
-Seed access is denied; the attempted original source read supplies no bytes.
-Native fixture independently reads literal fixed/shared files at all expected
-locations and checks O absent across all roles. The HTTP response goes into the
-shipped controls, which show desired F/M beside known absence and GET-only
-navigation. Canonical repinned mutations must fail beyond their CAS hashes.
+Git/source selection succeeds while original payload restoration remains held.
+Actual29-byte transfer progress belongs to the fixed version, not original O.
+Seed access is disabled; its attempted original read supplies no payload. Native
+fixtures read literal fixed/shared bytes at every expected role and verify O's
+absence. Actual HTTP goes into shipped controls, showing desired F/M beside
+known absence and GET-only navigation. Canonical repinned reports must fail23
+semantic counterexamples beyond their CAS hashes.
 
-Trace: TEACHING-GIT-RETURN -> actual Git/source/placement + frozen copy oracle ->
-distinct recorded report -> strict history/provider/state/absence checks ->
-independent physical/HTTP/shipped/21-counterexample fixtures -> EVID-123.
-Implementation, verification, scoped validation, trace and review are separate.
-Joined acquisition/restoration, complete course and provider/current-authority/
-large-file/lifetime/browser/human/full-product acceptance remain OPEN.
+Trace: TEACHING-GIT-RETURN -> actual Git/source/placement + frozen physical oracle
+-> distinct recorded decoder/response4 -> exact enrollment/stream/history/state
+binding -> independent bytes/raw Git/HTTP/shipped/23 refusals -> both workspace/
+500k/strict/standalone/fresh artifact/exact-head CI -> EVID-123 scoped candidate.
+Joined acquisition/restoration, complete course and native/provider/current-
+authority/large-file/restore/lifetime/browser/human/full-product gates remain OPEN.
 
-Parent PR53 correctionad64f03 admits only the exact Tree(Store("metadata busy"))
-wrapper observed in failed Linux run43054770000; production algorithms unchanged.
-Focused15/strict18570 passes; new run43057224855 remains pending. Parent correction is merged in296997a; default15 age cases/fmt/source checks
-pass in28550. No hosted pass inferred.
+Parent PR53 ad64f03 passes exact run43057224855 Windows/Linux/secrets and is ready.
+The earlier43054770000 Linux Busy-wrapper failure remains recorded in EVID-122;
+its test-only correction changes no production capture algorithm.
 
 ## Six producer lenses
 
@@ -70,23 +84,13 @@ are not independent reviewers, human approval or publication/removal authority.
 
 | Lens / severity / owner | Finding and disposition | Remaining evidence |
 | --- | --- | --- |
-| Identity / critical / WP-003/007 | Git commit, source snapshot and payload differ. Exact record equality/new commit/native context/provider/object bindings plus substitutions pass focused checks | Broad/hosted and native writer/adoption |
+| Identity / critical / WP-003/007 | Git commit, source snapshot and payload differ. Exact record equality/new commit/native context/provider/object bindings plus substitutions pass focused checks | Native writer/adoption |
 | Placement / critical / WP-006/009 | Accepted source is not converged storage. Actual FinalRetirement hold and missing O remain; useful N demotion is preserved | Full writer/current authority and joined restoration |
 | Storage / critical / WP-003/007/013 | Held coverage cannot silently become absence. Dedicated evidence binds independently observed available-provider physical sets; O remains absent, retained siblings survive | Actual domains/providers/large-file/reclaim |
 | Recovery / critical / WP-004/008/009 | No tombstone, operation or ledger reset may resurrect old permission. Existing final/provider APIs unchanged; status stays observational | Wider recovery/authority/restore/lifetime |
 | Provider/privacy / high / WP-007/015 | Public seed cannot silently repopulate the loss. Disabled source and actual denied attempt are recorded; GET-only metadata playback | Hostile providers/native trust and live adoption |
 | Git/adoption / high / WP-009/015/016 | Pointer restore is not payload restore. Real explicit Git restore/new commit, admitted source, HTTP/shipped pending/missing view pass | Full curriculum/browser/human acceptance |
 
-Disposition: pass_with_risk for focused synthetic candidate. Source/broad/artifact/
-hosted and full acceptance gates remain open.
-
-## Final binding refinement
-
-The returned plan now retains the ordinary lessons' enrollment identity; a
-repinned/rehashed substituted plan, receipt and status must still refuse.
-Stream bytes must equal actual publication/reacquisition effects within budget;
-transfers bind the full object length. Native tests also read actual first/returned
-Git record blobs without trimming. Final23 semantic refusals and strict schema
-qualification pass in terminal63290; all-feature workspace/500k/strict6457 is live in separate
-external target. No broad terminal result claimed yet. All81 controls/fmt and
-source/staged secret checks passed before23a15c7. Final closeout gates remain.
+Disposition: pass_with_risk for qualified synthetic runtime81ecc27. Implementation,
+verification, scoped validation, trace and producer review close separately. Full
+contract/product/provider/current-authority/lifetime/human acceptance remains open.
