@@ -54,6 +54,37 @@ struct Fixture {
     new: Object,
     shared: Object,
 }
+
+#[test]
+fn publication_identity_is_readonly_and_refuses_foreign_provider_binding() {
+    let f = Fixture::new();
+    let before = f
+        .ledgers
+        .iter()
+        .map(CapacityLedger::checkpoint)
+        .collect::<Vec<_>>();
+    let request = publication(&f.config, &f.config.providers[0], &f.stores[0], &f.old).unwrap();
+    assert_eq!(request.object, f.old);
+    assert!(!f.present(0, &f.old)); // identity is not custody
+    let mut foreign = f.config.providers[0].clone();
+    foreign.capacity = Digest::blob(b"foreign capacity");
+    assert!(matches!(
+        publication(&f.config, &foreign, &f.stores[0], &f.old),
+        Err(Error::WrongEnrollment)
+    ));
+    assert!(matches!(
+        publication(&f.config, &f.config.providers[0], &f.stores[1], &f.old),
+        Err(Error::WrongEnrollment)
+    ));
+    assert_eq!(
+        f.ledgers
+            .iter()
+            .map(CapacityLedger::checkpoint)
+            .collect::<Vec<_>>(),
+        before
+    );
+    assert_eq!(f.seed.opens, 0);
+}
 impl Fixture {
     fn new() -> Self {
         Self::configured(false, false)

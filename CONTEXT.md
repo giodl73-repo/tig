@@ -1,11 +1,27 @@
 # Tig maintainer context
 
-Current lane: feat/teaching-final-retirement at input2ca3e18f2c506c9d5546db63396b90b49d74f509.
-TEACHING-FINAL-RETIREMENT.md freezes finite-backup teaching, fresh final-capable
-enrollment and distinct versioned bulk evidence. No implementation/acceptance
-claim yet. Existing ordinary M has no final policy; never upgrade it on resume.
-Parent PR51 run42901536923 is live on Windows/Linux; secrets passed at startup.
-Full plan remains active; no browser/live root/daemon/deployment.
+Owned lane: feat/teaching-final-retirement; input
+2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81.
+Runtime source is defined by foundation-target pins; derive commit/PR from Git.
+Full PRODUCT_PLAN goal remains active and incomplete. Read EVID-121 review and
+specs/TEACHING-FINAL-RETIREMENT.md before the next slice. Synthetic fresh roots
+only; no viewer, browser, deployment or live-cache operations.
+
+Local checkpoint qualified: manual final loss/retry/cancel/new-birth/process
+recovery; retained-age/native category/paged aged execution; distinct readonly
+bulk/paged playback with prior-state/source/action/clock checks and allocation
+versus unmeasured free-space display. Full14/all-feature final41136,13 manual/
+17 paged/8 malformed-frame negatives,79 controllers, both workspace/500k/strict
+runs (4118/61973), standalone82649 and fresh final artifact all pass. Every local
+handle is terminal. Earlier4434/89696 were lost without terminal results and
+remain unqualified; they are not counted as passes.
+
+Next: final source pins/L0/diff/secret scan and six-role evidence, then commit/
+draft PR/exact-head hosted checks. Parent PR51 remains ready at2ca3e18 with
+Windows/Linux/secrets pass; do not merge or deploy as a side effect. Reacquisition
+chapter, complete course, browser/human, native/current authority/clock/provider/
+large-file/lifetime and metadata-expiry acceptance remain open. See
+context/RESUME.md for exact logs/artifact; older lane entries below are historical.
 
 Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
 

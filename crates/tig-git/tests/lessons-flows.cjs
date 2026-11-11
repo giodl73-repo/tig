@@ -57,8 +57,8 @@ test('partial provider coverage shows known copies plus unknown, including the n
   for(const o of l.objects){o.observed=o.observed.filter(r=>r!=='backup');o.unknown=['backup'];}
   return b;});
  await f.settle();await f.click(f.get('lessons'));await pick(f,3);
- assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
- assert.match(f.get('result-count').textContent,/partial coverage/);await pick(f,4);assert.match(row(f,'original').children[1].textContent,/Unknown · Backup \/ M/);
+ assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.match(row(f,'original').children[3].textContent,/Unknown Â· Backup \/ M/);
+ assert.match(f.get('result-count').textContent,/partial coverage/);await pick(f,4);assert.match(row(f,'original').children[1].textContent,/Unknown Â· Backup \/ M/);
 });
 
 test('unknown-only provider coverage cannot become zero recorded copies',async()=>{
@@ -66,7 +66,7 @@ test('unknown-only provider coverage cannot become zero recorded copies',async()
   for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
   const l=b.lessons[0];l.converged=false;l.storage_converged=false;l.holds=['unavailable'];
   for(const o of l.objects){o.observed=[];o.unknown=['backup'];}return b;});
- await f.settle();await f.click(f.get('lessons'));assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
+ await f.settle();await f.click(f.get('lessons'));assert.match(row(f,'original').children[3].textContent,/Unknown Â· Backup \/ M/);
  assert.doesNotMatch(row(f,'original').children[3].textContent,/No managed copies/);
 });
 
@@ -100,5 +100,15 @@ test('rejection evidence cannot hide effects, convergence, unchanged basis or ol
    if(bad==='version')b.schema='tig.catalogue-teaching.design-2';if(bad==='effects')l.effects=[{}];if(bad==='stream')l.stream_bytes=1;if(bad==='converged')l.converged=true;
    if(bad==='current')l.basis_current=true;if(bad==='same')l.rejection.observed_basis=l.rejection.planning_basis;if(bad==='page')l.remaining_page=true;if(bad==='null')l.rejection=null;
    return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized rejected attempt/);
+ }
+});
+
+test('final allocation evidence refuses negative unsafe and nonnumeric values',async()=>{
+ for(const allocation of [-1,Number.MAX_SAFE_INTEGER+1,'4096']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-4';
+   for(const lesson of b.lessons)for(const o of lesson.objects)o.unknown=[];
+   const l=b.lessons[3];l.final_loss={phase:'completed',new_removed_bytes:0,historical_removed_bytes:0,synthetic_owner_consent:true,simulated_clock:true,file_allocation_before_new_removals:allocation};
+   for(const o of l.objects)o.before=[...o.observed];return b;});
+  await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized allocation evidence/);
  }
 });

@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-121 connects exact Git/native category and retained-age selection through
+actual synthetic claim settlement/final loss to readonly catalogue observations,
+with intent process recovery, cancel, new-birth replay and honest allocation.
+Synthetic domains/consent/time do not prove hardware, real clock or human approval.
+Complete course, operator/Action, provider/authority/lifetime and browser/human
+acceptance remain OPEN; [review](../reviews/2026-11-10-teaching-final-retirement.md).
+
 EVID-120 teaches authored Git path versus immutable bytes through real conflict
 refusal and zero-effect rename reconciliation. Eight recorded reports; no
 browser/classroom or general native writer acceptance. See

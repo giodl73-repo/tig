@@ -181,8 +181,8 @@ The ordinary runner executes seven; exchange executes ten; worktree executes
 twelve; backup-outage executes nine including held/catchup stages; stale-plan
 executes ten including rejected/fresh-plan stages; rename executes eight with
 unchanged bytes and zero new provider effects. Exchange/worktree
-add checked dirty-operation counterexamples. Final retirement remains
-a target-only checkpoint. Each mode produces its own bounded rehearsal, with at
+add checked dirty-operation counterexamples. Final-retirement modes below add
+bounded synthetic final-loss lessons. Each mode produces its own rehearsal, with at
 most sixteen reports per book. A complete recorded course still needs bounded
 chapters or paging alongside the remaining lessons. Hashes
 and byte sizes identify real generated inputs. Expected copies are literal
@@ -226,3 +226,40 @@ a new fresh root, a machine-checked scenario and its corresponding catalogue
 view. The corpus is an independent oracle for existing adapters; it must not
 grow a second solver or cache implementation. Simulated time and target-only
 capabilities must be visibly labelled.
+
+For an exact category block with retained inactivity evidence, choose another
+fresh output root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-aged-category ABSOLUTE_NEW_OUTPUT
+```
+
+Its eighth recorded checkpoint follows the ordinary seven. The fixture resolves
+the original series category at exact historical occurrences, checks independently
+retained age facts, and separately admits claim release and final loss. At
+simulated time500 the deadline refuses with unchanged claims and copies. At1000,
+with required inactivity500ms, the existing paged controller removes the two29-byte
+original copies from D and M. Shared input and current fixed bytes remain on F+M.
+The catalogue displays before/selection/observed, eligible versus protected versus
+unselected objects, and new versus historical logical removal. This is58 logical
+copy bytes, not a claim of58 bytes of filesystem free-space gain. Read-only playback
+shows recorded file allocation before new removals and labels free-space change
+unmeasured. It
+reconstructs the pinned SDK decision from exported metadata; it cannot run deletion.
+
+Additional fresh-root modes isolate the other boundaries:
+
+| Mode | What the fixture checks |
+| --- | --- |
+| `rehearse-final-enrollment` | Final-capable stores run the ordinary lifecycle; historical job protection holds the preview; no final deletion |
+| `rehearse-final-manual` | Exact manual block; separate historical job-claim retirement and synthetic consent; intent interruption, resume and completed retry |
+| `rehearse-final-cancel` | One29-byte copy removal precedes durable cancellation; remaining original copy survives; retry performs no new removal |
+| `rehearse-final-reacquire` | Same original hash returns as a separately authorized new birth with new retention; old deletion retry preserves it |
+| `rehearse-final-process` | Actual child exit at durable intent; parent reopens state and resumes the exact decision |
+| `rehearse-retained-age` | Reopened old/recent/unknown age facts and category preview; no final loss |
+
+Each mode uses the same command form and requires its own new absolute output
+directory. Consent, clock and declared domains are synthetic; hardware independence,
+real authority/clock/provider qualification and classroom acceptance remain open.
+Detailed metadata expiry and stale-client replay after expiry remain future lessons.
+See the [final teaching contract](../../specs/TEACHING-FINAL-RETIREMENT.md).

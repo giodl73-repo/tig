@@ -12,7 +12,7 @@ use crate::{
     source_claims::{Checkpoint, admission::Namespace},
     store_protection::Member,
 };
-pub use execute::{Effect, EffectKind, Observation, Observed, Report};
+pub use execute::{Effect, EffectKind, Observation, Observed, Report, publication};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use tig_core::{Digest, Object, identity, tree::NodeStore};

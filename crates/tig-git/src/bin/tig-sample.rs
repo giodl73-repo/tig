@@ -1,4 +1,14 @@
 //! Explicit public synthetic fixtures. Never opens existing fixture/provider roots.
+#[path = "tig-sample/age_preview.rs"]
+mod age_preview;
+#[path = "tig-sample/aged_execution.rs"]
+mod aged_execution;
+#[path = "tig-sample/category_preview.rs"]
+mod category_preview;
+#[path = "tig-sample/paged_playback.rs"]
+mod paged_playback;
+#[path = "tig-sample/recovery.rs"]
+mod recovery;
 use serde_json::{Value, json};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -14,6 +24,7 @@ use tig_git::source::{GitId, Limits, Repository, Scope, native};
 use tig_store::{
     Key,
     existing::{ByteSource, Layout, ReadCache},
+    final_retirement::{bulk as final_bulk, claims as final_claims, provider as final_provider},
     ledger::CapacityLedger,
     local::LocalStore,
     local_capacity::LocalCapacityProbe,
@@ -35,6 +46,13 @@ enum Mode {
     BackupOutage,
     StalePlan,
     Rename,
+    FinalEnrollment,
+    FinalManual,
+    FinalCancel,
+    FinalReacquire,
+    FinalProcess,
+    FinalAgePreview,
+    FinalAged,
 }
 struct SampleSeed {
     reader: ReadCache,
@@ -186,9 +204,10 @@ struct Demo {
     objects: BTreeMap<String, Object>,
     definition: Value,
     reports: Vec<Value>,
+    final_roster: Option<final_claims::Roster>,
 }
 impl Demo {
-    fn new(requested: &Path) -> Result<Self> {
+    fn new(requested: &Path, mode: Mode) -> Result<Self> {
         if !requested.is_absolute() || requested.exists() {
             return Err("sample requires a fresh absolute root".into());
         }
@@ -284,6 +303,26 @@ impl Demo {
                 &limits(),
             )?;
         }
+        let final_roster = if matches!(
+            mode,
+            Mode::FinalEnrollment
+                | Mode::FinalManual
+                | Mode::FinalCancel
+                | Mode::FinalReacquire
+                | Mode::FinalProcess
+                | Mode::FinalAgePreview
+                | Mode::FinalAged
+        ) {
+            Some(final_claims::Roster::flat(
+                Digest::blob(b"public sample final claim authority"),
+                Digest::blob(b"public sample final epoch"),
+                Some(Digest::blob(b"complete synthetic sample content scope")),
+                vec![final_claims::NamespacePin::current(&namespace)?],
+                limits(),
+            )?)
+        } else {
+            None
+        };
         let mut stores = Vec::new();
         let mut ledgers = Vec::new();
         let mut providers = Vec::new();
@@ -292,7 +331,28 @@ impl Demo {
             ("history", Role::Cache),
             ("backup", Role::Retained),
         ] {
-            let store = if role == Role::Cache {
+            let store = if let Some(roster) = &final_roster {
+                LocalStore::create_final(
+                    &root.join(name),
+                    key(name),
+                    Binding::new(
+                        1,
+                        Digest::blob(b"public sample scoped clients"),
+                        vec![Member {
+                            namespace: namespace.identity().clone(),
+                            places: vec![key(name)],
+                        }],
+                    )?,
+                    final_provider::Policy::new(
+                        Digest::blob(b"public sample final authority"),
+                        Digest::blob(b"public sample final epoch"),
+                        roster.scope()?,
+                        Digest::blob(b"public sample simulated clock"),
+                        vec![key("sample")],
+                        60000,
+                    )?,
+                )?
+            } else if role == Role::Cache {
                 LocalStore::create_managed(
                     &root.join(name),
                     key(name),
@@ -321,7 +381,15 @@ impl Demo {
                 key("sample"),
             )?;
             let job = ledger
-                .reserve(key("sample-controller"), key("sample"), 16 * 1024 * 1024)?
+                .reserve(
+                    key("sample-controller"),
+                    key("sample"),
+                    if final_roster.is_some() {
+                        128 * 1024 * 1024
+                    } else {
+                        16 * 1024 * 1024
+                    },
+                )?
                 .reference()
                 .clone();
             providers.push(Provider {
@@ -357,7 +425,11 @@ impl Demo {
                 objects: 32,
                 max_object_bytes: 1024,
                 max_stream_bytes: 1024 * 1024,
-                max_peak_bytes: 16 * 1024 * 1024,
+                max_peak_bytes: if final_roster.is_some() {
+                    64 * 1024 * 1024
+                } else {
+                    16 * 1024 * 1024
+                },
                 limits: limits(),
             },
         };
@@ -381,6 +453,7 @@ impl Demo {
             objects,
             definition,
             reports: Vec::new(),
+            final_roster,
         })
     }
     fn write_version(&self, version: &str) -> Result<()> {
@@ -422,15 +495,16 @@ impl Demo {
                 .native(&view, records, definitions, native::Limits::default())?;
         self.select_snapshot(source, &snapshot, operation)
     }
-    fn select_snapshot(
-        &mut self,
-        source: &str,
+    fn flat_entries(
         snapshot: &native::AssetSnapshot,
-        operation: &str,
-    ) -> Result<()> {
+        assets: Option<&BTreeSet<tig_assets::graph::Reference>>,
+    ) -> Result<BTreeMap<LogicalPath, Object>> {
         snapshot.validate_authored_schemas(tig_assets::schema::Dialect::Draft202012)?;
         let mut entries = BTreeMap::new();
         for record in snapshot.selected_records() {
+            if assets.is_some_and(|set| !set.contains(record.reference())) {
+                continue;
+            }
             entries.insert(
                 LogicalPath::parse(&format!("{}/selected", record.reference().id))?,
                 record.selected()?.clone(),
@@ -450,6 +524,15 @@ impl Demo {
                 );
             }
         }
+        Ok(entries)
+    }
+    fn select_snapshot(
+        &mut self,
+        source: &str,
+        snapshot: &native::AssetSnapshot,
+        operation: &str,
+    ) -> Result<()> {
+        let entries = Self::flat_entries(snapshot, None)?;
         let root = Tree::build(&entries, &mut self.metadata, TreeLimits::default())?
             .0
             .root()
@@ -648,7 +731,7 @@ impl Demo {
         let enrollment = self.root.join("catalogue.json");
         save(
             &enrollment,
-            &json!({"schema":"tig.catalogue-enrollment.experimental-1","teaching":{"schema":"tig.catalogue-teaching-profile.design-1","project":"sample","trace":trace,"roles":[{"id":"working","label":"Working / F"},{"id":"history","label":"History / D"},{"id":"backup","label":"Backup / M"}],"source":{"places":[{"root":self.root.join("lesson-evidence"),"layout":"flat"}],"required":"cooperative-immutable","limits":{"object_bytes":65536,"total_bytes":2097152,"requests":32,"verify_millis":30000,"live_readers":1}}},"default_project":"sample","projects":[{"id":"sample","label":"Tig public teaching sample","profile":profile,"display":[{"category":"Studies","title_pointers":["/authored/title"]}],"fields":[{"label":"Version","pointer":"/authored/version","section":"source"}],"collections":[{"id":"studies","label":"Studies","icon":"folder","roots":[{"pattern":"^work/(.+)$","key":"${1}"}],"stages":[{"label":"Released","pointer":"/status/lifecycle","pattern":"^released$"}],"count_state":"Released","version_pointer":"/authored/version","version_role":"result","version_slot_prefix":"history/"}],"storage":{"schema":"tig.catalogue-storage.experimental-1","inventory":null,"encoding":"json","max_decoded_bytes":1048576,"places":[{"label":"Working (F)","place_index":0,"report_tier":null,"live_probe":true},{"label":"History (D)","place_index":1,"report_tier":null,"live_probe":true},{"label":"Backup (M)","place_index":2,"report_tier":null,"live_probe":true}],"default_family":"Studies","default_cache":"Working (F)"}}]}),
+            &json!({"schema":"tig.catalogue-enrollment.experimental-1","teaching":{"schema":"tig.catalogue-teaching-profile.design-1","project":"sample","trace":trace,"roles":[{"id":"working","label":"Working / F"},{"id":"history","label":"History / D"},{"id":"backup","label":"Backup / M"}],"source":{"places":[{"root":self.root.join("lesson-evidence"),"layout":"flat"}],"required":"cooperative-immutable","limits":{"object_bytes":65536,"total_bytes":2097152,"requests":if self.reports.iter().any(|r|r["lesson"]=="aged-category-final-loss"){1024}else{32},"verify_millis":30000,"live_readers":1}}},"default_project":"sample","projects":[{"id":"sample","label":"Tig public teaching sample","profile":profile,"display":[{"category":"Studies","title_pointers":["/authored/title"]}],"fields":[{"label":"Version","pointer":"/authored/version","section":"source"}],"collections":[{"id":"studies","label":"Studies","icon":"folder","roots":[{"pattern":"^work/(.+)$","key":"${1}"}],"stages":[{"label":"Released","pointer":"/status/lifecycle","pattern":"^released$"}],"count_state":"Released","version_pointer":"/authored/version","version_role":"result","version_slot_prefix":"history/"}],"storage":{"schema":"tig.catalogue-storage.experimental-1","inventory":null,"encoding":"json","max_decoded_bytes":1048576,"places":[{"label":"Working (F)","place_index":0,"report_tier":null,"live_probe":true},{"label":"History (D)","place_index":1,"report_tier":null,"live_probe":true},{"label":"Backup (M)","place_index":2,"report_tier":null,"live_probe":true}],"default_family":"Studies","default_cache":"Working (F)"}}]}),
         )?;
         let mut catalogue =
             tig_git::catalogue::Catalogue::load(tig_git::catalogue::Config::load(&enrollment)?)?;
@@ -767,6 +850,88 @@ impl Demo {
         } else {
             None
         };
+        let mut result = json!({"schema":"tig.sample-result.design-1","root":self.root,"completed_checkpoints":self.reports.len(),"trace":"trace.json","catalogue":"catalogue.json","complete_course":false});
+        if let Some(evidence) = exchange_evidence {
+            result["exchange_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if let Some(evidence) = worktree_evidence {
+            result["worktree_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if let Some(evidence) = backup_evidence {
+            result["backup_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if let Some(evidence) = stale_evidence {
+            result["stale_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if let Some(evidence) = rename_evidence {
+            result["rename_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if matches!(mode, Mode::FinalAged) {
+            let evidence = aged_execution::run(&mut self, &first, &reverted)?;
+            result["aged_execution_evidence"] = serde_json::to_value(evidence)?;
+            result["final_deletion_exercised"] = true.into();
+        } else if let Some(roster) = self.final_roster.clone() {
+            if matches!(mode, Mode::FinalAgePreview) {
+                let before = self.copy_snapshot()?;
+                let view = self.repository.commit(GitId::parse(&first)?)?;
+                let mut native = self.repository.native(
+                    &view,
+                    Scope::new([LogicalPath::parse("records")?])?,
+                    Scope::new([LogicalPath::parse("definitions")?])?,
+                    native::Limits::default(),
+                )?;
+                let category = category_preview::run(&self.root, &mut native, &mut self.metadata)?;
+                result["native_category_evidence"] = serde_json::to_value(category)?;
+                let evidence =
+                    age_preview::run(&self.root, &mut self.namespaces[0], &mut self.metadata)?;
+                if self.copy_snapshot()? != before {
+                    return Err("age capture changed payload copies".into());
+                }
+                result["retained_age_evidence"] = serde_json::to_value(evidence)?;
+            }
+            let observed = self.copy_snapshot()?;
+            let mut copies = Vec::new();
+            for ((store, ledger), pin) in self
+                .stores
+                .iter()
+                .zip(&self.ledgers)
+                .zip(&self.config.providers)
+            {
+                for (name, object) in &self.objects {
+                    if observed[pin.assignments[0].place.as_str()]
+                        .get(name)
+                        .is_some()
+                    {
+                        copies.push(tig_store::final_retirement::bulk::Copy {
+                            store: store.identity().clone(),
+                            capacity: ledger.identity().clone(),
+                            publication: placement::publication(&self.config, pin, store, object)?,
+                        });
+                    }
+                }
+            }
+            copies.sort_by(|a, b| {
+                (&a.store, &a.publication.object.sha256)
+                    .cmp(&(&b.store, &b.publication.object.sha256))
+            });
+            let (preview, loss) = self.final_preview(&roster, copies.clone(), mode)?;
+            let evidence = save(
+                &self.root.join("final-enrollment.json"),
+                &json!({
+                    "schema":"tig.sample-final-enrollment.design-1","roster":roster,
+                    "scope":roster.scope()?,"providers":self.config.providers,"copies":copies,
+                    "enrollment_only":true,"final_deletion_exercised":false,
+                    "independent_hardware_backup_proven":false
+                }),
+            )?;
+            result["final_enrollment_evidence"] = serde_json::to_value(evidence)?;
+            result["final_preview_evidence"] = serde_json::to_value(preview)?;
+            result["final_deletion_exercised"] = false.into();
+            if let Some(loss) = loss {
+                result["final_loss_evidence"] = serde_json::to_value(loss)?;
+                result["final_deletion_exercised"] = true.into();
+            }
+        }
         let pending = if matches!(mode, Mode::Exchange) {
             json!([
                 "full command-by-command Git curriculum",
@@ -793,23 +958,542 @@ impl Demo {
             Layout::Flat.object_path(&self.root.join("lesson-evidence"), &trace.sha256),
         )?;
         self.catalogue(&current, &trace)?;
-        let mut result = json!({"schema":"tig.sample-result.design-1","root":self.root,"completed_checkpoints":self.reports.len(),"trace":"trace.json","catalogue":"catalogue.json","complete_course":false});
-        if let Some(evidence) = exchange_evidence {
-            result["exchange_evidence"] = serde_json::to_value(evidence)?;
-        }
-        if let Some(evidence) = worktree_evidence {
-            result["worktree_evidence"] = serde_json::to_value(evidence)?;
-        }
-        if let Some(evidence) = backup_evidence {
-            result["backup_evidence"] = serde_json::to_value(evidence)?;
-        }
-        if let Some(evidence) = stale_evidence {
-            result["stale_evidence"] = serde_json::to_value(evidence)?;
-        }
-        if let Some(evidence) = rename_evidence {
-            result["rename_evidence"] = serde_json::to_value(evidence)?;
-        }
+        result["completed_checkpoints"] = self.reports.len().into();
         Ok(result)
+    }
+
+    fn final_preview(
+        &mut self,
+        roster: &final_claims::Roster,
+        copies: Vec<final_bulk::Copy>,
+        mode: Mode,
+    ) -> Result<(Object, Option<Object>)> {
+        let before = self.copy_snapshot()?;
+        let checkpoint = self.namespaces[0].checkpoint();
+        let witness = LocalStore::create(&self.root.join("final-witness"), key("final-witness"))?;
+        let mut ledger = CapacityLedger::create(
+            &self.root.join("final-witness-ledger"),
+            key("final-witness-capacity"),
+            key("sample-epoch"),
+            0,
+        )?;
+        LocalCapacityProbe::bind(&witness, &mut ledger)?.observe(
+            &witness,
+            &mut ledger,
+            key("probe"),
+            key("sample"),
+        )?;
+        let witness_job = ledger
+            .reserve(key("final-witness-job"), key("sample"), 64 * 1024 * 1024)?
+            .reference()
+            .clone();
+        let enrollment = final_bulk::Enrollment {
+            authority: Digest::blob(b"public sample batch authority"),
+            epoch: Digest::blob(b"public sample final epoch"),
+            owner: key("sample"),
+            context: Digest::blob(b"public sample final context"),
+            scope: roster.scope()?,
+            clock: Digest::blob(b"public sample simulated clock"),
+            witness: Place::local(&witness, 1)?,
+            capacity: ledger.identity().clone(),
+            max_window: 60000,
+            max_metadata_bytes: 32 * 1024 * 1024,
+            sources: vec![source_claims::subset::Enrollment {
+                authority: Digest::blob(b"public sample subset authority"),
+                namespace: self.namespaces[0].identity().clone(),
+                policy: hash(self.namespaces[0].policy())?,
+                owner: key("sample"),
+                classes: vec![Kind::Branch, Kind::Draft],
+                limits: limits(),
+                writes: 10000,
+                write_bytes: 8 * 1024 * 1024,
+            }],
+        };
+        let mut selections = Vec::new();
+        for name in ["draft", "main"] {
+            let source = self.namespaces[0]
+                .source(&key(name))?
+                .ok_or("missing sample source")?;
+            for version in source.predecessors {
+                let (entries, _) = Tree::from_root(version.selection.root)
+                    .entries(&mut self.metadata.finished_reader()?, TreeLimits::default())?;
+                selections.push(final_bulk::Selection {
+                    namespace: self.namespaces[0].identity().clone(),
+                    request: source_claims::subset::Request {
+                        source: key(name),
+                        predecessor_revision: version.revision,
+                        paths: entries.into_keys().collect(),
+                    },
+                });
+            }
+        }
+        selections.sort_by(|a, b| {
+            (
+                &a.namespace,
+                a.request.source.as_str(),
+                a.request.predecessor_revision,
+            )
+                .cmp(&(
+                    &b.namespace,
+                    b.request.source.as_str(),
+                    b.request.predecessor_revision,
+                ))
+        });
+        let request = final_bulk::Request {
+            operation: key("public-final-preview"),
+            selections,
+            copies,
+            window: final_provider::Window {
+                not_before: 50,
+                expires: 500,
+            },
+        };
+        let stores = self.stores.iter().collect::<Vec<_>>();
+        let plan = final_bulk::plan(
+            &enrollment,
+            request,
+            roster,
+            &mut self.namespaces,
+            &self.metadata.finished_reader()?,
+            &stores,
+        )?;
+        if self.copy_snapshot()? != before || self.namespaces[0].checkpoint() != checkpoint {
+            return Err("final preview changed source or copies".into());
+        }
+        let preview = save(
+            &self.root.join("final-preview.json"),
+            &json!({
+                "schema":"tig.sample-final-preview.design-1","plan":serde_json::from_slice::<Value>(&plan.to_json()?)?,"plan_id":plan.id()?,
+                "witness_job":witness_job,"source_checkpoint":checkpoint,"copies_before":before,"copies_after":self.copy_snapshot()?,
+                "simulated_clock":true,"preview_only":true,"final_deletion_exercised":false,"removal_authority":false,
+                "scope_limit":"exact manual historical block; category and retained age selection pending"
+            }),
+        )?;
+        if matches!(mode, Mode::FinalEnrollment | Mode::FinalAgePreview) {
+            return Ok((preview, None));
+        }
+        if plan
+            .subjects()
+            .iter()
+            .any(|s| s.hold != Some(final_bulk::Hold::Protected))
+            || plan.actions().len() != 0
+        {
+            return Err("initial final preview lost protection".into());
+        }
+        let job = self.namespaces[0]
+            .source(&key("job"))?
+            .ok_or("missing job")?;
+        if job.current.is_some() || job.pending.is_some() {
+            return Err("job still active".into());
+        }
+        for version in job.predecessors {
+            let revision = self.namespaces[0]
+                .source(&key("job"))?
+                .ok_or("missing job")?
+                .revision;
+            self.namespaces[0].apply(
+                key(&format!("explicit-retire-job-history-{}", version.revision)),
+                Command::Retire {
+                    source: key("job"),
+                    owner: key("sample"),
+                    expected_revision: revision,
+                    predecessor_revision: version.revision,
+                },
+                &self.metadata.finished_reader()?,
+                &limits(),
+            )?;
+        }
+        let settled_job = self.namespaces[0].checkpoint();
+        if self.copy_snapshot()? != before {
+            return Err("job history retirement changed bytes".into());
+        }
+        let mut request = plan.request().clone();
+        request.operation = key("public-explicit-final-loss");
+        let fresh = final_bulk::plan(
+            &enrollment,
+            request,
+            roster,
+            &mut self.namespaces,
+            &self.metadata.finished_reader()?,
+            &stores,
+        )?;
+        if fresh
+            .subjects()
+            .iter()
+            .filter(|s| s.hold.is_none())
+            .map(|s| &s.object)
+            .collect::<Vec<_>>()
+            != vec![&self.objects["original"]]
+            || fresh.actions().len() != 2
+        {
+            return Err("unexpected final eligibility".into());
+        }
+        struct SimulatedClock(Digest, u64);
+        impl final_provider::Clock for SimulatedClock {
+            fn now(&self, policy: &Digest) -> final_provider::Result<u64> {
+                if policy != &self.0 {
+                    return Err(final_provider::Error::Clock);
+                }
+                Ok(self.1)
+            }
+        }
+        let clock = SimulatedClock(enrollment.clock.clone(), 100);
+        let jobs = fresh
+            .actions()
+            .map(|(store, _)| {
+                self.config
+                    .providers
+                    .iter()
+                    .find(|p| &p.place.instance == store)
+                    .map(|p| p.job.clone())
+                    .ok_or("unknown action store")
+            })
+            .collect::<std::result::Result<Vec<_>, _>>()?;
+        let auth = fresh.authorize()?; // explicit owner decision in this fresh synthetic mode only
+        let process_exit = if matches!(mode, Mode::FinalProcess) {
+            let frame = recovery::Frame {
+                root: self.root.clone(),
+                plan: serde_json::from_slice(&fresh.to_json()?)?,
+                enrollment: enrollment.clone(),
+                roster: roster.clone(),
+                providers: self.config.providers.clone(),
+                namespace: settled_job.clone(),
+                metadata: self.metadata.checkpoint(),
+                ledgers: self
+                    .ledgers
+                    .iter()
+                    .map(CapacityLedger::checkpoint)
+                    .collect(),
+                witness: ledger.checkpoint(),
+                witness_job: witness_job.clone(),
+            };
+            let raw = identity::canonical_json(&serde_json::to_value(&frame)?)?;
+            if raw.len() > 65536 {
+                return Err("fixture frame budget exceeded".into());
+            }
+            save(
+                &self.root.join("final-child-frame.json"),
+                &serde_json::to_value(&frame)?,
+            )?;
+            use std::io::Write;
+            let mut child = Git::new(std::env::current_exe()?)
+                .args(["__final-fixture-child", Digest::blob(&raw).as_str()])
+                .stdin(std::process::Stdio::piped())
+                .stdout(std::process::Stdio::piped())
+                .stderr(std::process::Stdio::piped())
+                .spawn()?;
+            let write = child
+                .stdin
+                .take()
+                .ok_or("missing child stdin")?
+                .write_all(&raw);
+            if let Err(error) = write {
+                let _ = child.kill();
+                let _ = child.wait();
+                return Err(error.into());
+            }
+            let output = child.wait_with_output()?;
+            if output.status.code() != Some(94)
+                || !output.stdout.is_empty()
+                || !output.stderr.is_empty()
+            {
+                return Err("fixture child did not exit at durable intent".into());
+            }
+            let reopened = Namespace::open(&self.root.join("namespace"), &settled_job)?;
+            if self.copy_snapshot()? != before || reopened.checkpoint() != settled_job {
+                return Err("child intent changed claims or copies".into());
+            }
+            self.namespaces[0] = reopened;
+            self.metadata = MetadataStore::open(&self.root.join("metadata"), &frame.metadata)?;
+            for (at, role) in ["working", "history", "backup"].into_iter().enumerate() {
+                self.stores[at] = LocalStore::open(&self.root.join(role))?;
+                self.ledgers[at] = CapacityLedger::open(
+                    &self.root.join(format!("ledger-{role}")),
+                    &frame.ledgers[at],
+                )?;
+            }
+            ledger = CapacityLedger::open(&self.root.join("final-witness-ledger"), &frame.witness)?;
+            Some(94)
+        } else {
+            None
+        };
+        let (report, retry, copies_after_intent, copies_after_completion) = {
+            let mut places = self
+                .stores
+                .iter()
+                .zip(&mut self.ledgers)
+                .zip(&self.config.providers)
+                .map(|((store, ledger), p)| placement::Local {
+                    store,
+                    ledger,
+                    job: &p.job,
+                })
+                .collect::<Vec<_>>();
+            let mut execution = final_bulk::Execution {
+                enrollment: &enrollment,
+                roster,
+                namespaces: &mut self.namespaces,
+                metadata: &mut self.metadata,
+                places: &mut places,
+                action_jobs: &jobs,
+                witness: placement::Local {
+                    store: &witness,
+                    ledger: &mut ledger,
+                    job: &witness_job,
+                },
+                clock: &clock,
+                admitted_context: &enrollment.context,
+            };
+            if process_exit.is_none() {
+                let interrupted = execution.apply_hook(&fresh, &auth, |stage| {
+                    if stage == final_bulk::Stage::Intent {
+                        Err(final_bulk::Error::Injected)
+                    } else {
+                        Ok(())
+                    }
+                });
+                if !matches!(interrupted, Err(final_bulk::Error::Injected)) {
+                    return Err("intent interruption was not observed".into());
+                }
+            }
+            let copies_after_intent = Self::snapshot_at(&self.root, &self.objects)?;
+            if copies_after_intent != before || execution.namespaces[0].checkpoint() != settled_job
+            {
+                return Err("intent interruption changed claims or copies".into());
+            }
+            let cancelled = matches!(mode, Mode::FinalCancel);
+            let report = if cancelled {
+                let partial = execution.apply_hook(&fresh, &auth, |stage| {
+                    if stage == final_bulk::Stage::Removed(0) {
+                        Err(final_bulk::Error::Injected)
+                    } else {
+                        Ok(())
+                    }
+                });
+                if !matches!(partial, Err(final_bulk::Error::Injected)) {
+                    return Err("first removal interruption missing".into());
+                }
+                execution.cancel(&fresh, &auth)?
+            } else {
+                execution.apply(&fresh, &auth)?
+            };
+            let copies_after_completion = Self::snapshot_at(&self.root, &self.objects)?;
+            let retry = execution.apply(&fresh, &auth)?;
+            if retry.phase
+                != if cancelled {
+                    final_bulk::Phase::Cancelled
+                } else {
+                    final_bulk::Phase::Completed
+                }
+                || retry.new_logical_copy_bytes_removed != 0
+                || retry.historical_deleted_copy_bytes != if cancelled { 29 } else { 58 }
+                || Self::snapshot_at(&self.root, &self.objects)? != copies_after_completion
+            {
+                return Err("exact retry repeated final loss".into());
+            }
+            (report, retry, copies_after_intent, copies_after_completion)
+        };
+        let after = self.copy_snapshot()?;
+        let cancelled = matches!(mode, Mode::FinalCancel);
+        let remaining = ["working", "history", "backup"]
+            .iter()
+            .filter(|role| after[**role].get("original").is_some())
+            .count();
+        if remaining != usize::from(cancelled) {
+            return Err("unexpected original copies after final operation".into());
+        }
+        for name in ["fixed", "shared"] {
+            for role in ["working", "backup"] {
+                if after[role][name] != before[role][name] {
+                    return Err("final loss harmed protected bytes".into());
+                }
+            }
+        }
+        if report.phase
+            != if cancelled {
+                final_bulk::Phase::Cancelled
+            } else {
+                final_bulk::Phase::Completed
+            }
+            || !report.holds.is_empty()
+            || report.new_logical_copy_bytes_removed != if cancelled { 0 } else { 58 }
+        {
+            return Err("final report did not complete exact two-copy loss".into());
+        }
+        let final_source = self.namespaces[0].checkpoint();
+        let reacquisition = if matches!(mode, Mode::FinalReacquire) {
+            let at = self
+                .config
+                .providers
+                .iter()
+                .position(|p| p.assignments[0].place == key("backup"))
+                .ok_or("backup missing")?;
+            let (_, parent) = fresh
+                .actions()
+                .find(|(id, _)| *id == self.stores[at].identity())
+                .ok_or("backup action missing")?;
+            let publication = tig_store::Request {
+                operation: key("fresh-same-original"),
+                ..parent.request().publication.clone()
+            };
+            let context = Digest::blob(b"public sample explicit reacquisition");
+            let rp = final_provider::reacquire::plan(
+                &self.stores[at],
+                parent,
+                final_provider::reacquire::Request {
+                    publication: publication.clone(),
+                    capacity: self.ledgers[at].identity().clone(),
+                    context: context.clone(),
+                    window: final_provider::Window {
+                        not_before: 50,
+                        expires: 500,
+                    },
+                },
+            )?;
+            let bytes = self.fixture["objects"]["original"]["text"]
+                .as_str()
+                .ok_or("original seed missing")?
+                .as_bytes();
+            final_provider::reacquire::Execution {
+                store: &self.stores[at],
+                ledger: &mut self.ledgers[at],
+                job: &self.config.providers[at].job,
+                clock: &clock,
+                admitted_context: &context,
+            }
+            .apply(&rp, &rp.authorize()?, &mut std::io::Cursor::new(bytes))?;
+            let retained = tig_store::retention::plan(
+                &self.stores[at],
+                &tig_store::retention::RetentionRequest {
+                    operation: key("fresh-original-retention"),
+                    owner: key("sample"),
+                    publication,
+                    minimum_ack: tig_store::AckLevel::ProcessRestart,
+                },
+            )?;
+            let grant = tig_store::retention::retain(
+                &mut self.ledgers[at],
+                &self.stores[at],
+                &self.config.providers[at].job,
+                &retained,
+            )?
+            .grant;
+            let acquired = self.copy_snapshot()?;
+            let prior_ledgers = self
+                .ledgers
+                .iter()
+                .map(CapacityLedger::checkpoint)
+                .collect::<Vec<_>>();
+            let prior_witness = ledger.checkpoint();
+            let prior_source = self.namespaces[0].checkpoint();
+            let expired_clock = SimulatedClock(enrollment.clock.clone(), 700);
+            let replay = {
+                let mut places = self
+                    .stores
+                    .iter()
+                    .zip(&mut self.ledgers)
+                    .zip(&self.config.providers)
+                    .map(|((store, ledger), p)| placement::Local {
+                        store,
+                        ledger,
+                        job: &p.job,
+                    })
+                    .collect::<Vec<_>>();
+                final_bulk::Execution {
+                    enrollment: &enrollment,
+                    roster,
+                    namespaces: &mut self.namespaces,
+                    metadata: &mut self.metadata,
+                    places: &mut places,
+                    action_jobs: &jobs,
+                    witness: placement::Local {
+                        store: &witness,
+                        ledger: &mut ledger,
+                        job: &witness_job,
+                    },
+                    clock: &expired_clock,
+                    admitted_context: &enrollment.context,
+                }
+                .apply(&fresh, &auth)?
+            };
+            if replay.phase != final_bulk::Phase::Completed
+                || replay.new_logical_copy_bytes_removed != 0
+                || replay.historical_deleted_copy_bytes != 58
+                || self.copy_snapshot()? != acquired
+                || self
+                    .ledgers
+                    .iter()
+                    .map(CapacityLedger::checkpoint)
+                    .collect::<Vec<_>>()
+                    != prior_ledgers
+                || ledger.checkpoint() != prior_witness
+                || self.namespaces[0].checkpoint() != prior_source
+            {
+                return Err("old deletion retry changed fresh same-hash acquisition".into());
+            }
+            tig_store::retention::verify(&mut self.ledgers[at], &self.stores[at], &grant)?;
+            Some(save(
+                &self.root.join("final-reacquisition.json"),
+                &json!({
+                    "schema":"tig.sample-final-reacquisition.design-1","plan":serde_json::from_slice::<Value>(&rp.to_json()?)?,"plan_id":rp.id()?,
+                    "old_plan":fresh.id()?,"old_plan_retry":replay,"retention":grant,"copies_before":after,"copies_after":acquired,
+                    "retry_clock_after_old_window":700,"synthetic_owner_consent":true,"simulated_clock":true
+                }),
+            )?)
+        } else {
+            None
+        };
+        let loss = save(
+            &self.root.join("final-loss.json"),
+            &json!({
+                "schema":"tig.sample-final-loss.design-1","held_preview":preview,"source_after_job_history_retirement":settled_job,
+                "plan":serde_json::from_slice::<Value>(&fresh.to_json()?)?,"report":report,"copies_before":before,"copies_after":after,
+                "interruption":if process_exit.is_some(){"actual child process exit at durable intent"}else{"injected SDK intent boundary; not process death"},"copies_after_intent":copies_after_intent,
+                "actual_child_exit_code":process_exit,
+                "copies_after_completion":copies_after_completion,"retry":retry,
+                "cancelled_after_first_removal":cancelled,
+                "reacquisition":reacquisition,
+                "synthetic_owner_consent":true,"simulated_clock":true,"final_deletion_exercised":true,
+                "scope_limit":"synthetic manual exact block; native authority/provider/clock and metadata lifetime acceptance remain open"
+            }),
+        )?;
+        let id = if cancelled {
+            "final-loss-cancelled"
+        } else {
+            "final-loss-completed"
+        };
+        let mut observations = BTreeMap::new();
+        for (name, object) in &self.objects {
+            let roles = |snapshot: &Value| {
+                ["backup", "history", "working"]
+                    .into_iter()
+                    .filter(|role| snapshot[*role].get(name).is_some())
+                    .collect::<Vec<_>>()
+            };
+            observations.insert(name,json!({"object":object,"before_copies":roles(&before),"verified_copies":roles(&after),"unknown_copies":[]}));
+        }
+        let commit = git(
+            &self.git,
+            &self.root.join("project"),
+            &["rev-parse", "HEAD"],
+        )?;
+        let file = format!("reports/{id}.json");
+        let recorded = save(
+            &self.root.join(&file),
+            &json!({
+                "schema":"tig.teaching-final-observation.design-1","lesson":id,"source_commit":commit,"source_checkpoint":final_source,
+                "plan":serde_json::from_slice::<Value>(&fresh.to_json()?)?,"receipt":report,
+                "providers":self.config.providers.iter().map(|p|&p.place.instance).collect::<Vec<_>>(),"observations":observations,
+                "synthetic_owner_consent":true,"simulated_clock":true,"independent_hardware_backup_proven":false
+            }),
+        )?;
+        fs::copy(
+            self.root.join(&file),
+            Layout::Flat.object_path(&self.root.join("lesson-evidence"), &recorded.sha256),
+        )?;
+        self.reports.push(json!({"lesson":id,"report":recorded,"file":file,"title":if cancelled {"Final loss cancelled"}else{"Explicit final loss completed"},
+            "event":"Manual exact historical block with separate synthetic owner consent and simulated clock. Claim retirement and final-copy deletion are separate. Recorded observation only."}));
+        Ok((preview, Some(loss)))
     }
 
     fn rename(&mut self, before_commit: &str) -> Result<(String, Object)> {
@@ -1259,11 +1943,14 @@ impl Demo {
         Ok(())
     }
     fn copy_snapshot(&self) -> Result<Value> {
+        Self::snapshot_at(&self.root, &self.objects)
+    }
+    fn snapshot_at(root: &Path, objects: &BTreeMap<String, Object>) -> Result<Value> {
         let mut observed = BTreeMap::new();
         for role in ["working", "history", "backup"] {
             let mut copies = BTreeMap::new();
-            for (name, object) in &self.objects {
-                let path = Layout::Flat.object_path(&self.root.join(role), &object.sha256);
+            for (name, object) in objects {
+                let path = Layout::Flat.object_path(&root.join(role), &object.sha256);
                 match fs::read(path) {
                     Ok(bytes) => {
                         if Object::from_bytes(&bytes) != *object {
@@ -1282,9 +1969,12 @@ impl Demo {
 }
 fn run() -> Result<Value> {
     let args = std::env::args_os().skip(1).collect::<Vec<_>>();
+    if args.len() == 2 && args[0] == "__final-fixture-child" {
+        return recovery::child(args[1].to_str().ok_or("invalid fixture digest")?);
+    }
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
@@ -1297,9 +1987,16 @@ fn run() -> Result<Value> {
         Some("rehearse-backup-outage") => Mode::BackupOutage,
         Some("rehearse-stale-plan") => Mode::StalePlan,
         Some("rehearse-rename") => Mode::Rename,
+        Some("rehearse-final-enrollment") => Mode::FinalEnrollment,
+        Some("rehearse-final-manual") => Mode::FinalManual,
+        Some("rehearse-final-cancel") => Mode::FinalCancel,
+        Some("rehearse-final-reacquire") => Mode::FinalReacquire,
+        Some("rehearse-final-process") => Mode::FinalProcess,
+        Some("rehearse-retained-age") => Mode::FinalAgePreview,
+        Some("rehearse-aged-category") => Mode::FinalAged,
         _ => return Err("unknown sample operation".into()),
     };
-    Demo::new(Path::new(&args[1]))?.run(mode)
+    Demo::new(Path::new(&args[1]), mode)?.run(mode)
 }
 fn main() -> ExitCode {
     match run() {

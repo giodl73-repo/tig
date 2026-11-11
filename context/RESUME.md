@@ -1,7 +1,5 @@
 # Tig resume state
 
-Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
-
 Active goal: deliver PRODUCT_PLAN.md, including merge-driven placement/eviction,
 bulk final deletion and eventual metadata retirement. The full goal is not done.
 Read AGENTS.md, CONTEXT.md, docs/DEVELOPMENT.md, the roadmap and active pulse.
@@ -10,19 +8,47 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
-- Active owned lane: teaching-final-retirement, branch feat/teaching-final-retirement,
-  input2ca3e18f2c506c9d5546db63396b90b49d74f509. No code changes yet. New contract
-  TEACHING-FINAL-RETIREMENT.md names controls/scope/entry/exit/L0/L1/L2 and all
-  block/category/age/shared/job/retry/cancel/reacquisition teaching gates. Existing
-  sample M uses a non-final format: create fresh final-capable providers, no
-  upgrade. Current reader accepts only placement reports; tagged final bulk
-  evidence must be designed/validated before publishing such lessons. Reuse
-  existing native/age/subset/bulk/provider APIs; unit Fixture is not a demo API.
-  Parent PR51 exact-head42901536923 Windows/Linux live, secrets passed at startup.
-  Both previous local suites and artifact are terminal0; targets are free.
-  Next: implement fresh fixture enrollment and real independently checked bulk
-  plan/effects, then explicit final evidence reader/UI; preserve complete scope.
-
+- Owned lane: teaching-final-retirement / feat/teaching-final-retirement;
+  input2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81 precedes
+  implementation. Derive current commit/PR from Git. Contract and EVID-121 review
+  distinguish local checkpoint qualification from full contract/product/human
+  acceptance. All runtime code is now frozen for source/hosted qualification.
+  Implemented: fresh final-capable F/D/M, readonly exact publication query,
+  protected preview/separate guarded job-history retirement, actual manual loss,
+  intent resume/retry, cancel after one removal, same-hash new birth/retention and
+  old replay; actual child exit94 plus independently reopened state. Retained
+  Capture/Inspection old/recent/unknown facts and native category selection feed
+  exact fixture-owned native-to-flat pages, with full-root/context matching.
+  Existing aged controller refuses time500, completes58-byte loss at1000 and
+  acknowledges survivor age; fixed/shared F/M remain verified.
+  Separate strict bulk/paged decoders reconstruct actual SDK scope; paged closure
+  export uses only inspect-read metadata. Shared2MiB/64KiB documents, aged1024
+  reads (ordinary32). Prior-state/source/provider/action/count/effect/deadline/
+  expiry checks, eligible/protected/unselected UI and logical/historical versus
+  recorded allocation/unmeasured free-space distinctions. No execution bridge.
+  Final qualification: terminal4118 all-feature workspace/500k/strict; terminal
+  61973 schema workspace/500k/strict. Their compiled code predates final allocation
+  refinement; terminal41136 qualifies final all14/all-feature teaching with13
+  manual/17 paged report negatives,8 exact malformed-frame refusals, native HTTP/
+  shipped controls, strict all-feature workspace/all-target Clippy, fmt and fresh
+  all-feature bins/artifact. All79 controllers pass. Terminal82649 additionally
+  passes standalone Git and earlier fresh artifact. All local handles terminal.
+  Old4434/89696 vanished across environment restart with no Cargo process and
+  logs lacking terminal results: unqualified, not pass. Never restart on mere
+  observation timeout. Relevant corrections are condensed in EVID-121 review.
+  Logs in external bulk-retirement dev temp: teaching-final-all-rerun.log,
+  teaching-final-default-rerun.log, teaching-final-followup.log,
+  teaching-final-qualified.log, teaching-final-controls.log. Fresh final artifact
+  final-qualified-74cdaf5c442b42d4b99c055f0c7f6f7f:8 checkpoints, aged evidence
+  5982bytes/SHA3fcea026a69127d96e1dae7cbf2ad9d6d64697d8436fae4de0742dd6fb7df61f;
+  readonly catalogue check payloads_opened=0/automatic_eviction=false.
+  Next: final pin refresh/L0/diff/secrets and role evidence, then commit/draft PR
+  and exact-head hosted Windows/Linux/secrets. Parent PR51 remains ready/CLEAN
+  at2ca3e18, run42901536923 passes; no merge/deploy authorized as a side effect.
+  No viewer/browser/live stores. Reacquisition has separate asset-side evidence,
+  not its own chapter; complete23-checkpoint course, browser/human, wider native/
+  writer/current authority/clock/provider/large-file/restore/lifetime/metadata
+  expiry and stale-client acceptance remain open. Full PRODUCT_PLAN unchanged.
 - Active owned worktree: teaching-rename, branch feat/teaching-rename,
   input21a70f5abc4340582cda3a075a3c5fe1cee13e40 (merged PR50). PR50's exact head
   2407433 run42833301686 passed Windows/Linux/secrets. No open PRs observed at

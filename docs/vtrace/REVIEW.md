@@ -1,5 +1,7 @@
 # Foundation review
 
+EVID-121: [final teaching lenses](../reviews/2026-11-10-teaching-final-retirement.md); incomplete candidate.
+
 EVID-120: [rename lenses](../reviews/2026-11-10-teaching-rename.md); local pass; hosted/human open.
 
 EVID-119: [producer lenses](../reviews/2026-11-10-teaching-stale-plan.md).
