@@ -1,5 +1,23 @@
 # Tig resume state
 
+Active owned lane feat/journal-activation, inputc833add85f9a9c79d3387a78e469bc13a2570403.
+Contract-only full durable activation plus initial private SQL-fence qualification;
+read specs/JOURNAL-ACTIVATION.md and JOURNAL-CONTINUATION.md before code.
+Freeze exact SQL/helper and control/index framing before implementation. File
+pointer alone does not fence a legacy writer already past its guard. Full journals
+need a mutation fence without a cap waiver; new independent activation minimum
+must detect pre-fence restore. Seal-only public API is excluded until full recovery.
+EVID-129 six producer lenses are design only. Full PRODUCT_PLAN remains active.
+Parent PR59 sourcec833add is draft, focused16core/eight archive/max16384/strict pass.
+Default72751 and all40677 LIVE in distinct external targets; do not overlap or
+restart on timeout. Follow ledger-history phase.exit/logs and exact43107903309;
+last Windows/Linux live, secrets pass. New lane has no Cargo/build process.
+No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
+browser/viewer, merge or deploy. Synthetic fixtures only. Preserve explicit external
+TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO. Ignore other projects.
+Older notes below describe the input implementation.
+
+
 Active owned lane feat/ledger-history, input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
 Original-request/result/dependency archive in progress; read LEDGER-HISTORY.md
 and JOURNAL-CONTINUATION.md in specs. Contractc4280c6 and wire7ac2c21 precede code.
