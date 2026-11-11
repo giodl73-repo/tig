@@ -39,6 +39,17 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next bounded teaching slice: [Git return after final loss](specs/TEACHING-GIT-RETURN.md)
+will admit an exact old-version snapshot under a new Git/source revision and show
+actual missing bytes and final-retirement holds with public seed access disabled.
+The fresh-root ninth chapter now implements this flow with independently checked
+absence, useful fixed-version demotion, real native HTTP/shipped controls and23
+semantic refusals. All15/81 controls/both workspace+500k/strict/standalone/fresh
+artifact and exact Windows/Linux/secrets qualify runtime81ecc27. Joined
+acquisition/restoration and full teaching acceptance remain required work. Parent
+reacquisition PR53 and Git-return PR54 are ready for review;
+derive exact-head hosted qualification from GitHub.
+
 Public teaching parity is now a required deliverable: a portable synthetic sample
 catalogue carries the same assets through Git-style init/add/status/diff/commit,
 branch/worktree, publish, merge, revert/restore and retirement lessons. Every step

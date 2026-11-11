@@ -1,5 +1,11 @@
 # Evidence index
 
+EVID-123 (qualified synthetic runtime81ecc27): [Git return review](../reviews/2026-11-11-teaching-git-return.md)
+records accepted exact Git/source return, held missing bytes and useful sibling
+work. All15/23/81/focused strict, both workspace/500k/strict6457/57936, standalone,
+fresh nine-checkpoint artifact and exact Windows/Linux/secrets43059041378 pass.
+Full intended-use/provider/authority/lifetime/human gates remain open.
+
 EVID-122 (locally qualified candidate): [reacquisition review](../reviews/2026-11-11-teaching-reacquisition.md)
 records actual ninth-chapter SDK/publication/grant/replay and readonly observations.
 Native96542,28-negative/strict89877, final30-negative/full14/strict61275 and81

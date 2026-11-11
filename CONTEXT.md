@@ -1,15 +1,21 @@
 # Tig maintainer context
 
-Current reacquisition source3c2e5cb is pushed as draft PR53. Exact hosted
-run43054770000 failed Linux on Tree(Store("metadata busy")) in the strengthened
-age peer test; Windows cancelled, secrets/structure/controllers passed. The
-metadata adapter explicitly maps Busy to this exact wrapper. Test-only guard
-now admits that exact wrapper; other Store failures remain rejected. All15 age
-cases and strict all-feature Clippy pass in terminal18570. No production change.
-Commit/push correction, then inspect exact-head hosted checks. Full plan stays
-active; Git-return implementation continues in its separate owned worktree.
-Older implementation/qualification notes below are historical.
+Git-return runtime81ecc27eba6289f2639174c7872be3c53583f5ee is qualified:
+all15/23 negatives/81 controls, both workspace/500k/strict profiles6457/57936,
+standalone Git, fmt and fresh persisted nine-checkpoint sample all pass. All
+phase exits and local handles are terminal0. Exact run43059041378 passes
+Windows/Linux/secrets; PR54 is ready, no merge/deploy. EVID-123 closes scoped
+implementation/verification/validation/trace/producer review separately.
+This documentation closeout has its own source/CI gate; runtime code is frozen.
+Parent PR53 ad64f03 also passes exact43057224855 and is ready. Source qualification
+is not browser, human, current authority/provider/lifetime or full-plan acceptance.
+Next owned work: feat/placement-final-absence, contracta36aa29, input81ecc27.
+Its private read-only helper and synthetic refusal/restore fixtures are separate
+uncommitted work; never use this parent qualification as proof of that SDK delta.
+No live caches, startup jobs, viewer/browser or runtime deployment are enabled.
+Use explicit UTF8 text IO and external build/temp roots. Full goal remains active.
 
+Earlier reacquisition lane notes below describe the input implementation.
 Current owned lane: feat/teaching-reacquisition, input
 3f3adc74b351e9f36323abe47374ef8c32692b2a; contract commit185865b precedes code.
 Runtime remains uncommitted. EVID-122/TEACHING-REACQUISITION.md record separate
