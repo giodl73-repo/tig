@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 38081,
-      "sha256": "f5acdd2498f621b544c594b41a7a68bc37ad0b3a1be206e78431534d7216588d"
+      "bytes": 38793,
+      "sha256": "8fac5d497c66e1ffa8f23bffa67e872ec9876fb1b0a5b8eea109b901cbff86ca"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 101406,
-      "sha256": "1ce8e6b5c371722ce70c066472f2ad6c21774a1a50d48d112cb2bed742ca9c34"
+      "bytes": 102118,
+      "sha256": "c54eda0529b05e92903b16ceb37090084fa8159d047106963608c89f2a07aa03"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 5927,
-      "sha256": "4c4588e0f8824c3a94a142c75f1c50da1152e6fac34da17ea592b3beee3a8969"
+      "bytes": 9168,
+      "sha256": "21bce0b615ce16385c910df7529de0b2ff2c8af9a50c412c111a98dd198f0564"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3546,6 +3546,16 @@
       "path": "tools/probe_activation_sql.py",
       "bytes": 11828,
       "sha256": "3875d15d64418201558a8849054897842acb696133b44ef52d5aa64ee2c79764"
+    },
+    {
+      "path": "tools/fixtures/activation_legacy_writer.rs",
+      "bytes": 4239,
+      "sha256": "d815d54050f9ee7ea1cf6aa411a3fd55b0049261f1b9ef7de2f8a10b451388df"
+    },
+    {
+      "path": "tools/qualify_activation_legacy.py",
+      "bytes": 12448,
+      "sha256": "9fb588bfa6ae2d71d602a946883a149554db8e9cab8dc4c8d4883a1dba36cb2a"
     }
   ]
 }

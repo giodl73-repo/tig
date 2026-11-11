@@ -71,3 +71,52 @@ Default then all use the same two reserved external targets. Do not overlap or
 restart; follow ledger-history-serial phase.exit/logs and poll the exact handle.
 PR59 remains draft pending this full local qualification. This is no blocker to
 the supporting probe, and no reason to raise production budgets or ignore tests.
+
+## Pinned timing-instrumented Rust writer
+
+Harness contract32d9c36 precedes tools/qualify_activation_legacy.py and its external
+Rust fixture. The harness requires a clean detached linked checkout at exact
+c833add85f9a9c79d3387a78e469bc13a2570403. Preparation refuses attached branches and
+active source checkout paths before patching; a negative check verifies the
+parent production branch bytes remain unchanged. Evidence/target roots are outside
+source checkouts and are never reset, cleared or reused by the harness.
+
+One matching site adds only a bounded20s timing barrier after original self.guard()
+and before Request/SQL transaction. No legacy request, transaction, rollback or
+admission algorithm is replaced. Original ledger SHA is
+98a043d49d73d193a07a65cfb06c05f8b672ee8a0e385f30b8f3ef3ffda435ed;
+patched SHA is1f8760d6bea94440bdd4da24dde2ff64a93858213922ac3ba036b0d405cbb991.
+Exact patch, generated test, Cargo.lock and helper hashes are retained in prepared
+metadata and checked before build. Initial preparation was superseded before any
+execution to add the detached-branch safeguard; old artifacts are preserved.
+
+The selected old Rust fixture creates a real legacy journal through original
+public APIs: sample,1000-byte reservation,25-byte completion and200-byte in-flight
+allocation. The writer opens that six-command prefix, passes its real original
+file guard and pauses at the recorded barrier. The Python controller commits the
+frozen SQL intent/guards, then releases the old Rust transaction. The old writer
+returns the specific sealed-source SQL refusal, poisons its handle, acknowledges
+no new event and preserves the exact original checkpoint. A fresh old reader
+still sees975 reserved remaining/25 unobserved charges, refuses finish with
+InFlight and requires a fresh probe for new reservation admission.
+
+Run76934 TERMINAL0 used an explicit new external target, locked/offline Cargo and
+one build/test job. It was admitted after the parent sequential native-source
+suite completed157 cases/1 existing ignored qualification-only case; the earlier
+proposal/age deadline cases had passed. Parent normal targets remained untouched.
+The controller used Python SQLite3.44.0; the actual old Rust writer used bundled
+SQLite3.54.1. Binary SHA is
+bf6846e501c841631461c984cce7b256ee662af313b0a52837aee129e324dc1e.
+Strict pinned-fixture Clippy28344 TERMINAL0; Rust fixture formatting and Python
+syntax checks pass. No dependency or production Rust module is added here.
+
+Prepared evidence activation-legacy-evidence-66a09d34b4ba4318971df47b28918a5c/run
+contains actual build stdout/stderr, fixture preparation, writer result, exact
+hashes and report. This qualifies the named timing-instrumented pinned Rust writer
+against the frozen guards; it is not an unmodified-binary proof. Report fields
+unmodified_legacy_binary_qualified=false,
+rust_activation_controller_implemented=false and activation_implemented=false
+remain explicit. An unmodified old binary's real activated-format refusal, old
+already-held transaction ordering, native Rust seal controller, full activation/
+recovery/global indexes/minima and provider/source/witness continuation remain
+required. No sustainable lifetime, expiry or human approval is claimed.

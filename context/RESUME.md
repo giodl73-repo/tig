@@ -11,7 +11,15 @@ EVID-129 records six producer lenses and supporting Python SQLite3.44.0 proof.
 Designd650b51/SQL48f5f40 precede the tool; final probe passes delayed SQL writer
 refusal, prefix preservation, rollback/reopen, distinct-domain progress and known
 pre-fence/partial-guard restore holds. Unchecked restore can fork. This is not
-pinned legacy Rust qualification or implemented activation; both remain owed. Full PRODUCT_PLAN remains active.
+full legacy compatibility or implemented activation; both remain owed.
+Harness32d9c36 now has actual run76934 TERMINAL0: pinned c833add Rust writer
+paused after guard refuses SQL after sealing, preserves six-command prefix and
+in-flight accounting, and requires a fresh probe. Controller is Python3.44.0,
+writer SQLite3.54.1, timing-only patch; strict fixture Clippy28344 passes.
+External prepared root activation-legacy-evidence-66a09d34b4ba4318971df47b28918a5c
+and detached baseline F:/src/Tig-worktrees/activation-legacy-c833-v2 retain hashes.
+Unmodified binary/new active format, Rust sealer, full handover/recovery/index/min
+protocol and provider/source/witness continuation remain required. See EVID-129. Full PRODUCT_PLAN remains active.
 Parent PR59 sourcec833add is draft, focused16core/eight archive/max16384/strict pass.
 Initial default72751/all40677 TERMINAL101: native Budget refusals, preserved.
 Focus4352 passes both failed cases sequentially without production changes.
@@ -19,7 +27,8 @@ Serial full pipeline37691 LIVE: default then all, RUST_TEST_THREADS=1, explicit
 in-test concurrency retained. Both targets are reserved; do not overlap/restart.
 Follow ledger-history-serial phase.exit/logs and actual handle; parent exact
 43107903309 Windows/Linux/secrets all pass. PR59 stays draft pending local full0.
-New lane has no Cargo/build process; do not interfere with the parent pipeline.
+Pinned baseline build/Clippy are terminal; its separate external target is free.
+Normal targets remain reserved by parent serial37691; do not overlap/restart.
 No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
 browser/viewer, merge or deploy. Synthetic fixtures only. Preserve explicit external
 TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO. Ignore other projects.
