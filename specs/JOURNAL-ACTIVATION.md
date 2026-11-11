@@ -193,3 +193,34 @@ It records its driver/version and labels legacy_rust_qualified=false and
 activation_implemented=false. This is supporting SQLite behavior evidence only;
 it cannot replace the pinned Rust/legacy-process and complete activation gates.
 No runtime production migration or public seal API is added by this probe.
+
+## Frozen pinned-writer harness amendment
+
+The fixture-only tools/qualify_activation_legacy.py accepts an explicit detached
+checkout, new evidence directory and external Cargo target. --prepare-only checks
+clean original sourcec833add85f9a9c79d3387a78e469bc13a2570403, then adds exactly one
+timing barrier after apply_once's self.guard()? and before Request/transaction.
+Original ledger.rs is46179 bytes, SHA256
+98a043d49d73d193a07a65cfb06c05f8b672ee8a0e385f30b8f3ef3ffda435ed.
+The matching two-line site must occur exactly once; otherwise refuse without a
+patch. Barrier waits at most20s for fixture release and changes no request or
+legacy transaction logic. No production source in the active checkout is patched.
+
+Generate a single external integration-test file using the original public Rust
+ledger API to create a public synthetic active/in-flight journal, then invoke a
+new write on the paused old handle. Record original/patched source, test and patch
+hashes in prepared evidence; a prepared harness is not an executed writer proof.
+--run-prepared validates those identities, uses the explicit external build target,
+records executable hash and Rust SQLite version, and runs only the selected fixture.
+The Python controller installs the already-frozen SQL guards after the Rust barrier;
+this proves a timing-instrumented pinned Rust writer against those guards, not a
+new Rust activation-controller implementation. Exact original prefix/in-flight
+preservation and refusal of new admission after reopen must remain checked.
+
+No pre-existing source/evidence root is reset or overwritten. No missing ledger
+is initialized by the actor, no environment credentials are captured, and only
+owned synthetic metadata are used. No build/run starts on resume; invocation is
+explicit after host/target admission. Parent serial pipeline37691 reserves both
+normal targets. The harness must use a separate target after bounded host workloads
+are clear. Full activation, an unmodified old binary's actual new-format refusal,
+old-transaction ordering, recovery and restored-minimum gates remain OPEN.

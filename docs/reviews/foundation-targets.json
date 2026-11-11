@@ -3539,8 +3539,8 @@
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
-      "bytes": 12636,
-      "sha256": "5066bc7ee630db79db9889678d8d3b84ea77e1218f75c5fa21f7aeabd0e82a6f"
+      "bytes": 14730,
+      "sha256": "6f286970974f377fe0113e50b9a731d961238b2cdf35e1a47d0344d2d38fc7df"
     },
     {
       "path": "tools/probe_activation_sql.py",
