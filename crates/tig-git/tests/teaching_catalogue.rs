@@ -7,6 +7,740 @@ use tig_git::catalogue::{Catalogue, Config, storage::objects::Query};
 mod catalogue_server;
 
 #[test]
+fn category_age_executes_real_paged_loss_and_revalidates_deadline() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("category aged execution");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-aged-category")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    let raw = fs::read(root.join("aged-category-loss.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["aged_execution_evidence"]
+    );
+    let evidence: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(evidence["early_deadline_refused"], true);
+    assert_eq!(evidence["simulated_clock"], true);
+    assert_eq!(evidence["report"]["phase"], "completed");
+    assert_eq!(
+        evidence["report"]["completed_pages"],
+        evidence["report"]["total_pages"]
+    );
+    assert_eq!(evidence["report"]["age_inheritance_unknown"], false);
+    assert_eq!(evidence["report"]["authorizes_removal"], false);
+    assert!(evidence["decision"]["age"].is_object());
+    assert_eq!(evidence["occurrences"].as_array().unwrap().len(), 2);
+    assert_eq!(result["completed_checkpoints"], 8);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-4");
+    let lesson = &book["lessons"][7];
+    assert_eq!(lesson["final_loss"]["new_removed_bytes"], 58);
+    assert_eq!(lesson["final_loss"]["required_age_millis"], 500);
+    let allocation = evidence["report"]["effects"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|e| e["receipt"]["historical"] == false)
+        .map(|e| e["receipt"]["file_allocation_before"].as_u64().unwrap())
+        .sum::<u64>();
+    assert_eq!(
+        lesson["final_loss"]["file_allocation_before_new_removals"],
+        allocation
+    );
+    render_book(&book);
+    drop(server);
+    let recorded: Value = serde_json::from_slice(
+        &fs::read(root.join("reports/aged-category-final-loss.json")).unwrap(),
+    )
+    .unwrap();
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    for bad in [
+        "claim_consent",
+        "final_consent",
+        "providers",
+        "decision",
+        "scope",
+        "age",
+        "time",
+        "expired",
+        "source",
+        "before",
+        "count",
+        "effect",
+        "index",
+        "bytes",
+        "protected",
+        "unselected",
+        "unknown",
+    ] {
+        let mut changed = recorded.clone();
+        match bad {
+            "claim_consent" => changed["synthetic_claim_consent"] = false.into(),
+            "final_consent" => changed["synthetic_final_consent"] = false.into(),
+            "providers" => changed["providers"].as_array_mut().unwrap().reverse(),
+            "decision" => {
+                changed["receipt"]["decision"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign decision")).unwrap()
+            }
+            "scope" => {
+                changed["decision"]["prepared"] =
+                    serde_json::to_value(Object::from_bytes(b"missing prepared scope")).unwrap()
+            }
+            "age" => {
+                changed["decision"]["age"] =
+                    serde_json::to_value(Object::from_bytes(b"missing age proof")).unwrap()
+            }
+            "time" => changed["execution_time"] = serde_json::json!({"earliest":500,"latest":500}),
+            "expired" => {
+                let expires = changed["decision"]["request"]["window"]["expires"].clone();
+                changed["execution_time"] =
+                    serde_json::json!({"earliest":expires,"latest":expires});
+            }
+            "source" => {
+                changed["source_checkpoint"]["genesis"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign source")).unwrap()
+            }
+            "before" => {
+                changed["observations"]["fixed"]["before_copies"] = serde_json::json!([]);
+                changed["observations"]["fixed"]["verified_copies"] = serde_json::json!([]);
+            }
+            "count" => changed["receipt"]["completed_pages"] = 0.into(),
+            "effect" => {
+                changed["receipt"]["effects"][0]["receipt"]["plan"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign action")).unwrap()
+            }
+            "index" => changed["receipt"]["effects"][0]["action"] = 32.into(),
+            "bytes" => {
+                changed["receipt"]["effects"][0]["receipt"]["logical_bytes_removed"] = 0.into()
+            }
+            "protected" => {
+                changed["observations"]["shared"]["verified_copies"] = serde_json::json!([])
+            }
+            "unselected" => {
+                changed["observations"]["fixed"]["verified_copies"] = serde_json::json!([])
+            }
+            "unknown" => {
+                changed["observations"]["original"]["unknown_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            _ => unreachable!(),
+        }
+        let mut edited_trace = trace.clone();
+        edited_trace["completed"][7]["report"] = save_evidence(&root, &changed);
+        let mut enrollment = config.clone();
+        enrollment["teaching"]["trace"] = save_evidence(&root, &edited_trace);
+        let path = root.join("negative-paged.json");
+        fs::write(&path, serde_json::to_vec(&enrollment).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../examples/catalogue/lifecycle.design-1.json"
+    ))
+    .unwrap();
+    let original =
+        tig_core::Digest::parse(fixture["objects"]["original"]["sha256"].as_str().unwrap())
+            .unwrap();
+    for role in ["working", "history", "backup"] {
+        assert!(
+            !tig_store::existing::Layout::Flat
+                .object_path(&root.join(role), &original)
+                .exists()
+        );
+    }
+    for role in ["working", "backup"] {
+        for name in ["shared", "fixed"] {
+            let digest =
+                tig_core::Digest::parse(fixture["objects"][name]["sha256"].as_str().unwrap())
+                    .unwrap();
+            assert_eq!(
+                fs::read(tig_store::existing::Layout::Flat.object_path(&root.join(role), &digest))
+                    .unwrap(),
+                fixture["objects"][name]["text"]
+                    .as_str()
+                    .unwrap()
+                    .as_bytes()
+            );
+        }
+    }
+}
+
+#[test]
+fn retained_age_reopens_real_facts_and_keeps_recent_and_unknown_occurrences_held() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("retained age lesson");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-retained-age")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["final_deletion_exercised"], false);
+    let raw = fs::read(root.join("retained-age.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["retained_age_evidence"]
+    );
+    let facts: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(facts["simulated_clock"], true);
+    assert_eq!(facts["registry_reopened"], true);
+    assert_eq!(facts["observer_before"], facts["observer_after"]);
+    assert_eq!(facts["assessments"][0]["old_enough"], true);
+    assert_eq!(facts["assessments"][0]["age_lower_bound_millis"], 900);
+    assert_eq!(facts["assessments"][1]["old_enough"], false);
+    assert_eq!(facts["assessments"][1]["age_lower_bound_millis"], 50);
+    assert_eq!(facts["assessments"][2]["old_enough"], false);
+    assert!(facts["assessments"][2]["status"]["evidence"].is_null());
+    assert_eq!(
+        facts["occurrences"][0]["selection"]["root"],
+        facts["occurrences"][2]["selection"]["root"]
+    );
+    assert_ne!(
+        facts["occurrences"][0]["revision"],
+        facts["occurrences"][2]["revision"]
+    );
+    let category_raw = fs::read(root.join("native-category.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&category_raw)).unwrap(),
+        result["native_category_evidence"]
+    );
+    let category: Value = serde_json::from_slice(&category_raw).unwrap();
+    assert_eq!(category["unknown_category_refused"], true);
+    assert_eq!(category["candidate_adopted"], false);
+    assert_eq!(category["preview"]["assets"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        category["preview"]["source_checkpoint"],
+        facts["assessments"][0]["status"]["target"]["selection"]["context"]
+    );
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../examples/catalogue/lifecycle.design-1.json"
+    ))
+    .unwrap();
+    for name in ["original", "shared"] {
+        assert!(
+            category["preview"]["objects"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|o| o["sha256"] == fixture["objects"][name]["sha256"])
+        );
+    }
+    for a in facts["assessments"].as_array().unwrap() {
+        assert_eq!(a["authorizes_removal"], false);
+        assert_eq!(a["authorizes_claim_release"], false);
+    }
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    render_book(&book);
+}
+
+#[test]
+fn actual_final_child_exit_reopens_intent_and_resumes_exact_loss() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("actual final child exit");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-process")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let loss: Value =
+        serde_json::from_slice(&fs::read(root.join("final-loss.json")).unwrap()).unwrap();
+    assert_eq!(loss["actual_child_exit_code"], 94);
+    assert_eq!(
+        loss["interruption"],
+        "actual child process exit at durable intent"
+    );
+    assert_eq!(loss["copies_before"], loss["copies_after_intent"]);
+    assert_eq!(loss["report"]["phase"], "completed");
+    assert_eq!(loss["report"]["new_logical_copy_bytes_removed"], 58);
+    assert_eq!(loss["retry"]["new_logical_copy_bytes_removed"], 0);
+    let frame: Value =
+        serde_json::from_slice(&fs::read(root.join("final-child-frame.json")).unwrap()).unwrap();
+    let plan = tig_store::final_retirement::bulk::Plan::from_json(
+        &tig_core::identity::canonical_json(&frame["plan"]).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(
+        serde_json::to_value(plan.id().unwrap()).unwrap(),
+        loss["report"]["plan"]
+    );
+    // Malformed internal frames must refuse before opening the fixture's stores.
+    let frame_path = root.join("final-child-frame.json");
+    let original_frame = fs::read(&frame_path).unwrap();
+    for bad in [
+        "oversize",
+        "digest",
+        "canonical",
+        "unknown",
+        "ownership",
+        "providers",
+        "namespace",
+        "enrollment",
+    ] {
+        let mut changed = frame.clone();
+        match bad {
+            "ownership" => changed["plan"]["request"]["operation"] = "foreign-frame".into(),
+            "unknown" => changed["unexpected"] = true.into(),
+            "providers" => changed["providers"] = serde_json::json!([]),
+            "namespace" => {
+                changed["namespace"]["genesis"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign namespace")).unwrap()
+            }
+            "enrollment" => {
+                changed["enrollment"]["context"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign context")).unwrap()
+            }
+            _ => (),
+        }
+        let mut raw = tig_core::identity::canonical_json(&changed).unwrap();
+        if bad == "oversize" {
+            raw = vec![b' '; 65537];
+        }
+        if bad == "canonical" {
+            raw.push(b'\n');
+        }
+        if bad != "ownership" {
+            fs::write(&frame_path, &raw).unwrap();
+        }
+        let digest = if bad == "digest" {
+            tig_core::Digest::blob(b"wrong frame")
+        } else {
+            tig_core::Digest::blob(&raw)
+        };
+        let mut child = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+            .args(["__final-fixture-child", digest.as_str()])
+            .stdin(std::process::Stdio::piped())
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()
+            .unwrap();
+        use std::io::Write;
+        child.stdin.take().unwrap().write_all(&raw).unwrap();
+        let rejected = child.wait_with_output().unwrap();
+        assert_eq!(
+            rejected.status.code(),
+            Some(1),
+            "accepted {bad}: {rejected:?}"
+        );
+        let error: Value = serde_json::from_slice(&rejected.stdout).unwrap();
+        assert_eq!(error["schema"], "tig.sample-error.design-1");
+        let reason = match bad {
+            "oversize" | "digest" => "invalid fixture child frame",
+            "canonical" => "noncanonical fixture frame",
+            "unknown" => "unknown field",
+            "ownership" => "fixture frame ownership differs",
+            "providers" | "namespace" => "fixture child scope differs",
+            "enrollment" => "fixture child enrollment differs",
+            _ => unreachable!(),
+        };
+        assert!(
+            error["error"].as_str().unwrap().contains(reason),
+            "wrong refusal for {bad}: {error}"
+        );
+        fs::write(&frame_path, &original_frame).unwrap();
+    }
+    assert_eq!(
+        fs::read(root.join("final-loss.json")).unwrap(),
+        tig_core::identity::canonical_json(&loss).unwrap()
+    );
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    render_book(&book);
+}
+
+#[test]
+fn old_final_retry_spares_explicit_same_hash_reacquisition_and_retention() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("fresh same hash birth");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-reacquire")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let loss: Value =
+        serde_json::from_slice(&fs::read(root.join("final-loss.json")).unwrap()).unwrap();
+    let raw = fs::read(root.join("final-reacquisition.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        loss["reacquisition"]
+    );
+    let evidence: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(evidence["old_plan_retry"]["phase"], "completed");
+    assert_eq!(evidence["old_plan_retry"]["plan"], loss["report"]["plan"]);
+    assert_eq!(
+        evidence["old_plan_retry"]["new_logical_copy_bytes_removed"],
+        0
+    );
+    assert_eq!(
+        evidence["old_plan_retry"]["historical_deleted_copy_bytes"],
+        58
+    );
+    assert_eq!(evidence["retry_clock_after_old_window"], 700);
+    assert_eq!(
+        evidence["plan"]["birth"]["index"].as_u64().unwrap(),
+        evidence["plan"]["parent"]["birth"]["index"]
+            .as_u64()
+            .unwrap()
+            + 1
+    );
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../examples/catalogue/lifecycle.design-1.json"
+    ))
+    .unwrap();
+    let original =
+        tig_core::Digest::parse(fixture["objects"]["original"]["sha256"].as_str().unwrap())
+            .unwrap();
+    for role in ["working", "history", "backup"] {
+        let path = tig_store::existing::Layout::Flat.object_path(&root.join(role), &original);
+        if role == "backup" {
+            assert_eq!(
+                fs::read(path).unwrap(),
+                fixture["objects"]["original"]["text"]
+                    .as_str()
+                    .unwrap()
+                    .as_bytes()
+            );
+            assert_eq!(
+                evidence["copies_after"][role]["original"]["sha256"],
+                fixture["objects"]["original"]["sha256"]
+            );
+        } else {
+            assert!(!path.exists());
+        }
+    }
+}
+
+#[test]
+fn explicit_final_cancellation_preserves_partial_loss_and_stops_remaining_removal() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("cancel final loss");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-cancel")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    let raw = fs::read(root.join("final-loss.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["final_loss_evidence"]
+    );
+    let loss: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(loss["cancelled_after_first_removal"], true);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    render_book(&book);
+    drop(server);
+    for report in ["report", "retry"] {
+        assert_eq!(loss[report]["phase"], "cancelled");
+        assert_eq!(loss[report]["new_logical_copy_bytes_removed"], 0);
+        assert_eq!(loss[report]["historical_deleted_copy_bytes"], 29);
+    }
+    assert_eq!(loss["copies_after_completion"], loss["copies_after"]);
+    assert_eq!(
+        ["working", "history", "backup"]
+            .iter()
+            .filter(|role| loss["copies_after"][**role].get("original").is_some())
+            .count(),
+        1
+    );
+    for name in ["fixed", "shared"] {
+        for role in ["working", "backup"] {
+            assert_eq!(
+                loss["copies_before"][role][name],
+                loss["copies_after"][role][name]
+            );
+        }
+    }
+}
+
+#[test]
+fn explicit_manual_final_loss_removes_only_original_after_separate_claim_retirement() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("manual final loss with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-manual")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["complete_course"], false);
+    assert_eq!(result["final_deletion_exercised"], true);
+    assert_eq!(result["completed_checkpoints"], 8);
+    let raw = fs::read(root.join("final-loss.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["final_loss_evidence"]
+    );
+    let loss: Value = serde_json::from_slice(&raw).unwrap();
+    let recorded_raw = fs::read(root.join("reports/final-loss-completed.json")).unwrap();
+    let recorded: Value = serde_json::from_slice(&recorded_raw).unwrap();
+    assert_eq!(
+        recorded["schema"],
+        "tig.teaching-final-observation.design-1"
+    );
+    assert_eq!(recorded["receipt"], loss["report"]);
+    assert_eq!(recorded["plan"], loss["plan"]);
+    assert_eq!(
+        recorded["observations"]["original"]["before_copies"],
+        serde_json::json!(["backup", "history"])
+    );
+    assert_eq!(
+        recorded["observations"]["original"]["verified_copies"],
+        serde_json::json!([])
+    );
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    assert_eq!(
+        trace["completed"][7]["report"],
+        serde_json::to_value(Object::from_bytes(&recorded_raw)).unwrap()
+    );
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-4");
+    assert_eq!(
+        book["lessons"][7]["final_loss"]["file_allocation_before_new_removals"],
+        loss["report"]["file_allocation_before_new_removals"]
+    );
+    render_book(&book);
+    drop(server);
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    for bad in [
+        "consent",
+        "source_namespace",
+        "before",
+        "providers",
+        "plan",
+        "bytes",
+        "count",
+        "source",
+        "status",
+        "copies",
+        "protected",
+        "unknown",
+        "effects",
+    ] {
+        let mut changed = recorded.clone();
+        match bad {
+            "consent" => changed["synthetic_owner_consent"] = false.into(),
+            "source_namespace" => {
+                changed["source_checkpoint"]["genesis"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign manual namespace"))
+                        .unwrap()
+            }
+            "before" => {
+                changed["observations"]["fixed"]["before_copies"] = serde_json::json!([]);
+                changed["observations"]["fixed"]["verified_copies"] = serde_json::json!([]);
+            }
+            "providers" => changed["providers"].as_array_mut().unwrap().reverse(),
+            "plan" => {
+                changed["receipt"]["plan"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign plan")).unwrap()
+            }
+            "bytes" => changed["receipt"]["new_logical_copy_bytes_removed"] = 0.into(),
+            "count" => changed["receipt"]["selected_bindings"] = 0.into(),
+            "source" => changed["receipt"]["source_status"][0]["settlement_current"] = false.into(),
+            "status" => {
+                changed["receipt"]["action_status"][0]["plan"] =
+                    serde_json::to_value(tig_core::Digest::blob(b"foreign action")).unwrap()
+            }
+            "copies" => {
+                changed["observations"]["original"]["verified_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            "protected" => {
+                changed["observations"]["fixed"]["verified_copies"] = serde_json::json!([])
+            }
+            "unknown" => {
+                changed["observations"]["original"]["unknown_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            "effects" => {
+                changed["receipt"]["effects"][0]["receipt"]["logical_bytes_removed"] = 0.into()
+            }
+            _ => unreachable!(),
+        }
+        let mut edited_trace = trace.clone();
+        edited_trace["completed"][7]["report"] = save_evidence(&root, &changed);
+        let mut enrollment = config.clone();
+        enrollment["teaching"]["trace"] = save_evidence(&root, &edited_trace);
+        let path = root.join("negative-final.json");
+        fs::write(&path, serde_json::to_vec(&enrollment).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    assert_eq!(loss["report"]["phase"], "completed");
+    assert_eq!(loss["report"]["new_logical_copy_bytes_removed"], 58);
+    assert_eq!(loss["copies_before"], loss["copies_after_intent"]);
+    assert_eq!(loss["copies_after_completion"], loss["copies_after"]);
+    assert_eq!(loss["retry"]["phase"], "completed");
+    assert_eq!(loss["retry"]["new_logical_copy_bytes_removed"], 0);
+    assert_eq!(loss["retry"]["historical_deleted_copy_bytes"], 58);
+    assert_eq!(loss["retry"]["plan"], loss["report"]["plan"]);
+    assert_eq!(loss["synthetic_owner_consent"], true);
+    assert_eq!(loss["simulated_clock"], true);
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../examples/catalogue/lifecycle.design-1.json"
+    ))
+    .unwrap();
+    let original =
+        tig_core::Digest::parse(fixture["objects"]["original"]["sha256"].as_str().unwrap())
+            .unwrap();
+    for role in ["working", "history", "backup"] {
+        assert!(
+            !tig_store::existing::Layout::Flat
+                .object_path(&root.join(role), &original)
+                .exists()
+        );
+        assert!(loss["copies_after"][role].get("original").is_none());
+    }
+    for role in ["working", "backup"] {
+        for name in ["fixed", "shared"] {
+            let digest =
+                tig_core::Digest::parse(fixture["objects"][name]["sha256"].as_str().unwrap())
+                    .unwrap();
+            let bytes =
+                fs::read(tig_store::existing::Layout::Flat.object_path(&root.join(role), &digest))
+                    .unwrap();
+            assert_eq!(
+                bytes,
+                fixture["objects"][name]["text"]
+                    .as_str()
+                    .unwrap()
+                    .as_bytes()
+            );
+        }
+    }
+    let held: Value =
+        serde_json::from_slice(&fs::read(root.join("final-preview.json")).unwrap()).unwrap();
+    assert_eq!(held["copies_before"], held["copies_after"]);
+    assert_ne!(
+        held["source_checkpoint"],
+        loss["source_after_job_history_retirement"]
+    );
+    assert_ne!(held["plan_id"], loss["report"]["plan"]);
+}
+
+#[test]
+fn fresh_final_enrollment_runs_ordinary_lifecycle_without_claiming_deletion() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("final enrollment with spaces");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-enrollment")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 7);
+    assert_eq!(result["complete_course"], false);
+    assert_eq!(result["final_deletion_exercised"], false);
+    let preview_raw = fs::read(root.join("final-preview.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&preview_raw)).unwrap(),
+        result["final_preview_evidence"]
+    );
+    let preview: Value = serde_json::from_slice(&preview_raw).unwrap();
+    assert_eq!(preview["copies_before"], preview["copies_after"]);
+    assert_eq!(preview["preview_only"], true);
+    assert_eq!(preview["removal_authority"], false);
+    let plan = tig_store::final_retirement::bulk::Plan::from_json(
+        &tig_core::identity::canonical_json(&preview["plan"]).unwrap(),
+    )
+    .unwrap();
+    assert_eq!(
+        serde_json::to_value(plan.id().unwrap()).unwrap(),
+        preview["plan_id"]
+    );
+    assert_eq!(plan.subjects().len(), 3);
+    assert!(
+        plan.subjects()
+            .iter()
+            .all(|s| s.hold == Some(tig_store::final_retirement::bulk::Hold::Protected))
+    );
+    assert_eq!(plan.actions().len(), 0);
+    let raw = fs::read(root.join("final-enrollment.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["final_enrollment_evidence"]
+    );
+    let evidence: Value = serde_json::from_slice(&raw).unwrap();
+    let roster: tig_store::final_retirement::claims::Roster =
+        serde_json::from_value(evidence["roster"].clone()).unwrap();
+    assert_eq!(
+        serde_json::to_value(roster.scope().unwrap()).unwrap(),
+        evidence["scope"]
+    );
+    assert_eq!(evidence["enrollment_only"], true);
+    let copies: Vec<tig_store::final_retirement::bulk::Copy> =
+        serde_json::from_value(evidence["copies"].clone()).unwrap();
+    assert_eq!(copies.len(), 6);
+    for role in ["working", "history", "backup"] {
+        let store = tig_store::local::LocalStore::open(&root.join(role)).unwrap();
+        let policy = store.final_policy().unwrap();
+        assert_eq!(policy.scope, roster.scope().unwrap());
+        assert_eq!(
+            policy.owners,
+            vec![tig_store::Key::parse("sample").unwrap()]
+        );
+        for copy in copies.iter().filter(|c| &c.store == store.identity()) {
+            let plan = tig_store::final_retirement::provider::plan(
+                &store,
+                tig_store::final_retirement::provider::Request {
+                    operation: tig_store::Key::parse("readonly-publication-validation").unwrap(),
+                    owner: tig_store::Key::parse("sample").unwrap(),
+                    publication: copy.publication.clone(),
+                    capacity: copy.capacity.clone(),
+                    context: tig_core::Digest::blob(b"fixture context"),
+                    window: tig_store::final_retirement::provider::Window {
+                        not_before: 50,
+                        expires: 500,
+                    },
+                },
+            )
+            .unwrap();
+            plan.id().unwrap(); // validates the actual current publication and grants, no authorization
+        }
+    }
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    render_book(&book);
+    drop(server);
+    let before = fs::read(root.join("backup/store.json")).unwrap();
+    let retry = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-enrollment")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(!retry.status.success());
+    assert_eq!(fs::read(root.join("backup/store.json")).unwrap(), before);
+}
+
+#[test]
 fn public_rename_preserves_bytes_and_copies_and_refuses_conflicting_destination() {
     let temp = tempfile::tempdir().unwrap();
     let root = temp.path().join("rename sample with spaces");

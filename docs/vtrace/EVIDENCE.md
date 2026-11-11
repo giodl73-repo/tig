@@ -1,5 +1,12 @@
 # Evidence index
 
+EVID-121 (locally qualified candidate): [review](../reviews/2026-11-10-teaching-final-retirement.md)
+records actual manual and aged/category loss, retry/cancel/new-birth/process
+recovery and strict readonly bulk/paged playback. Workspace/500k/strict4118/61973
+pass; final14/all-feature/strict/artifact41136, standalone82649,13 manual/17 paged/
+8 frame negatives and79 controllers pass. Hosted exact-source, complete teaching,
+provider/authority/lifetime and human/full product acceptance remain open.
+
 Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
 
 EVID-120 (focused candidate), input21a70f5abc4340582cda3a075a3c5fe1cee13e40:

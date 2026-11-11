@@ -1,5 +1,10 @@
 # Tig trace
 
+Final teaching: TEACHING-FINAL-RETIREMENT.md controls -> actual SDK/independent
+bytes/native/API/negative/shipped controls -> EVID-121. Full control mapping and
+remaining hosted/provider/lifetime/intended-use gates are in the
+[review](../reviews/2026-11-10-teaching-final-retirement.md).
+
 Rename teaching: WP-004/008/010/015/016; REQ-001/005/006/007/009/010 ->
 SPEC-002/005/008/010/014, IF-002/005/008/010/011/013, PKG-002/004/006/008 ->
 TEACHING-RENAME.md -> actual Git/native/SDK + independent oracle + native/API/

@@ -45,17 +45,19 @@ function selectLesson(book,index){
  area.append(node('p','lesson-event',lesson.event));
  const source=node('p','muted','Associated Git commit '+lesson.source_commit.slice(0,12)+(lesson.source_available?' · available in this catalogue':' · source metadata unavailable here')+'. Drafts and jobs may contribute separate admitted snapshots.');
  source.title=lesson.source_commit;area.append(source);
- if(lesson.rejection)area.append(node('p','callout','Rejected before storage effects: stale plan. The desired column belongs to the rejected plan. A fresh plan is required for current protection.'));
- else if(!lesson.converged||!lesson.basis_current||lesson.holds.length)area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
+ if(lesson.final_loss)area.append(node('p','callout','Explicit final loss · '+lesson.final_loss.phase+'. New removal: '+bytes(lesson.final_loss.new_removed_bytes)+'. Historical deletion: '+bytes(lesson.final_loss.historical_removed_bytes)+'. Separate synthetic owner consent and simulated clock.'+(lesson.final_loss.required_age_millis===undefined?'':' Required continuous inactive age: '+lesson.final_loss.required_age_millis+' ms (simulated).')+' This recorded lesson grants no storage authority.'));
+ if(lesson.final_loss?.file_allocation_before_new_removals!==undefined)area.append(node('p','muted','Allocated file data before new removals: '+bytes(lesson.final_loss.file_allocation_before_new_removals)+'. Free-space change: unmeasured.'));
+ if(!lesson.final_loss&&lesson.rejection)area.append(node('p','callout','Rejected before storage effects: stale plan. The desired column belongs to the rejected plan. A fresh plan is required for current protection.'));
+ else if(!lesson.final_loss&&(!lesson.converged||!lesson.basis_current||lesson.holds.length))area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
  const wrap=node('div','object-table-wrap'),table=node('table','object-manager-table lesson-object-table'),head=node('thead'),header=node('tr');
- for(const text of ['Same bytes','Before this step','Desired in this plan','Observed after'])header.append(node('th','',text));head.append(header);table.append(head);
+ for(const text of ['Same bytes','Before this step',lesson.final_loss?'Final selection':'Desired in this plan','Observed after'])header.append(node('th','',text));head.append(header);table.append(head);
  const body=node('tbody');
  for(const [name,object] of all){
   const current=lesson.objects.find(o=>o.name===name),old=before?.objects.find(o=>o.name===name),row=node('tr');
   const identity=node('td');identity.append(node('strong','',name),node('small','',bytes(object.bytes)),node('div','mono',object.sha256.slice(0,12)));identity.title=object.sha256;
   const left=node('td'),desired=node('td'),after=node('td');
-  left.append(lessonRoles(book,old?.observed,'No managed copies recorded',old?.unknown||[]));
-  if(current?.desired==null)desired.append(node('span','muted','Not included in this recorded plan'));
+  left.append(lessonRoles(book,current?.before??old?.observed,'No managed copies recorded',current?.before?[]:old?.unknown||[]));
+  if(current?.desired==null)desired.append(node('span','muted',lesson.final_loss?(current.final_selection==='eligible'?'Eligible for separately authorized final removal':current.final_selection==='unselected'?'Not selected in this block':'Protected · excluded from final loss'):'Not included in this recorded plan'));
   else desired.append(lessonRoles(book,current.desired,'No placements required in this plan'));
   after.append(lessonRoles(book,current?.observed,'No managed copies recorded',current?.unknown||[]));
   row.append(identity,left,desired,after);body.append(row);
@@ -74,7 +76,7 @@ async function loadLessons(){
  $('assets').replaceChildren(node('div','empty','Reading hash-pinned lesson reports…'));
  try{
   const book=await api('/api/lessons');if(gen!==state.generation||state.mode!=='lessons')return;
-  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
+  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
    ||!state.projects.some(p=>p.id===book.project)||!Array.isArray(book.lessons)||!book.lessons.length||book.lessons.length>16||!Array.isArray(book.roles)||book.roles.length<2||book.roles.length>4
    ||book.lessons.some(l=>!Array.isArray(l.objects)||l.objects.length>32||!Array.isArray(l.holds)||!Array.isArray(l.effects)))throw Error('Unrecognized teaching response');
   const roles=new Set(book.roles.map(r=>r.id));
@@ -83,7 +85,11 @@ async function loadLessons(){
    else if(!Array.isArray(o.unknown)||o.unknown.some((r,i)=>!roles.has(r)||(i&&o.unknown[i-1]>=r)||o.observed?.includes(r))||(o.unknown.length&&(l.converged||l.storage_converged===true)))throw Error('Unrecognized teaching coverage');
   }
   for(const l of book.lessons)if(l.rejection!==undefined){const r=l.rejection;
-   if(book.schema!=='tig.catalogue-teaching.design-3'||!r||r.error!=='stale'||typeof r.planning_basis!=='string'||typeof r.observed_basis!=='string'||!r.planning_basis.match(/^[0-9a-f]{64}$/)||!r.observed_basis.match(/^[0-9a-f]{64}$/)||r.planning_basis===r.observed_basis||l.basis_current!==false||l.converged!==false||l.storage_converged!==false||l.stream_bytes!==0||l.effects.length||l.remaining_page)throw Error('Unrecognized rejected attempt');
+   if(!['tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4'].includes(book.schema)||!r||r.error!=='stale'||typeof r.planning_basis!=='string'||typeof r.observed_basis!=='string'||!r.planning_basis.match(/^[0-9a-f]{64}$/)||!r.observed_basis.match(/^[0-9a-f]{64}$/)||r.planning_basis===r.observed_basis||l.basis_current!==false||l.converged!==false||l.storage_converged!==false||l.stream_bytes!==0||l.effects.length||l.remaining_page)throw Error('Unrecognized rejected attempt');
+  }
+  for(const l of book.lessons)if(l.final_loss!==undefined){const r=l.final_loss;
+   if(r?.file_allocation_before_new_removals!==undefined&&(!Number.isSafeInteger(r.file_allocation_before_new_removals)||r.file_allocation_before_new_removals<0))throw Error('Unrecognized allocation evidence');
+   if(book.schema!=='tig.catalogue-teaching.design-4'||!r||!['completed','cancelled'].includes(r.phase)||r.synthetic_owner_consent!==true||r.simulated_clock!==true||!Number.isSafeInteger(r.new_removed_bytes)||r.new_removed_bytes<0||!Number.isSafeInteger(r.historical_removed_bytes)||r.historical_removed_bytes<r.new_removed_bytes||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized final loss');
   }
   lessonView.book=book;const selected=book.lessons.findIndex(l=>l.id===lessonView.selection);selectLesson(book,Math.max(0,selected));
  }catch(e){if(gen===state.generation&&state.mode==='lessons'){

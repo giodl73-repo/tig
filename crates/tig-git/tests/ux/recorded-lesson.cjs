@@ -74,6 +74,17 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(f.text('assets').includes('No new provider effects recorded.'));
   assert.deepEqual(book.lessons[index].effects,[]);
  }
+ for(const [index,lesson] of book.lessons.entries())if(lesson.final_loss){
+  const select=selector();select.value=String(index);await select.onchange();await f.settle();
+  assert.ok(f.text('assets').includes('Explicit final loss · '+lesson.final_loss.phase));
+  if(lesson.final_loss.file_allocation_before_new_removals!==undefined){assert.ok(f.text('assets').includes('Allocated file data before new removals:'));assert.ok(f.text('assets').includes('Free-space change: unmeasured.'));}
+  if(lesson.final_loss.required_age_millis!==undefined)assert.ok(f.text('assets').includes('Required continuous inactive age: '+lesson.final_loss.required_age_millis+' ms (simulated).'));
+  assert.ok(row('original').children[1].textContent.includes('Backup / M'));
+  assert.ok(row('original').children[2].textContent.includes('Eligible for separately authorized final removal'));
+  const fixed=lesson.objects.find(o=>o.name==='fixed');
+  assert.ok(row('fixed').children[2].textContent.includes(fixed.final_selection==='unselected'?'Not selected in this block':'Protected'));
+  if(lesson.final_loss.phase==='completed')assert.ok(row('original').children[3].textContent.includes('No managed copies recorded'));
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

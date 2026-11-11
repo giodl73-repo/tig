@@ -106,6 +106,29 @@ fn initial(config: &Config, pin: &Provider, object: &Object) -> Result<Request> 
         required: AckLevel::ProcessRestart,
     })
 }
+/// Resolve publication identity for an exact enrolled provider/object without
+/// applying effects. This is not a custody observation or deletion authority.
+/// Retirement recipes require their existing recovery/reacquisition path.
+pub fn publication(
+    config: &Config,
+    pin: &Provider,
+    store: &LocalStore,
+    object: &Object,
+) -> Result<Request> {
+    config.id()?;
+    let identity = digest(pin)?;
+    let mut admitted = false;
+    for provider in &config.providers {
+        admitted |= digest(provider)? == identity;
+    }
+    if !admitted {
+        return Err(Error::WrongEnrollment);
+    }
+    match recipe(config, pin, store, object)? {
+        Recipe::Publication { request, .. } => Ok(request),
+        Recipe::Retirement(_) => Err(Error::ReacquisitionRequired),
+    }
+}
 fn retention_plan(store: &LocalStore, publication: &Request) -> Result<RetentionPlan> {
     Ok(retention::plan(
         store,

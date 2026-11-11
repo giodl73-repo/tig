@@ -1,5 +1,7 @@
 //! Bounded recorded fixture observations. No current custody or execution authority.
 use super::*;
+mod final_observation;
+mod paged_observation;
 use std::io::Read;
 use tig_core::{Digest, identity};
 use tig_store::{
@@ -166,11 +168,7 @@ fn rejected_attempt<'de, D: serde::Deserializer<'de>>(
 ) -> std::result::Result<Option<Rejected>, D::Error> {
     Rejected::deserialize(decoder).map(Some)
 }
-fn document<T: serde::de::DeserializeOwned>(
-    reader: &mut ReadCache,
-    object: &Object,
-    left: &mut u64,
-) -> Result<T> {
+fn raw_document(reader: &mut ReadCache, object: &Object, left: &mut u64) -> Result<Vec<u8>> {
     if object.bytes == 0 || object.bytes > 65536 || object.bytes > *left {
         return Err("Teaching read budget exceeded".into());
     }
@@ -187,6 +185,14 @@ fn document<T: serde::de::DeserializeOwned>(
     if Object::from_bytes(&raw) != *object {
         return Err("Teaching metadata integrity failed".into());
     }
+    Ok(raw)
+}
+fn document<T: serde::de::DeserializeOwned>(
+    reader: &mut ReadCache,
+    object: &Object,
+    left: &mut u64,
+) -> Result<T> {
+    let raw = raw_document(reader, object, left)?;
     let value = parse_json(&raw).map_err(|_| "Invalid teaching JSON")?;
     if identity::canonical_json(&value).map_err(|_| "Invalid teaching JSON")? != raw {
         return Err("Noncanonical teaching JSON".into());
@@ -245,6 +251,7 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut providers = None;
     let mut coverage_v2 = false;
     let mut rejection_v3 = false;
+    let mut final_v4 = false;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -260,7 +267,41 @@ pub fn execute(request: Request) -> Result<Value> {
         {
             return Err("Invalid teaching lesson".into());
         }
-        let report: Report = document(&mut reader, &entry.report, &mut left)?;
+        let value: Value = document(&mut reader, &entry.report, &mut left)?;
+        if value["schema"] == "tig.teaching-paged-final-observation.design-1" {
+            lessons.push(paged_observation::decode(
+                value,
+                paged_observation::Context {
+                    previous: lessons.last().ok_or("Missing preceding paged lesson")?,
+                    entry: &entry,
+                    expected: &expected_providers,
+                    roles: &p.roles,
+                    commits: &request.commits,
+                    identities: &identities,
+                    reader: &mut reader,
+                    left: &mut left,
+                },
+            )?);
+            final_v4 = true;
+            coverage_v2 = true;
+            continue;
+        }
+        if value["schema"] == "tig.teaching-final-observation.design-1" {
+            lessons.push(final_observation::decode(
+                value,
+                &entry,
+                &expected_providers,
+                &p.roles,
+                &request.commits,
+                &identities,
+                lessons.last().ok_or("Missing preceding final lesson")?,
+            )?);
+            final_v4 = true;
+            coverage_v2 = true;
+            continue;
+        }
+        let report: Report =
+            serde_json::from_value(value).map_err(|_| "Unsupported teaching metadata")?;
         let id = report.plan.id().map_err(|_| "Invalid teaching plan")?;
         let binding = (
             report.plan.enrollment.clone(),
@@ -534,7 +575,7 @@ pub fn execute(request: Request) -> Result<Value> {
             }
         }
     }
-    let response = json!({"schema":if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
+    let response = json!({"schema":if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)

@@ -83,6 +83,21 @@ Ten recorded checkpoints expose historical desired versus observed state in the
 same read-only catalogue. General races, crash/restart and final-loss/expiry
 teaching remain separate open gates.
 
+The [final-loss teaching contract](specs/TEACHING-FINAL-RETIREMENT.md) now has
+fresh final-capable enrollment, exact manual and native category/retained-age
+rehearsals, separately admitted claim/final consent, actual loss, cancellation,
+intent resume/process recovery and same-hash new-birth replay protection.
+Distinct bounded-bulk and paged readers reconstruct actual SDK scope and show
+before/selection/observed copies, exclusions, new/historical logical removal and
+recorded file allocation; free-space change remains unmeasured. Fourteen teaching
+cases,13 manual/17 paged report negatives,8 malformed recovery frames,79 controller
+cases, both workspace/500k profiles, strict checks and a fresh eight-step artifact
+pass locally. [EVID-121](docs/reviews/2026-11-10-teaching-final-retirement.md)
+separates this synthetic checkpoint from complete teaching, wider crash/provider/
+authority/clock/large-file qualification, metadata lifetime and human acceptance.
+Exact-head hosted checks remain required. This does not complete priority7 or the
+full product plan.
+
 The [same-byte rename rehearsal](specs/TEACHING-RENAME.md) adds a real conflicting
 destination refusal and successful Git record rename with unchanged blob/asset
 identity. Explicit native adoption and SDK reconciliation preserve verified

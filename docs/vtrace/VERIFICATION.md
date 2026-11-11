@@ -1,5 +1,11 @@
 # Verification record
 
+EVID-121: both workspace/500k/strict runs4118/61973 pass; final14/all-feature
+teaching/strict/fmt/fresh artifact41136, standalone82649 and79 controllers pass.
+Thirteen manual,17 paged and8 frame negatives include actual HTTP/shipped controls.
+[Review](../reviews/2026-11-10-teaching-final-retirement.md) records exact scope,
+source timing and initial corrections; hosted exact-source checks remain open.
+
 EVID-120: terminal95832 focused actual CLI/provider/API/shipped-script case and
 strict schema all-target Clippy pass; all78 controller cases pass. Explicit
 rename-lesson rendering assertion is included in broad15009/80546 qualification.

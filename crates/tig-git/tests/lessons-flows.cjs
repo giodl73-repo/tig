@@ -102,3 +102,13 @@ test('rejection evidence cannot hide effects, convergence, unchanged basis or ol
    return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized rejected attempt/);
  }
 });
+
+test('final allocation evidence refuses negative unsafe and nonnumeric values',async()=>{
+ for(const allocation of [-1,Number.MAX_SAFE_INTEGER+1,'4096']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-4';
+   for(const lesson of b.lessons)for(const o of lesson.objects)o.unknown=[];
+   const l=b.lessons[3];l.final_loss={phase:'completed',new_removed_bytes:0,historical_removed_bytes:0,synthetic_owner_consent:true,simulated_clock:true,file_allocation_before_new_removals:allocation};
+   for(const o of l.objects)o.before=[...o.observed];return b;});
+  await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized allocation evidence/);
+ }
+});

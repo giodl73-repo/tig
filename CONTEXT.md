@@ -1,5 +1,32 @@
 # Tig maintainer context
 
+Owned lane: feat/teaching-final-retirement; input
+2ca3e18f2c506c9d5546db63396b90b49d74f509; contract commit4c48e81.
+Runtime source is defined by foundation-target pins; derive commit/PR from Git.
+Full PRODUCT_PLAN goal remains active and incomplete. Read EVID-121 review and
+specs/TEACHING-FINAL-RETIREMENT.md before the next slice. Synthetic fresh roots
+only; no viewer, browser, deployment or live-cache operations.
+
+Local checkpoint qualified: manual final loss/retry/cancel/new-birth/process
+recovery; retained-age/native category/paged aged execution; distinct readonly
+bulk/paged playback with prior-state/source/action/clock checks and allocation
+versus unmeasured free-space display. Full14/all-feature final41136,13 manual/
+17 paged/8 malformed-frame negatives,79 controllers, both workspace/500k/strict
+runs (4118/61973), standalone82649 and fresh final artifact all pass. Every local
+handle is terminal. Earlier4434/89696 were lost without terminal results and
+remain unqualified; they are not counted as passes.
+
+Runtime5316d1d is pushed as draft PR52, stacked on ready parent PR51. Exact
+run43037089163 passed secrets/structure but failed Linux controllers: a post-test
+cp1252/LF rewrite corrupted three old middle-dot assertions; Windows cancelled
+by fail-fast. Assertions are restored to original UTF8 without weakening them;
+changed-file Unicode audit finds no other corruption. Next: rerun79 controls,
+source pins/L0/diff, commit/push correction and inspect new exact-head CI.
+No merge/deploy. Reacquisition chapter, complete course, browser/human, native/
+current authority/clock/provider/large-file/lifetime/metadata-expiry remain open.
+See
+context/RESUME.md for exact logs/artifact; older lane entries below are historical.
+
 Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.
 
 Current lane: feat/teaching-rename, input21a70f5abc4340582cda3a075a3c5fe1cee13e40
