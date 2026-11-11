@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 28482,
-      "sha256": "a0a69793fde4e85bb8a32afa45c041880749b5cdc4f5a9bf0203f0211f69c8b8"
+      "bytes": 30108,
+      "sha256": "efbe2ddf34edc417c54347197013e3d1838dd9ff76bd5895d938e49edf5c11b5"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 91807,
+      "bytes": 93433,
       "path": "context/RESUME.md",
-      "sha256": "02dd06fe30b9ceb45871162b80dc2bc4399a0b37c316493bc08484138e724c55"
+      "sha256": "ef426ccb47b8f894fec9ad0dfdfb02cd252630fbd0890173f1913b58743cd1d1"
     },
     {
       "bytes": 16453,
@@ -2999,8 +2999,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-placement-final-absence.md",
-      "bytes": 7502,
-      "sha256": "836693bf68cb5b9bb9965880e71b9dc94712f358e7f4071808b070670235ddfa"
+      "bytes": 8216,
+      "sha256": "a0209d441bdf47dcad5ca6bf3086836746d30a61012096d60a1b9481f47dad21"
     },
     {
       "path": "specs/PLACEMENT-FINAL-ABSENCE.md",

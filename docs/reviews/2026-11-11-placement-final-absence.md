@@ -28,7 +28,7 @@ format, dependency, cache engine, global lock or metadata expiry is introduced.
 | 82636 | Terminal0: all15 native teaching/physical/HTTP/shipped-control regressions on SDK delta before final ordinary-provider fast path |
 | 63500 | Terminal0: final fast-path13 entries/fmt and strict all-feature workspace/all-target Clippy |
 | Controllers | All81 shipped controller cases pass |
-| 24981/61132 | Full schema/all-feature workspace/500k/strict runs LIVE in separate targets;24981 continues standalone Git and two fresh CLI/catalogue artifacts |
+| 24981/61132 | Both TERMINAL0: schema/all-feature workspace/500k/strict.24981 also passes standalone Git/fmt/fresh bins and two persisted nine-checkpoint CLI/catalogue artifacts |
 
 Logs placement-final-absence-{native,matrix,matrix-final,process,qualified,final,
 teaching,controls,default,all}.log remain outside Git. Each broad phase writes a
@@ -88,3 +88,14 @@ Disposition: pass_with_risk for focused synthetic behavior. One producer applies
 all six lenses, not independent people or human approval. Implementation,
 verification, scoped validation, trace and review close separately; remaining
 contract/product/current authority/provider/lifetime/human gates are not waived.
+
+## Local broad closeout at runtime923a40c / source8e948d4
+
+All broad phase exits are0; both original handles are terminal0. Fresh final-git-
+return and final-reacquire artifacts each record9 checkpoints, complete_course=false;
+readonly catalogue validation opens0 payloads and reports automatic_eviction=false.
+Runtime code is frozen. Parent documentation closeout71d7028 passes exact
+43066253510 on both hosts/secrets. PR55 exact-head43069646518 passes
+Windows/Linux/secrets; ready for review. Runtime hosted qualification passes.
+Final documentation pins/L0 and latest-source state remain separate gates. No live
+root/viewer/browser/deployment/PR merge or complete product acceptance follows.

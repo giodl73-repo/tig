@@ -1,5 +1,27 @@
 # Tig resume state
 
+Current source8e948d4791c64f41a4d76d66195a709a73890e54 is pushed as ready PR55:
+https://github.com/giodl73-repo/tig/pull/55 (base feat/teaching-git-return).
+Runtime923a40c; contracta36aa29 precedes code. Exact run43069646518 passes
+Windows/Linux/secrets; PR55 is ready for review. Parent PR54 doc head
+71d7028 passes exact43066253510 Windows/Linux/secrets; ready, no merge/deploy.
+SDK broad24981/default and61132/all-feature are now TERMINAL0, including both
+workspace/500k/strict profiles. Default also passes standalone/fmt/fresh schema
+bins and persisted final-git-return/final-reacquire catalogue checks. All phase
+.exit files are0; no task-owned Cargo process remains. Earlier LIVE notes below
+are historical. Final13/3 actual exits/strict63500, all15 teaching82636 and81
+controllers pass. Source/history secrets and structure/pins/diff pass at8e948d4.
+This documentation closeout records hosted success separately from runtime.
+Artifacts are listed in external placement-final-absence-artifact-roots.txt:
+final-git-return-28f79577b2c64d398f4bcb19b580586f and
+final-reacquire-5cedd06eee6c4abe8e0becc0997a57bf, both prefixed placement-final-
+absence-. Each records9 checkpoints, complete_course=false; readonly check opens
+0 payloads and automatic_eviction=false. No viewer/browser/live cache was used.
+Next: exact-head PR55 hosted terminal/closeout, then joined public return ->
+explicit M reacquisition -> F restoration without D resurrection and old-retry
+preservation. Full course/provider/current authority/large-file/lifetime/metadata
+expiry and human/full-product gates remain OPEN. Keep full PRODUCT_PLAN active.
+
 Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29
 precedes runtime code. Private settled-final-absence observation/no-effect skip
 is implemented; required destinations keep FinalRetirement. Final13 focused SDK
