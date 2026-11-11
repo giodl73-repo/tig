@@ -171,3 +171,25 @@ findings separately for the primitive and complete activation. Do not report a
 private seal proof as durable activation, sustainable lifetime, .tig removal or
 metadata expiry. Full PRODUCT_PLAN/course/operator/UI/Action remains active.
 No live cache, daemon, browser/viewer, transfer, deletion, deployment or merge.
+
+## Frozen initial SQL/probe amendment
+
+Private qualification names are fixed. Control table:
+`CREATE TABLE tig_activation(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL CHECK(length(body)<=65536),hash TEXT NOT NULL)`.
+After inserting the single canonical intent, create these nine guards:
+for each table events, meta, tig_activation and action INSERT, UPDATE, DELETE,
+`CREATE TRIGGER tig_activation_TABLE_ACTION BEFORE ACTION ON TABLE BEGIN SELECT RAISE(ABORT,'tig:sealed-source'); END`.
+TABLE/ACTION substitutions come from that fixed literal list, never caller input.
+The intent insert precedes its own INSERT guard. All DDL/insert/guard creation
+commits or rolls back together. A guard abort is an error, never an acknowledgement.
+
+The supporting stdlib Python probe is tools/probe_activation_sql.py, invoked only
+with --root pointing to a new explicit synthetic directory. It creates original
+legacy-format empty journals from fixed public config/bytes, commits these exact
+DDL guards, pauses a Python SQL writer before BEGIN, releases it after sealing,
+checks refusal/unchanged prefix, rollback/reopen, unrelated-domain progress and
+why a pre-fence restore with the same ordinary checkpoint needs a new minimum.
+It records its driver/version and labels legacy_rust_qualified=false and
+activation_implemented=false. This is supporting SQLite behavior evidence only;
+it cannot replace the pinned Rust/legacy-process and complete activation gates.
+No runtime production migration or public seal API is added by this probe.
