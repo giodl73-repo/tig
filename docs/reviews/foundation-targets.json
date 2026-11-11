@@ -384,13 +384,13 @@
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 35735,
-      "sha256": "78a191700d96c78dc7d68b1950656f1512dddc8b99b8c45fa1de53b4154d3563"
+      "bytes": 36242,
+      "sha256": "82df4d3875d456023cccddd830ca32c6277a860518cfefb6f4c36aeca8bc8458"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 60648,
-      "sha256": "3402ece8c37761c40c66656d43d88ba70152c2af7a3096fbd649f121ddfd7b46"
+      "bytes": 61040,
+      "sha256": "7654c9c482efed88a60122ee3f8d681e3829f97117df4fbd0e3341c827f5f73d"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 53137,
-      "sha256": "bd836b963fe2738ab8586464722d0d717a6f45b05d4faa9fab5627464adc4cb4"
+      "bytes": 53536,
+      "sha256": "92a8ff1415d29e8de436263e8bfce5d6969acfb290c493dc3ae0e21d232e8efc"
     },
     {
       "path": "README.md",
@@ -2819,8 +2819,8 @@
     },
     {
       "path": "examples/catalogue/README.md",
-      "bytes": 22337,
-      "sha256": "106c2648ed4fc8401a5ea9d3dae58474be7fb09494bf5e4283024a62a12afa5d"
+      "bytes": 22333,
+      "sha256": "81538c6060aae7eec80d3c29c1115715b1d27320d10d2292050246f35ade4b6f"
     },
     {
       "path": "specs/TEACHING-CATALOGUE.md",
@@ -3014,8 +3014,8 @@
     },
     {
       "path": "specs/TEACHING-RETURN-RESTORE.md",
-      "bytes": 6461,
-      "sha256": "bcdfa85e371f0e4df45e86cf6d9758b2e65b678cf1a468037534b4095a458735"
+      "bytes": 7287,
+      "sha256": "bd1878ed91542492a94c8a130fc1e2ff1c36a1f661a3c55836ab0e1a2019fd21"
     },
     {
       "path": "crates/tig-assets/src/delivery.rs",
@@ -3274,8 +3274,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-return-restore.md",
-      "bytes": 6406,
-      "sha256": "5240df3cf4daf2b40e3997993dfb1bb4105eeadfbed82428e2ea62200fef2520"
+      "bytes": 6906,
+      "sha256": "4fe75009a07b1c46ff4a1cbf805ffe7aae346d845659b149d03362037be6cce6"
     },
     {
       "path": "docs/reviews/asset-delivery-history.md",

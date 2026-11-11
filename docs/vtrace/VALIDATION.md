@@ -1,5 +1,13 @@
 # Intended-use validation
 
+EVID-125 joins accepted Git return with missing payload, explicit new retained
+M birth, then ordinary F restoration with D absent. Actual old expired retry
+removes0 new/58 historical bytes and preserves current source/custody. Literal
+synthetic bytes and native HTTP/shipped controls qualify this bounded lesson;
+complete course, providers/current authority/clock/large files/lifetime/operator/
+Action and browser/human acceptance stay OPEN. See
+[review](../reviews/2026-11-11-teaching-return-restore.md).
+
 EVID-121 connects exact Git/native category and retained-age selection through
 actual synthetic claim settlement/final loss to readonly catalogue observations,
 with intent process recovery, cancel, new-birth replay and honest allocation.

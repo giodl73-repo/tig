@@ -1,5 +1,11 @@
 # Verification record
 
+EVID-125: final28663 joined native/HTTP/shipped/literal positive,47 re-pinned
+semantic refusals and strict schema workspace/all-target Clippy pass;83 controller
+cases and reachable-history/staged secret scans pass. Both full profiles,
+standalone/fresh persisted artifact and exact-head hosted gates pending;
+[review](../reviews/2026-11-11-teaching-return-restore.md) retains failures/scope.
+
 EVID-121: both workspace/500k/strict runs4118/61973 pass; final14/all-feature
 teaching/strict/fmt/fresh artifact41136, standalone82649 and79 controllers pass.
 Thirteen manual,17 paged and8 frame negatives include actual HTTP/shipped controls.

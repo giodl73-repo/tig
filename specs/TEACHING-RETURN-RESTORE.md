@@ -91,9 +91,23 @@ actual full11-step Git/source/SDK path; independent literal bytes/absence at eve
 role and raw Git record equality; real HTTP into shipped controls; old modes,
 both workspace/500k/strict profiles, standalone Git, fresh persisted11-checkpoint
 sample and exact Windows/Linux/secrets/baseline compatibility. Browser/user
-acceptance, complete23-step course, real providers/current authority/native time,
+acceptance, complete public course, real providers/current authority/native time,
 large files/restore/lifetime and metadata expiry remain required OPEN gates.
 
 Record six producer lenses with exact targets, severity, owner, disposition and
 remaining evidence. Close implementation, verification, scoped validation, trace
 and review separately. Roles are not independent reviewers or human permission.
+
+
+## Qualification correction scope
+
+The first all-feature run93071 failed only the existing simultaneous age-capture
+fixture: `Admission(Journal(Busy))` was rejected at age/tests.rs:611. Source
+journal SQLite Busy is explicitly preserved through admission and age error
+wrappers. Allow this exact contention variant in that test alongside existing
+Busy/conflict cases; preserve explicit serial convergence, immutable retained
+facts, successful-peer agreement and no-clock replay assertions. No production
+age algorithm, retry/fairness promise, SDK event/wire format or authority changes.
+Rerun all15 age entries and strict all-feature Clippy, then the failed full profile.
+Default profile continues on the prior stricter assertion; record exact source
+and results separately. Unknown errors must still fail the race fixture.

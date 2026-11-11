@@ -41,7 +41,14 @@ restoration; old readers/responses1..5 retain their own admission rules.
   continues standalone/fmt/fresh bins/persisted11-step readonly catalogue check.
 
 External return-restore-*.log and numeric phase .exit files retain actual outcomes.
-No broad, fresh persisted artifact or new-head hosted pass is claimed yet.
+First all-feature93071 failed only the existing age race rejecting exact
+Admission(Journal(Busy));442 SDK cases passed,1 failed,9 ignored. Source
+journal SQLite Busy maps through admission and age wrappers. The contract now
+allows a test-only correction; no production retry or fairness guarantee. The
+outer nested-shell exit also had a quoting error after the payload ended;
+all-tests.exit101 preserves the actual test failure. No broad pass is claimed.
+Source08710ef exact43077356434 passes Linux/secrets; Windows remains pending.
+Fresh persisted artifact remains pending.
 
 ## Synthetic validation
 
@@ -71,7 +78,7 @@ producer, not independent reviewers or human approval.
 | Custody / return_restore.rs publication and retention | High: proof must distinguish explicit M acquisition from F restoration | Actual new-birth receipt/grant, separate29/29 streams and physical oracle; noD birth and retained verification. Hardware/real-provider acceptance open |
 | Concurrency / restoration.rs replay ledgers | High: unique ledgers alone permitted F/D association swap | Bind every ledger to old plan's exact store/capacity; retry_ledger_order refusal. Actual old retry0new/58historical. Native fault/lifetime acceptance open |
 | Privacy / fresh-root command, bounded decoder, lessons.js | Medium: view must not turn saved facts into execution or current custody | Fresh synthetic roots, existing bounds, no payload API and GET-only view; malformed reports held. Browser/human acceptance open |
-| Git adoption / lifecycle corpus and native test | Medium: authored return does not regenerate lost bytes | Actual Git commit/source return precedes explicit seed acquisition; unchanged siblings/recorded reports asset-side. Complete23-step course and classroom acceptance open |
+| Git adoption / lifecycle corpus and native test | Medium: authored return does not regenerate lost bytes | Actual Git commit/source return precedes explicit seed acquisition; unchanged siblings/recorded reports asset-side. Complete public course and classroom acceptance open |
 
 ## Separate closure
 
