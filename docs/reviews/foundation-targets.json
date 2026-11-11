@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 32775,
-      "sha256": "b2db4aae18cae1015b17b0bffa14726995a8a7c14779ac20466a8c93f04de18a"
+      "bytes": 33963,
+      "sha256": "fa80dcade28d616867c985e11b0228d84609a85118373187282a30cb2f54c797"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130627,
-      "sha256": "644680ffac2385f4caea24af700c63f3a38c97df16b473eb181d738645ffa50c"
+      "bytes": 130714,
+      "sha256": "cbb1e8e300d302e7e6e8e292c7d59c76bf76a91e9b4607b40f6bef6d91956c49"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 54647,
-      "sha256": "d0b784335e0bd8c83a01cb3609a151843163ae9ffe1ad2f2f5a1b84270428246"
+      "bytes": 55212,
+      "sha256": "3a7bef199b88caa2c579fa3410351008d4cca2a8c1d6f97e17c9eaff4b2e4c2b"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 96100,
-      "sha256": "bdb71a9d743b32d1d31b5e30a39680ca87797fd5bd3d0ff50b8b651c9944b862"
+      "bytes": 97288,
+      "sha256": "07ed740e57e960a10add73855c05e5d04c0eee3744f5d6bbe01fb329cba012f9"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3466,6 +3466,21 @@
       "path": "crates/tig-git/tests/remote_teaching.rs",
       "bytes": 13367,
       "sha256": "c4e3af01f2aee4bf1de27fac080bcf444b1a25d0cbefdf8a8b75cef306454590"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-capacity-checkpoint.md",
+      "bytes": 2503,
+      "sha256": "a5884056bb3ca8acda2ad58585a49ae57d372b081d26580c64f2e5cab4b4e1de"
+    },
+    {
+      "path": "specs/CAPACITY-CHECKPOINT.md",
+      "bytes": 6377,
+      "sha256": "2ec5ece1890459f69cfee4a4ba799d39169bf0fd3defa5786df932c5e6213217"
+    },
+    {
+      "path": "specs/JOURNAL-CONTINUATION.md",
+      "bytes": 5148,
+      "sha256": "8101022278cf1e32bb9b0f23420a59c090d35b40a862cdbbb03b6bd277eaf4e9"
     }
   ]
 }

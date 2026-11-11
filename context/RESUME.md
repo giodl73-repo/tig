@@ -1,5 +1,21 @@
 # Tig resume state
 
+Active owned lane feat/capacity-checkpoint, inputb177d4fee4ce84c0ee8a15486e731391e726fd9d.
+Read specs/CAPACITY-CHECKPOINT.md and JOURNAL-CONTINUATION.md before code.
+Contract-only paged working-state codec and explicit read-only existing-ledger
+adopter; no giant record, current format/cap change, activation or expiry. Preserve
+live/in-flight/closed state, retired debits, counters and exact tickets; restore
+must invalidate free/pending probe admission. EVID-127 design producer lenses
+name full historical-index/segmented activation/expiry proof still required.
+Full PRODUCT_PLAN remains active. Parent PR57 sourceb177d4f local default19709
+and all31804 TERMINAL0, both workspace/500k/strict/standalone/fresh14-step artifact.
+Parent exact43093171430 Linux/secrets pass, Windows still live at entry; draft.
+Both external targets now free; no task-owned Cargo processes. Ignore other
+projects. Use explicit external TEMP/TMP/targets/debug0/incremental0/jobs4/threads4,
+UTF8 IO. No resume cache init/census/daemon/hydration/transfer/upload/deletion,
+live root, browser/viewer, deployment or merge. Foundation synthetic fixtures only.
+Older notes below describe the input implementation.
+
 Active owned lane feat/teaching-remote-publication, input2ec1a2e8c9e22227d53b548fc72c7fdb7c42830d.
 Contract6ae7b3c precedes code; read specs/TEACHING-REMOTE-PUBLICATION.md.
 Actual optional14-step mode/strict response7/GET-only view are implemented.
