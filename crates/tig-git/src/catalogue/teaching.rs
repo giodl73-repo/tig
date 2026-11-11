@@ -1,6 +1,7 @@
 //! Bounded recorded fixture observations. No current custody or execution authority.
 use super::*;
 mod final_observation;
+mod git_return;
 mod paged_observation;
 mod reacquisition;
 use std::io::Read;
@@ -270,6 +271,20 @@ pub fn execute(request: Request) -> Result<Value> {
             return Err("Invalid teaching lesson".into());
         }
         let value: Value = document(&mut reader, &entry.report, &mut left)?;
+        if value["schema"] == "tig.teaching-git-return-observation.design-1" {
+            lessons.push(git_return::decode(
+                value,
+                &entry,
+                lessons.last().ok_or("Missing pre-return final lesson")?,
+                &expected_providers,
+                &p.roles,
+                &identities,
+                &request.commits,
+            )?);
+            final_v4 = true;
+            coverage_v2 = true;
+            continue;
+        }
         if value["schema"] == "tig.teaching-reacquisition-observation.design-1" {
             lessons.push(reacquisition::decode(
                 value,

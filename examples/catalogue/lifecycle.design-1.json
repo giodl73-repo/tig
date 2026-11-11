@@ -588,6 +588,26 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "git-return-after-final-loss",
+      "event": "Git restores the original small records under a new commit and source revision after final loss. The payload remains absent; actual placement reports its final-retirement fence while useful work can demote the fixed version. Public seed access is disabled.",
+      "requires": [
+        "current-source-fencing",
+        "explicit-final-loss",
+        "no-implicit-reacquisition"
+      ],
+      "expected_copies": {
+        "shared": [
+          "working",
+          "backup"
+        ],
+        "original": [],
+        "fixed": [
+          "history",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [

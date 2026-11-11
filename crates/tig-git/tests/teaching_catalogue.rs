@@ -7,6 +7,212 @@ use tig_git::catalogue::{Catalogue, Config, storage::objects::Query};
 mod catalogue_server;
 
 #[test]
+fn git_return_after_final_loss_selects_references_but_keeps_missing_bytes_held() {
+    use tig_git::catalogue::teaching;
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("Git return after final loss");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-final-git-return")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 9);
+    assert_eq!(result["complete_course"], false);
+    let raw = fs::read(root.join("git-return.json")).unwrap();
+    assert_eq!(
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap(),
+        result["git_return_evidence"]
+    );
+    let evidence: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(
+        evidence["git_return"]["first_record"],
+        evidence["git_return"]["returned_record"]
+    );
+    assert_ne!(
+        evidence["git_return"]["first_commit"],
+        evidence["source_commit"]
+    );
+    assert_eq!(evidence["git_return"]["seed_disabled"], true);
+    assert_eq!(
+        evidence["git_return"]["seed_attempts_after"]
+            .as_u64()
+            .unwrap()
+            - evidence["git_return"]["seed_attempts_before"]
+                .as_u64()
+                .unwrap(),
+        1
+    );
+    assert_eq!(evidence["receipt"]["stream_bytes"], 29);
+    assert_eq!(evidence["receipt"]["storage_converged"], false);
+    let original = Object::from_bytes(b"Measurement series: 2,4,8,16\n");
+    let fixed = Object::from_bytes(b"Measurement series: 2,4,8,32\n");
+    let shared = Object::from_bytes(b"Shared reference grid v1\n");
+    for (name, object, bytes, roles) in [
+        (
+            "original",
+            &original,
+            b"Measurement series: 2,4,8,16\n".as_slice(),
+            vec![],
+        ),
+        (
+            "fixed",
+            &fixed,
+            b"Measurement series: 2,4,8,32\n".as_slice(),
+            vec!["history", "backup"],
+        ),
+        (
+            "shared",
+            &shared,
+            b"Shared reference grid v1\n".as_slice(),
+            vec!["working", "backup"],
+        ),
+    ] {
+        for role in ["working", "history", "backup"] {
+            let path =
+                tig_store::existing::Layout::Flat.object_path(&root.join(role), &object.sha256);
+            if roles.contains(&role) {
+                assert_eq!(fs::read(path).unwrap(), bytes, "{name}/{role}");
+            } else {
+                assert!(!path.exists(), "unexpected {name}/{role}");
+            }
+        }
+    }
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let catalogue = Catalogue::load(Config::load(&root.join("catalogue.json")).unwrap()).unwrap();
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-4");
+    let chapter = &book["lessons"][8];
+    assert_eq!(chapter["source_commit"], evidence["source_commit"]);
+    assert!(
+        chapter["holds"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|h| h == "final_retirement")
+    );
+    let row = chapter["objects"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["name"] == "original")
+        .unwrap();
+    assert_eq!(row["observed"], serde_json::json!([]));
+    assert_eq!(row["unknown"], serde_json::json!([]));
+    assert!(
+        row["desired"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|r| r == "working")
+    );
+    render_book(&book);
+    drop(server);
+    assert_eq!(
+        teaching::execute(catalogue.teaching_request().unwrap()).unwrap(),
+        book
+    );
+    for bad in [
+        "commit",
+        "prior",
+        "record",
+        "seed",
+        "seed_count",
+        "source",
+        "source_floor",
+        "snapshot",
+        "source_pending",
+        "lost",
+        "before",
+        "after",
+        "copies",
+        "unknown",
+        "converged",
+        "status",
+        "holds",
+        "state",
+        "effects",
+        "provider",
+        "authority",
+    ] {
+        let mut changed = evidence.clone();
+        let foreign =
+            serde_json::to_value(tig_core::Digest::blob(b"foreign returned source")).unwrap();
+        match bad {
+            "commit" => changed["source_commit"] = changed["git_return"]["first_commit"].clone(),
+            "prior" => {
+                changed["git_return"]["prior_commit"] =
+                    changed["git_return"]["first_commit"].clone()
+            }
+            "record" => {
+                changed["git_return"]["returned_record"] =
+                    serde_json::to_value(Object::from_bytes(b"wrong record")).unwrap()
+            }
+            "seed" => changed["git_return"]["seed_disabled"] = false.into(),
+            "seed_count" => changed["git_return"]["seed_attempts_after"] = 0.into(),
+            "source" => changed["source_checkpoint"]["genesis"] = foreign,
+            "source_floor" => {
+                changed["git_return"]["source_before"] =
+                    changed["git_return"]["source_selected"].clone()
+            }
+            "snapshot" => {
+                changed["git_return"]["selected_source"]["current"]["selection"]["context"] =
+                    foreign
+            }
+            "source_pending" => {
+                changed["git_return"]["selected_source"]["pending"] = serde_json::json!({})
+            }
+            "lost" => {
+                changed["git_return"]["lost_object"] = serde_json::to_value(fixed.clone()).unwrap()
+            }
+            "before" => {
+                changed["git_return"]["before"]["working"]["original"] =
+                    serde_json::to_value(original.clone()).unwrap()
+            }
+            "after" => {
+                changed["git_return"]["after"]["backup"]["original"] =
+                    serde_json::to_value(original.clone()).unwrap()
+            }
+            "copies" => {
+                changed["observations"]["original"]["verified_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            "unknown" => {
+                changed["observations"]["original"]["unknown_copies"] =
+                    serde_json::json!(["backup"])
+            }
+            "converged" => changed["receipt"]["page_converged"] = true.into(),
+            "status" => changed["status"]["storage_converged"] = true.into(),
+            "holds" => changed["receipt"]["holds"] = serde_json::json!([]),
+            "state" => changed["status"]["observations"][0]["state"] = "invented".into(),
+            "effects" => {
+                changed["receipt"]["effects"][0]["object"] =
+                    serde_json::to_value(original.clone()).unwrap()
+            }
+            "provider" => changed["plan"]["providers"][0] = foreign,
+            "authority" => changed["git_return"]["authorizes_storage"] = true.into(),
+            _ => unreachable!(),
+        }
+        let mut altered = trace.clone();
+        altered["completed"][8]["report"] = save_evidence(&root, &changed);
+        let mut config = config.clone();
+        config["teaching"]["trace"] = save_evidence(&root, &altered);
+        let path = root.join("negative-return.json");
+        fs::write(&path, serde_json::to_vec(&config).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+}
+
+#[test]
 fn category_age_executes_real_paged_loss_and_revalidates_deadline() {
     let temp = tempfile::tempdir().unwrap();
     let root = temp.path().join("category aged execution");

@@ -96,6 +96,19 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(!row('original').children[3].textContent.includes('Working / F'));
   assert.ok(row('fixed').children[2].textContent.includes('Unchanged'));
  }
+ for(const [index,lesson] of book.lessons.entries())if(lesson.id==='git-return-after-final-loss'){
+  const select=selector();select.value=String(index);await select.onchange();await f.settle();
+  assert.ok(f.text('assets').includes('final_retirement'));
+  assert.ok(f.text('assets').includes('payload remains absent'));
+  assert.ok(row('original').children[1].textContent.includes('No managed copies recorded'));
+  assert.ok(row('original').children[2].textContent.includes('Working / F'));
+  assert.ok(row('original').children[2].textContent.includes('Backup / M'));
+  assert.ok(row('original').children[3].textContent.includes('No managed copies recorded'));
+  assert.ok(!row('original').children[3].textContent.includes('Unknown'));
+  assert.ok(row('fixed').children[3].textContent.includes('History / D'));
+  assert.ok(row('shared').children[3].textContent.includes('Working / F'));
+  assert.equal(row('original').children[0].title,identity);
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

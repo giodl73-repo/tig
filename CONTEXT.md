@@ -1,15 +1,20 @@
 # Tig maintainer context
 
 Current owned lane: feat/teaching-git-return, input
-3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19. Contract:
-specs/TEACHING-GIT-RETURN.md; no runtime code in this lane yet. Parent runtime
-3c2e5cb is clean/pushed draft PR53, stacked on ready PR52. Exact-head run
-43054770000: secrets/structure/controllers pass on both hosts; Rust/baseline
-qualification pending. Derive final status live. No merge/deploy/live caches.
-Next: freeze the literal post-return oracle, implement actual Git/source/held
-placement chapter, qualify native/API/controller/physical bytes and broad gates.
-Placement final_state reports FinalRetirement; never clear its fence for a demo.
+3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contractb82b98b precedes code.
+Actual ninth Git/source return and held placement are implemented. Original
+remains absent; fixed moves to D/M; shared stays F/M. New strict recorded variant
+uses existing response4 and no viewer execution port. First probe20895 reached
+physical oracle then refused the not-yet-built reader. Terminal12251 native/HTTP/
+21 semantic refusals and97155 all15 teaching/shipped/strict schema pass.
+EVID-123 review separates implementation/verification/validation/trace/roles.
+Next: source checkpoint, integrate parent test correctionad64f03, both workspace/
+500k profiles, standalone/fresh artifact/secrets and exact-head hosted checks.
+Parent PR53 original43054770000 failed Linux on exact metadata Busy tree wrapper;
+Windows cancelled. Correctionad64f03 passes15/strict18570; run43057224855 pending.
+No task-owned Cargo run is live. Do not overlap external build targets.
 Full roadmap/course/current-authority/provider/lifetime/human gates remain open.
+No viewer/browser/live cache/merge/deployment. Use explicit UTF8 text IO.
 
 Earlier reacquisition lane notes below describe the input implementation.
 Current owned lane: feat/teaching-reacquisition, input

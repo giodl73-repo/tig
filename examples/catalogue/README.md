@@ -278,3 +278,23 @@ This demonstrates that final loss does not permanently ban a content hash. A
 source pointer alone still cannot regenerate lost bytes: this fixture explicitly
 supplies the public seed again under new consent. Git return after final loss
 remains a separate future lesson. See the [reacquisition contract](../../specs/TEACHING-REACQUISITION.md).
+
+For Git return after final loss, use another fresh root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-final-git-return ABSOLUTE_NEW_OUTPUT
+```
+
+The ninth checkpoint restores v1's small authored records with an explicit
+`git restore --source` and creates a new commit. Exact source adoption succeeds.
+With public seed access disabled, actual placement leaves original bytes absent
+from every provider and reports final-retirement/protection/source holds. The
+catalogue shows desired working/backup copies beside recorded physical absence.
+These available fixture providers are distinct from unknown coverage.
+
+Other useful work proceeds: fixed bytes move from working to history, with backup
+retained; shared bytes remain on working/backup. The actual report streams29 bytes
+for that fixed-version move, so this lesson does not claim zero total effects.
+`git-return.json` pins source revisions, exact authored record identities, disabled
+seed attempts, SDK plan/apply/status and physical observations. Explicit later
+reacquisition and restoration under this returned source remain separate work.

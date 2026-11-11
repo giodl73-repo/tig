@@ -5,6 +5,8 @@ mod age_preview;
 mod aged_execution;
 #[path = "tig-sample/category_preview.rs"]
 mod category_preview;
+#[path = "tig-sample/git_return.rs"]
+mod git_return;
 #[path = "tig-sample/paged_playback.rs"]
 mod paged_playback;
 #[path = "tig-sample/reacquisition_playback.rs"]
@@ -50,6 +52,7 @@ enum Mode {
     Rename,
     FinalEnrollment,
     FinalManual,
+    FinalGitReturn,
     FinalCancel,
     FinalReacquire,
     FinalProcess,
@@ -309,6 +312,7 @@ impl Demo {
             mode,
             Mode::FinalEnrollment
                 | Mode::FinalManual
+                | Mode::FinalGitReturn
                 | Mode::FinalCancel
                 | Mode::FinalReacquire
                 | Mode::FinalProcess
@@ -933,6 +937,11 @@ impl Demo {
                 result["final_loss_evidence"] = serde_json::to_value(loss)?;
                 result["final_deletion_exercised"] = true.into();
             }
+        }
+        if matches!(mode, Mode::FinalGitReturn) {
+            let (head, evidence) = git_return::run(&mut self, &first, &current)?;
+            current = head;
+            result["git_return_evidence"] = serde_json::to_value(evidence)?;
         }
         let pending = if matches!(mode, Mode::Exchange) {
             json!([
@@ -2013,7 +2022,7 @@ fn run() -> Result<Value> {
     }
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-git-return NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
@@ -2028,6 +2037,7 @@ fn run() -> Result<Value> {
         Some("rehearse-rename") => Mode::Rename,
         Some("rehearse-final-enrollment") => Mode::FinalEnrollment,
         Some("rehearse-final-manual") => Mode::FinalManual,
+        Some("rehearse-final-git-return") => Mode::FinalGitReturn,
         Some("rehearse-final-cancel") => Mode::FinalCancel,
         Some("rehearse-final-reacquire") => Mode::FinalReacquire,
         Some("rehearse-final-process") => Mode::FinalProcess,
