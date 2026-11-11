@@ -77,3 +77,15 @@ large-file/provider and independent/human acceptance remain separate full gates.
 Implementation, verification, scoped validation, trace and six producer lenses
 close separately for each block and the final joined lifecycle. No live cache,
 daemon, automatic migration, deletion, browser or deployment on resume.
+
+## Activation counterexample to retain
+
+A legacy handle may pass its config-file guard immediately before activation and
+then begin its SQL command afterward. Changing only a config/active pointer does
+not fence that already-passed guard. The activation protocol must prove refusal
+at a mutation authority the old writer actually checks, preserve the real final
+acknowledged prefix, and recover every pre/post-intent outcome. Required fixtures
+must pause a real legacy process after its guard and before its transaction,
+activate/recover with another handle, then release the old process. No old writer
+may append an acknowledged command to an abandoned journal. This is an OPEN
+next-stage design obligation; the history archive installs no activation fence.

@@ -20,6 +20,9 @@ pub struct ReservationRecord {
     generation: u64,
 }
 impl ReservationRecord {
+    pub fn matches_context(&self, domain: &str, epoch: &str) -> bool {
+        self.domain == domain && self.epoch == epoch
+    }
     pub fn capture(t: &ReservationToken) -> Self {
         Self {
             domain: t.domain.clone(),
@@ -56,6 +59,15 @@ pub struct AllocationRecord {
     limit: u64,
 }
 impl AllocationRecord {
+    pub fn reservation(&self) -> &ReservationRecord {
+        &self.reservation
+    }
+    pub fn event(&self) -> &str {
+        &self.event
+    }
+    pub fn limit(&self) -> u64 {
+        self.limit
+    }
     pub fn capture(t: &AllocationTicket) -> Self {
         Self {
             reservation: ReservationRecord::capture(&t.reservation),
@@ -98,6 +110,9 @@ pub struct ProbeEvidence {
     watermark: u64,
 }
 impl ProbeEvidence {
+    pub fn matches_context(&self, domain: &str, epoch: &str) -> bool {
+        self.domain == domain && self.epoch == epoch
+    }
     pub fn capture(t: &ObservationTicket) -> Self {
         Self {
             domain: t.domain.clone(),
@@ -293,7 +308,7 @@ impl RetiredArchive {
     pub fn root(&self) -> &Object {
         &self.root
     }
-    fn validate(&self) -> Result<()> {
+    pub fn validate(&self) -> Result<()> {
         if self.schema != "tig.capacity-retired.design-1"
             || self.root.bytes == 0
             || self.root.bytes > 65536
@@ -301,6 +316,37 @@ impl RetiredArchive {
             return Err(Error::Invalid);
         }
         Ok(())
+    }
+    /// Reads only the historical header of an exact admitted root.
+    pub fn reservation(
+        &self,
+        nodes: &mut impl NodeStore,
+        mut limits: Limits,
+    ) -> Result<(ReservationRecord, Metrics)> {
+        self.validate()?;
+        limits = retired_limits(limits)?;
+        limits.max_nodes = limits.max_nodes.min(512);
+        limits.max_bytes = limits.max_bytes.min(4 * 1024 * 1024);
+        if limits.max_leaves == 0 {
+            return Err(Error::Budget);
+        }
+        let mut meter = Meter {
+            store: nodes,
+            budget: Budget::new(limits),
+        };
+        let p = path("header")?;
+        let (o, _) = Tree::from_root(self.root.clone()).get(&p, &mut meter, limits.tree())?;
+        let o = o.ok_or(Error::Invalid)?;
+        let Entry::Header {
+            reservation,
+            peak,
+            event_count,
+        } = get(&p, &o, &meter)?
+        else {
+            return Err(Error::Invalid);
+        };
+        validate_header(&reservation, peak, event_count)?;
+        Ok((reservation, meter.budget.metrics()))
     }
     /// Complete bounded validation restores only the existing read-only history type.
     pub fn read(

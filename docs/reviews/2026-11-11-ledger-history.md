@@ -1,11 +1,11 @@
 # Original-result archive design review
 
-EVID-128 design only; input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
+EVID-128 candidate; input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
 [LEDGER-HISTORY](../../specs/LEDGER-HISTORY.md) names controls/scope and L0/L1/L2.
 Method: the producer inspected actual ledger requests/outputs/execute/catch_up,
 core private tokens, immutable Tree point lookup and parent checkpoint behavior.
 All findings belong to Tig producer. These six lenses are not independent people,
-publication authority or human acceptance. No implementation evidence yet.
+publication authority or human acceptance. Entry was design only; implementation and scoped evidence follow.
 
 | Lens / target | Finding / severity | Required disposition / evidence |
 | --- | --- | --- |
@@ -16,7 +16,7 @@ publication authority or human acceptance. No implementation evidence yet.
 | Provider/privacy / bounds | High: nested retired graphs or whole-lifetime output maps bypass limits | Existing Tree/NodeStore, bounded retired records, one shared export meter and separately bounded lazy point query; actual finish/reopen and counting-port evidence |
 | Git/adoption / lifetime | High: archive could be mistaken for activated compaction or expiry | New additive schemas only; legacy bytes/caps unchanged. Explicit durable activation, original dependency lookup, old-writer/restore fences and expiry remain required |
 
-Disposition: pass_design_with_risk for the stated archive scope. Exact wire fields
+Design-entry disposition: pass_design_with_risk for the stated archive scope. Exact wire fields
 and API mapping must be frozen before code. Parent PR58 full local/hosted checks
 remain live at entry. All implementation/verification/validation/trace and full
 continuation gates remain OPEN. No root migration, metadata expiry or payload IO.
@@ -62,3 +62,77 @@ full profiles/500k/strict/standalone/fresh14-step artifact and exact43100104758
 Windows/Linux/secrets; ready for review, no merge. Parent artifact is
 capacity-checkpoint-qualified-5f5d8bef786b44cb97f466d49698bd8f. Full PRODUCT_PLAN
 remains active; no sustainable-lifetime/expiry/independent/human acceptance.
+
+## Original-output exporter and reader
+
+The existing ledger now explicitly exports exact config/source checkpoint,
+working-state root, operation index/count/encoded bytes and historical clock high.
+It preserves actual original outputs; it does not derive old replies from current
+accounting. Every output kind has strict new framing; no old command, event,
+marker, receipt, dependency or capacity limit changes. The SQL row cursor is gone
+before all immutable node IO. Before/after source sync rejects peer progress;
+partial nodes are orphaned and no root is installed. Caller staging admission,
+metadata finish/readback and independently admitted descriptor remain required.
+
+Lazy inspection uses Tree.get, verifies the selected original request/hash/kind
+and bounded typed dependency closure, returns replayed original reference/response/
+checkpoint and exact request bytes, and refuses conflicting request bytes. It
+checks original reservation generation/owner, ticket event/limit, publication/
+retention/handoff binding, cleanup review and ordered dependency kinds. Cycles
+and budgets refuse rather than expanding into whole-history replay. Probe output
+is evidence only. Retired outcomes preserve original charge and sequence.
+
+Explicit full validation checks all bounded segment paths/counts/chain, original
+responses/dependencies, retired graphs, clock high and working-state root through
+the existing pure transitions. It writes deterministic proof metadata to private
+memory through a fork of the same shared meter; the supplied metadata port stays
+read-only. Full validation is separate from point inspection and is not the
+future activated-journal reopen path. Source-body staging and all node phases
+share bounded encoded-byte/call admission. No physical IO/free-space claim is made.
+
+| Recorded attempt | Outcome |
+| --- | --- |
+| Export20889 / dependency34408 | Both compile checks TERMINAL0 |
+| Real83075 | Two pass; third reached all receipt comparisons but producer expected17 legacy result kinds instead of16. Corrected to an explicit literal kind set (17 with clock), no engine change |
+| Refusals74749 | Four real-journal cases pass, including legacy/clock physical metadata finish/reopen and18 re-pinned local/dependency cases; request mutations rebind existing event hashes |
+| Max39341 | Six cases pass, including actual16384-command journal with live/in-flight work,128-byte operation IDs and bounded point queries; original cap still refuses another command |
+| Focus80830 | All16 core and eight ledger archive cases pass, including source staging budget, independent operation literal/digest, five cleanup/kind/cycle mutations, full validation and maximal segment. Strict Clippy then flags six style issues; this was not a strict pass |
+| Style62542 | Six style issues corrected without suppressions. Strict schema workspace/all-target Clippy and seven short archive cases TERMINAL0; maximal case already passed before style-only edits and remains in both full profiles |
+
+The actual full segment is built through the real SQLite command API. It keeps a
+live500-byte reservation and200-byte in-flight allocation throughout export and
+requires no empty/quiescent state. Counting ports prove each selected original
+receipt stays within256 reads/1MiB; a one-call budget makes exactly one provider
+read, and an undersized first-read byte budget makes none. All records stay64KiB.
+Retired inspection shares512 calls/4MiB. Full validation detects altered aggregate
+request bytes and clock high. Wrong put acknowledgements, missing nodes and
+corrupt bytes refuse. Source commands/accounting remain unchanged by export.
+
+Both legacy and clock-enabled journals physically finish/drop/reopen actual
+MetadataStore/MetadataReader. All17 typed result kinds (16 without clock), exact
+original receipts and old summaries survive; pending probe admission is stripped
+and in-flight work remains held. A peer commits inside the first node put and
+forces conflict, proving no SQL cursor/transaction spans that IO. These are
+synthetic local component facts, not provider/power-loss or current authority proof.
+
+## Separate current closure
+
+Implementation and focused verification pass for the stated archive candidate.
+Scoped validation covers bounded original-segment preservation and admitted
+read-only historical lookup. Trace: frozen c4280c6/wire7ac2c21 -> core historical
+records -> actual original ledger outputs -> immutable source/state/index roots ->
+physical reopen -> exact receipts/dependency refusals/full validation/point budgets.
+All six producer findings have focused dispositions within this scope; pass_with_risk.
+No independent review or human acceptance is claimed. Full profiles/default72751
+and all40677 are LIVE in distinct external targets, followed by strict/500k/
+standalone/fmt/fresh14-step artifact as applicable. Exact-source hosted checks and
+source gate remain pending at this checkpoint; do not overlap/restart live targets.
+
+Next activation review retains a critical race: a legacy writer may have passed
+its file guard before activation but enter SQL afterward. A pointer/config change
+alone is insufficient; mutation-authority fencing, final acknowledged prefix and
+real paused-legacy-process evidence are required. This remains OPEN under
+JOURNAL-CONTINUATION, alongside durable segment activation/recovery and lifetime
+index composition. This archive does not implement pruning, .tig removal, expiry
+or sustainable lifetime. Full product/course/operator/UI/Action/provider/current
+authority/time/large-file and independent/human acceptance remain OPEN.

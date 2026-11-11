@@ -3,18 +3,24 @@
 Active owned lane feat/ledger-history, input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
 Original-request/result/dependency archive in progress; read LEDGER-HISTORY.md
 and JOURNAL-CONTINUATION.md in specs. Contractc4280c6 and wire7ac2c21 precede code.
-Core historical token/probe evidence/retired-record primitives are implemented;
-ledger original-output exporter/lazy reader and activation are still required.
+Core historical records plus original-output exporter/lazy reader/full bounded
+segment validation are implemented. Actual durable activation remains required.
 Historical probes must not decode into live ObservationTickets. No active journal
 format/cap/root change, activation, pruning or expiry. EVID-128 six producer lenses
-are design only; full PRODUCT_PLAN remains active.
+are producer-only; full PRODUCT_PLAN remains active.
 Parent PR58 runtime9122ccf is ready; both full profiles75122/13738 TERMINAL0,
 workspace/500k/strict/standalone/fmt/fresh14-step artifact pass; exact43100104758
 Windows/Linux/secrets all pass. Parent worktree is clean; no merge.
 New core16 unit cases plus positive/compile-fail probe docs and strict core pass.
-Regression35189 TERMINAL0: all core tests,36 actual-ledger cases and strict schema
-workspace/all-target Clippy pass. Both external targets are free; no live task-
-owned Cargo process. Full output archive/reader and its full gates remain owed.
+Regression35189 passes all core/36 original-ledger/strict checks. Focus80830 passes
+16 core/eight archive (actual max16384 with live/in-flight state), then style62542
+passes corrected strict schema workspace/all-target and seven short cases.
+Full default72751 and all40677 LIVE in distinct external targets; never overlap
+or restart on timeout. Follow ledger-history phase.exit/logs. Default continues
+standalone; all continues fresh14-step teaching artifact. Exact-source CI owed.
+Read EVID-128 for initial fixture-count/style failures and scoped closures.
+Next activation must fence a legacy writer that already passed its config guard.
+No sustainable lifetime, original-index composition, activation or expiry closure.
 No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
 browser/viewer, merge or deployment. Synthetic fixtures only; preserve external
 TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO.

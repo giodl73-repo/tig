@@ -176,3 +176,28 @@ probe output cannot enter a live observation branch. Re-pinned local framing/
 request-kind/token/binding/count/hash inconsistencies refuse. A wholly different
 self-consistent root is a different input, not independently established history.
 No lazy point query may validate by replaying/enumerating all prior operations.
+
+## Implemented inspection boundary
+
+The candidate exporter stages only the existing bounded segment's SQL rows and
+closes every cursor before NodeStore IO. Source encoded-body staging is charged
+before copying into the same shared meter used for immutable node get/put calls.
+Metrics count these logical encoded-body copies and node operations, not SQLite
+page reads, physical allocation, network traffic or billing. Existing SQL engine
+revalidation retains its original bounded replay contract. No SQL write occurs.
+
+Snapshot.from_json checks descriptor framing; point inspect checks the requested
+item and its bounded typed dependency set under an exact admitted descriptor.
+It does not establish full graph coverage or provenance. Explicit validate_all
+checks the entire bounded original segment: canonical paths/counts/chain/requests,
+all original typed outputs, retired subgraphs, clock high and working-state root.
+It replays only that original bounded segment in a private pure model and compares
+exact derived outputs/roots. Deterministic proof writes use private MemoryNodes
+with the same shared meter; the caller's metadata port is read-only. This is an
+explicit initial-archive validation operation, not all-lifetime restart replay.
+Point queries never call entries() or construct the full output map.
+
+Core epoch fields are the original opaque core epoch (Config.instance); the
+caller-facing Config.epoch label remains separately preserved in the exact
+original config. Neither is replaced by a segment number or current observation.
+The implemented archive is still not durable segment activation or metadata expiry.

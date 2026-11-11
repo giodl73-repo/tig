@@ -42,16 +42,19 @@ certifying full requirements or every consumer.
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable
 records, with lazy lookup and historical probes that cannot restore admission.
-This design is not activated compaction or expiry; the joined lifetime target
-below remains required. Parent working-checkpoint qualification is still running.
+The archive candidate now exports original typed outputs, lazily reads exact
+receipts and explicitly validates a bounded segment. Actual legacy/clock metadata
+reopen, peer progress, all kinds and16384-command/in-flight fixtures pass; broader
+profiles and exact-source hosted checks remain required. This is not activated
+compaction or expiry. Parent working-checkpoint PR58 passes all local/hosted gates
+and is ready; the joined lifetime target below remains required.
 
 Next lifetime implementation: [journal continuation](specs/JOURNAL-CONTINUATION.md)
 requires active/in-flight accounting, exact historical replies and scoped durable
 activation before sustained use; expiry additionally needs surviving authority/
 replay fences. First [paged working checkpoint](specs/CAPACITY-CHECKPOINT.md)
 builds a bounded core state codec and read-only existing-ledger export. This is
-implemented with focused recovery/export evidence; broader qualification remains
-open. It does not deliver segment activation, history pruning or expiry.
+implemented and qualified locally and on exact Windows/Linux/secrets in PR58. It does not deliver segment activation, history pruning or expiry.
 No current cap, format or root is changed. Full plan/acceptance remains open.
 
 Next teaching integration: [remote byte publication](specs/TEACHING-REMOTE-PUBLICATION.md)
