@@ -614,7 +614,7 @@ fn simultaneous_capture_peers_converge_on_one_immutable_observation() {
                 Error::Metadata(crate::metadata::Error::Busy)
                     | Error::Admission(crate::source_claims::admission::Error::Busy)
                     | Error::Admission(crate::source_claims::admission::Error::Journal(
-                        crate::source_claims::Error::Conflict
+                        crate::source_claims::Error::Busy | crate::source_claims::Error::Conflict
                     ))
             ) || matches!(error, Error::Tree(TreeError::Store(message)) if message == "metadata busy"),
             "unexpected capture peer failure: {error:?}"

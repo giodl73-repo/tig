@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 30110,
-      "sha256": "2e5687f4b2191bf94981cae3c1c952256e6210539923efa0574f6e9ee587d467"
+      "bytes": 30987,
+      "sha256": "949b4e7c80533641fdfbaffc565d75d71c6e0a7edc0f051a760496bf0caa3ede"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 93435,
-      "sha256": "9c2184692adb99488bf991665ce3e24bf8cd813cce05fc52dec5f9d8851fe37d"
+      "bytes": 94312,
+      "sha256": "99d12e8a0a9f84eef80e23407c3fe4f73d302fbf236165c2c9a0b72f7420ef50"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -2524,8 +2524,8 @@
     },
     {
       "path": "crates/tig-store/src/source_claims/age/tests.rs",
-      "bytes": 47596,
-      "sha256": "a77ef2c24ac653c47d82fb28daf9f1710a5cf5cbed7c34eb9e919342ec71f0b6"
+      "bytes": 47632,
+      "sha256": "67abc902716ac0981c974ee99c82ab071bcff64e0dbd69aab45ef9b948c30616"
     },
     {
       "path": "crates/tig-store/tests/age_cli.rs",
@@ -3274,8 +3274,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-return-restore.md",
-      "bytes": 6906,
-      "sha256": "4fe75009a07b1c46ff4a1cbf805ffe7aae346d845659b149d03362037be6cce6"
+      "bytes": 7702,
+      "sha256": "1e6b870f51c4dd988b072b480f78b170b2b083358ce2c96736a7787fe22274e2"
     },
     {
       "path": "docs/reviews/asset-delivery-history.md",

@@ -9,10 +9,20 @@ six producer lenses. Final focused28663 positive/47 refusals/strict passes;
 previous full16 teaching7379 and83 controllers pass. Exact source checkpoint,
 all replay provider/capacity bindings, paired acquisition time and validated
 missing-step seed counters are bound. Initial compile/probe failures are recorded.
-Full schema/default2017 and all-feature93071 runs LIVE in external distinct
-targets; durable return-restore phase.exit files/logs outside Git. Default also
-runs standalone/fmt/fresh schema bins/persisted11-step sample/readonly check.
-Never overlap/restart targets on observation timeout. No runtime edits planned.
+Schema/default2017 TERMINAL0: workspace/500k, strict, standalone, fmt, fresh
+schema bins and persisted11-step readonly catalogue all pass. All phase.exit0;
+artifact return-restore-return-restore-6c8a6430ae6a40c08c0678c2700ffb0b has
+complete_course=false/read_only=true/payloads_opened0/automatic_eviction=false.
+Workspace ran pre-correction stricter age assertion. Final default15 age4528
+passes after correction; final default Clippy had the corrected wrapper too.
+All-feature93071 FAILED101 in existing age peer assertion on exact
+Admission(Journal(Busy)); outer shell quoting also failed after payload completion.
+Contract8a01079 permits only this test-assertion correction; no production SDK
+change. Focused15 age/strict all-feature8026 TERMINAL0. Corrected full all-feature
+rerun60982 is LIVE in the all target, return-restore-all-qualified.log. Original failed log/exit preserved.
+Durable return-restore phase.exit files/logs remain outside Git. No task-owned default target process remains; all target is still owned by60982.
+Never overlap/restart targets on observation timeout. Teaching runtime acbd4a9
+is frozen. Source08710ef exact43077356434 Linux/secrets pass; Windows pending.
 Parent PR55 source8e948d4 exact43069646518 Windows/Linux/secrets all pass; ready.
 Parent documentation closeouta25552a is integrated; runtime remains acbd4a9.
 Its source-only exact hosted check is separate from passed runtime8e948d4.

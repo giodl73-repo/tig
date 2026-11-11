@@ -47,8 +47,18 @@ journal SQLite Busy maps through admission and age wrappers. The contract now
 allows a test-only correction; no production retry or fairness guarantee. The
 outer nested-shell exit also had a quoting error after the payload ended;
 all-tests.exit101 preserves the actual test failure. No broad pass is claimed.
+Correction8026 passes all15 age entries (one baseline-only case ignored) and
+strict all-feature workspace/all-target Clippy. Only the exact Journal(Busy)
+alternative was added; serial convergence and all retained-fact assertions remain.
+Default2017 TERMINAL0: workspace and actual500k pass before this assertion
+correction; final strict/standalone/fmt/fresh schema binaries and persisted11-step
+CLI/catalogue check pass. Final default15 age4528 also pass after correction.
+Artifact return-restore-return-restore-6c8a6430ae6a40c08c0678c2700ffb0b records
+11 checkpoints, complete_course=false; read_only=true,payloads_opened=0 and
+automatic_eviction=false. All numeric default phase exits are0. Corrected full all-feature
+rerun is live in return-restore-all-qualified.log.
 Source08710ef exact43077356434 passes Linux/secrets; Windows remains pending.
-Fresh persisted artifact remains pending.
+Final source/new-head hosted and all-feature rerun remain pending.
 
 ## Synthetic validation
 
