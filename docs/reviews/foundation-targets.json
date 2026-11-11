@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 36151,
-      "sha256": "4d5288fbf7db3814d65b6e66c30d7dce0d9b3713cf8fadb47389608cd244db37"
+      "bytes": 37212,
+      "sha256": "9d39356a37aa4359fc69af38f3cb74a044d7059f6857f4a6ae53b6c4ee7b36d4"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -614,8 +614,8 @@
     },
     {
       "path": "crates/tig-store/tests/fences.rs",
-      "bytes": 8825,
-      "sha256": "fcefb6ec39944043b0a3ac793c4bbaa02c8f1a77583481a9100749ffbfc690ef"
+      "bytes": 8993,
+      "sha256": "85e3e380b065631a78b4c76c973938453c45eadf143d9db46bc3d011c2cbe3bd"
     },
     {
       "path": "specs/RESERVATION-JOURNAL.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 99476,
-      "sha256": "601885fb5f2768c40a6fb2ac8b08712d778d31b592ca01ea13809474e537b6ca"
+      "bytes": 100537,
+      "sha256": "319b791c8e77928eb978e580b907af91fbfc1da9953e4569e1868970df5714a3"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3504,8 +3504,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-ledger-history.md",
-      "bytes": 10980,
-      "sha256": "4dead36352b3b69fe0cfc89b6eabe858d0e10138abee28163d12e362333f1544"
+      "bytes": 12587,
+      "sha256": "d4e59d5da31456624eeb0c086c0c1ba913d6aa656af117808633326da3f87fee"
     },
     {
       "path": "specs/LEDGER-HISTORY.md",

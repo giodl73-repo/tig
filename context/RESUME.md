@@ -1,5 +1,21 @@
 # Tig resume state
 
+Current qualification correction: contract7a1ebe6 precedes test-only fences fixture
+stderr readiness/bounded wait. Focus25433 passes all11 cases with1/4 threads plus
+strict Clippy. No production algorithm/deadline/cap/format changed.
+Old parallel72751/40677 failed native Budget; focus4352 passes both cases serially.
+Serial37691 later deadlocked in fences stdout marker under libtest single-thread
+prefix; owned9020 process tree was terminated after code diagnosis. Outer37691
+TERMINAL1; all queued phase never started. Preserve old outcomes/logs.
+Both normal targets are free until the next controlled pipeline. New source full
+profiles/500k/strict/standalone/fresh artifact/exact CI are required. c833add itself
+passes exact43107903309 Windows/Linux/secrets, but PR59 stays draft.
+Other owned lane F:/src/Tig-worktrees/journal-activation has private Rust sealer
+focus37874 LIVE in the separate activation-legacy external target. Do not overlap
+that target; no user/live cache operation or merge is authorized.
+Older notes below describe prior checkpoints.
+
+
 Active owned lane feat/ledger-history, input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
 Original-request/result/dependency archive in progress; read LEDGER-HISTORY.md
 and JOURNAL-CONTINUATION.md in specs. Contractc4280c6 and wire7ac2c21 precede code.

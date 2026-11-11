@@ -8,6 +8,8 @@ use tempfile::TempDir;
 use tig_core::Object;
 use tig_store::{local::*, *};
 
+const READY: &str = "TIG_FENCE_READY";
+
 fn key(value: &str) -> Key {
     Key::parse(value).unwrap()
 }
@@ -197,19 +199,21 @@ fn child(f: &Fixture, mode: &str) -> ChildScope {
         .spawn()
         .unwrap();
     let mut scope = ChildScope(process);
-    let mut stdout = BufReader::new(scope.0.stdout.take().unwrap());
-    let mut ready = false;
-    for _ in 0..10 {
-        let mut line = String::new();
-        if stdout.read_line(&mut line).unwrap() == 0 {
-            break;
-        }
-        if line.trim() == "READY" {
-            ready = true;
-            break;
-        }
-    }
-    assert!(ready, "child failed before holding its fence");
+    let stderr = scope.0.stderr.take().unwrap();
+    let (send, receive) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        let ready = BufReader::new(stderr.take(8192))
+            .lines()
+            .take(16)
+            .any(|line| line.is_ok_and(|line| line.trim() == READY));
+        let _ = send.send(ready);
+    });
+    assert!(
+        receive
+            .recv_timeout(std::time::Duration::from_secs(15))
+            .unwrap_or(false),
+        "child failed before holding its fence"
+    );
     scope
 }
 fn exit_child(mut scope: ChildScope) {
@@ -234,8 +238,8 @@ fn fence_child() {
     } else {
         None
     };
-    println!("READY");
-    std::io::stdout().flush().unwrap();
+    eprintln!("{READY}");
+    std::io::stderr().flush().unwrap();
     let mut b = [0u8; 1];
     std::io::stdin().read_exact(&mut b).unwrap();
     std::process::exit(77);
