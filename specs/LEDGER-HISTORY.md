@@ -128,3 +128,51 @@ witness continuation, sustainable lifetime or metadata expiry. Those remain
 required next integrations; no quiescent-empty workaround or larger journal cap.
 Full product/course/current-authority/time/provider/large-file/operator/UI/Action
 and independent/human acceptance remain OPEN. No merge or deployment.
+
+## Frozen wire and API amendment
+
+New core capacity::history values are deny-unknown-fields objects:
+ReservationRecord {domain,epoch,id,owner,generation}; AllocationRecord
+{reservation:ReservationRecord,event,limit}; ProbeEvidence
+{domain,epoch,nonce,watermark}. Reservation/allocation records have fallible
+conversion to their exact opaque matching tokens. ProbeEvidence has inspection
+and serialization only, with no live-ticket conversion. Safe-integer canonical
+numbers retain the existing JSON subset; no truncation or counter reset.
+
+RetiredArchive is {schema:"tig.capacity-retired.design-1",root:Object}. Its tree
+leaves are {schema:"tig.capacity-retired-node.design-1",entry:...}. Header at
+header is {kind:"header",reservation:ReservationRecord,peak,event_count}; closed
+and remaining0 are mandatory implicit invariants. Allocation at a/SHA256(event)
+is {kind:"allocation",event,limit,charge,sequence}. Every event is completed;
+zero charge is retained. Full decode checks count, exact paths/tokens, positive
+limits/sequences, unique sequences and aggregate charge<=peak before producing
+the existing read-only RetiredReservation. Point inspection checks exact caller
+ticket/header/event/limit and returns original {charge,sequence}, without claiming
+complete graph coverage. It relies on the exact admitted root, never discovers
+current authority. Use the shared core checkpoint meter/limits for export/full
+read (at most4097 leaves); a point operation enforces the frozen512-call/4MiB
+ceiling. No multi-phase budget reset. No active-state codec byte change.
+
+Ledger history descriptor is {schema:"tig.capacity-history.design-1",config,
+journal,working_state,operations,operation_count,encoded_request_bytes,clock_high}.
+config is the exact original Config; journal is original Checkpoint; working_state
+is the existing typed working checkpoint; operations is an exact Tree Object.
+An operation leaf at op/SHA256(operation_UTF8) is
+{schema:"tig.capacity-history-op.design-1",sequence,previous,hash,request,output}.
+request is exact existing Request. hash keeps the existing event-hash recipe;
+there is no new operation-key recipe. Output uses deny-unknown kind variants:
+clock{millis},retired{archive},handoff{ticket,binding},handoff_settled{bytes},
+retention{ticket,binding},retention_settled{bytes},cleanup{reviewed},cleaned{bytes},
+publication{ticket,binding},footprint{bytes},reservation{token},allocation{ticket},
+sequence{sequence},probe{evidence},summary{sampled_free,reserved_remaining,
+allocated_after_watermark,available},finished,invalidated. ticket/token/evidence
+are the exact core records above. Preserve original Response mapping, including
+AllocationCompleted's original sequence rather than substituting charged bytes.
+
+Exporter returns descriptor/metrics and no activation. Reader exposes exact
+original receipt/request inspection and expected-request byte comparison; typed
+dependency restoration remains internal to later ledger integration. Historical
+probe output cannot enter a live observation branch. Re-pinned local framing/
+request-kind/token/binding/count/hash inconsistencies refuse. A wholly different
+self-consistent root is a different input, not independently established history.
+No lazy point query may validate by replaying/enumerating all prior operations.
