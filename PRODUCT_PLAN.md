@@ -39,6 +39,13 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next bounded teaching slice: [Git return after final loss](specs/TEACHING-GIT-RETURN.md)
+will admit an exact old-version snapshot under a new Git/source revision and show
+actual missing bytes and final-retirement holds with public seed access disabled.
+This is contract-only at entry; joined acquisition/restoration and full teaching
+acceptance remain separate required work. Parent reacquisition is draft PR53;
+derive exact-head hosted qualification from GitHub.
+
 Public teaching parity is now a required deliverable: a portable synthetic sample
 catalogue carries the same assets through Git-style init/add/status/diff/commit,
 branch/worktree, publish, merge, revert/restore and retirement lessons. Every step

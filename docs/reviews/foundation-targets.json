@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 25461,
-      "sha256": "e2a4a35bf1fe6d947d9e808c6e5d074a4aa211c5642397c41f9ee9b2a54a9f20"
+      "bytes": 26269,
+      "sha256": "dce218a68f374215fb1f7afb5fd32233617e9d198b4a4d37da531c26195c697c"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 51425,
-      "sha256": "12529f588ac1e43d8aa9311fc79f7255b78109c0d6ca147959c2476c2c8c159b"
+      "bytes": 51890,
+      "sha256": "f55c431509cb4b9bba09afa0e6768c993d74b2dc30e391adbaa999fc2159c5f1"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 87840,
+      "bytes": 89034,
       "path": "context/RESUME.md",
-      "sha256": "8e3c9260f83e20da398957b217e3dc9b6c14caa64a3683405b3db9a88c19201c"
+      "sha256": "3284c65f3b70467708459c62ebbd31fafceca6f7aa428ddbb2c9774c7641a91b"
     },
     {
       "bytes": 16453,
@@ -2976,6 +2976,11 @@
       "path": "crates/tig-git/src/catalogue/teaching/reacquisition.rs",
       "bytes": 11269,
       "sha256": "974191c8d0197f185f54e63d9d423de2433652e4edd36c4ba9fba43f9decfd2b"
+    },
+    {
+      "path": "specs/TEACHING-GIT-RETURN.md",
+      "bytes": 5402,
+      "sha256": "bb14aa925949dd4ed73ea1e85fd210f44b2154cbab57faef810f47ddb8f778ce"
     }
   ]
 }

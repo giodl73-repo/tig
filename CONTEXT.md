@@ -1,5 +1,17 @@
 # Tig maintainer context
 
+Current owned lane: feat/teaching-git-return, input
+3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19. Contract:
+specs/TEACHING-GIT-RETURN.md; no runtime code in this lane yet. Parent runtime
+3c2e5cb is clean/pushed draft PR53, stacked on ready PR52. Exact-head run
+43054770000: secrets/structure/controllers pass on both hosts; Rust/baseline
+qualification pending. Derive final status live. No merge/deploy/live caches.
+Next: freeze the literal post-return oracle, implement actual Git/source/held
+placement chapter, qualify native/API/controller/physical bytes and broad gates.
+Placement final_state reports FinalRetirement; never clear its fence for a demo.
+Full roadmap/course/current-authority/provider/lifetime/human gates remain open.
+
+Earlier reacquisition lane notes below describe the input implementation.
 Current owned lane: feat/teaching-reacquisition, input
 3f3adc74b351e9f36323abe47374ef8c32692b2a; contract commit185865b precedes code.
 Runtime remains uncommitted. EVID-122/TEACHING-REACQUISITION.md record separate

@@ -8,6 +8,23 @@ source changes into running tools as a side effect. No startup cache operations.
 
 ## Current delivery state
 
+- Owned lane: feat/teaching-git-return in teaching-git-return worktree,
+  input3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19. Contract only:
+  specs/TEACHING-GIT-RETURN.md; runtime not started. Existing sample source,
+  placement and final SDK ports inspected. FinalRetirement is an actual hold;
+  do not discard tombstones or force convergence. Freeze independent copies for
+  useful other-object work before implementing the missing-byte attempt.
+  Parent feat/teaching-reacquisition is clean at3c2e5cb, draft PR53:
+  https://github.com/giodl73-repo/tig/pull/53. Exact run43054770000 secrets and
+  both-host structure/controllers pass; Rust and baseline compatibility pending.
+  Jobs Windows130641154278/Linux130641154351/secrets130641153649.
+  No task-owned Cargo processes remain. See parent review EVID-122 for local
+  all-feature output versus unavailable original shell exit; final direct strict
+  exits0. Never restart a running task merely on observation timeout.
+  Next: implement/qualify the contract, inspect parent hosted result, keep full
+  PRODUCT_PLAN active. No viewer/browser/live caches/deployment/merge.
+
+Historical parent implementation entry (runtime is now committed/pushed):
 - Owned lane: feat/teaching-reacquisition in teaching-reacquisition worktree,
   input3f3adc74b351e9f36323abe47374ef8c32692b2a; contract185865b precedes code.
   Runtime uncommitted. Read specs/TEACHING-REACQUISITION.md/EVID-122 review.
