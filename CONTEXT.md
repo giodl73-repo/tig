@@ -16,11 +16,15 @@ runs (4118/61973), standalone82649 and fresh final artifact all pass. Every loca
 handle is terminal. Earlier4434/89696 were lost without terminal results and
 remain unqualified; they are not counted as passes.
 
-Next: final source pins/L0/diff/secret scan and six-role evidence, then commit/
-draft PR/exact-head hosted checks. Parent PR51 remains ready at2ca3e18 with
-Windows/Linux/secrets pass; do not merge or deploy as a side effect. Reacquisition
-chapter, complete course, browser/human, native/current authority/clock/provider/
-large-file/lifetime and metadata-expiry acceptance remain open. See
+Runtime5316d1d is pushed as draft PR52, stacked on ready parent PR51. Exact
+run43037089163 passed secrets/structure but failed Linux controllers: a post-test
+cp1252/LF rewrite corrupted three old middle-dot assertions; Windows cancelled
+by fail-fast. Assertions are restored to original UTF8 without weakening them;
+changed-file Unicode audit finds no other corruption. Next: rerun79 controls,
+source pins/L0/diff, commit/push correction and inspect new exact-head CI.
+No merge/deploy. Reacquisition chapter, complete course, browser/human, native/
+current authority/clock/provider/large-file/lifetime/metadata-expiry remain open.
+See
 context/RESUME.md for exact logs/artifact; older lane entries below are historical.
 
 Rename runtime: b69684f408d036d9e11a0911d6031167e822b566. Local qualification passes; derive current PR/hosted status from GitHub.

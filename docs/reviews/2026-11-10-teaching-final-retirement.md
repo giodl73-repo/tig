@@ -129,3 +129,17 @@ category/export modules, both decoders, UI and readonly placement query.
 Disposition: pass_with_risk for this locally qualified synthetic checkpoint.
 Hosted exact-source checks and the full contract/product remain open. No role
 serves as an independent person or grants publication/deletion authority.
+
+## Hosted encoding correction
+
+PR52 head5316d1d run43037089163: secrets/structure pass; Linux controller step
+fails77/79 and fail-fast cancels Windows checkout. A post-test LF rewrite used
+Python's Windows cp1252 default when reading UTF8, corrupting three pre-existing
+middle-dot assertions after the local79-case run. Runtime labels were correct.
+Restore the exact original UTF8 assertions; do not relax their expected labels.
+An explicit UTF8 audit against the contract base finds no other such corruption
+among changed files; new valid Unicode in UI/harness is preserved. All subsequent
+text reads/writes explicitly name UTF8. The failed run is not a hosted pass;
+current-head cross-platform verification remains required after this correction.
+
+The corrected79-case local controller suite passes; no runtime Rust source changed.

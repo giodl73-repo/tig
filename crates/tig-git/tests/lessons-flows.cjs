@@ -57,8 +57,8 @@ test('partial provider coverage shows known copies plus unknown, including the n
   for(const o of l.objects){o.observed=o.observed.filter(r=>r!=='backup');o.unknown=['backup'];}
   return b;});
  await f.settle();await f.click(f.get('lessons'));await pick(f,3);
- assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.match(row(f,'original').children[3].textContent,/Unknown Â· Backup \/ M/);
- assert.match(f.get('result-count').textContent,/partial coverage/);await pick(f,4);assert.match(row(f,'original').children[1].textContent,/Unknown Â· Backup \/ M/);
+ assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
+ assert.match(f.get('result-count').textContent,/partial coverage/);await pick(f,4);assert.match(row(f,'original').children[1].textContent,/Unknown · Backup \/ M/);
 });
 
 test('unknown-only provider coverage cannot become zero recorded copies',async()=>{
@@ -66,7 +66,7 @@ test('unknown-only provider coverage cannot become zero recorded copies',async()
   for(const l of b.lessons)for(const o of l.objects)o.unknown=[];
   const l=b.lessons[0];l.converged=false;l.storage_converged=false;l.holds=['unavailable'];
   for(const o of l.objects){o.observed=[];o.unknown=['backup'];}return b;});
- await f.settle();await f.click(f.get('lessons'));assert.match(row(f,'original').children[3].textContent,/Unknown Â· Backup \/ M/);
+ await f.settle();await f.click(f.get('lessons'));assert.match(row(f,'original').children[3].textContent,/Unknown · Backup \/ M/);
  assert.doesNotMatch(row(f,'original').children[3].textContent,/No managed copies/);
 });
 

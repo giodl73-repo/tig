@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 23689,
-      "sha256": "789c2e11536b9e3b23199eb2a6e063d727f85dff0bc66e72f885f8fe29e148dd"
+      "bytes": 23935,
+      "sha256": "37d690f1644e60802a62c76dc45c8ea022d5e3fb27ad38df9eb5629a1fab450f"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 83852,
+      "bytes": 84490,
       "path": "context/RESUME.md",
-      "sha256": "196caca9767d06d5689bbb6489571ec1b6a014bab0b575c60bd3c33930cb0efa"
+      "sha256": "9098aa9ec7d9ef8725dc6568acc00b42befa1c7139e6f30f30b3f0b445f5f26f"
     },
     {
       "bytes": 16453,
@@ -2844,8 +2844,8 @@
     },
     {
       "path": "crates/tig-git/tests/lessons-flows.cjs",
-      "bytes": 10314,
-      "sha256": "5a0c2520a54d8887f276adf3c4a33fd76eae8ada12553cb67de2a9338d1e0fb0"
+      "bytes": 10308,
+      "sha256": "08065c13b6b4f1bb8dcc4607d9bd71a1177766314589bf8918b421a42d934279"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-playback.md",
@@ -2939,8 +2939,8 @@
     },
     {
       "path": "docs/reviews/2026-11-10-teaching-final-retirement.md",
-      "bytes": 10298,
-      "sha256": "6d74fbc8bdf1ce65ab5e32b31c8589e457fe1131ba41f7ec75fab0ee1fdef444"
+      "bytes": 11133,
+      "sha256": "446d7f1f249d554116020017b6bbc1d60d95807b3e129668f8911ac5ac1cd592"
     },
     {
       "path": "crates/tig-git/src/bin/tig-sample/aged_execution.rs",

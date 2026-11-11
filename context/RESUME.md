@@ -42,13 +42,21 @@ source changes into running tools as a side effect. No startup cache operations.
   final-qualified-74cdaf5c442b42d4b99c055f0c7f6f7f:8 checkpoints, aged evidence
   5982bytes/SHA3fcea026a69127d96e1dae7cbf2ad9d6d64697d8436fae4de0742dd6fb7df61f;
   readonly catalogue check payloads_opened=0/automatic_eviction=false.
-  Next: final pin refresh/L0/diff/secrets and role evidence, then commit/draft PR
-  and exact-head hosted Windows/Linux/secrets. Parent PR51 remains ready/CLEAN
+  Source pins/L0/diff/secrets and role review passed before the initial commit;
+  exact-head hosted verification remains required. Parent PR51 remains ready/CLEAN
   at2ca3e18, run42901536923 passes; no merge/deploy authorized as a side effect.
   No viewer/browser/live stores. Reacquisition has separate asset-side evidence,
   not its own chapter; complete23-checkpoint course, browser/human, wider native/
   writer/current authority/clock/provider/large-file/restore/lifetime/metadata
   expiry and stale-client acceptance remain open. Full PRODUCT_PLAN unchanged.
+  Runtime5316d1d is committed/pushed as draft PR52, base feat/teaching-rename.
+  Run43037089163 fails Linux controller assertions77/79; secrets/structure pass,
+  Windows cancelled by fail-fast. Three old middle-dot assertions were corrupted
+  by a post-local-test LF rewrite using Python cp1252 defaults. Exact original
+  UTF8 restored; changed-file audit finds no other corruption. No runtime change
+  or weakened expectation. Always pass encoding='utf-8' to Python text reads.
+  Corrected79 controls now pass (teaching-final-utf8-controls.log). Refresh
+  pins/L0/diff and commit/push correction; derive current commit/CI from GitHub.
 - Active owned worktree: teaching-rename, branch feat/teaching-rename,
   input21a70f5abc4340582cda3a075a3c5fe1cee13e40 (merged PR50). PR50's exact head
   2407433 run42833301686 passed Windows/Linux/secrets. No open PRs observed at
