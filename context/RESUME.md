@@ -19,7 +19,11 @@ source changes into running tools as a side effect. No startup cache operations.
   Terminal79800 compiles initial producer. Probe20895 passes physical oracle then
   fails because its new report decoder was not built yet; not an E2E pass.
   Terminal12251 native/physical/HTTP/shipped/21 semantic negatives and97155
-  all15 teaching cases/final-stage rendering/strict schema pass. No Cargo live.
+  all15 teaching cases/final-stage rendering/strict schema pass. Terminal63290
+  adds final23 refusals, rehashed enrollment/stream binding, literal Git record
+  readback and strict schema. All-feature full workspace/500k/strict6457 LIVE in
+  teaching-playback-all; logs git-return-all.log plus separate phase .exit files.
+  Default target is free for schema workspace then standalone/fresh artifact.
   Logs git-return-{probe,native,teaching}.log outside Git under bulk-retirement temp.
   Runtime23a15c7 is committed; parent correctionad64f03 integrated. Next: full schema/all-feature/500k
   profiles and strict checks, standalone Git, fresh persisted artifact,81 controls,

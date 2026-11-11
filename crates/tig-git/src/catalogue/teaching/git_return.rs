@@ -42,19 +42,30 @@ pub(super) fn decode(
     value: Value,
     entry: &Entry,
     previous: &Value,
-    expected: &[Digest],
+    binding: &(Digest, Vec<Digest>),
     roles: &[Role],
     identities: &BTreeMap<String, Object>,
     commits: &BTreeSet<String>,
 ) -> Result<Value> {
     let f: ReturnReport =
         serde_json::from_value(value).map_err(|_| "Unsupported Git return observation")?;
+    let (enrollment, expected) = binding;
     let id = f.plan.id().map_err(|_| "Invalid returned placement plan")?;
     let e = &f.git_return;
     let r = &f.receipt;
     let s = &f.status;
+    let streamed = r
+        .effects
+        .iter()
+        .filter(|e| matches!(e.kind.as_str(), "published" | "reacquired"))
+        .try_fold(0u64, |n, e| {
+            n.checked_add(e.logical_bytes)
+                .ok_or("Return stream overflow")
+        })?;
     if f.schema != "tig.teaching-git-return-observation.design-1"
         || f.lesson != entry.lesson
+        || r.stream_bytes != streamed
+        || r.stream_bytes > f.plan.budget.max_stream_bytes
         || previous["final_loss"]["phase"] != "completed"
         || previous["source_commit"] != e.prior_commit
         || previous["source_sequence"] != json!(e.source_before.sequence())
@@ -80,7 +91,8 @@ pub(super) fn decode(
         || e.selected_source.current.as_ref().is_none_or(|c| {
             c.revision != e.selected_source.revision || c.selection.context != e.returned_snapshot
         })
-        || f.plan.providers != expected
+        || &f.plan.enrollment != enrollment
+        || f.plan.providers.as_slice() != expected.as_slice()
         || f.plan.next.is_some()
         || f.plan.after.is_some()
         || f.declared_fixture_domains != roles.len()
@@ -254,6 +266,8 @@ pub(super) fn decode(
             .ok_or("Unknown return effect provider")?;
         if !identities.values().any(|o| o == &effect.object)
             || effect.object == e.lost_object
+            || (matches!(effect.kind.as_str(), "published" | "reacquired")
+                && effect.logical_bytes != effect.object.bytes)
             || !matches!(
                 effect.kind.as_str(),
                 "published"

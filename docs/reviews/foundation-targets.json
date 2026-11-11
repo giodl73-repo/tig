@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 26698,
-      "sha256": "8a3193fc9c58ad92462d0784857140061d301974dd31fa9c06baa0bfd92a1224"
+      "bytes": 26942,
+      "sha256": "7aad15f9c99c8022eacf708c626e6f985edd57b4d392a2dc53d18c1fa2d580ce"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 111694,
-      "sha256": "54b437bd268590cf4140c530cf0c15b88ff3ef7afa8d030273bbeb422cd3a12b"
+      "bytes": 111756,
+      "sha256": "f13198e5ec918fc46b25fa0c8944365e94276e9b8064aae0719f7a3d4f3d6f1b"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 89947,
+      "bytes": 90267,
       "path": "context/RESUME.md",
-      "sha256": "f0aa66b14731a8e02c7c8bfc8acb4d3343b354121d680c54529dfd15aef94a32"
+      "sha256": "456fe5b28d9845ee4726cba27f03d8ceff73f6358d87621564d2b183cd8737c7"
     },
     {
       "bytes": 16453,
@@ -2804,8 +2804,8 @@
     },
     {
       "path": "crates/tig-git/tests/teaching_catalogue.rs",
-      "bytes": 76346,
-      "sha256": "585bcb1f7683e496af382ea9f67d49c489fab64c4d1768c1f20d6e5a7478a5c4"
+      "bytes": 77436,
+      "sha256": "479b51903dbc90270311315ba757f272158965b96abfd207b066ba404b8f1fde"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-catalogue.md",
@@ -2829,8 +2829,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/teaching.rs",
-      "bytes": 23664,
-      "sha256": "6e396c9f95c2f5b0594a3f410e638fc1a43ff4f64491af0553b929568d9737bf"
+      "bytes": 23703,
+      "sha256": "aa2c46e88380c1abd20020e178378899f2de3f7a532ea4c4615627ad12159e1d"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/lessons.js",
@@ -2989,13 +2989,13 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/teaching/git_return.rs",
-      "bytes": 10947,
-      "sha256": "bdb52781244311945aed0a46c7aed6a465072d46c35ae1b1af4d3247e27547c5"
+      "bytes": 11570,
+      "sha256": "69852347c6623070cfc0033ff4c240623e51e84a18f051b01abfe549498e13b5"
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-git-return.md",
-      "bytes": 5655,
-      "sha256": "654f7527ab8d0024216c97ba5b911483e9ef29ce4d79b8b9b7b96b4545e779a8"
+      "bytes": 6420,
+      "sha256": "d9a86ec8f136d7e98a09af09c48d7ea23bbca906e50c711449089a59a351dd0c"
     }
   ]
 }

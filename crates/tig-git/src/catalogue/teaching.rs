@@ -276,7 +276,7 @@ pub fn execute(request: Request) -> Result<Value> {
                 value,
                 &entry,
                 lessons.last().ok_or("Missing pre-return final lesson")?,
-                &expected_providers,
+                providers.as_ref().ok_or("Missing pre-return enrollment")?,
                 &p.roles,
                 &identities,
                 &request.commits,

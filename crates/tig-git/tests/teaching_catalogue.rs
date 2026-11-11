@@ -26,6 +26,21 @@ fn git_return_after_final_loss_selects_references_but_keeps_missing_bytes_held()
         result["git_return_evidence"]
     );
     let evidence: Value = serde_json::from_slice(&raw).unwrap();
+    for field in ["first_commit", "returned_commit"] {
+        let commit = evidence["git_return"][field].as_str().unwrap();
+        let actual = Command::new("git")
+            .arg("-C")
+            .arg(root.join("project"))
+            .arg("show")
+            .arg(format!("{commit}:records/series.tig"))
+            .output()
+            .unwrap();
+        assert!(actual.status.success());
+        assert_eq!(
+            serde_json::to_value(Object::from_bytes(&actual.stdout)).unwrap(),
+            evidence["git_return"]["first_record"]
+        );
+    }
     assert_eq!(
         evidence["git_return"]["first_record"],
         evidence["git_return"]["returned_record"]
@@ -123,6 +138,8 @@ fn git_return_after_final_loss_selects_references_but_keeps_missing_bytes_held()
         "record",
         "seed",
         "seed_count",
+        "enrollment",
+        "stream",
         "source",
         "source_floor",
         "snapshot",
@@ -194,6 +211,15 @@ fn git_return_after_final_loss_selects_references_but_keeps_missing_bytes_held()
                 changed["receipt"]["effects"][0]["object"] =
                     serde_json::to_value(original.clone()).unwrap()
             }
+            "enrollment" => {
+                changed["plan"]["enrollment"] = foreign;
+                let plan: tig_store::placement::Plan =
+                    serde_json::from_value(changed["plan"].clone()).unwrap();
+                let id = serde_json::to_value(plan.id().unwrap()).unwrap();
+                changed["receipt"]["plan"] = id.clone();
+                changed["status"]["plan"] = id;
+            }
+            "stream" => changed["receipt"]["stream_bytes"] = 0.into(),
             "provider" => changed["plan"]["providers"][0] = foreign,
             "authority" => changed["git_return"]["authorizes_storage"] = true.into(),
             _ => unreachable!(),

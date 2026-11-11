@@ -12,7 +12,10 @@ Runtime23a15c7 is committed; parent test correctionad64f03 is integrated. Next: 
 500k profiles, standalone/fresh artifact/secrets and exact-head hosted checks.
 Parent PR53 original43054770000 failed Linux on exact metadata Busy tree wrapper;
 Windows cancelled. Correctionad64f03 passes15/strict18570; run43057224855 pending.
-No task-owned Cargo run is live. Do not overlap external build targets.
+All-feature workspace/500k/strict6457 is LIVE in teaching-playback-all. Final
+23-negative/native/raw-Git/HTTP/shipped/strict63290 passes. Default target is free
+for schema workspace then standalone/fresh artifact. Logs git-return-*.log are
+external, with phase .exit files. Never overlap targets/restart on timeout.
 Full roadmap/course/current-authority/provider/lifetime/human gates remain open.
 No viewer/browser/live cache/merge/deployment. Use explicit UTF8 text IO.
 

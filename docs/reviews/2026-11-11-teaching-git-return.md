@@ -1,7 +1,8 @@
 # Git return after final-loss candidate review
 
 Input3c2e5cb1e07f7e2877b89abb3e1ef7200a073b19; contract commitb82b98b precedes
-runtime implementation. Branch feat/teaching-git-return; implementation uncommitted.
+runtime implementation. Runtime23a15c7 is committed; parent correction merged
+in296997a. Final enrollment/stream-counter strengthening is under qualification.
 [Contract](../../specs/TEACHING-GIT-RETURN.md) names controls, scope, entry/exit
 and L0/L1/L2. Full PRODUCT_PLAN remains active. This is EVID-123.
 
@@ -59,8 +60,8 @@ large-file/lifetime/browser/human/full-product acceptance remain OPEN.
 
 Parent PR53 correctionad64f03 admits only the exact Tree(Store("metadata busy"))
 wrapper observed in failed Linux run43054770000; production algorithms unchanged.
-Focused15/strict18570 passes; new run43057224855 remains pending. Integrate that
-parent correction before current-head broad/hosted qualification; no pass inferred.
+Focused15/strict18570 passes; new run43057224855 remains pending. Parent correction is merged in296997a; default15 age cases/fmt/source checks
+pass in28550. No hosted pass inferred.
 
 ## Six producer lenses
 
@@ -78,3 +79,14 @@ are not independent reviewers, human approval or publication/removal authority.
 
 Disposition: pass_with_risk for focused synthetic candidate. Source/broad/artifact/
 hosted and full acceptance gates remain open.
+
+## Final binding refinement
+
+The returned plan now retains the ordinary lessons' enrollment identity; a
+repinned/rehashed substituted plan, receipt and status must still refuse.
+Stream bytes must equal actual publication/reacquisition effects within budget;
+transfers bind the full object length. Native tests also read actual first/returned
+Git record blobs without trimming. Final23 semantic refusals and strict schema
+qualification pass in terminal63290; all-feature workspace/500k/strict6457 is live in separate
+external target. No broad terminal result claimed yet. All81 controls/fmt and
+source/staged secret checks passed before23a15c7. Final closeout gates remain.
