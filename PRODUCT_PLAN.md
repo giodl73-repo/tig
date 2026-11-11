@@ -44,6 +44,11 @@ transactional legacy mutation fencing, an independent activation minimum, exact
 working state/original dependencies, bounded global indexes and durable recovery.
 A private SQL-fence proof is only an entry step; no seal-only public operation or
 journal cap waiver is allowed. Parent history candidate qualification is running.
+The [bounded staged tree editor](specs/STAGED-TREE-EDIT.md) now persists only final
+reachable metadata without changing canonical roots. Actual4096-base/16384-delta,
+physical finish/reopen, negative/budget, core/metadata regression and strict checks
+pass (EVID-129). This supports global indexes; it does not supply a successor,
+independent minimum, durable activation/recovery or expiry.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable

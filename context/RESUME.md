@@ -1,23 +1,42 @@
 # Tig resume state
 
-Private Rust mutation-fence checkpoint: contract822d777 before cfg(test)-only
-ledger::activation; no public seal or active journal format/controller yet.
-Rust2927/65307/37874/85873 pass focused atomicity/retry/corruption/exits/head and
-full16384/in-flight cases, explicit hashed c833add delayed legacy writer with
-Rust sealer, and strict lib/tests Clippy. Read EVID-129 for scope/counts. Independent
-activation minimum, global indexes/tail reopen/full recovery/unmodified oldbinary/
-provider-source-witness continuation/expiry remain required. Full plan active.
-Third activation-legacy target is free; no live process in this lane.
-Parent PR59 source1c1f3ca adds contract7a1ebe6/test-only bounded stderr readiness.
-Old serial37691 stopped at its proven stdout parser deadlock, terminal1. Focus
-25433 passes11 fence cases under1/4 threads and strict Clippy; no production change.
-New full controlled88738 LIVE: default then all; normal targets both reserved,
-RUST_TEST_THREADS1 with explicit in-test concurrency. Follow ledger-history-
-controlled phase.exit/logs and actual handle; never overlap/restart on timeout.
-Exact new43119762645 Windows/Linux live, secrets pass. PR59 remains draft.
-No live cache, daemon, transfer, deletion, browser/viewer, merge or deployment.
-Older notes below describe the input implementation.
+Active owned lane F:/src/Tig-worktrees/journal-activation, feat/journal-activation.
+Contractd6dc4c6 precedes bounded staged-tree code on input3586d82.
+Tree::edit_staged and qualified pure/physical fixtures support global indexes;
+no successor journal/controller/minimum/expiry implemented. Read specs/
+STAGED-TREE-EDIT.md and JOURNAL-ACTIVATION.md plus EVID-129 before further code.
+Full PRODUCT_PLAN remains active; previous goal work made concrete code/evidence
+progress. No scope reduction, live roots, daemon, deletion or deployment.
 
+Session7999 TERMINAL101: fixture sum inference; explicit u64 fixes it. Corrected
+82881 pure eight entries PASS including actual4096-base/16384-delta canonical
+comparison:235279 logical writes/78349532 bytes ->16394 puts/5052712 bytes.
+That pipeline's session is now MISSING and exact test/target processes are absent;
+physical log has no completion, no Clippy log. This is interruption/unknown exit,
+NOT success. Preserve original logs. No restart was based on observation timeout.
+Session89281 TERMINAL0, reaped: physical-v2, strict core/store all-target Clippy,
+core regression (skip already passed full delta), original metadata16 including
+500000 bindings/thirteen edits/child exits, and fmt PASS. All three .exit markers0.
+Physical full delta reopens all20480 entries and exact old root; rows4099->20492,
+stored logical bytes1262810->6315322. Separate activation-legacy target is FREE.
+
+Parent88738 also now MISSING; no controlled runner/cargo/normal-target test process
+and no phase exit files remain. Last default log stops in bulk paged followup;
+all phase never started. It is interrupted/unknown exit, NOT full qualification.
+Owned hidden runner PID44168 now runs fresh full qualification on exact clean
+parent1c1f3ca, jobs1/threads1, sequential default/all, strict/standalone/fmt/bins/
+fresh14-step artifact. External root is ledger-history-owned-
+b787ba2789be482c8bf5b596fdb6d43e (see ledger-history-owned-root.txt); inspect actual
+PID/command and phase.exit/logs. Both normal targets are RESERVED. PR59 draft.
+Exact43119762645 Linux/secrets pass, Windows live at last check. Do not restart
+silently or overwrite failed/interrupted evidence. A new admitted pipeline is owed.
+
+Private cfg(test) Rust sealer bc38523 remains focus-qualified, including hashed
+c833 delayed writer/full16384/in-flight/exits. Public seal-only API is excluded.
+Next complete integration still needs global operation/sequence/activation indexes,
+bounded successor tail, independent minima, old-writer/restore/recovery and
+provider/source/witness continuation before separate expiry. All role reviews are
+producer checklists, not independent/human approval. Older notes below are history.
 
 Active owned lane feat/journal-activation, inputc833add85f9a9c79d3387a78e469bc13a2570403.
 Full durable activation design plus supporting SQL probe;

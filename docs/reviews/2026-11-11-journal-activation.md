@@ -181,3 +181,77 @@ Local parent integration brings1c1f3ca fixture readiness/spec/EVID-128 into this
 owned activation branch. Private Rust component bytes remain unchanged; parent
 fence fixture bytes match the separately qualified correction. Context retains
 the active lane and controlled88738 process/target ownership. No PR merge occurs.
+
+
+## Staged index-write prerequisite
+
+Input3586d821487b4bfd0df8d86698e9a432a498dc97; contractd6dc4c6 precedes code.
+[STAGED-TREE-EDIT](../../specs/STAGED-TREE-EDIT.md) freezes controls, allowed scope,
+entry/exit and L0/L1/L2. Existing Tree::edit runs against a transient bounded
+NodeStore overlay; only final reachable staged metadata nodes flush children first.
+No new tree encoding, journal cap, activation/controller or authority is added.
+Logical metrics include intermediate writes; published metrics count provider
+put calls/bytes, not newly allocated storage, durability or reclaim. Caller still
+owns physical admission, finish/readback and atomic root adoption.
+
+Producer inspection of tree/staged.rs and named fixtures, owner Tig maintainers:
+
+| Lens | Finding / disposition |
+| --- | --- |
+| Identity | Canonical roots must match unchanged edit and independent bulk build; preserve original design-1 vector. Eight pure entries pass, including full delta and the independent vector. |
+| Placement | Index edits convey no placement/removal authority; absent data still unknown. No new placement path. |
+| Custody | Distinguish logical staging, provider puts and physical finished metadata. Full-delta finish/reopen passes; no custody or reclaim claim. |
+| Concurrency | Expected-root check is local to supplied Tree. Caller must fence/adopt the root; partial flush is immutable orphan metadata, never a returned success. |
+| Provider/privacy | Whole-edit read/write/byte limits bound staging. Flush walks staged metadata only, skipping unchanged base subtrees and file-valued edges. No private/runtime data in Git. |
+| Git/adoption | Public synthetic fixtures only; measurements/builds remain external. No merge, production migration or live-store activation. |
+
+Initial qualification7999 ended101 at fixture compile: ambiguous iterator sum
+with serde_json PartialEq. Explicit sum::<u64> fixes the fixture; no algorithm or
+limit change. Corrected82881 is running eight named pure entries (including a
+4096-base/16384-delta case), the physical full-delta adopter and strict core/store
+all-target Clippy. No pass is claimed before actual terminal completion.
+Full exact-source workspace/hosted qualification and complete continuation,
+independent activation minimum/restore, old-writer and provider/source/witness/
+expiry gates remain required. Producer review is not independent acceptance.
+
+
+Continuation process audit: write_stdin82881 and88738 both report unknown IDs.
+Windows process inspection finds neither exact test/target executables, Cargo nor
+controlled runner; original phase exit files are absent. The first staged log
+proves eight pure passes but physical run has no completion; parent default log
+stops mid bulk paged followup and all phase never starts. These are interrupted/
+unknown-exit pipelines, not inferred pass/fail. Original logs remain unchanged.
+With the separate target authoritatively free, new89281 explicitly runs physical
+v2, strict Clippy and core/metadata regression with separate logs/exit markers.
+No process restart was based solely on timeout; no other process was stopped.
+
+
+Final staged prerequisite:89281 TERMINAL0, reaped. Physical-v2.exit,
+Clippy-v2.exit and regression.exit are all0. The physical fixture appends16384
+entries to4096 old entries, finishes/reopens and verifies all20480 plus the exact
+old root. Metadata rows4099->20492; logical stored bytes1262810->6315322.
+The235279 logical writes/78349532 bytes become16394 provider puts/5052712 bytes;
+one put deduplicates an existing node. No allocated-file-byte/reclaim claim.
+Pure82881 eight entries pass in161.11s before its later interruption; physical
+v2 passes in102.20s. Both share reads542003/logical read bytes193703803 under
+explicit2M reads/1M writes/512MiB read/256MiB write limits, unchanged defaults.
+The pure reported provider-get total40980 includes final inspection, not edit IO
+alone. Strict core/store all-target Clippy and fmt pass. Full core regression
+passes (only the already-qualified full staged delta skipped); original metadata
+suite16 passes including actual500000 bindings/thirteen edits and child exits.
+No production code changed during these qualifying runs.
+
+Separate closure: implementation, focused verification, scoped synthetic validation
+and trace pass for staged edits. Six producer lenses above are pass_with_risk for
+this metadata-only API and retain caller finish/admission/root-adoption boundaries.
+Full exact-source workspace/hosted qualification and complete successor/minimum/
+restore/old-writer/provider/source/witness/expiry gates remain OPEN.
+
+Parent full qualification restarted explicitly only after authoritative absence of
+old runner/test/Cargo processes. Owned hidden pwsh PID44168 runs source1c1f3ca
+from ledger-history-owned-b787ba2789be482c8bf5b596fdb6d43e/run.ps1 externally.
+It preserves old logs, validates clean exact source before each profile, uses
+jobs1/threads1 and sequential default/all with phase logs/exit markers, standalone,
+strict/fmt and fresh14-step artifact. Both normal targets are RESERVED by that
+runner. It remains live; no full pass claimed. Current branch's separate target
+is free after89281. PR59 remains draft; no PR merge or deployment occurred.

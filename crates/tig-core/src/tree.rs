@@ -3,6 +3,8 @@
 use crate::{Digest, LogicalPath, Object, identity};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::collections::BTreeMap;
+mod staged;
+pub use staged::StagedEditMetrics;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum TreeError {

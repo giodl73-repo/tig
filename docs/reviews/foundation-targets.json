@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130879,
-      "sha256": "7021cdb04c56b5d6dd0e477685f675ca69154c149dd2d3664c5eafcb851a89d7"
+      "bytes": 130895,
+      "sha256": "1bc3109c30fa25db7357de9e50690fd715b0df381cf68672f32deb7218e97826"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 56395,
-      "sha256": "216e3baf585dc5bc186c2427d1faf04797789bd571a3f259369a98cf79e22f6b"
+      "bytes": 56784,
+      "sha256": "f97eca6be97e119f79243d51656791a8728161353e846340b0d97d543b4dcfcc"
     },
     {
       "path": "README.md",
@@ -544,8 +544,8 @@
     },
     {
       "path": "crates/tig-core/src/tree.rs",
-      "bytes": 21603,
-      "sha256": "c64b498fd9ab404422faeb9b86eab6d73cca95e2e040fd69f14cabfc019bdc12"
+      "bytes": 21650,
+      "sha256": "e0db21c5a25fa16a62ace90fe35d0bc11e9dc027cddac93b28be99c5be7022db"
     },
     {
       "path": "crates/tig-core/tests/canonical.rs",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 103443,
-      "sha256": "cb2572d8429d63417d5c662704890a41634f1dfdf0e8be46d62b65579999dc28"
+      "bytes": 104833,
+      "sha256": "82ad687a9312e1df6abeb5d7b5d3beca2937084ca087887c432c1c6574b175b3"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 13368,
-      "sha256": "fedad00d0ffcef271ea28e0a4a0179ed8ab11b7b6a6cffbef4d7030839fa3238"
+      "bytes": 18604,
+      "sha256": "b78476d52c92fab5e191f69f787bf39c516f3ce3dcb9a1574e0769891fb75080"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3571,6 +3571,21 @@
       "path": "specs/STAGED-TREE-EDIT.md",
       "bytes": 4268,
       "sha256": "ca3e83388ffef3400caf08ee01505be9a9b875d28c6dbb3a7a971d43de771097"
+    },
+    {
+      "path": "crates/tig-core/src/tree/staged.rs",
+      "bytes": 4525,
+      "sha256": "5edb01a277305b6366110278f0db52d856cf5d9e57742eab5f5d06ebc14966aa"
+    },
+    {
+      "path": "crates/tig-core/tests/tree_staged.rs",
+      "bytes": 14075,
+      "sha256": "ce195eca660d4b16caf0700ff9b51e38169b57854a20c21c62e9380988c19003"
+    },
+    {
+      "path": "crates/tig-store/tests/metadata_staged_tree.rs",
+      "bytes": 2516,
+      "sha256": "a396b1a63aa5f8af6c48d6f8fbe7cd08f3e74d88e57ad9561eda332dccc34524"
     }
   ]
 }
