@@ -7,8 +7,11 @@ Final90828 native/HTTP/shipped40 refusals and strict schema+upload workspace/all
 target Clippy pass;85 controls and without-feature/no-root69023 pass. SDK public
 native and OID projections remain distinct; initial adapter Authority refusal,
 compile/DTO/role-state mistakes and style failures are preserved in EVID-126.
-No SDK production/event/wire/dependency change or alternate engine. Final source
-runtime is still uncommitted; source/pins/review/secrets gates precede checkpoint.
+No SDK production/event/wire/dependency change or alternate engine. Teaching runtime11de7b7fa4d5c4cdec9ba19b0d62301e4e2ad896 is committed/pushed
+as draft PR57, base feat/teaching-return-restore. Source/pins/diff/staged-secrets
+pass at runtime checkpoint; full profiles remain live. Initial hosted43092752946
+was started for11de7b7; this documentation checkpoint needs its own exact-head
+qualification. Derive current head/run from Git/GitHub.
 Both full profiles LIVE: default19709 in teaching-playback, all31804 in
 teaching-playback-all. Never overlap/restart on timeout. External remote-publication
 phase.exit/logs record actual outcomes. Default continues standalone/fmt/fresh

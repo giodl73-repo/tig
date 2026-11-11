@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 32496,
-      "sha256": "ce1ced171883fbd454e270317a65ababa63230f8c481c0883e723dfb3b270096"
+      "bytes": 32775,
+      "sha256": "b2db4aae18cae1015b17b0bffa14726995a8a7c14779ac20466a8c93f04de18a"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 95821,
-      "sha256": "06a93554883e52b0cc14b9737c2fe81bc4a19ae59bc0d69cc9b0d0a00ef91162"
+      "bytes": 96100,
+      "sha256": "bdb71a9d743b32d1d31b5e30a39680ca87797fd5bd3d0ff50b8b651c9944b862"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
