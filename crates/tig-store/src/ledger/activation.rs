@@ -1,0 +1,185 @@
+//! Private qualification component. No public seal/activation API.
+use super::*;
+use tig_core::Object;
+const TABLE: &str = "CREATE TABLE tig_activation(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL CHECK(length(body)<=65536),hash TEXT NOT NULL)";
+const MAX_NUMBER: u64 = 9_007_199_254_740_991;
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct Intent {
+    schema: String,
+    operation: Key,
+    authority: Digest,
+    generation: u64,
+    source: Checkpoint,
+    prepared: Object,
+}
+impl Intent {
+    fn bytes(&self) -> Result<Vec<u8>> {
+        if self.schema != "tig.capacity-activation-intent.design-1"
+            || self.authority != self.source.genesis
+            || self.generation == 0
+            || self.generation > MAX_NUMBER
+            || self.source.sequence > MAX_COMMANDS
+            || self.prepared.bytes == 0
+            || self.prepared.bytes > 65536
+        {
+            return Err(LedgerError::Corrupt);
+        }
+        encode(self)
+    }
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+struct Receipt {
+    intent: Intent,
+    hash: Digest,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Stage {
+    Checked,
+    Written,
+    Committed,
+}
+fn definitions() -> BTreeMap<String, (String, String)> {
+    let mut result = BTreeMap::new();
+    result.insert("tig_activation".into(), ("table".into(), TABLE.into()));
+    for table in ["events", "meta", "tig_activation"] {
+        for action in ["INSERT", "UPDATE", "DELETE"] {
+            let name = format!("tig_activation_{table}_{action}");
+            let sql = format!(
+                "CREATE TRIGGER {name} BEFORE {action} ON {table} BEGIN SELECT RAISE(ABORT,'tig:sealed-source'); END"
+            );
+            result.insert(name, ("trigger".into(), sql));
+        }
+    }
+    result
+}
+fn inspect(conn: &Connection) -> Result<Option<Receipt>> {
+    let mut stmt = conn.prepare(
+        "SELECT length(name),length(type),length(sql),name,type,sql FROM sqlite_master WHERE name GLOB 'tig_activation*' LIMIT 11",
+    )?;
+    let mut rows = stmt.query([])?;
+    let mut found = BTreeMap::new();
+    while let Some(row) = rows.next()? {
+        if number(row, 0)? > 128 || number(row, 1)? > 16 || number(row, 2)? > 4096 {
+            return Err(LedgerError::Corrupt);
+        }
+        let name: String = row.get(3)?;
+        let kind: String = row.get(4)?;
+        let sql: Option<String> = row.get(5)?;
+        if found
+            .insert(name, (kind, sql.ok_or(LedgerError::Corrupt)?))
+            .is_some()
+        {
+            return Err(LedgerError::Corrupt);
+        }
+    }
+    if found.is_empty() {
+        return Ok(None);
+    }
+    if found != definitions() {
+        return Err(LedgerError::Corrupt);
+    }
+    drop(rows);
+    drop(stmt);
+    let mut stmt =
+        conn.prepare("SELECT id,length(body),length(hash),body,hash FROM tig_activation LIMIT 2")?;
+    let mut rows = stmt.query([])?;
+    let row = rows.next()?.ok_or(LedgerError::Corrupt)?;
+    if number(row, 0)? != 1 || number(row, 1)? > 65536 || number(row, 2)? != 64 {
+        return Err(LedgerError::Corrupt);
+    }
+    let body: Vec<u8> = row.get(3)?;
+    let intent: Intent = decode(&body)?;
+    if intent.bytes()? != body {
+        return Err(LedgerError::Corrupt);
+    }
+    let hash = Digest::parse(&row.get::<_, String>(4)?).map_err(|_| LedgerError::Corrupt)?;
+    if hash != Digest::blob(&body) || rows.next()?.is_some() {
+        return Err(LedgerError::Corrupt);
+    }
+    let (current, total) = head(conn)?;
+    if current != intent.source || total > MAX_JOURNAL_BYTES {
+        return Err(LedgerError::Corrupt);
+    }
+    Ok(Some(Receipt { intent, hash }))
+}
+fn head(conn: &Connection) -> Result<(Checkpoint, u64)> {
+    let (genesis, sequence, hash, bytes) = conn.query_row(
+        "SELECT genesis,sequence,hash,bytes FROM meta WHERE id=1",
+        [],
+        |r| {
+            Ok((
+                r.get::<_, String>(0)?,
+                number(r, 1)?,
+                r.get::<_, String>(2)?,
+                number(r, 3)?,
+            ))
+        },
+    )?;
+    Ok((
+        Checkpoint {
+            genesis: Digest::parse(&genesis).map_err(|_| LedgerError::Corrupt)?,
+            sequence,
+            hash: Digest::parse(&hash).map_err(|_| LedgerError::Corrupt)?,
+        },
+        bytes,
+    ))
+}
+fn seal(
+    ledger: &mut CapacityLedger,
+    intent: &Intent,
+    mut hook: impl FnMut(Stage) -> Result<()>,
+) -> Result<Receipt> {
+    let body = intent.bytes()?;
+    ledger.sync()?;
+    if ledger.checkpoint != intent.source
+        || Digest::blob(&encode(&ledger.config)?) != intent.authority
+    {
+        return Err(LedgerError::Conflict);
+    }
+    let result = (|| {
+        let tx = ledger
+            .conn
+            .transaction_with_behavior(TransactionBehavior::Immediate)?;
+        let (current, bytes) = head(&tx)?;
+        if current != intent.source || bytes != ledger.bytes {
+            return Err(LedgerError::Conflict);
+        }
+        if let Some(existing) = inspect(&tx)? {
+            if existing.intent != *intent {
+                return Err(LedgerError::Conflict);
+            }
+            tx.commit()?;
+            return Ok(existing);
+        }
+        hook(Stage::Checked)?;
+        tx.execute(TABLE, [])?;
+        let hash = Digest::blob(&body);
+        tx.execute(
+            "INSERT INTO tig_activation VALUES(1,?1,?2)",
+            params![body, hash.as_str()],
+        )?;
+        for (kind, sql) in definitions().values() {
+            if kind == "trigger" {
+                tx.execute(sql, [])?;
+            }
+        }
+        let receipt = inspect(&tx)?.ok_or(LedgerError::Corrupt)?;
+        hook(Stage::Written)?;
+        tx.commit()?;
+        hook(Stage::Committed)?;
+        Ok(receipt)
+    })();
+    // Even a lost reply must never leave this old handle admitting commands.
+    if result.is_ok()
+        || matches!(
+            result,
+            Err(LedgerError::Sql(_) | LedgerError::Injected | LedgerError::Corrupt)
+        )
+    {
+        ledger.poisoned = true;
+    }
+    result
+}
+#[cfg(test)]
+mod tests;

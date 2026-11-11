@@ -19,6 +19,8 @@ use tig_core::{
     identity,
 };
 
+#[cfg(test)]
+mod activation;
 pub mod checkpoint;
 pub mod history;
 

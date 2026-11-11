@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 38793,
-      "sha256": "8fac5d497c66e1ffa8f23bffa67e872ec9876fb1b0a5b8eea109b901cbff86ca"
+      "bytes": 40118,
+      "sha256": "4d684d097bb97749f39b1e8bb2d2d789677ab0c31272f3262829a6df3e1382c4"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -624,8 +624,8 @@
     },
     {
       "path": "crates/tig-store/src/ledger.rs",
-      "bytes": 46179,
-      "sha256": "98a043d49d73d193a07a65cfb06c05f8b672ee8a0e385f30b8f3ef3ffda435ed"
+      "bytes": 46208,
+      "sha256": "01678127198ef82dbd0182509e88c6b1dec1e9027f73ad59774b0c9338cafb10"
     },
     {
       "path": "crates/tig-store/src/ledger_tests.rs",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 102118,
-      "sha256": "c54eda0529b05e92903b16ceb37090084fa8159d047106963608c89f2a07aa03"
+      "bytes": 103443,
+      "sha256": "cb2572d8429d63417d5c662704890a41634f1dfdf0e8be46d62b65579999dc28"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 9168,
-      "sha256": "21bce0b615ce16385c910df7529de0b2ff2c8af9a50c412c111a98dd198f0564"
+      "bytes": 13046,
+      "sha256": "d1eb620245e705b27b972b42934c72940845610c5195ef7455f80b3c55f4c6af"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3556,6 +3556,16 @@
       "path": "tools/qualify_activation_legacy.py",
       "bytes": 12448,
       "sha256": "9fb588bfa6ae2d71d602a946883a149554db8e9cab8dc4c8d4883a1dba36cb2a"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/activation.rs",
+      "bytes": 6092,
+      "sha256": "a2046e1ae19fe548f9ad6e17c0b7956aa7081eb15713815dead7ace59a8333a9"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/activation/tests.rs",
+      "bytes": 16354,
+      "sha256": "c5fbbdaea2ca274e043ccd8e270f37397a467a8103352f223068632091c304e6"
     }
   ]
 }

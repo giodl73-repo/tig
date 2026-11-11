@@ -1,5 +1,24 @@
 # Tig resume state
 
+Private Rust mutation-fence checkpoint: contract822d777 before cfg(test)-only
+ledger::activation; no public seal or active journal format/controller yet.
+Rust2927/65307/37874/85873 pass focused atomicity/retry/corruption/exits/head and
+full16384/in-flight cases, explicit hashed c833add delayed legacy writer with
+Rust sealer, and strict lib/tests Clippy. Read EVID-129 for scope/counts. Independent
+activation minimum, global indexes/tail reopen/full recovery/unmodified oldbinary/
+provider-source-witness continuation/expiry remain required. Full plan active.
+Third activation-legacy target is free; no live process in this lane.
+Parent PR59 source1c1f3ca adds contract7a1ebe6/test-only bounded stderr readiness.
+Old serial37691 stopped at its proven stdout parser deadlock, terminal1. Focus
+25433 passes11 fence cases under1/4 threads and strict Clippy; no production change.
+New full controlled88738 LIVE: default then all; normal targets both reserved,
+RUST_TEST_THREADS1 with explicit in-test concurrency. Follow ledger-history-
+controlled phase.exit/logs and actual handle; never overlap/restart on timeout.
+Exact new43119762645 Windows/Linux live, secrets pass. PR59 remains draft.
+No live cache, daemon, transfer, deletion, browser/viewer, merge or deployment.
+Older notes below describe the input implementation.
+
+
 Active owned lane feat/journal-activation, inputc833add85f9a9c79d3387a78e469bc13a2570403.
 Full durable activation design plus supporting SQL probe;
 read specs/JOURNAL-ACTIVATION.md and JOURNAL-CONTINUATION.md before code.

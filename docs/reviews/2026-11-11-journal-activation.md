@@ -120,3 +120,59 @@ remain explicit. An unmodified old binary's real activated-format refusal, old
 already-held transaction ordering, native Rust seal controller, full activation/
 recovery/global indexes/minima and provider/source/witness continuation remain
 required. No sustainable lifetime, expiry or human approval is claimed.
+
+## Private Rust mutation-fence component
+
+Contract822d777 (inputfb2ba3ba6156f679bd94c9d85ac5f388eed62c38) precedes the
+cfg(test)-only ledger::activation component. There is no public seal/activation
+operation and no production ledger path invokes it. Intent framing and fixed SQL
+are unchanged from the frozen protocol. Immediate transaction rechecks actual
+source checkpoint/encoded bytes, installs one immutable row/nine guards, validates
+exact control schema/row/hash/head, and commits atomically. Matching retry is
+read-only and returns the original receipt; another intent conflicts. Sealed or
+uncertain handles are poisoned, preserving the old ordinary checkpoint/accounting.
+
+Inspection is read-only and never creates/repairs missing control state. It reads
+at most11 prefixed schema objects/two rows, checks name/type/SQL lengths before
+copying (128/16/4096 characters), body<=64KiB and hash length64, and refuses
+partial/extra schema or canonical/hash/head inconsistencies. No NodeStore/provider
+IO spans SQL. Physical metadata admission and active-control publication remain
+complete-controller obligations; a private fixture is not normal admission.
+
+Rust2927: initial seven cases pass, including real process exits before/after
+commit, injected rollback/lost reply, exact/conflicting retry, partial state,
+source advance, older write transaction Busy and unrelated-domain progress.
+Rust65307: eight default cases pass/one external-input test ignored, then that
+exact ignored test explicitly passes with the hashed c833add legacy executable
+and Rust sealer. No ignored case is counted as qualification without its run.
+Rust37874: ten pass/one ignored, including independent intent literal/digest and
+actual full16384-command source with active/in-flight work; explicit pinned legacy
+case and strict lib/tests Clippy pass. The full source's ordinary head/encoded
+bytes stay unchanged; no extra event slot or cap waiver is required.
+Rust85873: length-bound refinement passes nine short cases/one ignored, explicit
+pinned legacy case and strict Clippy. Full-cap case had passed before this bounded
+read-only refinement. Helpers are included in numeric harness totals, not treated
+as extra protocol scenarios. The separate external target is now free.
+
+The composed Rust-sealer/pinned-writer fixture verifies executable/source hashes,
+creates the source through the original Rust API, pauses at the exact after-guard
+barrier, seals in Rust and releases the old writer. It proves the specific SQL
+refusal, no new event, preserved exact six-event prefix/in-flight accounting and
+fresh-probe requirement. This qualifies a private Rust mutation fence; it does
+not qualify an unmodified old binary against an implemented active-control format.
+
+Separate closure: private primitive implementation/focused verification/scoped
+synthetic validation/trace pass. Identity/framing, held accounting, transactional
+race/rollback and bounded local metadata findings have scoped evidence. Custody,
+new active format, independent activation minimum, global indexes, bounded tail
+reopen, full handover/recovery, provider/source/witness continuation, expiry and
+independent/human acceptance remain OPEN. No public runtime activation is added.
+
+Parent serial37691 was stopped at the proven tests/fences stdout-readiness
+mismatch; this is a test harness failure, not success. Parent contract7a1ebe6 and
+fix1c1f3ca move readiness to bounded stderr. Focus25433 passes all11 fence entries
+under1/4 threads plus strict Clippy; production algorithms/caps/deadlines unchanged.
+New parent source1c1f3cad448e5bf5578d734ea9cdd43a565c7740 is pushed on PR59;
+full controlled pipeline88738 is LIVE (default then all), both normal targets
+reserved. New exact43119762645 Windows/Linux are live, secrets pass. Old failed/
+interrupted runs remain recorded. Do not overlap/restart; full PRODUCT_PLAN active.
