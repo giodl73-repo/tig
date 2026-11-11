@@ -607,28 +607,158 @@ fn simultaneous_capture_peers_converge_on_one_immutable_observation() {
         }));
     }
     let results: Vec<_> = threads.into_iter().map(|t| t.join().unwrap()).collect();
+    for error in results.iter().filter_map(|r| r.as_ref().err()) {
+        assert!(
+            matches!(
+                error,
+                Error::Metadata(crate::metadata::Error::Busy)
+                    | Error::Admission(crate::source_claims::admission::Error::Busy)
+                    | Error::Admission(crate::source_claims::admission::Error::Journal(
+                        crate::source_claims::Error::Conflict
+                    ))
+            ),
+            "unexpected capture peer failure: {error:?}"
+        );
+    }
     let acknowledged: Vec<_> = results
         .into_iter()
         .filter_map(std::result::Result::ok)
         .collect();
-    assert!(!acknowledged.is_empty());
-    let winner = f.capture(&NoClock).unwrap();
+    let request = f.request.clone();
+    let retained = f.status(&request).unwrap();
+    let clock = TestClock::new(&f.e.clock, 200, 210);
+    let winner = f.capture(&clock).unwrap();
+    if retained.evidence.is_some() {
+        assert_eq!(winner.evidence, retained.evidence);
+        assert_eq!(winner.observed, retained.observed);
+        assert_eq!(clock.calls.get(), 0);
+        assert!(matches!(
+            winner.observed,
+            Some(
+                Stamp {
+                    earliest: 100,
+                    latest: 110
+                } | Stamp {
+                    earliest: 105,
+                    latest: 115
+                }
+            )
+        ));
+    } else {
+        assert!(
+            acknowledged.is_empty(),
+            "acknowledged capture lost its retained fact"
+        );
+        assert_eq!(clock.calls.get(), 1);
+        assert_eq!(
+            winner.observed,
+            Some(Stamp {
+                earliest: 200,
+                latest: 210
+            })
+        );
+    }
     for a in acknowledged {
         assert_eq!(a.evidence, winner.evidence);
         assert_eq!(a.observed, winner.observed);
     }
-    assert!(matches!(
-        winner.observed,
-        Some(
-            Stamp {
-                earliest: 100,
-                latest: 110
-            } | Stamp {
-                earliest: 105,
-                latest: 115
+    assert_eq!(f.capture(&NoClock).unwrap().evidence, winner.evidence);
+}
+
+#[test]
+fn both_busy_capture_peers_require_later_explicit_observation_then_replay_without_time() {
+    use std::sync::{Arc, Barrier};
+    let mut f = Fixture::new();
+    let registry_before = f.registry.checkpoint();
+    let observer_before = f.observer.checkpoint();
+    let ready = Arc::new(Barrier::new(3));
+    let release = Arc::new(Barrier::new(3));
+    let mut peers = Vec::new();
+    for offset in [0, 5] {
+        let root = f.temp.path().to_path_buf();
+        let (e, r, rm, om, mm) = (
+            f.e.clone(),
+            f.request.clone(),
+            f.registry_min.clone(),
+            f.observer_min.clone(),
+            f.metadata.checkpoint(),
+        );
+        let (ready, release) = (ready.clone(), release.clone());
+        peers.push(std::thread::spawn(move || {
+            let mut registry = Namespace::open(&root.join("registry"), &rm).unwrap();
+            let mut observer = Namespace::open(&root.join("observer"), &om).unwrap();
+            let mut metadata = MetadataStore::open(&root.join("metadata"), &mm).unwrap();
+            Capture {
+                enrollment: &e,
+                registry: &mut registry,
+                minimum: &rm,
+                metadata: &mut metadata,
+                limits: &Limits::default(),
             }
-        )
-    ));
+            .capture_hook(
+                &r,
+                &mut observer,
+                &om,
+                &TestClock::new(&e.clock, 100 + offset, 110 + offset),
+                |stage| {
+                    if stage == Stage::Sampled {
+                        ready.wait();
+                        release.wait();
+                    }
+                    Ok(())
+                },
+            )
+        }));
+    }
+    ready.wait();
+    let blocked = Arc::new(Barrier::new(2));
+    let unblock = Arc::new(Barrier::new(2));
+    let root = f.temp.path().join("metadata");
+    let minimum = f.metadata.checkpoint();
+    let (writer_ready, writer_release) = (blocked.clone(), unblock.clone());
+    let writer = std::thread::spawn(move || {
+        let mut metadata = MetadataStore::open(&root, &minimum).unwrap();
+        metadata
+            .put(b"unrelated synthetic metadata writer")
+            .unwrap();
+        metadata
+            .finish_hook(|stage| {
+                if stage == crate::metadata::Stage::BeforeCommit {
+                    writer_ready.wait();
+                    writer_release.wait();
+                }
+                Ok(())
+            })
+            .unwrap();
+    });
+    blocked.wait();
+    release.wait();
+    let results = peers.into_iter().map(|p| p.join()).collect::<Vec<_>>();
+    unblock.wait();
+    writer.join().unwrap();
+    for result in results {
+        assert!(matches!(
+            result.unwrap(),
+            Err(Error::Metadata(crate::metadata::Error::Busy))
+        ));
+    }
+    assert_eq!(f.registry.checkpoint(), registry_before);
+    assert_eq!(f.observer.checkpoint(), observer_before);
+    let request = f.request.clone();
+    assert!(f.status(&request).unwrap().evidence.is_none());
+    let clock = TestClock::new(&f.e.clock, 200, 210);
+    let acknowledged = f.capture(&clock).unwrap();
+    assert_eq!(clock.calls.get(), 1);
+    assert_eq!(
+        acknowledged.observed,
+        Some(Stamp {
+            earliest: 200,
+            latest: 210
+        })
+    );
+    let retry = f.capture(&NoClock).unwrap();
+    assert_eq!(retry.evidence, acknowledged.evidence);
+    assert_eq!(retry.observed, acknowledged.observed);
 }
 
 #[test]

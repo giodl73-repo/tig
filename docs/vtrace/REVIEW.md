@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-122: [reacquisition entry](../reviews/2026-11-11-teaching-reacquisition.md); design only.
+EVID-122: [reacquisition entry](../reviews/2026-11-11-teaching-reacquisition.md); local.
 
 EVID-121: [final teaching lenses](../reviews/2026-11-10-teaching-final-retirement.md); incomplete candidate.
 

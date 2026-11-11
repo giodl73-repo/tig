@@ -100,3 +100,11 @@ Apply all six producer lenses to concrete code/results, recording severity,
 owner, disposition and remaining evidence in the [entry review](../docs/reviews/2026-11-11-teaching-reacquisition.md).
 Close implementation, verification, synthetic validation, trace and review
 separately. Producer roles are not independent people or human approval.
+
+Qualification exception: the all-feature run exposed an inherited age-capture
+race test that discarded errors and required an initial winner. Under the
+existing AGE-WITNESSES WP-003/004/008/009 admission/retry contract, inspect exact
+errors and add real bounded metadata-writer contention plus explicit recovery
+evidence. Tests must reject unexpected errors and preserve any acknowledged
+fact; absent adoption requires a later observation. No runtime age algorithm,
+wire format, global cache lock or automatic retry is added by this exception.

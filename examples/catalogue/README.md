@@ -254,7 +254,7 @@ Additional fresh-root modes isolate the other boundaries:
 | `rehearse-final-enrollment` | Final-capable stores run the ordinary lifecycle; historical job protection holds the preview; no final deletion |
 | `rehearse-final-manual` | Exact manual block; separate historical job-claim retirement and synthetic consent; intent interruption, resume and completed retry |
 | `rehearse-final-cancel` | One29-byte copy removal precedes durable cancellation; remaining original copy survives; retry performs no new removal |
-| `rehearse-final-reacquire` | Same original hash returns as a separately authorized new birth with new retention; old deletion retry preserves it |
+| `rehearse-final-reacquire` | Ninth recorded checkpoint: same original hash returns to M as a separately authorized new birth with new retention; old deletion retry preserves it |
 | `rehearse-final-process` | Actual child exit at durable intent; parent reopens state and resumes the exact decision |
 | `rehearse-retained-age` | Reopened old/recent/unknown age facts and category preview; no final loss |
 
@@ -263,3 +263,18 @@ directory. Consent, clock and declared domains are synthetic; hardware independe
 real authority/clock/provider qualification and classroom acceptance remain open.
 Detailed metadata expiry and stale-client replay after expiry remain future lessons.
 See the [final teaching contract](../../specs/TEACHING-FINAL-RETIREMENT.md).
+
+The reacquisition chapter keeps the Git selection at v2. Its original object has
+the same hash/length as before final loss, but a new storage birth and publication
+operation. Before is empty; after is M only. Fixed/shared bytes remain on F/M.
+The actual source reads29 bytes for the new copy. Retention is verified at recording
+with an acknowledgement across process restart; this is not hardware independence.
+Retrying the completed old deletion at simulated700 reports0 new/58 historical
+logical bytes removed, with the new copy, source and ledgers unchanged. The view
+shows the conservative accounted footprint separately from unmeasured net growth
+and free-space change. Changing chapters requests only recorded metadata.
+
+This demonstrates that final loss does not permanently ban a content hash. A
+source pointer alone still cannot regenerate lost bytes: this fixture explicitly
+supplies the public seed again under new consent. Git return after final loss
+remains a separate future lesson. See the [reacquisition contract](../../specs/TEACHING-REACQUISITION.md).
