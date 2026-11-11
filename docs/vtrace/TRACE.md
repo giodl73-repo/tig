@@ -1,5 +1,9 @@
 # Tig trace
 
+Joined return/restore: TEACHING-RETURN-RESTORE -> literal11-step oracle -> actual
+Git/source/M acquisition/F restoration/old retry -> strict paired reader/response6
+-> native bytes/HTTP/shipped controls/semantic refusals -> EVID-125 candidate.
+
 Completed final absence: PLACEMENT-FINAL-ABSENCE -> current-birth/final-status/
 settled-capacity proof + unrequired-cache no-effect branch -> actual three-store
 bytes/grants/replay/refusals/3 exits/15 teaching cases -> EVID-124 focused candidate.

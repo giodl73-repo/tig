@@ -608,6 +608,49 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "returned-backup-acquired",
+      "event": "Explicit owner acquisition restores original to backup under a new retained birth; working bytes remain absent.",
+      "requires": [
+        "explicit-final-reacquisition",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "original": [
+          "backup"
+        ],
+        "fixed": [
+          "history",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      }
+    },
+    {
+      "id": "returned-working-restored",
+      "event": "Ordinary placement restores working bytes from retained backup with the public seed disabled; history stays deliberately absent. The completed expired old deletion retry removes no new bytes.",
+      "requires": [
+        "explicit-final-reacquisition",
+        "verified-copy-and-retention"
+      ],
+      "expected_copies": {
+        "original": [
+          "working",
+          "backup"
+        ],
+        "fixed": [
+          "history",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      }
     }
   ],
   "counterexamples": [

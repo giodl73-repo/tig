@@ -1,5 +1,9 @@
 # Evidence index
 
+EVID-125 (candidate): [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md)
+records actual11-step source/M-acquisition/F-restoration and expired old retry.
+Final focused/broad/artifact/source/hosted gates remain pending.
+
 EVID-124 (focused candidate): [final-absence entry review](../reviews/2026-11-11-placement-final-absence.md)
 records read-only/no-effect settled absence with required-destination fences.
 Final13/3 actual exits/strict63500, all15 teaching82636 and81 controls pass; full

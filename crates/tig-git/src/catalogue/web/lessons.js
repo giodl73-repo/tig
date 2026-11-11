@@ -51,8 +51,14 @@ function selectLesson(book,index){
   area.append(node('p','callout','Explicit reacquisition · same bytes, new storage birth '+r.new_birth+' after retired birth '+r.parent_birth+'. Added copy: '+bytes(r.added_logical_copy_bytes)+'. Retention verified at recording; acknowledged across process restart. Separate synthetic owner consent and simulated clock.'));
   area.append(node('p','muted','Old deletion retry: '+bytes(r.old_retry_new_removed_bytes)+' new removal; '+bytes(r.old_retry_historical_removed_bytes)+' historical deletion. Conservative accounted footprint: '+bytes(r.charged_footprint)+'. Net growth and free-space change: unmeasured.'));
  }
+ if(lesson.restoration){const r=lesson.restoration;
+  area.append(node('p','callout',r.phase==='backup_acquired'?'Explicit backup acquisition · same bytes, new retained backup birth '+r.new_birth+'. Working restoration is still pending.':'Working restored from retained backup · history remains deliberately absent.'));
+  area.append(node('p','muted','Explicit input stream: '+bytes(r.acquired_input_bytes)+'. Ordinary working stream: '+bytes(r.working_stream_bytes)+'. Retention verified at recording; process-restart acknowledgement. Synthetic owner consent and clock.'));
+  area.append(node('p','muted','Conservative acquisition footprint: '+bytes(r.charged_footprint)+'. Net growth and free-space change: unmeasured.'));
+  if(r.old_retry)area.append(node('p','callout','Completed old deletion retry: '+bytes(r.old_retry.new_removed_bytes)+' new removal; '+bytes(r.old_retry.historical_removed_bytes)+' historical deletion. Returned source and current copies preserved.'));
+ }
  if(!lesson.final_loss&&lesson.rejection)area.append(node('p','callout','Rejected before storage effects: stale plan. The desired column belongs to the rejected plan. A fresh plan is required for current protection.'));
- else if(!lesson.final_loss&&(!lesson.converged||!lesson.basis_current||lesson.holds.length))area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
+ else if(!lesson.final_loss&&!lesson.restoration&&(!lesson.converged||!lesson.basis_current||lesson.holds.length))area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
  const wrap=node('div','object-table-wrap'),table=node('table','object-manager-table lesson-object-table'),head=node('thead'),header=node('tr');
  for(const text of ['Same bytes','Before this step',lesson.final_loss?'Final selection':lesson.reacquisition?'Recorded acquisition':'Desired in this plan','Observed after'])header.append(node('th','',text));head.append(header);table.append(head);
  const body=node('tbody');
@@ -80,7 +86,7 @@ async function loadLessons(){
  $('assets').replaceChildren(node('div','empty','Reading hash-pinned lesson reports…'));
  try{
   const book=await api('/api/lessons');if(gen!==state.generation||state.mode!=='lessons')return;
-  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
+  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
    ||!state.projects.some(p=>p.id===book.project)||!Array.isArray(book.lessons)||!book.lessons.length||book.lessons.length>16||!Array.isArray(book.roles)||book.roles.length<2||book.roles.length>4
    ||book.lessons.some(l=>!Array.isArray(l.objects)||l.objects.length>32||!Array.isArray(l.holds)||!Array.isArray(l.effects)))throw Error('Unrecognized teaching response');
   const roles=new Set(book.roles.map(r=>r.id));
@@ -89,18 +95,28 @@ async function loadLessons(){
    else if(!Array.isArray(o.unknown)||o.unknown.some((r,i)=>!roles.has(r)||(i&&o.unknown[i-1]>=r)||o.observed?.includes(r))||(o.unknown.length&&(l.converged||l.storage_converged===true)))throw Error('Unrecognized teaching coverage');
   }
   for(const l of book.lessons)if(l.rejection!==undefined){const r=l.rejection;
-   if(!['tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5'].includes(book.schema)||!r||r.error!=='stale'||typeof r.planning_basis!=='string'||typeof r.observed_basis!=='string'||!r.planning_basis.match(/^[0-9a-f]{64}$/)||!r.observed_basis.match(/^[0-9a-f]{64}$/)||r.planning_basis===r.observed_basis||l.basis_current!==false||l.converged!==false||l.storage_converged!==false||l.stream_bytes!==0||l.effects.length||l.remaining_page)throw Error('Unrecognized rejected attempt');
+   if(!['tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6'].includes(book.schema)||!r||r.error!=='stale'||typeof r.planning_basis!=='string'||typeof r.observed_basis!=='string'||!r.planning_basis.match(/^[0-9a-f]{64}$/)||!r.observed_basis.match(/^[0-9a-f]{64}$/)||r.planning_basis===r.observed_basis||l.basis_current!==false||l.converged!==false||l.storage_converged!==false||l.stream_bytes!==0||l.effects.length||l.remaining_page)throw Error('Unrecognized rejected attempt');
   }
   for(const l of book.lessons)if(l.final_loss!==undefined){const r=l.final_loss;
    if(r?.file_allocation_before_new_removals!==undefined&&(!Number.isSafeInteger(r.file_allocation_before_new_removals)||r.file_allocation_before_new_removals<0))throw Error('Unrecognized allocation evidence');
-   if(!['tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5'].includes(book.schema)||!r||!['completed','cancelled'].includes(r.phase)||r.synthetic_owner_consent!==true||r.simulated_clock!==true||!Number.isSafeInteger(r.new_removed_bytes)||r.new_removed_bytes<0||!Number.isSafeInteger(r.historical_removed_bytes)||r.historical_removed_bytes<r.new_removed_bytes||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized final loss');
+   if(!['tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6'].includes(book.schema)||!r||!['completed','cancelled'].includes(r.phase)||r.synthetic_owner_consent!==true||r.simulated_clock!==true||!Number.isSafeInteger(r.new_removed_bytes)||r.new_removed_bytes<0||!Number.isSafeInteger(r.historical_removed_bytes)||r.historical_removed_bytes<r.new_removed_bytes||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized final loss');
   }
   for(const l of book.lessons)if(l.reacquisition!==undefined){const r=l.reacquisition;
-   if(book.schema!=='tig.catalogue-teaching.design-5'||!r||l.final_loss||l.rejection||r.phase!=='retained'||r.retention!=='verified_at_recording'||r.ack!=='process_restart'||!roles.has(r.role)||r.synthetic_owner_consent!==true||r.simulated_clock!==true
+   if(!['tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6'].includes(book.schema)||!r||l.final_loss||l.rejection||r.phase!=='retained'||r.retention!=='verified_at_recording'||r.ack!=='process_restart'||!roles.has(r.role)||r.synthetic_owner_consent!==true||r.simulated_clock!==true
     ||!Number.isSafeInteger(r.parent_birth)||r.parent_birth<0||!Number.isSafeInteger(r.new_birth)||r.new_birth!==r.parent_birth+1
     ||!Number.isSafeInteger(r.added_logical_copy_bytes)||r.added_logical_copy_bytes<1||r.object?.bytes!==r.added_logical_copy_bytes||!r.object.sha256?.match(/^[0-9a-f]{64}$/)
     ||!Number.isSafeInteger(r.charged_footprint)||r.charged_footprint<r.added_logical_copy_bytes||r.old_retry_new_removed_bytes!==0||!Number.isSafeInteger(r.old_retry_historical_removed_bytes)||r.old_retry_historical_removed_bytes<0
     ||l.stream_bytes!==r.added_logical_copy_bytes||l.converged!==true||l.storage_converged!==false||l.remaining_page||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized reacquisition');
+  }
+  for(const l of book.lessons)if(l.restoration!==undefined){const r=l.restoration,done=r?.phase==='working_restored';
+   if(book.schema!=='tig.catalogue-teaching.design-6'||!r||!['backup_acquired','working_restored'].includes(r.phase)||l.final_loss||l.reacquisition||l.rejection
+    ||r.synthetic_owner_consent!==true||r.simulated_clock!==true||r.retention!=='verified_at_recording'||r.ack!=='process_restart'
+    ||!Number.isSafeInteger(r.parent_birth)||r.parent_birth<0||!Number.isSafeInteger(r.new_birth)||r.new_birth!==r.parent_birth+1
+    ||!Number.isSafeInteger(r.acquired_input_bytes)||r.acquired_input_bytes<1||r.object?.bytes!==r.acquired_input_bytes||!r.object.sha256?.match(/^[0-9a-f]{64}$/)
+    ||!Number.isSafeInteger(r.charged_footprint)||r.charged_footprint<r.acquired_input_bytes||r.working_stream_bytes!==(done?r.acquired_input_bytes:0)
+    ||l.converged!==done||l.storage_converged!==done||l.basis_current!==true||l.remaining_page||l.stream_bytes!==r.acquired_input_bytes
+    ||(done&&(!r.old_retry||r.old_retry.new_removed_bytes!==0||!Number.isSafeInteger(r.old_retry.historical_removed_bytes)||r.old_retry.historical_removed_bytes<0||l.holds.length))
+    ||(!done&&r.old_retry!==null)||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized joined restoration');
   }
   lessonView.book=book;const selected=book.lessons.findIndex(l=>l.id===lessonView.selection);selectLesson(book,Math.max(0,selected));
  }catch(e){if(gen===state.generation&&state.mode==='lessons'){

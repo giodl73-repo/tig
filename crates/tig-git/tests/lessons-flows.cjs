@@ -153,3 +153,28 @@ test('reacquisition refuses wrong version consent birth ack charge or new deleti
    return b;});await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized reacquisition/);
  }
 });
+
+// Guard/render DTOs only; native tests separately supply real11-step SDK evidence.
+function restoredBook(f){
+ const b=acquisitionBook(f);b.schema='tig.catalogue-teaching.design-6';const l=b.lessons.at(-1),r=l.reacquisition;delete l.reacquisition;
+ l.id='returned-backup-acquired';l.converged=false;l.storage_converged=false;
+ l.restoration={phase:'backup_acquired',object:r.object,parent_birth:r.parent_birth,new_birth:r.new_birth,ack:r.ack,acquired_input_bytes:r.object.bytes,working_stream_bytes:0,charged_footprint:r.charged_footprint,retention:r.retention,old_retry:null,synthetic_owner_consent:true,simulated_clock:true};
+ for(const o of l.objects)o.desired=[...o.observed];l.objects.find(o=>o.name==='original').desired=['backup','working'];
+ const done=structuredClone(l);done.id='returned-working-restored';done.converged=true;done.storage_converged=true;done.restoration.phase='working_restored';done.restoration.working_stream_bytes=r.object.bytes;done.restoration.old_retry={new_removed_bytes:0,historical_removed_bytes:r.object.bytes*2};
+ const o=done.objects.find(o=>o.name==='original');o.before=['backup'];o.observed=['backup','working'];done.effects=[{kind:'reacquired',role:'working',object:r.object,logical_bytes:r.object.bytes}];b.lessons.push(done);return b;
+}
+test('joined acquisition and restoration show separate streams and historical retry with GET only',async()=>{
+ const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>restoredBook(f));await f.settle();await f.click(f.get('lessons'));await pick(f,7);
+ assert.match(f.text('assets'),/Working restoration is still pending/);assert.doesNotMatch(row(f,'original').children[3].textContent,/Working \/ F/);
+ await pick(f,8);assert.match(f.text('assets'),/Working restored from retained backup/);assert.match(f.text('assets'),/Completed old deletion retry: 0 B new removal/);assert.match(row(f,'original').children[3].textContent,/Working \/ F/);assert.doesNotMatch(row(f,'original').children[3].textContent,/History \/ D/);assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
+});
+test('joined restoration refuses incorrect phase source counters acknowledgement consent or mixed records',async()=>{
+ for(const bad of ['version','consent','clock','birth','ack','retention','stream','charge','early_retry','new_loss','converged','mixed']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=restoredBook(f),l=b.lessons[bad==='new_loss'?8:7],r=l.restoration;
+   if(bad==='version')b.schema='tig.catalogue-teaching.design-5';if(bad==='consent')r.synthetic_owner_consent=false;if(bad==='clock')r.simulated_clock=false;if(bad==='birth')r.new_birth=r.parent_birth;
+   if(bad==='ack')r.ack='provider_durable';if(bad==='retention')r.retention='unknown';if(bad==='stream')r.working_stream_bytes++;if(bad==='charge')r.charged_footprint=-1;
+   if(bad==='early_retry')r.old_retry={new_removed_bytes:0,historical_removed_bytes:0};if(bad==='new_loss')r.old_retry.new_removed_bytes=1;if(bad==='converged')l.converged=true;
+   if(bad==='mixed')l.final_loss={phase:'completed',new_removed_bytes:0,historical_removed_bytes:0,synthetic_owner_consent:true,simulated_clock:true};return b;
+  });await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized joined restoration/);
+ }
+});

@@ -1,5 +1,7 @@
 # Foundation review
 
+EVID-125: [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md); candidate.
+
 EVID-124: [final absence](../reviews/2026-11-11-placement-final-absence.md); focused.
 
 EVID-123: [Git return lenses](../reviews/2026-11-11-teaching-git-return.md); qualified81ecc27.

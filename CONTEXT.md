@@ -1,19 +1,24 @@
 # Tig maintainer context
 
-Active owned lane feat/teaching-return-restore, input8e948d4. Read
-specs/TEACHING-RETURN-RESTORE.md before code. Contract-only; goal remains full
-PRODUCT_PLAN. Required11-step fresh public story: final loss -> returned source
-with missing O -> explicit retained M birth -> actual F/M restoration, D absent,
-old expired bulk replay with0 new/58 historical loss. General seed stays disabled.
-No provider replacement, lifecycle reset or relaxation of old readers. All private
-SDK APIs already exist; use actual accessor facts and independent literal oracles.
-Parent PR55/source8e948d4 has full local13/3 exits/15/81/both workspace+500k/strict/
-standalone/two persisted artifacts passed; exact43069646518 Linux/secrets pass,
-Windows pending at entry. Parent closeout docs are dirty in its own worktree.
-No task-owned Cargo processes; ignore other projects' builds. Both Tig dev targets
-are free. Use explicit external TEMP/TMP/target/debug0/incremental0/jobs4/threads4.
-No viewer/browser/live cache/daemon/deploy/PR merge. Full native/provider/current
-identity/time/large-file/lifetime/metadata expiry/human acceptance remains OPEN.
+Active owned lane feat/teaching-return-restore, input8e948d4; contractaa63946
+precedes runtime. Actual joined11-step public fixture is implemented with distinct
+M acquisition/F restoration and0new/58historical expired old retry. General seed
+remains disabled and D absent; no SDK production algorithm/format changes.
+EVID-125 separates implementation, verification, synthetic validation/trace and
+six producer lenses. Final focused28663 positive/47 refusals/strict passes;
+previous full16 teaching7379 and83 controllers pass. Exact source checkpoint,
+all replay provider/capacity bindings, paired acquisition time and validated
+missing-step seed counters are bound. Initial compile/probe failures are recorded.
+Full schema/default2017 and all-feature93071 runs LIVE in external distinct
+targets; durable return-restore phase.exit files/logs outside Git. Default also
+runs standalone/fmt/fresh schema bins/persisted11-step sample/readonly check.
+Never overlap/restart targets on observation timeout. No runtime edits planned.
+Parent PR55 source8e948d4 exact43069646518 Windows/Linux/secrets all pass; ready.
+Parent closeout docs remain dirty in its own worktree; integrate after checkpoint.
+Full PRODUCT_PLAN/course/native/provider/current-authority/time/large-file/
+lifetime/metadata expiry/operator/UI/Action/human acceptance remain OPEN.
+No viewer/browser/live cache/daemon/deploy/merge. Use UTF8 and explicit external
+TEMP/TMP/targets/debug0/incremental0/jobs4/threads4; ignore other projects' builds.
 Older notes below describe the input implementation.
 
 Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29

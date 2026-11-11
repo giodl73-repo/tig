@@ -4,6 +4,7 @@ mod final_observation;
 mod git_return;
 mod paged_observation;
 mod reacquisition;
+mod restoration;
 use std::io::Read;
 use tig_core::{Digest, identity};
 use tig_store::{
@@ -255,6 +256,9 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut rejection_v3 = false;
     let mut final_v4 = false;
     let mut reacquisition_v5 = false;
+    let mut joined = None;
+    let mut returned_source = None;
+    let mut returned_seed = None;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -271,7 +275,35 @@ pub fn execute(request: Request) -> Result<Value> {
             return Err("Invalid teaching lesson".into());
         }
         let value: Value = document(&mut reader, &entry.report, &mut left)?;
+        if value["schema"] == "tig.teaching-return-restore-observation.design-1" {
+            let (lesson, token) = restoration::decode(
+                value,
+                restoration::Context {
+                    entry: &entry,
+                    lessons: &lessons,
+                    binding: providers.as_ref().ok_or("Missing joined enrollment")?,
+                    roles: &p.roles,
+                    identities: &identities,
+                    commits: &request.commits,
+                    seed_attempts: returned_seed.ok_or("Missing returned seed counter")?,
+                    source: returned_source
+                        .as_ref()
+                        .ok_or("Missing exact returned checkpoint")?,
+                },
+                joined.as_ref(),
+            )?;
+            joined = Some(token);
+            lessons.push(lesson);
+            coverage_v2 = true;
+            continue;
+        }
         if value["schema"] == "tig.teaching-git-return-observation.design-1" {
+            let exact_seed = value["git_return"]["seed_attempts_after"]
+                .as_u64()
+                .ok_or("Invalid returned seed counter")?;
+            let exact_source: tig_store::source_claims::Checkpoint =
+                serde_json::from_value(value["source_checkpoint"].clone())
+                    .map_err(|_| "Invalid returned checkpoint")?;
             lessons.push(git_return::decode(
                 value,
                 &entry,
@@ -281,6 +313,8 @@ pub fn execute(request: Request) -> Result<Value> {
                 &identities,
                 &request.commits,
             )?);
+            returned_source = Some(exact_source);
+            returned_seed = Some(exact_seed);
             final_v4 = true;
             coverage_v2 = true;
             continue;
@@ -610,7 +644,10 @@ pub fn execute(request: Request) -> Result<Value> {
             }
         }
     }
-    let response = json!({"schema":if reacquisition_v5 {"tig.catalogue-teaching.design-5"}else if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
+    if joined.as_ref().is_some_and(|t| !t.finished) {
+        return Err("Incomplete joined restoration book".into());
+    }
+    let response = json!({"schema":if joined.is_some(){"tig.catalogue-teaching.design-6"}else if reacquisition_v5 {"tig.catalogue-teaching.design-5"}else if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)
