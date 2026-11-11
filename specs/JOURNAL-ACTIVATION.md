@@ -224,3 +224,34 @@ explicit after host/target admission. Parent serial pipeline37691 reserves both
 normal targets. The harness must use a separate target after bounded host workloads
 are clear. Full activation, an unmodified old binary's actual new-format refusal,
 old-transaction ordering, recovery and restored-minimum gates remain OPEN.
+
+## Frozen private Rust sealer amendment
+
+Inputfb2ba3ba6156f679bd94c9d85ac5f388eed62c38. The next qualification component is
+ledger::activation behind cfg(test), with no public runtime or CLI seal operation.
+Intent uses the exact design-1 fields already frozen. Receipt binds exact intent
+and SHA256. inspect(Connection) is read-only: absent control objects are None;
+partial/extra/mismatched control schema, row, hash or guards refuse as Corrupt.
+It reads at most11 prefixed schema objects and at most2 intent rows, checks body
+length before copying, and never creates or repairs missing control metadata.
+
+seal(CapacityLedger,Intent,stage_hook) validates framing/authority, synchronizes
+outside its immediate transaction, then compares exact genesis/sequence/hash and
+encoded bytes again under that transaction. A matching existing valid intent
+returns the original receipt without writes; a different one conflicts. An absent
+intent creates the already-frozen table/row/nine guards atomically. No node/provider
+IO or hooks that perform such IO occur in the transaction. Stage hooks Checked,
+Written and Committed support injected errors/process exits only. Source handle
+is poisoned after successful seal or uncertain failure; explicit reopen/inspection
+is required. No source event/checkpoint/accounting reset or unseal is introduced.
+
+L1/L2 private tests must prove original nonempty/in-flight state, exact/conflicting
+retry, source advance refusal, unknown/partial/corrupt control refusal, precommit
+rollback/postcommit lost reply and actual process exits, older-held transaction
+Busy/conflict and another domain's progress. An explicit ignored-by-default test
+runs the hashed timing-instrumented legacy executable with the Rust sealer; absence
+of that input is not qualification. The fixture must check its binary hash and
+reported pinned source. Full Rust controller/control publication, physical metadata
+admission, independent activation minima, successor/index/recovery and unmodified
+old-binary active-format acceptance/refusal remain separate required integration.
+No private proof is exposed to normal callers until those gates are met.
