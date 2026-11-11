@@ -1,10 +1,13 @@
 # Verification record
 
-EVID-125: final28663 joined native/HTTP/shipped/literal positive,47 re-pinned
-semantic refusals and strict schema workspace/all-target Clippy pass;83 controller
-cases and reachable-history/staged secret scans pass. Both full profiles,
-standalone/fresh persisted artifact and exact-head hosted gates pending;
-[review](../reviews/2026-11-11-teaching-return-restore.md) retains failures/scope.
+EVID-125: final native/HTTP/shipped47 semantic refusals/16 teaching and83
+controllers pass. Default2017 and corrected all-feature60982 TERMINAL0 cover
+workspace/500k/strict; standalone/fmt/fresh persisted11-step catalogue passes
+with0 payload opens/automatic_eviction=false. Default workspace used prior stricter
+age assertion; final15 age cases pass on both profiles and corrected all-feature
+passes443 SDK entries/9 ignored. Initial101 and exact Journal(Busy) assertion
+correction remain in [review](../reviews/2026-11-11-teaching-return-restore.md).
+Source08710ef CI43077356434 passes both hosts/secrets; final source remains owed.
 
 EVID-121: both workspace/500k/strict runs4118/61973 pass; final14/all-feature
 teaching/strict/fmt/fresh artifact41136, standalone82649 and79 controllers pass.

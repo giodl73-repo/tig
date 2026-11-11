@@ -1,35 +1,32 @@
 # Tig resume state
 
-Active owned lane feat/teaching-return-restore, input8e948d4; contractaa63946
-precedes runtime. Actual joined11-step public fixture is implemented with distinct
-M acquisition/F restoration and0new/58historical expired old retry. General seed
-remains disabled and D absent; no SDK production algorithm/format changes.
-EVID-125 separates implementation, verification, synthetic validation/trace and
-six producer lenses. Final focused28663 positive/47 refusals/strict passes;
-previous full16 teaching7379 and83 controllers pass. Exact source checkpoint,
-all replay provider/capacity bindings, paired acquisition time and validated
-missing-step seed counters are bound. Initial compile/probe failures are recorded.
-Schema/default2017 TERMINAL0: workspace/500k, strict, standalone, fmt, fresh
-schema bins and persisted11-step readonly catalogue all pass. All phase.exit0;
-artifact return-restore-return-restore-6c8a6430ae6a40c08c0678c2700ffb0b has
-complete_course=false/read_only=true/payloads_opened0/automatic_eviction=false.
-Workspace ran pre-correction stricter age assertion. Final default15 age4528
-passes after correction; final default Clippy had the corrected wrapper too.
-All-feature93071 FAILED101 in existing age peer assertion on exact
-Admission(Journal(Busy)); outer shell quoting also failed after payload completion.
-Contract8a01079 permits only this test-assertion correction; no production SDK
-change. Focused15 age/strict all-feature8026 TERMINAL0. Corrected full all-feature
-rerun60982 is LIVE in the all target, return-restore-all-qualified.log. Original failed log/exit preserved.
-Durable return-restore phase.exit files/logs remain outside Git. No task-owned default target process remains; all target is still owned by60982.
-Never overlap/restart targets on observation timeout. Teaching runtime acbd4a9
-is frozen. Source08710ef exact43077356434 Linux/secrets pass; Windows pending.
-Parent PR55 source8e948d4 exact43069646518 Windows/Linux/secrets all pass; ready.
-Parent documentation closeouta25552a is integrated; runtime remains acbd4a9.
-Its source-only exact hosted check is separate from passed runtime8e948d4.
+Active owned lane feat/teaching-return-restore; PR56 (base feat/placement-final-absence).
+Input8e948d4/contractaa63946 precede teaching runtimeacbd4a9. Contract8a01079
+precedes test-only age Journal(Busy) correctionc2fcd06; no SDK production change.
+All local gates now pass: default2017 and corrected all-feature60982 TERMINAL0,
+both workspace/500k/strict, standalone/fmt/fresh schema bins/persisted11-step
+readonly catalogue. All phase.exit files0. Default workspace used prior stricter
+age assertion; final15 age pass on both default4528 and all-feature8026, and
+corrected full all-feature includes443 passing SDK entries/9 ignored. Original
+all-feature93071 test failure101 and outer shell quoting failure remain recorded;
+never treat ignored baseline fixtures as qualification. No live Cargo processes
+owned by this lane; both targets are free. Ignore other projects' processes.
+Final native/HTTP/shipped47 semantic refusals and83 controllers pass. Exact source,
+paired acquisition time/seed counters and all replay provider/capacity associations
+are bound. M acquisition and F restoration each stream29 bytes, D stays absent,
+old expired bulk retry reports0new/58historical. Complete_course remains false.
+Artifact return-restore-return-restore-6c8a6430ae6a40c08c0678c2700ffb0b has11
+checkpoints; read_only=true,payloads_opened=0,automatic_eviction=false. EVID-125
+separates implementation/verification/scoped validation/trace/six producer lenses.
+Source08710ef passes exact43077356434 Windows/Linux/secrets; new source including
+test-only correction and this closeout still needs its own hosted qualification.
+Keep PR56 draft until its final head passes. Parent PR55 ready; runtime8e948d4
+passes43069646518; documentationa25552a passes43077203826 on both hosts/secrets.
+All local source/pins/diff/secrets gates must be refreshed before final commit.
 Full PRODUCT_PLAN/course/native/provider/current-authority/time/large-file/
 lifetime/metadata expiry/operator/UI/Action/human acceptance remain OPEN.
-No viewer/browser/live cache/daemon/deploy/merge. Use UTF8 and explicit external
-TEMP/TMP/targets/debug0/incremental0/jobs4/threads4; ignore other projects' builds.
+No viewer/browser/live cache/daemon/deploy/merge. Use explicit external TEMP/TMP/
+targets/debug0/incremental0/jobs4/threads4 and UTF8 text IO.
 Older notes below describe the input implementation.
 
 Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29

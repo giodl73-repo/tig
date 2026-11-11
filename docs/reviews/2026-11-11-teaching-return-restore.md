@@ -1,5 +1,8 @@
 # Joined return and restoration producer review
 
+Current status: locally qualified; exact final-source hosted qualification remains.
+The local closeout below supersedes earlier checkpoint-pending notes.
+
 EVID-125. Input8e948d4791c64f41a4d76d66195a709a73890e54;
 contractaa6394695486889d32e8b706509be1e65de9adfd precedes runtime.
 Branch feat/teaching-return-restore. The [contract](../../specs/TEACHING-RETURN-RESTORE.md)
@@ -101,3 +104,27 @@ Review findings are implemented and awaiting final verification. Full product,
 operator/UI/Action integration, native providers/authority/clock/large files,
 lifetime/metadata expiry/replay after expiry, independent/human acceptance and
 complete course remain OPEN. No live caches, daemon, viewer or deployment used.
+
+
+## Local closeout at teaching runtimeacbd4a9 / test correctionc2fcd06
+
+Corrected full all-feature60982 is TERMINAL0: all workspace tests, actual500k
+metadata persistence/edit-sharing case and strict workspace/all-target Clippy.
+All three qualified phase/overall exit files are0. Default2017 is TERMINAL0 with
+workspace/500k/strict/standalone/fmt/fresh bins and persisted11-step read-only
+catalogue check; its workspace used the prior stricter age assertion. Final15
+age cases pass under default4528 and all-feature8026; corrected full all-feature
+also passes443 SDK entries, with9 explicit qualification-only entries ignored.
+The previous101 failure and faulty outer shell exit are preserved separately;
+qualified runner uses direct invocation with durable phase/overall numeric exits.
+Both targets are now free. No runtime/SDK production code changed afteracbd4a9.
+
+Implementation, local verification and bounded synthetic validation pass. Trace
+closes only the stated11-step/data-flow/physical facts. Six producer findings are
+resolved for that scope: pass_with_risk; no independent or human approval.
+Final source pins/structure/diff/staged-secrets gate precedes the closeout commit.
+Source08710ef passes exact43077356434 Windows/Linux/secrets. New source including
+the test-only correction and closeout requires its own exact hosted run; PR56
+stays draft until it passes. Full product/course/provider/current-authority/
+clock/large-file/lifetime/expiry/operator/UI/Action/browser/human gates remain
+OPEN. No viewer, live root, daemon, deployment or merge was performed.

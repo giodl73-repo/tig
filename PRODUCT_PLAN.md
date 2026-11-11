@@ -39,14 +39,18 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
-The [joined return and restore](specs/TEACHING-RETURN-RESTORE.md) candidate now
+The [joined return and restore](specs/TEACHING-RETURN-RESTORE.md) now
 carries one fresh catalogue through final loss, accepted Git return with missing
 bytes, explicit retained M reacquisition and actual F/M convergence with D absent.
 Runtimeacbd4a9 preserves the same providers/history and records separate29-byte
 input/working streams, then actual expired old retry with0 new/58 historical
 removed bytes. Final focused native/HTTP/shipped/47 semantic refusals,83 controls
-and strict schema Clippy pass. Both full profiles/standalone/fresh persisted
-artifact and exact-head hosted qualification remain pending. EVID-125 keeps
+and both workspace+500k/strict profiles, standalone/fresh persisted11-step
+artifact pass. Test-only exact Journal(Busy) correctionc2fcd06 preserves serial
+convergence/immutable facts; final age15 cases pass both profiles. Initial failed
+all-feature run is retained separately from corrected60982. Source08710ef
+passes Windows/Linux/secrets; final correction/closeout hosted proof remains.
+EVID-125 keeps
 implementation, verification, synthetic validation, trace and producer lenses
 separate; complete course and full product acceptance remain required.
 

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 30987,
-      "sha256": "949b4e7c80533641fdfbaffc565d75d71c6e0a7edc0f051a760496bf0caa3ede"
+      "bytes": 30686,
+      "sha256": "5d0d4cca1cae36db4d6cd5f2a6b0447037cd4fba0c31b8513ee368c8e145471c"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 112382,
-      "sha256": "9fb3c6d58a3aa386269f4a753da5a19182ba0e55e24ce579b759ea34c22651b0"
+      "bytes": 112983,
+      "sha256": "da6bcb9e6606270f00b17a66db8ac192afcd608432f65fc6495b179d33c6b7db"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130983,
-      "sha256": "ed419e161cacf5846cd3797e8fa3b7c2258d9e0468cb70460181af0ae78e78f0"
+      "bytes": 130981,
+      "sha256": "3016feb46ce8a040b7fd9309c61f40885d9ae4057f4621449df64c51d0e373bd"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 51347,
-      "sha256": "fdd25c3b732fb7ee8c789d9a991ae11332cc0586d3f5a69bbde88408e874fa85"
+      "bytes": 51494,
+      "sha256": "5de5fc665b9437d4c376390ba6520ad9eb0e7029d99fdcf81de1e2436c615f67"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -389,8 +389,8 @@
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 61040,
-      "sha256": "7654c9c482efed88a60122ee3f8d681e3829f97117df4fbd0e3341c827f5f73d"
+      "bytes": 61284,
+      "sha256": "b63469fc43d8c891c609dab00461ad026d07ccce714e2f219e68c082713e5802"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 53536,
-      "sha256": "92a8ff1415d29e8de436263e8bfce5d6969acfb290c493dc3ae0e21d232e8efc"
+      "bytes": 53777,
+      "sha256": "6e214c42cfa2dfe6bf5fe6f6b37ce4474bc6056e1b64b4a05a065e99005e50c8"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 94312,
-      "sha256": "99d12e8a0a9f84eef80e23407c3fe4f73d302fbf236165c2c9a0b72f7420ef50"
+      "bytes": 94011,
+      "sha256": "fc3c683c5d43a685a4cad37cfafd3423a19699b24b923e4b4b58d0ae007cd7f1"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3274,8 +3274,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-return-restore.md",
-      "bytes": 7702,
-      "sha256": "1e6b870f51c4dd988b072b480f78b170b2b083358ce2c96736a7787fe22274e2"
+      "bytes": 9433,
+      "sha256": "fe8d7825c867c5987800968c075fb9d41e2b3512446957271cc34d725f80c758"
     },
     {
       "path": "docs/reviews/asset-delivery-history.md",
