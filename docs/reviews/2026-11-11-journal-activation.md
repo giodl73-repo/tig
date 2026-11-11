@@ -176,3 +176,8 @@ New parent source1c1f3cad448e5bf5578d734ea9cdd43a565c7740 is pushed on PR59;
 full controlled pipeline88738 is LIVE (default then all), both normal targets
 reserved. New exact43119762645 Windows/Linux are live, secrets pass. Old failed/
 interrupted runs remain recorded. Do not overlap/restart; full PRODUCT_PLAN active.
+
+Local parent integration brings1c1f3ca fixture readiness/spec/EVID-128 into this
+owned activation branch. Private Rust component bytes remain unchanged; parent
+fence fixture bytes match the separately qualified correction. Context retains
+the active lane and controlled88738 process/target ownership. No PR merge occurs.

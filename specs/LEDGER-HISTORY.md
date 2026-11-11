@@ -201,3 +201,18 @@ Core epoch fields are the original opaque core epoch (Config.instance); the
 caller-facing Config.epoch label remains separately preserved in the exact
 original config. Neither is replaced by a segment number or current observation.
 The implemented archive is still not durable segment activation or metadata expiry.
+
+## Qualification fixture readiness correction
+
+Inputc833add85f9a9c79d3387a78e469bc13a2570403. The complete sequential qualification
+reached tests/fences after prior targets passed, then its child READY parser blocked:
+RUST_TEST_THREADS=1 prefixes stdout with the test name, so an exact READY line was
+never observed. This is a test-only protocol issue, not a production fence change.
+Allowed correction is the fences fixture's dedicated stderr marker and a bounded
+readiness wait; no source/provider/journal algorithm, deadline or cap changes.
+WP-004/007/015, REQ-004/005/007/009, SPEC-004/005/008, IF-004/008/013,
+PKG-003/009, RUST/PROVIDER L0/L1/L2. Entry: actual hung owned process tree and
+child/parser source. Exit: all11 fence entries under both one/four harness threads,
+child lifetime bounded, original explicit cross-process exclusion/progress checks
+unchanged; source/fmt/diff/secret checks and exact new-head CI. Full profiles,
+500k/strict/standalone/fresh artifact remain required; failed/hung runs stay recorded.

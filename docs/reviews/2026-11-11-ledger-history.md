@@ -136,3 +136,28 @@ JOURNAL-CONTINUATION, alongside durable segment activation/recovery and lifetime
 index composition. This archive does not implement pruning, .tig removal, expiry
 or sustainable lifetime. Full product/course/operator/UI/Action/provider/current
 authority/time/large-file and independent/human acceptance remain OPEN.
+
+## Single-thread process-readiness fixture correction
+
+Contract7a1ebe6 precedes a test-only correction in tests/fences.rs. Serial37691
+completed the native-source suite157/1 ignored and later reached the11-entry fence
+integration target, where its stdout READY parser blocked: single-thread libtest
+prefixes the child line with its test name. Source inspection identified the exact
+parent read/child write mismatch. The owned default runner9020 and its descendant
+Cargo/test/helper processes were terminated; outer37691 is terminal1. It was not
+restarted on an observation timeout. Old logs and prior native Budget failures
+remain preserved; queued all-feature phase never started.
+
+The fixture now sends a distinct readiness marker through stderr, separate from
+libtest stdout, with8192-byte/16-line input and15s readiness bounds. Child lifetime
+cleanup still kills/waits only its own process. Cross-process object exclusion,
+shared readers, independent object progress, actual exit77 and old-root refusal
+assertions remain unchanged. No production source/provider/ledger algorithm,
+record/cap/deadline or operation behavior changes.
+
+Focus25433 is TERMINAL0: all11 fence entries pass with RUST_TEST_THREADS=1 and4;
+strict fence-target Clippy passes. This fixes the observed fixture deadlock; it
+does not convert the interrupted whole run into a successful workspace pass.
+New-source full profiles/500k/strict/standalone/fresh teaching artifact and hosted
+qualification remain required. The c833add source itself passes exact43107903309
+Windows/Linux/secrets. This correction needs its own exact-head CI.
