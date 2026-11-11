@@ -3539,8 +3539,8 @@
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
-      "bytes": 16881,
-      "sha256": "ff9b0aaf175c0ada21b731b167d31f47dbb80f9f999bc0b4b6a6ae29af600fd6"
+      "bytes": 17117,
+      "sha256": "c734ce908c49857320709f273b0eb7ca646134c84955d91ae332131135e27d9c"
     },
     {
       "path": "tools/probe_activation_sql.py",
@@ -3566,6 +3566,11 @@
       "path": "crates/tig-store/src/ledger/activation/tests.rs",
       "bytes": 16354,
       "sha256": "c5fbbdaea2ca274e043ccd8e270f37397a467a8103352f223068632091c304e6"
+    },
+    {
+      "path": "specs/STAGED-TREE-EDIT.md",
+      "bytes": 4268,
+      "sha256": "ca3e83388ffef3400caf08ee01505be9a9b875d28c6dbb3a7a971d43de771097"
     }
   ]
 }

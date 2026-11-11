@@ -255,3 +255,7 @@ reported pinned source. Full Rust controller/control publication, physical metad
 admission, independent activation minima, successor/index/recovery and unmodified
 old-binary active-format acceptance/refusal remain separate required integration.
 No private proof is exposed to normal callers until those gates are met.
+
+Index-write prerequisite: [bounded staged tree edits](STAGED-TREE-EDIT.md) freezes
+canonical-equivalent overlay/flush bounds before code. It supplies no activation
+or durable-root adoption and cannot close the full continuation gates.
