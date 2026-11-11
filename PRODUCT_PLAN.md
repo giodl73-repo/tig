@@ -44,8 +44,12 @@ composes actual Git exchange with the existing optional LFS upload CLI and a
 fresh bounded loopback receiver over existing providers. Its four frozen stages
 require disabled0HTTP, actual54-byte publication, corrupt-readback hold and exact
 recheck without new PUTs; F/D/M remain unchanged and remote custody stays false.
-This is contract-only; no new mode is available or qualified. Full course,
-provider/current authority/clock/lifetime/metadata expiry and human gates remain.
+The experimental14-step candidate now executes all four phases with actual
+existing CLI/provider APIs and a strict optional response7/GET-only view. Final
+native/HTTP/shipped40 re-pinned refusals,85 controllers, without-feature/no-root
+and focused strict Clippy pass. Both broad profiles/artifact/source/hosted gates
+remain pending. Full course, actual provider/current authority/clock/lifetime/
+metadata expiry and independent/human acceptance remain open.
 
 The [joined return and restore](specs/TEACHING-RETURN-RESTORE.md) now
 carries one fresh catalogue through final loss, accepted Git return with missing

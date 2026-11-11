@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 31906,
-      "sha256": "c525c846ddbe73c4177e482294732e67d1f0f5488f952fa4826d9b9386dc878a"
+      "bytes": 32496,
+      "sha256": "ce1ced171883fbd454e270317a65ababa63230f8c481c0883e723dfb3b270096"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 112983,
-      "sha256": "da6bcb9e6606270f00b17a66db8ac192afcd608432f65fc6495b179d33c6b7db"
+      "bytes": 113333,
+      "sha256": "7e42e38f260d049dd414c7880390f4c4890a015216c4e5dc97cab5e7854805d3"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130626,
-      "sha256": "4df1279af3c66d435e591c8a5153b3c8ef34854ad517b49502ad9224b26e94b0"
+      "bytes": 130627,
+      "sha256": "644680ffac2385f4caea24af700c63f3a38c97df16b473eb181d738645ffa50c"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,18 +379,18 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 51494,
-      "sha256": "5de5fc665b9437d4c376390ba6520ad9eb0e7029d99fdcf81de1e2436c615f67"
+      "bytes": 51807,
+      "sha256": "fd40a7ec75c097596b1340c03dddabedef87f5e6fcc79d09ef2885eba27f66c2"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
-      "bytes": 36242,
-      "sha256": "82df4d3875d456023cccddd830ca32c6277a860518cfefb6f4c36aeca8bc8458"
+      "bytes": 36700,
+      "sha256": "12746c6ba0d44026bf5ce68c82b0e313f5c938a509cef5c600b0d562760d4948"
     },
     {
       "path": "docs/vtrace/VERIFICATION.md",
-      "bytes": 61284,
-      "sha256": "b63469fc43d8c891c609dab00461ad026d07ccce714e2f219e68c082713e5802"
+      "bytes": 61674,
+      "sha256": "e11147868f765fec3b410bcd13fb254666868b80738d234586547e9e429e366c"
     },
     {
       "path": "docs/vtrace/WORK_PACKAGES.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 54346,
-      "sha256": "c8e1342c63bba43f2c8874a67b14f8f7701372aa6e93db3fe7a9d759d8ed5e0f"
+      "bytes": 54647,
+      "sha256": "d0b784335e0bd8c83a01cb3609a151843163ae9ffe1ad2f2f5a1b84270428246"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 95231,
-      "sha256": "dc1272dd4f5945cb76fc77d770f8b91a26217115e15014590a684a1195b1f190"
+      "bytes": 95821,
+      "sha256": "06a93554883e52b0cc14b9737c2fe81bc4a19ae59bc0d69cc9b0d0a00ef91162"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -2799,13 +2799,13 @@
     },
     {
       "path": "crates/tig-git/src/bin/tig-sample.rs",
-      "bytes": 89805,
-      "sha256": "6f3f097957439e511f2d04b29f92f13f80c5c8021c5a1eb51e504480d5bf06ad"
+      "bytes": 90831,
+      "sha256": "4b4ba7e2c3edc0bfb120c3148f5caf86f94038f1d2269334e71760d164f29a19"
     },
     {
       "path": "crates/tig-git/tests/teaching_catalogue.rs",
-      "bytes": 88510,
-      "sha256": "42e539d8e914ce2aacbd4d01761eb30086902c194da0e41b59bf1dd1e029433e"
+      "bytes": 89156,
+      "sha256": "cdca98dbfd65fdb65675a673a8fa70745521f6c733a72113b33f2131397c8513"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-catalogue.md",
@@ -2819,8 +2819,8 @@
     },
     {
       "path": "examples/catalogue/README.md",
-      "bytes": 22627,
-      "sha256": "840487bfeb9951fb4424d4fce16475089be9435cdd802d8fb78eb9fe74f93fdd"
+      "bytes": 25134,
+      "sha256": "5fce833a9f57162a97a358b01a9ab6e36b3433129bc5594dfb310c491bd23936"
     },
     {
       "path": "specs/TEACHING-CATALOGUE.md",
@@ -2829,13 +2829,13 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/teaching.rs",
-      "bytes": 25389,
-      "sha256": "a129dae0a70cf830aa7f2ba0ceb34e0c669f2779804d6d9ff7840cfa10a6af0a"
+      "bytes": 27328,
+      "sha256": "c68449c8ba2f7a42c415fdc7f085b7779009b7c87f05b45972f584d65f0aa26a"
     },
     {
       "path": "crates/tig-git/src/catalogue/web/lessons.js",
-      "bytes": 15915,
-      "sha256": "3fa32453e39907f572bd60de2cb8c024b2d7aeebec213304b1ac0812c5269878"
+      "bytes": 19312,
+      "sha256": "60c9f9af6ed254e72e1d9a4eccfc1b9061525c85c6dd1d84ee089e46b0d93469"
     },
     {
       "path": "crates/tig-git/tests/common/catalogue_server.rs",
@@ -2844,8 +2844,8 @@
     },
     {
       "path": "crates/tig-git/tests/lessons-flows.cjs",
-      "bytes": 16948,
-      "sha256": "52a0c341cb7cb351595ddb03e6deec263b07d23df06f343d1dab34c11b6769f7"
+      "bytes": 20343,
+      "sha256": "1b6fcd11b38e65c76d1a49a964697858923555631f62c53e0d6ed47cc99fa9ff"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-playback.md",
@@ -2859,8 +2859,8 @@
     },
     {
       "path": "crates/tig-git/tests/ux/recorded-lesson.cjs",
-      "bytes": 9145,
-      "sha256": "250744f16f2a17992b18b0b2975dd2dc254b20ca30ac9ad4ed0cae56f8ca9783"
+      "bytes": 10198,
+      "sha256": "de4d5d735e1577efbaafadeafcdb9d64d95a22c182114f40aab9bd80b0fc4b55"
     },
     {
       "path": "docs/reviews/2026-11-09-teaching-exchange.md",
@@ -3084,8 +3084,8 @@
     },
     {
       "path": "crates/tig-git/src/catalogue/teaching/restoration.rs",
-      "bytes": 22172,
-      "sha256": "a36ebfd610b1b3d6e35ed5612c9421a0d60ee74caace45cf764ea7ffcfcb4b2f"
+      "bytes": 22183,
+      "sha256": "a498398e82a9874e611ef778389f3ee4060dfc2d4d876f204b77eeabacb77960"
     },
     {
       "path": "crates/tig-git/src/history_command.rs",
@@ -3444,8 +3444,28 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-remote-publication.md",
-      "bytes": 3118,
-      "sha256": "6acc195aadcf1d11a7c8dc6baedf35868725468284b4baeb554976227aede9f5"
+      "bytes": 8686,
+      "sha256": "2f26c772bba5742c205431d890aefac9b8082933d0ffef2b5b7f2029a2cbd542"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-sample/remote_endpoint.rs",
+      "bytes": 12760,
+      "sha256": "07338138f3f0093d2096befda690c85ad718938684b381b2154fc8375f50ebaa"
+    },
+    {
+      "path": "crates/tig-git/src/bin/tig-sample/remote_publication.rs",
+      "bytes": 17896,
+      "sha256": "6c98bcdb26e9a48f18fddd9010148a3bb3402de52ac4f458965cda7674aa9175"
+    },
+    {
+      "path": "crates/tig-git/src/catalogue/teaching/remote.rs",
+      "bytes": 21040,
+      "sha256": "cffe1b024e2efc8fca5acfa2cdad3d70fcd85d9c99742e247377948d9dc87136"
+    },
+    {
+      "path": "crates/tig-git/tests/remote_teaching.rs",
+      "bytes": 13367,
+      "sha256": "c4e3af01f2aee4bf1de27fac080bcf444b1a25d0cbefdf8a8b75cef306454590"
     }
   ]
 }

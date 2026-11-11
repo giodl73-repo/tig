@@ -1,5 +1,10 @@
 # Tig trace
 
+Remote publication: TEACHING-REMOTE-PUBLICATION -> literal14-step oracle ->
+actual Git/native authority/OID index/CLI/accounted receiver -> unchanged local
+custody and exact hold/recheck -> bounded reader/response7/GET-only view -> native
+HTTP/40 re-pinned refusals/85 controllers -> EVID-126 focused candidate.
+
 Joined return/restore: TEACHING-RETURN-RESTORE -> literal11-step oracle -> actual
 Git/source/M acquisition/F restoration/old retry -> strict paired reader/response6
 -> native bytes/HTTP/shipped controls/47 refusals/both workspace+500k/strict/

@@ -4,6 +4,8 @@ mod final_observation;
 mod git_return;
 mod paged_observation;
 mod reacquisition;
+#[cfg(feature = "upload")]
+mod remote;
 mod restoration;
 use std::io::Read;
 use tig_core::{Digest, identity};
@@ -259,6 +261,10 @@ pub fn execute(request: Request) -> Result<Value> {
     let mut joined = None;
     let mut returned_source = None;
     let mut returned_seed = None;
+    #[cfg(feature = "upload")]
+    let mut remote_token = None;
+    #[cfg(feature = "upload")]
+    let mut ordinary_source = None;
     for entry in trace.completed {
         if !token(&entry.lesson)
             || !names.insert(entry.lesson.clone())
@@ -275,6 +281,36 @@ pub fn execute(request: Request) -> Result<Value> {
             return Err("Invalid teaching lesson".into());
         }
         let value: Value = document(&mut reader, &entry.report, &mut left)?;
+        if value["schema"] == "tig.teaching-remote-publication-observation.design-1" {
+            #[cfg(not(feature = "upload"))]
+            return Err("Remote teaching metadata requires upload support".into());
+            #[cfg(feature = "upload")]
+            {
+                let (lesson, token) = remote::decode(
+                    value,
+                    remote::Context {
+                        entry: &entry,
+                        previous: lessons.last().ok_or("Missing exchange lesson")?,
+                        binding: providers.as_ref().ok_or("Missing remote enrollment")?,
+                        roles: &p.roles,
+                        identities: &identities,
+                        source: ordinary_source
+                            .as_ref()
+                            .ok_or("Missing exact exchange checkpoint")?,
+                        commits: &request.commits,
+                    },
+                    remote_token.as_ref(),
+                )?;
+                remote_token = Some(token);
+                lessons.push(lesson);
+                coverage_v2 = true;
+                continue;
+            }
+        }
+        #[cfg(feature = "upload")]
+        if remote_token.is_some() {
+            return Err("Mixed remote teaching phases".into());
+        }
         if value["schema"] == "tig.teaching-return-restore-observation.design-1" {
             let (lesson, token) = restoration::decode(
                 value,
@@ -627,6 +663,10 @@ pub fn execute(request: Request) -> Result<Value> {
             "source_sequence":report.source_checkpoint.sequence(),"objects":rows,"stream_bytes":report.receipt.stream_bytes,
             "basis_current":report.receipt.basis_current,"converged":report.receipt.page_converged,"storage_converged":report.receipt.storage_converged,
             "remaining_page":report.receipt.next.is_some(),"holds":report.receipt.holds,"effects":effects}));
+        #[cfg(feature = "upload")]
+        {
+            ordinary_source = Some(report.source_checkpoint.clone());
+        }
         if let Some(rejected) = report.rejection {
             let lesson = lessons.last_mut().ok_or("Missing rejected lesson")?;
             lesson["rejection"] = json!({"error":rejected.error,"planning_basis":report.plan.basis,"observed_basis":rejected.observed_basis});
@@ -647,7 +687,16 @@ pub fn execute(request: Request) -> Result<Value> {
     if joined.as_ref().is_some_and(|t| !t.finished) {
         return Err("Incomplete joined restoration book".into());
     }
-    let response = json!({"schema":if joined.is_some(){"tig.catalogue-teaching.design-6"}else if reacquisition_v5 {"tig.catalogue-teaching.design-5"}else if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
+    #[cfg(feature = "upload")]
+    let remote_v7 = {
+        if remote_token.as_ref().is_some_and(|t| !t.finished) {
+            return Err("Incomplete remote teaching book".into());
+        }
+        remote_token.is_some()
+    };
+    #[cfg(not(feature = "upload"))]
+    let remote_v7 = false;
+    let response = json!({"schema":if remote_v7 {"tig.catalogue-teaching.design-7"}else if joined.is_some(){"tig.catalogue-teaching.design-6"}else if reacquisition_v5 {"tig.catalogue-teaching.design-5"}else if final_v4 {"tig.catalogue-teaching.design-4"}else if rejection_v3 {"tig.catalogue-teaching.design-3"}else if coverage_v2 {"tig.catalogue-teaching.design-2"}else{"tig.catalogue-teaching.design-1"},"basis":p.trace,"project":p.project,"roles":p.roles,
         "lessons":lessons,"pending":trace.pending,"native_scope":trace.fixture_native_scope,
         "mode":"recorded-rehearsal","synthetic_domains":true,"independent_hardware_backup_proven":false,"authorizes_storage":false});
     if serde_json::to_vec(&response)

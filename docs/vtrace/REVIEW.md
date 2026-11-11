@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-126: [remote publication](../reviews/2026-11-11-teaching-remote-publication.md); design.
+EVID-126: [remote publication](../reviews/2026-11-11-teaching-remote-publication.md); focused.
 
 EVID-125: [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md); local.
 

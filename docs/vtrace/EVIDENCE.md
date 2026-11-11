@@ -1,5 +1,10 @@
 # Evidence index
 
+EVID-126 (focused candidate): [remote publication](../reviews/2026-11-11-teaching-remote-publication.md)
+records actual14-step Git/existing LFS CLI/accounted receiver path,54 PUT bytes,
+corrupt-readback hold and same-plan recheck. Final40 refusals/85 controllers/
+without-feature no-root/strict pass; broad/artifact/source/hosted/full gates remain.
+
 EVID-125 (locally qualified): [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md)
 records actual11-step source/M acquisition/F restoration and expired old retry.
 Final47 refusals/16 teaching/83 controllers, both workspace+500k/strict profiles,

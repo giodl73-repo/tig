@@ -330,7 +330,43 @@ clock, large files, metadata expiry or classroom acceptance. See the
 [joined contract](../../specs/TEACHING-RETURN-RESTORE.md).
 
 
-Remote byte publication is the next contract-only chapter: see
-[its scope and frozen oracle](../../specs/TEACHING-REMOTE-PUBLICATION.md).
-The planned14-step mode is not available yet. Existing Git exchange moves small
-metadata; it does not imply that payloads were uploaded or retained remotely.
+The experimental remote-publication candidate adds four checkpoints after the
+ordinary seven and local Git exchange. Build both fixed sibling binaries with
+upload support, using the external development roots configured above:
+
+```text
+cargo build -p tig-git --features schema,upload --bins --locked
+cargo run -p tig-git --features schema,upload --bin tig-sample --locked -- rehearse-remote-publication ABSOLUTE_NEW_OUTPUT
+```
+
+Use schema,upload for the generated catalogue's check/serve command too. A
+schema-only sample rejects this operation before creating an output directory;
+a schema-only catalogue refuses its remote observations. Existing modes do not
+require upload. The receiver is a literal-loopback fixture over the existing
+accounted immutable provider, active only during the explicit sample command.
+No external server, credentials or existing root is used.
+
+| Recorded checkpoint | F/D/M copies | Fixture receiver R | Actual result |
+| --- | --- | --- | --- |
+|11 Upload disabled | O D/M; N/S F/M | empty | Git metadata is exchanged; disabled apply and unauthorized O plan refuse before HTTP |
+|12 Payload published | unchanged | N/S54 bytes | Existing tig-lfs CLI publishes both exact objects and independently verifies readback |
+|13 Readback held | unchanged | same literal N/S bytes | Injected corrupt GET response makes actual same-plan apply hold; witness and receiver metadata unchanged |
+|14 Rechecked | unchanged | same N/S bytes | Same plans and independent status verify again; no additional PUT or metadata writes |
+
+The upload authority is derived from the exact adopted native snapshot. Its
+native path tree and OID-indexed upload tree are distinct SDK-codec projections;
+only current N/S are admitted. Input staging exports54 verified bytes from F
+into an owned standard LFS input layout. It is separate from the54 PUT payload
+bytes. Uploader body IO also includes protocol JSON and readbacks; recorded
+receiver GET payload totals270 bytes across publication, hold and recheck.
+Neither measure claims network-interface traffic, billing or free-space gain.
+
+R is separate from placement roles and does not grant retained custody or removal
+authority. The saved reader/view never contacts that endpoint and does not claim
+current remote availability. The endpoint is stopped before the command returns;
+its actual managed bytes remain in the new fixture root. Both protocol and local
+ProcessRestart evidence remain synthetic; hardware independence, real provider/
+authority/clock/quota/custody, large files, lifetime/metadata expiry, full course
+and classroom acceptance stay open. Focused native/HTTP/shipped40 refusals and85
+controller cases pass; broad/final-source hosted qualification is pending. See
+[the remote contract](../../specs/TEACHING-REMOTE-PUBLICATION.md).

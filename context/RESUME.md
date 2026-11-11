@@ -1,19 +1,27 @@
 # Tig resume state
 
 Active owned lane feat/teaching-remote-publication, input2ec1a2e8c9e22227d53b548fc72c7fdb7c42830d.
-Read specs/TEACHING-REMOTE-PUBLICATION.md before code. Contract-only: new optional
-schema+upload fresh14-step story adds disabled upload, actual current N/S54-byte
-publication, corrupt-readback hold and same-plan recheck after actual Git exchange.
-Fixed sibling existing tig-lfs CLI and fixture-only bounded loopback endpoint over
-existing accounted LocalStore; no new engine or SDK production algorithm/format.
-Literal oracle frozen before code: all four stages O D/M, N+S F/M; R empty then
-N/S, with client retained_custody/removal_authority false throughout. Separate
-staging/PUT/bodyIO counts. Read-only catalogue must not turn R into a backup role.
-Both external targets are free. No task-owned Cargo processes or live caches.
-Parent PR56/source2ec1a2e exact43084141022 Windows/Linux LIVE, secrets pass at entry;
-parent local both workspace/500k/strict/standalone/fresh11-step artifact qualify.
-Full PRODUCT_PLAN remains active. No browser/viewer/daemon/live root/deploy/merge.
-Use explicit external TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8.
+Contract6ae7b3c precedes code; read specs/TEACHING-REMOTE-PUBLICATION.md.
+Actual optional14-step mode/strict response7/GET-only view are implemented.
+Final90828 native/HTTP/shipped40 refusals and strict schema+upload workspace/all-
+target Clippy pass;85 controls and without-feature/no-root69023 pass. SDK public
+native and OID projections remain distinct; initial adapter Authority refusal,
+compile/DTO/role-state mistakes and style failures are preserved in EVID-126.
+No SDK production/event/wire/dependency change or alternate engine. Final source
+runtime is still uncommitted; source/pins/review/secrets gates precede checkpoint.
+Both full profiles LIVE: default19709 in teaching-playback, all31804 in
+teaching-playback-all. Never overlap/restart on timeout. External remote-publication
+phase.exit/logs record actual outcomes. Default continues standalone/fmt/fresh
+schema bins; all continues fresh persisted14-step CLI/catalogue. Runtime frozen.
+Three F/D/M stores unchanged across added phases: O D/M, N/S F/M. Receiver R
+empty then N/S54 bytes; two PUTs total,28 requests/270 GET payload bytes. Actual
+corrupt GET hold and same-plan recheck add no writes/PUT. Staging54, PUT54 and
+SDK body IO are separate. R retains no admitted custody/removal authority.
+Parent PR56/source2ec1a2e exact43084141022 Windows/Linux/secrets all pass; ready,
+no merge/deployment. Full PRODUCT_PLAN/course/native/provider/current authority/
+clock/quota/large-file/lifetime/metadata expiry/operator/UI/Action/human gates
+remain OPEN. No browser/viewer/daemon/live root/public network/deploy/merge.
+Use external TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8.
 Older notes below describe the input implementation.
 
 Active owned lane feat/teaching-return-restore; PR56 (base feat/placement-final-absence).

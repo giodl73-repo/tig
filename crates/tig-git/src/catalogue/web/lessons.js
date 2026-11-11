@@ -36,7 +36,7 @@ function selectLesson(book,index){
  for(const l of book.lessons)for(const o of l.objects)all.set(o.name,o.object);
  let knownCopies=0,copyBytes=0;for(const o of lesson.objects)if(Array.isArray(o.observed)){knownCopies+=o.observed.length;copyBytes+=o.object.bytes*o.observed.length;}
  const partial=lesson.objects.some(o=>o.unknown?.length),stats=document.querySelector('.stats');stats.replaceChildren();
- for(const [value,label] of [[(index+1)+' / '+book.lessons.length,'recorded checkpoint'],[all.size,'stable byte identities'],[knownCopies,partial?'known recorded copies':'recorded copies'],[bytes(lesson.stream_bytes),'payload streamed this step']]){
+ for(const [value,label] of [[(index+1)+' / '+book.lessons.length,'recorded checkpoint'],[all.size,'stable byte identities'],[knownCopies,lesson.remote_publication?'recorded local copies':partial?'known recorded copies':'recorded copies'],[bytes(lesson.stream_bytes),lesson.remote_publication?'local placement streamed':'payload streamed this step']]){
   const s=node('div');s.append(node('span','',value),node('small','',label));stats.append(s);
  }
  $('category-heading').textContent=lesson.title;$('result-count').textContent=bytes(copyBytes)+(partial?' known recorded copy bytes · partial coverage':' recorded copy bytes');
@@ -56,6 +56,16 @@ function selectLesson(book,index){
   area.append(node('p','muted','Explicit input stream: '+bytes(r.acquired_input_bytes)+'. Ordinary working stream: '+bytes(r.working_stream_bytes)+'. Retention verified at recording; process-restart acknowledgement. Synthetic owner consent and clock.'));
   area.append(node('p','muted','Conservative acquisition footprint: '+bytes(r.charged_footprint)+'. Net growth and free-space change: unmeasured.'));
   if(r.old_retry)area.append(node('p','callout','Completed old deletion retry: '+bytes(r.old_retry.new_removed_bytes)+' new removal; '+bytes(r.old_retry.historical_removed_bytes)+' historical deletion. Returned source and current copies preserved.'));
+ }
+ if(lesson.remote_publication){const r=lesson.remote_publication;
+  const labels={upload_disabled:'Git metadata exchanged · payload upload disabled. Receiver contains no payloads.',payload_published:'Explicit remote payload publication verified. Retained custody remains unqualified.',readback_held:'Remote readback held · integrity. Recorded receiver bytes remain; current remote availability is unknown.',publication_rechecked:'Same remote publication rechecked · no additional PUTs. Retained custody remains unqualified.'};
+  area.append(node('p','callout',labels[r.phase]));
+  area.append(node('p','muted','Fixture input staging: '+bytes(r.fixture_input_staging_bytes)+'. Upload PUT payload this step: '+bytes(r.put_payload_bytes_this_step)+'. Total PUT payload: '+bytes(r.put_payload_bytes_total)+'.'));
+  area.append(node('p','muted','Client body IO: '+(r.client_body_io_bytes===null?'not reported for refused operations':bytes(r.client_body_io_bytes)+' including protocol JSON and readbacks')+'. Receiver GET response payload this step: '+bytes(r.readback_payload_bytes_this_step)+'. Free-space change: unmeasured.'));
+  const receiver=node('div','lesson-evidence');receiver.append(node('h3','','Recorded fixture receiver R'));
+  if(!r.objects.length)receiver.append(node('p','muted','No receiver payloads recorded.'));
+  for(const object of r.objects){const local=lesson.objects.find(o=>o.object.sha256===object.sha256);receiver.append(node('p','',local.name+' · '+object.sha256.slice(0,12)+' · '+bytes(object.bytes)));}
+  receiver.append(node('p','muted','Remote interface: '+r.readback_state+'. This receiver is separate from the F/D/M placement roles and grants no removal authority.'));area.append(receiver);
  }
  if(!lesson.final_loss&&lesson.rejection)area.append(node('p','callout','Rejected before storage effects: stale plan. The desired column belongs to the rejected plan. A fresh plan is required for current protection.'));
  else if(!lesson.final_loss&&!lesson.restoration&&(!lesson.converged||!lesson.basis_current||lesson.holds.length))area.append(node('p','callout','This recorded step remained pending or held: '+(lesson.holds.join(', ')||'the admitted basis changed')));
@@ -86,7 +96,7 @@ async function loadLessons(){
  $('assets').replaceChildren(node('div','empty','Reading hash-pinned lesson reports…'));
  try{
   const book=await api('/api/lessons');if(gen!==state.generation||state.mode!=='lessons')return;
-  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
+  if(!['tig.catalogue-teaching.design-1','tig.catalogue-teaching.design-2','tig.catalogue-teaching.design-3','tig.catalogue-teaching.design-4','tig.catalogue-teaching.design-5','tig.catalogue-teaching.design-6','tig.catalogue-teaching.design-7'].includes(book.schema)||book.mode!=='recorded-rehearsal'||book.authorizes_storage!==false||book.synthetic_domains!==true||book.independent_hardware_backup_proven!==false
    ||!state.projects.some(p=>p.id===book.project)||!Array.isArray(book.lessons)||!book.lessons.length||book.lessons.length>16||!Array.isArray(book.roles)||book.roles.length<2||book.roles.length>4
    ||book.lessons.some(l=>!Array.isArray(l.objects)||l.objects.length>32||!Array.isArray(l.holds)||!Array.isArray(l.effects)))throw Error('Unrecognized teaching response');
   const roles=new Set(book.roles.map(r=>r.id));
@@ -117,6 +127,14 @@ async function loadLessons(){
     ||l.converged!==done||l.storage_converged!==done||l.basis_current!==true||l.remaining_page||l.stream_bytes!==r.acquired_input_bytes
     ||(done&&(!r.old_retry||r.old_retry.new_removed_bytes!==0||!Number.isSafeInteger(r.old_retry.historical_removed_bytes)||r.old_retry.historical_removed_bytes<0||l.holds.length))
     ||(!done&&r.old_retry!==null)||l.objects.some(o=>!Array.isArray(o.before)||o.before.some((id,i)=>!roles.has(id)||(i&&o.before[i-1]>=id))))throw Error('Unrecognized joined restoration');
+  }
+  for(const l of book.lessons)if(l.remote_publication!==undefined){const r=l.remote_publication,phases=['upload_disabled','payload_published','readback_held','publication_rechecked'],i=phases.indexOf(r?.phase),put=[0,54,0,0],get=[0,108,54,108],requests=[0,16,4,8];
+   if(book.schema!=='tig.catalogue-teaching.design-7'||i<0||l.final_loss||l.reacquisition||l.restoration||l.rejection||r.retained_custody!==false||r.removal_authority!==false||r.synthetic_endpoint!==true||!r.receiver?.match(/^[0-9a-f]{64}$/)
+    ||r.fixture_input_staging_bytes!==54||r.put_payload_bytes_this_step!==put[i]||r.put_payload_bytes_total!==(i?54:0)||r.put_count_total!==(i?2:0)||r.readback_payload_bytes_this_step!==get[i]||r.http_requests_this_step!==requests[i]
+    ||r.readback_state!==(i===0?'not_started':i===2?'held':'verified')||r.held_reason!==(i===2?'integrity':null)
+    ||([0,2].includes(i)?r.client_body_io_bytes!==null:!Number.isSafeInteger(r.client_body_io_bytes)||r.client_body_io_bytes<54||r.client_body_io_bytes>131072)
+    ||!Array.isArray(r.objects)||r.objects.length!==(i?2:0)||r.objects.some((o,n)=>!o.sha256?.match(/^[0-9a-f]{64}$/)||!Number.isSafeInteger(o.bytes)||o.bytes<1||!l.objects.some(v=>v.object.sha256===o.sha256&&v.object.bytes===o.bytes)||(n&&r.objects[n-1].sha256>=o.sha256))||(i&&r.objects.reduce((n,o)=>n+o.bytes,0)!==54)
+    ||!l.basis_current||l.converged!==true||l.storage_converged!==true||l.stream_bytes!==0||l.effects.length||l.holds.length||l.remaining_page)throw Error('Unrecognized remote publication');
   }
   lessonView.book=book;const selected=book.lessons.findIndex(l=>l.id===lessonView.selection);selectLesson(book,Math.max(0,selected));
  }catch(e){if(gen===state.generation&&state.mode==='lessons'){
