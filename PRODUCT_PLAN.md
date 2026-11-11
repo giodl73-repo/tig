@@ -39,6 +39,12 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
+preserve exact original requests/replies and typed dependencies in bounded immutable
+records, with lazy lookup and historical probes that cannot restore admission.
+This design is not activated compaction or expiry; the joined lifetime target
+below remains required. Parent working-checkpoint qualification is still running.
+
 Next lifetime implementation: [journal continuation](specs/JOURNAL-CONTINUATION.md)
 requires active/in-flight accounting, exact historical replies and scoped durable
 activation before sustained use; expiry additionally needs surviving authority/

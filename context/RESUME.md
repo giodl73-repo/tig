@@ -1,5 +1,21 @@
 # Tig resume state
 
+Active owned lane feat/ledger-history, input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
+Contract-only original-request/result/dependency archive; read LEDGER-HISTORY.md
+and JOURNAL-CONTINUATION.md in specs. Freeze exact wire/API before any code.
+Historical probes must not decode into live ObservationTickets. No active journal
+format/cap/root change, activation, pruning or expiry. EVID-128 six producer lenses
+are design only; full PRODUCT_PLAN remains active.
+Parent PR58 runtime9122ccf is draft; focused9core/3ledger/strict pass. Full default
+75122 and all13738 LIVE in separate external targets. Do not overlap/restart.
+Read capacity-checkpoint phase.exit/logs and exact43100104758 CI; last Linux and
+Windows in progress, secrets pass. New lane has no Cargo/build process.
+No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
+browser/viewer, merge or deployment. Synthetic fixtures only; preserve external
+TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO.
+Older notes below describe the input implementation.
+
+
 Active owned lane feat/capacity-checkpoint, inputb177d4fee4ce84c0ee8a15486e731391e726fd9d.
 Read specs/CAPACITY-CHECKPOINT.md and JOURNAL-CONTINUATION.md before code.
 Contract3afb135 precedes implemented paged working-state codec and read-only
