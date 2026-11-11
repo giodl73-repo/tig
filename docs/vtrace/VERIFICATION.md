@@ -1,5 +1,11 @@
 # Verification record
 
+EVID-126: final90828 actual native/CLI/provider/HTTP/shipped positive plus40
+re-pinned refusals and strict schema+upload workspace/all-target Clippy pass.
+Without-feature no-root69023 and85 controls pass. Default19709/all31804 full
+profiles remain live; [review](../reviews/2026-11-11-teaching-remote-publication.md)
+retains initial integration/fixture/style failures and remaining gates.
+
 EVID-125: final native/HTTP/shipped47 semantic refusals/16 teaching and83
 controllers pass. Default2017 and corrected all-feature60982 TERMINAL0 cover
 workspace/500k/strict; standalone/fmt/fresh persisted11-step catalogue passes

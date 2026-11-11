@@ -1,5 +1,32 @@
 # Tig resume state
 
+Active owned lane feat/teaching-remote-publication, input2ec1a2e8c9e22227d53b548fc72c7fdb7c42830d.
+Contract6ae7b3c precedes code; read specs/TEACHING-REMOTE-PUBLICATION.md.
+Actual optional14-step mode/strict response7/GET-only view are implemented.
+Final90828 native/HTTP/shipped40 refusals and strict schema+upload workspace/all-
+target Clippy pass;85 controls and without-feature/no-root69023 pass. SDK public
+native and OID projections remain distinct; initial adapter Authority refusal,
+compile/DTO/role-state mistakes and style failures are preserved in EVID-126.
+No SDK production/event/wire/dependency change or alternate engine. Teaching runtime11de7b7fa4d5c4cdec9ba19b0d62301e4e2ad896 is committed/pushed
+as draft PR57, base feat/teaching-return-restore. Source/pins/diff/staged-secrets
+pass at runtime checkpoint; full profiles remain live. Initial hosted43092752946
+was started for11de7b7; this documentation checkpoint needs its own exact-head
+qualification. Derive current head/run from Git/GitHub.
+Both full profiles LIVE: default19709 in teaching-playback, all31804 in
+teaching-playback-all. Never overlap/restart on timeout. External remote-publication
+phase.exit/logs record actual outcomes. Default continues standalone/fmt/fresh
+schema bins; all continues fresh persisted14-step CLI/catalogue. Runtime frozen.
+Three F/D/M stores unchanged across added phases: O D/M, N/S F/M. Receiver R
+empty then N/S54 bytes; two PUTs total,28 requests/270 GET payload bytes. Actual
+corrupt GET hold and same-plan recheck add no writes/PUT. Staging54, PUT54 and
+SDK body IO are separate. R retains no admitted custody/removal authority.
+Parent PR56/source2ec1a2e exact43084141022 Windows/Linux/secrets all pass; ready,
+no merge/deployment. Full PRODUCT_PLAN/course/native/provider/current authority/
+clock/quota/large-file/lifetime/metadata expiry/operator/UI/Action/human gates
+remain OPEN. No browser/viewer/daemon/live root/public network/deploy/merge.
+Use external TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8.
+Older notes below describe the input implementation.
+
 Active owned lane feat/teaching-return-restore; PR56 (base feat/placement-final-absence).
 Input8e948d4/contractaa63946 precede teaching runtimeacbd4a9. Contract8a01079
 precedes test-only age Journal(Busy) correctionc2fcd06; no SDK production change.

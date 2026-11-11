@@ -123,6 +123,20 @@ const {catalogueFixture}=require('./catalogue-fixture.cjs');
   assert.ok(!row('original').children[3].textContent.includes('History / D'));
   assert.equal(row('original').children[0].title,identity);
  }
+ for(const [index,lesson] of book.lessons.entries())if(lesson.remote_publication){
+  const select=selector();select.value=String(index);await select.onchange();await f.settle();
+  assert.ok(f.text('assets').includes('Recorded fixture receiver R'));
+  assert.ok(f.text('assets').includes('Fixture input staging: 54 B'));
+  assert.ok(f.text('assets').includes('grants no removal authority'));
+  const r=lesson.remote_publication;
+  if(r.phase==='upload_disabled')assert.ok(f.text('assets').includes('payload upload disabled'));
+  if(r.phase==='payload_published')assert.ok(f.text('assets').includes('publication verified'));
+  if(r.phase==='readback_held')assert.ok(f.text('assets').includes('current remote availability is unknown'));
+  if(r.phase==='publication_rechecked')assert.ok(f.text('assets').includes('no additional PUTs'));
+  assert.ok(row('original').children[3].textContent.includes('History / D'));
+  assert.ok(!row('original').children[3].textContent.includes('Working / F'));
+  assert.equal(row('original').children[0].title,identity);
+ }
  assert.equal(f.seen.filter(r=>r.path==='/api/lessons').length,1);
  assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));
  process.stdout.write('Actual native evidence renders job hold, demotion and revert.\n');

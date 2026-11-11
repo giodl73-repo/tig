@@ -128,7 +128,7 @@ fn valid_hold(s: &str) -> bool {
             | "final_retirement"
     )
 }
-fn receipt(
+pub(super) fn receipt(
     r: &Receipt,
     p: &placement::Plan,
     expected: &[Digest],

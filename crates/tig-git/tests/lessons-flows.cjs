@@ -178,3 +178,31 @@ test('joined restoration refuses incorrect phase source counters acknowledgement
   });await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized joined restoration/);
  }
 });
+
+
+// DTO guard/render cases; remote_teaching.rs supplies actual CLI/provider proof.
+function remoteBook(f){
+ const b=f.reply('/api/lessons',{});b.schema='tig.catalogue-teaching.design-7';
+ const seeds=require('../../../examples/catalogue/lifecycle.design-1.json').objects;
+ for(const l of b.lessons)for(const o of l.objects){if(seeds[o.name])o.object={sha256:seeds[o.name].sha256,bytes:seeds[o.name].bytes};o.unknown||=[];}
+ const objects=['shared','fixed'].map(n=>({sha256:seeds[n].sha256,bytes:seeds[n].bytes}));
+ for(const [i,phase] of ['upload_disabled','payload_published','readback_held','publication_rechecked'].entries()){
+  const l=structuredClone(b.lessons[6]);l.id='remote-'+i;l.title='remote '+phase;l.stream_bytes=0;l.effects=[];l.holds=[];l.basis_current=true;l.converged=true;l.storage_converged=true;l.remaining_page=false;
+  l.remote_publication={phase,receiver:'e'.repeat(64),objects:i?objects:[],readback_state:i===0?'not_started':i===2?'held':'verified',held_reason:i===2?'integrity':null,fixture_input_staging_bytes:54,put_payload_bytes_this_step:[0,54,0,0][i],put_payload_bytes_total:i?54:0,put_count_total:i?2:0,readback_payload_bytes_this_step:[0,108,54,108][i],http_requests_this_step:[0,16,4,8][i],client_body_io_bytes:[null,3484,null,1100][i],retained_custody:false,removal_authority:false,synthetic_endpoint:true};b.lessons.push(l);
+ }
+ return b;
+}
+test('remote publication shows disabled verified held and rechecked facts with GET only',async()=>{
+ const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>remoteBook(f));await f.settle();await f.click(f.get('lessons'));
+ for(const [i,text] of [[7,'payload upload disabled'],[8,'publication verified'],[9,'current remote availability is unknown'],[10,'no additional PUTs']]){await pick(f,i);assert.match(f.text('assets'),/Recorded fixture receiver R/);assert.ok(f.text('assets').includes(text));assert.match(f.text('assets'),/Fixture input staging: 54 B/);assert.match(f.text('assets'),/grants no removal authority/);}
+ assert.ok(f.seen.every(r=>!r.init?.method||r.init.method==='GET'));assert.equal(calls(f).length,1);
+});
+test('remote publication refuses invented custody IO state objects and local effects',async()=>{
+ for(const bad of ['version','custody','authority','synthetic','receiver','put_step','put_total','body_io','readback','held_reason','unknown_object','local_stream','local_effect','mixed']){
+  const f=catalogueFixture({teaching:true});f.override('/api/lessons',()=>{const b=remoteBook(f),l=b.lessons[8],r=l.remote_publication;
+   if(bad==='version')b.schema='tig.catalogue-teaching.design-6';if(bad==='custody')r.retained_custody=true;if(bad==='authority')r.removal_authority=true;if(bad==='synthetic')r.synthetic_endpoint=false;if(bad==='receiver')r.receiver='bad';
+   if(bad==='put_step')r.put_payload_bytes_this_step++;if(bad==='put_total')r.put_payload_bytes_total++;if(bad==='body_io')r.client_body_io_bytes=-1;if(bad==='readback')r.readback_state='held';if(bad==='held_reason')r.held_reason='integrity';
+   if(bad==='unknown_object')r.objects[0].sha256='f'.repeat(64);if(bad==='local_stream')l.stream_bytes=54;if(bad==='local_effect')l.effects=[{}];if(bad==='mixed')l.restoration={phase:'backup_acquired'};return b;
+  });await f.settle();await f.click(f.get('lessons'));assert.match(f.get('notice').textContent,/Unrecognized (remote publication|joined restoration)/);
+ }
+});

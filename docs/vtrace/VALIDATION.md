@@ -1,5 +1,12 @@
 # Intended-use validation
 
+EVID-126 demonstrates actual Git metadata exchange separately from explicit
+remote byte publication, corrupt readback and exact recheck. R availability does
+not become retained custody or removal authority; F/D/M/source stay unchanged.
+This synthetic14-step native/HTTP/shipped scope does not qualify real providers,
+current authority/clock/quota, complete course or classroom acceptance. See
+[review](../reviews/2026-11-11-teaching-remote-publication.md).
+
 EVID-125 joins accepted Git return with missing payload, explicit new retained
 M birth, then ordinary F restoration with D absent. Actual old expired retry
 removes0 new/58 historical bytes and preserves current source/custody. Literal

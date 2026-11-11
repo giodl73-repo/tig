@@ -1,5 +1,7 @@
 # Foundation review
 
+EVID-126: [remote publication](../reviews/2026-11-11-teaching-remote-publication.md); focused.
+
 EVID-125: [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md); local.
 
 EVID-124: [final absence](../reviews/2026-11-11-placement-final-absence.md); qualified.
@@ -1645,13 +1647,7 @@ and synthetic validation from implementation. Pass_with_risk for this bounded
 guard; design-only for provider release/unlink and later FR-06..15. Hosted exact
 head, independent/human acceptance and the complete plan remain open.
 
-Final-provider review, input273e639/implementation9f5e8c0: FP-01..06 in
-../reviews/2026-11-09-final-provider.md apply six producer lenses. Separate
-incarnation/context and portable design-8 contract, exact grant release and
-historical outcome prevent stale replay from removing fresh identical bytes.
-EVID-099 records local runtime/fault/vector/old-writer qualification, default/all-
-feature/Clippy/standalone/L0 and public placement integration. S3 contention now
-allows only success/Busy and requires serial convergence, with a deterministic
-held-reader fixture. Pass_with_risk for bounded synthetic local use; hosted exact
-head, independent/human acceptance and full bulk/provider/authority/lifetime
-requirements remain open. No live upgrade, final CLI or deployment is enabled.
+Final-provider EVID-099: [full six-lens record](../reviews/2026-11-09-final-provider.md),
+input273e639/runtime9f5e8c0. Local/fault/vector/old-writer/placement and broader
+qualification are historical bounded synthetic evidence; full provider/authority/
+lifetime/independent/human gates remain open. No deployment authority follows.

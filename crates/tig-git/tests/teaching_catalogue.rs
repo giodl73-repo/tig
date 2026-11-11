@@ -2161,3 +2161,24 @@ fn public_stale_plan_refuses_before_effects_then_fresh_plans_respect_new_job() {
         book
     );
 }
+
+#[cfg(not(feature = "upload"))]
+#[test]
+fn remote_publication_without_upload_support_creates_no_root() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("unsupported remote sample");
+    let out = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-remote-publication")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(!out.status.success());
+    assert!(!root.exists());
+    let value: Value = serde_json::from_slice(&out.stdout).unwrap();
+    assert!(
+        value["error"]
+            .as_str()
+            .unwrap()
+            .contains("requires schema,upload")
+    );
+}

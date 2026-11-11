@@ -651,6 +651,111 @@
           "backup"
         ]
       }
+    },
+    {
+      "id": "remote-upload-disabled",
+      "event": "Git metadata is exchanged; explicit disabled payload upload and unauthorized original refuse before HTTP.",
+      "requires": [
+        "local-git-exchange",
+        "explicit-lfs-upload"
+      ],
+      "expected_copies": {
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      },
+      "expected_remote_receiver": [],
+      "remote_retained_custody": false
+    },
+    {
+      "id": "remote-payload-published",
+      "event": "Explicit existing LFS CLI publishes current fixed and shared payloads; fresh readback verifies availability without retained-custody authority.",
+      "requires": [
+        "local-git-exchange",
+        "explicit-lfs-upload"
+      ],
+      "expected_copies": {
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      },
+      "expected_remote_receiver": [
+        "fixed",
+        "shared"
+      ],
+      "remote_retained_custody": false
+    },
+    {
+      "id": "remote-readback-held",
+      "event": "Corrupt fixture GET response makes the existing uploader hold; actual receiver bytes and all local protection remain unchanged.",
+      "requires": [
+        "local-git-exchange",
+        "explicit-lfs-upload"
+      ],
+      "expected_copies": {
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      },
+      "expected_remote_receiver": [
+        "fixed",
+        "shared"
+      ],
+      "remote_retained_custody": false
+    },
+    {
+      "id": "remote-publication-rechecked",
+      "event": "Exact same upload plans recheck verified remote bytes with no new PUT; receiver availability still grants no backup or removal authority.",
+      "requires": [
+        "local-git-exchange",
+        "explicit-lfs-upload"
+      ],
+      "expected_copies": {
+        "original": [
+          "history",
+          "backup"
+        ],
+        "fixed": [
+          "working",
+          "backup"
+        ],
+        "shared": [
+          "working",
+          "backup"
+        ]
+      },
+      "expected_remote_receiver": [
+        "fixed",
+        "shared"
+      ],
+      "remote_retained_custody": false
     }
   ],
   "counterexamples": [

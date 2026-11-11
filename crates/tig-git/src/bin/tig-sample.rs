@@ -13,6 +13,12 @@ mod paged_playback;
 mod reacquisition_playback;
 #[path = "tig-sample/recovery.rs"]
 mod recovery;
+#[cfg(feature = "upload")]
+#[path = "tig-sample/remote_endpoint.rs"]
+mod remote_endpoint;
+#[cfg(feature = "upload")]
+#[path = "tig-sample/remote_publication.rs"]
+mod remote_publication;
 #[path = "tig-sample/return_restore.rs"]
 mod return_restore;
 use serde_json::{Value, json};
@@ -56,6 +62,7 @@ enum Mode {
     FinalManual,
     FinalGitReturn,
     ReturnRestore,
+    RemotePublication,
     FinalCancel,
     FinalReacquire,
     FinalProcess,
@@ -848,7 +855,7 @@ impl Demo {
         } else {
             None
         };
-        let exchange_evidence = if matches!(mode, Mode::Exchange) {
+        let exchange_evidence = if matches!(mode, Mode::Exchange | Mode::RemotePublication) {
             let (head, evidence) = self.exchange(&current)?;
             current = head;
             Some(evidence)
@@ -950,7 +957,11 @@ impl Demo {
         if matches!(mode, Mode::ReturnRestore) {
             result["joined_restoration_evidence"] = return_restore::run(&mut self, &current)?;
         }
-        let pending = if matches!(mode, Mode::Exchange) {
+        #[cfg(feature = "upload")]
+        if matches!(mode, Mode::RemotePublication) {
+            result["remote_publication_evidence"] = remote_publication::run(&mut self, &current)?;
+        }
+        let pending = if matches!(mode, Mode::Exchange | Mode::RemotePublication) {
             json!([
                 "full command-by-command Git curriculum",
                 "remote byte publication and offline backup",
@@ -2028,9 +2039,14 @@ fn run() -> Result<Value> {
         return recovery::child(args[1].to_str().ok_or("invalid fixture digest")?);
     }
     if args.len() == 1 && args[0] == "describe" {
-        return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-git-return NEW_ABSOLUTE_ROOT","rehearse-return-restore NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
-        );
+        let mut value = json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-git-return NEW_ABSOLUTE_ROOT","rehearse-return-restore NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false});
+        if cfg!(feature = "upload") {
+            value["operations"]
+                .as_array_mut()
+                .ok_or("sample operations")?
+                .push("rehearse-remote-publication NEW_ABSOLUTE_ROOT".into());
+        }
+        return Ok(value);
     }
     if args.len() != 2 {
         return Err("usage: tig-sample describe | OPERATION NEW_ABSOLUTE_ROOT (see describe for operations)".into());
@@ -2046,6 +2062,14 @@ fn run() -> Result<Value> {
         Some("rehearse-final-manual") => Mode::FinalManual,
         Some("rehearse-final-git-return") => Mode::FinalGitReturn,
         Some("rehearse-return-restore") => Mode::ReturnRestore,
+        Some("rehearse-remote-publication") => {
+            if !cfg!(feature = "upload") {
+                return Err("remote publication sample requires schema,upload".into());
+            }
+            #[cfg(feature = "upload")]
+            remote_publication::preflight()?;
+            Mode::RemotePublication
+        }
         Some("rehearse-final-cancel") => Mode::FinalCancel,
         Some("rehearse-final-reacquire") => Mode::FinalReacquire,
         Some("rehearse-final-process") => Mode::FinalProcess,
