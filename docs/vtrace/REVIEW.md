@@ -2,7 +2,7 @@
 
 EVID-124: [final absence](../reviews/2026-11-11-placement-final-absence.md); focused.
 
-EVID-123: [Git return lenses](../reviews/2026-11-11-teaching-git-return.md); focused.
+EVID-123: [Git return lenses](../reviews/2026-11-11-teaching-git-return.md); qualified81ecc27.
 
 EVID-122: [reacquisition entry](../reviews/2026-11-11-teaching-reacquisition.md); local.
 

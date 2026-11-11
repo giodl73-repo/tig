@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 28439,
-      "sha256": "fb33d37d7b0014d2dc5cf5259e57c80b384e11666128dd85f8db9f4e2c0bdcbd"
+      "bytes": 28482,
+      "sha256": "a0a69793fde4e85bb8a32afa45c041880749b5cdc4f5a9bf0203f0211f69c8b8"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -304,8 +304,8 @@
     },
     {
       "path": "docs/vtrace/EVIDENCE.md",
-      "bytes": 112105,
-      "sha256": "69c35898db515dba402072cd7713e54b8de4e98d3024e745c7b19ab228a795d9"
+      "bytes": 112140,
+      "sha256": "9d521a684c9f6dea2752570528c9531c179d76e3a604868b6922fc29c6873fb3"
     },
     {
       "path": "docs/vtrace/IMPLEMENTATION_PLAN.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130877,
-      "sha256": "f7c98f1d417553e0d634018c781398f61e3b2943e8d79460c1bb9fc7653df47b"
+      "bytes": 130886,
+      "sha256": "d07b0c0d9938467e0b7b0f0867c4bf81049705a61743b7435d6cd47437881006"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -379,8 +379,8 @@
     },
     {
       "path": "docs/vtrace/TRACE.md",
-      "bytes": 51031,
-      "sha256": "7af6474667f606a56917a41a49b269c92046f8ed79d995a1bb59061a0574f15c"
+      "bytes": 51102,
+      "sha256": "caf30def0c0301441ac122d06dcf1b183756e80df68a15d4b8492fbe2c4d7c61"
     },
     {
       "path": "docs/vtrace/VALIDATION.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 52661,
-      "sha256": "a0bfe832c704b97b3680fc29aa4b1fdc1686b3ca21cb4b78d1d75e01f0d37fd5"
+      "bytes": 52734,
+      "sha256": "353a4dc383229669b6f5c5fecbddf3c1f735fada8f3b822d220198bf42fccb39"
     },
     {
       "path": "README.md",
@@ -1848,9 +1848,9 @@
       "sha256": "03ae7ab0cc4ee374e6b0a5ecaaace6f304c85c34aeb1be9af5e9622033fe20b8"
     },
     {
-      "bytes": 91764,
+      "bytes": 91807,
       "path": "context/RESUME.md",
-      "sha256": "bea7f8ab32643f1d5c22dbb4a430c649e8a17bdc53735745777f80131b857feb"
+      "sha256": "02dd06fe30b9ceb45871162b80dc2bc4399a0b37c316493bc08484138e724c55"
     },
     {
       "bytes": 16453,
@@ -2994,8 +2994,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-teaching-git-return.md",
-      "bytes": 6420,
-      "sha256": "d9a86ec8f136d7e98a09af09c48d7ea23bbca906e50c711449089a59a351dd0c"
+      "bytes": 6920,
+      "sha256": "d09606511950389522b6c37f1400562c468717e77f1593810a242d98c44d8f6e"
     },
     {
       "path": "docs/reviews/2026-11-11-placement-final-absence.md",

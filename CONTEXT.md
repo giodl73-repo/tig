@@ -11,10 +11,11 @@ all-feature61132 in teaching-playback-all. Default continues standalone Git/fmt/
 fresh bins and persisted final-git-return/final-reacquire catalogue checks. Phase
 .exit files and placement-final-absence-*.log are external. Never overlap targets
 or restart on observation timeout. No further runtime changes planned.
-Next: source checkpoint, merge parent closeout71d7028, final source gates and
+Runtime923a40c is committed; parent documentation closeout71d7028 is integrated.
+Next: final source gates and
 broad/artifact terminals, then draft PR/exact-head hosted checks. Parent runtime
 81ecc27 PR54 passes both hosts/secrets43059041378 and all local gates; documentation
-closeout71d7028 has separate pending CI. PR53/ad64f03 passes43057224855 and is ready.
+closeout71d7028 has separate pending CI43066253510. PR53/ad64f03 passes43057224855 and is ready.
 Full joined teaching/provider/current authority/large-file/restore/lifetime/
 metadata expiry and human acceptance remain OPEN. No live cache, daemon,
 viewer/browser, deployment or PR merge. Explicit UTF8 and external roots only.
