@@ -1,9 +1,21 @@
 # Evidence index
 
-EVID-124 (focused candidate): [final-absence entry review](../reviews/2026-11-11-placement-final-absence.md)
-records read-only/no-effect settled absence with required-destination fences.
-Final13/3 actual exits/strict63500, all15 teaching82636 and81 controls pass; full
-profiles24981/61132 and source/artifact/hosted/full intended-use gates remain.
+EVID-125 (locally qualified): [joined return/restore](../reviews/2026-11-11-teaching-return-restore.md)
+records actual11-step source/M acquisition/F restoration and expired old retry.
+Final47 refusals/16 teaching/83 controllers, both workspace+500k/strict profiles,
+standalone/fresh11-step artifact and final15 age cases in both profiles pass.
+Initial all-feature age-assertion failure101 is preserved; exact Journal(Busy)
+test-only correctionc2fcd06 passes corrected full60982. Source08710ef passes
+Windows/Linux/secrets43077356434; correction/closeout needs new-head hosted proof.
+Full intended-use/course/provider/authority/lifetime/human gates remain open.
+
+EVID-124 (qualified synthetic runtime923a40c/source8e948d4):
+[final-absence review](../reviews/2026-11-11-placement-final-absence.md) records
+read-only/no-effect settled absence and required-destination fences.13 focused/
+3 actual exits/15 teaching/81 controls, both workspace+500k/strict profiles,
+standalone/two fresh artifacts and Windows/Linux/secrets43069646518 pass.
+Documentation-only closeouta25552a also passes exact43077203826 on both hosts
+and secrets. Full intended-use/authority/provider/lifetime gates remain open.
 
 EVID-123 (qualified synthetic runtime81ecc27): [Git return review](../reviews/2026-11-11-teaching-git-return.md)
 records accepted exact Git/source return, held missing bytes and useful sibling

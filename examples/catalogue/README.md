@@ -176,7 +176,7 @@ configuration roles. Every lesson will show Git references, exact object identit
 Tig's plan and verified physical copies together.
 
 [The public input/oracle](lifecycle.design-1.json) freezes three exact UTF-8 byte
-seeds, two works, twenty-three specified checkpoints and seven baseline counterexamples.
+seeds, two works, twenty-six specified checkpoints and seven baseline counterexamples.
 The ordinary runner executes seven; exchange executes ten; worktree executes
 twelve; backup-outage executes nine including held/catchup stages; stale-plan
 executes ten including rejected/fresh-plan stages; rename executes eight with
@@ -277,7 +277,7 @@ and free-space change. Changing chapters requests only recorded metadata.
 This demonstrates that final loss does not permanently ban a content hash. A
 source pointer alone still cannot regenerate lost bytes: this fixture explicitly
 supplies the public seed again under new consent. Git return after final loss
-remains a separate future lesson. See the [reacquisition contract](../../specs/TEACHING-REACQUISITION.md).
+is demonstrated by the separate mode below. See the [reacquisition contract](../../specs/TEACHING-REACQUISITION.md).
 
 For Git return after final loss, use another fresh root:
 
@@ -296,5 +296,35 @@ Other useful work proceeds: fixed bytes move from working to history, with backu
 retained; shared bytes remain on working/backup. The actual report streams29 bytes
 for that fixed-version move, so this lesson does not claim zero total effects.
 `git-return.json` pins source revisions, exact authored record identities, disabled
-seed attempts, SDK plan/apply/status and physical observations. Explicit later
-reacquisition and restoration under this returned source remain separate work.
+seed attempts, SDK plan/apply/status and physical observations. The joined mode below continues this returned source through explicit
+reacquisition and ordinary working restoration.
+
+
+For the joined eleven-checkpoint story, use another new absolute output root:
+
+```text
+cargo run -p tig-git --features schema --bin tig-sample --locked -- rehearse-return-restore ABSOLUTE_NEW_OUTPUT
+```
+
+This includes the ordinary seven checkpoints, final loss, and actual Git return.
+Checkpoint10 explicitly supplies the public original seed under synthetic owner
+consent, publishes a new M birth and verifies its retained grant. Original bytes
+are now M only; ordinary working restoration is still pending. Checkpoint11 uses
+actual placement to stream those verified M bytes into F. O is F/M, fixed N is
+D/M, shared S is F/M, and D deliberately has no new original birth. Provider
+identities, historical records and capacity ledgers are preserved throughout.
+
+The two streams are separate:29 input bytes for explicit backup acquisition,
+then29 ordinary working-stream bytes from M. General seed access stays disabled;
+its counter remains at the value recorded by the missing-payload checkpoint.
+The view distinguishes recorded acknowledgement, retained custody and charged
+footprint from unmeasured net growth/free space and hardware independence.
+
+Finally the real completed old deletion is retried at simulated700:0 new and58
+historical logical copy bytes removed, no removal authority, and unchanged Git,
+source, all three capacity ledgers, witness and physical copies. Its raw report
+is pinned alongside the joined observations. The catalogue reads saved metadata
+only; changing lessons cannot execute movement or deletion. These eleven steps
+do not yet complete the full course or qualify real providers, current authority,
+clock, large files, metadata expiry or classroom acceptance. See the
+[joined contract](../../specs/TEACHING-RETURN-RESTORE.md).

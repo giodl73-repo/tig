@@ -39,13 +39,28 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
-Next reconciliation integration: [completed final absence](specs/PLACEMENT-FINAL-ABSENCE.md)
-will allow an unrequired, validated completed-deleted history copy to remain
-absent after explicit backup reacquisition and working restoration. Required
-stores keep their final-reacquisition fence. The private helper now passes13
-focused SDK entries/3 actual exits, strict Clippy, all15 teaching regressions and81
-controls; full profiles/source/artifact/hosted checks remain. The joined public
-Git-return/acquisition/restore lesson is still required.
+The [joined return and restore](specs/TEACHING-RETURN-RESTORE.md) now
+carries one fresh catalogue through final loss, accepted Git return with missing
+bytes, explicit retained M reacquisition and actual F/M convergence with D absent.
+Runtimeacbd4a9 preserves the same providers/history and records separate29-byte
+input/working streams, then actual expired old retry with0 new/58 historical
+removed bytes. Final focused native/HTTP/shipped/47 semantic refusals,83 controls
+and both workspace+500k/strict profiles, standalone/fresh persisted11-step
+artifact pass. Test-only exact Journal(Busy) correctionc2fcd06 preserves serial
+convergence/immutable facts; final age15 cases pass both profiles. Initial failed
+all-feature run is retained separately from corrected60982. Source08710ef
+passes Windows/Linux/secrets; final correction/closeout hosted proof remains.
+EVID-125 keeps
+implementation, verification, synthetic validation, trace and producer lenses
+separate; complete course and full product acceptance remain required.
+
+[Completed final absence](specs/PLACEMENT-FINAL-ABSENCE.md) allows an unrequired,
+validated completed-deleted history copy to remain absent after explicit backup
+reacquisition/working restoration. Required stores retain their final-reacquisition
+fence. Runtime923a40c/source8e948d4 passes13 focused entries/3 actual exits,
+all15 teaching/81 controls, both workspace+500k/strict profiles, standalone/two
+fresh persisted artifacts and exact Windows/Linux/secrets43069646518. Parent
+PR55 is ready; this does not qualify current authority or actual providers.
 
 Next bounded teaching slice: [Git return after final loss](specs/TEACHING-GIT-RETURN.md)
 will admit an exact old-version snapshot under a new Git/source revision and show
@@ -53,8 +68,8 @@ actual missing bytes and final-retirement holds with public seed access disabled
 The fresh-root ninth chapter now implements this flow with independently checked
 absence, useful fixed-version demotion, real native HTTP/shipped controls and23
 semantic refusals. All15/81 controls/both workspace+500k/strict/standalone/fresh
-artifact and exact Windows/Linux/secrets qualify runtime81ecc27. Joined
-acquisition/restoration and full teaching acceptance remain required work. Parent
+artifact and exact Windows/Linux/secrets qualify runtime81ecc27. The joined
+candidate above extends it; full teaching acceptance remains required work. Parent
 reacquisition PR53 and Git-return PR54 are ready for review;
 derive exact-head hosted qualification from GitHub.
 

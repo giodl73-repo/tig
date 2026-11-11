@@ -1,26 +1,33 @@
 # Tig maintainer context
 
-Current source8e948d4791c64f41a4d76d66195a709a73890e54 is pushed as ready PR55:
-https://github.com/giodl73-repo/tig/pull/55 (base feat/teaching-git-return).
-Runtime923a40c; contracta36aa29 precedes code. Exact run43069646518 passes
-Windows/Linux/secrets; PR55 is ready for review. Parent PR54 doc head
-71d7028 passes exact43066253510 Windows/Linux/secrets; ready, no merge/deploy.
-SDK broad24981/default and61132/all-feature are now TERMINAL0, including both
-workspace/500k/strict profiles. Default also passes standalone/fmt/fresh schema
-bins and persisted final-git-return/final-reacquire catalogue checks. All phase
-.exit files are0; no task-owned Cargo process remains. Earlier LIVE notes below
-are historical. Final13/3 actual exits/strict63500, all15 teaching82636 and81
-controllers pass. Source/history secrets and structure/pins/diff pass at8e948d4.
-This documentation closeout records hosted success separately from runtime.
-Artifacts are listed in external placement-final-absence-artifact-roots.txt:
-final-git-return-28f79577b2c64d398f4bcb19b580586f and
-final-reacquire-5cedd06eee6c4abe8e0becc0997a57bf, both prefixed placement-final-
-absence-. Each records9 checkpoints, complete_course=false; readonly check opens
-0 payloads and automatic_eviction=false. No viewer/browser/live cache was used.
-Next: exact-head PR55 hosted terminal/closeout, then joined public return ->
-explicit M reacquisition -> F restoration without D resurrection and old-retry
-preservation. Full course/provider/current authority/large-file/lifetime/metadata
-expiry and human/full-product gates remain OPEN. Keep full PRODUCT_PLAN active.
+Active owned lane feat/teaching-return-restore; PR56 (base feat/placement-final-absence).
+Input8e948d4/contractaa63946 precede teaching runtimeacbd4a9. Contract8a01079
+precedes test-only age Journal(Busy) correctionc2fcd06; no SDK production change.
+All local gates now pass: default2017 and corrected all-feature60982 TERMINAL0,
+both workspace/500k/strict, standalone/fmt/fresh schema bins/persisted11-step
+readonly catalogue. All phase.exit files0. Default workspace used prior stricter
+age assertion; final15 age pass on both default4528 and all-feature8026, and
+corrected full all-feature includes443 passing SDK entries/9 ignored. Original
+all-feature93071 test failure101 and outer shell quoting failure remain recorded;
+never treat ignored baseline fixtures as qualification. No live Cargo processes
+owned by this lane; both targets are free. Ignore other projects' processes.
+Final native/HTTP/shipped47 semantic refusals and83 controllers pass. Exact source,
+paired acquisition time/seed counters and all replay provider/capacity associations
+are bound. M acquisition and F restoration each stream29 bytes, D stays absent,
+old expired bulk retry reports0new/58historical. Complete_course remains false.
+Artifact return-restore-return-restore-6c8a6430ae6a40c08c0678c2700ffb0b has11
+checkpoints; read_only=true,payloads_opened=0,automatic_eviction=false. EVID-125
+separates implementation/verification/scoped validation/trace/six producer lenses.
+Source08710ef passes exact43077356434 Windows/Linux/secrets; new source including
+test-only correction and this closeout still needs its own hosted qualification.
+Keep PR56 draft until its final head passes. Parent PR55 ready; runtime8e948d4
+passes43069646518; documentationa25552a passes43077203826 on both hosts/secrets.
+All local source/pins/diff/secrets gates must be refreshed before final commit.
+Full PRODUCT_PLAN/course/native/provider/current-authority/time/large-file/
+lifetime/metadata expiry/operator/UI/Action/human acceptance remain OPEN.
+No viewer/browser/live cache/daemon/deploy/merge. Use explicit external TEMP/TMP/
+targets/debug0/incremental0/jobs4/threads4 and UTF8 text IO.
+Older notes below describe the input implementation.
 
 Active owned lane: feat/placement-final-absence, input81ecc27; contracta36aa29
 precedes runtime code. Private settled-final-absence observation/no-effect skip

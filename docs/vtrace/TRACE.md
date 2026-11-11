@@ -1,9 +1,15 @@
 # Tig trace
 
+Joined return/restore: TEACHING-RETURN-RESTORE -> literal11-step oracle -> actual
+Git/source/M acquisition/F restoration/old retry -> strict paired reader/response6
+-> native bytes/HTTP/shipped controls/47 refusals/both workspace+500k/strict/
+standalone/fresh11-step artifact -> EVID-125 local; final-source hosted remains.
+
 Completed final absence: PLACEMENT-FINAL-ABSENCE -> current-birth/final-status/
 settled-capacity proof + unrequired-cache no-effect branch -> actual three-store
-bytes/grants/replay/refusals/3 exits/15 teaching cases -> EVID-124 focused candidate.
-Broad/source/artifact/hosted and full intended-use gates remain open.
+bytes/grants/replay/refusals/3 exits/15 teaching cases -> both workspace+500k/
+strict/standalone/two artifacts/CI43069646518 -> EVID-124 qualified synthetic.
+Full intended-use/authority/provider/lifetime gates remain open.
 
 Git return: TEACHING-GIT-RETURN -> frozen physical oracle/actual Git/source/SDK
 held attempt -> distinct recorded decoder/response4 -> literal bytes/absence,

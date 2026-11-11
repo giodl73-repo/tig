@@ -7,6 +7,273 @@ use tig_git::catalogue::{Catalogue, Config, storage::objects::Query};
 mod catalogue_server;
 
 #[test]
+fn joined_return_acquires_backup_then_restores_working_and_preserves_expired_retry() {
+    let temp = tempfile::tempdir().unwrap();
+    let root = temp.path().join("joined return restore");
+    let output = Command::new(env!("CARGO_BIN_EXE_tig-sample"))
+        .arg("rehearse-return-restore")
+        .arg(&root)
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let result: Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(result["completed_checkpoints"], 11);
+    assert_eq!(result["complete_course"], false);
+    let server = catalogue_server::Server::new(&root.join("catalogue.json"));
+    let (code, book) = server.json("/api/lessons");
+    assert_eq!(code, 200);
+    assert_eq!(book["schema"], "tig.catalogue-teaching.design-6");
+    assert_eq!(
+        book["lessons"][9]["restoration"]["phase"],
+        "backup_acquired"
+    );
+    assert_eq!(
+        book["lessons"][10]["restoration"]["phase"],
+        "working_restored"
+    );
+    assert_eq!(book["lessons"][9]["restoration"]["working_stream_bytes"], 0);
+    assert_eq!(
+        book["lessons"][10]["restoration"]["working_stream_bytes"],
+        29
+    );
+    assert_eq!(
+        book["lessons"][10]["restoration"]["old_retry"]["new_removed_bytes"],
+        0
+    );
+    assert_eq!(
+        book["lessons"][10]["restoration"]["old_retry"]["historical_removed_bytes"],
+        58
+    );
+    render_book(&book);
+    drop(server);
+    for (text, roles) in [
+        (
+            b"Measurement series: 2,4,8,16\n".as_slice(),
+            vec!["working", "backup"],
+        ),
+        (
+            b"Measurement series: 2,4,8,32\n".as_slice(),
+            vec!["history", "backup"],
+        ),
+        (
+            b"Shared reference grid v1\n".as_slice(),
+            vec!["working", "backup"],
+        ),
+    ] {
+        let object = Object::from_bytes(text);
+        for role in ["working", "history", "backup"] {
+            let path =
+                tig_store::existing::Layout::Flat.object_path(&root.join(role), &object.sha256);
+            if roles.contains(&role) {
+                assert_eq!(fs::read(path).unwrap(), text);
+            } else {
+                assert!(!path.exists());
+            }
+        }
+    }
+    let config: Value =
+        serde_json::from_slice(&fs::read(root.join("catalogue.json")).unwrap()).unwrap();
+    let trace: Value = serde_json::from_slice(&fs::read(root.join("trace.json")).unwrap()).unwrap();
+    let acquired: Value = serde_json::from_slice(
+        &fs::read(root.join("reports/returned-backup-acquired.json")).unwrap(),
+    )
+    .unwrap();
+    let restored: Value = serde_json::from_slice(
+        &fs::read(root.join("reports/returned-working-restored.json")).unwrap(),
+    )
+    .unwrap();
+    for bad in [
+        "consent",
+        "clock",
+        "seed",
+        "seed_attempt",
+        "guard",
+        "retention_flag",
+        "authority",
+        "phase",
+        "parent_ref",
+        "missing_ref",
+        "previous_ref",
+        "source",
+        "source_sequence",
+        "source_hash",
+        "seed_jump",
+        "time_drift",
+        "providers",
+        "parent_action",
+        "birth",
+        "publication",
+        "ack",
+        "stream",
+        "charge",
+        "allocation",
+        "grant_capacity",
+        "enrollment",
+        "before",
+        "after",
+        "sibling",
+        "unknown_role",
+        "status",
+        "acq_apply",
+        "acq_replay",
+        "restore_apply",
+        "restore_status",
+        "effect",
+        "retry_new",
+        "retry_history",
+        "retry_count",
+        "retry_authority",
+        "retry_state",
+        "retry_floor",
+        "retry_capacity",
+        "retry_ledger_order",
+        "retry_time",
+    ] {
+        let mut a = acquired.clone();
+        let mut r = restored.clone();
+        let foreign =
+            serde_json::to_value(tig_core::Digest::blob(b"foreign joined proof")).unwrap();
+        match bad {
+            "consent" => a["synthetic_owner_consent"] = false.into(),
+            "clock" => a["simulated_clock"] = false.into(),
+            "seed" => a["seed_disabled"] = false.into(),
+            "seed_attempt" => a["seed_attempts_after"] = 999.into(),
+            "guard" => a["history_final_guard"] = false.into(),
+            "retention_flag" => a["retention_verified_at_capture"] = false.into(),
+            "authority" => a["authorizes_storage"] = true.into(),
+            "phase" => a["phase"] = "working_restored".into(),
+            "parent_ref" => a["final_parent_report"]["sha256"] = foreign,
+            "missing_ref" => a["missing_report"]["sha256"] = foreign,
+            "previous_ref" => a["previous_report"]["sha256"] = foreign,
+            "source" => a["source_commit"] = serde_json::json!("0".repeat(40)),
+            "source_sequence" => a["source_checkpoint"]["sequence"] = 999.into(),
+            "source_hash" => a["source_checkpoint"]["hash"] = foreign,
+            "seed_jump" => {
+                r["seed_attempts_before"] = 999.into();
+                r["seed_attempts_after"] = 999.into();
+            }
+            "time_drift" => r["acquisition_time"] = 99.into(),
+            "providers" => a["providers"].as_array_mut().unwrap().reverse(),
+            "parent_action" => {
+                a["acquisition"]["plan"]["parent"]["request"]["publication"]["operation"] =
+                    "foreign-parent".into()
+            }
+            "birth" => a["acquisition"]["plan"]["birth"]["index"] = 0.into(),
+            "publication" => {
+                a["acquisition"]["publication"]["request"]["operation"] =
+                    "foreign-publication".into()
+            }
+            "ack" => a["acquisition"]["publication"]["ack"] = "provider_durable".into(),
+            "stream" => a["acquisition"]["publication"]["streamed_bytes"] = 0.into(),
+            "charge" => a["acquisition"]["publication"]["charged_footprint"] = 0.into(),
+            "allocation" => a["acquisition"]["publication"]["allocation"]["genesis"] = foreign,
+            "grant_capacity" => {
+                a["acquisition"]["retention"]["record"]["allocation"]["genesis"] = foreign;
+                let bytes =
+                    tig_core::identity::canonical_json(&a["acquisition"]["retention"]["record"])
+                        .unwrap();
+                a["acquisition"]["retention"]["sha256"] =
+                    serde_json::to_value(tig_core::Digest::blob(&bytes)).unwrap();
+            }
+            "enrollment" => {
+                a["placement_plan"]["enrollment"] = foreign;
+                let p: tig_store::placement::Plan =
+                    serde_json::from_value(a["placement_plan"].clone()).unwrap();
+                a["placement_status"]["plan"] = serde_json::to_value(p.id().unwrap()).unwrap();
+            }
+            "before" => {
+                a["before"]["backup"]["original"] =
+                    a["acquisition"]["publication"]["request"]["object"].clone()
+            }
+            "after" => {
+                a["after"]["backup"]
+                    .as_object_mut()
+                    .unwrap()
+                    .remove("original");
+            }
+            "sibling" => {
+                a["after"]["backup"]
+                    .as_object_mut()
+                    .unwrap()
+                    .remove("shared");
+            }
+            "unknown_role" => a["after"]["unknown"] = serde_json::json!({}),
+            "status" => a["placement_status"]["page_converged"] = true.into(),
+            "acq_apply" => a["placement_apply"] = r["placement_apply"].clone(),
+            "acq_replay" => a["replay"] = r["replay"].clone(),
+            "restore_apply" => r["placement_apply"] = Value::Null,
+            "restore_status" => r["placement_status"]["storage_converged"] = false.into(),
+            "effect" => r["placement_apply"]["effects"][0]["provider"] = r["providers"][1].clone(),
+            "retry_new" => r["replay"]["new_removed_bytes"] = 1.into(),
+            "retry_history" => r["replay"]["historical_removed_bytes"] = 0.into(),
+            "retry_count" => r["replay"]["selected_roots"] = 0.into(),
+            "retry_authority" => r["replay"]["removal_authority"] = true.into(),
+            "retry_state" => r["after_replay"]["source"]["sequence"] = 999.into(),
+            "retry_floor" => {
+                r["before_replay"]["witness"]["sequence"] = 0.into();
+                r["after_replay"]["witness"]["sequence"] = 0.into();
+            }
+            "retry_capacity" => {
+                r["before_replay"]["witness"]["genesis"] = foreign.clone();
+                r["after_replay"]["witness"]["genesis"] = foreign;
+            }
+            "retry_ledger_order" => {
+                r["before_replay"]["ledgers"]
+                    .as_array_mut()
+                    .unwrap()
+                    .swap(0, 1);
+                r["after_replay"]["ledgers"]
+                    .as_array_mut()
+                    .unwrap()
+                    .swap(0, 1);
+            }
+            "retry_time" => r["retry_time"] = 100.into(),
+            _ => unreachable!(),
+        }
+        r["acquisition"] = a["acquisition"].clone();
+        let mut changed = trace.clone();
+        let object = save_evidence(&root, &a);
+        changed["completed"][9]["report"] = object.clone();
+        r["previous_report"] = object;
+        changed["completed"][10]["report"] = save_evidence(&root, &r);
+        let mut config = config.clone();
+        config["teaching"]["trace"] = save_evidence(&root, &changed);
+        let path = root.join("negative-joined.json");
+        fs::write(&path, serde_json::to_vec(&config).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    for bad in ["missing_final", "out_of_order"] {
+        let mut changed = trace.clone();
+        if bad == "missing_final" {
+            changed["completed"].as_array_mut().unwrap().pop();
+        } else {
+            changed["completed"].as_array_mut().unwrap().swap(9, 10);
+        }
+        let mut config = config.clone();
+        config["teaching"]["trace"] = save_evidence(&root, &changed);
+        let path = root.join("negative-joined-order.json");
+        fs::write(&path, serde_json::to_vec(&config).unwrap()).unwrap();
+        let c = Catalogue::load(Config::load(&path).unwrap()).unwrap();
+        assert!(
+            tig_git::catalogue::teaching::execute(c.teaching_request().unwrap()).is_err(),
+            "accepted {bad}"
+        );
+    }
+    let raw = fs::read(root.join("returned-old-retry.json")).unwrap();
+    let replay: Value = serde_json::from_slice(&raw).unwrap();
+    assert_eq!(replay["new_logical_copy_bytes_removed"], 0);
+    assert_eq!(replay["historical_deleted_copy_bytes"], 58);
+    assert_eq!(
+        result["joined_restoration_evidence"]["old_retry"],
+        serde_json::to_value(Object::from_bytes(&raw)).unwrap()
+    );
+}
+
+#[test]
 fn git_return_after_final_loss_selects_references_but_keeps_missing_bytes_held() {
     use tig_git::catalogue::teaching;
     let temp = tempfile::tempdir().unwrap();

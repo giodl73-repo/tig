@@ -13,6 +13,8 @@ mod paged_playback;
 mod reacquisition_playback;
 #[path = "tig-sample/recovery.rs"]
 mod recovery;
+#[path = "tig-sample/return_restore.rs"]
+mod return_restore;
 use serde_json::{Value, json};
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -53,6 +55,7 @@ enum Mode {
     FinalEnrollment,
     FinalManual,
     FinalGitReturn,
+    ReturnRestore,
     FinalCancel,
     FinalReacquire,
     FinalProcess,
@@ -313,6 +316,7 @@ impl Demo {
             Mode::FinalEnrollment
                 | Mode::FinalManual
                 | Mode::FinalGitReturn
+                | Mode::ReturnRestore
                 | Mode::FinalCancel
                 | Mode::FinalReacquire
                 | Mode::FinalProcess
@@ -938,10 +942,13 @@ impl Demo {
                 result["final_deletion_exercised"] = true.into();
             }
         }
-        if matches!(mode, Mode::FinalGitReturn) {
+        if matches!(mode, Mode::FinalGitReturn | Mode::ReturnRestore) {
             let (head, evidence) = git_return::run(&mut self, &first, &current)?;
             current = head;
             result["git_return_evidence"] = serde_json::to_value(evidence)?;
+        }
+        if matches!(mode, Mode::ReturnRestore) {
+            result["joined_restoration_evidence"] = return_restore::run(&mut self, &current)?;
         }
         let pending = if matches!(mode, Mode::Exchange) {
             json!([
@@ -1491,7 +1498,7 @@ impl Demo {
         let loss = save(
             &self.root.join("final-loss.json"),
             &json!({
-                "schema":"tig.sample-final-loss.design-1","held_preview":preview,"source_after_job_history_retirement":settled_job,
+                "schema":"tig.sample-final-loss.design-1","witness_checkpoint":ledger.checkpoint(),"held_preview":preview,"source_after_job_history_retirement":settled_job,
                 "plan":serde_json::from_slice::<Value>(&fresh.to_json()?)?,"report":report,"copies_before":before,"copies_after":after,
                 "interruption":if process_exit.is_some(){"actual child process exit at durable intent"}else{"injected SDK intent boundary; not process death"},"copies_after_intent":copies_after_intent,
                 "actual_child_exit_code":process_exit,
@@ -2022,7 +2029,7 @@ fn run() -> Result<Value> {
     }
     if args.len() == 1 && args[0] == "describe" {
         return Ok(
-            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-git-return NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
+            json!({"schema":"tig.sample-interface.design-1","operations":["describe","rehearse-ordinary NEW_ABSOLUTE_ROOT","rehearse-exchange NEW_ABSOLUTE_ROOT","rehearse-worktree NEW_ABSOLUTE_ROOT","rehearse-backup-outage NEW_ABSOLUTE_ROOT","rehearse-stale-plan NEW_ABSOLUTE_ROOT","rehearse-rename NEW_ABSOLUTE_ROOT","rehearse-final-enrollment NEW_ABSOLUTE_ROOT","rehearse-final-manual NEW_ABSOLUTE_ROOT","rehearse-final-git-return NEW_ABSOLUTE_ROOT","rehearse-return-restore NEW_ABSOLUTE_ROOT","rehearse-final-cancel NEW_ABSOLUTE_ROOT","rehearse-final-reacquire NEW_ABSOLUTE_ROOT","rehearse-final-process NEW_ABSOLUTE_ROOT","rehearse-retained-age NEW_ABSOLUTE_ROOT","rehearse-aged-category NEW_ABSOLUTE_ROOT"],"fixture_only":true,"opens_existing_roots":false,"complete_course":false}),
         );
     }
     if args.len() != 2 {
@@ -2038,6 +2045,7 @@ fn run() -> Result<Value> {
         Some("rehearse-final-enrollment") => Mode::FinalEnrollment,
         Some("rehearse-final-manual") => Mode::FinalManual,
         Some("rehearse-final-git-return") => Mode::FinalGitReturn,
+        Some("rehearse-return-restore") => Mode::ReturnRestore,
         Some("rehearse-final-cancel") => Mode::FinalCancel,
         Some("rehearse-final-reacquire") => Mode::FinalReacquire,
         Some("rehearse-final-process") => Mode::FinalProcess,
