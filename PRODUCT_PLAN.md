@@ -39,6 +39,15 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next lifetime implementation: [journal continuation](specs/JOURNAL-CONTINUATION.md)
+requires active/in-flight accounting, exact historical replies and scoped durable
+activation before sustained use; expiry additionally needs surviving authority/
+replay fences. First [paged working checkpoint](specs/CAPACITY-CHECKPOINT.md)
+builds a bounded core state codec and read-only existing-ledger export. This is
+implemented with focused recovery/export evidence; broader qualification remains
+open. It does not deliver segment activation, history pruning or expiry.
+No current cap, format or root is changed. Full plan/acceptance remains open.
+
 Next teaching integration: [remote byte publication](specs/TEACHING-REMOTE-PUBLICATION.md)
 composes actual Git exchange with the existing optional LFS upload CLI and a
 fresh bounded loopback receiver over existing providers. Its four frozen stages

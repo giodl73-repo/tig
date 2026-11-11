@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 32775,
-      "sha256": "b2db4aae18cae1015b17b0bffa14726995a8a7c14779ac20466a8c93f04de18a"
+      "bytes": 34210,
+      "sha256": "4b82e86e518bea22be45f9d1f470563156e08c3a089446726569082ce5f199c3"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130627,
-      "sha256": "644680ffac2385f4caea24af700c63f3a38c97df16b473eb181d738645ffa50c"
+      "bytes": 130715,
+      "sha256": "b27b0a9bdfef64bfd8966702718eb27f420fc9e2b1c9569e043add023138ba58"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 54647,
-      "sha256": "d0b784335e0bd8c83a01cb3609a151843163ae9ffe1ad2f2f5a1b84270428246"
+      "bytes": 55284,
+      "sha256": "48adb0189c654110377e9f8f8063c87c7692951421fdc17ab0f9841b3ff2bfea"
     },
     {
       "path": "README.md",
@@ -604,8 +604,8 @@
     },
     {
       "path": "crates/tig-core/src/capacity.rs",
-      "bytes": 14339,
-      "sha256": "34eae036538ccd6869408bbfcdd18896b2514cd8688c5bb7b1cd7b611f0e5dbd"
+      "bytes": 14522,
+      "sha256": "241c9b710a5e702fec031f80640e5a9ee59da4603a87b2a430c80d65211079ef"
     },
     {
       "path": "crates/tig-core/tests/capacity.rs",
@@ -624,8 +624,8 @@
     },
     {
       "path": "crates/tig-store/src/ledger.rs",
-      "bytes": 46141,
-      "sha256": "3479ec823466cc1c5c499f1b2a44d93c41e64b621463fc008543d995f6acb4a5"
+      "bytes": 46162,
+      "sha256": "03d16c694a0060f4305a1be71749b7487f08002d322bb353d8f9e6dbff310092"
     },
     {
       "path": "crates/tig-store/src/ledger_tests.rs",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 96100,
-      "sha256": "bdb71a9d743b32d1d31b5e30a39680ca87797fd5bd3d0ff50b8b651c9944b862"
+      "bytes": 97535,
+      "sha256": "9a5dd3d504f588034dfd9c60abd0c54ac5f75014876b7c52cf81fbb1fd731568"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3466,6 +3466,41 @@
       "path": "crates/tig-git/tests/remote_teaching.rs",
       "bytes": 13367,
       "sha256": "c4e3af01f2aee4bf1de27fac080bcf444b1a25d0cbefdf8a8b75cef306454590"
+    },
+    {
+      "path": "docs/reviews/2026-11-11-capacity-checkpoint.md",
+      "bytes": 6839,
+      "sha256": "34d9f5ffbf3b4f8c533084ef5b16dfc9b69b3e5733ff6e5848bee8efd5ff816f"
+    },
+    {
+      "path": "specs/CAPACITY-CHECKPOINT.md",
+      "bytes": 6377,
+      "sha256": "2ec5ece1890459f69cfee4a4ba799d39169bf0fd3defa5786df932c5e6213217"
+    },
+    {
+      "path": "specs/JOURNAL-CONTINUATION.md",
+      "bytes": 5148,
+      "sha256": "8101022278cf1e32bb9b0f23420a59c090d35b40a862cdbbb03b6bd277eaf4e9"
+    },
+    {
+      "path": "crates/tig-core/src/capacity/checkpoint.rs",
+      "bytes": 18642,
+      "sha256": "0d31abca0dd81be824aa39cb22dff5455948fbb155c872560a7f7d93e28d1f87"
+    },
+    {
+      "path": "crates/tig-core/src/capacity/checkpoint/tests.rs",
+      "bytes": 15111,
+      "sha256": "45042a3d4bde8bd03630d5aa5ebde4f9bcc86bb206e58045632d392f5e4aac52"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/checkpoint.rs",
+      "bytes": 3199,
+      "sha256": "c7e8de79a5ebacee9f8bc18ceac658a90eb1b15a76d5fa8e8851e4ad3a748595"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/checkpoint/tests.rs",
+      "bytes": 6145,
+      "sha256": "4a85425154d47f887f95422c4819220d217d4e5438909a2a7291c4d2cd96f634"
     }
   ]
 }
