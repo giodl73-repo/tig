@@ -1,17 +1,25 @@
 # Tig resume state
 
 Active owned lane feat/journal-activation, inputc833add85f9a9c79d3387a78e469bc13a2570403.
-Contract-only full durable activation plus initial private SQL-fence qualification;
+Full durable activation design plus supporting SQL probe;
 read specs/JOURNAL-ACTIVATION.md and JOURNAL-CONTINUATION.md before code.
 Freeze exact SQL/helper and control/index framing before implementation. File
 pointer alone does not fence a legacy writer already past its guard. Full journals
 need a mutation fence without a cap waiver; new independent activation minimum
 must detect pre-fence restore. Seal-only public API is excluded until full recovery.
-EVID-129 six producer lenses are design only. Full PRODUCT_PLAN remains active.
+EVID-129 records six producer lenses and supporting Python SQLite3.44.0 proof.
+Designd650b51/SQL48f5f40 precede the tool; final probe passes delayed SQL writer
+refusal, prefix preservation, rollback/reopen, distinct-domain progress and known
+pre-fence/partial-guard restore holds. Unchecked restore can fork. This is not
+pinned legacy Rust qualification or implemented activation; both remain owed. Full PRODUCT_PLAN remains active.
 Parent PR59 sourcec833add is draft, focused16core/eight archive/max16384/strict pass.
-Default72751 and all40677 LIVE in distinct external targets; do not overlap or
-restart on timeout. Follow ledger-history phase.exit/logs and exact43107903309;
-last Windows/Linux live, secrets pass. New lane has no Cargo/build process.
+Initial default72751/all40677 TERMINAL101: native Budget refusals, preserved.
+Focus4352 passes both failed cases sequentially without production changes.
+Serial full pipeline37691 LIVE: default then all, RUST_TEST_THREADS=1, explicit
+in-test concurrency retained. Both targets are reserved; do not overlap/restart.
+Follow ledger-history-serial phase.exit/logs and actual handle; parent exact
+43107903309 Windows/Linux/secrets all pass. PR59 stays draft pending local full0.
+New lane has no Cargo/build process; do not interfere with the parent pipeline.
 No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
 browser/viewer, merge or deploy. Synthetic fixtures only. Preserve explicit external
 TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO. Ignore other projects.

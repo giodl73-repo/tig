@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 37435,
-      "sha256": "291ed1d4163d4746e762ad1328c0b1ee766adc9279cd0b47b25f4056e75a9180"
+      "bytes": 38081,
+      "sha256": "f5acdd2498f621b544c594b41a7a68bc37ad0b3a1be206e78431534d7216588d"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130874,
-      "sha256": "bb41a2ab56af12a92c16f06861083a79caf725a144487433848576019008e9ad"
+      "bytes": 130879,
+      "sha256": "7021cdb04c56b5d6dd0e477685f675ca69154c149dd2d3664c5eafcb851a89d7"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 100760,
-      "sha256": "0f503d5b0537b592ab2e6496c6e614a29179ce1081aa7e6739e79d4f3bb3f1f7"
+      "bytes": 101406,
+      "sha256": "1ce8e6b5c371722ce70c066472f2ad6c21774a1a50d48d112cb2bed742ca9c34"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,13 +3534,18 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 2687,
-      "sha256": "9d66cea475796b28f341eb1cd2fdc3acaa18b6c2765c6e7a937a26e4a45fefb5"
+      "bytes": 5927,
+      "sha256": "4c4588e0f8824c3a94a142c75f1c50da1152e6fac34da17ea592b3beee3a8969"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
       "bytes": 12636,
       "sha256": "5066bc7ee630db79db9889678d8d3b84ea77e1218f75c5fa21f7aeabd0e82a6f"
+    },
+    {
+      "path": "tools/probe_activation_sql.py",
+      "bytes": 11828,
+      "sha256": "3875d15d64418201558a8849054897842acb696133b44ef52d5aa64ee2c79764"
     }
   ]
 }

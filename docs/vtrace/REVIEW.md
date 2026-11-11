@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-129: [activation](../reviews/2026-11-11-journal-activation.md); design.
+EVID-129: [activation](../reviews/2026-11-11-journal-activation.md); SQL support.
 
 EVID-128: [original history](../reviews/2026-11-11-ledger-history.md); focused.
 
