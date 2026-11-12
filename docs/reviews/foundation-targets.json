@@ -3589,8 +3589,8 @@
     },
     {
       "path": "specs/JOURNAL-SUCCESSOR.md",
-      "bytes": 19673,
-      "sha256": "4810361f25916ea67c16499760b4e802f1bcbf0c086a02d9275a8d06d6cc8308"
+      "bytes": 23547,
+      "sha256": "5a7e95522134c5d69f3af546a2d37c630409080745ffa8e102a756f40580b2b7"
     },
     {
       "path": "crates/tig-store/src/ledger/history/index.rs",

@@ -290,3 +290,60 @@ No IO merely by deriving them. Require exact canonical/hash vectors, unknown/ext
 rebound fields, self/predecessor/range/budget errors, coherent foreign state, missing
 nodes, mismatched metadata resource and physical read-only reopen with ancestor/
 current minima and deferred tail minima. Design-only framing cannot prove a seal.
+
+## Private bounded SQL tail replay entry
+
+Input401dcd674bff050264ac16c79fd4283438922edc. Same WP/REQ/SPEC/IF/PKG controls
+and RUST/PROVIDER/INTEGRATION L0/L1/L2 above. Allowed next scope is cfg(test)-only
+continuation/tail adapter over the existing SQL shape, pure execute and history
+index; no public activation/open/write, actual metadata admission or expiry.
+Entry is the checked Base and exact TailIdentity; exit is a read-only replayed
+snapshot with acknowledged tail prefix checked, never a writable journal handle.
+
+An empty tail cannot be bound by its head alone. Preserve existing meta/events
+columns and add tig_tail(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL
+CHECK(length(body)<=65536),hash TEXT NOT NULL). Exactly one row stores canonical
+TailIdentity bytes and SHA256. After its initial insertion, three fixed SQL guards
+reject INSERT/UPDATE/DELETE on tig_tail; readback requires exact table/guard SQL.
+The nine activation guards remain separate and unchanged. A future real tail
+creator must establish and read back this header under admitted capacity before
+any publication. This entry permits only explicit synthetic SQL fixture creation.
+
+Collect one bounded SQL snapshot: exact schema/header, singleton meta row, all
+local events ordered by global sequence. Enforce at most16384 rows,16MiB body total,
+64KiB body,128-byte operation and64-byte hashes before copying individual fields.
+SQL head-base.sequence, aggregate body bytes and final chain must agree. Close
+all cursors/transaction before any node-provider IO or dependency replay. Never
+initialize an absent DB or fabricate missing prefixes. A continued sequence can
+exceed16384; only its local count is capped, global counts stay within u32.
+
+Replay a consumed checked Base outside SQL with the existing pure execute helper.
+Prove every tail operation absent in the original index; reject duplicate local
+names and any original-name reuse. Resolve only a command's bounded direct typed
+dependencies into per-command scratch; retain only bounded local-tail outputs.
+Share the existing index build meter2M/1M calls and512MiB each across all old
+operation/dependency proofs, with each point proof still1024/4MiB. No lifetime
+output map, inventory scan, new provider cache or fresh budget per command.
+
+Original Reservation/Allocation/Publication/Retention/Handoff/Cleanup records may
+supply exact matching execution dependencies after typed/index checks. Historical
+ProbeEvidence has no ObservationTicket conversion; a new Observe cannot consume
+an old probe. Historical replies stay historical, and a previously recorded cleanup
+must still cancel a later settlement. Final replay invalidates observations and
+retains the original clock high, active/in-flight state and local original outputs.
+AtLeast minimum requires the exact row prefix, not merely an equal/higher head.
+
+Before returning the read-only snapshot, re-read exact header/head/bytes under
+another short SQL snapshot; a peer advance or header change conflicts and adopts
+no state. Control-file/current-authority freshness, seal observation, physical
+admission and committed writer CAS/poisoning remain separate joined-controller
+requirements. Returning this snapshot grants none of them.
+
+L0 exact source/pins/format/roles. L1 malformed/header/schema/count/byte/hash/
+operation/type/prefix/budget/old-probe/cleanup cancellation negatives and no cap
+waiver. L2 real SQLite tail after actual original full-segment history, global
+sequence above16384, active/in-flight completion across the boundary, reader
+transaction released before actual peer commit, changed-head refusal, read-only
+physical metadata reopen and independent prefix vectors. Both full segments and
+joined write/rotation/recovery/old-writer/source-provider-witness remain owed.
+Producer lenses pass_with_risk for this entry; all implementation/checks pending.
