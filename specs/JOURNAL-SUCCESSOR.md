@@ -255,3 +255,38 @@ provider/privacy requires explicit existing adapters and bounded metadata-only I
 Git/adoption requires original references/outcomes and synthetic old-library
 fixtures. Implementation and all named integration gates are OPEN. These lenses
 are not independent people, human acceptance or publication authority.
+
+
+## Private record-reader implementation entry
+
+Inputf2c48901451d84a82e0892ab9ff55d3bc732e258, after bound-context seam. The next
+allowed component is cfg(test)-only ledger::continuation records and read-only
+base/minimum validation, reusing private history index/meter adapters. Same frozen
+WP/REQ/SPEC/IF/PKG and RUST/PROVIDER/INTEGRATION controls above. No public activation,
+new engine, node/source writes, source SQL claim, physical admission or expiry.
+
+Strict record codecs use the exact fields/schemas above. Intent wire adapters keep
+legacy fields/sequence bounds and add predecessor only for design-2; a legacy
+predecessor:null must not round-trip as a permitted extra field. Match intent hash,
+Preparation object, operation/authority/generation/source/base and Data identities.
+Metadata minimum must match the actual admitted MetadataReader identity and not
+exceed its counters. Only that reader supplies bounded verified nodes.
+
+read_base validates the independent expected authority, control/metadata/data and
+activation minimum using a shared existing64MiB/262144-call meter. Prior activation
+lookup is one path activation/20-digit generation with strict ancestor record;
+no scans. Check current generation absent from its ancestry index. For a checkpoint
+at/below base, use the bounded global sequence proof. A checkpoint above base is
+explicit TailRequirement::AtLeast(Checkpoint), NOT a verified prefix or writable
+journal admission. Restore working state through into_domain_for_context; samples
+stay invalid. Return private base state plus unresolved tail requirement/metrics.
+The eventual controller must verify source SQL seals, actual tail prefix, control
+archive, physical admission and current authority before exposing any handle.
+
+Tail filenames are segments/20-digit-generation-SHA256(operation UTF8).sqlite;
+preparation names activations/SHA256(operation UTF8).json and controls use their
+canonical digest. These are provider-derived relative names, never imported paths.
+No IO merely by deriving them. Require exact canonical/hash vectors, unknown/extra/
+rebound fields, self/predecessor/range/budget errors, coherent foreign state, missing
+nodes, mismatched metadata resource and physical read-only reopen with ancestor/
+current minima and deferred tail minima. Design-only framing cannot prove a seal.

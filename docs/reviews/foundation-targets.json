@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 35888,
-      "sha256": "231ad36b89b5accd6b99496621fa39e145155170851ee8f01068726970e85a6b"
+      "bytes": 36468,
+      "sha256": "91da9528665b338f27a6dfc529eac3fccd6537dd92f25a9e176a320e668d2a54"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3589,8 +3589,8 @@
     },
     {
       "path": "specs/JOURNAL-SUCCESSOR.md",
-      "bytes": 17339,
-      "sha256": "408fe8aa2920b35f3085faa88c5c5699a44ddaf909fdcf069cd66607893583cb"
+      "bytes": 19673,
+      "sha256": "4810361f25916ea67c16499760b4e802f1bcbf0c086a02d9275a8d06d6cc8308"
     },
     {
       "path": "crates/tig-store/src/ledger/history/index.rs",

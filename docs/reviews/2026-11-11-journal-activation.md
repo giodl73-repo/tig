@@ -507,3 +507,12 @@ bounded read-only working-set query; original source/probe semantics retained.
 JC-04 pure seam resolved; actual continued-mode adoption must use it and remains
 OPEN. Broader new-source/hosted checks and JC-01..03/metadata admission/full controller/
 provider-source-witness/expiry and human acceptance remain required.
+
+
+Next private record-reader entryf2c4890: JOURNAL-SUCCESSOR amendment precedes code.
+Framing/read-only base/minimum proof uses existing index/meter/provider, explicit
+expected original authority/context, single-path ancestry and source prefix checks.
+Above-base minimum is deferred as a typed tail requirement, never declared proved.
+This component cannot validate an SQL seal, reserve physical metadata or grant a
+writable journal. Those joined controller gates remain required. Existing meter/
+index visibility may widen only within ledger to permit reuse, not public ingress.
