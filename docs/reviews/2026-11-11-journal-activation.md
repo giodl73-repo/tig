@@ -719,3 +719,71 @@ readbacks. ST-04 closes only for this named preparation profile. This is not
 independent/human approval, native metadata admission, public controller/write/
 activation/recovery, full provider/source/witness/expiry/course/product acceptance.
 The earlier measured Budget failure and fixture failure remain preserved above.
+
+Existing-engine entrybd0fabd/input7caf201 freezes method routing before code.
+Private cfg(test) continued state is part of CapacityLedger, with existing
+apply/execute, shared typed status/reference lookup and bounded current closed
+token enumeration. Old Probe/Retired outputs are explicit historical variants;
+old probes never rehydrate and old retired zeros remain paged. Own retries return
+original receipts, conflicting requests hold, cached outputs are local-tail only.
+Actual observed legacy seal/guards, exact control/archive/header, finished metadata
+and independent minimum are required; a wire receipt alone never admits a writer.
+Missing resources hold without creation. General continued-source seal/controller/
+second rotation and native physical admission are still required.
+
+Before engine code, the reopen amendment and source/spec hashes were recorded at
+continued-engine-entry-0332bb80928d4d18a617d8ae0525ae1f. Internal recorded tail
+observation/pending state is needed to replay a peer's legitimate later Observe/
+Reserve; invocation Instant/probe maps stay empty after reopen, old evidence has no
+ticket conversion, and visible accounting stays unknown until own fresh probe.
+Read-only/preparation snapshots retain observation invalidation. Generic working
+checkpoint export remains read-only/no authority; original-history export refuses
+continued mode before node IO. Extra SQL count/prefix control rows are charged
+conservatively as rowcount+20 in joined preparation; ceilings remain unchanged.
+
+Initial parser/import errors were corrected.17947 five tests pass with private
+visibility/dead-code warnings;51286 seven pass after narrowing visibility/reusing
+strict replay.90801 adding private Guarded stage exposed a non-exhaustive legacy
+clock-test match, corrected explicitly.63454 final focused12 pass3.53s: real old/
+new public-method command families, historical/new statuses/retries/zero, actual
+seal versus wire-only assertion, no missing replacement, both reopened-peer probe
+cases, catch-up/write head races, lost commit reply/poison/reopen and export scopes.
+35892 terminal1/reaped: short37,legacy26,clock7 all0; strict101 needless references
+in two lookup calls. Removed without suppression/behavior change;50008 strict0.
+
+Final owned35364 pins all Rust/TOML/lock source at continued-engine-final-
+d4a74510c61142e29b9eb59b8e8fc631. Short/legacy pass, remaining clock/strict/full
+method-written tail/joined/strict replay/archive/checkpoint/index/fence/fmt pending.
+No implementation/verification/validation/trace/producer full closure yet. This
+private integration supplies no activation, native admission, recovery or cutover.
+
+35364 engine-maximum.exit0,522.46s: an actual full original16384 journal is sealed;
+existing CapacityLedger methods commit another16384 commands to the derived tail,
+global32768/local971987 encoded bytes. The cached output map contains exactly the
+16384 local results, not lifetime outputs. Exact original reserve and new completion
+retry remain available at the full cap; new writes/probes refuse. Actual finished
+metadata/tail reopen under the independent minimum preserves old50-byte outcome,
+exact original/new receipts and no fresh reservation permission. This is a real
+method-written tail, not raw SQL insertion or immutable synthetic index records.
+Final short37/legacy26/clock7/strict-entry all.exit0. Remaining joined/strict replay/
+archive/checkpoint/index/fence/final strict/fmt are still pending; no full closure.
+
+Final35364 TERMINAL0/reaped; every phase and complete exit0, all Rust/TOML/lock
+paths/raw hashes checked before phases/end. Short37, legacy26, clock7; actual
+full method tail522.46s; joined479.09s; strict read-only maximum231.43s; original
+history8/checkpoint3/index8; fence10pass1explicit-old-writer-ignored; both strict
+entries and fmt pass. Joined totals1123422reads447596663B,668057writes258673542B;
+only four additional logical control reads versus7caf; ceilings unchanged.
+
+Separate closure: implementation PASS for private existing-engine integration;
+verification PASS for named focused/full/regression source; scoped validation
+PASS for synthetic real filesystem/SQLite method writes and process reopen;
+trace PASS against the before-code method audit. Six producer lenses
+PASS_WITH_RISK: exact original/local identities; no policy/deletion permission;
+retained active/in-flight/zero outcomes; staged peer conflict and poison/reopen;
+no metadata provider IO inside SQL or implicit creation; original receipt/retry
+and legacy regressions preserved. This is no independent/human approval.
+Full public entry/controller, continued-source seals, two rotations, native
+physical metadata admission, provider/source/witness/expiry/course acceptance
+and new-source broad/exact hosted qualification remain OPEN. Prior pending
+paragraphs describe historical observations, superseded by this terminal result.

@@ -3,6 +3,17 @@ use super::*;
 use tig_core::Object;
 const TABLE: &str = "CREATE TABLE tig_activation(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL CHECK(length(body)<=65536),hash TEXT NOT NULL)";
 const MAX_NUMBER: u64 = 9_007_199_254_740_991;
+pub(in crate::ledger) fn verify_seal(conn: &Connection, body: &[u8], hash: &Digest) -> Result<()> {
+    let receipt = inspect(conn)?.ok_or(LedgerError::NeedsRecovery)?;
+    if receipt.intent.bytes()? != body || &receipt.hash != hash {
+        return Err(LedgerError::Corrupt);
+    }
+    Ok(())
+}
+pub(in crate::ledger) fn seal_fixture(ledger: &mut CapacityLedger, body: &[u8]) -> Result<()> {
+    let intent: Intent = decode(body)?;
+    seal(ledger, &intent, |_| Ok(())).map(|_| ())
+}
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Intent {
@@ -130,6 +141,9 @@ fn seal(
     intent: &Intent,
     mut hook: impl FnMut(Stage) -> Result<()>,
 ) -> Result<Receipt> {
+    if ledger.continued.is_some() {
+        return Err(LedgerError::InvalidReference);
+    }
     let body = intent.bytes()?;
     ledger.sync()?;
     if ledger.checkpoint != intent.source

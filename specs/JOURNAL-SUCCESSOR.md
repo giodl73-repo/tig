@@ -513,3 +513,22 @@ method tail beyond16384, legacy/new-format refusal and both original regressions
 Then both broad profiles and exact hosts. This is an intermediate engine integration;
 complete controller prepare/seal/control publication/recovery, two rotations, native
 admission/source/provider/witness/expiry and full product gates remain OPEN.
+
+Legacy export audit: export_history design-1 covers a complete original bounded
+segment and must refuse continued mode before NodeStore IO. export_checkpoint
+remains a generic read-only working-state descriptor: it binds the current global
+Checkpoint and exact state, revalidates after provider IO and grants no authority.
+Reading its codec still invalidates observations. Qualify this distinction; do not
+pretend a local tail is a complete original-history export.
+
+Continued-engine reopen amendment before engine code: a peer may still have a
+valid handle-local probe from the already-recorded tail when another handle opens.
+The new handle must replay that peer's later Reserve without gaining its permission.
+Keep recorded tail observation/pending state only inside the private engine's
+pure replay model; initialize its invocation fresh/probe maps empty. Normal
+read-only/staged preparation snapshots still invalidate observations. No immutable
+ProbeEvidence conversion is added. Public observe/reserve/begin_fresh_probe retain
+their current invocation checks; visible continued accounting stays unknown until
+the handle completes its own fresh probe. Reopen/catch-up never create an Instant
+or native-time ticket. Qualify two real handles with peer Reserve/Observe after
+reopen, old-probe refusal on the new handle, and unchanged independent held state.

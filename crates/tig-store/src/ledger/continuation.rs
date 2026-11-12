@@ -471,6 +471,6 @@ fn read_base(
     })
 }
 
-mod tail;
+pub(super) mod tail;
 #[cfg(test)]
 mod tests;

@@ -98,6 +98,14 @@ struct Snapshot {
     rows: Vec<Row>,
 }
 fn collect(conn: &mut Connection, expected: &TailIdentity) -> Result<Snapshot> {
+    collect_from(conn, expected, &expected.base, 0)
+}
+fn collect_from(
+    conn: &mut Connection,
+    expected: &TailIdentity,
+    since: &Checkpoint,
+    prefix_bytes: u64,
+) -> Result<Snapshot> {
     expected.validate()?;
     let tx = conn.transaction()?;
     schema(&tx)?;
@@ -106,11 +114,36 @@ fn collect(conn: &mut Connection, expected: &TailIdentity) -> Result<Snapshot> {
         return Err(Error::Invalid);
     }
     let (head, bytes) = head(&tx, &identity)?;
+    if since.genesis != identity.authority
+        || since.sequence < identity.base.sequence
+        || since.sequence > head.sequence
+        || prefix_bytes > bytes
+    {
+        return Err(Error::Journal(LedgerError::Rollback));
+    }
+    let count: u64 = tx.query_row("SELECT count(*) FROM events", [], |r| number(r, 0))?;
+    if count != head.sequence - identity.base.sequence {
+        return Err(Error::Invalid);
+    }
+    if since.sequence == identity.base.sequence {
+        if since != &identity.base || prefix_bytes != 0 {
+            return Err(Error::Invalid);
+        }
+    } else {
+        let hash: String = tx.query_row(
+            "SELECT hash FROM events WHERE sequence=?1 AND length(CAST(hash AS BLOB))=64",
+            [sql_number(since.sequence)?],
+            |r| r.get(0),
+        )?;
+        if hash != since.hash.as_str() {
+            return Err(Error::Journal(LedgerError::Rollback));
+        }
+    }
     let mut copied = Vec::new();
     let mut total = 0u64;
     {
-        let mut statement = tx.prepare("SELECT sequence,length(CAST(operation AS BLOB)),length(CAST(body AS BLOB)),length(CAST(previous AS BLOB)),length(CAST(hash AS BLOB)),operation,body,previous,hash FROM events ORDER BY sequence LIMIT 16385")?;
-        let mut rows = statement.query([])?;
+        let mut statement = tx.prepare("SELECT sequence,length(CAST(operation AS BLOB)),length(CAST(body AS BLOB)),length(CAST(previous AS BLOB)),length(CAST(hash AS BLOB)),operation,body,previous,hash FROM events WHERE sequence>?1 ORDER BY sequence LIMIT 16385")?;
+        let mut rows = statement.query([sql_number(since.sequence)?])?;
         while let Some(r) = rows.next()? {
             let size = number(r, 2)?;
             total = total.checked_add(size).ok_or(Error::Budget)?;
@@ -135,7 +168,7 @@ fn collect(conn: &mut Connection, expected: &TailIdentity) -> Result<Snapshot> {
             });
         }
     }
-    if total != bytes || copied.len() as u64 != head.sequence - identity.base.sequence {
+    if total != bytes - prefix_bytes || copied.len() as u64 != head.sequence - since.sequence {
         return Err(Error::Invalid);
     }
     tx.commit()?;
@@ -145,6 +178,18 @@ fn collect(conn: &mut Connection, expected: &TailIdentity) -> Result<Snapshot> {
         bytes,
         rows: copied,
     })
+}
+
+fn checked_row(row: &Row, current: &Checkpoint) -> Result<Request> {
+    let request: Request = decode(&row.body)?;
+    if row.sequence != current.sequence.checked_add(1).ok_or(Error::Budget)?
+        || row.operation != request.operation
+        || row.previous != current.hash
+        || event_hash(row.sequence, &row.previous, &request)? != row.hash
+    {
+        return Err(Error::Invalid);
+    }
+    Ok(request)
 }
 
 fn dependencies(command: &Command) -> super::super::Result<Vec<(Key, bool)>> {
@@ -207,11 +252,22 @@ fn replay(
     nodes: &mut impl NodeStore,
     limits: TreeLimits,
 ) -> Result<Replayed> {
-    replay_inner(base, snapshot, nodes, limits, Names::Check)
+    replay_inner(
+        base,
+        snapshot,
+        nodes,
+        limits,
+        Names::Check,
+        Observation::Invalidate,
+    )
 }
 enum Names {
     Check,
     DeferToIndex,
+}
+enum Observation {
+    Invalidate,
+    RecordedForEngine,
 }
 fn replay_inner(
     base: Base,
@@ -219,6 +275,7 @@ fn replay_inner(
     nodes: &mut impl NodeStore,
     limits: TreeLimits,
     names: Names,
+    observation: Observation,
 ) -> Result<Replayed> {
     if snapshot.identity.base != base.data.source
         || snapshot.identity.generation != base.data.generation
@@ -246,13 +303,8 @@ fn replay_inner(
     };
     let mut minimum_proven = required.is_none();
     for row in &snapshot.rows {
-        let request: Request = decode(&row.body)?;
-        if row.sequence != current.sequence.checked_add(1).ok_or(Error::Budget)?
-            || row.operation != request.operation
-            || row.previous != current.hash
-            || event_hash(row.sequence, &row.previous, &request)? != row.hash
-            || outputs.contains_key(request.operation.as_str())
-        {
+        let request = checked_row(row, &current)?;
+        if outputs.contains_key(request.operation.as_str()) {
             return Err(Error::Invalid);
         }
         if matches!(names, Names::Check)
@@ -278,7 +330,9 @@ fn replay_inner(
     if !minimum_proven {
         return Err(Error::Journal(LedgerError::Rollback));
     }
-    model.invalidate_observation();
+    if matches!(observation, Observation::Invalidate) {
+        model.invalidate_observation();
+    }
     Ok(Replayed {
         model,
         outputs,
@@ -311,7 +365,14 @@ fn stage_for_index(
         base.data.operations.clone(),
         base.data.sequences.clone(),
     )?;
-    let replayed = replay_inner(base, snapshot, nodes, limits, Names::DeferToIndex)?;
+    let replayed = replay_inner(
+        base,
+        snapshot,
+        nodes,
+        limits,
+        Names::DeferToIndex,
+        Observation::Invalidate,
+    )?;
     Ok(Staged {
         index,
         identity: snapshot.identity.clone(),
@@ -377,6 +438,16 @@ fn read_tail(
     nodes: &mut impl NodeStore,
     limits: TreeLimits,
 ) -> Result<Replayed> {
+    read_tail_policy(base, control, conn, nodes, limits, Observation::Invalidate)
+}
+fn read_tail_policy(
+    base: Base,
+    control: &ActiveControl,
+    conn: &mut Connection,
+    nodes: &mut impl NodeStore,
+    limits: TreeLimits,
+    observation: Observation,
+) -> Result<Replayed> {
     control.validate()?;
     if base.data.source != control.seal.intent.source
         || base.data.generation != control.preparation.tail.generation
@@ -387,7 +458,17 @@ fn read_tail(
     }
     let snapshot = collect(conn, &control.preparation.tail)?;
     let expected = (snapshot.head.clone(), snapshot.bytes);
-    let replayed = replay(base, &snapshot, nodes, limits)?;
+    let replayed = match observation {
+        Observation::Invalidate => replay(base, &snapshot, nodes, limits)?,
+        Observation::RecordedForEngine => replay_inner(
+            base,
+            &snapshot,
+            nodes,
+            limits,
+            Names::Check,
+            Observation::RecordedForEngine,
+        )?,
+    };
     // No node-provider IO during either transaction. A changed peer is explicit
     // conflict; a failed read consumes the staged model instead of adopting it.
     let tx = conn.transaction()?;
@@ -402,3 +483,5 @@ fn read_tail(
 
 #[cfg(test)]
 mod tests;
+
+pub(in crate::ledger) mod engine;

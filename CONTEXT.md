@@ -13,7 +13,11 @@ staged insertion preserves canonical roots and proves absence during mutation.
 The real full16384 legacy source plus16384 immutable index delta reaches32768
 under unchanged budgets; full core, physical reopen, original archive,500k metadata,
 strict/fmt pass. See [EVID-129](docs/reviews/2026-11-11-journal-activation.md).
-This is not actual continued SQL, durable active-control recovery or metadata expiry.
+The private cfg(test) CapacityLedger mode now qualifies actual method-written
+continued SQL to32768 global events with bounded local outputs and exact old
+retries. Final35364 passes focused/regression/full-tail/joined/strict/fmt phases.
+General continued seals, two rotations, durable controller/recovery, native
+metadata admission and expiry remain open. This is no public activation API.
 
 Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
 fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is
@@ -21,7 +25,9 @@ integrated locally; exact43135967822 passes all hosts/secrets, PR59 ready. No re
 Older runtime d29a576 passes full local both profiles/500k/strict/standalone/bins/
 fresh14 artifact/catalogue: owned44636 terminal0. Newer joined source needs its
 own broad/hosted checks. Derive active ownership from RESUME and external runner
-state. The separate activation target is free after final59288.
+state. Final35364 released the separate activation target. Exact7caf201 hosted
+Linux/secrets passed; Windows hit60minutes. CI is partitioned with unchanged
+coverage/deadlines; new exact-head hosted results remain required.
 
 Next joined contract: [JOURNAL-SUCCESSOR](specs/JOURNAL-SUCCESSOR.md), alongside
 [JOURNAL-ACTIVATION](specs/JOURNAL-ACTIVATION.md) and

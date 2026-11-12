@@ -62,8 +62,14 @@ The private read-only SQL-tail adapter now qualifies a real full original16384
 journal plus a physically committed16384-row tail, retaining old active state and
 completion outcomes. Same-workload joined preparation now fits the original shared
 budget after a measured failed diagnostic; private staging defers name absence to
-conditional index insertion before state release. Public-method routing, actual
-continued writes/rotations/recovery and genuine metadata admission remain required.
+conditional index insertion before state release. Private cfg(test) integration
+now routes existing CapacityLedger methods and qualifies actual continued writes:
+full original16384 plus method-written tail16384, exact old/new retries, peer
+catch-up, lost reply/reopen and bounded local outputs. Final35364 focused/full/
+regression/strict/fmt passes. Public entry, continued-source seals, two rotations,
+controller/recovery and genuine metadata admission remain required. CI partitions
+preserve coverage after the previous Windows monolith timed out; new-source broad
+and hosted results are still required.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable

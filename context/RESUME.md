@@ -4,6 +4,48 @@ Owned F:/src/Tig-worktrees/journal-activation, feat/journal-activation. Derive H
 status from Git. Preserve dirty C:/src/Tig user files. Full PRODUCT_PLAN active;
 no delegates, remote merges/deployments or live cache/payload operations.
 
+Current DIRTY continued-engine candidate on precontractbd0fabd/input7caf201.
+CapacityLedger itself routes private cfg(test) continued mode through existing
+apply/execute and shared status/reference/closed-token lookups; no second engine.
+open requires actual legacy SQL seal/guards and exact current control/archive/
+existing derived tail/admitted metadata/minimum. First-generation private entry
+only; general seals/two rotations/controller/native admission remain OPEN.
+Original Probe/Retired outputs have explicit historical variants; no old probe
+rehydration or lifetime output map. Cached outputs are local tail only; old retired
+zero uses paged outcome. Closed enumeration verifies original owner/generation.
+Internal recorded tail observations support legitimate peer catch-up after reopen,
+while invocation fresh/probe maps start empty and visible accounting is unknown.
+Ordinary read-only/preparation snapshots still invalidate observations. Before-code
+reopen amendment: continued-engine-entry-0332bb80928d4d18a617d8ae0525ae1f.
+
+63454 TERMINAL0:12 focused engine tests3.53s (all old/new command families, statuses,
+paged zero/retries, real sealed open, wire-only seal refusal, no missing replacement,
+peer Observe/Reserve after reopen, staged catch-up/write races, poison/lost reply,
+working export and original-history refusal). Earlier parse/import errors fixed;
+17947 first5 passes with visibility/dead-code warnings corrected,51286 seven pass;
+90801 added Guarded enum caused one legacy clock-test match error, explicit arm fixed.
+35892 TERMINAL1/reaped: short37/legacy26/clock7 pass; strict-entry101 needless
+reference at two lookups. Removed without semantics;50008 strict pass28.70s.
+
+Owned35364 TERMINAL0/reaped: all14 phase/complete exit files0; pinned all
+Rust/TOML/lock paths/hashes before phases/end. External root:
+F:/src/tig-dev-temp/bulk-retirement/continued-engine-final-d4a74510c61142e29b9eb59b8e8fc631
+Short37/legacy26/clock7, strict-entry, real method-written full source/tail,
+joined full, strict full, history/checkpoint/index/fence, strict/fmt all pass.
+Actual source16384+method tail16384 reaches32768, local971987 encoded bytes;
+exact old/new retries/reopen preserve old50-byte outcome and no fresh permission.
+Joined1123422reads447596663B,668057writes258673542B within unchanged shared budget.
+Separate activation target FREE. General controller/seals/two rotations/native
+admission are still OPEN. Broad41952 continues immutable7caf only, normal targets
+remain reserved; derive exact process/phase/exits, never restart on timeout.
+
+Hosted43151515936 on7caf: Linux/secrets pass, Windows job130961642989 cancelled
+at60m15s during Rust. No current-head Windows proof. CI now partitions six native
+suites per OS with complete exact library inventory and retained integration/bin/
+doc/operator/compatibility checks; deadlines unchanged. Six Python checks and
+Actionlint1.7.12 pass; compiled523 names partition419/64/40. New hosted matrix
+pending. See docs/reviews/2026-11-12-ci-partition.md for entry and scoped evidence.
+
 Current joined preparation is focus-qualified on contractc374775/input9888618;
 derive the final runtime commit from Git. Existing BudgetPort remaining/nested
 logical accounting and ledger-private archive/index helpers; borrowed SQL rows;

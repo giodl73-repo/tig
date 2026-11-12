@@ -8,7 +8,7 @@ use tig_core::{capacity::CapacityError, tree::TreeResult};
 fn key(s: &str) -> Key {
     Key::parse(s).unwrap()
 }
-fn create(f: &Fixture, c: &ActiveControl) -> Connection {
+pub(super) fn create(f: &Fixture, c: &ActiveControl) -> Connection {
     let path = f._temp.path().join("tail.sqlite");
     OpenOptions::new()
         .write(true)
@@ -90,7 +90,7 @@ fn append(
         hash,
     }
 }
-fn refresh(f: &mut Fixture) {
+pub(super) fn refresh(f: &mut Fixture) {
     let export = f
         .ledger
         .export_history(&mut f.nodes, ReadLimits::default())

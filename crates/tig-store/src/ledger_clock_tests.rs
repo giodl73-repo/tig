@@ -217,6 +217,7 @@ fn clock_exit_child() {
                         Stage::Validated => "validated",
                         Stage::Written => "written",
                         Stage::Committed => "committed",
+                        Stage::Guarded => "guarded",
                     }
                 {
                     std::process::exit(77);

@@ -21,7 +21,7 @@ fn prepare(
     let mut port = BudgetPort::new(&mut f.nodes, build_limits())?;
     port.account_nested(&port.used(), &initial)?;
     let sql = TreeMetrics {
-        reads: snapshot.rows.len() + 16,
+        reads: snapshot.rows.len() + 20,
         read_bytes: snapshot.bytes as usize + 264 * snapshot.rows.len() + 256 * 1024,
         ..TreeMetrics::default()
     };
