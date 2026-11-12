@@ -161,3 +161,37 @@ does not convert the interrupted whole run into a successful workspace pass.
 New-source full profiles/500k/strict/standalone/fresh teaching artifact and hosted
 qualification remain required. The c833add source itself passes exact43107903309
 Windows/Linux/secrets. This correction needs its own exact-head CI.
+
+
+## Final original-history qualification
+
+Exact runtime/test candidate1c1f3cad448e5bf5578d734ea9cdd43a565c7740 passes hosted
+43119762645 Windows/Linux/secrets. Fresh owned pipeline in external
+ledger-history-owned-b787ba2789be482c8bf5b596fdb6d43e is terminal0; PID44168 is
+absent. Every phase.exit0: default workspace/schema, strict all-target, standalone
+Git, fmt/bins, all-feature workspace/strict/fmt/bins, fresh persisted teaching
+artifact and catalogue check. Both actual500000-binding metadata cases pass.
+JOBS1/THREADS1 retain explicit in-test concurrency and all production caps/deadlines.
+No source algorithm or bounds were changed to get these profiles through.
+
+Fresh artifact ledger-history-owned-qualified-ce9fc2c15d9844418c90429846f37237
+executes actual14 Git/provider/HTTP checkpoints, complete_course=false. Receiver
+gets two PUTs/54 bytes,28 requests/270 GET payload bytes; custody/removal authority
+remain false. Catalogue check is read-only with0 opened payloads and automatic_eviction=false. Existing sample bodies/source inputs stay synthetic/public.
+
+Earlier72751/40677 native Budget failures and stopped37691 stdout-readiness deadlock
+remain failures/interruption, not passes. Controlled88738 later lost its session;
+its runner/test/Cargo processes were absent and its log stopped mid default suite
+without exit markers; all phase never began. That is interrupted/unknown exit,
+not inferred success. The fresh owned run starts only after authoritative process
+absence and keeps earlier logs. No restart was triggered solely by a timeout.
+
+Separate closure: implementation, verification and scoped synthetic validation
+PASS for original bounded history export/lookup/validation. Trace includes frozen
+contracts, runtimec833add and readiness-only1c1f3ca, focused/max/negative/physical
+checks, complete local profiles and exact hosted results. Six producer lenses are
+PASS_WITH_RISK within this scope, not independent or human approval. Current
+closeout changes documentation/source pins only; no Rust/runtime change.
+Actual segmented activation, global lifetime composition, expiry/.tig removal,
+provider/source/witness/current-authority/native/large-file/operator/UI/Action and
+full course/independent/human acceptance remain OPEN. Full PRODUCT_PLAN active.

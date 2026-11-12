@@ -15,11 +15,13 @@ under unchanged budgets; full core, physical reopen, original archive,500k metad
 strict/fmt pass. See [EVID-129](docs/reviews/2026-11-11-journal-activation.md).
 This is not actual continued SQL, durable active-control recovery or metadata expiry.
 
-Parent PR59/source1c1f3ca has exact Windows/Linux/secrets success; owned44168 is
-qualifying fresh local all-feature/artifact after passing default/strict/standalone.
-Both normal Cargo targets remain parent-owned. Revalidate PID and external phase
-markers from RESUME; do not reuse stale handles or restart on observation timeout.
-The separate activation target is free after terminal18823 metadata regression.
+Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
+fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is
+integrated locally; new exact43135967822 is running, PR59 draft. No remote PR merge.
+Current runtime d29a576 is broadly qualifying in detached
+F:/src/Tig-worktrees/journal-index-d29-qualification, owned hidden PID44636.
+Both normal targets are reserved by that runner; derive actual phase/ownership
+from RESUME. The separate activation target is free for next joined-code fixtures.
 
 Next joined contract: [JOURNAL-SUCCESSOR](specs/JOURNAL-SUCCESSOR.md), alongside
 [JOURNAL-ACTIVATION](specs/JOURNAL-ACTIVATION.md) and

@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 4108,
-      "sha256": "506e7ba32c109493b34ff18f16a89710eb99729556cfbe57d887b511319febfe"
+      "bytes": 4242,
+      "sha256": "68bb8c294124d4fc2b5d42cfbbcf205fdf7aeadf3159b04ba9a256d622463d18"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130895,
-      "sha256": "1bc3109c30fa25db7357de9e50690fd715b0df381cf68672f32deb7218e97826"
+      "bytes": 130913,
+      "sha256": "5ab0285cb1fe4300e362bcc8cf829612f949aee72e591edfe3f7dc4346bfb547"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 57555,
-      "sha256": "2b66241aaa49b0d38a092852ec842d1d04d9d0d47f899b9d447fcddccff494e3"
+      "bytes": 57674,
+      "sha256": "9ef24575131e69ce58efbe38b7cd9a0dc4e34a03e0b120b1ce75145fbb873623"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 10738,
-      "sha256": "483d497afb7e24cb4ab4035c9d34e98ea24a6108402570b6a117d0fbbfa5adbb"
+      "bytes": 11450,
+      "sha256": "a304706c1c6a243f1d49cd10fdf3c94d75020464d0f28f38edc33cbb0e519feb"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3504,8 +3504,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-ledger-history.md",
-      "bytes": 12587,
-      "sha256": "d4e59d5da31456624eeb0c086c0c1ba913d6aa656af117808633326da3f87fee"
+      "bytes": 14868,
+      "sha256": "715d89141b2e7ef5cc08231e5fa8acac69a13e514976a0bdd93fae65cd681926"
     },
     {
       "path": "specs/LEDGER-HISTORY.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 32302,
-      "sha256": "09fe9b97565e6580d84c9983c104add0a5b54d34c4bfb915d86a97ed15dde4ed"
+      "bytes": 33459,
+      "sha256": "fa6b24385462a6109773c9c9ab1f4ffd77433a83f01f7c60ab0598cc4784d755"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",

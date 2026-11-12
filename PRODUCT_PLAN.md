@@ -64,9 +64,10 @@ preserve exact original requests/replies and typed dependencies in bounded immut
 records, with lazy lookup and historical probes that cannot restore admission.
 The archive candidate now exports original typed outputs, lazily reads exact
 receipts and explicitly validates a bounded segment. Actual legacy/clock metadata
-reopen, peer progress, all kinds and16384-command/in-flight fixtures pass; broader
-profiles and exact-source hosted checks remain required. This is not activated
-compaction or expiry. Parent working-checkpoint PR58 passes all local/hosted gates
+reopen, peer progress, all kinds and16384-command/in-flight fixtures pass. Fresh
+full default/all/500k/strict/standalone/fmt/fresh14 artifact checks and exact1c1f3ca
+Windows/Linux/secrets pass. This documentation closeout needs its current-head
+hosted check. This is not activated compaction or expiry. Parent working-checkpoint PR58 passes all local/hosted gates
 and is ready; the joined lifetime target below remains required.
 
 Next lifetime implementation: [journal continuation](specs/JOURNAL-CONTINUATION.md)

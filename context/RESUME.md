@@ -1,6 +1,7 @@
 # Tig resume state
 
-Current owned feat/journal-activation: input7ef73d328f5c2a28477d1f2a7993a8ed288f9978.
+Current owned feat/journal-activation: runtime d29a57625179e7d3013bd6e2283a8a5f49825aa7.
+Local parent documentation27e8792 integrated; derive final HEAD from Git.
 Private global-index/shared typed/proof ports plus core conditional insert are
 focus-qualified; derive the latest commit from Git and compare recorded pins. Full PRODUCT_PLAN active.
 No actual successor SQL/control/minimum/expiry or public seal operation.
@@ -12,7 +13,7 @@ TOML/lock path sets/hashes pinned and checked before phases. Short8, max1/global
 Original metadata regression18823 TERMINAL0/reaped:16 incl actual500k/thirteen
 edits, child exits, page quotas/concurrent writers/restore cases pass135.96s.
 Separate activation-legacy target is FREE; no live process remains in this lane.
-Normal targets stay RESERVED by parent44168, all-tests at last check.
+Both normal targets now RESERVED by broad d29 qualifier44636 (see below).
 
 Maximum415.87s: real original journal16384 plus synthetic immutable index delta
 16384 ->32768; actual continued SQL remains owed. Append1116746 logical reads/
@@ -32,11 +33,20 @@ fixed without suppression,8896/final strict pass. Current source matches final
 owned pipeline's source pins; compare them before committing. Run L0/diff/staged
 secrets before commit. Broader exact new-source workspace/hosted gates still owed.
 
-Parent44168 LIVE on clean1c1f3ca: fresh default/tests/strict/standalone/fmt/bins0,
-now all-tests. Both normal targets RESERVED. Exact43119762645 Windows/Linux/
-secrets all SUCCESS; PR59 draft pending local all/artifact and closeout. Inspect
-actual PID/command and ledger-history-owned-b787ba2789be482c8bf5b596fdb6d43e
-phase/logs/exit files; never restart on an observation timeout.
+Parent44168 TERMINAL/absent: every phase0, including both full workspace/500k/
+strict/standalone/fmt/bins/fresh14 artifact/catalogue. Runtime1c1f3ca exact hosted
+43119762645 all3 pass. Documentation-only27e8792 is committed/pushed on PR59;
+new exact43135967822 running, draft until current-head success. Original outcomes
+and artifact root are in EVID-128; no remote PR merge or deployment.
+
+Broad d29 qualifier PID44636 LIVE at last check: exact detached clean
+F:/src/Tig-worktrees/journal-index-d29-qualification. External
+journal-index-d29-owned-429faab9cef4417cb3718ef3264ca967/run.ps1 (also root.txt)
+checks HEADd29/clean before phases. Sequential default/schema workspace/strict/
+standalone/fmt/bins -> all workspace/strict/fmt/bins -> fresh14/cat. Both normal
+targets RESERVED. Follow actual PID/command, phase/logs/.exit; no overlapping Cargo
+or restart on observation timeout. Active lane may progress next controller code
+using the separate activation target while this detached source stays unchanged.
 
 Next joined controller contract is JOURNAL-SUCCESSOR.md. JC-01 requires known
 controls/DIGEST.json before domain publication so one predecessor read locates

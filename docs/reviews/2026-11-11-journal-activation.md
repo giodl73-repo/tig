@@ -455,3 +455,20 @@ state must match original domain/instance-as-core-epoch/floor, including an empt
 model. Current codec exposes domain only; a pure context-match seam and rebound
 negatives are required before continued-mode admission. No caller epoch label or
 internally coherent foreign model may substitute for the original authority.
+
+
+Implementation checkpoint d29a57625179e7d3013bd6e2283a8a5f49825aa7 commits exact
+qualified source (333 Rust/TOML/lock hashes match owned61404 pins). L0/diff/staged
+redacted Gitleaks pass. Current context/resume are compact routing notes; superseded
+process declarations remain in Git history and linked original evidence records.
+No Rust changed after qualification. Broader d29 source now runs detached/clean in
+journal-index-d29-qualification through owned44636, external journal-index-d29-owned-
+429faab9cef4417cb3718ef3264ca967. Both normal targets RESERVED; separate activation
+target free. Do not conflate these pending profiles with parent1c1f3ca's results.
+
+Parent archive qualification is now terminal0 for full local profiles/500k/strict/
+standalone/fresh14, plus exact1c hosted all3. Documentation27e8792 is locally
+integrated without a remote PR merge; EVID-128 carries its complete outcomes and
+prior failed/interrupted runs. Its new exact43135967822 remains pending, PR59 draft.
+Integration resolves only active context/resume/review/pin records, preserving
+current d29 runtime bytes and full remaining plan. No production capability added.
