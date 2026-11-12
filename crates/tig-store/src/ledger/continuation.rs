@@ -53,9 +53,9 @@ fn read_record<T: DeserializeOwned + Serialize>(
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-struct ActivationIdentity {
-    generation: u64,
-    digest: Digest,
+pub(in crate::ledger) struct ActivationIdentity {
+    pub(in crate::ledger) generation: u64,
+    pub(in crate::ledger) digest: Digest,
 }
 impl ActivationIdentity {
     fn validate(&self) -> Result<()> {
@@ -194,18 +194,18 @@ impl Preparation {
     }
 }
 
-// Wire adapter only. This does not observe or establish the actual SQL row.
+// Shared canonical intent. Decoding alone never observes or establishes a SQL seal.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-struct SealIntent {
-    schema: String,
-    operation: Key,
-    authority: Digest,
-    generation: u64,
-    source: Checkpoint,
-    prepared: Object,
+pub(in crate::ledger) struct SealIntent {
+    pub(in crate::ledger) schema: String,
+    pub(in crate::ledger) operation: Key,
+    pub(in crate::ledger) authority: Digest,
+    pub(in crate::ledger) generation: u64,
+    pub(in crate::ledger) source: Checkpoint,
+    pub(in crate::ledger) prepared: Object,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    predecessor: Option<ActivationIdentity>,
+    pub(in crate::ledger) predecessor: Option<ActivationIdentity>,
 }
 impl SealIntent {
     fn validate(&self) -> Result<()> {
@@ -232,7 +232,7 @@ impl SealIntent {
         }
         Ok(())
     }
-    fn to_json(&self) -> Result<Vec<u8>> {
+    pub(in crate::ledger) fn to_json(&self) -> Result<Vec<u8>> {
         self.validate()?;
         bytes(self)
     }

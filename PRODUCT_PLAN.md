@@ -66,8 +66,10 @@ conditional index insertion before state release. Private cfg(test) integration
 now routes existing CapacityLedger methods and qualifies actual continued writes:
 full original16384 plus method-written tail16384, exact old/new retries, peer
 catch-up, lost reply/reopen and bounded local outputs. Final35364 focused/full/
-regression/strict/fmt passes. Public entry, continued-source seals, two rotations,
-controller/recovery and genuine metadata admission remain required. CI partitions
+regression/strict/fmt passes. Private continued-source SQL sealing now passes final3708: exact original codec,
+actual full32768 source seal, paused writer, process exits and original regressions.
+General source locator/open, public entry, two full rotations, controller/recovery
+and genuine metadata admission remain required. CI partitions
 preserve coverage after the previous Windows monolith timed out; new-source broad
 and hosted results are still required.
 

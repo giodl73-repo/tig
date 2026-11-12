@@ -1,8 +1,8 @@
 //! Private qualification component. No public seal/activation API.
 use super::*;
+#[cfg(test)]
 use tig_core::Object;
 const TABLE: &str = "CREATE TABLE tig_activation(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL CHECK(length(body)<=65536),hash TEXT NOT NULL)";
-const MAX_NUMBER: u64 = 9_007_199_254_740_991;
 pub(in crate::ledger) fn verify_seal(conn: &Connection, body: &[u8], hash: &Digest) -> Result<()> {
     let receipt = inspect(conn)?.ok_or(LedgerError::NeedsRecovery)?;
     if receipt.intent.bytes()? != body || &receipt.hash != hash {
@@ -14,43 +14,24 @@ pub(in crate::ledger) fn seal_fixture(ledger: &mut CapacityLedger, body: &[u8]) 
     let intent: Intent = decode(body)?;
     seal(ledger, &intent, |_| Ok(())).map(|_| ())
 }
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
-#[serde(deny_unknown_fields)]
-struct Intent {
-    schema: String,
-    operation: Key,
-    authority: Digest,
-    generation: u64,
-    source: Checkpoint,
-    prepared: Object,
-}
+type Intent = continuation::SealIntent;
 impl Intent {
     fn bytes(&self) -> Result<Vec<u8>> {
-        if self.schema != "tig.capacity-activation-intent.design-1"
-            || self.authority != self.source.genesis
-            || self.generation == 0
-            || self.generation > MAX_NUMBER
-            || self.source.sequence > MAX_COMMANDS
-            || self.prepared.bytes == 0
-            || self.prepared.bytes > 65536
-        {
-            return Err(LedgerError::Corrupt);
-        }
-        encode(self)
+        self.to_json().map_err(|_| LedgerError::Corrupt)
     }
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
-struct Receipt {
+pub(in crate::ledger) struct Receipt {
     intent: Intent,
     hash: Digest,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Stage {
+pub(in crate::ledger) enum Stage {
     Checked,
     Written,
     Committed,
 }
-fn definitions() -> BTreeMap<String, (String, String)> {
+pub(in crate::ledger) fn definitions() -> BTreeMap<String, (String, String)> {
     let mut result = BTreeMap::new();
     result.insert("tig_activation".into(), ("table".into(), TABLE.into()));
     for table in ["events", "meta", "tig_activation"] {
@@ -112,6 +93,9 @@ fn inspect(conn: &Connection) -> Result<Option<Receipt>> {
     if current != intent.source || total > MAX_JOURNAL_BYTES {
         return Err(LedgerError::Corrupt);
     }
+    if intent.predecessor.is_some() {
+        continuation::tail::inspect_sealed_source(conn, &intent)?;
+    }
     Ok(Some(Receipt { intent, hash }))
 }
 fn head(conn: &Connection) -> Result<(Checkpoint, u64)> {
@@ -136,16 +120,21 @@ fn head(conn: &Connection) -> Result<(Checkpoint, u64)> {
         bytes,
     ))
 }
-fn seal(
+pub(in crate::ledger) fn seal(
     ledger: &mut CapacityLedger,
     intent: &Intent,
     mut hook: impl FnMut(Stage) -> Result<()>,
 ) -> Result<Receipt> {
-    if ledger.continued.is_some() {
-        return Err(LedgerError::InvalidReference);
-    }
     let body = intent.bytes()?;
+    match &ledger.continued {
+        Some(mode) => mode.check_seal(&ledger.root, intent)?,
+        None if intent.predecessor.is_some() => return Err(LedgerError::InvalidReference),
+        None => (),
+    }
     ledger.sync()?;
+    if let Some(mode) = &ledger.continued {
+        mode.check_seal(&ledger.root, intent)?;
+    }
     if ledger.checkpoint != intent.source
         || Digest::blob(&encode(&ledger.config)?) != intent.authority
     {
@@ -165,6 +154,9 @@ fn seal(
             }
             tx.commit()?;
             return Ok(existing);
+        }
+        if let Some(mode) = &ledger.continued {
+            mode.verify_unsealed_source(&tx)?;
         }
         hook(Stage::Checked)?;
         tx.execute(TABLE, [])?;

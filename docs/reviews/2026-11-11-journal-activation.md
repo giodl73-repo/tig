@@ -787,3 +787,81 @@ Full public entry/controller, continued-source seals, two rotations, native
 physical metadata admission, provider/source/witness/expiry/course acceptance
 and new-source broad/exact hosted qualification remain OPEN. Prior pending
 paragraphs describe historical observations, superseded by this terminal result.
+
+Continued-source SQL seal entry input20a3865 is frozen in JOURNAL-SUCCESSOR.md
+before implementation. External continued-seal-entry-451e5aee2d16462fbc898fcb254d5479
+records raw source/spec hashes. Same named controls and RUST/PROVIDER/INTEGRATION
+profiles apply. Shared canonical SealIntent preserves original design-1 fields/
+bytes/cap and admits distinct design-2 predecessor/global head. Actual inspector
+requires the exact tail schema plus all ten original activation objects, immutable
+header generation, bounded local count/bytes and exact source. The sealer compares
+predecessor with the checked active Mode control outside SQL, synchronizes existing
+methods and rechecks header/head/bytes in its immediate transaction before guards.
+No provider IO inside SQL, ordinary event slot, public seal API or cap waiver.
+
+First42724 TERMINAL0/reaped: four source seal/rollback/lost-reply/paused-writer/
+predecessor cases pass1.06s. Extended41344 TERMINAL101: malformed-header fixture
+called nonexistent TailIdentity.to_json; corrected to existing canonical bytes,
+not a new codec. Retest58016 TERMINAL0/reaped: seven cases pass1.68s, including
+actual child exits at Written/Committed, strict extra/partial schema and rebound
+header refusal, all nine mutation guards and sealed-tail open refusal. Unconfigured
+child helper is a harness entry; two actual exit77 executions provide exit proof.
+
+Final3708 owns continued-seal target and all Rust/TOML/lock path/hash pins before
+phases/end at continued-seal-final-135cef7a939c42268db68fbfb0a81573. Focused44 pass;
+legacy/clock/original-seal/strict/full32768-seal/joined/strict maximum/archive/index/
+fmt results remain pending; derive exact exits. Implementation candidate only;
+full verification/scoped validation/trace/producer closure is not yet claimed.
+Actual controller/source locator/minimum publication/two rotations/native physical
+metadata admission and full product/expiry/teaching/adoption gates remain OPEN.
+
+Pinned-seal interim evidence: focused44/legacy26/clock7/original-seal10 all0;
+strict-entry0. The explicitly ignored pinned c833add old-writer test also passes
+0.77s through the current compiled test binary; its original executable SHA
+bf6846e501c841631461c984cce7b256ee662af313b0a52837aee129e324dc1e was
+checked before/after. This is the existing timing-only instrumented qualification,
+not an unmodified-binary claim. Full-tail-seal/joined/strict maximum and final
+regressions remain pending on live3708. Do not edit its pinned Rust source.
+
+Next bounded source-locator/open design is appended before its implementation.
+Six producer lenses (owner Tig maintainers), design only PASS_WITH_RISK: identity
+checks both digest identity and complete prior tail header; policy adds no
+placement permission; custody keeps expiry/removal a separate required protocol;
+recovery refuses known missing archives and does not recursively repair history;
+provider paths derive from one validated known control with no census; Git/adoption
+preserves exact original/intermediate replies and independent minima. The relaxed
+original-file prerequisite after generation1 is only a bounded dependency, never
+an authorized cleanup. Actual multi-generation/source-rebind/minimum/stale-handle
+fixtures, exact input freeze, implementation and all runtime closure remain owed.
+
+Full-tail-seal.exit0 on pinned3708,467.35s: actual full original16384 plus actual
+method-written local16384 reaches global32768,971987 local encoded bytes. Physical
+metadata/tail reopen preserves exact original/new receipts and old50-byte outcome,
+local output map16384, no freshness renewal and cap refusal. The same full source
+then seals with observed design-2 intent/unchanged nine guards without consuming
+an ordinary event slot; checkpoint32768 and local outputs remain unchanged.
+Joined/strict maximum/archive/index/final strict/fmt remain pending. This is not
+second activation/controller publication, complete rotation or physical admission.
+
+Final3708 TERMINAL0/reaped. Every phase/complete exit0, plus explicit pinned legacy
+exit0; all Rust/TOML/lock paths/raw hashes checked before phases/end. Focused44,
+legacy26, clock7, original-seal10pass1externalignored; explicit pinned legacy1pass;
+full-tail-seal467.35s, joined448.96s, strict maximum239.46s; history8/checkpoint3/
+index8, strict-entry/final strict core/store all-targets and fmt pass. Joined metrics
+1123422reads447596663B,668057writes258673542B; ordinary strict replay unchanged
+351309reads147040227B,0writes. No limit/dependency/format/native deadline changed.
+
+Separate closure for this named private source-seal seam: implementation PASS
+(shared exact intent codec, actual SQL source inspector and existing-engine sealer);
+verification PASS (named focused/full/regression and hash-checked old-writer case);
+scoped validation PASS (synthetic real filesystem/SQLite writes, full32768 source
+and actual process exits/reopen); trace PASS against input20a3865/before-code entry.
+Six producer lenses PASS_WITH_RISK: exact predecessor and header identities;
+no placement permission; retained old accounting/replies and no cleanup; source
+head CAS/paused writer/rollback/poison/lost reply; bounded exact schema and no
+provider IO inside SQL; legacy canonical vector/cap/old-writer compatibility.
+No independent/human approval. General source locator/open, complete controller/
+publication/recovery, independently retained minima, full multiple rotations,
+genuine physical metadata admission JC-02 and source/provider/witness/expiry/course
+or full product acceptance remain OPEN. Earlier pending paragraphs are historical
+observations superseded by this terminal result; later source needs its own hosts.

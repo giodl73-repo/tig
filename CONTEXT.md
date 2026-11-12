@@ -16,8 +16,12 @@ strict/fmt pass. See [EVID-129](docs/reviews/2026-11-11-journal-activation.md).
 The private cfg(test) CapacityLedger mode now qualifies actual method-written
 continued SQL to32768 global events with bounded local outputs and exact old
 retries. Final35364 passes focused/regression/full-tail/joined/strict/fmt phases.
-General continued seals, two rotations, durable controller/recovery, native
-metadata admission and expiry remain open. This is no public activation API.
+Private continued-source SQL sealing now passes final3708, including the actual
+full32768 source, process exits and unchanged original regressions. General source
+locator/open, two rotations, durable controller/recovery, native metadata admission
+and expiry remain open. This is no public activation API.
+Exact20a3865 hosted43159604450 passes all12 native suites, secrets and both
+foundation aggregates; this excludes the later dirty continued-seal candidate.
 
 Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
 fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is

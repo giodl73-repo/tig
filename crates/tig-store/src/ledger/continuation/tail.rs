@@ -19,7 +19,14 @@ fn definitions() -> BTreeMap<String, (String, String)> {
     expected
 }
 fn schema(conn: &Connection) -> Result<()> {
-    let mut statement = conn.prepare("SELECT length(CAST(name AS BLOB)),length(CAST(type AS BLOB)),length(CAST(sql AS BLOB)),name,type,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' LIMIT 7")?;
+    schema_mode(conn, false)
+}
+fn schema_mode(conn: &Connection, sealed: bool) -> Result<()> {
+    let mut expected = definitions();
+    if sealed {
+        expected.extend(activation::definitions());
+    }
+    let mut statement = conn.prepare("SELECT length(CAST(name AS BLOB)),length(CAST(type AS BLOB)),length(CAST(sql AS BLOB)),name,type,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' LIMIT 17")?;
     let mut rows = statement.query([])?;
     let mut found = BTreeMap::new();
     while let Some(r) = rows.next()? {
@@ -33,10 +40,29 @@ fn schema(conn: &Connection) -> Result<()> {
             return Err(Error::Invalid);
         }
     }
-    if found != definitions() {
+    if found != expected {
         return Err(Error::Invalid);
     }
     Ok(())
+}
+/// Called only after the common inspector validates the actual fixed seal row.
+pub(in crate::ledger) fn inspect_sealed_source(
+    conn: &Connection,
+    intent: &SealIntent,
+) -> super::super::Result<()> {
+    let check = || -> Result<()> {
+        schema_mode(conn, true)?;
+        let identity = header(conn)?;
+        let previous = intent.predecessor.as_ref().ok_or(Error::Invalid)?;
+        if identity.generation != previous.generation
+            || identity.authority != intent.authority
+            || head(conn, &identity)?.0 != intent.source
+        {
+            return Err(Error::Invalid);
+        }
+        Ok(())
+    };
+    check().map_err(|_| LedgerError::Corrupt)
 }
 fn header(conn: &Connection) -> Result<TailIdentity> {
     let mut statement =

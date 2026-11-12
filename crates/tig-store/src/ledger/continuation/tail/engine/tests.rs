@@ -3,6 +3,8 @@ use super::super::tests::{create, refresh};
 use super::*;
 use history::tests::assert_receipt;
 
+mod seal;
+
 fn key(s: &str) -> Key {
     Key::parse(s).unwrap()
 }
@@ -745,4 +747,18 @@ fn existing_methods_fill_a_real_continued_tail_after_full_original_and_reopen_ol
         l.begin_probe(key("no-spare-slot")),
         Err(LedgerError::Budget)
     ));
+    let next = seal::intent(&l, &c);
+    assert_eq!(next.source.sequence, 32768);
+    activation::seal(&mut l, &next, |_| Ok(())).unwrap();
+    activation::verify_seal(
+        &l.conn,
+        &next.to_json().unwrap(),
+        &Digest::blob(&next.to_json().unwrap()),
+    )
+    .unwrap();
+    assert_eq!(
+        head(&l.conn, &c.preparation.tail).unwrap().0.sequence,
+        32768
+    );
+    assert_eq!(l.outputs.len(), 16384);
 }

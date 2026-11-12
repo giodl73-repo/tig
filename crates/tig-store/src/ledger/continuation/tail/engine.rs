@@ -28,6 +28,20 @@ pub(in crate::ledger) struct Mode {
     spent: TreeMetrics,
 }
 impl Mode {
+    pub(in crate::ledger) fn check_seal(&self, root: &Path, intent: &SealIntent) -> LR<()> {
+        self.guard(root)?;
+        if intent.predecessor.as_ref() != Some(&self.control.identity().map_err(journal)?) {
+            return Err(LedgerError::Conflict);
+        }
+        Ok(())
+    }
+    pub(in crate::ledger) fn verify_unsealed_source(&self, conn: &Connection) -> LR<()> {
+        schema(conn).map_err(journal)?;
+        if header(conn).map_err(journal)? != self.control.preparation.tail {
+            return Err(LedgerError::Corrupt);
+        }
+        Ok(())
+    }
     pub(in crate::ledger) fn guard(&self, root: &Path) -> LR<()> {
         guard(root, &self.control)
     }

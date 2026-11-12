@@ -532,3 +532,87 @@ their current invocation checks; visible continued accounting stays unknown unti
 the handle completes its own fresh probe. Reopen/catch-up never create an Instant
 or native-time ticket. Qualify two real handles with peer Reserve/Observe after
 reopen, old-probe refusal on the new handle, and unchanged independent held state.
+
+## Continued-source SQL seal integration entry
+
+Input20a38656a58e256b2826bc4d92737fb16d3e4427. Same frozen WP/REQ/SPEC/IF/PKG
+controls and RUST/PROVIDER/INTEGRATION L0/L1/L2 above. Scope: shared private intent
+codec/actual SQL inspector and continued CapacityLedger source sealing; no public
+seal API, controller publication, metadata admission, migration or cap change.
+
+Reuse the exact SealIntent codec for both wire and observed SQL. Legacy intent
+bytes remain identical, with no predecessor member and sequence<=16384. Design-2
+requires exact predecessor generation/digest and source<=u32::MAX. Before SQL,
+compare that predecessor to the active mode's actual checked control identity,
+not caller-supplied tail paths or a digest alone. Sync the ordinary engine before
+sealing; revalidate the filesystem control outside the SQL transaction.
+
+In the immediate transaction, compare source checkpoint/local bytes and immutable
+tail header. Inspect the exact permitted base schema plus either no activation
+objects or the complete original one-row table/nine guards; never allow arbitrary
+additional tables/triggers. Continued intent predecessor generation must equal
+the tail header generation and next generation must be exactly one greater.
+The header's base determines the local count, bounded16384 independently of the
+global head; local encoded bytes stay16MiB. Install the existing fixed fence row/
+nine guards atomically without consuming an ordinary command slot. Perform no
+metadata/provider IO inside SQL. A paused old continued writer must fail even
+after passing its file guard. Old read/write handles and new normal continued
+opens refuse a sealed tail until the controller publishes its next generation.
+
+After a successful or uncertain seal, poison the producer handle. An observed
+sealed receipt remains inspectable through a fresh existing-file connection for
+recovery and exact retry; do not admit a writable sealed-tail handle merely to
+retry. Missing/partial/rebound controls or SQL objects refuse without repair.
+Keep the original legacy tests and byte vector, not a reinterpreted legacy cap.
+
+L1: strict shared codecs, wrong/missing predecessor and generation, local/global
+bounds, exact retry/conflict, malformed/partial source/schema/guards, rollback and
+lost reply. L2: real existing-method continued writes, actual source fencing of
+an already-open writer paused after its final guard, process-exit recovery and
+unchanged legacy suite. Full source/tail rotation, controller/minimum publication,
+two rotations, native physical metadata admission and broader exact hosts remain
+separate mandatory exits; this private seam cannot close them.
+
+## General continued-source locator and open design
+
+Next integration after the pinned continued-seal qualification: remove the private
+engine's first-generation-only restriction without weakening source inspection.
+This design does not admit public activation; controller and physical admission
+remain required. Freeze the actual qualified input SHA before implementing it.
+
+Resolve the immediately previous sealed source from the checked current control.
+For generation1, require the original fixed ledger.sqlite and legacy seal. For a
+design-2 intent, read exactly controls/PREVIOUS_DIGEST.json using its predecessor
+identity. Validate that record, its content digest, original authority and exact
+generation; derive the source tail name only from that prior control's validated
+TailIdentity. Never enumerate controls, guess an operation from a digest or follow
+the prior control's own predecessor recursively. The original ledger.sqlite is
+not an additional open prerequisite after it ceases to be the immediate source.
+This bounded dependency is not permission to remove that original file.
+
+Before accepting the observed seal, compare the source's complete immutable tail
+header to the prior control's TailIdentity, not just its generation/authority.
+Then use the shared SQL inspector for the exact current intent/hash/head/local
+limits. A header rebound to another operation/base must hold even if its own
+canonical hash is correct. Match current prepared Data, source and predecessor;
+retain the independently supplied activation/checkpoint minimum checks. No NodeStore
+IO belongs inside SQL. Missing source/control/archive/metadata must hold without
+creating, searching for or silently repairing them.
+
+Normal guard/open checks remain bounded to current domain, its exact archive,
+one known prior control when needed, and the derived source/current tail files.
+Check those admitted resources again after replay before exposing the mode. A
+root restored to a valid old control cannot override a caller's later minimum.
+Reopen initializes invocation freshness/probes empty; recorded peer observations
+remain private replay state, never permission. Exact old operations/statuses and
+zero retired outcomes must remain accessible through the same global indexes.
+
+Qualification must include actual method-written state and observed seals over
+at least two continued generations, exact original/intermediate/latest retries,
+nonempty active/in-flight state, old/current/ancestor minima, stale old handles and
+no probe renewal. Negative cases include absent/rebound prior archive, exact
+digest but wrong source header, missing sealed source/current tail, wire-only seal,
+partial guards, and a generation2 open after the original file is explicitly moved
+aside in a synthetic fixture. The latter proves bounded lookup, not history expiry.
+Full-cap multi-rotation, durable controller prepare/publish/recover, native metadata
+admission, source/provider/witness authority and expiry remain mandatory.

@@ -26,6 +26,7 @@ fn setup() -> (tempfile::TempDir, PathBuf, CapacityLedger, Intent) {
         generation: 1,
         source,
         prepared: Object::from_bytes(b"public prepared fixture metadata"),
+        predecessor: None,
     };
     (temp, root, ledger, intent)
 }
@@ -285,6 +286,7 @@ fn pinned_legacy_writer_after_guard_is_fenced_by_rust_sealer() {
         generation: 1,
         source: source.clone(),
         prepared: Object::from_bytes(b"explicit admitted synthetic prepared metadata"),
+        predecessor: None,
     };
     let ready = case.join("ready");
     let release = case.join("release");

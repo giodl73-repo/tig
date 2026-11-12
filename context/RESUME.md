@@ -1,156 +1,147 @@
 # Tig resume state
 
-Owned F:/src/Tig-worktrees/journal-activation, feat/journal-activation. Derive HEAD/
-status from Git. Preserve dirty C:/src/Tig user files. Full PRODUCT_PLAN active;
-no delegates, remote merges/deployments or live cache/payload operations.
+Owned F:/src/Tig-worktrees/journal-activation, feat/journal-activation. Derive HEAD,
+status and exact process/command/phase/exit before relying on these observations.
+Preserve dirty C:/src/Tig. Full PRODUCT_PLAN is the active goal; no delegates,
+remote merges/deployments or live cache/payload operations.
 
-Current DIRTY continued-engine candidate on precontractbd0fabd/input7caf201.
-CapacityLedger itself routes private cfg(test) continued mode through existing
-apply/execute and shared status/reference/closed-token lookups; no second engine.
-open requires actual legacy SQL seal/guards and exact current control/archive/
-existing derived tail/admitted metadata/minimum. First-generation private entry
-only; general seals/two rotations/controller/native admission remain OPEN.
-Original Probe/Retired outputs have explicit historical variants; no old probe
-rehydration or lifetime output map. Cached outputs are local tail only; old retired
-zero uses paged outcome. Closed enumeration verifies original owner/generation.
-Internal recorded tail observations support legitimate peer catch-up after reopen,
-while invocation fresh/probe maps start empty and visible accounting is unknown.
-Ordinary read-only/preparation snapshots still invalidate observations. Before-code
-reopen amendment: continued-engine-entry-0332bb80928d4d18a617d8ae0525ae1f.
+## Published checkpoint and candidate
 
-63454 TERMINAL0:12 focused engine tests3.53s (all old/new command families, statuses,
-paged zero/retries, real sealed open, wire-only seal refusal, no missing replacement,
-peer Observe/Reserve after reopen, staged catch-up/write races, poison/lost reply,
-working export and original-history refusal). Earlier parse/import errors fixed;
-17947 first5 passes with visibility/dead-code warnings corrected,51286 seven pass;
-90801 added Guarded enum caused one legacy clock-test match error, explicit arm fixed.
-35892 TERMINAL1/reaped: short37/legacy26/clock7 pass; strict-entry101 needless
-reference at two lookups. Removed without semantics;50008 strict pass28.70s.
+Published20a38656a58e256b2826bc4d92737fb16d3e4427, PR60 draft. Existing
+CapacityLedger itself has private cfg(test) continued mode; no second engine.
+Actual original16384+method-written tail16384 reaches global32768 with local-only
+outputs, lazy exact original receipts/statuses and paged retired zero. Old probes
+never rehydrate. Recorded peer observations are private replay state; reopened
+invocation probes/Instant maps are empty and visible accounting is unknown until
+own fresh probe. Actual legacy SQL seal, exact control/archive/tail, admitted
+metadata and independently supplied minimum are required. Generic checkpoint
+export is read-only; original-history export refuses continued mode before IO.
 
-Owned35364 TERMINAL0/reaped: all14 phase/complete exit files0; pinned all
-Rust/TOML/lock paths/hashes before phases/end. External root:
-F:/src/tig-dev-temp/bulk-retirement/continued-engine-final-d4a74510c61142e29b9eb59b8e8fc631
-Short37/legacy26/clock7, strict-entry, real method-written full source/tail,
-joined full, strict full, history/checkpoint/index/fence, strict/fmt all pass.
-Actual source16384+method tail16384 reaches32768, local971987 encoded bytes;
-exact old/new retries/reopen preserve old50-byte outcome and no fresh permission.
-Joined1123422reads447596663B,668057writes258673542B within unchanged shared budget.
-Separate activation target FREE. General controller/seals/two rotations/native
-admission are still OPEN. Broad41952 continues immutable7caf only, normal targets
-remain reserved; derive exact process/phase/exits, never restart on timeout.
+Exact20a3865 hosted43159604450 COMPLETED/SUCCESS: all12 Windows/Linux suites,
+secrets and both foundation aggregates pass. Windows journal22m47s is longest;
+all60-minute deadlines are unchanged. Prior7caf Windows60m15s cancellation and
+coverage-preserving CI partition are recorded in the CI review. This does NOT
+qualify the later dirty continued-seal source. PR60 body reflects exact20a3865.
 
-Hosted43151515936 on7caf: Linux/secrets pass, Windows job130961642989 cancelled
-at60m15s during Rust. No current-head Windows proof. CI now partitions six native
-suites per OS with complete exact library inventory and retained integration/bin/
-doc/operator/compatibility checks; deadlines unchanged. Six Python checks and
-Actionlint1.7.12 pass; compiled523 names partition419/64/40. New hosted matrix
-pending. See docs/reviews/2026-11-12-ci-partition.md for entry and scoped evidence.
+DIRTY continued SQL seal candidate on20a3865, frozen before code in
+JOURNAL-SUCCESSOR.md and external continued-seal-entry-451e5aee2d16462fbc898fcb254d5479.
+Shared SealIntent codec preserves legacy fields/bytes/16384 bound. Design-2 seal
+binds exact current Mode control predecessor and actual source/header/local bounds;
+common inspector recognizes exact source schema plus original table/nine guards.
+Provider IO stays outside SQL. Successful/uncertain seals poison the old handle;
+a fresh existing-file connection can inspect the original receipt for recovery.
+No public seal, controller publication, genuine capacity admission or cutover.
 
-Current joined preparation is focus-qualified on contractc374775/input9888618;
-derive the final runtime commit from Git. Existing BudgetPort remaining/nested
-logical accounting and ledger-private archive/index helpers; borrowed SQL rows;
-private non-Clone Staged owns original Index/frame/head/body count plus pure state.
-Only consuming finish validates both conditional indexes before releasing state
-for ancestry/working Data. No caller proof flag, new cache or budget increase.
-Normal strict replay keeps per-row old-name proof. No public controller/writer,
-actual seal/rotation/recovery or physical metadata admission is delivered yet.
+First42724 four cases pass1.06s. Extended41344 compile101 used nonexistent
+TailIdentity.to_json in a fixture; existing bytes helper corrected it. Retest58016
+seven cases pass1.68s, including actual exit77 children before/after commit,
+partial/extra schema and rebound header, paused writer, rollback/lost reply and
+receipt/conflict inspection. Child helper alone is not process-exit evidence.
 
-Final owned59288 TERMINAL0/reaped, every phase.exit0 and every Rust/TOML/lock path/
-raw hash checked before phases/end. Root:
-F:/src/tig-dev-temp/bulk-retirement/joined-preparation-owned-907450afd81a4ecca5606b7fc5820871
-Short25 pass3.04s; full joined357.72s; original strict SQL maximum191.84s; index8;
-strict core/store all-target24.17s; fmt. Full joined real legacy16384+SQLtail16384
-prepares/readbacks both indexes, ancestor and working Data, preserves old/new
-prefixes and old50-byte outcome. Total1123418 reads447596663B,668057 writes
-258673542B including base/SQL/capture/hidden logical work. Ordinary strict maximum
-still351309 reads147040227B,0 writes. Separate activation target FREE.
+## Live owned qualification and target reservations
 
-Failed diagnostic50172 TERMINAL1/reaped (joined101 Budget424.19s), preserved at:
-F:/src/tig-dev-temp/bulk-retirement/joined-preparation-diagnostic-99b730a6c2ec48d0af6ed9198a0ce67a
-Base/SQL/strict replay367726reads152653060B leaves384217852B; index operation
-302037614B then sequence edit Budget. staging-amendment-before-code.json freezes
-spec/old code hashes/input BEFORE optimization. 60174 short23 passes, unused mut
-removed. 95475 24pass/1fixture NeedsRecovery after intentional unfinished orphan;
-fixed by explicit finish in fixture, not reader repair. Rebound frame/end/body/raw
-operation-column and reused old-name cases refuse with no state release.
-Implementation/verification/scoped physical synthetic validation/trace and six
-producer lenses close separately in EVID-129. ST-04 scoped budget resolved; JC-02
-real peak/lifetime metadata admission, including full-source/shared bootstrap,
-remains independent. No seal-only API or cap waiver.
+3708 TERMINAL0/reaped; exact root:
+F:/src/tig-dev-temp/bulk-retirement/continued-seal-final-135cef7a939c42268db68fbfb0a81573
+Target F:/src/tig-dev-builds/continued-seal is now FREE. ALL Rust/TOML/lock path
+sets/raw hashes were checked before phases/end. Every phase and complete exit0.
+Observed exit0: focused44, legacy26, clock7, original seal10 (one explicit ignored),
+strict-entry and full-tail-seal467.35s. Explicit ignored pinned c833 old-writer
+case also passes0.77s via the current test binary, old executable hash before/after.
+Full-tail-seal proves global32768/local16384,971987 encoded local bytes, physical
+reopen, original/new exact retries, old50-byte outcome, no freshness renewal/cap
+waiver, then observed design-2 seal with checkpoint/local outputs unchanged.
+Joined448.96s and strict maximum239.46s pass; history8/checkpoint3/index8, final
+strict/fmt pass. Joined1123422reads447596663B,668057writes258673542B; ordinary strict
+replay351309reads147040227B,0writes. All named scope closures recorded in EVID-129.
+Never infer terminal success or restart from an observation timeout.
 
-Older broad44636 TERMINAL0/reaped: every phase0 on exact clean d29a576 detached
-F:/src/Tig-worktrees/journal-index-d29-qualification. Root:
-F:/src/tig-dev-temp/bulk-retirement/journal-index-d29-owned-429faab9cef4417cb3718ef3264ca967
-Both default/schema and all-feature workspace+half-million/thirteen-edit cases,
-strict/standalone/fmt/bins/fresh14/catalogue pass. Artifact:
-F:/src/tig-dev-temp/bulk-retirement/journal-index-d29-qualified-179d88bc6af84274ad887514071b8213
-14 checkpoints/complete_coursefalse;2PUT54B,28requests270GETB; custody/removalfalse;
-catalogue read-only0payloads/automatic_evictionfalse. It excludes newer source.
+60988 LIVE at last check, exact20a3865 broad qualification:
+F:/src/tig-dev-temp/bulk-retirement/continued-engine-broad-9c82bd7baaf34b0aa6790ebbc573995e
+Clean source F:/src/Tig-worktrees/continued-engine-qualification-9c82bd7b.
+Both default/schema and all-feature workspace/500k/strict/standalone/fmt/bins and
+fresh14/catalogue run sequentially on ONE reserved target:
+F:/src/tig-dev-builds/activation-legacy-83081e796a5b4687ac1d971781b2cff1
+Last phase default-tests. This excludes the dirty seal candidate.
 
-Next final-source broad qualification is allocated at:
+41952 LIVE at last check, exact7caf201 older broad qualification:
 F:/src/tig-dev-temp/bulk-retirement/joined-preparation-broad-f7cace5177aa4bcbb0da024308a7ab75
-also joined-preparation-broad-root.txt. After final commit it starts in its own
-clean detached worktree joined-preparation-qualification-da96e700, checking exact
-HEAD/clean before phases. Derive actual pid.txt/process/phase/exits before work.
-Both normal targets RESERVED once its exact runner is live; separate activation
-source/target may progress independently. Never restart on observation timeout.
+Clean source F:/src/Tig-worktrees/joined-preparation-qualification-da96e700.
+Targets F:/src/tig-dev-builds/teaching-playback and teaching-playback-all RESERVED.
+Default tests/strict/standalone/fmt/bins exit0; last phase all-tests. Remaining
+all-feature strict/fmt/bins/fresh14/catalogue are pending. Excludes newer source.
 
-PR60 remains draft; derive final published head/current exact CI from GitHub.
-Previous source9888618 exact43147382943: Linux/secrets pass, Windows running at
-last check. Older runs are not final-source proof. PR59 runtime1c1f3ca and doc
-27e8792 pass local both profiles/500k/strict/standalone/fresh14 and exact hosted
-43119762645/43135967822; PR59 ready. No remote PR merge.
+Each root has run.ps1, phase.txt, phase.exit files and terminal complete.exit.
+Recheck exact PID/command and logs; process absence/terminal markers determine
+termination. Do not overlap Cargo per target. All other projects/processes stay
+untouched. Direct read-only test binary use is not an overlapping Cargo build.
 
-Next joined implementation must honor JOURNAL-SUCCESSOR all-method audit and
-JC-01..04: real metadata admission before writes including full-source/bootstrap,
-known digest control archive, no silent published-loss repair, exact original
-working context, real SQL seal/tail/open/write CAS/poisoning/recovery/rotation and
-independent minima. Scope before code. Source/provider/witness, separately
-authorized history expiry, full course/operator/UI/Action/native/current authority/
-clock/quota/large-file/independent/human gates remain open. Full goal unchanged.
+## Next work and open gates
+
+3708 named implementation/verification/scoped validation/trace and six producer
+lenses close separately in EVID-129; no independent/human approval. Update source
+pins/L0, whitespace and staged secrets before commit/push. New exact
+source needs its own broad/hosted qualification; older passes do not transfer.
+
+General continued-source locator/open design is appended BEFORE implementation in
+JOURNAL-SUCCESSOR.md. Freeze the actual qualified input SHA before code. Resolve
+exactly one predecessor digest archive, validate authority/generation/content digest
+and COMPLETE source TailIdentity, then observe its actual matching SQL seal. No
+recursive walk, directory census, missing-file initialization or published-loss
+repair. After generation1 the original ledger file is not an extra dependency;
+that is not permission to delete it. Require actual two-generation, minimum,
+wrong-header/archive, stale-handle and original/intermediate/latest receipt tests.
+
+JC-01 known digest control archive and JC-03 published archive loss/recovery rules
+remain mandatory. JC-02 real peak/lifetime physical metadata admission must cover
+immutable nodes/control/preparation/tail/rollback/source fence growth before writes.
+Full-source/shared bootstrap cannot spend the floor, reset caps, demand empty
+accounting or substitute numeric limits/fresh samples for reserved capacity.
+JC-04 exact original domain/instance/floor stays bound by the checked state codec.
+Full controller prepare/seal/control publication/recovery, independent retained
+minima, two or more full rotations, source/provider/witness continuation, authority/
+clock/quota/large-file/expiry/course/operator/UI/Action/native/independent/human
+acceptance remain OPEN. Full PRODUCT_PLAN objective is unchanged.
 
 ## Stable operating constraints
 
-Use only owned F:/src/Tig-worktrees lanes. Leave dirty C:/src/Tig and other
-projects/processes untouched. No remote PR merge/deploy/live cache/daemon/census/
-hydration/upload/payload removal on resume. Explicit fresh synthetic fixtures only.
-Scope local development source, fixtures, plans and draft review; full plan active.
+Only owned F:/src/Tig-worktrees development lanes and explicit fresh synthetic
+fixtures. No cache initialization/census/hydration/upload/payload deletion, daemon,
+browser/viewer, private asset copying or automatic migration on resume.
+TEMP=TMP=F:/src/tig-dev-temp/bulk-retirement; CARGO_INCREMENTAL=0,
+CARGO_PROFILE_DEV_DEBUG=CARGO_PROFILE_TEST_DEBUG=0, CARGO_BUILD_JOBS=RUST_TEST_THREADS=1
+for the owned serial qualifiers. Preserve deliberately concurrent test fixtures.
+Git mutations use core.hooksPath=NUL; GIT_LFS_SKIP_SMUDGE=1 when needed. UTF8/LF.
+Run tools/validate.ps1, diff checks, fmt/locked appropriate Rust tests/strict Clippy
+and staged redacted Gitleaks before commits. No Cargo TRACKER-relative dependencies
+or another project cache engine. Do not amend source caps/deadlines to pass tests.
+Source pins retain target order, append sorted new paths, hash raw tracked/untracked
+bytes except the pin file itself; runtime_behavior_proven=false. Source/docs8MiB,
+individual files128KiB; root REVIEW.md is nearly full, so keep evidence in its
+linked scoped record. Roles are producer checklists, not independent approval.
 
-TEMP=TMP=F:/src/tig-dev-temp/bulk-retirement. Targets: normal default
-F:/src/tig-dev-builds/teaching-playback, all teaching-playback-all (parent-owned),
-separate activation-legacy-83081e796a5b4687ac1d971781b2cff1 (free after18823).
-CARGO_INCREMENTAL=0, DEV/TEST DEBUG=0; current owned qualifiers JOBS1/THREADS1,
-explicit test concurrency retained. Never overlap Cargo per target or restart on
-observation timeout. Revalidate exact PID/command/session and terminal markers.
-Use UTF8/LF for source/artifact IO. Git mutations use core.hooksPath=NUL;
-GIT_LFS_SKIP_SMUDGE=1 when needed. Validate/fmt/locked tests/strict/diff and staged
-redacted Gitleaks before commits. No new Cargo dependency or project cache engine.
+## Retained evidence
 
-The source pin list preserves target order and appends new paths sorted; hashes
-are raw bytes, include source/untracked candidates, exclude the pin file itself.
-Keep runtime_behavior_proven=false: producer source pins are not runtime proof.
-No agents/delegation; roles are six producer checklists, not independent people.
-No private assets, prompts, credentials, screenshots or voice credits.
-
-## Historical evidence pointers
-
-Original chronological resume notes are retained in Git history (input7ef73d3);
-current state above replaces stale LIVE declarations. Authoritative technical
-records retain original failures, artifacts, source identities and limits:
-
-- [EVID-129 activation/index review](../docs/reviews/2026-11-11-journal-activation.md):
-  private SQL fence, hashed timing-only c833 legacy writer, all failed/qualified
-  staged/index runs and open controller/bootstrap gates. Pinned writer baseline
-  F:/src/Tig-worktrees/activation-legacy-c833-v2 must not be reset or deleted;
-  evidence activation-legacy-evidence-66a09d34b4ba4318971df47b28918a5c is external.
-- [EVID-128 original history](../docs/reviews/2026-11-11-ledger-history.md): PR59,
-  full archive/source qualification, original native Budget failures and stopped
-  stdout-readiness deadlock; test-only bounded stderr correction1c1f3ca follows
-  contract7a1ebe6. Original failed/interrupted logs stay external; no pass inferred.
-- [EVID-127 working checkpoint](../docs/reviews/2026-11-11-capacity-checkpoint.md):
-  ready PR58,9122ccf, exact43100104758 all hosts/secrets and both full local profiles.
-- [EVID-126 teaching remote publication](../docs/reviews/2026-11-11-teaching-remote-publication.md):
-  ready PR57,11de7b7/b177d4f, exact43093171430, actual persisted14-step course.
+- [EVID-129](../docs/reviews/2026-11-11-journal-activation.md): exact before-code
+  entries, all failed/qualified fence/staged/index/preparation/engine/seal runs,
+  full source identities, external roots and remaining controller/bootstrap gates.
+  Qualified35364 and59288 terminal0; older broad44636/d29a576 terminal0, including
+  both500k profiles and14 checkpoints/complete_coursefalse/2PUT54B. Older-source
+  checks exclude current source. The50172 Budget diagnostic and staging amendment
+  remain external; no failure or unchanged strict replay proof was discarded.
+- [CI partition](../docs/reviews/2026-11-12-ci-partition.md): six local runner
+  checks, real disjoint inventory523=419/64/40, Actionlint and exact20a3865 hosts.
+- [EVID-128](../docs/reviews/2026-11-11-ledger-history.md): parent PR59 ready,
+  runtime1c1f3ca/doc27e8792, full local profiles/500k/fresh14 and exact hosted
+  43119762645/43135967822 all pass. No remote merge.
+- [EVID-127](../docs/reviews/2026-11-11-capacity-checkpoint.md): PR58 ready,
+  9122ccf, exact43100104758 and both full local profiles pass.
+- [EVID-126](../docs/reviews/2026-11-11-teaching-remote-publication.md): PR57 ready,
+  11de7b7/b177d4f, exact43093171430, persisted14-step fixture; complete coursefalse.
+- Pinned legacy F:/src/Tig-worktrees/activation-legacy-c833-v2 must not be reset or
+  removed. External proof activation-legacy-evidence-66a09d34b4ba4318971df47b28918a5c/run
+  retains original hashes/report. Executable activation_legacy_writer-84d2b6447cade27c.exe
+  in the activation target has SHA bf6846e501c841631461c984cce7b256ee662af313b0a52837aee129e324dc1e.
+  This is timing-instrumented, not an unmodified-binary claim.
 - [Product plan](../PRODUCT_PLAN.md) and [trace router](../docs/vtrace/README.md)
-  preserve all remaining native/provider/authority/large-file/lifetime/operator/
-  UI/Action/teaching/human acceptance obligations and earlier implementation records.
+  preserve the full remaining objective. Historical resume detail stays in Git
+  history; current exact evidence belongs in the linked records above.
