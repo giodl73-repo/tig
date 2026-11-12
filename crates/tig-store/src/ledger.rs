@@ -20,6 +20,7 @@ use tig_core::{
 };
 
 pub mod checkpoint;
+pub mod history;
 
 pub const MAX_COMMANDS: u64 = 16_384;
 pub const MAX_JOURNAL_BYTES: u64 = 16 * 1024 * 1024;

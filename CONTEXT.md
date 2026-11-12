@@ -1,5 +1,66 @@
 # Tig maintainer context
 
+Original-history source1c1f3ca is fully qualified for its bounded archive scope:
+exact43119762645 Windows/Linux/secrets SUCCESS; owned44168 terminal/absent and
+all default/all/strict/standalone/fmt/bins/fresh14 artifact/catalogue exits0.
+External evidence: ledger-history-owned-b787ba2789be482c8bf5b596fdb6d43e;
+fresh artifact ledger-history-owned-qualified-ce9fc2c15d9844418c90429846f37237.
+Both500k cases pass. Old failed/interrupted runs remain recorded in EVID-128.
+This documentation closeout has no Rust change; its exact hosted head is separate.
+PR59 stays draft until that current-head check. No PR merge or deployment.
+
+Owned successor lane F:/src/Tig-worktrees/journal-activation has conditional staged
+inserts/private global-index runtime d29a576 focus-qualified, not full activation.
+Read its own RESUME/EVID-129 before work there. Full PRODUCT_PLAN remains active.
+No live caches/daemon/payload operations on resume; synthetic fixtures only.
+Both normal targets are free after44168; revalidate actual process ownership
+before a new run. Old process declarations below are historical, not live state.
+
+## Historical checkpoints
+
+Current qualification correction: contract7a1ebe6 precedes test-only fences fixture
+stderr readiness/bounded wait. Focus25433 passes all11 cases with1/4 threads plus
+strict Clippy. No production algorithm/deadline/cap/format changed.
+Old parallel72751/40677 failed native Budget; focus4352 passes both cases serially.
+Serial37691 later deadlocked in fences stdout marker under libtest single-thread
+prefix; owned9020 process tree was terminated after code diagnosis. Outer37691
+TERMINAL1; all queued phase never started. Preserve old outcomes/logs.
+Both normal targets are free until the next controlled pipeline. New source full
+profiles/500k/strict/standalone/fresh artifact/exact CI are required. c833add itself
+passes exact43107903309 Windows/Linux/secrets, but PR59 stays draft.
+Other owned lane F:/src/Tig-worktrees/journal-activation has private Rust sealer
+focus37874 LIVE in the separate activation-legacy external target. Do not overlap
+that target; no user/live cache operation or merge is authorized.
+Older notes below describe prior checkpoints.
+
+
+Active owned lane feat/ledger-history, input9122ccff80f18dc79b8fafb3a58f52705ae78ac3.
+Original-request/result/dependency archive in progress; read LEDGER-HISTORY.md
+and JOURNAL-CONTINUATION.md in specs. Contractc4280c6 and wire7ac2c21 precede code.
+Core historical records plus original-output exporter/lazy reader/full bounded
+segment validation are implemented. Actual durable activation remains required.
+Historical probes must not decode into live ObservationTickets. No active journal
+format/cap/root change, activation, pruning or expiry. EVID-128 six producer lenses
+are producer-only; full PRODUCT_PLAN remains active.
+Parent PR58 runtime9122ccf is ready; both full profiles75122/13738 TERMINAL0,
+workspace/500k/strict/standalone/fmt/fresh14-step artifact pass; exact43100104758
+Windows/Linux/secrets all pass. Parent worktree is clean; no merge.
+New core16 unit cases plus positive/compile-fail probe docs and strict core pass.
+Regression35189 passes all core/36 original-ledger/strict checks. Focus80830 passes
+16 core/eight archive (actual max16384 with live/in-flight state), then style62542
+passes corrected strict schema workspace/all-target and seven short cases.
+Full default72751 and all40677 LIVE in distinct external targets; never overlap
+or restart on timeout. Follow ledger-history phase.exit/logs. Default continues
+standalone; all continues fresh14-step teaching artifact. Exact-source CI owed.
+Read EVID-128 for initial fixture-count/style failures and scoped closures.
+Next activation must fence a legacy writer that already passed its config guard.
+No sustainable lifetime, original-index composition, activation or expiry closure.
+No resume cache init/census/daemon/hydration/transfer/upload/deletion, live root,
+browser/viewer, merge or deployment. Synthetic fixtures only; preserve external
+TEMP/TMP/targets/debug0/incremental0/jobs4/threads4 and UTF8 IO.
+Older notes below describe the input implementation.
+
+
 Active owned lane feat/capacity-checkpoint, inputb177d4fee4ce84c0ee8a15486e731391e726fd9d.
 Read specs/CAPACITY-CHECKPOINT.md and JOURNAL-CONTINUATION.md before code.
 Contract3afb135 precedes implemented paged working-state codec and read-only

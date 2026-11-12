@@ -52,7 +52,7 @@ impl Default for Limits {
     }
 }
 impl Limits {
-    fn validate(self) -> Result<()> {
+    pub(super) fn validate(self) -> Result<()> {
         if self.max_leaves > MAX_LEAVES || self.max_nodes > MAX_NODES || self.max_bytes > MAX_BYTES
         {
             Err(Error::Budget)
@@ -60,7 +60,7 @@ impl Limits {
             Ok(())
         }
     }
-    fn tree(self) -> TreeLimits {
+    pub(super) fn tree(self) -> TreeLimits {
         TreeLimits {
             max_entries: self.max_leaves,
             max_reads: self.max_nodes,
@@ -76,13 +76,13 @@ pub struct Metrics {
     pub calls: usize,
     pub bytes: usize,
 }
-struct Budget {
+pub(super) struct Budget {
     limits: Limits,
     calls: Cell<usize>,
     bytes: Cell<usize>,
 }
 impl Budget {
-    fn new(limits: Limits) -> Self {
+    pub(super) fn new(limits: Limits) -> Self {
         Self {
             limits,
             calls: Cell::new(0),
@@ -106,16 +106,16 @@ impl Budget {
         self.bytes.set(b);
         Ok(())
     }
-    fn metrics(&self) -> Metrics {
+    pub(super) fn metrics(&self) -> Metrics {
         Metrics {
             calls: self.calls.get(),
             bytes: self.bytes.get(),
         }
     }
 }
-struct Meter<'a, S> {
-    store: &'a mut S,
-    budget: Budget,
+pub(super) struct Meter<'a, S> {
+    pub(super) store: &'a mut S,
+    pub(super) budget: Budget,
 }
 impl<S: NodeStore> NodeStore for Meter<'_, S> {
     fn get(&self, o: &Object) -> TreeResult<Option<Vec<u8>>> {
