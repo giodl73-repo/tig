@@ -464,3 +464,52 @@ regressions/short25/strict/fmt also pass. EVID-129 retains the failed diagnostic
 before-code amendment hashes. This closes this fixture's joined logical budget,
 not physical admission, actual controller/writer/rotation/recovery or all-method/
 provider/source/witness/expiry/full product acceptance.
+
+## Existing-engine continued method integration entry
+
+Input7caf201d785a03125173eb3a8301f49283838f95. Same frozen WP/REQ/SPEC/IF/PKG
+controls above; RUST/PROVIDER/INTEGRATION L0/L1/L2. Extend CapacityLedger itself
+with cfg(test)-only continued state and private explicit open over existing enrolled
+metadata/current control/SQL tail. No second engine, public activation/open, native
+capacity claim, cache discovery, format migration, cap waiver or expiry.
+
+Private first-generation entry must observe the actual legacy SQL seal/guards,
+matching canonical intent/hash, exact current control and digest archive, existing
+derived tail file/header, admitted metadata and independent minimum. No wire-only
+seal assertion or missing-file creation. General continued-source seal/controller
+recovery and second rotation remain mandatory subsequent integration exits.
+
+Route every ordinary command through existing apply/execute and every audited
+status/reference/retirement method through shared lookup helpers. Retain only local
+tail outputs. Original own-operation retries compare exact canonical requests and
+return original receipts; historical probes stay non-rehydratable. Typed original
+reservation/allocation/binding inputs may reconstruct matching tickets. Probe and
+paged retired outputs use explicit historical variants, never a fabricated live
+ticket or full historical output map. Preserve wrong-kind/absence/cancellation and
+Some(0) versus unknown semantics. Enumerate bounded current closed tokens, verifying
+their original reservation identity, rather than scanning the lifetime index.
+
+Incremental catch-up collects only unseen rows plus bounded SQL header/head/count
+and cached-prefix hash checks. Total local count/bytes remain16384/16MiB; global
+sequence stays monotonic. Preserve already-open invocation freshness; reopen clears
+old samples/pending probes. Because collection adds count/prefix control reads,
+joined SQL framing charges conservatively increase from rowcount+16 to rowcount+20
+(bytes and ceilings unchanged). No inventory/census or unbounded prefix scan.
+
+Resolve original operations/dependencies outside SQL under shared point1024/4MiB
+or bounded batch2M/512MiB limits. Stage incremental model/outputs/clock together.
+Revalidate filesystem control/archive, then exact SQL header/head/bytes under a
+short transaction before adopting catch-up. New writes use an immediate transaction
+that compares the cached head/bytes/header and only executes pure transition+SQL.
+No NodeStore/provider IO inside SQL. Peer advance conflicts without partial state;
+uncertain SQL/commit outcomes poison the handle. Source SQL guards must fence a
+rotation after the final filesystem guard. No minimum/authority renewal from replay.
+
+L0 source/pins/format/roles; L1 all command/status kinds, exact/conflicting old and
+tail retries, stale probe/clock, paged old zero, closed-token enumeration, malformed/
+missing/budget and atomic staged failure. L2 real sealed source/finished metadata/
+tail, peer catch-up/conflict, lost commit reply/reopen, full original plus real public
+method tail beyond16384, legacy/new-format refusal and both original regressions.
+Then both broad profiles and exact hosts. This is an intermediate engine integration;
+complete controller prepare/seal/control publication/recovery, two rotations, native
+admission/source/provider/witness/expiry and full product gates remain OPEN.
