@@ -22,6 +22,8 @@ use tig_core::{
 #[cfg(test)]
 mod activation;
 pub mod checkpoint;
+#[cfg(test)]
+mod continuation;
 pub mod history;
 
 pub const MAX_COMMANDS: u64 = 16_384;

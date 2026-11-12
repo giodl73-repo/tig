@@ -17,7 +17,7 @@ This is not actual continued SQL, durable active-control recovery or metadata ex
 
 Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
 fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is
-integrated locally; new exact43135967822 is running, PR59 draft. No remote PR merge.
+integrated locally; exact43135967822 passes all hosts/secrets, PR59 ready. No remote PR merge.
 Current runtime d29a576 is broadly qualifying in detached
 F:/src/Tig-worktrees/journal-index-d29-qualification, owned hidden PID44636.
 Both normal targets are reserved by that runner; derive actual phase/ownership
@@ -32,6 +32,13 @@ records to locate prior tails, genuine metadata admission for already-full sourc
 no silent repair of published loss, and exact decoded domain/instance/floor checks.
 The pure checked-context/closed-working-set seams now pass focused core/physical/
 strict checks; actual continued-mode adoption is still required.
+Private successor records/read-only base validation now pass nine focused cases,
+including real finished metadata reopen, prior/current minima, foreign empty state,
+missing nodes, canonical vectors and shared budgets. Above-base minima remain
+explicit unverified tail requirements. Index8/history8/checkpoint3 regressions pass;
+strict flagged a redundant unit expression, fixed without a semantic change.
+Owned13720 is terminal0 for final pinned records/strict/fmt; see RESUME. The
+separate activation target is free. Broader qualification remains source-specific.
 No public seal-only operation or cap waiver. Provider/source/witness continuation
 and separately authorized detail expiry remain required; replay fences must survive.
 

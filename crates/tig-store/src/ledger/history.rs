@@ -90,14 +90,14 @@ impl Limits {
         }
     }
 }
-struct Meter<'a, S> {
+pub(in crate::ledger) struct Meter<'a, S> {
     nodes: &'a mut S,
     limits: Limits,
     calls: Rc<Cell<usize>>,
     bytes: Rc<Cell<usize>>,
 }
 impl<'a, S> Meter<'a, S> {
-    fn new(nodes: &'a mut S, limits: Limits) -> Result<Self> {
+    pub(in crate::ledger) fn new(nodes: &'a mut S, limits: Limits) -> Result<Self> {
         limits.validate()?;
         Ok(Self {
             nodes,
@@ -128,7 +128,7 @@ impl<'a, S> Meter<'a, S> {
         self.bytes.set(b);
         Ok(())
     }
-    fn metrics(&self) -> state::Metrics {
+    pub(in crate::ledger) fn metrics(&self) -> state::Metrics {
         state::Metrics {
             calls: self.calls.get(),
             bytes: self.bytes.get(),
@@ -1014,4 +1014,4 @@ impl CapacityLedger {
 mod tests;
 
 #[cfg(test)]
-mod index;
+pub(super) mod index;

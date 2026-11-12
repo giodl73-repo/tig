@@ -124,7 +124,7 @@ impl<S: NodeStore> NodeStore for BudgetPort<'_, S> {
 }
 
 #[derive(Clone)]
-struct Index {
+pub(in crate::ledger) struct Index {
     config: Config,
     head: Checkpoint,
     operations: Object,
@@ -132,6 +132,26 @@ struct Index {
 }
 
 impl Index {
+    /// Framing only: caller must admit the exact original source and roots.
+    pub(in crate::ledger) fn from_roots(
+        config: Config,
+        head: Checkpoint,
+        operations: Object,
+        sequences: Object,
+    ) -> Result<Self> {
+        let index = Self {
+            config,
+            head,
+            operations,
+            sequences,
+        };
+        index.validate()?;
+        Ok(index)
+    }
+    pub(in crate::ledger) fn roots(&self) -> (&Object, &Object) {
+        (&self.operations, &self.sequences)
+    }
+
     fn validate(&self) -> Result<()> {
         if self.head.genesis != Digest::blob(&encode(&self.config)?)
             || self.head.sequence > u32::MAX as u64
@@ -210,7 +230,7 @@ impl Index {
             max_bytes: limits.max_bytes.min(4 * 1024 * 1024),
         })
     }
-    fn prefix(
+    pub(in crate::ledger) fn prefix(
         &self,
         sequence: u64,
         nodes: &mut impl NodeStore,
@@ -286,7 +306,7 @@ impl Index {
         let (outcome, _) = archive.outcome(&mut meter, ticket, state::Limits::default())?;
         Ok((outcome, meter.metrics()))
     }
-    fn from_legacy(
+    pub(in crate::ledger) fn from_legacy(
         snapshot: &Snapshot,
         nodes: &mut impl NodeStore,
         limits: TreeLimits,

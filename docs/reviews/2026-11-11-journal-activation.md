@@ -516,3 +516,56 @@ Above-base minimum is deferred as a typed tail requirement, never declared prove
 This component cannot validate an SQL seal, reserve physical metadata or grant a
 writable journal. Those joined controller gates remain required. Existing meter/
 index visibility may widen only within ledger to permit reuse, not public ingress.
+
+Private reader candidate on precontract3d45e0a/inputf2c4890: canonical bounded
+PreparedData/Preparation/intent/control/minimum/ancestry records and provider-derived
+relative names. read_base checks expected original authority, actual metadata
+identity/counters, Data/control binding, current-generation absence and declared
+predecessor even when minimum is current; older activation minima get point proofs.
+At/below-base checkpoints use the original global prefix index; above-base checkpoints
+return an explicit unverified TailRequirement, never an active journal or admission.
+Working state uses checked original domain/instance/floor consumption. IO shares the
+existing history meter; no independent counter reset or provider write in read_base.
+
+Verification:44958 initially failed compilation on a test assigning Key to the
+Config.instance Digest; corrected the fixture without changing types.59486 terminal0:
+seven focused cases.44927 terminal0: final nine cases,0.94s, actual finished metadata
+writer drop/reopen, in-flight/invalidated sample, prior/current/future/self/missing
+ancestry, foreign empty floor/instance, missing nodes, older/foreign metadata reader,
+foreign authority, prefix rollback/deferred tail bounds, canonical/extra/null/rebound
+records, unchanged legacy fields/cap and independent Python SHA256 literals. These
+are synthetic wire/base tests, not an observed seal or actual second SQL rotation.
+
+Owned52820 runs pinned final Rust/TOML/lock regression from external
+successor-record-reader-47dfa5e009724ffd9128c8528bf42e99: records, short index,
+original history, checkpoint, strict core/store all-target Clippy and fmt. Pending
+until each terminal result/source pin is checked. Current broad d29 default workspace
+phase is terminal0; subsequent phases and current hosted853 Windows remain pending.
+Parent27e8792 exact43135967822 all hosts/secrets now pass; PR59 ready, no remote merge.
+
+Separate closure: implementation and focused verification/scoped synthetic base
+validation PASS; broader regression/trace closeout remains pending. Six producer
+lenses PASS_WITH_RISK for this candidate: noncyclic canonical identities; no
+placement grant; preserved in-flight accounting without custody claim; explicit
+tail deferral and predecessor checks; bounded read-only provider/relative paths;
+unchanged original references/legacy limits. These are producer checklists, not
+independent/human approval. JC-01..03 physical admission/control recovery, actual
+continued SQL/open/write/rotation, source/provider/witness, expiry and full course/
+operator/UI/Action/native/authority/large-file/human gates remain OPEN.
+
+Owned52820 is terminal1/reaped: records9/index8/original history8/checkpoint3 all
+exit0; strict101 Clippy unused_unit in one empty legacy intent match arm. Removed
+the redundant unit expression without suppression or semantic/type/codec changes.
+Final owned13720 pins the corrected source and runs records/strict/fmt in external
+successor-record-final-f2a1ac8592fa4a8f89973ee828fd9595. Pending until terminal proof.
+The unchanged full32768 maximum is not repeated for private framing/visibility;
+exact d29 maximum/core/physical/500k evidence remains scoped to those algorithms.
+
+Final13720 TERMINAL0/reaped: complete/records/strict/fmt all.exit0. Nine records
+pass1.61s; strict core/store all-target45.91s, formatting and all pinned source
+path/hash checks pass. Only a redundant unit expression differs from prior passing
+index/history/checkpoint source, so those unchanged mechanisms are not rerun.
+Implementation PASS, focused verification PASS, scoped synthetic read-only base
+validation PASS, trace PASS and six producer lenses PASS_WITH_RISK separately for
+this private component. Full broader new-source/hosted and every named controller/
+admission/expiry/product acceptance gate remain OPEN; no writable handle is exposed.
