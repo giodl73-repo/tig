@@ -1,5 +1,96 @@
 //! Manual synthetic publication exercises admission, not the future controller.
 use super::*;
+use crate::ledger::continuation::preparation as prepare;
+
+#[test]
+fn continued_preparation_budget_resource_and_minimum_fail_closed_without_source_changes() {
+    let mut f = fixture();
+    let c = activate(&mut f);
+    let mut l = reopened(&f, &c, &minimum(&c));
+    l.invalidate(key("prepare-source")).unwrap();
+    let before = l.checkpoint();
+    f.nodes.reset_metrics();
+    assert!(matches!(
+        prepare::continued(
+            &mut l,
+            key("no-budget"),
+            &minimum(&c),
+            &mut f.nodes,
+            TreeLimits {
+                max_reads: 0,
+                ..history::index::build_limits()
+            }
+        ),
+        Err(Error::Budget)
+    ));
+    assert_eq!(f.nodes.metrics().node_gets, 0);
+    assert_eq!(f.nodes.metrics().puts, 0);
+    let mut other = fixture();
+    other.nodes.finish().unwrap();
+    other.nodes.reset_metrics();
+    assert!(
+        prepare::continued(
+            &mut l,
+            key("wrong-resource"),
+            &minimum(&c),
+            &mut other.nodes,
+            history::index::build_limits()
+        )
+        .is_err()
+    );
+    assert_eq!(other.nodes.metrics().node_gets, 0);
+    assert_eq!(other.nodes.metrics().puts, 0);
+    let mut future = minimum(&c);
+    future.activation.generation += 1;
+    assert!(matches!(
+        prepare::continued(
+            &mut l,
+            key("wrong-minimum"),
+            &future,
+            &mut f.nodes,
+            history::index::build_limits()
+        ),
+        Err(Error::Journal(LedgerError::Rollback))
+    ));
+    assert_eq!(l.checkpoint(), before);
+}
+
+#[test]
+fn continued_preparation_peer_advance_or_seal_during_readback_releases_no_artifact() {
+    for seal in [false, true] {
+        let mut f = fixture();
+        let c = activate(&mut f);
+        let mut l = reopened(&f, &c, &minimum(&c));
+        l.invalidate(key("prepare-source")).unwrap();
+        let before = l.checkpoint();
+        let mut peer = reopened(&f, &c, &minimum(&c));
+        let intent = super::seal::intent(&peer, &c);
+        let result = prepare::continued_hook(
+            &mut l,
+            key("prepare"),
+            &minimum(&c),
+            &mut f.nodes,
+            history::index::build_limits(),
+            |stage| {
+                if stage == prepare::Stage::Finished {
+                    if seal {
+                        activation::seal(&mut peer, &intent, |_| Ok(()))?;
+                    } else {
+                        peer.invalidate(key("peer-advanced"))?;
+                    }
+                }
+                Ok(())
+            },
+        );
+        if seal {
+            assert!(result.is_err());
+        } else {
+            assert!(matches!(result, Err(Error::Journal(LedgerError::Conflict))));
+        }
+        // Read-only preparation never synchronizes/adopts the caller's model.
+        assert_eq!(l.checkpoint(), before);
+    }
+}
 
 #[test]
 fn legacy_preparation_refuses_continued_mode_before_metadata_work() {
@@ -27,16 +118,37 @@ pub(super) fn next(
         checkpoint: l.checkpoint(),
         ..minimum(current)
     };
-    let (data, _, _) =
-        super::super::super::tests::joined::prepare(f, current, &m, &mut l.conn).unwrap();
-    f.data = data;
-    let mut c = control(f);
-    let operation = key(&format!("rotation-{}", c.preparation.tail.generation));
-    c.preparation.operation = operation.clone();
-    c.preparation.tail.operation = operation.clone();
-    c.seal.intent.operation = operation;
-    c.seal.intent.prepared = Object::from_bytes(&c.preparation.to_json().unwrap());
-    c.seal.hash = Digest::blob(&c.seal.intent.to_json().unwrap());
+    let operation = key(&format!(
+        "rotation-{}",
+        current.preparation.tail.generation + 1
+    ));
+    let ready = crate::ledger::continuation::preparation::continued(
+        l,
+        operation,
+        &m,
+        &mut f.nodes,
+        history::index::build_limits(),
+    )
+    .unwrap();
+    f.data = ready.data;
+    let preparation = ready.preparation;
+    let intent = SealIntent {
+        schema: "tig.capacity-activation-intent.design-2".into(),
+        operation: preparation.operation.clone(),
+        authority: preparation.tail.authority.clone(),
+        generation: preparation.tail.generation,
+        source: preparation.tail.base.clone(),
+        prepared: Object::from_bytes(&preparation.to_json().unwrap()),
+        predecessor: f.data.predecessor.clone(),
+    };
+    let c = ActiveControl {
+        schema: "tig.capacity-ledger.design-3".into(),
+        preparation,
+        seal: SealReceipt {
+            hash: Digest::blob(&intent.to_json().unwrap()),
+            intent,
+        },
+    };
     c.validate().unwrap();
     drop(create(f, &c));
     let root = l.root.clone();

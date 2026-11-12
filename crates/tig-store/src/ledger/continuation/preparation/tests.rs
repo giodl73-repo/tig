@@ -128,6 +128,33 @@ fn preflight_budget_refuses_before_any_metadata_io() {
 }
 
 #[test]
+fn continued_preparation_refuses_a_legacy_handle_before_metadata_io() {
+    let mut f = fixture();
+    f.nodes.reset_metrics();
+    let m = Minimum {
+        schema: "tig.capacity-successor-minimum.design-1".into(),
+        authority: f.ledger.identity().clone(),
+        activation: ActivationIdentity {
+            generation: 1,
+            digest: Digest::blob(b"not-admitted"),
+        },
+        checkpoint: f.ledger.checkpoint(),
+    };
+    assert!(matches!(
+        continued(
+            &mut f.ledger,
+            key("wrong-mode"),
+            &m,
+            &mut f.nodes,
+            history::index::build_limits()
+        ),
+        Err(Error::Invalid)
+    ));
+    assert_eq!(f.nodes.metrics().node_gets, 0);
+    assert_eq!(f.nodes.metrics().puts, 0);
+}
+
+#[test]
 fn combined_budget_includes_export_nested_proof_readback_and_control_work() {
     let mut f = fixture();
     f.nodes.finish().unwrap();

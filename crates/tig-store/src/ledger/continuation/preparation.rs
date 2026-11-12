@@ -10,7 +10,7 @@ pub(super) struct Prepared {
     pub(super) metrics: TreeMetrics,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Stage {
+pub(super) enum Stage {
     Materialized,
     Finished,
 }
@@ -92,6 +92,25 @@ fn legacy_hook(
         let object = port.put(&data.to_json()?)?;
         (data, object, port.used())
     };
+    let ready = finish(operation, nodes, limits, data, object, spent, &mut hook)?;
+    ledger.sync()?;
+    unsealed(ledger)?;
+    if ledger.checkpoint() != source {
+        return Err(Error::Journal(LedgerError::Conflict));
+    }
+    Ok(ready)
+}
+
+fn finish(
+    operation: Key,
+    nodes: &mut MetadataStore,
+    limits: TreeLimits,
+    data: PreparedData,
+    object: Object,
+    spent: TreeMetrics,
+    hook: &mut impl FnMut(Stage) -> Result<()>,
+) -> Result<Prepared> {
+    let source = data.source.clone();
     hook(Stage::Materialized)?;
     let minimum = nodes.finish().map_err(metadata)?;
     hook(Stage::Finished)?;
@@ -129,7 +148,7 @@ fn legacy_hook(
         metadata: minimum,
         tail: TailIdentity {
             authority: source.genesis.clone(),
-            generation: 1,
+            generation: data.generation,
             operation,
             base: source.clone(),
         },
@@ -146,16 +165,53 @@ fn legacy_hook(
     let metrics = port.used();
     drop(port);
     drop(reader);
-    ledger.sync()?;
-    unsealed(ledger)?;
-    if ledger.checkpoint() != source {
-        return Err(Error::Journal(LedgerError::Conflict));
-    }
     Ok(Prepared {
         data,
         preparation,
         metrics,
     })
+}
+
+pub(super) fn continued(
+    ledger: &mut CapacityLedger,
+    operation: Key,
+    minimum: &Minimum,
+    nodes: &mut MetadataStore,
+    limits: TreeLimits,
+) -> Result<Prepared> {
+    continued_hook(ledger, operation, minimum, nodes, limits, |_| Ok(()))
+}
+pub(super) fn continued_hook(
+    ledger: &mut CapacityLedger,
+    operation: Key,
+    minimum: &Minimum,
+    nodes: &mut MetadataStore,
+    limits: TreeLimits,
+    mut hook: impl FnMut(Stage) -> Result<()>,
+) -> Result<Prepared> {
+    ledger.guard()?;
+    let control = ledger
+        .continued
+        .as_ref()
+        .ok_or(Error::Invalid)?
+        .control()
+        .clone();
+    let mut reader = nodes.finished_reader().map_err(metadata)?;
+    let (data, object, spent, bytes) = tail::preparation::build(
+        &control,
+        minimum,
+        &mut ledger.conn,
+        &mut reader,
+        nodes,
+        limits,
+    )?;
+    drop(reader);
+    let source = data.source.clone();
+    let ready = finish(operation, nodes, limits, data, object, spent, &mut hook)?;
+    ledger.guard()?;
+    tail::preparation::unchanged(&mut ledger.conn, &control.preparation.tail, &source, bytes)?;
+    ledger.guard()?;
+    Ok(ready)
 }
 
 #[cfg(test)]

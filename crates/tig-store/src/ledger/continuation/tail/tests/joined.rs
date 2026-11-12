@@ -1,6 +1,5 @@
 //! Same-workload preparation measurement, not an activation/controller API.
 use super::*;
-use history::index::staged_insert;
 use tig_core::tree::MemoryNodes;
 
 pub(in crate::ledger::continuation::tail) fn prepare(
@@ -9,73 +8,15 @@ pub(in crate::ledger::continuation::tail) fn prepare(
     m: &Minimum,
     conn: &mut Connection,
 ) -> Result<(PreparedData, Object, TreeMetrics)> {
-    let base = read(f, c, m, ReadLimits::default())?;
-    let snapshot = collect(conn, &c.preparation.tail)?;
-    let config = base.data.config.clone();
-    let activations = base.data.activations.clone();
-    let initial = TreeMetrics {
-        reads: base.metrics.calls,
-        read_bytes: base.metrics.bytes,
-        ..TreeMetrics::default()
-    };
-    let mut port = BudgetPort::new(&mut f.nodes, build_limits())?;
-    port.account_nested(&port.used(), &initial)?;
-    let sql = TreeMetrics {
-        reads: snapshot.rows.len() + 20,
-        read_bytes: snapshot.bytes as usize + 264 * snapshot.rows.len() + 256 * 1024,
-        ..TreeMetrics::default()
-    };
-    port.account_nested(&port.used(), &sql)?;
-    let remaining = port.remaining();
-    let before = port.used();
-    let staged = stage_for_index(base, &snapshot, &mut port, remaining)?;
-    port.account_nested(&before, staged.metrics())?;
-    eprintln!("joined after staged replay: {:?}", port.used());
-    let (result, next) = staged.finish(&snapshot, &mut port)?;
-    eprintln!("joined after index: {:?}", port.used());
-    let identity = c.identity()?;
-    let ancestor = Ancestor {
-        schema: "tig.capacity-successor-ancestor.design-1".into(),
-        authority: config_digest(&config)?,
-        generation: identity.generation,
-        digest: identity.digest.clone(),
-    };
-    let ancestor = port.put(&bytes(&ancestor)?)?;
-    let added = BTreeMap::from([(ancestor_path(identity.generation)?, ancestor)]);
-    let activations = staged_insert(&activations, &added, &mut port)?;
-    let working_state = result
-        .model
-        .export_checkpoint(&mut port, state::Limits::default())?
-        .0;
-    let (operations, sequences) = next.roots();
-    let data = PreparedData {
-        schema: "tig.capacity-successor-data.design-1".into(),
-        config,
-        generation: identity.generation.checked_add(1).ok_or(Error::Budget)?,
-        source: result.checkpoint.clone(),
-        working_state,
-        operations: operations.clone(),
-        sequences: sequences.clone(),
-        activations,
-        operation_count: result.checkpoint.sequence,
-        clock_high: result.clock.high,
-        predecessor: Some(identity),
-    };
-    let object = port.put(&data.to_json()?)?;
-    // Revalidation is SQL only, after all provider work. It grants no seal.
-    let tx = conn.transaction()?;
-    schema(&tx)?;
-    if header(&tx)? != snapshot.identity
-        || head(&tx, &snapshot.identity)? != (snapshot.head, snapshot.bytes)
-    {
-        return Err(Error::Journal(LedgerError::Conflict));
-    }
-    tx.commit()?;
-    eprintln!("joined completed preparation: {:?}", port.used());
-    Ok((data, object, port.used()))
-}
-fn config_digest(config: &Config) -> Result<Digest> {
-    Ok(Digest::blob(&encode(config)?))
+    let mut reader = f
+        .nodes
+        .finished_reader()
+        .map_err(|e| Error::Store(e.to_string()))?;
+    let (data, object, metrics, body_bytes) =
+        super::super::preparation::build(c, m, conn, &mut reader, &mut f.nodes, build_limits())?;
+    super::super::preparation::unchanged(conn, &c.preparation.tail, &data.source, body_bytes)?;
+    eprintln!("joined completed preparation: {metrics:?}");
+    Ok((data, object, metrics))
 }
 
 #[test]

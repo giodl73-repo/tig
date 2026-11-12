@@ -99,3 +99,12 @@ The later scheduling/helper source is not covered. New local scheduling checks:
 six Python tests and Actionlint pass; actual542 names still partition exactly
 store419/journal64/continuation58/rotations1, with explicit one-thread batches.
 New exact hosted execution/timing remains required; no deadline was increased.
+
+Hosted scheduling qualification: exact92a3b7b9c95cce6803da9e0e113b65f1458746d6
+run43178980330 COMPLETED/SUCCESS, all17 jobs (native14/secrets/foundation2).
+Windows continuation9m16s, journal8m33s, rotations9m07s; Windows workspace15m39s
+was the longest native job. All remain inside the unchanged60-minute deadline.
+The explicit one-thread library scheduling is qualified on both hosted systems;
+these observed durations are not a performance guarantee or proof of their cause.
+This covers the published legacy helper/scheduler, not the later dirty continued-
+preparation extraction. That extraction and full product gates remain separate.

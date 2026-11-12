@@ -720,3 +720,129 @@ L2: real full16384-command legacy preparation/physical reopen under ONE budget,
 original archive/index regressions and strict checks. Controller, full native
 physical admission, atomic root publication/recovery and all product gates remain
 separate exits. No special quiescent/empty-accounting prerequisite is permitted.
+
+## Continued preparation extraction entry
+
+Input92a3b7b9c95cce6803da9e0e113b65f1458746d6. Same WP/REQ/SPEC/IF/PKG controls
+and RUST/PROVIDER/INTEGRATION profiles above. Move the qualified joined preparation
+algorithm from the Fixture-only helper into the private preparation layer, reusing
+one common finish/readback/artifact path for legacy and continued sources.
+No public API, seal/publication, native physical admission, dependency/cache,
+journal/tree/record cap or deadline change.
+
+Continued entry requires the existing mode's checked control and an independently
+supplied minimum. Check current resources before provider work; collect a bounded
+SQL snapshot and charge it before metadata reads. Read the base using only the
+remaining allowance and then account its actual metrics. Stage/finish the exact
+original index and tail, ancestry and working Data under that same meter. Do not
+call ledger.sync and perform hidden metadata IO outside the preparation budget.
+Fresh post-finish readback carries all spent work. Revalidate exact unsealed source
+schema/header/head/local bytes and current control after ALL provider work.
+Conflicting peer advance, sealing, resource loss or wrong metadata/minimum holds
+without source mutation or partial artifact release.
+
+Tests must use the helper for actual three-generation and full49153 fixtures;
+retain the original raw-SQL joined measurement tests through a thin delegate.
+Add preflight/no-IO, wrong-mode/resource/minimum and actual peer/seal race cases.
+L0 source/pins/format; L1 named positives/negatives and strict checks; L2 full
+original+two full continued tails with physical finish/readback under the unchanged
+shared budgets. Controller/publication/recovery/admission and product gates remain
+separate, mandatory exits; a prepared artifact supplies no write permission.
+## Continued preparation extraction checkpoint
+
+Input92a3b7b; private preparation.rs and tail/preparation.rs plus named fixtures.
+Implementation: legacy and continued preparation now share finish/readback and
+Preparation construction. Continued preparation uses the checked Mode control,
+independent minimum and one carried BudgetPort; final SQL/control checks follow
+all provider work. No source synchronization silently adopts a peer's state.
+
+Verification: owned focused run47140 passes57 tests (488 filtered); strict-entry
+Clippy in source-pinned run7184 passes. The latter repeats focused checks and is
+executing full49153, raw joined and full legacy fixtures; their results are PENDING.
+No complete L2, current-change hosted or full-workspace result is claimed here.
+Synthetic validation: short actual three-generation reopen/receipt and peer/seal
+conflict cases pass; no native resource admission or live-storage acceptance.
+Trace: same controls and L0/L1/L2 entry above; producer review is separate.
+
+Six producer lenses: identity checks preserve original authority and exact tail
+binding; placement preserves unknown freshness; custody grants no removal right;
+concurrency checks peer advance/seal after readback without held provider SQL;
+provider checks wrong metadata identity before node IO and cumulative budgeting;
+Git/adoption keeps artifacts fixture-side and requires complete controller/native
+qualification before exposure. No independent review or human approval is implied.
+Residual gates: pinned full-size results, broader/hosted qualification, admitted
+physical metadata capacity, atomic controller publication/recovery and lifetime.
+
+## Controller retry/recovery decision table (implementation entry)
+
+Input92a3b7b plus the source-pinned continued preparation candidate7184; L2 is
+pending, so this table freezes control flow without declaring that candidate
+qualified. Same controls/profiles above. Allowed scope here: private controller
+protocol and fixture requirements; no record fields/public API or provider grant.
+
+The controller entry takes the known authority root, operation key, independently
+retained minimum, exact expected predecessor and admitted provider resources.
+It must inspect the known operation-derived Preparation path BEFORE any new
+preparation. Resource admission is a capability from an enforcing provider, never
+a bool, caller quota, MetadataStore::Limits or successful fresh-space sample.
+A separate explicit recover path must work without opening a sealed source as a
+writable CapacityLedger. Both entries hold the same authority-scoped OS lock.
+
+| Known state under the controller lock | Required action |
+| --- | --- |
+| No retained Preparation; expected predecessor current and source unsealed | Admit all physical peak/lifetime growth, prepare/read back, retain exact Preparation, create/read back its empty successor, then compare/seal the exact source. |
+| Exact Preparation retained; source unsealed and unchanged | Validate finished dependencies. If its prospective successor was not created, explicitly create/read back that exact empty successor under the retained admission; otherwise validate it. Resume the original preparation, not a new build or fresh budget under the same operation. |
+| Exact Preparation retained; source advanced or another predecessor current before sealing | Conflict. Do not overwrite the operation record, publish its stale successor, or silently reuse the key for a different source. |
+| Exact Preparation retained; matching source seal observed and predecessor still current | Validate dependencies/successor and independently admitted prepublication minimum; create/read back the prospective control archive, then atomically replace current control with those exact bytes. |
+| Exact new control current and its archive/source seal/dependencies valid | Return the original activation result/minimum; perform no new preparation, seal or publication. |
+| A later control current when retrying an old operation | Verify the known original result and bounded ancestry/current minimum; return it as historical, without moving current control backwards or exposing its successor for writing. |
+| Published control missing its archive, tail, preparation or dependency | Hold as known loss. Recovery is not permission to recreate acknowledged resources. |
+| Missing/partial/conflicting preparation, seal, guards or unexpected control | Hold; never enumerate directories, guess an operation, replace evidence or initialize an absent source. |
+
+Prospective successor creation is allowed only while its exact predecessor is
+still current, its source is unsealed/unchanged, admitted minima permit that
+prepublication state and protected capacity still covers the write. A partial
+successor or any missing successor after the source seal holds; do not replace
+it. This distinguishes a normal exit before first creation from acknowledged
+resource loss. It does not initialize a missing source or publish a new minimum.
+
+A source writer can advance after readback and before sealing: the immediate SQL
+seal comparison must then refuse. No metadata IO or callbacks that perform it
+may occur in that transaction. Successful or uncertain sealing poisons the old
+handle; after seal there is no cancellation/unseal. A lost reply at any publication
+stage must re-enter through retained evidence and observation, not process memory.
+Any historical-result return must still check current authority/minimum; a retained
+operation filename alone is neither freshness nor proof against a restored world.
+
+Required private fixtures: exact retries at each row above; source advance before
+seal; conflicting controllers in one authority while another authority progresses;
+actual exits after preparation, successor readback, committed seal, archive readback
+and current replacement; source already sealed before recovery starts; old-operation
+retry after two later rotations; missing published resources and stronger-minimum
+rollback holds. Exact bytes and bounded read/write counts must be asserted.
+A fixture controller must remain explicitly unadmitted and cfg(test) until native
+physical capacity/current-authority obligations qualify; it cannot mint a public
+resource capability or satisfy JC-02 with a synthetic grant.
+
+## Continued preparation extraction qualification
+
+Input92a3b7b; owned7184 TERMINAL0/reaped. All Rust/TOML/lock path/raw hashes
+checked before every phase and at completion. Focused57 and strict-entry pass;
+actual original16384 + two method-written16384 tails + command49153 passes1251.56s
+through the shared continued prepare/finish/readback helper. Raw joined full
+original+tail passes467.59s:1123422reads447596663B/668057writes258673542B. Full
+legacy preparation passes101.44s:114834reads40370841B/49187writes16589897B.
+History8/checkpoint3/index8, final strict/fmt and every phase/complete exit0.
+External root continued-preparation-owned-ee01ff2856464281a6de846b4c061c77.
+Same-source26992 workspace all-feature/all-target strict20.09s and fmt complete0
+at continued-preparation-all-strict-ffa79a3270a84fe9bb4ab2c333829d1e.
+
+Verification closes these named component/scale obligations only. Scoped synthetic
+validation preserves original/intermediate/current replies, inherited accounting,
+Some(0), exact minima and no freshness renewal or cap waiver. Six producer lenses
+above remain PASS_WITH_RISK for read-only preparation; no independent/human approval.
+Trace uses the extraction entry's unchanged controls and L0/L1/L2 profiles. This
+candidate still needs its exact broader/hosted checks. Published92a hosted17 pass
+covers the prior helper/scheduler, not this extraction. Manual control publication
+remains fixture setup. Genuine physical admission, full controller/recovery,
+source/provider/witness/expiry and complete PRODUCT_PLAN/course remain OPEN.

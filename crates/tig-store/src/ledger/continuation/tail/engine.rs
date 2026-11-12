@@ -28,6 +28,9 @@ pub(in crate::ledger) struct Mode {
     spent: TreeMetrics,
 }
 impl Mode {
+    pub(in crate::ledger::continuation) fn control(&self) -> &ActiveControl {
+        &self.control
+    }
     pub(in crate::ledger) fn check_seal(&self, root: &Path, intent: &SealIntent) -> LR<()> {
         self.guard(root)?;
         if intent.predecessor.as_ref() != Some(&self.control.identity().map_err(journal)?) {

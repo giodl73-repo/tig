@@ -1034,3 +1034,26 @@ qualified-d487a7a22eb5409f8dc189c492af3d50 reports14 checkpoints/complete_course
 automatic_evictionfalse. Activation target released. Current858 broad57980 remains
 live/default-tests on its separate clean source and normal targets. Older-source
 checks do not qualify the helper candidate.
+
+## Continued preparation extraction qualification
+
+Input92a3b7b; owned7184 TERMINAL0/reaped. All Rust/TOML/lock path/raw hashes
+checked before every phase and at completion. Focused57 and strict-entry pass;
+actual original16384 + two method-written16384 tails + command49153 passes1251.56s
+through the shared continued prepare/finish/readback helper. Raw joined full
+original+tail passes467.59s:1123422reads447596663B/668057writes258673542B. Full
+legacy preparation passes101.44s:114834reads40370841B/49187writes16589897B.
+History8/checkpoint3/index8, final strict/fmt and every phase/complete exit0.
+External root continued-preparation-owned-ee01ff2856464281a6de846b4c061c77.
+Same-source26992 workspace all-feature/all-target strict20.09s and fmt complete0
+at continued-preparation-all-strict-ffa79a3270a84fe9bb4ab2c333829d1e.
+
+Verification closes these named component/scale obligations only. Scoped synthetic
+validation preserves original/intermediate/current replies, inherited accounting,
+Some(0), exact minima and no freshness renewal or cap waiver. Six producer lenses
+above remain PASS_WITH_RISK for read-only preparation; no independent/human approval.
+Trace uses the extraction entry's unchanged controls and L0/L1/L2 profiles. This
+candidate still needs its exact broader/hosted checks. Published92a hosted17 pass
+covers the prior helper/scheduler, not this extraction. Manual control publication
+remains fixture setup. Genuine physical admission, full controller/recovery,
+source/provider/witness/expiry and complete PRODUCT_PLAN/course remain OPEN.
