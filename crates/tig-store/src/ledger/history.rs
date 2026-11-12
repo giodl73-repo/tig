@@ -226,6 +226,14 @@ impl Snapshot {
         nodes: &mut impl NodeStore,
         limits: Limits,
     ) -> Result<state::Metrics> {
+        self.validate_all_with_proof(nodes, &mut tig_core::tree::MemoryNodes::default(), limits)
+    }
+    fn validate_all_with_proof(
+        &self,
+        nodes: &mut impl NodeStore,
+        proof: &mut impl NodeStore,
+        limits: Limits,
+    ) -> Result<state::Metrics> {
         self.validate()?;
         let mut meter = Meter::new(nodes, limits)?;
         self.working_state
@@ -262,7 +270,6 @@ impl Snapshot {
         let mut outputs = BTreeMap::new();
         let mut bytes = 0u64;
         let mut previous = self.journal.genesis.clone();
-        let mut memory = tig_core::tree::MemoryNodes::default();
         for (i, item) in items.into_iter().enumerate() {
             if item.sequence != i as u64 + 1
                 || item.previous != previous
@@ -278,7 +285,7 @@ impl Snapshot {
                 return Err(Error::Budget);
             }
             let output = execute(&mut domain, &outputs, &item.request, &clock)?;
-            let expected = ArchivedOutput::capture(&output, &mut meter.fork(&mut memory))?;
+            let expected = ArchivedOutput::capture(&output, &mut meter.fork(proof))?;
             if encode(&expected)? != encode(&item.output)? {
                 return Err(Error::Invalid);
             }
@@ -290,7 +297,7 @@ impl Snapshot {
             previous = item.hash;
         }
         let (expected, _) =
-            domain.export_checkpoint(&mut meter.fork(&mut memory), state::Limits::default())?;
+            domain.export_checkpoint(&mut meter.fork(proof), state::Limits::default())?;
         if previous != self.journal.hash
             || bytes != self.encoded_request_bytes
             || clock.high != self.clock_high
@@ -354,6 +361,41 @@ impl Snapshot {
             .validate(&item.request, &self.config, item.sequence)?;
         Ok(item)
     }
+    /// Reads one retired allocation outcome under one shared512-call/4MiB budget.
+    pub fn retired_outcome(
+        &self,
+        nodes: &mut impl NodeStore,
+        operation: &Key,
+        ticket: &AllocationTicket,
+        mut limits: Limits,
+    ) -> Result<(core_history::Outcome, state::Metrics)> {
+        self.validate()?;
+        limits.validate()?;
+        limits.max_calls = limits.max_calls.min(512);
+        limits.max_bytes = limits.max_bytes.min(4 * 1024 * 1024);
+        let mut meter = Meter::new(nodes, limits)?;
+        let item = self.checked(&mut meter, operation, limits, 0)?;
+        let ArchivedOutput::Retired { archive } = item.output else {
+            return Err(Error::Invalid);
+        };
+        let (outcome, _) = archive.outcome(&mut meter, ticket, state::Limits::default())?;
+        Ok((outcome, meter.metrics()))
+    }
+}
+// Shared typed checks; callers retain their own format, range and IO budgets.
+trait DependencyView {
+    fn load_item(
+        &self,
+        nodes: &mut impl NodeStore,
+        operation: &Key,
+        limits: Limits,
+    ) -> Result<Item>;
+    fn contains_operation(
+        &self,
+        nodes: &mut impl NodeStore,
+        operation: &Key,
+        limits: Limits,
+    ) -> Result<bool>;
     fn dependency(
         &self,
         nodes: &mut impl NodeStore,
@@ -378,7 +420,7 @@ impl Snapshot {
         if depth > 4 {
             return Err(Error::Budget);
         }
-        let item = self.item(nodes, operation, limits)?;
+        let item = self.load_item(nodes, operation, limits)?;
         match &item.request.command {
             Command::BeginAllocation { reservation, .. }
             | Command::BeginPublication { reservation, .. }
@@ -480,15 +522,10 @@ impl Snapshot {
                         return Err(Error::Invalid);
                     }
                 }
-                if matches!(item.request.command, Command::SettleFootprint { .. }) {
-                    let p = operation_path(&cleanup_key(allocation)?)?;
-                    if Tree::from_root(self.operations.clone())
-                        .get(&p, nodes, limits.tree())?
-                        .0
-                        .is_some()
-                    {
-                        return Err(Error::Invalid);
-                    }
+                if matches!(item.request.command, Command::SettleFootprint { .. })
+                    && self.contains_operation(nodes, &cleanup_key(allocation)?, limits)?
+                {
+                    return Err(Error::Invalid);
                 }
             }
             Command::Observe { probe, .. } => {
@@ -515,25 +552,26 @@ impl Snapshot {
         }
         Ok(item)
     }
-    /// Reads one retired allocation outcome under one shared512-call/4MiB budget.
-    pub fn retired_outcome(
+}
+impl DependencyView for Snapshot {
+    fn load_item(
         &self,
         nodes: &mut impl NodeStore,
         operation: &Key,
-        ticket: &AllocationTicket,
-        mut limits: Limits,
-    ) -> Result<(core_history::Outcome, state::Metrics)> {
-        self.validate()?;
-        limits.validate()?;
-        limits.max_calls = limits.max_calls.min(512);
-        limits.max_bytes = limits.max_bytes.min(4 * 1024 * 1024);
-        let mut meter = Meter::new(nodes, limits)?;
-        let item = self.checked(&mut meter, operation, limits, 0)?;
-        let ArchivedOutput::Retired { archive } = item.output else {
-            return Err(Error::Invalid);
-        };
-        let (outcome, _) = archive.outcome(&mut meter, ticket, state::Limits::default())?;
-        Ok((outcome, meter.metrics()))
+        limits: Limits,
+    ) -> Result<Item> {
+        self.item(nodes, operation, limits)
+    }
+    fn contains_operation(
+        &self,
+        nodes: &mut impl NodeStore,
+        operation: &Key,
+        limits: Limits,
+    ) -> Result<bool> {
+        Ok(Tree::from_root(self.operations.clone())
+            .get(&operation_path(operation)?, nodes, limits.tree())?
+            .0
+            .is_some())
     }
 }
 pub struct Inspection {
@@ -575,7 +613,7 @@ impl Export {
         self.metrics
     }
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Item {
     schema: String,
@@ -585,7 +623,7 @@ struct Item {
     request: Request,
     output: ArchivedOutput,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 enum ArchivedOutput {
     Clock {
@@ -974,3 +1012,6 @@ impl CapacityLedger {
 }
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod index;

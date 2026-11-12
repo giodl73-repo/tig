@@ -65,3 +65,60 @@ inferring authority from index edits; custody distinguishes puts from durability
 concurrency requires exact expected root and explicit adoption outside the API;
 provider/privacy requires bounded metadata-only ports; Git/adoption keeps runtime
 nodes and measurements out of source. These are checklists, not independent review.
+
+
+## Leaf read reduction amendment
+
+Entry7ef73d328f5c2a28477d1f2a7993a8ed288f9978; current tree.rs raw SHA256
+E0DB21C5A25FA16A62ACE90FE35D0BC11E9DC027CDDAC93B28BE99C5BE7022DB.
+The private global index candidate/source pins and failed maximum are recorded
+in EVID-129. Full16384+16384 index append refuses Budget under the frozen512MiB/
+2M-read limits. Do not increase those limits or change existing journal caps.
+
+Allowed optimization: Context::edit_path/check/change/find may combine leaf
+lookup and mutation into one traversal. It must retain the original path's BST
+bounds/heap-order validation, directory-versus-file conflicts (including deletion),
+canonical rotations/merge and exact no-op behavior. Share the route validator
+between lookup and mutation. Unchanged branches return their old links without
+rewrites. No base-node cache, new encoding/API, skipped failed-route charge or
+partial success. Existing expected-root and whole-operation budgets still apply.
+Requalify core tree vectors/adversarial/no-op/order/count/byte cases, staged tests,
+physical readback, full global-index maximum and strict checks. Independent bulk
+roots must match; fewer counted reads must reflect fewer actual logical reads.
+
+
+## Conditional insert amendment
+
+Input7ef73d328f5c2a28477d1f2a7993a8ed288f9978 plus source-pinned leaf candidate in
+EVID-129. Leaf-only optimization still refuses the fixed maximum budget. The
+separate operation-name absence pass costs350923 reads/146832332 bytes before
+staging; do not increase512MiB/2M or journal limits to accommodate duplicate work.
+
+Add Tree::insert_staged(expected_root, &BTreeMap<LogicalPath,Object>, store,
+TreeLimits) -> TreeResult<(Tree,StagedEditMetrics)>. Every supplied file path must
+be absent in the exact input tree. Existing file (even identical object) or a
+file/directory conflict is PathConflict. Check absence within the same checked
+leaf mutation traversal; preserve shared BST/heap validation and canonical roots.
+Intermediate parent directory links can change normally. Upsert edit/edit_staged
+keep their existing replacement/no-op semantics. No copying the full input map,
+base cache, encoding change, unmetered lookup or cap waiver.
+
+Validate expected root/count/consistent object lengths first. Stage all inserts
+before any provider put. Duplicate/conflicting input paths and missing/corrupt
+metadata refuse without flushing staged nodes. Flush only final reachable nodes
+with the same metrics/budgets/failure semantics as edit_staged. Insert order comes
+from the supplied exact BTreeMap, with canonical roots matching independent bulk
+build and ordinary edits of proven-absent files. Existing-data conflicts must not
+turn into successful same-hash retries or replacement.
+
+The global index uses insert_staged for both operation/sequence additions and
+removes its separate old-name preflight. A path conflict becomes a journal conflict;
+missing/corrupt nodes still hold. Exact old retries remain historical index reads,
+not inserts. Immutable item nodes written earlier by the index may remain after a
+failed insert, but no root/admission is returned. This is conditional immutable
+metadata construction, not current source authority or payload removal.
+
+L1: exact/duplicate/identical existing name, mid-batch conflict, overlapping paths,
+unknown/corrupt root, stale root, quota/byte refusal, canonical root and read-count
+fixtures. L2: full old journal+full global delta, original typed outcomes, physical
+reopen, full core/regression and strict checks. All current limits remain fixed.

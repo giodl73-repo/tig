@@ -270,3 +270,188 @@ shortcut. Six producer design lenses are pass_with_risk with every successor L1/
 execution, old-library/new-format, restore/minimum and source/provider/witness/
 expiry obligation OPEN. Tree u32 entry bounds are explicit finite metadata, not
 an unlimited lifetime claim. No implementation evidence for this new protocol.
+
+
+## Global receipt-index implementation entry
+
+Input7ef73d328f5c2a28477d1f2a7993a8ed288f9978; frozen successor contract precedes
+code. WP-003/004/006/007/008/013/015, REQ-001/003/004/005/006/007/009,
+SPEC-002/003/004/005/006/008/009/013/014, IF-002/003/004/005/006/008/012/013,
+PKG-001/002/003/008/009; RUST/PROVIDER/INTEGRATION L0/L1/L2 as frozen there.
+Allowed scope is existing history/core/metadata ports and private global operation/
+sequence indexes, bounded source/delta fixtures and controlled records. Entry uses
+owned synthetic roots; exit for this component is exact old replies/dependencies,
+append/prefix/absence/integrity/shared-budget evidence. Joined active-control/tail/
+minimum/recovery/old-writer and complete continuation remain separately required.
+
+Implementation is private cfg(test) ledger::history::index. Shared DependencyView
+keeps original Snapshot typed checks/range/default caps intact. Index pairs exact
+operation and sequence roots; selected records check both mappings and preceding
+checkpoint. It imports a fully validated original segment and stages bounded
+continued-schema deltas, checking original context/request/hash/types and earlier
+references. Deltas use a bounded input view rather than a lifetime output map.
+Original receipts/probes stay historical; old retired outcomes use existing pages.
+Index::extend accepts controller-supplied acknowledged rows; it is not independent
+source-authority admission and has no public runtime API or successor journal.
+
+The whole-build BudgetPort counts provider IO and private proof-memory IO against
+shared read/write/byte counters before calls. Snapshot::validate_all retains its
+public signature/format/caps and private default MemoryNodes proof; a private
+helper lets the index share the proof port's counters. Staged overlays feed each
+next tree remaining logical limits and charge hidden overlay work; on failure the
+operation stops. No per-tree reset, deadline/cap waiver, payload IO or new engine.
+
+Initial57423 TERMINAL1: fixture used u64 directly as SQLite parameter. Existing
+checked sql_number fixes that helper; no runtime algorithm change. Corrected65184
+TERMINAL0/reaped: four short index entries pass, including real cross-snapshot
+completion/retirement, physical metadata finish/reopen, all legacy/clock receipts,
+point budgets, rebound roots and exact aggregate staging ceilings. Subsequent
+source review replaces post-hoc proof-write accounting with the shared proof port;
+14508 currently runs six short entries, adding exact proof quotas and corrupt/
+wrong-ack providers. No later pass or maximum-delta result is claimed yet.
+
+Producer findings, owner Tig maintainers: identity requires original/continued
+schema separation and paired sequence/operation proofs; placement grants no new
+use/removal authority; custody retains external source/minimum/admission gates;
+concurrency requires exact source/controller CAS beyond this immutable component;
+provider/privacy requires the shared proof/overlay budget and no payload access;
+Git/adoption keeps real source fixtures synthetic and .tig/history expiry open.
+These are producer lenses with qualification pending, not independent approval.
+
+Parent exact43119762645 is now all three SUCCESS (Windows/Linux/secrets). Local
+owned PID44168 remains live on exact1c1f3ca; full local/teaching qualification is
+still pending and PR59 remains draft. Neither old interrupted run is called pass.
+
+
+Global maximum failure: owned49184 is terminal/absent, maximum.exit101 and
+complete.exit1. Real full legacy import passes; full index delta refuses Budget
+at Index::extend (test line528) after517.86s. Original-history/strict phases did
+not execute. Preserve successor-index-owned-7a1949ba902c42408cfad16a826e7793 logs
+and source pins; no full pass or cap waiver. The target is free after process audit.
+Tree leaf read-reduction amendment precedes optimization, with exact old tree
+SHA256 and unchanged protocol limits. Combine find/change leaf traversal while
+retaining the old BST/heap path checks, directory conflicts/no-ops and canonical
+roots. Requalify malformed paths and exact independent roots; no base-node cache.
+
+
+Read reduction candidate: shared MapRoute preserves the old find BST/heap checks
+on mutation's single leaf traversal; unchanged children return their old links.
+No new encoding/API/cache or larger limit.2570 TERMINAL0/reaped: existing tree17
+and staged9 (full staged maximum explicitly skipped) pass, including rehashed
+BST and heap refusals, two-read single-leaf update, zero-write missing deletion,
+directory conflict and independent bulk roots. Global short-v3 seven pass, adding
+independent Python canonical/hashlib continued-item vector17001 and strict legacy
+schema rejection above16384. Runtime and journal caps remain unchanged.
+
+Owned hidden9348 now runs source-pinned successor-index-leaf-owned-
+f50df6133837474d8dcdcf346c02ec93/run.ps1: maximum, full core, physical metadata
+staged maximum, original history eight, strict core/store all-target and fmt.
+All Rust/TOML/Cargo.lock source pins are checked before phases; source must remain
+unchanged while live. Separate activation-legacy target RESERVED. The maximum is
+live; no maximum/full/strict pass is claimed. First failed maximum remains preserved.
+No commit of this candidate before required qualification; producer findings and
+joined controller/minimum/tail/recovery/old-writer/expiry gates remain OPEN.
+
+
+Joined-controller producer review while immutable source qualification runs:
+JC-01 critical, owner Tig maintainers, design disposition resolved / implementation
+OPEN. Previous-generation digest alone cannot derive its operation-derived tail
+filename after domain.json replacement. Successor contract now requires immutable
+controls/DIGEST.json readback before current-control publication; recover the
+previous tail through exactly one known predecessor control, never a history scan.
+Missing predecessor/current record holds; seal-to-archive-to-publish exits and two
+rotations remain required fixtures. No new code or passing runtime claim follows.
+
+JC-02 critical, owner Tig maintainers, OPEN. An already-full source cannot be
+assumed to have another ordinary reservation slot. Controller metadata admission
+must precede preparation writes and exclude competing capacity users, including
+source-fence/rollback growth and cumulative control/tail files. Numeric ceilings
+and index RAM/IO bounds alone do not admit physical growth. Do not consume the
+existing free-space floor or reset counters. Distinct admitted metadata resources/
+pre-existing protected capacity and the shared-resource bootstrap case need actual
+provider qualification before a public activation API. This is part of the full
+plan, not delegated to an unverified caller assertion or quiescent-only shortcut.
+
+First original-history parent fresh default-tests.exit is0 on exact1c1f3ca;
+default Clippy/fmt also completed and owned44168 is in standalone/bins sequence
+at the last observed checkpoint. All-feature/artifact outcomes remain pending.
+This parent evidence does not qualify the new dirty index/core candidate.
+
+
+Second maximum9348 TERMINAL/absent: maximum.exit101, complete.exit1,525.44s.
+Leaf optimization passes operation-tree stage but sequence stage exhausts remaining
+read budget. Before operation insertion:350923 reads/146832332 bytes; before
+sequence insertion:1072847 reads/453644890 bytes, leaving83226022 bytes. Preserve
+successor-index-leaf-owned-f50df6133837474d8dcdcf346c02ec93. Later core/physical/
+original-history/strict phases did not run. No cap waiver or maximum pass.
+
+Conditional-insert contract amendment precedes code and is independently hashed
+externally in successor-index-insert-amendment.json with exact old core/index SHAs.
+Use one checked traversal to prove file absence and insert, retaining conflict on
+an identical existing object and all BST/heap checks. Eliminate the index's
+separate old-name scan. Full retry authority still comes from original receipts;
+immutable construction is not current source admission. Requalify whole maximum.
+
+
+Conditional candidate48753 TERMINAL0/reaped: tree17 and staged12 (full max
+explicitly skipped) plus index short8 pass. Tree insert refuses an identical
+existing object, overlapping/mid-batch files and missing/corrupt routes before
+flushing; independent roots and bounded single traversal pass. Added a correctly
+rehashed new record reusing old invalidation/job operation IDs: both conflict and
+original requests/checkpoints remain historical. No new retry receipt is minted.
+Fault fixture was then separated so corrupt-read mode actually acknowledges writes
+and reaches a bad base read, whereas wrong-ack mode corrupts acknowledgement.
+16485 strict TERMINAL101 reported one collapsible-if in shared dependency checks;
+collapse preserves short-circuit behavior, no suppression.8896 strict TERMINAL0,
+41.07s, core/store all-target. Subsequent source-pinned61404 repeats final checks.
+
+Current61404 runs successor-index-insert-owned-17d0c4e105c646cf900aae8707bcecdf,
+all Rust/TOML/lock file sets/hashes pinned before phases. Short8 pass7.04s;
+maximum PASS415.87s, source original full16384 plus synthetic continued index
+full16384 ->32768. This is immutable index proof, NOT actual continued SQL.
+Original results/typed dependencies and bounded selected prefix/absence queries
+pass; first old bound still refuses another ordinary event. Legacy import work:
+98343 reads/34293585 bytes;16415 writes/5269213 bytes. Append:
+1116746 logical reads/446696246 bytes;672718 logical writes/260951223 bytes.
+Both retain the frozen2M reads/1M writes/512MiB per-direction ceilings. Separate
+name preflight is eliminated, not omitted as a safety check: conditional mutation
+proves absence and refuses conflicts. Logical staging bytes are not physical
+allocation, retained custody or reclaimed space. No journal/tree encoding changes.
+Full core phase.exit0. Physical, original-history, final strict/fmt remain in
+progress/queued; no terminal whole-pipeline pass claimed at this checkpoint.
+Original metadata500k regression and exact new-source broader profiles remain owed.
+
+
+Final conditional-index local checkpoint: owned61404 TERMINAL/absent,
+complete.exit0 and short/maximum/core/physical/original-history/strict/fmt exits0.
+Physical full staged16384 append onto4096 base finishes/reopens20480 entries and
+exact old root;4099->20492 rows,1262810->6315322 stored logical bytes. Same final
+16394 puts/5052712 bytes; fewer logical reads388642/132979848 bytes, unchanged
+235279 logical writes/78349532 bytes.123.60s; no allocated-byte/reclaim inference.
+Original archive8 pass70.89s, including actual full source, all original result
+kinds, repinned negatives, peer progress and read-only validation. Final strict
+is0.26s on unchanged source; no suppressions.18823 TERMINAL0/reaped adds original
+metadata16 in135.96s including actual500000 bindings/thirteen edits, child exits,
+concurrency, page quotas and restored minimum refusals. No later Rust changes.
+
+Separate scoped closure: implementation PASS for conditional staged insertion,
+shared typed/proof budgets and private appendable operation/sequence index.
+Verification PASS for the named local source-pinned checks; broader exact-source
+workspace/hosted qualification is pending. Synthetic validation PASS for immutable
+index/readback/receipt preservation, not actual continued SQL or live admission.
+Trace points to frozen contracts/controls and exact external candidate pins.
+Six producer lenses PASS_WITH_RISK for this component: identity roots and format
+vectors pass; placement grants no new authority; custody keeps physical admission/
+reclaim out of scope; concurrency retains expected-root/external adoption and source
+CAS requirements; provider/privacy shares all budgets/uses synthetic metadata only;
+Git/adoption preserves original request/checkpoint/probe semantics. Independent/
+human review and the complete plan remain OPEN. No public activation is exposed.
+
+JC-03 high, owner Tig maintainers, design clarified / implementation OPEN:
+prepublication recovery can finish only its known prospective archive. Missing an
+already-published archive is known loss, not an initialization opportunity; minima
+and predecessor checks precede IO. JC-04 high, same owner, OPEN: restored working
+state must match original domain/instance-as-core-epoch/floor, including an empty
+model. Current codec exposes domain only; a pure context-match seam and rebound
+negatives are required before continued-mode admission. No caller epoch label or
+internally coherent foreign model may substitute for the original authority.

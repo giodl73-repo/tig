@@ -119,6 +119,11 @@ preserving tokens, owner/generation, allocation limits/outcomes, all in-flight a
 unobserved retired charges, generation/allocation/observation highs and clock high.
 Invalidate old sample/pending probe admission. Historical ProbeEvidence cannot
 become ObservationTicket; an exact old retry still returns its original receipt.
+Before exposing the restored model, compare its domain, core epoch and floor to
+the original Config's domain, instance and floor. Internally coherent foreign
+working state is not acceptable. Add a read-only context-match seam to the codec
+if needed; a domain-name check alone is insufficient. Prove rebound epoch/floor
+and empty-state negatives, not only mismatched reservation tickets.
 
 Keep only bounded tail outputs in memory. Resolve old own-operation retries and
 direct typed dependencies through the global index. Audit every public ledger
@@ -155,6 +160,10 @@ the control hash. Validate a checkpoint at/below base through the sequence index
 First rotation uses the frozen legacy design-1 SQL intent. Later source heads can
 exceed16384, so a distinct tig.capacity-activation-intent.design-2 additionally
 binds predecessor activation generation/digest and a safe-integer global source.
+Its exact fields are {schema,operation,authority,generation,source,prepared,
+predecessor}; predecessor is the original ActivationIdentity and generation is
+exactly predecessor.generation+1. Legacy design-1 encodings have no predecessor
+field and retain their original sequence bound.
 The fixed one-row table/nine SQL guards remain unchanged. Do not reinterpret a
 design-1 intent's original sequence bound. A shared private inspector must strictly
 recognize the exact permitted schema and validate its actual source identity.
@@ -165,6 +174,43 @@ Concurrent controllers compare exact predecessor and source head. A prior SQL
 writer may commit first; stale preparation then conflicts. After preparation and
 readback, seal the exact source in its immediate transaction with no node IO.
 Every source, including a continued tail, gets the immutable mutation guards.
+
+Recovery locator amendment, before controller implementation: a predecessor
+digest cannot by itself recover the predecessor's operation-derived tail filename.
+After sealing, write the exact prospective ActiveControl bytes to the provider's
+create-new controls/DIGEST.json, where DIGEST is SHA256 of those bytes. Sync and
+read back before publishing the same bytes as domain.json. Existing exact content
+is a retry; missing current/predecessor content or conflicting bytes hold. No
+directory enumeration or reverse lookup from filenames. First legacy source is
+the fixed ledger.sqlite; later sources are located by one bounded predecessor
+control read at its known digest, then its exact TailIdentity. Validate that
+control's authority/generation/hash and the derived source header/head/seal.
+
+Each successful continued activation must leave its control record available for
+the next rotation/recovery. Crash after seal but before creating the new control
+record can finish that exact record from the retained preparation and observed
+sealed receipt; it cannot reconstruct an unknown missing predecessor or tail.
+Crash after control-record readback but before domain publication is another
+required process-exit fixture. These are bounded per-generation asset-side records,
+not a growing domain.json. Their retention/expiry and physical quota are explicit;
+no control is removed by this protocol. Reopen/minimum lookup must not walk all
+old controls; the global ancestry tree still proves prior minimum digests.
+Creating the prospective new control record is permitted only while the domain
+still matches the known predecessor and admitted minima do not contradict that
+prepublication state. An already-published control missing its archive is known
+loss: hold rather than silently recreating it. Check these conditions before IO.
+
+Physical admission is an unresolved required gate, not a caller-number shortcut.
+Before preparation writes, a qualified provider must reserve/enforce peak and
+lifetime growth for immutable metadata, control/preparation files, successor SQL,
+rollback scratch and source-fence growth, excluding competing capacity users.
+An already-full source may have no ordinary event slot for a new reservation;
+do not reserve after the fact, reset its cap, silently consume its free-space
+floor or require empty accounting. A distinct admitted metadata resource or
+pre-existing protected admission can support full-source continuation. Shared-
+resource/bootstrap cases require an explicit safe protocol; a plain numeric limit,
+fresh free-space sample or the new index's bounded RAM/IO proof is insufficient.
+Private format/recovery fixtures cannot close this gate or expose public activation.
 
 After seal commit there is no cancellation/unseal. Explicit recovery inspects the
 known source and exact preparation: validate the sealed receipt, admitted roots,

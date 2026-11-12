@@ -231,7 +231,7 @@ enum Command {
     },
     Invalidate,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
     operation: Key,

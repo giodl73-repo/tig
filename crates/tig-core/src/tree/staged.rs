@@ -102,6 +102,48 @@ impl<S: NodeStore> Overlay<'_, S> {
 }
 
 impl Tree {
+    /// Insert only absent files, checking absence within each checked mutation
+    /// traversal. An existing file (even identical) is a path conflict.
+    /// All inputs stage before any provider put; flush/adoption rules match
+    /// `edit_staged`. No full input copy or base-tree enumeration is made.
+    pub fn insert_staged(
+        &self,
+        expected_root: &Object,
+        insertions: &BTreeMap<LogicalPath, Object>,
+        store: &mut impl NodeStore,
+        limits: TreeLimits,
+    ) -> TreeResult<(Self, StagedEditMetrics)> {
+        if expected_root != &self.root {
+            return Err(TreeError::StaleRoot);
+        }
+        if insertions.len() > limits.max_entries {
+            return Err(TreeError::Budget);
+        }
+        if crate::check_sizes(insertions.values()).is_err() {
+            return Err(TreeError::Integrity);
+        }
+        let mut overlay = Overlay {
+            base: store,
+            staged: BTreeMap::new(),
+        };
+        let (next, tree) = {
+            let mut ctx = Context {
+                store: &mut overlay,
+                limits,
+                metrics: TreeMetrics::default(),
+            };
+            let mut root = self.root.clone();
+            for (path, object) in insertions {
+                let parts: Vec<_> = path.components().collect();
+                root =
+                    ctx.edit_path(&root, &parts, Some(object.clone()), ChangeMode::FileInsert)?;
+            }
+            (Self { root }, ctx.metrics)
+        };
+        let metrics = overlay.publish(next.root(), tree)?;
+        Ok((next, metrics))
+    }
+
     /// Run `edit` within its original cumulative limits, then persist each
     /// reachable staged metadata node once. Unchanged base subtrees and file
     /// values are opaque. No provider puts occur on a staging error.

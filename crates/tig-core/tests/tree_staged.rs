@@ -105,6 +105,324 @@ fn setup(bindings: &BTreeMap<LogicalPath, Object>) -> (Tree, Port) {
 }
 
 #[test]
+fn leaf_update_uses_one_checked_traversal_and_preserves_zero_write_noops() {
+    let (base, mut port) = setup(&BTreeMap::from([(path("a"), object("old"))]));
+    let limits = TreeLimits {
+        max_reads: 2,
+        ..TreeLimits::default()
+    };
+    let changes = BTreeMap::from([(path("a"), Some(object("new")))]);
+    let (next, metrics) = base
+        .edit_staged(base.root(), &changes, &mut port, limits)
+        .unwrap();
+    assert_eq!(metrics.tree.reads, 2);
+    let mut independent = MemoryNodes::default();
+    let expected = Tree::build(
+        &BTreeMap::from([(path("a"), object("new"))]),
+        &mut independent,
+        TreeLimits::default(),
+    )
+    .unwrap()
+    .0;
+    assert_eq!(next, expected);
+    let (same, metrics) = base
+        .edit_staged(
+            base.root(),
+            &BTreeMap::from([(path("z"), None)]),
+            &mut port,
+            TreeLimits {
+                max_writes: 0,
+                ..limits
+            },
+        )
+        .unwrap();
+    assert_eq!(same, base);
+    assert_eq!(metrics.tree.writes, 0);
+    let (empty, _) = base
+        .edit_staged(
+            base.root(),
+            &BTreeMap::from([(path("a"), None)]),
+            &mut port,
+            limits,
+        )
+        .unwrap();
+    assert_eq!(
+        empty.root().sha256.as_str(),
+        "8758bf7289ab9631f523aa740e20fc86551b5334fe1c1135d9e5cf82378844a0"
+    );
+    let (directory, mut port) = setup(&BTreeMap::from([(path("a/x"), object("old"))]));
+    for value in [None, Some(object("conflict"))] {
+        assert_eq!(
+            directory
+                .edit_staged(
+                    directory.root(),
+                    &BTreeMap::from([(path("a"), value)]),
+                    &mut port,
+                    TreeLimits::default()
+                )
+                .unwrap_err(),
+            TreeError::PathConflict
+        );
+        assert!(port.published.is_empty());
+    }
+}
+
+#[test]
+fn conditional_insert_matches_bulk_without_a_separate_absence_traversal() {
+    let (empty, mut port) = setup(&BTreeMap::new());
+    let one = BTreeMap::from([(path("a"), object("A"))]);
+    let (first, metrics) = empty
+        .insert_staged(
+            empty.root(),
+            &one,
+            &mut port,
+            TreeLimits {
+                max_reads: 1,
+                ..TreeLimits::default()
+            },
+        )
+        .unwrap();
+    assert_eq!(metrics.tree.reads, 1);
+    assert_eq!(
+        first.root().sha256.as_str(),
+        "c22c76999ff64a883574461f7ba23d1b44a9ad7f59716cf281a1e8c83c003eb6"
+    );
+    let mut bindings: BTreeMap<_, _> = (0..300)
+        .map(|i| (path(&format!("stable/key{i:04}")), object("old")))
+        .collect();
+    let (base, mut port) = setup(&bindings);
+    let insertions: BTreeMap<_, _> = (300..450)
+        .map(|i| (path(&format!("stable/key{i:04}")), object("new")))
+        .chain([(path("other/nested/key"), object("other"))])
+        .collect();
+    let (next, _) = base
+        .insert_staged(base.root(), &insertions, &mut port, TreeLimits::default())
+        .unwrap();
+    bindings.extend(insertions);
+    let mut independent = MemoryNodes::default();
+    let expected = Tree::build(&bindings, &mut independent, TreeLimits::default())
+        .unwrap()
+        .0;
+    assert_eq!(next, expected);
+    assert_eq!(
+        next.entries(&mut port, TreeLimits::default()).unwrap().0,
+        bindings
+    );
+    assert_eq!(
+        base.get(&path("stable/key0000"), &mut port, TreeLimits::default())
+            .unwrap()
+            .0,
+        Some(object("old"))
+    );
+}
+
+#[test]
+fn conditional_insert_conflicts_even_on_identical_files_and_flushes_no_partial_batch() {
+    let (base, mut port) = setup(&BTreeMap::from([
+        (path("z"), object("old")),
+        (path("directory/x"), object("nested")),
+    ]));
+    let before = port.nodes.objects().count();
+    for insertions in [
+        BTreeMap::from([
+            (path("a"), object("staged first")),
+            (path("z"), object("old")),
+        ]),
+        BTreeMap::from([(path("z"), object("replacement"))]),
+        BTreeMap::from([(path("z/x"), object("under file"))]),
+        BTreeMap::from([(path("directory"), object("over directory"))]),
+        BTreeMap::from([
+            (path("a"), object("parent")),
+            (path("a/x"), object("child")),
+        ]),
+    ] {
+        assert_eq!(
+            base.insert_staged(base.root(), &insertions, &mut port, TreeLimits::default())
+                .unwrap_err(),
+            TreeError::PathConflict
+        );
+        assert!(port.published.is_empty());
+        assert_eq!(port.nodes.objects().count(), before);
+    }
+    assert_eq!(
+        base.edit_staged(
+            base.root(),
+            &BTreeMap::from([(path("z"), Some(object("old")))]),
+            &mut port,
+            TreeLimits::default()
+        )
+        .unwrap()
+        .0,
+        base
+    );
+}
+
+#[test]
+fn conditional_insert_validates_exact_root_sizes_and_whole_operation_budgets() {
+    let (base, mut port) = setup(&BTreeMap::new());
+    let insertions = BTreeMap::from([
+        (path("a"), object("A")),
+        (path("b"), object("B")),
+        (path("c"), object("C")),
+    ]);
+    let (_, used) = base
+        .insert_staged(base.root(), &insertions, &mut port, TreeLimits::default())
+        .unwrap();
+    port.published.clear();
+    for limits in [
+        TreeLimits {
+            max_reads: used.tree.reads - 1,
+            ..TreeLimits::default()
+        },
+        TreeLimits {
+            max_writes: used.tree.writes - 1,
+            ..TreeLimits::default()
+        },
+        TreeLimits {
+            max_read_bytes: used.tree.read_bytes - 1,
+            ..TreeLimits::default()
+        },
+        TreeLimits {
+            max_write_bytes: used.tree.write_bytes - 1,
+            ..TreeLimits::default()
+        },
+    ] {
+        assert_eq!(
+            base.insert_staged(base.root(), &insertions, &mut port, limits)
+                .unwrap_err(),
+            TreeError::Budget
+        );
+        assert!(port.published.is_empty());
+    }
+    port.gets.set(0);
+    assert_eq!(
+        base.insert_staged(
+            &object("stale"),
+            &insertions,
+            &mut port,
+            TreeLimits::default()
+        )
+        .unwrap_err(),
+        TreeError::StaleRoot
+    );
+    let inconsistent = BTreeMap::from([
+        (path("a"), object("A")),
+        (
+            path("b"),
+            Object {
+                sha256: object("A").sha256,
+                bytes: 99,
+            },
+        ),
+    ]);
+    assert_eq!(
+        base.insert_staged(base.root(), &inconsistent, &mut port, TreeLimits::default())
+            .unwrap_err(),
+        TreeError::Integrity
+    );
+    assert_eq!(port.gets.get(), 0);
+    port.missing = true;
+    assert_eq!(
+        base.insert_staged(base.root(), &insertions, &mut port, TreeLimits::default())
+            .unwrap_err(),
+        TreeError::MissingNode(base.root().clone())
+    );
+    port.missing = false;
+    port.corrupt = true;
+    assert_eq!(
+        base.insert_staged(base.root(), &insertions, &mut port, TreeLimits::default())
+            .unwrap_err(),
+        TreeError::Integrity
+    );
+    assert!(port.published.is_empty());
+}
+
+#[test]
+fn combined_leaf_traversal_refuses_rehashed_bst_and_heap_corruption() {
+    for heap in [false, true] {
+        let (base, mut port) = setup(&BTreeMap::from([
+            (path("a"), object("A")),
+            (path("z"), object("Z")),
+        ]));
+        let mut directory: serde_json::Value =
+            serde_json::from_slice(&port.nodes.get(base.root()).unwrap().unwrap()).unwrap();
+        let map_object: Object =
+            serde_json::from_value(directory["root"]["object"].clone()).unwrap();
+        let mut parent: serde_json::Value =
+            serde_json::from_slice(&port.nodes.get(&map_object).unwrap().unwrap()).unwrap();
+        let old_side = if parent["left"].is_null() {
+            "right"
+        } else {
+            "left"
+        };
+        let child_object: Object =
+            serde_json::from_value(parent[old_side]["object"].clone()).unwrap();
+        let mut child: serde_json::Value =
+            serde_json::from_slice(&port.nodes.get(&child_object).unwrap().unwrap()).unwrap();
+        let original_parent = parent["name"].clone();
+        let original_child = child["name"].clone();
+        child["name"] = original_parent.clone();
+        let side = if heap {
+            parent["name"] = original_child;
+            let link = parent[old_side].take();
+            let opposite = if old_side == "left" { "right" } else { "left" };
+            parent[opposite] = link;
+            opposite
+        } else {
+            old_side
+        };
+        let changed = port
+            .nodes
+            .put(&tig_core::identity::canonical_json(&child).unwrap())
+            .unwrap();
+        parent[side]["object"] = serde_json::to_value(changed).unwrap();
+        let changed = port
+            .nodes
+            .put(&tig_core::identity::canonical_json(&parent).unwrap())
+            .unwrap();
+        directory["root"]["object"] = serde_json::to_value(changed).unwrap();
+        let bad = Tree::from_root(
+            port.nodes
+                .put(&tig_core::identity::canonical_json(&directory).unwrap())
+                .unwrap(),
+        );
+        let target = if heap {
+            original_parent.as_str().unwrap()
+        } else if side == "left" {
+            "0"
+        } else {
+            "zzzz"
+        };
+        assert_eq!(
+            bad.get(&path(target), &mut port, TreeLimits::default())
+                .unwrap_err(),
+            TreeError::InvalidNode
+        );
+        assert_eq!(
+            bad.edit_staged(
+                bad.root(),
+                &BTreeMap::from([(path(target), Some(object("replacement")))]),
+                &mut port,
+                TreeLimits::default()
+            )
+            .unwrap_err(),
+            TreeError::InvalidNode
+        );
+        assert_eq!(
+            bad.insert_staged(
+                bad.root(),
+                &BTreeMap::from([(path(target), object("new"))]),
+                &mut port,
+                TreeLimits::default()
+            )
+            .unwrap_err(),
+            TreeError::InvalidNode
+        );
+        assert!(port.published.is_empty());
+    }
+}
+
+#[test]
 fn staged_root_matches_independent_build_and_sequential_edits() {
     for seed in 0..12 {
         let mut bindings: BTreeMap<_, _> = (0..60)

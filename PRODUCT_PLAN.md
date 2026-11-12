@@ -50,7 +50,14 @@ physical finish/reopen, negative/budget, core/metadata regression and strict che
 pass (EVID-129). This supports global indexes; it does not supply a successor,
 independent minimum, durable activation/recovery or expiry. The next joined
 [successor protocol](specs/JOURNAL-SUCCESSOR.md) freezes those integration boundaries
-before implementation.
+before implementation. Its private operation/sequence index now passes real full16384 legacy import plus
+full16384 immutable index delta, old receipt/prefix lookups, physical readback,
+full core/archive/500k metadata regression and strict checks. Conditional staged
+insertion proves absence in the mutation traversal and fits the original budget;
+two earlier full failures remain recorded. New-source broader qualification and
+actual successor SQL/control/ancestry/minimum/recovery remain required. Controller
+review also requires digest-addressed prior controls and genuine metadata capacity
+admission for full sources; index bounds alone do not grant that admission.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable
