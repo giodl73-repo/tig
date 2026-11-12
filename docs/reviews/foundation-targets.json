@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 37212,
-      "sha256": "9d39356a37aa4359fc69af38f3cb74a044d7059f6857f4a6ae53b6c4ee7b36d4"
+      "bytes": 38353,
+      "sha256": "f52c8850fc958550f1376eef4887f070580b13f3fd9e9a74b46959e4f14b16e9"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130796,
-      "sha256": "b50bca31f06d3f06bb813296fc34ce67d8fb3578b1747f71dc0476503870f0ce"
+      "bytes": 130814,
+      "sha256": "bab1ff00a9f8671173a970db2bd1a57c4700b7c4778209750d5983aba156b91e"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 55990,
-      "sha256": "784a16d8847923301ec2d7a5c0e88b8c2eec5847235010988bd908a226e85aaf"
+      "bytes": 56109,
+      "sha256": "b251b3f879edf1c49067147de77f8a1f92718e60c289d7d45c979b76d7463afa"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 100537,
-      "sha256": "319b791c8e77928eb978e580b907af91fbfc1da9953e4569e1868970df5714a3"
+      "bytes": 101678,
+      "sha256": "c57ff8d6b792fcfb4246a9e268ae0451067d7423d025c95877477311d6b6b528"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3504,8 +3504,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-ledger-history.md",
-      "bytes": 12587,
-      "sha256": "d4e59d5da31456624eeb0c086c0c1ba913d6aa656af117808633326da3f87fee"
+      "bytes": 14868,
+      "sha256": "715d89141b2e7ef5cc08231e5fa8acac69a13e514976a0bdd93fae65cd681926"
     },
     {
       "path": "specs/LEDGER-HISTORY.md",

@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-128: [original history](../reviews/2026-11-11-ledger-history.md); focused.
+EVID-128: [original history](../reviews/2026-11-11-ledger-history.md); local/hosted runtime pass.
 
 EVID-127: [working checkpoint](../reviews/2026-11-11-capacity-checkpoint.md); focused.
 

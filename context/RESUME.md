@@ -1,5 +1,23 @@
 # Tig resume state
 
+Original-history source1c1f3ca is fully qualified for its bounded archive scope:
+exact43119762645 Windows/Linux/secrets SUCCESS; owned44168 terminal/absent and
+all default/all/strict/standalone/fmt/bins/fresh14 artifact/catalogue exits0.
+External evidence: ledger-history-owned-b787ba2789be482c8bf5b596fdb6d43e;
+fresh artifact ledger-history-owned-qualified-ce9fc2c15d9844418c90429846f37237.
+Both500k cases pass. Old failed/interrupted runs remain recorded in EVID-128.
+This documentation closeout has no Rust change; its exact hosted head is separate.
+PR59 stays draft until that current-head check. No PR merge or deployment.
+
+Owned successor lane F:/src/Tig-worktrees/journal-activation has conditional staged
+inserts/private global-index runtime d29a576 focus-qualified, not full activation.
+Read its own RESUME/EVID-129 before work there. Full PRODUCT_PLAN remains active.
+No live caches/daemon/payload operations on resume; synthetic fixtures only.
+Both normal targets are free after44168; revalidate actual process ownership
+before a new run. Old process declarations below are historical, not live state.
+
+## Historical checkpoints
+
 Current qualification correction: contract7a1ebe6 precedes test-only fences fixture
 stderr readiness/bounded wait. Focus25433 passes all11 cases with1/4 threads plus
 strict Clippy. No production algorithm/deadline/cap/format changed.
