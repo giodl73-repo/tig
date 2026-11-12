@@ -968,3 +968,69 @@ complete_coursefalse,2PUT54B,28requests270GETB, retained_custody/removal_authori
 catalogue read-only0payloads/automatic_evictionfalse. Both normal targets released;
 teaching-playback-all was then reserved/released by44924. These older checks do
 not qualify the new source. Exact20a3865 broad60988 still live, now all-tests.
+
+Checkpoint858595beeaaed652d44ca6239cc6566e722d829e committed/pushed after fresh
+L0/diff/partition/workflow/staged-secret checks. PR60 remains draft. Exact hosted
+43170309914 is live with the new seven-suite/native-OS matrix; no final result yet.
+Prior090 hosted43163826567 was superseded by this push: last Windows continuation
+cancelled56m25s, required foundation aggregates failed/cancelled as designed.
+This is incomplete hosted qualification, not a native assertion failure or pass.
+New exact858595b broad57980 runs in clean full-rotations-qualification-e628f8c2,
+root full-rotations-broad-e628f8c263ef4e98853937685526404f; normal targets reserved,
+last default-tests. Main checkout/continued-seal target remain available for next
+scoped controller work. Older20a3865 broad60988 remains live on activation target.
+
+Shared first-legacy preparation entry input858595b is frozen before code in
+JOURNAL-SUCCESSOR.md; external legacy-preparation-entry-
+d45c9e0bcefb45d8a4e46426b7209e73 retains all source/spec hashes. New private
+preparation::legacy reuses actual export/index/state/MetadataStore/BudgetPort.
+It refuses continued, observed-sealed and partial-control sources before provider
+work, charges bounded SQL/body/envelope staging, carries one meter across export,
+nested pure index proof, ancestry/Data, finish/fresh read-only readback and planned
+serialized control bytes. New reader is seeded with ALL spent work before IO.
+Return is a read-only Preparation/Data/metrics artifact, never an observed seal,
+physical admission or writable handle. Final source head/control checks follow IO;
+real peer advance or sealing returns no artifact. No source file/pointer is written.
+
+20712 first compilation/focus0: initial substring filter selected only the continued-
+mode refusal case (1pass0.11s); no broader inference. Explicit module+name filters
+then run six intended short cases, all pass1.28s. They cover active/in-flight and
+clocked contexts, old reply/state readback, no probe rehydration, four combined-
+budget one-unit cuts, zero provider IO before preflight refusal, real peer write
+through metadata work, already-sealed/partial and seal-during-readback refusal.
+
+Final13356 TERMINAL0/reaped: every phase/complete0; all Rust/TOML/lock path/hash
+checks before phases/end. Focused54 pass10.48s, strict-entry14.52s; full actual
+original16384 legacy preparation/readback78.40s; history8/checkpoint3/index8/final
+strict/fmt pass. Full shared total114834reads40370841B,49187writes16589897B under
+unchanged global2M/512MiB reads and1M/512MiB writes, with every old history/state/
+record limit retained. Source remains unsealed with the exact full checkpoint;
+ordinary extra event still refuses its original cap. Planned control serialization
+is metered, not a claim that a controller record was published or durably synced.
+53584 TERMINAL0/reaped additionally verifies identical pinned sources with workspace
+all-feature/all-target strict Clippy/fmt,2m22s. Source-scoped implementation PASS;
+named verification PASS; isolated real SQLite/metadata full-source/readback
+validation PASS; trace PASS. Six producer lenses PASS_WITH_RISK: exact original
+config/head and invalidation of replayed observation; no placement permission;
+active/in-flight/zero preservation; peer progress without held source SQL and
+stale/sealed refusal; one carried budget/no implicit source initialization;
+original requests/clock context and component caps retained. No independent/human
+approval. Complete controller/continued preparation integration, genuine physical
+admission, atomic publication/recovery and complete product acceptance remain OPEN.
+
+Exact858595b hosted43170309914 COMPLETED/SUCCESS: all14 native suites, secrets and
+both foundation aggregates pass. Windows rotations18m08s; Windows continuation
+59m53s and journal42m20s. This validates858 only, not the newer helper/scheduling.
+Archived090 continuation log records early small passes, two maxima passing after
+about54minutes, remaining joined maximum unfinished at superseding cancellation;
+no FAILED line is present. Interpretation is likely independent-fixture contention,
+not diagnosis of an assertion failure or a complete pass. Next runner explicitly
+serializes top-level library fixtures, preserving all peer/process concurrency.
+
+Older60988 exact20a3865 broad TERMINAL0/reaped, every default/all/500k/strict/
+standalone/fmt/bins/artifact/catalogue phase0. Fresh external continued-engine-
+qualified-d487a7a22eb5409f8dc189c492af3d50 reports14 checkpoints/complete_coursefalse,
+2PUT54B/28requests270GETB/custody-removalfalse, read-only catalogue0payloads/
+automatic_evictionfalse. Activation target released. Current858 broad57980 remains
+live/default-tests on its separate clean source and normal targets. Older-source
+checks do not qualify the helper candidate.

@@ -29,10 +29,10 @@ class StoreShardTests(unittest.TestCase):
     def test_batches_preserve_exact_names_and_bounds(self):
         names = ["test_" + str(i) + "x" * 400 for i in range(200)]
         batches = list(commands("test.exe", names))
-        self.assertEqual([n for batch in batches for n in batch[2:]], names)
+        self.assertEqual([n for batch in batches for n in batch[3:]], names)
         for batch in batches:
-            self.assertEqual(batch[:2], ["test.exe", "--exact"])
-            self.assertLessEqual(len(batch) - 2, 64)
+            self.assertEqual(batch[:3], ["test.exe", "--exact", "--test-threads=1"])
+            self.assertLessEqual(len(batch) - 3, 64)
             self.assertLess(len(" ".join(batch)), 24000)
 
     def test_empty_duplicate_and_oversized_selections_refused(self):
@@ -55,7 +55,7 @@ class StoreShardTests(unittest.TestCase):
             with self.assertRaises(subprocess.CalledProcessError):
                 run("continuation")
         self.assertEqual(execute.call_args_list[-1].args[0][1:],
-                         ["--exact", "ledger::continuation::c"])
+                         ["--exact", "--test-threads=1", "ledger::continuation::c"])
 
     def test_build_failure_and_missing_artifact_refused(self):
         for result, error in ((subprocess.CompletedProcess([], 1, "", ""),

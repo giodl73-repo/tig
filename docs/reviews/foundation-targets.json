@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 6755,
-      "sha256": "c7e88ece6a2775218d422eb8cc24914bab6f21675a58d229ebea49c81d66b9b0"
+      "bytes": 7118,
+      "sha256": "e1620eaa4a3da236912f475f8ccf02644b19fa72718cb582c63cf5b3664e7741"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 59149,
-      "sha256": "a4df6c28167bbd735f9abe2886d1b7cd2f73673d8036fb7f4d69051314aa7fc2"
+      "bytes": 59555,
+      "sha256": "b78e94003bb652e476952d66fe3fd063b78cb2c1497ee442fa8becc78dd40a85"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 14297,
-      "sha256": "c0d8da5d518f7315007bd06642ac4b92f6701bd8276b522e13470efec346748a"
+      "bytes": 17665,
+      "sha256": "2b6ef2b7ddedbcddde0ef2ab58977ad232dc9c2ac1feb062eae97100d83a43ed"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 69100,
-      "sha256": "c4c39d25b845ac15a1d0d386b14723ebdaf37d5325a04d754389d59094e4ee49"
+      "bytes": 73924,
+      "sha256": "56dc6c51d0e3318f36d3cb843322c5120fed2872508d892ef24b581bc14f23d4"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3589,8 +3589,8 @@
     },
     {
       "path": "specs/JOURNAL-SUCCESSOR.md",
-      "bytes": 48331,
-      "sha256": "ad8471a521366e0ce09f3ea679e335697c82814397a14d8e3adc4db1f34fc186"
+      "bytes": 50749,
+      "sha256": "c211c23b5404757e1bab1ef4bcabcb16f2e3d14f825e93d4ca1ca2aa58d0363e"
     },
     {
       "path": "crates/tig-store/src/ledger/history/index.rs",
@@ -3604,8 +3604,8 @@
     },
     {
       "path": "crates/tig-store/src/ledger/continuation.rs",
-      "bytes": 14600,
-      "sha256": "1d3d3ac72b181a7ad34b4dbfc7c05949acde3430c302c5cdf51cabc448d1981e"
+      "bytes": 14617,
+      "sha256": "27eb7074300d90565f1ea3310d19a8eea99bc001be55de2c99b2e32da921e81f"
     },
     {
       "path": "crates/tig-store/src/ledger/continuation/tests.rs",
@@ -3639,18 +3639,18 @@
     },
     {
       "path": "docs/reviews/2026-11-12-ci-partition.md",
-      "bytes": 5201,
-      "sha256": "f84204c4ec90ddbd656218a256cc30c55ff9d6cfb6dc7e92007119799fd21a7e"
+      "bytes": 6907,
+      "sha256": "c5cfbbefae34e28dc6808e481afe17b8902a011f435a1b20f3b9ef68ef397d17"
     },
     {
       "path": "tools/run_ci_store_shard.py",
-      "bytes": 3302,
-      "sha256": "42fcf6bc885b7b506102166e4c8384158886d6f68c28025a9c2ad4c05205a8af"
+      "bytes": 3427,
+      "sha256": "7aaf4671574149d6dd561e0e8833f98bc09df3ec17dd7c9d8f6225d6b9701c23"
     },
     {
       "path": "tools/test_ci_store_shards.py",
-      "bytes": 3503,
-      "sha256": "cf4a060ea85bd3f2cc3408457b8b84f7886f06dcc1fa81dd826d9bc21318ceee"
+      "bytes": 3543,
+      "sha256": "c284a112eef2a8bcbddaaf900b0f3b52249e487587d39ba527dc6671196699cf"
     },
     {
       "path": "crates/tig-store/src/ledger/continuation/tail/engine/tests/seal.rs",
@@ -3659,13 +3659,23 @@
     },
     {
       "path": "crates/tig-store/src/ledger/continuation/tail/engine/tests/sources.rs",
-      "bytes": 7807,
-      "sha256": "038d38ffe49f197300a68fa4915ca0f9e31a765b75456ac7fe605605efaf1900"
+      "bytes": 8353,
+      "sha256": "987cf2296083c214903ce5003037a4cba10713e879f674fe836aaf37ba00e1e1"
     },
     {
       "path": "crates/tig-store/src/ledger/continuation/tail/engine/tests/rotations.rs",
       "bytes": 4926,
       "sha256": "6a74648e2a22bcbf95c80f17eace7977dc658cd4ac944debbbd873aa6ceca549"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/continuation/preparation.rs",
+      "bytes": 5248,
+      "sha256": "b65cbae76a0576ee8a0e5b56d85776051c5cc566ad45bc145ed7a83299c80dec"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/continuation/preparation/tests.rs",
+      "bytes": 8581,
+      "sha256": "bd901b8783dd2abe24a75f71af5bd11bcd51016fb4b18e903534ea07930c21cc"
     }
   ]
 }

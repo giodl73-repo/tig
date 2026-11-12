@@ -75,3 +75,27 @@ partitions exactly store419/journal64/continuation51/rotations1. Actionlint1.7.1
 passes. All prior suites/explicit cases/baseline SHAs/status names remain unchanged;
 the new full fixture has its own native suite. Hosted execution on the new exact
 head remains pending, and20a3865 hosted proof is not transferred to this source.
+
+Library scheduling entry: input858595b plus legacy-preparation candidate qualified
+by13356/53584. Archived090 Windows continuation log shows all small fixtures
+finishing early, three maximum fixtures overlapping, two completing only after
+about54minutes and the third still running when the newer push cancelled the job.
+No FAILED line is logged before cancellation. New858 standalone rotations passed
+Windows in18m08s. This suggests independent-fixture resource contention, not proof
+of an assertion failure or a complete pass. Preserve the raw archived log externally.
+
+Scope: CI runner/argument tests/evidence only, INTEGRATION L0/L1/L2, same controls.
+Run top-level store-library batches with explicit --test-threads=1; preserve exact
+names, all groups, ignored semantics, every explicit peer/process concurrency test
+and60-minute job deadlines. Bound the added CLI argument in batch length checks.
+Local argument/failure/inventory tests precede push; exact hosted timing/result is
+still required. Workspace/non-store and explicit operator/compatibility commands
+retain their existing scheduling. No Rust implementation, cap or native timeout
+change. This is a scheduling qualification, not independent or human approval.
+
+Exact858595b hosted43170309914 all17 jobs SUCCESS (native14/secrets/foundation2).
+Windows continuation59m53s leaves almost no slack; standalone rotations18m08s.
+The later scheduling/helper source is not covered. New local scheduling checks:
+six Python tests and Actionlint pass; actual542 names still partition exactly
+store419/journal64/continuation58/rotations1, with explicit one-thread batches.
+New exact hosted execution/timing remains required; no deadline was increased.

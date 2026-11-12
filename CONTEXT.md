@@ -22,7 +22,12 @@ workspace strict44924 pass with pinned sources and unchanged logical/local caps.
 No public activation API, atomic controller/recovery, native physical metadata
 admission or expiry is delivered. These and full product acceptance remain open.
 Exact20a3865 hosted43159604450 passes all native suites/secrets/foundation checks;
-newer090d629 hosted43163826567 is pending and excludes the dirty general/scale work.
+exact858595b hosted43170309914 now passes all17 jobs, including full49153 Windows/
+Linux rotation groups. This excludes later private first-legacy preparation work.
+That helper now passes full16384 shared export/index/readback under one original
+budget (13356), plus workspace all-feature strict53584. It writes only immutable
+metadata and returns a prepared artifact; source seal/publication/admission remain
+separate unfinished controller steps.
 
 Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
 fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is

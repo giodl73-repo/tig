@@ -1,6 +1,23 @@
 //! Manual synthetic publication exercises admission, not the future controller.
 use super::*;
 
+#[test]
+fn legacy_preparation_refuses_continued_mode_before_metadata_work() {
+    let mut f = fixture();
+    let c = activate(&mut f);
+    let mut l = reopened(&f, &c, &minimum(&c));
+    f.nodes.reset_metrics();
+    let result = crate::ledger::continuation::preparation::legacy(
+        &mut l,
+        key("not-a-legacy-source"),
+        &mut f.nodes,
+        history::index::build_limits(),
+    );
+    assert!(matches!(result, Err(Error::Invalid)));
+    assert_eq!(f.nodes.metrics().node_gets, 0);
+    assert_eq!(f.nodes.metrics().puts, 0);
+}
+
 pub(super) fn next(
     f: &mut Fixture,
     current: &ActiveControl,

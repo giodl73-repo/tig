@@ -73,7 +73,12 @@ checks and actual49153 scale: original16384 plus two full continued tails, then 
 new generation3 command, preserving exact retries and inherited in-flight/zero
 state under unchanged shared budgets. Manual synthetic publication is not the
 atomic controller/recovery protocol. Public entry, durable controller/recovery,
-genuine metadata admission and new-source broad/hosted checks remain required. CI partitions
+genuine metadata admission and new-source broad/hosted checks remain required.
+First-legacy private preparation now also shares one unchanged budget across
+actual export/index/proof/Data/physical readback/control serialization; full16384
+and source-race/budget/clocked cases pass. This closes that preparation profile,
+not complete atomic controller publication/recovery or native physical admission.
+Exact858595b hosted all17 jobs passes; later-source qualification remains separate. CI partitions
 preserve coverage after the previous Windows monolith timed out; new-source broad
 and hosted results are still required.
 

@@ -35,16 +35,16 @@ def commands(executable, names):
     if not names or len(names) != len(set(names)):
         raise ValueError("empty or duplicate selected tests")
     # Bound Windows command-line length as well as argument count.
-    batch, size = [], len(str(executable)) + 16
+    batch, size = [], len(str(executable)) + 40
     for name in names:
         if len(name) > 4096:
             raise ValueError("test name exceeds argument bound")
         if batch and (len(batch) == 64 or size + len(name) + 3 > 24000):
-            yield [str(executable), "--exact", *batch]
-            batch, size = [], len(str(executable)) + 16
+            yield [str(executable), "--exact", "--test-threads=1", *batch]
+            batch, size = [], len(str(executable)) + 40
         batch.append(name)
         size += len(name) + 3
-    yield [str(executable), "--exact", *batch]
+    yield [str(executable), "--exact", "--test-threads=1", *batch]
 
 
 def run(shard):
@@ -70,7 +70,8 @@ def run(shard):
     groups = partition(listing)
     print("Store library inventory: " + ", ".join(
         f"{name}={len(names)}" for name, names in groups.items()), flush=True)
-    # Keep native libtest default ignored semantics and RUST_TEST_THREADS.
+    # Serialize independent resource-heavy fixtures. Their explicit peer/process
+    # concurrency is still exercised; native default ignored semantics remain.
     for command in commands(executable, groups[shard]):
         subprocess.run(command, check=True, env=os.environ.copy())
 

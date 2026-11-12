@@ -684,3 +684,39 @@ result, never directory enumeration or a new preparation under an already sealed
 intent. Lifetime record expiry, operation-key reuse and source/provider/witness
 authority remain separately gated; no controller cleanup may infer permission to
 remove payloads or replay protection from an obsolete filename or label.
+
+## Shared first-legacy preparation implementation entry
+
+Input858595beeaaed652d44ca6239cc6566e722d829e, full46476 and strict44924 qualified;
+exact broad/hosted still pending. WP-003/004/006/007/008/013/015;
+REQ-001/003/004/005/006/007/009; SPEC-002/003/004/005/006/008/009/013/014;
+IF-002/003/004/005/006/008/012/013; PKG-001/002/003/008/009.
+RUST/PROVIDER/INTEGRATION L0/L1/L2. Allowed scope: private preparation helper and
+synthetic fixtures, reusing actual legacy export, Index::from_legacy, state codec,
+MetadataStore and shared BudgetPort. No seal, controller publication, public API,
+physical admission claim, new cache/dependency, cap or native deadline change.
+
+For an existing unsealed legacy handle, synchronize and capture exact source/
+config. Refuse continued or sealed/partial-control sources before provider work.
+Charge source SQL/body/envelope staging conservatively, then use ONE existing
+2M-read/512MiB and1M-write/512MiB budget across export, old-index validation/build
+(including nested pure proof), empty ancestry, prepared Data, finish/readback and
+serialized preparation control bytes. Keep every original export/state/record
+limit. A new read-only provider view after finish carries the already-spent budget;
+it must never start a fresh allowance. Serialized control bytes are charged as
+planned control work; no on-disk controller record is written by this helper.
+
+Return only a read-only prepared artifact with exact Preparation/Data/metrics;
+neither wire framing nor successful metadata readback establishes an observed
+seal or permission to write. Recheck source head and absence of activation objects
+after provider IO; peer advance/sealing conflicts and returns no artifact.
+Provider transactions never overlap source SQL. Failed/uncertain metadata writes
+do not silently repair, publish, initialize or unseal any source.
+
+L1: active/in-flight and clocked records; original reply/index/state readback;
+budget cuts before IO and through the combined phases; actual peer write during
+provider work, seal-before-final-check refusal and no source mutation on failure.
+L2: real full16384-command legacy preparation/physical reopen under ONE budget,
+original archive/index regressions and strict checks. Controller, full native
+physical admission, atomic root publication/recovery and all product gates remain
+separate exits. No special quiescent/empty-accounting prerequisite is permitted.
