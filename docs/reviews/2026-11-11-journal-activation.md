@@ -641,3 +641,81 @@ exceed512MiB if naively combined. Their workloads differ, so this comparison is
 a risk finding rather than an executed joined failure. Next exact same-workload
 fixture must enforce one remaining budget without repeated proofs/caches/cap
 waivers. JC-02 physical metadata admission remains separately open even if it fits.
+
+ST-04 diagnostic entry: c374775 contract precedes code, input9888618. Existing
+BudgetPort now offers ledger-scoped remaining/nested logical accounting with checked
+subtraction; existing Item/archive/index helpers are reused, no new provider cache.
+Replay borrows the bounded SQL rows for later capture, retaining strict original-name
+proofs in this first measurement. One port charges base/SQL/replay/output/index/
+ancestry/working Data. Nested edit reports include hidden proof/overlay work not
+seen at the underlying provider; under-reporting/budget refusal aborts unchanged.
+
+60174 terminal0:23 short cases2.49s. Two-row joined preparation finishes/reopens
+actual metadata, preserves original/prefix replies, ancestor and closed/50-byte
+working outcome. Measured252 reads/325095 bytes,52 writes/12901 bytes including
+declared conservative SQL/base charges. Nested work negatives preserve spent
+counters. An unused mut in the test is removed; source otherwise unchanged.
+Owned50172 pins final diagnostic source in external
+joined-preparation-diagnostic-99b730a6c2ec48d0af6ed9198a0ce67a; full same-workload
+16384+16384 preparation outcome pending. This is a required-success diagnostic,
+not authority to treat a Budget failure as product completion. All joined controller,
+physical metadata admission, rotations and full-product gates remain open.
+
+50172 TERMINAL1/reaped: full joined required-success fixture refuses Budget424.19s.
+After base/SQL/replay367726 reads/152653060 bytes, only384217852 read bytes remain.
+Index operation edit reaches302037614 bytes; sequence edit refuses. This confirms
+ST-04 on the same actual full original/tail workload. Exact failed source/logs are
+preserved, no caps increased. Pre-optimization amendment is frozen in the spec and
+external staging-amendment-before-code.json with spec/old code hashes and input988.
+
+Candidate fix: a private non-Clone Staged owns original Index/frame/head/body-count
+and pure state, exposing only metrics. Preparing replay defers duplicate old-name
+proofs to existing conditional index insertion. Consuming finish validates exact
+same rows and both indexes/shared work before it releases state for working Data.
+Normal strict replay keeps per-row proofs. Conflicts may leave bounded immutable
+orphans but no control/root/model adoption or provider authority. Frame/end/body/
+raw operation-column mutation refuses, including index event/hash/type checks.
+
+95475 terminal1:24 pass and one fixture NeedsRecovery because its intentional
+orphan write was not finished before a second independent reader. Corrected the
+fixture with explicit finish, without changing reader recovery behavior. Final
+59288 short25 pass3.04s, exact pinned root joined-preparation-owned-
+907450afd81a4ecca5606b7fc5820871. Full joined/strict maximum/index8/strict/fmt remain
+pending. This candidate does not yet close ST-04 or any public controller/admission.
+
+59288 joined.exit0,357.72s: exact same actual full original16384+SQLtail16384
+prepares both indexes, ancestor, working state/Data and finishes/reopens metadata.
+Original/prefix readbacks and old50-byte working outcome pass. One shared meter
+includes base/SQL/typed capture, physical provider calls and hidden logical work:
+1123418 reads447596663 bytes,668057 writes258673542 bytes. All unchanged ceilings
+fit. Before index, preparing replay uses16570 reads5675112 bytes rather than the
+failed strict367726/152653060. No provider cache, cap waiver or public unchecked
+mode. Original strict maximum/index/strict/fmt still pending before final closure.
+
+Older broad44636 TERMINAL0/reaped, every phase.exit0: exact clean d29 detached
+default/schema and all-feature workspace (both half-million/thirteen-edits cases),
+strict Clippy, standalone Git, fmt/bins and fresh14 artifact/catalogue. Artifact
+journal-index-d29-qualified-179d88bc6af84274ad887514071b8213:14 checkpoints,
+complete_coursefalse;2PUT54 bytes,28 requests270 GET bytes; custody/removalfalse.
+Catalogue read-only0payloads, automatic_evictionfalse. This closes the earlier
+local broad d29 obligation only, not new source/hosted/controller/product gates.
+
+Final59288 TERMINAL0/reaped: complete/short/joined/maximum/index/strict/fmt all0,
+all Rust/TOML/lock paths/raw hashes checked before phases/end. Short25 pass3.04s;
+joined357.72s; ordinary strict maximum191.84s still351309 reads147040227 bytes,
+0 writes; index8 pass; strict core/store all-target24.17s and fmt pass. No dependency,
+format, journal/tree limit or native deadline changed. The staged private path's
+full physical finish/readback preserves both prefix indexes, ancestor and working
+old50-byte outcome without duplicate name reads or model release before insertion.
+
+Separate closure: implementation PASS (private bound staging and nested meter),
+verification PASS (short binding/conflict/accounting plus full same-workload),
+scoped synthetic physical SQLite/metadata preparation validation PASS, trace PASS.
+Six producer lenses PASS_WITH_RISK: exact bound snapshot/original identity; no
+placement/removal permission; retained active/in-flight accounting; released SQL
+transactions/consumed failed state and unchanged strict path; one bounded logical
+budget/no new provider cache; exact original replies and both original/new prefix
+readbacks. ST-04 closes only for this named preparation profile. This is not
+independent/human approval, native metadata admission, public controller/write/
+activation/recovery, full provider/source/witness/expiry/course/product acceptance.
+The earlier measured Budget failure and fixture failure remain preserved above.

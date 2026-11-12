@@ -18,10 +18,10 @@ This is not actual continued SQL, durable active-control recovery or metadata ex
 Parent PR59 runtime1c1f3ca passes both full local profiles/500k/strict/standalone/
 fresh14 artifact and exact hosted43119762645. Documentation closeout27e8792 is
 integrated locally; exact43135967822 passes all hosts/secrets, PR59 ready. No remote PR merge.
-Current runtime d29a576 is broadly qualifying in detached
-F:/src/Tig-worktrees/journal-index-d29-qualification, owned hidden PID44636.
-Both normal targets are reserved by that runner; derive actual phase/ownership
-from RESUME. The separate activation target is free for next joined-code fixtures.
+Older runtime d29a576 passes full local both profiles/500k/strict/standalone/bins/
+fresh14 artifact/catalogue: owned44636 terminal0. Newer joined source needs its
+own broad/hosted checks. Derive active ownership from RESUME and external runner
+state. The separate activation target is free after final59288.
 
 Next joined contract: [JOURNAL-SUCCESSOR](specs/JOURNAL-SUCCESSOR.md), alongside
 [JOURNAL-ACTIVATION](specs/JOURNAL-ACTIVATION.md) and
@@ -42,8 +42,14 @@ private SQL-tail replay (precontractabdab3a) now passes final42044: short21, rea
 full original16384 plus SQL tail16384, index8, strict/fmt and pinned source checks.
 The separate activation target is free. Full replay retains active state/old50-byte
 completion, with351309 metadata reads/147040227 bytes and0 writes. This is not
-an activated writer or full rotation. Joined budget composition and physical
-admission still need proof; do not add individually passing maxima as one pass.
+an activated writer or full rotation. Joined preparation now also passes final
+59288 on the same real16384+16384 workload:1123418 reads447596663 bytes and668057
+writes258673542 bytes, including base/SQL/output/index/ancestry/working Data and
+hidden logical work. A private bound staged result defers name checks to conditional
+insertion without exposing state first; ordinary strict replay remains unchanged.
+Failed diagnostic50172 is preserved. Short25, original strict maximum, index8,
+strict/fmt and all source-pin phases pass. ST-04 closes for this scoped preparation
+fixture; actual writer/controller, physical admission and full-product gates remain.
 No public seal-only operation or cap waiver. Provider/source/witness continuation
 and separately authorized detail expiry remain required; replay fences must survive.
 

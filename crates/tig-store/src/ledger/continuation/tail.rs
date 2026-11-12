@@ -203,9 +203,22 @@ struct Replayed {
 }
 fn replay(
     base: Base,
-    snapshot: Snapshot,
+    snapshot: &Snapshot,
     nodes: &mut impl NodeStore,
     limits: TreeLimits,
+) -> Result<Replayed> {
+    replay_inner(base, snapshot, nodes, limits, Names::Check)
+}
+enum Names {
+    Check,
+    DeferToIndex,
+}
+fn replay_inner(
+    base: Base,
+    snapshot: &Snapshot,
+    nodes: &mut impl NodeStore,
+    limits: TreeLimits,
+    names: Names,
 ) -> Result<Replayed> {
     if snapshot.identity.base != base.data.source
         || snapshot.identity.generation != base.data.generation
@@ -232,7 +245,7 @@ fn replay(
         TailRequirement::AtLeast(cp) => Some(cp),
     };
     let mut minimum_proven = required.is_none();
-    for row in snapshot.rows {
+    for row in &snapshot.rows {
         let request: Request = decode(&row.body)?;
         if row.sequence != current.sequence.checked_add(1).ok_or(Error::Budget)?
             || row.operation != request.operation
@@ -242,9 +255,10 @@ fn replay(
         {
             return Err(Error::Invalid);
         }
-        if index
-            .inspect(&request.operation, &mut port, ReadLimits::default())?
-            .is_some()
+        if matches!(names, Names::Check)
+            && index
+                .inspect(&request.operation, &mut port, ReadLimits::default())?
+                .is_some()
         {
             return Err(Error::Journal(LedgerError::Conflict));
         }
@@ -252,7 +266,7 @@ fn replay(
         let output = execute(&mut model, &selected, &request, &clock)?;
         clock.advance(&output);
         current.sequence = row.sequence;
-        current.hash = row.hash;
+        current.hash = row.hash.clone();
         if required.as_ref() == Some(&current) {
             minimum_proven = true;
         }
@@ -275,6 +289,86 @@ fn replay(
     })
 }
 
+// An owned private intermediate, deliberately without state/ticket accessors.
+// Only finish can release its model, after conditional insertion proves names.
+struct Staged {
+    index: Index,
+    identity: TailIdentity,
+    end: Checkpoint,
+    bytes: u64,
+    count: usize,
+    replayed: Replayed,
+}
+fn stage_for_index(
+    base: Base,
+    snapshot: &Snapshot,
+    nodes: &mut impl NodeStore,
+    limits: TreeLimits,
+) -> Result<Staged> {
+    let index = Index::from_roots(
+        base.data.config.clone(),
+        base.data.source.clone(),
+        base.data.operations.clone(),
+        base.data.sequences.clone(),
+    )?;
+    let replayed = replay_inner(base, snapshot, nodes, limits, Names::DeferToIndex)?;
+    Ok(Staged {
+        index,
+        identity: snapshot.identity.clone(),
+        end: snapshot.head.clone(),
+        bytes: snapshot.bytes,
+        count: snapshot.rows.len(),
+        replayed,
+    })
+}
+impl Staged {
+    fn metrics(&self) -> &TreeMetrics {
+        &self.replayed.metrics
+    }
+    fn finish<S: NodeStore>(
+        mut self,
+        snapshot: &Snapshot,
+        nodes: &mut BudgetPort<'_, S>,
+    ) -> Result<(Replayed, Index)> {
+        if self.identity != snapshot.identity
+            || self.end != snapshot.head
+            || self.bytes != snapshot.bytes
+            || self.count != snapshot.rows.len()
+        {
+            return Err(Error::Invalid);
+        }
+        let mut delta = Vec::new();
+        for row in &snapshot.rows {
+            let request: Request = decode(&row.body)?;
+            if request.operation != row.operation {
+                return Err(Error::Invalid);
+            }
+            let output = self
+                .replayed
+                .outputs
+                .remove(request.operation.as_str())
+                .ok_or(Error::Invalid)?;
+            delta.push(history::Item {
+                schema: "tig.capacity-successor-op.design-1".into(),
+                sequence: row.sequence,
+                previous: row.previous.clone(),
+                hash: row.hash.clone(),
+                request,
+                output: history::ArchivedOutput::capture(&output, nodes)?,
+            });
+        }
+        if !self.replayed.outputs.is_empty() {
+            return Err(Error::Invalid);
+        }
+        let remaining = nodes.remaining();
+        let before = nodes.used();
+        eprintln!("joined before index: used={before:?}, remaining={remaining:?}");
+        let (next, work) = self.index.extend(&delta, &self.end, nodes, remaining)?;
+        nodes.account_nested(&before, &work)?;
+        Ok((self.replayed, next))
+    }
+}
+
 /// Read-only adapter: the control/archive/seal/admission gates are still absent.
 fn read_tail(
     base: Base,
@@ -293,7 +387,7 @@ fn read_tail(
     }
     let snapshot = collect(conn, &control.preparation.tail)?;
     let expected = (snapshot.head.clone(), snapshot.bytes);
-    let replayed = replay(base, snapshot, nodes, limits)?;
+    let replayed = replay(base, &snapshot, nodes, limits)?;
     // No node-provider IO during either transaction. A changed peer is explicit
     // conflict; a failed read consumes the staged model instead of adopting it.
     let tx = conn.transaction()?;

@@ -1,5 +1,6 @@
 use super::super::tests::{Fixture, control, fixture, minimum, read};
 use super::*;
+mod joined;
 use history::index::build_limits;
 use std::cell::{Cell, RefCell};
 use tig_core::{capacity::CapacityError, tree::TreeResult};

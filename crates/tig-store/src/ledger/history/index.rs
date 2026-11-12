@@ -86,7 +86,26 @@ impl<'a, S> BudgetPort<'a, S> {
         self.used.set(next);
         Ok(())
     }
-    fn remaining(&self) -> TreeLimits {
+    pub(in crate::ledger) fn account_nested(
+        &self,
+        before: &tree::TreeMetrics,
+        total: &tree::TreeMetrics,
+    ) -> Result<()> {
+        let after = self.used();
+        let unseen = |old: usize, new: usize, total: usize| -> Result<usize> {
+            total
+                .checked_sub(new.checked_sub(old).ok_or(Error::Invalid)?)
+                .ok_or(Error::Invalid)
+        };
+        self.charge(
+            unseen(before.reads, after.reads, total.reads)?,
+            unseen(before.writes, after.writes, total.writes)?,
+            unseen(before.read_bytes, after.read_bytes, total.read_bytes)?,
+            unseen(before.write_bytes, after.write_bytes, total.write_bytes)?,
+        )?;
+        Ok(())
+    }
+    pub(in crate::ledger) fn remaining(&self) -> TreeLimits {
         let used = self.used();
         TreeLimits {
             max_reads: self.limits.max_reads - used.reads,
@@ -379,7 +398,7 @@ impl Index {
     }
     // Rows must come from the controller's exact acknowledged bounded source;
     // this checks framing/chain/dependencies, not independent source authority.
-    fn extend(
+    pub(in crate::ledger) fn extend(
         &self,
         delta: &[Item],
         end: &Checkpoint,
@@ -461,7 +480,7 @@ impl Index {
     }
 }
 
-fn staged_insert<S: NodeStore>(
+pub(in crate::ledger) fn staged_insert<S: NodeStore>(
     root: &Object,
     delta: &BTreeMap<LogicalPath, Object>,
     port: &mut BudgetPort<'_, S>,

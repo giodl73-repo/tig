@@ -60,8 +60,10 @@ review also requires digest-addressed prior controls and genuine metadata capaci
 admission for full sources; index bounds alone do not grant that admission.
 The private read-only SQL-tail adapter now qualifies a real full original16384
 journal plus a physically committed16384-row tail, retaining old active state and
-completion outcomes. Shared preparation-budget composition, public-method routing,
-actual continued writes/rotations and genuine metadata admission remain required.
+completion outcomes. Same-workload joined preparation now fits the original shared
+budget after a measured failed diagnostic; private staging defers name absence to
+conditional index insertion before state release. Public-method routing, actual
+continued writes/rotations/recovery and genuine metadata admission remain required.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable

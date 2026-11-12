@@ -1,6 +1,6 @@
 # Foundation review
 
-EVID-129: [activation](../reviews/2026-11-11-journal-activation.md); private fence/index/base/tail replay.
+EVID-129: [activation](../reviews/2026-11-11-journal-activation.md); private fence/index/preparation.
 
 EVID-128: [original history](../reviews/2026-11-11-ledger-history.md); local/hosted runtime pass.
 

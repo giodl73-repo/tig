@@ -1,89 +1,71 @@
 # Tig resume state
 
-Current owned lane F:/src/Tig-worktrees/journal-activation, feat/journal-activation.
-Derive HEAD/status from Git. C:/src/Tig dirty user files remain untouched. Full
-PRODUCT_PLAN active; no delegates, remote merges, deployments or live storage IO.
+Owned F:/src/Tig-worktrees/journal-activation, feat/journal-activation. Derive HEAD/
+status from Git. Preserve dirty C:/src/Tig user files. Full PRODUCT_PLAN active;
+no delegates, remote merges/deployments or live cache/payload operations.
 
-Private SQL-tail candidate on contractabdab3a/input401dcd6 is focus-qualified;
-derive actual commit/status from Git.
-tail.rs/tests uses exact immutable TailIdentity SQL header, bounded local SQL rows,
-closed transaction before original index IO, bounded per-command typed scratch,
-existing pure execute, exact tail minimum and post-replay SQL head revalidation.
-No public open/write/activation, real seal/admission or controller recovery yet.
-Initial2804 TERMINAL0:17 short cases,2.70s, one unused test import removed. Producer
-review added exact Base/Data object binding and SQLite encoded-byte pre-copy guards;
-new negatives and clock continuity added. First46516 terminal0: short20/max1/index8/
-strict/fmt. Max359.16s reaches32768 actual SQL with351309 reads/147040227 bytes,
-0 writes. Producer found SQL LIKE underscore wildcard hid sqlitex names; fixed
-to literal GLOB and added refusal plus explicit full outcome/active-state assertions.
+Current joined preparation is focus-qualified on contractc374775/input9888618;
+derive the final runtime commit from Git. Existing BudgetPort remaining/nested
+logical accounting and ledger-private archive/index helpers; borrowed SQL rows;
+private non-Clone Staged owns original Index/frame/head/body count plus pure state.
+Only consuming finish validates both conditional indexes before releasing state
+for ancestry/working Data. No caller proof flag, new cache or budget increase.
+Normal strict replay keeps per-row old-name proof. No public controller/writer,
+actual seal/rotation/recovery or physical metadata admission is delivered yet.
 
-Final hidden42044 TERMINAL0/reaped, all phase.exit0. Exact root:
-F:/src/tig-dev-temp/bulk-retirement/successor-sql-tail-final-108d7039689444c4a49b076452d7379d
-Every Rust/TOML/lock path/hash checked before phases/end. Separate target FREE.
-Short21 pass3.44s; full actual legacy16384+SQLtail16384 pass273.27s with same
-351309/147040227 read counts/bytes,0 writes; actual old allocation Some(50) and
-original reservation active; index8, strict16.98s/fmt pass. Not a public writer,
-seal or either rotation. The all-method integration matrix is in JOURNAL-SUCCESSOR.
-Joined budget test is next: naive separate replay147M+index append446M exceeds
-512MiB, but workloads differ; this is a required shared-fixture risk, not a measured
-joined failure. Keep caps and charge SQL/base/outputs/ancestry too. JC-02 genuine
-metadata admission for full-source/shared bootstrap remains an independent gate.
+Final owned59288 TERMINAL0/reaped, every phase.exit0 and every Rust/TOML/lock path/
+raw hash checked before phases/end. Root:
+F:/src/tig-dev-temp/bulk-retirement/joined-preparation-owned-907450afd81a4ecca5606b7fc5820871
+Short25 pass3.04s; full joined357.72s; original strict SQL maximum191.84s; index8;
+strict core/store all-target24.17s; fmt. Full joined real legacy16384+SQLtail16384
+prepares/readbacks both indexes, ancestor and working Data, preserves old/new
+prefixes and old50-byte outcome. Total1123418 reads447596663B,668057 writes
+258673542B including base/SQL/capture/hidden logical work. Ordinary strict maximum
+still351309 reads147040227B,0 writes. Separate activation target FREE.
 
-Current private record reader: precontract3d45e0a, inputf2c4890. New cfg(test)
-continuation.rs/tests, private history meter/index visibility and framing adapters.
-Final44927 TERMINAL0: nine cases; initial44958 test-only Key/Digest mismatch fixed,
-59486 seven cases PASS. No public activation, SQL seal observation, physical
-admission or expiry. Exact controls/scope/remaining gates: JOURNAL-SUCCESSOR and
-EVID-129. Above-base minima explicitly defer actual tail proof.
+Failed diagnostic50172 TERMINAL1/reaped (joined101 Budget424.19s), preserved at:
+F:/src/tig-dev-temp/bulk-retirement/joined-preparation-diagnostic-99b730a6c2ec48d0af6ed9198a0ce67a
+Base/SQL/strict replay367726reads152653060B leaves384217852B; index operation
+302037614B then sequence edit Budget. staging-amendment-before-code.json freezes
+spec/old code hashes/input BEFORE optimization. 60174 short23 passes, unused mut
+removed. 95475 24pass/1fixture NeedsRecovery after intentional unfinished orphan;
+fixed by explicit finish in fixture, not reader repair. Rebound frame/end/body/raw
+operation-column and reused old-name cases refuse with no state release.
+Implementation/verification/scoped physical synthetic validation/trace and six
+producer lenses close separately in EVID-129. ST-04 scoped budget resolved; JC-02
+real peak/lifetime metadata admission, including full-source/shared bootstrap,
+remains independent. No seal-only API or cap waiver.
 
-Owned hidden13720 TERMINAL0/reaped, every phase.exit0. Root:
-F:/src/tig-dev-temp/bulk-retirement/successor-record-final-f2a1ac8592fa4a8f89973ee828fd9595
-checks all Rust/TOML/lock paths/raw hashes before phases and after completion.
-Final source path/hash pins checked at completion. That earlier target reservation
-ended; final42044 above has also released the separate activation target.
-Sequential records -> strict core/store all-target -> fmt. Prior52820 is terminal1:
-records9/index8/history8/checkpoint3 all0, strict101 redundant unit expression.
-Fixed the empty match arm without semantic/type/format changes or lint suppression.
-Original root successor-record-reader-47dfa5e009724ffd9128c8528bf42e99 is preserved.
-Final records9 pass1.61s; strict core/store all-target45.91s and fmt pass. Only
-the redundant unit expression differs from the prior passing index/history/
-checkpoint source. Implementation, focused verification, scoped base validation,
-trace and six producer lenses close separately in EVID-129; full controller OPEN.
-
-Separate broad PID44636 owns F:/src/Tig-worktrees/journal-index-d29-qualification, exact
-runtime d29a57625179e7d3013bd6e2283a8a5f49825aa7. Root:
+Older broad44636 TERMINAL0/reaped: every phase0 on exact clean d29a576 detached
+F:/src/Tig-worktrees/journal-index-d29-qualification. Root:
 F:/src/tig-dev-temp/bulk-retirement/journal-index-d29-owned-429faab9cef4417cb3718ef3264ca967
-Default workspace/default-clippy.exit0; standalone live at last observation. Both normal
-Cargo targets RESERVED by44636 through both profiles/artifact/catalogue. Check
-actual processes/results; its exact source excludes newer f2c/record reader.
+Both default/schema and all-feature workspace+half-million/thirteen-edit cases,
+strict/standalone/fmt/bins/fresh14/catalogue pass. Artifact:
+F:/src/tig-dev-temp/bulk-retirement/journal-index-d29-qualified-179d88bc6af84274ad887514071b8213
+14 checkpoints/complete_coursefalse;2PUT54B,28requests270GETB; custody/removalfalse;
+catalogue read-only0payloads/automatic_evictionfalse. It excludes newer source.
 
-Parent PR59 runtime1c1f3ca passes full local both profiles/500k/strict/standalone/
-fmt/bins/fresh14 and exact43119762645. Doc27e8792 passes exact43135967822 all3;
-PR59 now ready for review. Local merge853db3 only; no remote PR merge. PR60 remains
-draft. Previous published reader doc401dcd6 exact43143374584: Linux/secrets success,
-Windows live at last check. Derive the newer tail publication/head/CI from GitHub.
-Runtime/reader0cd978e20ab39884086f52a0f942e521f5b56541 is now committed/pushed
-with3a67/f2c/3d45. Exact43143282830 queued; PR60 body updated, remains draft.
-Derive the actual final documentation head from Git and its own hosted run; do not
-credit an older run as current-head proof. No ready claim for this lane.
+Next final-source broad qualification is allocated at:
+F:/src/tig-dev-temp/bulk-retirement/joined-preparation-broad-f7cace5177aa4bcbb0da024308a7ab75
+also joined-preparation-broad-root.txt. After final commit it starts in its own
+clean detached worktree joined-preparation-qualification-da96e700, checking exact
+HEAD/clean before phases. Derive actual pid.txt/process/phase/exits before work.
+Both normal targets RESERVED once its exact runner is live; separate activation
+source/target may progress independently. Never restart on observation timeout.
 
-Already qualified component evidence:
-- d29 owned61404 terminal0 every phase: short8, full32768 index (real legacy16384
-  plus synthetic immutable delta16384, NOT actual continued SQL), core, physical
-  staged20k reopen, original history8, strict/fmt. Original metadata16/500k18823
-  terminal0. Earlier budget failures preserved; caps unchanged. See EVID-129.
-- f2c checked context/closed working enumeration:33728 checkpoint12/store3 and
-  81049 core regression/strict/fmt terminal0. Domain/original instance/floor exact,
-  invalidated samples, bounded ordered current closed tokens, no new accounting
-  transitions. Actual continued-mode adoption still required.
+PR60 remains draft; derive final published head/current exact CI from GitHub.
+Previous source9888618 exact43147382943: Linux/secrets pass, Windows running at
+last check. Older runs are not final-source proof. PR59 runtime1c1f3ca and doc
+27e8792 pass local both profiles/500k/strict/standalone/fresh14 and exact hosted
+43119762645/43135967822; PR59 ready. No remote PR merge.
 
-Next full controller: actual admitted metadata peak/lifetime resource BEFORE
-writes, including full-source/shared bootstrap (JC-02); control archive locating
-prior tail and no silent repair of published loss (JC-01/03); real SQL seal/tail
-prefix/open/write/recovery/rotation; independent minima; source/provider/witness
-and separately authorized expiry. Numeric caps/free-space samples are not reserved
-capacity. No public seal-only API or journal cap waiver. Full product/course/
-operator/UI/Action/native/current authority/clock/quota/large-file/human gates open.
+Next joined implementation must honor JOURNAL-SUCCESSOR all-method audit and
+JC-01..04: real metadata admission before writes including full-source/bootstrap,
+known digest control archive, no silent published-loss repair, exact original
+working context, real SQL seal/tail/open/write CAS/poisoning/recovery/rotation and
+independent minima. Scope before code. Source/provider/witness, separately
+authorized history expiry, full course/operator/UI/Action/native/current authority/
+clock/quota/large-file/independent/human gates remain open. Full goal unchanged.
 
 ## Stable operating constraints
 

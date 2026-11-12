@@ -615,17 +615,17 @@ impl Export {
 }
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Item {
-    schema: String,
-    sequence: u64,
-    previous: Digest,
-    hash: Digest,
-    request: Request,
-    output: ArchivedOutput,
+pub(in crate::ledger) struct Item {
+    pub(in crate::ledger) schema: String,
+    pub(in crate::ledger) sequence: u64,
+    pub(in crate::ledger) previous: Digest,
+    pub(in crate::ledger) hash: Digest,
+    pub(in crate::ledger) request: Request,
+    pub(in crate::ledger) output: ArchivedOutput,
 }
 #[derive(Clone, Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
-enum ArchivedOutput {
+pub(in crate::ledger) enum ArchivedOutput {
     Clock {
         millis: u64,
     },
@@ -681,7 +681,7 @@ enum ArchivedOutput {
     Invalidated,
 }
 impl ArchivedOutput {
-    fn capture(output: &Output, nodes: &mut impl NodeStore) -> Result<Self> {
+    pub(in crate::ledger) fn capture(output: &Output, nodes: &mut impl NodeStore) -> Result<Self> {
         Ok(match output {
             Output::Clock(n) => Self::Clock { millis: *n },
             Output::Retired(r) => Self::Retired {

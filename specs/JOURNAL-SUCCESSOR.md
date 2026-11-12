@@ -424,3 +424,43 @@ L0 pins/format/diff; L1 nested-work/underflow/budget and typed/binding negatives
 L2 full16384+16384 physical metadata/SQL, shared-meter phase evidence, independent
 old/new prefix and working-state readback, then strict and original regressions.
 Producer role findings remain pass_with_risk; implementation/checks pending.
+
+### ST-04 measured failure and bound staging amendment
+
+Diagnostic50172 on c374775/input9888618 is terminal101/complete1,424.19s.
+Base/SQL/strict replay uses367726 reads/152653060 bytes; index entry receives
+384217852 remaining bytes. Its operation edit reaches302037614 read bytes;
+the sequence edit refuses Budget. Preserve that failed run, never increase caps.
+
+Before optimization code: add a private non-Clone staged replay type. It stores
+its own original Index, exact TailIdentity/end/body-count binding and pure replayed
+model/outputs. Preparation replay may omit only old own-operation absence lookups;
+it still verifies local uniqueness, canonical requests, global sequence/hash chain,
+minimum, every typed dependency, clock and accounting. It cannot return Replayed,
+working state, tickets, Data or provider permission to its caller.
+
+The consuming finish method must match the same snapshot binding, archive exact
+replayed outputs/requests, and conditionally extend both stored original indexes
+under the same remaining global budget. Existing conditional insertion proves
+every old name/sequence absent; index validation proves the same rows and typed
+outputs. Only after both edits and logical-accounting success may finish return
+the replayed state and new Index for ancestry/working Data construction. Any
+conflict/error drops the private state; bounded immutable orphan metadata may
+remain, requiring separately admitted physical capacity. No root/control is adopted.
+
+Normal read-only replay retains its original per-row old-name proofs. Do not add
+a public boolean/unchecked mode, caller-asserted proof token, lifetime cache or
+second engine. Share one internal pure replay loop; expose only strict replay or
+the bound private staged constructor/consuming finish. Negative fixtures require
+old-name conflict, rebound snapshot/end/body, unchanged strict refusal and spent
+meter preservation. Repeat the exact full joined fixture, original strict maximum,
+short/index/strict/fmt before closing the scoped budget gate. Full activation,
+all-method writer, physical admission, source/provider/witness and expiry stay open.
+
+Scoped ST-04 preparation outcome: final59288 passes same real16384+16384, physical
+finish/readback and retained old outcomes under one unchanged meter1123418 reads/
+447596663 bytes,668057 writes/258673542 bytes. Ordinary strict maximum and index
+regressions/short25/strict/fmt also pass. EVID-129 retains the failed diagnostic and
+before-code amendment hashes. This closes this fixture's joined logical budget,
+not physical admission, actual controller/writer/rotation/recovery or all-method/
+provider/source/witness/expiry/full product acceptance.
