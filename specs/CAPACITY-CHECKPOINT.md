@@ -97,3 +97,48 @@ Close implementation, verification, scoped validation, trace and six producer
 checklists separately. This does not deliver segmented lifetime, original-reply
 index, old-handle/writer activation fences, tombstone expiry, real authority/time/
 provider/large-file or independent/human acceptance. No live operations/merge.
+
+
+## Continued-mode context and bounded enumeration amendment
+
+Input853db3c12aa667206dfe59e673138b1d6c4d4c05; closes the pure seam needed by
+JOURNAL-SUCCESSOR JC-04 before writable restored-state admission. Controls:
+WP-003/004/006/007/013/015; REQ-001/003/004/005/006/007/009;
+SPEC-002/003/004/005/006/008/009/013/014; IF-002/003/004/005/006/008/012/013;
+PKG-001/002/003/009. RUST/PROVIDER/INTEGRATION L0/L1/L2.
+
+Allowed: additive decoded-context and bounded working-state enumeration methods,
+pure tests, existing physical ledger/metadata adopter tests and trace/context.
+No accounting transition, format/limit change, journal activation, reservation
+creation, new provider, dependency, probe, payload IO or expiry. Entry: qualified
+paged codec and global-index candidate; expected context comes from separately
+admitted original Config, never from the checkpoint's self-described header.
+Exit: wrong domain/epoch/floor (including coherent empty state) refuses checked
+adoption; exact context preserves tokens/highs/charges while stripping samples;
+closed enumeration stays bounded/read-only and has no deletion authority.
+
+Decoded::matches_context(domain:&str, epoch:&str, floor:u64) -> bool compares all
+three exact fields without IO or mutation. In the ledger adopter epoch means
+original Config.instance, not its caller epoch label. Decoded::into_domain_for_context
+with the same arguments returns checkpoint::Result<CapacityDomain>: mismatch is
+Error::Invalid and returns no writable model; success calls the existing into_domain
+path to invalidate sampled-free/pending probe admission. Existing unbound historical
+into_domain remains unchanged and is not current authority. Neither API proves
+source/minimum/provider admission or independently current custody.
+
+CapacityDomain::closed_reservations(limit:usize) -> capacity::Result<Vec<ReservationToken>>
+accepts1..256, otherwise Budget; reads only the existing bounded working records.
+Return up to limit closed tokens in stable ID order with exact owner/generation/
+context. Exclude active/in-flight and already retired records; never enumerate
+lifetime receipt trees or rebuild outputs. It does not close, retire, release,
+refresh free space or authorize physical removal. Ledger adapters must still
+resolve each token's original operation identity and preserve conflict checks.
+
+L0 source pins/links/bounds/fmt/diff. L1 exact/individually wrong/foreign coherent
+empty context, unchanged metrics/accounting on inspection, sample/pending staleness,
+active/in-flight/completed/retired charges and deterministic bounded enumeration,
+bad limits and old generation after reuse. Locked core and strict checks. L2 actual
+existing ledger Config.instance plus finished/reopened MetadataReader, exact receipts
+and held allocation outcomes; no source commands or writes by inspection. Broader
+current-head profiles/hosts remain separate. Implementation, verification, scoped
+validation, trace and six producer findings close separately; full plan stays open.

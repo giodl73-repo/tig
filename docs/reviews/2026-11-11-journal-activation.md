@@ -472,3 +472,14 @@ integrated without a remote PR merge; EVID-128 carries its complete outcomes and
 prior failed/interrupted runs. Its new exact43135967822 remains pending, PR59 draft.
 Integration resolves only active context/resume/review/pin records, preserving
 current d29 runtime bytes and full remaining plan. No production capability added.
+
+
+Next code entry853db3c12aa667206dfe59e673138b1d6c4d4c05: CAPACITY-CHECKPOINT
+amendment freezes decoded context matching/checked consumption and bounded current
+closed-reservation enumeration before code. Same WP/REQ/SPEC/IF/PKG and RUST/
+PROVIDER/INTEGRATION controls are explicit there. JC-04 requires domain/original
+instance/floor matching even for an empty foreign model; expected context must
+come from original authority. Enumeration is current bounded accounting, not a
+scan of historical receipts or removal permission. Core/physical-adopter evidence
+is required before scoped closure; implementation and all these checks pending.
+No controller/minimum/admission/expiry gate closes with this seam alone.

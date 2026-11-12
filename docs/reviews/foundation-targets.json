@@ -3474,8 +3474,8 @@
     },
     {
       "path": "specs/CAPACITY-CHECKPOINT.md",
-      "bytes": 6377,
-      "sha256": "2ec5ece1890459f69cfee4a4ba799d39169bf0fd3defa5786df932c5e6213217"
+      "bytes": 9385,
+      "sha256": "3311db697667fc133ddf30276fc64788556a4c898ecda03dbbc877e3064e77ca"
     },
     {
       "path": "specs/JOURNAL-CONTINUATION.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 33459,
-      "sha256": "fa6b24385462a6109773c9c9ab1f4ffd77433a83f01f7c60ab0598cc4784d755"
+      "bytes": 34173,
+      "sha256": "0dacb12309d80f702d176cc0a8f8ce063321cb899ed3ad36e9316eb2720999ab"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
