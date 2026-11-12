@@ -48,7 +48,9 @@ The [bounded staged tree editor](specs/STAGED-TREE-EDIT.md) now persists only fi
 reachable metadata without changing canonical roots. Actual4096-base/16384-delta,
 physical finish/reopen, negative/budget, core/metadata regression and strict checks
 pass (EVID-129). This supports global indexes; it does not supply a successor,
-independent minimum, durable activation/recovery or expiry.
+independent minimum, durable activation/recovery or expiry. The next joined
+[successor protocol](specs/JOURNAL-SUCCESSOR.md) freezes those integration boundaries
+before implementation.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable

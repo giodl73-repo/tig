@@ -259,3 +259,8 @@ No private proof is exposed to normal callers until those gates are met.
 Index-write prerequisite: [bounded staged tree edits](STAGED-TREE-EDIT.md) freezes
 canonical-equivalent overlay/flush bounds before code. It supplies no activation
 or durable-root adoption and cannot close the full continuation gates.
+
+Next joined protocol: [successor framing/recovery](JOURNAL-SUCCESSOR.md) freezes
+record fields, global indexes, unchanged local caps, independent minimum and
+transaction-free metadata resolution on inputd3c331b. It is design, not activated
+runtime. Complete prepare/seal/recover/open/write qualification remains required.

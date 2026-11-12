@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 56784,
-      "sha256": "f97eca6be97e119f79243d51656791a8728161353e846340b0d97d543b4dcfcc"
+      "bytes": 56909,
+      "sha256": "202a94494e9884df3d1d7a3f9b4b82a1f98559a80831e1d71a0a93665aa5ca7a"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 104833,
-      "sha256": "82ad687a9312e1df6abeb5d7b5d3beca2937084ca087887c432c1c6574b175b3"
+      "bytes": 104993,
+      "sha256": "fcfca5c62cf2f060e0c52d32372b2ded610b2f4664a7bd3115992ffff6e7f1af"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,13 +3534,13 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 18604,
-      "sha256": "b78476d52c92fab5e191f69f787bf39c516f3ce3dcb9a1574e0769891fb75080"
+      "bytes": 19657,
+      "sha256": "b79f8a90fea7e1e03c569c399d22c95085911e888ddaaedc2a92385b6d84b517"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
-      "bytes": 17117,
-      "sha256": "c734ce908c49857320709f273b0eb7ca646134c84955d91ae332131135e27d9c"
+      "bytes": 17440,
+      "sha256": "b3f1d9d713b338ee564b7cf544ac14a9ea26a99cde66d444ec31750d8a7d24cc"
     },
     {
       "path": "tools/probe_activation_sql.py",
@@ -3586,6 +3586,11 @@
       "path": "crates/tig-store/tests/metadata_staged_tree.rs",
       "bytes": 2516,
       "sha256": "a396b1a63aa5f8af6c48d6f8fbe7cd08f3e74d88e57ad9561eda332dccc34524"
+    },
+    {
+      "path": "specs/JOURNAL-SUCCESSOR.md",
+      "bytes": 13957,
+      "sha256": "e0aa9e6d524f680cff29c75436c21cb62c94e05fd6c0dea00c4fcd3d8ad661f6"
     }
   ]
 }

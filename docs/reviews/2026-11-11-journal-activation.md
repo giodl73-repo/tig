@@ -255,3 +255,18 @@ jobs1/threads1 and sequential default/all with phase logs/exit markers, standalo
 strict/fmt and fresh14-step artifact. Both normal targets are RESERVED by that
 runner. It remains live; no full pass claimed. Current branch's separate target
 is free after89281. PR59 remains draft; no PR merge or deployment occurred.
+
+
+Successor framing entry: inputd3c331ba22f3a2f0db8e6b483b508e7d1d33662e is the
+qualified staged editor. specs/JOURNAL-SUCCESSOR.md freezes the next joined
+controller format before code: noncyclic PreparedData/finished metadata minimum/
+Preparation/intent/ActiveControl, stable original authority, global operation/
+sequence/ancestor indexes, bounded tail/local unchanged caps, explicit independent
+minimum and source SQL plus per-authority controller fences. Legacy intents keep
+their original bound; subsequent global heads require distinct design-2 intents.
+Metadata IO stays outside SQL; staged core/output/clock adoption must fail together.
+No giant lifetime map, source reset, missing-tail initialization or public seal-only
+shortcut. Six producer design lenses are pass_with_risk with every successor L1/L2
+execution, old-library/new-format, restore/minimum and source/provider/witness/
+expiry obligation OPEN. Tree u32 entry bounds are explicit finite metadata, not
+an unlimited lifetime claim. No implementation evidence for this new protocol.

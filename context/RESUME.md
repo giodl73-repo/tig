@@ -2,9 +2,11 @@
 
 Active owned lane F:/src/Tig-worktrees/journal-activation, feat/journal-activation.
 Contractd6dc4c6 precedes bounded staged-tree code on input3586d82.
-Tree::edit_staged and qualified pure/physical fixtures support global indexes;
+Tree::edit_staged runtime d3c331b and qualified fixtures support global indexes;
 no successor journal/controller/minimum/expiry implemented. Read specs/
 STAGED-TREE-EDIT.md and JOURNAL-ACTIVATION.md plus EVID-129 before further code.
+Next read specs/JOURNAL-SUCCESSOR.md: exact joined protocol frozen on d3c331b;
+implement global typed indexes and full successor/recovery, not seal-only API.
 Full PRODUCT_PLAN remains active; previous goal work made concrete code/evidence
 progress. No scope reduction, live roots, daemon, deletion or deployment.
 
