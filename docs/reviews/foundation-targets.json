@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 6994,
-      "sha256": "902c4da166593d0dce50fd7ecf72aa477c1e8ab1f80b867c5ba1c1a359b08ad8"
+      "bytes": 7143,
+      "sha256": "c7f68187768a3d95be787056b73b65d784f3bf031c65a5a38d0c1fc47c787781"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 40334,
-      "sha256": "3f5cfa4169a324679c0030afd0106d4366ec56b49f6577f84665a64ec2f8b240"
+      "bytes": 40656,
+      "sha256": "d2bac7d3edf8b11de82c9750091e6a1d79040418af6a97afdf85ea6f9d383b37"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",

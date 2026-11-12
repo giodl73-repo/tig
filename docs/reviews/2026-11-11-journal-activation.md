@@ -569,3 +569,8 @@ Implementation PASS, focused verification PASS, scoped synthetic read-only base
 validation PASS, trace PASS and six producer lenses PASS_WITH_RISK separately for
 this private component. Full broader new-source/hosted and every named controller/
 admission/expiry/product acceptance gate remain OPEN; no writable handle is exposed.
+
+Runtime/reader0cd978e is committed/pushed on draft PR60, which now describes the
+checked-context/base-reader scope and unresolved joined gates. Exact43143282830
+queued; broad d29 detached44636 remains at standalone after default workspace and
+strict pass. Derive final documentation head/its hosted checks independently.

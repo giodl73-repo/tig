@@ -35,8 +35,10 @@ Parent PR59 runtime1c1f3ca passes full local both profiles/500k/strict/standalon
 fmt/bins/fresh14 and exact43119762645. Doc27e8792 passes exact43135967822 all3;
 PR59 now ready for review. Local merge853db3 only; no remote PR merge. PR60 draft
 remote853db3 exact43136763069: Linux/secrets success, Windows live at last check.
-Local newer3a67/f2c/3d45 plus dirty candidate not pushed. Refresh PR60 body/hosted
-checks only once concrete new source qualifies. No ready claim for current lane.
+Runtime/reader0cd978e20ab39884086f52a0f942e521f5b56541 is now committed/pushed
+with3a67/f2c/3d45. Exact43143282830 queued; PR60 body updated, remains draft.
+Derive the actual final documentation head from Git and its own hosted run; do not
+credit an older run as current-head proof. No ready claim for this lane.
 
 Already qualified component evidence:
 - d29 owned61404 terminal0 every phase: short8, full32768 index (real legacy16384
