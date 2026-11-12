@@ -389,3 +389,38 @@ Do not enlarge ceilings or hide repeated reads in a new provider cache. A later
 design may avoid duplicate absence/type proofs using bound private staged results,
 but such results cannot expose a writable handle or provider permission before
 all source/head/index/state proofs succeed. Freeze that design before code.
+
+## Joined-budget diagnostic implementation entry
+
+Input9888618c0fb72a36fd20c2f8157dbb82262bc9d6. Same WP-003/004/006/007/008/013/015,
+REQ-001/003/004/005/006/007/009, SPEC-002/003/004/005/006/008/009/013/014,
+IF-002/003/004/005/006/008/012/013, PKG-001/002/003/008/009 and
+RUST/PROVIDER/INTEGRATION L0/L1/L2. Allowed scope is a private joined synthetic
+preparation fixture plus scoped reuse of existing meters/index/archive adapters.
+No activation/controller grant, native admission, public writer or cap change.
+
+Replay may borrow its bounded collected rows so original requests can subsequently
+be archived without copying the whole input. Its strict old-name checks stay in
+place for this first diagnostic. Capture each exact replayed output/request into
+the existing continued Item format; conditionally extend both original indexes,
+insert the old control's ancestry entry, export working state and encode next Data.
+Return no result until current tail/header/head are revalidated; no SQL/provider IO
+overlap. Actual seal/control publication and admission remain out of scope.
+
+One existing BudgetPort owns total work. Charge checked Base.metrics first and
+conservatively charge SQL snapshots as local row count+16 reads, body bytes plus
+264 bytes per row plus256KiB fixed framing. These are declared conservative logical
+charges, not SQLite page IO or physical allocation. Metadata calls/bytes charge
+that same port. Feed nested index edits its remaining limits, then account their
+reported logical work minus already-observed provider calls. Checked subtraction
+must refuse under-reporting; abort on any error, never continue with reset counters.
+This accounts overlay/proof-memory work invisible to the underlying provider.
+
+Entry exact real full original journal/physical tail and checked Base; exit one
+same-workload preparation under the unchanged2M/1M and512MiB each ceilings, with
+old originals/prefixes and active state retained. A diagnostic failure is evidence
+to preserve and fix, not a passing controller or reason to increase budgets.
+L0 pins/format/diff; L1 nested-work/underflow/budget and typed/binding negatives;
+L2 full16384+16384 physical metadata/SQL, shared-meter phase evidence, independent
+old/new prefix and working-state readback, then strict and original regressions.
+Producer role findings remain pass_with_risk; implementation/checks pending.
