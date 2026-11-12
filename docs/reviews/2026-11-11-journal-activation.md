@@ -483,3 +483,27 @@ come from original authority. Enumeration is current bounded accounting, not a
 scan of historical receipts or removal permission. Core/physical-adopter evidence
 is required before scoped closure; implementation and all these checks pending.
 No controller/minimum/admission/expiry gate closes with this seam alone.
+
+
+Bound-context seam: contract3a67bb0 precedes additive Decoded::matches_context /
+into_domain_for_context and CapacityDomain::closed_reservations(1..256).33728
+TERMINAL0/reaped: checkpoint12 (three new plus existing max/negative/vector cases)
+and physical ledger adopter3 pass. The adopter uses actual original Config.instance,
+rejects its caller epoch label/wrong floor and a coherent foreign empty model after
+finished metadata reopen. Matching is read-only with unchanged provider/decoded
+metrics. Checked conversion preserves exact tickets/outcomes/highs/unobserved debits
+and invalidates old samples/pending probes. Closed enumeration excludes active/
+in-flight/retired records, preserves owner/generation/order, refuses invalid bounds
+and leaves the exported root/accounting unchanged; old token after reuse is stale.
+
+81049 TERMINAL0/reaped: core regression and strict core/store all-target Clippy/fmt
+pass. Only the unchanged full staged-tree delta was skipped because d29 qualified
+that exact algorithm; no tree/format/cap/accounting transition changed here.
+Separate closure: implementation/focused verification/scoped synthetic validation/
+trace PASS for these pure interfaces and existing physical adopter. Six producer
+lenses PASS_WITH_RISK within that scope: exact context/vector identity; no placement
+or deletion grant; held accounting preserved; no IO or new mutation/admission;
+bounded read-only working-set query; original source/probe semantics retained.
+JC-04 pure seam resolved; actual continued-mode adoption must use it and remains
+OPEN. Broader new-source/hosted checks and JC-01..03/metadata admission/full controller/
+provider-source-witness/expiry and human acceptance remain required.

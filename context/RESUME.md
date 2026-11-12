@@ -1,5 +1,13 @@
 # Tig resume state
 
+Bound-context candidate on contract3a67bb0 (input853db3c): additive decoded exact
+domain/core-epoch/floor match plus checked consumption and bounded closed working
+reservations.33728 checkpoint12/physical adopter3 and81049 core regression/strict/
+fmt TERMINAL0, reaped. No wire/cap/accounting transition or actual activation.
+JC-04 pure seam is implemented; continued controller must use it. Broader d29
+qualifier44636 remains separate/live in detached root; normal targets reserved,
+activation target free after81049. See latest EVID-129, derive actual HEAD/status.
+
 Current owned feat/journal-activation: runtime d29a57625179e7d3013bd6e2283a8a5f49825aa7.
 Local parent documentation27e8792 integrated; derive final HEAD from Git.
 Private global-index/shared typed/proof ports plus core conditional insert are

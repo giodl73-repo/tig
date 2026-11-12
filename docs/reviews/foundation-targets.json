@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 4242,
-      "sha256": "68bb8c294124d4fc2b5d42cfbbcf205fdf7aeadf3159b04ba9a256d622463d18"
+      "bytes": 4389,
+      "sha256": "1969ed55e022ea3fa2a5012d7f21a0fbd6bd20378ad43a2cdb65fe84f1174698"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -604,8 +604,8 @@
     },
     {
       "path": "crates/tig-core/src/capacity.rs",
-      "bytes": 14539,
-      "sha256": "9d22199341287f86d76d86fb3b1e771e593a6c742b47977febc5cf707f657245"
+      "bytes": 15090,
+      "sha256": "0d818fe97a41f3fcefd9ec5fcb6bb886aff437bc8bb5dce3dc2a51b00f277f68"
     },
     {
       "path": "crates/tig-core/tests/capacity.rs",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 11450,
-      "sha256": "a304706c1c6a243f1d49cd10fdf3c94d75020464d0f28f38edc33cbb0e519feb"
+      "bytes": 12018,
+      "sha256": "21e6f1b8c04613c4fd46c13911c4501dce64f17040f3e331cc46580cc97f4f3c"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3484,13 +3484,13 @@
     },
     {
       "path": "crates/tig-core/src/capacity/checkpoint.rs",
-      "bytes": 18730,
-      "sha256": "afec4267a28fee9b7578fbcbb4c7195fc38c3eb644b25c398e9edc784151ed97"
+      "bytes": 19528,
+      "sha256": "7f51e2ffcdc075129c0e1f17ee240771b7cdfd44ec1e4b9a15ef2ceb4e3a2aae"
     },
     {
       "path": "crates/tig-core/src/capacity/checkpoint/tests.rs",
-      "bytes": 15111,
-      "sha256": "45042a3d4bde8bd03630d5aa5ebde4f9bcc86bb206e58045632d392f5e4aac52"
+      "bytes": 20487,
+      "sha256": "8ea613b25de6b9130d49ba75318e02ce77b094fab92ea89f3dab027a404ae17f"
     },
     {
       "path": "crates/tig-store/src/ledger/checkpoint.rs",
@@ -3499,8 +3499,8 @@
     },
     {
       "path": "crates/tig-store/src/ledger/checkpoint/tests.rs",
-      "bytes": 6145,
-      "sha256": "4a85425154d47f887f95422c4819220d217d4e5438909a2a7291c4d2cd96f634"
+      "bytes": 7501,
+      "sha256": "751840be060431c8bbd8ee9676663d138773a1b0b02e19954529096b27fd6f0f"
     },
     {
       "path": "docs/reviews/2026-11-11-ledger-history.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 34173,
-      "sha256": "0dacb12309d80f702d176cc0a8f8ce063321cb899ed3ad36e9316eb2720999ab"
+      "bytes": 35888,
+      "sha256": "231ad36b89b5accd6b99496621fa39e145155170851ee8f01068726970e85a6b"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",

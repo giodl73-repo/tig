@@ -358,6 +358,24 @@ impl Decoded {
     pub fn recorded_accounting(&self) -> super::Result<CapacitySummary> {
         self.domain.summary()
     }
+    /// Compare with independently admitted original context, not fields read
+    /// back from this checkpoint. This proves consistency, not current authority.
+    pub fn matches_context(&self, domain: &str, epoch: &str, floor: u64) -> bool {
+        self.domain.domain == domain && self.domain.epoch == epoch && self.domain.floor == floor
+    }
+    /// Bind restored accounting to its expected context and invalidate old
+    /// observation admission before returning the model. No IO or new reservation.
+    pub fn into_domain_for_context(
+        self,
+        domain: &str,
+        epoch: &str,
+        floor: u64,
+    ) -> Result<CapacityDomain> {
+        if !self.matches_context(domain, epoch, floor) {
+            return Err(Error::Invalid);
+        }
+        Ok(self.into_domain())
+    }
     pub fn into_domain(mut self) -> CapacityDomain {
         self.domain.invalidate_observation();
         self.domain

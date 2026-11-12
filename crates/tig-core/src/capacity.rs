@@ -403,6 +403,20 @@ impl CapacityDomain {
     pub fn is_closed(&self, token: &ReservationToken) -> Result<bool> {
         Ok(self.record(token)?.closed)
     }
+    /// Current bounded accounting only, in stable ID order. Tokens are not new
+    /// reservations, free-space observations or authorization to remove bytes.
+    pub fn closed_reservations(&self, limit: usize) -> Result<Vec<ReservationToken>> {
+        if !(1..=256).contains(&limit) {
+            return Err(CapacityError::Budget);
+        }
+        Ok(self
+            .records
+            .values()
+            .filter(|record| record.closed)
+            .take(limit)
+            .map(|record| record.token.clone())
+            .collect())
+    }
     /// Retire only finished working state, preserving unobserved debits and
     /// monotonically increasing generations. Callers must retain an operation
     /// replay fence and this returned history; a name may subsequently be reused

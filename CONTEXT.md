@@ -30,6 +30,8 @@ state, exact old results, ancestry/minima, bounded tail reopen, source/old-write
 fences and complete recovery. Review findings require digest-addressed control
 records to locate prior tails, genuine metadata admission for already-full sources,
 no silent repair of published loss, and exact decoded domain/instance/floor checks.
+The pure checked-context/closed-working-set seams now pass focused core/physical/
+strict checks; actual continued-mode adoption is still required.
 No public seal-only operation or cap waiver. Provider/source/witness continuation
 and separately authorized detail expiry remain required; replay fences must survive.
 
