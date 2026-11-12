@@ -3,6 +3,8 @@
 use crate::{Digest, LogicalPath, Object, identity};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::collections::BTreeMap;
+mod staged;
+pub use staged::StagedEditMetrics;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum TreeError {
@@ -116,6 +118,49 @@ struct MapNode {
     value: Entry,
     left: Option<Link>,
     right: Option<Link>,
+}
+
+#[derive(Default)]
+struct MapRoute {
+    low: Option<String>,
+    high: Option<String>,
+    parent: Option<(Digest, String)>,
+}
+impl MapRoute {
+    fn check(&self, node: &MapNode) -> TreeResult<()> {
+        if self.low.as_ref().is_some_and(|s| node.name <= *s)
+            || self.high.as_ref().is_some_and(|s| node.name >= *s)
+            || self
+                .parent
+                .as_ref()
+                .is_some_and(|p| priority(&node.name) >= (p.0.clone(), p.1.as_str()))
+        {
+            return Err(TreeError::InvalidNode);
+        }
+        Ok(())
+    }
+    fn child(&self, node: &MapNode, left: bool) -> Self {
+        Self {
+            low: if left {
+                self.low.clone()
+            } else {
+                Some(node.name.clone())
+            },
+            high: if left {
+                Some(node.name.clone())
+            } else {
+                self.high.clone()
+            },
+            parent: Some((priority(&node.name).0, node.name.clone())),
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+enum ChangeMode {
+    FileUpsert,
+    FileInsert,
+    Directory,
 }
 
 struct Context<'a, S> {
@@ -369,29 +414,19 @@ impl<S: NodeStore> Context<'_, S> {
     }
 
     fn find(&mut self, mut root: Option<Link>, name: &str) -> TreeResult<Option<Entry>> {
-        let mut low: Option<String> = None;
-        let mut high: Option<String> = None;
-        let mut parent: Option<(Digest, String)> = None;
+        let mut route = MapRoute::default();
         for _ in 0..self.limits.max_map_depth {
             let Some(link) = root else { return Ok(None) };
             let node = self.node(&link)?;
-            if low.as_ref().is_some_and(|s| node.name <= *s)
-                || high.as_ref().is_some_and(|s| node.name >= *s)
-                || parent
-                    .as_ref()
-                    .is_some_and(|p| priority(&node.name) >= (p.0.clone(), p.1.as_str()))
-            {
-                return Err(TreeError::InvalidNode);
-            }
-            parent = Some((priority(&node.name).0, node.name.clone()));
+            route.check(&node)?;
             match name.cmp(&node.name) {
                 std::cmp::Ordering::Equal => return Ok(Some(node.value)),
                 std::cmp::Ordering::Less => {
-                    high = Some(node.name);
+                    route = route.child(&node, true);
                     root = node.left;
                 }
                 std::cmp::Ordering::Greater => {
-                    low = Some(node.name);
+                    route = route.child(&node, false);
                     root = node.right;
                 }
             }
@@ -428,6 +463,8 @@ impl<S: NodeStore> Context<'_, S> {
         name: &str,
         value: Option<Entry>,
         depth: usize,
+        mode: ChangeMode,
+        route: MapRoute,
     ) -> TreeResult<Option<Link>> {
         if depth >= self.limits.max_map_depth {
             return Err(TreeError::Budget);
@@ -446,8 +483,15 @@ impl<S: NodeStore> Context<'_, S> {
                 .transpose();
         };
         let mut node = self.node(&link)?;
+        route.check(&node)?;
         match name.cmp(&node.name) {
             std::cmp::Ordering::Equal => {
+                if matches!(mode, ChangeMode::FileInsert)
+                    || matches!(mode, ChangeMode::FileUpsert)
+                        && matches!(node.value, Entry::Directory { .. })
+                {
+                    return Err(TreeError::PathConflict);
+                }
                 let Some(value) = value else {
                     return self.merge(node.left, node.right, depth + 1);
                 };
@@ -457,7 +501,12 @@ impl<S: NodeStore> Context<'_, S> {
                 node.value = value;
             }
             std::cmp::Ordering::Less => {
-                node.left = self.change(node.left, name, value, depth + 1)?;
+                let next_route = route.child(&node, true);
+                let previous = node.left.clone();
+                node.left = self.change(node.left, name, value, depth + 1, mode, next_route)?;
+                if node.left == previous {
+                    return Ok(Some(link));
+                }
                 if let Some(left) = node.left.clone() {
                     let mut child = self.node(&left)?;
                     if priority(&child.name) > priority(&node.name) {
@@ -468,7 +517,12 @@ impl<S: NodeStore> Context<'_, S> {
                 }
             }
             std::cmp::Ordering::Greater => {
-                node.right = self.change(node.right, name, value, depth + 1)?;
+                let next_route = route.child(&node, false);
+                let previous = node.right.clone();
+                node.right = self.change(node.right, name, value, depth + 1, mode, next_route)?;
+                if node.right == previous {
+                    return Ok(Some(link));
+                }
                 if let Some(right) = node.right.clone() {
                     let mut child = self.node(&right)?;
                     if priority(&child.name) > priority(&node.name) {
@@ -487,15 +541,26 @@ impl<S: NodeStore> Context<'_, S> {
         directory: &Object,
         parts: &[&str],
         value: Option<Object>,
+        mode: ChangeMode,
     ) -> TreeResult<Object> {
         let mut dir = self.directory(directory)?;
-        let old = self.find(dir.root.clone(), parts[0])?;
-        let next = if parts.len() == 1 {
-            if matches!(old, Some(Entry::Directory { .. })) {
-                return Err(TreeError::PathConflict);
+        if parts.len() == 1 {
+            let next = self.change(
+                dir.root.clone(),
+                parts[0],
+                value.map(|object| Entry::File { object }),
+                0,
+                mode,
+                MapRoute::default(),
+            )?;
+            if next == dir.root {
+                return Ok(directory.clone());
             }
-            value.map(|object| Entry::File { object })
-        } else {
+            dir.root = next;
+            return self.write(&dir);
+        }
+        let old = self.find(dir.root.clone(), parts[0])?;
+        let next = {
             let child = match old.clone() {
                 Some(Entry::File { .. }) => return Err(TreeError::PathConflict),
                 Some(Entry::Directory { object }) => object,
@@ -505,7 +570,7 @@ impl<S: NodeStore> Context<'_, S> {
                     root: None,
                 })?,
             };
-            let object = self.edit_path(&child, &parts[1..], value)?;
+            let object = self.edit_path(&child, &parts[1..], value, mode)?;
             if self.directory(&object)?.root.is_none() {
                 None
             } else {
@@ -515,7 +580,14 @@ impl<S: NodeStore> Context<'_, S> {
         if old == next {
             return Ok(directory.clone());
         }
-        dir.root = self.change(dir.root, parts[0], next, 0)?;
+        dir.root = self.change(
+            dir.root,
+            parts[0],
+            next,
+            0,
+            ChangeMode::Directory,
+            MapRoute::default(),
+        )?;
         self.write(&dir)
     }
 }
@@ -642,7 +714,7 @@ impl Tree {
         let mut root = self.root.clone();
         for (path, object) in changes {
             let parts: Vec<_> = path.components().collect();
-            root = ctx.edit_path(&root, &parts, object.clone())?;
+            root = ctx.edit_path(&root, &parts, object.clone(), ChangeMode::FileUpsert)?;
         }
         Ok((Self { root }, ctx.metrics))
     }

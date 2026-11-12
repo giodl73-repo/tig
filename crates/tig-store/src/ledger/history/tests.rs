@@ -7,7 +7,7 @@ fn key(s: &str) -> Key {
 fn hash(s: &str) -> Digest {
     Digest::blob(s.as_bytes())
 }
-fn fixture(
+pub(in crate::ledger) fn fixture(
     root: &Path,
     clock: bool,
 ) -> (
@@ -153,7 +153,7 @@ fn fixture(
     };
     (l, receipts, retired, zero, probe)
 }
-fn assert_receipt(actual: &Receipt, original: &Receipt) {
+pub(in crate::ledger) fn assert_receipt(actual: &Receipt, original: &Receipt) {
     assert!(actual.was_replayed());
     assert_eq!(actual.reference(), original.reference());
     assert_eq!(actual.checkpoint(), original.checkpoint());

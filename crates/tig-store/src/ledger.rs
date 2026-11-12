@@ -19,7 +19,11 @@ use tig_core::{
     identity,
 };
 
+#[cfg(test)]
+mod activation;
 pub mod checkpoint;
+#[cfg(test)]
+mod continuation;
 pub mod history;
 
 pub const MAX_COMMANDS: u64 = 16_384;
@@ -229,7 +233,7 @@ enum Command {
     },
     Invalidate,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Clone, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
     operation: Key,
@@ -237,6 +241,8 @@ struct Request {
 }
 #[derive(Clone)]
 enum Output {
+    #[cfg(test)]
+    Historical(history::ArchivedOutput),
     Clock(u64),
     Retired(RetiredReservation),
     Handoff {
@@ -269,6 +275,8 @@ enum Output {
 impl Output {
     fn response(&self) -> Response {
         match self {
+            #[cfg(test)]
+            Self::Historical(old) => old.response(),
             Self::Clock(time) => Response::TimeObserved(*time),
             Self::Retired(_) => Response::ReservationRetired,
             Self::Handoff { .. } => Response::HandoffStarted,
@@ -298,6 +306,8 @@ struct HashEnvelope<'a> {
 }
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Stage {
+    #[cfg(test)]
+    Guarded,
     Validated,
     Written,
     Committed,
@@ -316,6 +326,8 @@ impl ClockState {
 }
 
 pub struct CapacityLedger {
+    #[cfg(test)]
+    continued: Option<continuation::tail::engine::Mode>,
     root: PathBuf,
     config: Config,
     conn: Connection,
@@ -422,6 +434,8 @@ impl CapacityLedger {
             config.floor,
         )?;
         let mut ledger = Self {
+            #[cfg(test)]
+            continued: None,
             root: fs::canonicalize(root)?,
             config,
             conn,
@@ -548,14 +562,14 @@ impl CapacityLedger {
         let Some(Output::Handoff {
             ticket,
             binding: expected,
-        }) = self.outputs.get(key.as_str())
+        }) = self.lookup(&key)?
         else {
             return Err(LedgerError::InvalidReference);
         };
-        if binding != expected {
+        if binding != &expected {
             return Err(LedgerError::Conflict);
         }
-        self.allocation_state(ticket)
+        self.allocation_state(&ticket)
     }
     pub(crate) fn settle_handoff(
         &mut self,
@@ -603,14 +617,14 @@ impl CapacityLedger {
         let Some(Output::Retention {
             ticket,
             binding: expected,
-        }) = self.outputs.get(key.as_str())
+        }) = self.lookup(&key)?
         else {
             return Err(LedgerError::InvalidReference);
         };
-        if binding != expected {
+        if binding != &expected {
             return Err(LedgerError::Conflict);
         }
-        self.allocation_state(ticket)
+        self.allocation_state(&ticket)
     }
     pub(crate) fn settle_retention(
         &mut self,
@@ -639,17 +653,17 @@ impl CapacityLedger {
         let Some(Output::Publication {
             ticket,
             binding: expected,
-        }) = self.outputs.get(key.as_str())
+        }) = self.lookup(&key)?
         else {
             return Err(LedgerError::InvalidReference);
         };
-        if binding != expected {
+        if binding != &expected {
             return Err(LedgerError::Conflict);
         }
-        if self.outputs.contains_key(cleanup_key(&key)?.as_str()) {
+        if self.lookup(&cleanup_key(&key)?)?.is_some() {
             return Err(LedgerError::Cancelled);
         }
-        self.allocation_state(ticket)
+        self.allocation_state(&ticket)
     }
     pub(crate) fn cleanup_status(
         &mut self,
@@ -661,19 +675,19 @@ impl CapacityLedger {
         let Some(Output::Publication {
             ticket,
             binding: expected,
-        }) = self.outputs.get(key.as_str())
+        }) = self.lookup(&key)?
         else {
             return Err(LedgerError::InvalidReference);
         };
-        if binding != expected {
+        if binding != &expected {
             return Err(LedgerError::Conflict);
         }
-        match self.outputs.get(cleanup_key(&key)?.as_str()) {
+        match self.lookup(&cleanup_key(&key)?)? {
             Some(Output::Cleanup { reviewed }) => {
-                Ok(Some((reviewed.clone(), self.allocation_state(ticket)?)))
+                Ok(Some((reviewed.clone(), self.allocation_state(&ticket)?)))
             }
             None => {
-                if self.allocation_state(ticket)?.is_some() {
+                if self.allocation_state(&ticket)?.is_some() {
                     return Err(LedgerError::Conflict);
                 }
                 Ok(None)
@@ -688,7 +702,7 @@ impl CapacityLedger {
         retention: bool,
     ) -> Result<Option<JournalRef>> {
         self.sync()?;
-        let Some(output) = self.outputs.get(op.as_str()) else {
+        let Some(output) = self.lookup(op)? else {
             return Ok(None);
         };
         if !matches!(
@@ -704,7 +718,7 @@ impl CapacityLedger {
     }
     pub(crate) fn handoff_reference(&mut self, op: &Key) -> Result<Option<JournalRef>> {
         self.sync()?;
-        let Some(output) = self.outputs.get(op.as_str()) else {
+        let Some(output) = self.lookup(op)? else {
             return Ok(None);
         };
         if !matches!(output, Output::Handoff { .. }) {
@@ -717,10 +731,7 @@ impl CapacityLedger {
     }
     pub(crate) fn publication_reference(&mut self, op: Key) -> Result<JournalRef> {
         self.sync()?;
-        if !matches!(
-            self.outputs.get(op.as_str()),
-            Some(Output::Publication { .. })
-        ) {
+        if !matches!(self.lookup(&op)?, Some(Output::Publication { .. })) {
             return Err(LedgerError::InvalidReference);
         }
         Ok(JournalRef {
@@ -838,36 +849,71 @@ impl CapacityLedger {
             return Err(LedgerError::Budget);
         }
         self.sync()?;
+        let closed = self.domain.closed_reservations(limit)?;
+        #[cfg(test)]
+        if let Some(mode) = self.continued.as_mut() {
+            mode.batch_query();
+        }
         let mut selected = Vec::new();
-        for (id, output) in &self.outputs {
-            let Output::Reservation(token) = output else {
-                continue;
+        for token in closed {
+            let key = Key::parse(token.id())?;
+            let Some(Output::Reservation(original)) = self.lookup(&key)? else {
+                return Err(LedgerError::Corrupt);
             };
-            let key = Key::parse(id)?;
-            match self.outputs.get(retirement_key(&key)?.as_str()) {
-                Some(Output::Retired(_)) => continue,
-                None => (),
-                _ => return Err(LedgerError::Conflict),
+            if original != token {
+                return Err(LedgerError::Corrupt);
             }
-            if self.domain.is_closed(token)? {
-                selected.push(JournalRef {
+            match self.lookup(&retirement_key(&key)?)? {
+                None => selected.push(JournalRef {
                     genesis: self.checkpoint.genesis.clone(),
                     operation: key,
-                });
-                if selected.len() == limit {
-                    break;
-                }
+                }),
+                Some(Output::Retired(_)) => (),
+                #[cfg(test)]
+                Some(Output::Historical(history::ArchivedOutput::Retired { .. })) => (),
+                _ => return Err(LedgerError::Conflict),
             }
         }
         Ok(selected)
     }
-    fn allocation_state(&self, ticket: &AllocationTicket) -> Result<Option<u64>> {
-        let key = Key::parse(ticket.reservation().id())?;
-        match self.outputs.get(retirement_key(&key)?.as_str()) {
-            Some(Output::Retired(history)) => Ok(history.allocation_status(ticket)?),
+    fn allocation_state(&mut self, ticket: &AllocationTicket) -> Result<Option<u64>> {
+        let key = retirement_key(&Key::parse(ticket.reservation().id())?)?;
+        if let Some(Output::Retired(history)) = self.outputs.get(key.as_str()) {
+            return Ok(history.allocation_status(ticket)?);
+        }
+        match self.lookup(&key)? {
             None => Ok(self.domain.allocation_status(ticket)?),
+            #[cfg(test)]
+            Some(Output::Historical(history::ArchivedOutput::Retired { archive })) => {
+                let mode = self.continued.as_mut().ok_or(LedgerError::Corrupt)?;
+                let result = mode.retired(&archive, ticket);
+                if matches!(
+                    &result,
+                    Err(LedgerError::Corrupt | LedgerError::Sql(_) | LedgerError::Rollback)
+                ) {
+                    self.poisoned = true;
+                }
+                result
+            }
             _ => Err(LedgerError::Corrupt),
         }
+    }
+    fn lookup(&mut self, key: &Key) -> Result<Option<Output>> {
+        if let Some(output) = self.outputs.get(key.as_str()) {
+            return Ok(Some(output.clone()));
+        }
+        #[cfg(test)]
+        if let Some(mode) = self.continued.as_mut() {
+            let result = mode.lookup(key);
+            if matches!(
+                &result,
+                Err(LedgerError::Corrupt | LedgerError::Sql(_) | LedgerError::Rollback)
+            ) {
+                self.poisoned = true;
+            }
+            return result;
+        }
+        Ok(None)
     }
     pub fn invalidate(&mut self, op: Key) -> Result<Receipt> {
         self.apply(op, Command::Invalidate)
@@ -875,6 +921,10 @@ impl CapacityLedger {
     /// Accounted state only; historical free bytes are not fresh admission permission.
     pub fn accounting(&mut self) -> Result<CapacitySummary> {
         self.sync()?;
+        #[cfg(test)]
+        if self.continued.is_some() && self.fresh.is_none() {
+            return Err(capacity::CapacityError::UnknownObservation.into());
+        }
         Ok(self.domain.summary()?)
     }
     fn reference(&self, reference: &JournalRef) -> Result<Key> {
@@ -887,6 +937,10 @@ impl CapacityLedger {
         if self.poisoned {
             return Err(LedgerError::NeedsRecovery);
         }
+        #[cfg(test)]
+        if let Some(mode) = &self.continued {
+            return mode.guard(&self.root);
+        }
         local::directory(&self.root)?;
         local::regular(&self.root.join("ledger.sqlite"))?;
         let current: Config = local::read_record(&self.root.join("domain.json"))?;
@@ -897,6 +951,10 @@ impl CapacityLedger {
     }
     fn sync(&mut self) -> Result<()> {
         self.guard()?;
+        #[cfg(test)]
+        if self.continued.is_some() {
+            return continuation::tail::engine::sync(self);
+        }
         let tx = self.conn.transaction()?;
         let before = self.checkpoint.sequence;
         let result = catch_up(
@@ -941,6 +999,10 @@ impl CapacityLedger {
         command: Command,
         mut hook: impl FnMut(Stage) -> Result<()>,
     ) -> Result<Receipt> {
+        #[cfg(test)]
+        if self.continued.is_some() {
+            return continuation::tail::engine::apply(self, operation, command, hook);
+        }
         self.guard()?;
         let request = Request { operation, command };
         let body = encode(&request)?;

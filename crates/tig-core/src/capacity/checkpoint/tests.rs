@@ -25,6 +25,132 @@ fn fixture() -> (
     let probe = d.begin_observation().unwrap();
     (d, token, done, pending, probe)
 }
+
+#[test]
+fn checked_context_rejects_coherent_foreign_and_empty_models_without_header_trust() {
+    let mut nodes = MemoryNodes::default();
+    for (domain, epoch, floor) in [
+        ("other-volume", "instance", 10),
+        ("volume", "caller-epoch-label", 10),
+        ("volume", "instance", 0),
+        ("volume", "instance", 11),
+    ] {
+        let foreign = CapacityDomain::new(domain, epoch, floor).unwrap();
+        let (cp, _) = foreign
+            .export_checkpoint(&mut nodes, Limits::default())
+            .unwrap();
+        let decoded = cp.read(&mut nodes, Limits::default()).unwrap();
+        let metrics = decoded.metrics();
+        let root = decoded.root().clone();
+        assert!(!decoded.matches_context("volume", "instance", 10));
+        assert_eq!(decoded.metrics(), metrics);
+        assert_eq!(decoded.root(), &root);
+        assert!(matches!(
+            decoded.into_domain_for_context("volume", "instance", 10),
+            Err(Error::Invalid)
+        ));
+    }
+    let exact = CapacityDomain::new("volume", "instance", 10).unwrap();
+    let (cp, _) = exact
+        .export_checkpoint(&mut nodes, Limits::default())
+        .unwrap();
+    let decoded = cp.read(&mut nodes, Limits::default()).unwrap();
+    assert!(decoded.matches_context("volume", "instance", 10));
+    let restored = decoded
+        .into_domain_for_context("volume", "instance", 10)
+        .unwrap();
+    assert_eq!(restored.summary(), Err(CapacityError::UnknownObservation));
+    assert!(restored.closed_reservations(256).unwrap().is_empty());
+}
+
+#[test]
+fn checked_context_preserves_held_outcomes_and_strips_pending_probe_admission() {
+    let (mut original, token, done, pending, probe) = fixture();
+    let summary = original.summary().unwrap();
+    let mut nodes = MemoryNodes::default();
+    let (cp, _) = original
+        .export_checkpoint(&mut nodes, Limits::default())
+        .unwrap();
+    let decoded = cp.read(&mut nodes, Limits::default()).unwrap();
+    assert!(decoded.matches_context("volume", "epoch", 10));
+    assert_eq!(decoded.recorded_accounting().unwrap(), summary);
+    let mut restored = decoded
+        .into_domain_for_context("volume", "epoch", 10)
+        .unwrap();
+    assert_eq!(restored.summary(), Err(CapacityError::UnknownObservation));
+    assert_eq!(restored.observe(probe, 10_000), Err(CapacityError::Stale));
+    assert_eq!(
+        restored.reserve("new", "owner", 1),
+        Err(CapacityError::UnknownObservation)
+    );
+    assert_eq!(restored.reserve("live", "owner", 1000).unwrap(), token);
+    assert_eq!(restored.allocation_status(&done).unwrap(), Some(200));
+    assert_eq!(restored.allocation_status(&pending).unwrap(), None);
+    assert_eq!(restored.finish(&token), Err(CapacityError::InFlight));
+    assert_eq!(
+        restored.complete_allocation(&pending, 250).unwrap(),
+        original.complete_allocation(&pending, 250).unwrap()
+    );
+    assert_eq!(restored.observation_nonce, original.observation_nonce);
+    assert_eq!(restored.next_generation, original.next_generation);
+    assert_eq!(restored.allocation_sequence, original.allocation_sequence);
+    assert_eq!(restored.observed_through, original.observed_through);
+    assert_eq!(restored.debits, original.debits);
+}
+
+#[test]
+fn closed_query_is_bounded_readonly_and_never_enumerates_retired_or_active_work() {
+    let mut domain = CapacityDomain::new("volume", "epoch", 10).unwrap();
+    observe(&mut domain, 100_000);
+    let retired = domain.reserve("a-retired", "owner", 100).unwrap();
+    domain.finish(&retired).unwrap();
+    domain.retire_closed(&retired).unwrap();
+    let active = domain.reserve("active", "owner", 100).unwrap();
+    let inflight = domain.begin_allocation(&active, "pending", 40).unwrap();
+    let mut expected = Vec::new();
+    for id in ["b-closed", "c-closed", "d-closed"] {
+        let token = domain.reserve(id, "owner", 100).unwrap();
+        domain.finish(&token).unwrap();
+        expected.push(token);
+    }
+    let mut nodes = MemoryNodes::default();
+    let (before, _) = domain
+        .export_checkpoint(&mut nodes, Limits::default())
+        .unwrap();
+    let summary = domain.summary().unwrap();
+    assert_eq!(domain.closed_reservations(2).unwrap(), expected[..2]);
+    assert_eq!(domain.closed_reservations(256).unwrap(), expected);
+    for limit in [0, 257, usize::MAX] {
+        assert_eq!(
+            domain.closed_reservations(limit),
+            Err(CapacityError::Budget)
+        );
+    }
+    assert_eq!(domain.summary().unwrap(), summary);
+    assert_eq!(domain.allocation_status(&inflight).unwrap(), None);
+    assert_eq!(
+        domain
+            .export_checkpoint(&mut nodes, Limits::default())
+            .unwrap()
+            .0,
+        before
+    );
+    let old = expected.remove(0);
+    domain.retire_closed(&old).unwrap();
+    let new = domain.reserve(old.id(), "other-owner", 100).unwrap();
+    assert!(new.generation > old.generation);
+    assert_eq!(domain.closed_reservations(256).unwrap(), expected);
+    assert_eq!(domain.is_closed(&old), Err(CapacityError::Stale));
+    let restored = domain
+        .export_checkpoint(&mut nodes, Limits::default())
+        .unwrap()
+        .0
+        .read(&mut nodes, Limits::default())
+        .unwrap()
+        .into_domain_for_context("volume", "epoch", 10)
+        .unwrap();
+    assert_eq!(restored.closed_reservations(256).unwrap(), expected);
+}
 #[test]
 fn active_inflight_retired_debits_and_highs_survive_without_admitting_old_probes() {
     let (mut d, token, done, pending, probe) = fixture();

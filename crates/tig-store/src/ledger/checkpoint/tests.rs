@@ -29,6 +29,7 @@ fn actual_ledger_export_roundtrips_through_reopened_metadata_without_commands_or
     let (mut l, allocation, done) = setup(&root);
     let before = l.checkpoint();
     let summary = l.accounting().unwrap();
+    let config = l.config.clone();
     let meta = temp.path().join("metadata");
     let mut nodes = MetadataStore::create(
         &meta,
@@ -51,6 +52,15 @@ fn actual_ledger_export_roundtrips_through_reopened_metadata_without_commands_or
     assert!(encoded.len() < 1024);
     let descriptor = Descriptor::from_json(&encoded).unwrap();
     assert_eq!(&descriptor, export.descriptor());
+    let foreign = tig_core::capacity::CapacityDomain::new(
+        config.domain.as_str(),
+        "foreign-instance",
+        config.floor + 1,
+    )
+    .unwrap();
+    let (foreign_state, _) = foreign
+        .export_checkpoint(&mut nodes, state::Limits::default())
+        .unwrap();
     let minimum = nodes.finish().unwrap();
     drop(nodes);
     drop(l);
@@ -60,7 +70,40 @@ fn actual_ledger_export_roundtrips_through_reopened_metadata_without_commands_or
         .read(&mut reader, state::Limits::default())
         .unwrap();
     assert_eq!(decoded.recorded_accounting().unwrap(), summary);
-    let mut model = decoded.into_domain();
+    let io = reader.metrics();
+    let metrics = decoded.metrics();
+    assert!(decoded.matches_context(
+        config.domain.as_str(),
+        config.instance.as_str(),
+        config.floor
+    ));
+    assert!(!decoded.matches_context(config.domain.as_str(), config.epoch.as_str(), config.floor));
+    assert!(!decoded.matches_context(
+        config.domain.as_str(),
+        config.instance.as_str(),
+        config.floor + 1
+    ));
+    assert_eq!(reader.metrics(), io);
+    assert_eq!(decoded.metrics(), metrics);
+    let mut model = decoded
+        .into_domain_for_context(
+            config.domain.as_str(),
+            config.instance.as_str(),
+            config.floor,
+        )
+        .unwrap();
+    let foreign = foreign_state
+        .read(&mut reader, state::Limits::default())
+        .unwrap();
+    assert!(matches!(
+        foreign.into_domain_for_context(
+            config.domain.as_str(),
+            config.instance.as_str(),
+            config.floor
+        ),
+        Err(state::Error::Invalid)
+    ));
+    assert_eq!(reader.checkpoint(), &minimum);
     assert_eq!(model.summary(), Err(CapacityError::UnknownObservation));
     let job = model.reserve("job", "owner", 1000).unwrap();
     let pending = model.begin_allocation(&job, "unfinished", 400).unwrap();

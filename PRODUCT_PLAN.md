@@ -39,6 +39,49 @@ certifying full requirements or every consumer.
 
 ## Next delivery sequence
 
+Next activation: [durable continuation](specs/JOURNAL-ACTIVATION.md) requires
+transactional legacy mutation fencing, an independent activation minimum, exact
+working state/original dependencies, bounded global indexes and durable recovery.
+A private SQL-fence proof is only an entry step; no seal-only public operation or
+journal cap waiver is allowed. Parent history candidate qualification is running.
+The [bounded staged tree editor](specs/STAGED-TREE-EDIT.md) now persists only final
+reachable metadata without changing canonical roots. Actual4096-base/16384-delta,
+physical finish/reopen, negative/budget, core/metadata regression and strict checks
+pass (EVID-129). This supports global indexes; it does not supply a successor,
+independent minimum, durable activation/recovery or expiry. The next joined
+[successor protocol](specs/JOURNAL-SUCCESSOR.md) freezes those integration boundaries
+before implementation. Its private operation/sequence index now passes real full16384 legacy import plus
+full16384 immutable index delta, old receipt/prefix lookups, physical readback,
+full core/archive/500k metadata regression and strict checks. Conditional staged
+insertion proves absence in the mutation traversal and fits the original budget;
+two earlier full failures remain recorded. New-source broader qualification and
+actual successor SQL/control/ancestry/minimum/recovery remain required. Controller
+review also requires digest-addressed prior controls and genuine metadata capacity
+admission for full sources; index bounds alone do not grant that admission.
+The private read-only SQL-tail adapter now qualifies a real full original16384
+journal plus a physically committed16384-row tail, retaining old active state and
+completion outcomes. Same-workload joined preparation now fits the original shared
+budget after a measured failed diagnostic; private staging defers name absence to
+conditional index insertion before state release. Private cfg(test) integration
+now routes existing CapacityLedger methods and qualifies actual continued writes:
+full original16384 plus method-written tail16384, exact old/new retries, peer
+catch-up, lost reply/reopen and bounded local outputs. Final35364 focused/full/
+regression/strict/fmt passes. Private continued-source SQL sealing now passes final3708: exact original codec,
+actual full32768 source seal, paused writer, process exits and original regressions.
+Private general source locator/open now passes exact prior archive/header/seal
+checks and actual49153 scale: original16384 plus two full continued tails, then a
+new generation3 command, preserving exact retries and inherited in-flight/zero
+state under unchanged shared budgets. Manual synthetic publication is not the
+atomic controller/recovery protocol. Public entry, durable controller/recovery,
+genuine metadata admission and new-source broad/hosted checks remain required.
+First-legacy private preparation now also shares one unchanged budget across
+actual export/index/proof/Data/physical readback/control serialization; full16384
+and source-race/budget/clocked cases pass. This closes that preparation profile,
+not complete atomic controller publication/recovery or native physical admission.
+Exact858595b hosted all17 jobs passes; later-source qualification remains separate. CI partitions
+preserve coverage after the previous Windows monolith timed out; new-source broad
+and hosted results are still required.
+
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable
 records, with lazy lookup and historical probes that cannot restore admission.
@@ -46,8 +89,8 @@ The archive candidate now exports original typed outputs, lazily reads exact
 receipts and explicitly validates a bounded segment. Actual legacy/clock metadata
 reopen, peer progress, all kinds and16384-command/in-flight fixtures pass. Fresh
 full default/all/500k/strict/standalone/fmt/fresh14 artifact checks and exact1c1f3ca
-Windows/Linux/secrets pass. This documentation closeout needs its current-head
-hosted check. This is not activated compaction or expiry. Parent working-checkpoint PR58 passes all local/hosted gates
+Windows/Linux/secrets pass. Documentation closeout27e8792 also passes exact43135967822;
+PR59 is ready for review. This is not activated compaction or expiry. Parent working-checkpoint PR58 passes all local/hosted gates
 and is ready; the joined lifetime target below remains required.
 
 Next lifetime implementation: [journal continuation](specs/JOURNAL-CONTINUATION.md)

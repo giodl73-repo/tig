@@ -1,5 +1,7 @@
 # Foundation review
 
+EVID-129: [activation](../reviews/2026-11-11-journal-activation.md); private49153 multi-generation engine; controller open.
+
 EVID-128: [original history](../reviews/2026-11-11-ledger-history.md); local/hosted runtime pass.
 
 EVID-127: [working checkpoint](../reviews/2026-11-11-capacity-checkpoint.md); focused.
