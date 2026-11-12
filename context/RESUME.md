@@ -7,7 +7,9 @@ remote merges/deployments or live cache/payload operations.
 
 ## Published checkpoint and candidate
 
-Published20a38656a58e256b2826bc4d92737fb16d3e4427, PR60 draft. Existing
+Published090d629c4f7fc4a7387a0b17472cc7130145dcc5, PR60 draft. Private-seal
+checkpoint is committed; hosted43163826567 is running and excludes dirty general
+source-locator work. Prior20a3865 hosted evidence below is a previous source. Existing
 CapacityLedger itself has private cfg(test) continued mode; no second engine.
 Actual original16384+method-written tail16384 reaches global32768 with local-only
 outputs, lazy exact original receipts/statuses and paged retired zero. Old probes
@@ -23,7 +25,7 @@ all60-minute deadlines are unchanged. Prior7caf Windows60m15s cancellation and
 coverage-preserving CI partition are recorded in the CI review. This does NOT
 qualify the later dirty continued-seal source. PR60 body reflects exact20a3865.
 
-DIRTY continued SQL seal candidate on20a3865, frozen before code in
+Committed continued SQL seal checkpoint090d629 on input20a3865, frozen before code in
 JOURNAL-SUCCESSOR.md and external continued-seal-entry-451e5aee2d16462fbc898fcb254d5479.
 Shared SealIntent codec preserves legacy fields/bytes/16384 bound. Design-2 seal
 binds exact current Mode control predecessor and actual source/header/local bounds;
@@ -42,7 +44,7 @@ receipt/conflict inspection. Child helper alone is not process-exit evidence.
 
 3708 TERMINAL0/reaped; exact root:
 F:/src/tig-dev-temp/bulk-retirement/continued-seal-final-135cef7a939c42268db68fbfb0a81573
-Target F:/src/tig-dev-builds/continued-seal is now FREE. ALL Rust/TOML/lock path
+Target F:/src/tig-dev-builds/continued-seal is FREE after46476. ALL Rust/TOML/lock path
 sets/raw hashes were checked before phases/end. Every phase and complete exit0.
 Observed exit0: focused44, legacy26, clock7, original seal10 (one explicit ignored),
 strict-entry and full-tail-seal467.35s. Explicit ignored pinned c833 old-writer
@@ -61,19 +63,77 @@ Clean source F:/src/Tig-worktrees/continued-engine-qualification-9c82bd7b.
 Both default/schema and all-feature workspace/500k/strict/standalone/fmt/bins and
 fresh14/catalogue run sequentially on ONE reserved target:
 F:/src/tig-dev-builds/activation-legacy-83081e796a5b4687ac1d971781b2cff1
-Last phase default-tests. This excludes the dirty seal candidate.
+Default-profile phases now0; last phase all-tests. This excludes the newer general/scale source.
 
-41952 LIVE at last check, exact7caf201 older broad qualification:
+41952 TERMINAL0/reaped, exact7caf201 older broad qualification:
 F:/src/tig-dev-temp/bulk-retirement/joined-preparation-broad-f7cace5177aa4bcbb0da024308a7ab75
-Clean source F:/src/Tig-worktrees/joined-preparation-qualification-da96e700.
-Targets F:/src/tig-dev-builds/teaching-playback and teaching-playback-all RESERVED.
-Default tests/strict/standalone/fmt/bins exit0; last phase all-tests. Remaining
-all-feature strict/fmt/bins/fresh14/catalogue are pending. Excludes newer source.
+Every default/all-feature workspace/500k/strict/standalone/fmt/bins/artifact/catalogue
+phase0. Fresh artifact joined-preparation-qualified-96c070573b47400990e3ccf0193f09cf
+has14 checkpoints/complete_coursefalse,2PUT54B,28requests270GETB, custody/removalfalse;
+catalogue read-only0payloads/automatic_evictionfalse. Both normal targets FREE.
+The all target was then reserved/released by44924 current-source strict, all0.
+These old-source checks do not qualify current source.
 
 Each root has run.ps1, phase.txt, phase.exit files and terminal complete.exit.
 Recheck exact PID/command and logs; process absence/terminal markers determine
 termination. Do not overlap Cargo per target. All other projects/processes stay
 untouched. Direct read-only test binary use is not an overlapping Cargo build.
+
+## Dirty general source-locator candidate
+
+Input090d629, entry source/spec hashes in external general-source-entry-
+a0060baabe79468fb1a06248dc1c0f5f. Existing guard/open has a bounded Source
+path/header descriptor. Exact prior archive identity/authority and COMPLETE tail
+header plus actual seal are required; no recursion, census, implicit creation or
+original-file dependency aftergen1. Manual fixture publication is not controller.
+57244 first3 pass1.32s;33856 expanded4 pass1.65s but strict101 collapsible_if.
+Collapsed without suppression and added explicit missing-source no-creation check.
+Four cases cover real three-generation writes/old+new replies/in-flight completion0,
+ancestor/current/forged minima/stale handles/no freshness; original file/ancestor
+archive held aside, missing/rebound resources, wire-only and exact-seal/wrong-header.
+16268 TERMINAL0/reaped, ALL Rust/TOML/lock paths/hashes checked before phases/end:
+F:/src/tig-dev-temp/bulk-retirement/general-source-final-7f4390d09c2d4509a23c256d4d5f9d31
+Target continued-seal FREE. Every phase/complete0: focused48/legacy26/clock7/seal10,
+history8/checkpoint3/index8, strict-entry16.24s/final strict/fmt; explicit hash-checked
+pinned legacy1pass0.31s. The three old maxima were explicitly EXCLUDED. Named small
+fixture/regression scope verified; do not claim new-source full maxima/full closure
+or reuse090/20a3865 hosts. Next concrete scale gate: actual original16384 + two
+method-written tails16384 each, prepared/sealed source transitions, reaching49152
+then a generation3 command; old/intermediate/latest retries, active/in-flight/zero,
+ancestor/current minima and unchanged shared build/local/point caps. Reuse existing
+joined helper/providers. Explicit larger finite synthetic metadata profile is not
+native physical admission. Preserve any Budget diagnostic; do not raise caps.
+Full-cap multiple rotations, new exact broad/hosted and full controller/admission
+remain required. No new broad runner on090 is started;20a3865 broad still live.
+
+## Full-capacity scale proof
+
+46476 TERMINAL0/reaped, ALL Rust/TOML/lock paths/hashes checked before phases/end:
+F:/src/tig-dev-temp/bulk-retirement/full-rotations-owned-fb00ad4d1a4d4408903a92715b0d903a
+Every phase/complete0: focused48/strict-entry15.57s/full-rotations1087.57s,
+history8/checkpoint3/index8/final strict/fmt. Actual original16384 + two actual
+method-written tails16384 reaches49152, new generation3 command reaches49153.
+Old/current/ancestor minima and original/intermediate/latest retries survive;
+pending-to-Some(0), stable original config, local outputs0 then1, no fresh probe
+renewal or local cap waiver. Both prepared source transitions observe actual seals;
+control publication is MANUAL SYNTHETIC SETUP, not the atomic recovery controller.
+Profile1048576 metadata nodes/512MiB bytes/768MiB DB/64KiB floor declared before
+writes (not genuine physical admission); normal small fixture profile unchanged.
+First preparation1151198reads460836597B,681672writes265144865B. Second preparation
+1135541reads452776080B,673999writes261228062B. Unchanged per-preparation2M/512MiB
+reads and1M/512MiB writes, point1024/4MiB and local16384/16MiB caps. No failed
+scale diagnostic; first declared workload passed. Before-code entry external
+full-rotations-entry-f22e0456b3344022a266527d899eb2d4. Do not shrink this scale gate.
+44924 TERMINAL0/reaped, same source manifest, workspace all-feature/all-target
+strict Clippy/fmt/complete0 at rotations-all-strict-a2fc0ff2d89d4fa8b6cba003e20d7349.
+continued-seal and both normal targets now FREE; activation target stays60988-owned.
+All prior maximum regression workloads still need latest-source broad/hosts.
+
+CI adds a seventh native suite for the18-minute rotations module on each OS,
+with unchanged60-minute deadline/old suites/explicit cases/foundation names.
+Six runner checks and Actionlint pass; actual535 names partition419/64/51/1.
+No new-source hosted proof is claimed. Freeze actual final HEAD before controller
+code and use immutable clean worktrees for long broader qualification.
 
 ## Next work and open gates
 

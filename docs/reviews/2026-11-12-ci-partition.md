@@ -57,3 +57,21 @@ aggregates succeed. Windows journal22m47s, continuation21m47s and workspace20m25
 finish inside the unchanged60-minute test-job deadline. This closes the hosted
 partition execution obligation for20a3865 only. Dirty continued-seal integration
 is a later source and is not covered by this run; full product gates remain open.
+
+Scale-fixture partition entry: input090d629 plus the full-rotations candidate
+qualified by46476 and all-feature strict44924 (all phase exits0). Same engineering
+controls; INTEGRATION L0/L1/L2. The new actual49153 workload takes1087.57s alone
+locally. Assign its exact module prefix to a fourth disjoint store-library shard
+and a seventh native suite on each OS, preserving every old suite and60-minute
+deadline. All names still come from the compiled executable; empty/duplicate/
+unparsed inventories fail. Keep both foundation status names and require every
+native matrix job to succeed. Allowed scope: workflow/runner/tests/evidence only.
+Local partition and actual inventory checks precede push; hosted results remain
+pending for the new exact source. No Rust implementation or test result changes.
+
+Local verification: six runner unit checks pass, including a missing-rotations-shard
+inventory refusal and native failure propagation. Actual compiled inventory535
+partitions exactly store419/journal64/continuation51/rotations1. Actionlint1.7.12
+passes. All prior suites/explicit cases/baseline SHAs/status names remain unchanged;
+the new full fixture has its own native suite. Hosted execution on the new exact
+head remains pending, and20a3865 hosted proof is not transferred to this source.

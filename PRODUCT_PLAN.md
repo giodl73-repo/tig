@@ -68,8 +68,12 @@ full original16384 plus method-written tail16384, exact old/new retries, peer
 catch-up, lost reply/reopen and bounded local outputs. Final35364 focused/full/
 regression/strict/fmt passes. Private continued-source SQL sealing now passes final3708: exact original codec,
 actual full32768 source seal, paused writer, process exits and original regressions.
-General source locator/open, public entry, two full rotations, controller/recovery
-and genuine metadata admission remain required. CI partitions
+Private general source locator/open now passes exact prior archive/header/seal
+checks and actual49153 scale: original16384 plus two full continued tails, then a
+new generation3 command, preserving exact retries and inherited in-flight/zero
+state under unchanged shared budgets. Manual synthetic publication is not the
+atomic controller/recovery protocol. Public entry, durable controller/recovery,
+genuine metadata admission and new-source broad/hosted checks remain required. CI partitions
 preserve coverage after the previous Windows monolith timed out; new-source broad
 and hosted results are still required.
 

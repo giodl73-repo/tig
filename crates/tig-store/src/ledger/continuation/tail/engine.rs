@@ -43,7 +43,7 @@ impl Mode {
         Ok(())
     }
     pub(in crate::ledger) fn guard(&self, root: &Path) -> LR<()> {
-        guard(root, &self.control)
+        guard(root, &self.control).map(|_| ())
     }
     fn reset_query(&mut self) {
         self.query = point_limits();
@@ -89,12 +89,16 @@ impl Mode {
         result
     }
 }
-fn guard(root: &Path, control: &ActiveControl) -> LR<()> {
+#[derive(PartialEq, Eq)]
+struct Source {
+    path: PathBuf,
+    tail: Option<TailIdentity>,
+}
+fn guard(root: &Path, control: &ActiveControl) -> LR<Source> {
     local::directory(root)?;
     local::directory(&root.join("segments"))?;
     local::directory(&root.join("controls"))?;
     local::regular(&root.join(control.preparation.tail.relative_name().map_err(journal)?))?;
-    local::regular(&root.join("ledger.sqlite"))?;
     let current: ActiveControl = local::read_record(&root.join("domain.json"))?;
     current.validate().map_err(journal)?;
     if &current != control {
@@ -105,11 +109,36 @@ fn guard(root: &Path, control: &ActiveControl) -> LR<()> {
     if archived != current {
         return Err(LedgerError::Corrupt);
     }
-    Ok(())
+    let source = match &control.seal.intent.predecessor {
+        None if control.preparation.tail.generation == 1 => Source {
+            path: root.join("ledger.sqlite"),
+            tail: None,
+        },
+        Some(previous) => {
+            let prior: ActiveControl = local::read_record(
+                &root
+                    .join("controls")
+                    .join(format!("{}.json", previous.digest.as_str())),
+            )?;
+            prior.validate().map_err(journal)?;
+            if prior.identity().map_err(journal)? != *previous
+                || prior.preparation.tail.authority != control.preparation.tail.authority
+            {
+                return Err(LedgerError::Corrupt);
+            }
+            Source {
+                path: root.join(prior.preparation.tail.relative_name().map_err(journal)?),
+                tail: Some(prior.preparation.tail),
+            }
+        }
+        None => return Err(LedgerError::Corrupt),
+    };
+    local::regular(&source.path)?;
+    Ok(source)
 }
 
-/// First-generation private fixture admission: requires a real observed seal.
-/// General continued-source seals and full controller/recovery remain required.
+/// Private fixture admission over one known, actually sealed immediate source.
+/// Full controller/recovery and physical metadata admission remain required.
 pub(in crate::ledger::continuation) fn open(
     root: &Path,
     control: &ActiveControl,
@@ -118,16 +147,18 @@ pub(in crate::ledger::continuation) fn open(
 ) -> LR<CapacityLedger> {
     local::check_root_spelling(root)?;
     control.validate().map_err(journal)?;
-    guard(root, control)?;
-    if control.seal.intent.schema != "tig.capacity-activation-intent.design-1" {
-        return Err(LedgerError::NeedsRecovery);
-    }
-    let source = connect(&root.join("ledger.sqlite"))?;
+    let descriptor = guard(root, control)?;
+    let source = connect(&descriptor.path)?;
     activation::verify_seal(
         &source,
         &control.seal.intent.to_json().map_err(journal)?,
         &control.seal.hash,
     )?;
+    if let Some(expected) = &descriptor.tail
+        && header(&source).map_err(journal)? != *expected
+    {
+        return Err(LedgerError::Corrupt);
+    }
     drop(source);
     let base = read_base(
         control,
@@ -179,6 +210,9 @@ pub(in crate::ledger::continuation) fn open(
         continued: Some(mode),
     };
     ledger.guard()?;
+    if guard(root, control)? != descriptor {
+        return Err(LedgerError::NeedsRecovery);
+    }
     Ok(ledger)
 }
 

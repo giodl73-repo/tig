@@ -616,3 +616,71 @@ partial guards, and a generation2 open after the original file is explicitly mov
 aside in a synthetic fixture. The latter proves bounded lookup, not history expiry.
 Full-cap multi-rotation, durable controller prepare/publish/recover, native metadata
 admission, source/provider/witness authority and expiry remain mandatory.
+
+General source-locator implementation entry: qualified private seal input
+090d629c4f7fc4a7387a0b17472cc7130145dcc5 (final3708 all phases0). Same WP/REQ/
+SPEC/IF/PKG controls and RUST/PROVIDER/INTEGRATION profiles above. Allowed scope:
+private existing-engine source descriptor/guard/open and synthetic multi-generation
+fixtures reusing the joined preparation helper. No public API, controller, quota,
+expiry, dependency, global lock or format/cap change. Entry is the exact checked
+control, independently supplied minimum and existing finished metadata/source/tail.
+Exit requires the named positive/negative source-identity cases and actual method
+writes across generations, original first-generation regressions/strict checks;
+full-cap multiple rotation and broad/hosted gates remain separate obligations.
+
+## Full-capacity multiple-generation fixture entry
+
+Input090d629c4f7fc4a7387a0b17472cc7130145dcc5 plus the exact general-source
+candidate qualified by16268 (all source paths/hashes in its external source.json).
+WP-003/004/006/007/008/013/015; REQ-001/003/004/005/006/007/009;
+SPEC-002/003/004/005/006/008/009/013/014; IF-002/003/004/005/006/008/012/013;
+PKG-001/002/003/008/009. RUST/PROVIDER/INTEGRATION L0/L1/L2. Allowed next scope:
+synthetic fixture configuration and an actual multiple-generation engine workload
+using the existing joined preparation helper, source sealer, providers and opener.
+No runtime dependency, journal/tree/record cap, deadline or production policy change.
+
+Declare a finite synthetic metadata profile before preparation:1048576 nodes,
+512MiB node bytes,768MiB database and64KiB free floor. Normal small fixtures retain
+their original profile. These are existing provider bounds, not native reserved
+capacity, shared-bootstrap safety or a JC-02 closure. Each preparation retains
+one2M-read/512MiB and1M-write/512MiB shared logical budget, existing point proofs
+and exact local16384/16MiB caps; global sequences and original authority stay intact.
+
+Fill a real original16384-command journal, then two actual method-written tails
+of16384 each. Prepare/read back, observe actual seals and manually publish the
+synthetic controls between generations. Open generation3 at49152 and execute a
+new command. Check original/intermediate/latest exact receipts after reopen,
+inherited active reservation and pending allocation completing at0, current and
+ancestor minima, bounded local output maps, old-handle refusal and no renewed
+probe permission. Record stage metrics and retain any first Budget failure.
+L0 pins/format/source; L1 focused source regressions and strict checks; L2 this
+actual SQLite/metadata/caller-method workload and original maximum regressions.
+This is a scale fixture, not durable controller publication/recovery or expiry.
+
+## Remaining controller integration review obligations
+
+Before controller code, freeze the qualified scale input and concrete API/protocol.
+The first legacy preparation must share its declared budget across original export,
+index construction, working state and control data; the current fixture's separate
+initial export/build calls are not proof of that joined controller budget.
+Native physical admission still needs a qualified enforcing provider before any
+public entry. A boolean, numeric bound or synthetic profile cannot supply it.
+
+Use one authority-scoped OS lock, explicit unlock on guard drop and exact expected
+domain bytes; ordinary writers keep their SQL path and other authorities progress.
+Recovery of a sealed source inspects its existing SQL row and retained exact
+preparation without admitting a writable sealed-tail handle. Preparation and tail
+readback precede irreversible sealing; no metadata provider IO spans source SQL.
+
+Current-domain replacement needs an admitted atomic replacement/barrier primitive,
+not the immutable create-new record helper. Qualify actual process exits/lost
+replies, and distinguish restart guarantees from unproven power-loss durability.
+Published missing archives are known loss; prospective archive creation requires
+the exact predecessor and minima consistent with prepublication state. A later
+independent minimum is not permission to silently repair a restored old root.
+
+Operation retries use a known bounded operation-derived record and exact original
+result, never directory enumeration or a new preparation under an already sealed
+intent. Lifetime record expiry, operation-key reuse and source/provider/witness
+authority remain separately gated; no controller cleanup may infer permission to
+remove payloads or replay protection from an obsolete filename or label.

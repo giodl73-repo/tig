@@ -36,7 +36,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest]
-        suite: [workspace, store, journal, continuation, operator, compat]
+        suite: [workspace, store, journal, continuation, rotations, operator, compat]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, Node 24
@@ -92,7 +92,7 @@ jobs:
           cargo test -p tig-store --doc --all-features --locked
           exit $LASTEXITCODE
       - name: Store library exact inventory shard
-        if: contains(fromJSON('["store", "journal", "continuation"]'), matrix.suite)
+        if: contains(fromJSON('["store", "journal", "continuation", "rotations"]'), matrix.suite)
         run: python -B tools/run_ci_store_shard.py ${{ matrix.suite }}
       - name: Explicit CLI operator qualifications
         if: matrix.suite == 'operator'

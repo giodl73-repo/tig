@@ -7,7 +7,8 @@ import re
 import subprocess
 
 
-SHARDS = ("store", "journal", "continuation")
+SHARDS = ("store", "journal", "continuation", "rotations")
+ROTATIONS_PREFIX = "ledger::continuation::tail::engine::tests::rotations::"
 
 
 def partition(listing):
@@ -21,7 +22,8 @@ def partition(listing):
             raise ValueError(f"invalid or duplicate test inventory: {line!r}")
         name = match[1]
         seen.add(name)
-        shard = ("continuation" if name.startswith("ledger::continuation::")
+        shard = ("rotations" if name.startswith(ROTATIONS_PREFIX)
+                 else "continuation" if name.startswith("ledger::continuation::")
                  else "journal" if name.startswith("ledger::") else "store")
         groups[shard].append(name)
     if any(not names for names in groups.values()):

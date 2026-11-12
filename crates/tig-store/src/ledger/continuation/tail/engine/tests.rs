@@ -3,7 +3,9 @@ use super::super::tests::{create, refresh};
 use super::*;
 use history::tests::assert_receipt;
 
+mod rotations;
 mod seal;
+mod sources;
 
 fn key(s: &str) -> Key {
     Key::parse(s).unwrap()

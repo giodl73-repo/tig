@@ -3,7 +3,7 @@ use super::*;
 use history::index::staged_insert;
 use tig_core::tree::MemoryNodes;
 
-fn prepare(
+pub(in crate::ledger::continuation::tail) fn prepare(
     f: &mut Fixture,
     c: &ActiveControl,
     m: &Minimum,

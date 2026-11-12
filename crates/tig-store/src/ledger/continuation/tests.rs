@@ -14,6 +14,14 @@ pub(super) struct Fixture {
     pub(super) data: PreparedData,
 }
 pub(super) fn fixture() -> Fixture {
+    fixture_with_limits(MetadataLimits {
+        nodes: 262144,
+        bytes: 64 * 1024 * 1024,
+        database_bytes: 96 * 1024 * 1024,
+        min_free_bytes: 65536,
+    })
+}
+pub(super) fn fixture_with_limits(limits: MetadataLimits) -> Fixture {
     let temp = tempfile::tempdir().unwrap();
     let mut ledger =
         CapacityLedger::create(&temp.path().join("ledger"), key("volume"), key("epoch"), 10)
@@ -26,16 +34,7 @@ pub(super) fn fixture() -> Fixture {
     ledger
         .begin_allocation(key("allocation"), job.reference(), key("pending"), 200)
         .unwrap();
-    let mut nodes = MetadataStore::create(
-        &temp.path().join("metadata"),
-        MetadataLimits {
-            nodes: 262144,
-            bytes: 64 * 1024 * 1024,
-            database_bytes: 96 * 1024 * 1024,
-            min_free_bytes: 65536,
-        },
-    )
-    .unwrap();
+    let mut nodes = MetadataStore::create(&temp.path().join("metadata"), limits).unwrap();
     let export = ledger
         .export_history(&mut nodes, ReadLimits::default())
         .unwrap();

@@ -865,3 +865,106 @@ publication/recovery, independently retained minima, full multiple rotations,
 genuine physical metadata admission JC-02 and source/provider/witness/expiry/course
 or full product acceptance remain OPEN. Earlier pending paragraphs are historical
 observations superseded by this terminal result; later source needs its own hosts.
+
+General source-locator entry uses qualified private-seal input090d629; the exact
+before-code source/spec hashes are external at general-source-entry-
+a0060baabe79468fb1a06248dc1c0f5f. Existing Mode guard/open now resolves a bounded
+Source descriptor: legacy fixed source only for generation1; otherwise one known
+predecessor digest archive, checked canonical identity/authority and derived tail.
+Actual seal inspection is followed by complete prior TailIdentity comparison;
+final resource/control checks follow replay before returning the existing engine.
+No recursive control walk, directory census or original-file dependency aftergen1.
+No source/provider IO inside SQL, implicit creation, public API or quota/cap change.
+
+57244 TERMINAL0/reaped: three focused cases pass1.32s.33856 TERMINAL: expanded
+four cases pass1.65s; strict101 collapsible_if at the header comparison. Collapsed
+that branch without suppression; strengthened missing-source no-creation assertion.
+The four cases use actual existing-method writes through three generations, exact
+original/intermediate/latest replies, inherited in-flight completion at0, ancestor/
+current/forged minima, no probe renewal and stale-handle refusal. Generation2 opens
+with original ledger file held aside. Generation3 still opens with ancestor archive
+held aside, proving one predecessor lookup rather than recursive history reads.
+Missing/rebound prior archive and missing source hold without repair. A fully
+matching observed seal can coexist with a rebound operation-only tail header;
+the new exact prior header check independently refuses it. A wire-only receipt
+without actual source guards also refuses. Publication is manual synthetic fixture
+setup, NOT the durable activation controller or metadata expiry authority.
+
+Final16268 LIVE at last check, root general-source-final-
+7f4390d09c2d4509a23c256d4d5f9d31, reserved continued-seal target. Pins all Rust/
+TOML/lock paths/raw hashes before phases/end. Runs continuation excluding the three
+previous maximum workloads, legacy/clock/seal/strict/archive/checkpoint/index/fmt.
+New-source full-cap multiple rotations and broad/hosted remain separate required
+gates; no implementation/verification/validation/trace/producer final closure yet.
+090d629 hosted43163826567 remains pending and excludes this dirty source candidate.
+
+Final16268 TERMINAL0/reaped: every phase/complete exit0 with all Rust/TOML/lock
+path/hash checks before phases/end. Focused48, legacy26, clock7, original seal10
+(one external case ignored in that command), history8/checkpoint3/index8; strict
+entry16.24s/final strict and fmt pass. Explicit hash-checked pinned legacy1 also
+passes0.31s from this compiled source. The named fixture/short regression scope
+is verified; the three prior maximum workloads were explicitly excluded here.
+Do not credit090/20a3865 hosts or3708 maxima to the dirty new source. Full-cap
+multi-generation writes/preparation/reopen under unchanged budgets remain REQUIRED
+before claiming the joined operational lifetime capability. General controller,
+physical admission and other full-product gates are unchanged and OPEN.
+
+Next concrete scale gate: one full original16384, then two actual method-written
+16384 continued tails and two prepared/observed source seals, reaching49152 before
+a new generation3 command. Retain original/intermediate/latest exact replies,
+active reservation plus inherited in-flight allocation, zero completion, ancestor/
+current minima, local-only output maps and no probe renewal. Reuse the actual
+joined preparation helper and existing providers, with one unchanged shared build
+budget per preparation (2M reads/512MiB,1M writes/512MiB), unchanged point proofs,
+16384/16MiB local bounds and global monotonic source/clock/instance identity.
+An explicit larger finite synthetic metadata profile may support the workload;
+it is not native physical admission or a runtime cap waiver. A measured Budget
+failure must be preserved and fixed within the original logical limits. This
+full-cap fixture and controller are not implemented by the small four cases above.
+
+Full multiple-generation entry is frozen before code in JOURNAL-SUCCESSOR.md;
+external full-rotations-entry-f22e0456b3344022a266527d899eb2d4 contains exact source/
+spec hashes and input090d629 plus qualified16268 general-source candidate. Normal
+fixture profile remains unchanged; explicit full fixture requests1048576 metadata
+nodes/512MiB bytes/768MiB DB/64KiB floor within existing provider-supported bounds.
+This finite synthetic profile is NOT genuine native physical metadata admission.
+
+Owned46476 TERMINAL0/reaped: all phase/complete exits0, all Rust/TOML/lock paths/
+raw hashes checked before phases/end. Focused48 pass10.88s, default strict-entry
+15.57s; actual full multiple-generation workload1087.57s; history8/checkpoint3/
+index8/final strict/fmt pass. Original actual16384 + method tail16384 + method tail
+16384 reaches49152, then new generation3 completion reaches49153. Exact original/
+intermediate/latest receipts survive reopen, inherited pending allocation becomes
+Some(0), original authority/config stays equal, ancestor/current minima work and
+new reservation still needs its own fresh probe. Local cached outputs reset to0
+at each activation and1 after the new command, never a lifetime output map.
+Both full old handles refuse; neither local16384 cap is waived.
+
+First preparation1151198reads460836597B,681672writes265144865B; second preparation
+1135541reads452776080B,673999writes261228062B. Each includes base/SQL/staging/index/
+ancestry/working work under the unchanged2M/512MiB reads and1M/512MiB writes.
+The two local body totals are1037522 and1053921 bytes; source checkpoint sequences
+stay global32768/49152 with no epoch reset. No failed diagnostic was hidden; this
+first declared full workload passed its original profile and logical limits.
+
+Independent build target44924 TERMINAL0/reaped also verifies identical pinned
+Rust/TOML/lock source: workspace all-feature/all-target strict Clippy and fmt0.
+Implementation PASS for private general source descriptor/guard/open; verification
+PASS for named source negatives/short regressions/full49153 workload; scoped
+validation PASS for actual synthetic SQLite/metadata/method writes and reopen;
+trace PASS to the before-code entries and controls. Six producer lenses
+PASS_WITH_RISK: exact prior digest AND complete header identity, no new placement
+permission, active/in-flight/zero protection, immutable source seals/stale refusal,
+finite unchanged logical budgets/no SQL provider IO/no implicit initialization,
+exact original replies/minima/legacy regression preservation. This is no independent
+or human approval. Manual fixture control publication is NOT qualified atomic
+controller publication/recovery. New-source broad/hosts, genuine metadata admission
+JC-02, source/provider/witness authority, expiry and complete product gates OPEN.
+
+Older41952 exact7caf201 broad TERMINAL0/reaped: every default/all-feature workspace/
+500k/strict/standalone/fmt/bins/artifact/catalogue phase0. Fresh external artifact
+joined-preparation-qualified-96c070573b47400990e3ccf0193f09cf reports14 checkpoints,
+complete_coursefalse,2PUT54B,28requests270GETB, retained_custody/removal_authorityfalse;
+catalogue read-only0payloads/automatic_evictionfalse. Both normal targets released;
+teaching-playback-all was then reserved/released by44924. These older checks do
+not qualify the new source. Exact20a3865 broad60988 still live, now all-tests.
