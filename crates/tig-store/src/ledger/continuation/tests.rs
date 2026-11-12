@@ -7,13 +7,13 @@ fn key(s: &str) -> Key {
     Key::parse(s).unwrap()
 }
 
-struct Fixture {
-    _temp: tempfile::TempDir,
-    ledger: CapacityLedger,
-    nodes: MetadataStore,
-    data: PreparedData,
+pub(super) struct Fixture {
+    pub(super) _temp: tempfile::TempDir,
+    pub(super) ledger: CapacityLedger,
+    pub(super) nodes: MetadataStore,
+    pub(super) data: PreparedData,
 }
-fn fixture() -> Fixture {
+pub(super) fn fixture() -> Fixture {
     let temp = tempfile::tempdir().unwrap();
     let mut ledger =
         CapacityLedger::create(&temp.path().join("ledger"), key("volume"), key("epoch"), 10)
@@ -29,9 +29,9 @@ fn fixture() -> Fixture {
     let mut nodes = MetadataStore::create(
         &temp.path().join("metadata"),
         MetadataLimits {
-            nodes: 65536,
-            bytes: 16 * 1024 * 1024,
-            database_bytes: 32 * 1024 * 1024,
+            nodes: 262144,
+            bytes: 64 * 1024 * 1024,
+            database_bytes: 96 * 1024 * 1024,
             min_free_bytes: 65536,
         },
     )
@@ -64,7 +64,7 @@ fn fixture() -> Fixture {
 }
 
 // Wire-only construction: deliberately does not manufacture an observed SQL seal.
-fn control(f: &mut Fixture) -> ActiveControl {
+pub(super) fn control(f: &mut Fixture) -> ActiveControl {
     let object = f.nodes.put(&f.data.to_json().unwrap()).unwrap();
     let metadata = f.nodes.finish().unwrap();
     let preparation = Preparation {
@@ -100,7 +100,7 @@ fn control(f: &mut Fixture) -> ActiveControl {
         },
     }
 }
-fn minimum(c: &ActiveControl) -> Minimum {
+pub(super) fn minimum(c: &ActiveControl) -> Minimum {
     Minimum {
         schema: "tig.capacity-successor-minimum.design-1".into(),
         authority: c.seal.intent.authority.clone(),
@@ -108,7 +108,12 @@ fn minimum(c: &ActiveControl) -> Minimum {
         checkpoint: c.seal.intent.source.clone(),
     }
 }
-fn read(f: &Fixture, c: &ActiveControl, m: &Minimum, limits: ReadLimits) -> Result<Base> {
+pub(super) fn read(
+    f: &Fixture,
+    c: &ActiveControl,
+    m: &Minimum,
+    limits: ReadLimits,
+) -> Result<Base> {
     let mut reader = f.nodes.finished_reader().unwrap();
     read_base(c, &f.data.source.genesis, m, &mut reader, limits)
 }

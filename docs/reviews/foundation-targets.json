@@ -89,8 +89,8 @@
     },
     {
       "path": "CONTEXT.md",
-      "bytes": 4964,
-      "sha256": "71658d12d26877fa7e7f151c04b53b791e10bd08fdd94311a8415ce38e6ea7a5"
+      "bytes": 5367,
+      "sha256": "c9df9189c205ad84cd2cb6f58c0202382fe34ecd4e0dcb2c729a2a3c1161c017"
     },
     {
       "path": "context/waves/2026-10-25-placement-foundation/pulses/pulse-01.md",
@@ -359,8 +359,8 @@
     },
     {
       "path": "docs/vtrace/REVIEW.md",
-      "bytes": 130917,
-      "sha256": "7f4a9db0cc3b4e039148b4965e2313c00b6a9566f614ef7f00c9c2e5b8d78376"
+      "bytes": 130922,
+      "sha256": "25d115394bd818463151751e88977df641c9f322ee033db32a8cd46dc870ab00"
     },
     {
       "path": "docs/vtrace/RISKS.md",
@@ -409,8 +409,8 @@
     },
     {
       "path": "PRODUCT_PLAN.md",
-      "bytes": 57695,
-      "sha256": "0cb67ac2db2672db0c64d7f0a2f0a15e0f756bcabf880cf98eb2c33ad5fc7e04"
+      "bytes": 58021,
+      "sha256": "cfc49406170cf2e8a6b1c5ae058891abc6455ee3702d5a80f77a1b11ecd30d3d"
     },
     {
       "path": "README.md",
@@ -1849,8 +1849,8 @@
     },
     {
       "path": "context/RESUME.md",
-      "bytes": 7143,
-      "sha256": "c7f68187768a3d95be787056b73b65d784f3bf031c65a5a38d0c1fc47c787781"
+      "bytes": 9139,
+      "sha256": "8b5820b1c349b6b47f9cb351d33fa9b116ce27e131d261dedf4ac0fd10a8636c"
     },
     {
       "path": "docs/reviews/2026-11-08-storage-roadmap-roles.md",
@@ -3534,8 +3534,8 @@
     },
     {
       "path": "docs/reviews/2026-11-11-journal-activation.md",
-      "bytes": 40656,
-      "sha256": "d2bac7d3edf8b11de82c9750091e6a1d79040418af6a97afdf85ea6f9d383b37"
+      "bytes": 45431,
+      "sha256": "ee02191ebb7122ff65a5e0736a44e7fce6caf044ffd6fe068531a3c70b0996b5"
     },
     {
       "path": "specs/JOURNAL-ACTIVATION.md",
@@ -3589,13 +3589,13 @@
     },
     {
       "path": "specs/JOURNAL-SUCCESSOR.md",
-      "bytes": 23547,
-      "sha256": "5a7e95522134c5d69f3af546a2d37c630409080745ffa8e102a756f40580b2b7"
+      "bytes": 28224,
+      "sha256": "9e7632912e81a2ac6353ae70aeda6a51f90a23005295bb46b28a39a0eb5cf1d6"
     },
     {
       "path": "crates/tig-store/src/ledger/history/index.rs",
-      "bytes": 18779,
-      "sha256": "d57fca7b8f666bc86a408805ebd25291a00cb414c5f98c7c179fee6a3244cb40"
+      "bytes": 20223,
+      "sha256": "699b2b770aefe6212d2584dff43d8df58784d7f1f7263e05509444c95b37318a"
     },
     {
       "path": "crates/tig-store/src/ledger/history/index/tests.rs",
@@ -3604,13 +3604,23 @@
     },
     {
       "path": "crates/tig-store/src/ledger/continuation.rs",
-      "bytes": 14307,
-      "sha256": "a12214854c3831cbb13a2ce1e908288742762ffb0b5cb36c4307c312fe306723"
+      "bytes": 14317,
+      "sha256": "c7d877efd8d9a7abc3ecfa1dc6694db923a46ef60a28a33eb6441c149c2410f8"
     },
     {
       "path": "crates/tig-store/src/ledger/continuation/tests.rs",
-      "bytes": 15792,
-      "sha256": "7061cf9b0efe015b0dce4dd306a87ddbd3d17406e05e6738fe470e37a83f316d"
+      "bytes": 15911,
+      "sha256": "c6195e40cbba15ecaaf701d40f34d463c4bc361de873a45d574fba64cff1cc84"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/continuation/tail.rs",
+      "bytes": 11676,
+      "sha256": "d92e65867362cb04f0e176d3f399f3a225f59b9c20d4b2e06129d3933c41fb63"
+    },
+    {
+      "path": "crates/tig-store/src/ledger/continuation/tail/tests.rs",
+      "bytes": 20595,
+      "sha256": "4c1ab5e532f9142b22dde4aa4bc4ee2b64b885bc59de79798fbbd407642b01ae"
     }
   ]
 }

@@ -1,0 +1,310 @@
+//! Private bounded SQL snapshot and pure replay. No writer/activation authority.
+use super::*;
+use history::index::BudgetPort;
+use tig_core::tree::TreeMetrics;
+
+const META: &str = "CREATE TABLE meta(id INTEGER PRIMARY KEY CHECK(id=1),genesis TEXT NOT NULL,sequence INTEGER NOT NULL,hash TEXT NOT NULL,bytes INTEGER NOT NULL)";
+const EVENTS: &str = "CREATE TABLE events(sequence INTEGER PRIMARY KEY,operation TEXT NOT NULL UNIQUE,body BLOB NOT NULL,previous TEXT NOT NULL,hash TEXT NOT NULL)";
+const HEADER: &str = "CREATE TABLE tig_tail(id INTEGER PRIMARY KEY CHECK(id=1),body BLOB NOT NULL CHECK(length(body)<=65536),hash TEXT NOT NULL)";
+
+fn definitions() -> BTreeMap<String, (String, String)> {
+    let mut expected = BTreeMap::new();
+    for (name, sql) in [("meta", META), ("events", EVENTS), ("tig_tail", HEADER)] {
+        expected.insert(name.into(), ("table".into(), sql.into()));
+    }
+    for action in ["INSERT", "UPDATE", "DELETE"] {
+        let name = format!("tig_tail_{action}");
+        expected.insert(name.clone(), ("trigger".into(),format!("CREATE TRIGGER {name} BEFORE {action} ON tig_tail BEGIN SELECT RAISE(ABORT,'tig:immutable-tail'); END")));
+    }
+    expected
+}
+fn schema(conn: &Connection) -> Result<()> {
+    let mut statement = conn.prepare("SELECT length(CAST(name AS BLOB)),length(CAST(type AS BLOB)),length(CAST(sql AS BLOB)),name,type,sql FROM sqlite_master WHERE name NOT GLOB 'sqlite_*' LIMIT 7")?;
+    let mut rows = statement.query([])?;
+    let mut found = BTreeMap::new();
+    while let Some(r) = rows.next()? {
+        if number(r, 0)? > 128 || number(r, 1)? > 16 || number(r, 2)? > 4096 {
+            return Err(Error::Invalid);
+        }
+        let name: String = r.get(3)?;
+        let kind: String = r.get(4)?;
+        let sql: String = r.get(5)?;
+        if found.insert(name, (kind, sql)).is_some() {
+            return Err(Error::Invalid);
+        }
+    }
+    if found != definitions() {
+        return Err(Error::Invalid);
+    }
+    Ok(())
+}
+fn header(conn: &Connection) -> Result<TailIdentity> {
+    let mut statement =
+        conn.prepare("SELECT id,length(CAST(body AS BLOB)),length(CAST(hash AS BLOB)),body,hash FROM tig_tail LIMIT 2")?;
+    let mut rows = statement.query([])?;
+    let row = rows.next()?.ok_or(Error::Invalid)?;
+    if number(row, 0)? != 1 || number(row, 1)? > 65536 || number(row, 2)? != 64 {
+        return Err(Error::Invalid);
+    }
+    let raw: Vec<u8> = row.get(3)?;
+    let hash: String = row.get(4)?;
+    let identity: TailIdentity = record(&raw)?;
+    identity.validate()?;
+    if hash != Digest::blob(&raw).as_str() || rows.next()?.is_some() {
+        return Err(Error::Invalid);
+    }
+    Ok(identity)
+}
+fn head(conn: &Connection, identity: &TailIdentity) -> Result<(Checkpoint, u64)> {
+    let mut statement = conn.prepare(
+        "SELECT id,length(CAST(genesis AS BLOB)),sequence,length(CAST(hash AS BLOB)),bytes,genesis,hash FROM meta LIMIT 2",
+    )?;
+    let mut rows = statement.query([])?;
+    let r = rows.next()?.ok_or(Error::Invalid)?;
+    if number(r, 0)? != 1 || number(r, 1)? != 64 || number(r, 3)? != 64 {
+        return Err(Error::Invalid);
+    }
+    let sequence = number(r, 2)?;
+    let bytes = number(r, 4)?;
+    let genesis: String = r.get(5)?;
+    let hash: String = r.get(6)?;
+    let cp = Checkpoint {
+        genesis: Digest::parse(&genesis).map_err(|_| Error::Invalid)?,
+        sequence,
+        hash: Digest::parse(&hash).map_err(|_| Error::Invalid)?,
+    };
+    if cp.genesis != identity.authority
+        || cp.sequence < identity.base.sequence
+        || cp.sequence > u32::MAX as u64
+        || cp.sequence - identity.base.sequence > MAX_COMMANDS
+        || bytes > MAX_JOURNAL_BYTES
+        || rows.next()?.is_some()
+    {
+        return Err(Error::Invalid);
+    }
+    Ok((cp, bytes))
+}
+struct Row {
+    sequence: u64,
+    operation: Key,
+    body: Vec<u8>,
+    previous: Digest,
+    hash: Digest,
+}
+struct Snapshot {
+    identity: TailIdentity,
+    head: Checkpoint,
+    bytes: u64,
+    rows: Vec<Row>,
+}
+fn collect(conn: &mut Connection, expected: &TailIdentity) -> Result<Snapshot> {
+    expected.validate()?;
+    let tx = conn.transaction()?;
+    schema(&tx)?;
+    let identity = header(&tx)?;
+    if &identity != expected {
+        return Err(Error::Invalid);
+    }
+    let (head, bytes) = head(&tx, &identity)?;
+    let mut copied = Vec::new();
+    let mut total = 0u64;
+    {
+        let mut statement = tx.prepare("SELECT sequence,length(CAST(operation AS BLOB)),length(CAST(body AS BLOB)),length(CAST(previous AS BLOB)),length(CAST(hash AS BLOB)),operation,body,previous,hash FROM events ORDER BY sequence LIMIT 16385")?;
+        let mut rows = statement.query([])?;
+        while let Some(r) = rows.next()? {
+            let size = number(r, 2)?;
+            total = total.checked_add(size).ok_or(Error::Budget)?;
+            if copied.len() as u64 >= MAX_COMMANDS
+                || number(r, 1)? > 128
+                || size > 65536
+                || number(r, 3)? != 64
+                || number(r, 4)? != 64
+                || total > MAX_JOURNAL_BYTES
+            {
+                return Err(Error::Budget);
+            }
+            let operation: String = r.get(5)?;
+            let previous: String = r.get(7)?;
+            let hash: String = r.get(8)?;
+            copied.push(Row {
+                sequence: number(r, 0)?,
+                operation: Key::parse(&operation).map_err(|_| Error::Invalid)?,
+                body: r.get(6)?,
+                previous: Digest::parse(&previous).map_err(|_| Error::Invalid)?,
+                hash: Digest::parse(&hash).map_err(|_| Error::Invalid)?,
+            });
+        }
+    }
+    if total != bytes || copied.len() as u64 != head.sequence - identity.base.sequence {
+        return Err(Error::Invalid);
+    }
+    tx.commit()?;
+    Ok(Snapshot {
+        identity,
+        head,
+        bytes,
+        rows: copied,
+    })
+}
+
+fn dependencies(command: &Command) -> super::super::Result<Vec<(Key, bool)>> {
+    Ok(match command {
+        Command::BeginAllocation { reservation, .. }
+        | Command::BeginPublication { reservation, .. }
+        | Command::BeginRetention { reservation, .. }
+        | Command::BeginHandoff { reservation, .. }
+        | Command::Finish { reservation }
+        | Command::RetireClosed { reservation } => vec![(reservation.clone(), true)],
+        Command::CompleteAllocation { allocation, .. }
+        | Command::SettleRetention { allocation, .. }
+        | Command::SettleHandoff { allocation, .. }
+        | Command::BeginCleanup { allocation, .. } => vec![(allocation.clone(), true)],
+        Command::SettleFootprint { allocation, .. } => vec![
+            (allocation.clone(), true),
+            (cleanup_key(allocation)?, false),
+        ],
+        Command::CompleteCleanup { allocation, .. } => {
+            vec![(allocation.clone(), true), (cleanup_key(allocation)?, true)]
+        }
+        Command::Observe { probe, .. } => vec![(probe.clone(), true)],
+        Command::ObserveClock { .. }
+        | Command::Reserve { .. }
+        | Command::BeginProbe
+        | Command::Invalidate => vec![],
+    })
+}
+fn inputs(
+    request: &Request,
+    outputs: &BTreeMap<String, Output>,
+    index: &Index,
+    nodes: &mut impl NodeStore,
+) -> Result<BTreeMap<String, Output>> {
+    let mut selected = BTreeMap::new();
+    for (key, required) in dependencies(&request.command)? {
+        let output = match outputs.get(key.as_str()) {
+            Some(output) => Some(output.clone()),
+            None => index.execution_input(&key, nodes, ReadLimits::default())?,
+        };
+        if let Some(output) = output {
+            selected.insert(key.as_str().into(), output);
+        } else if required {
+            return Err(Error::Journal(LedgerError::InvalidReference));
+        }
+    }
+    Ok(selected)
+}
+struct Replayed {
+    model: CapacityDomain,
+    outputs: BTreeMap<String, Output>,
+    checkpoint: Checkpoint,
+    bytes: u64,
+    clock: ClockState,
+    metrics: TreeMetrics,
+}
+fn replay(
+    base: Base,
+    snapshot: Snapshot,
+    nodes: &mut impl NodeStore,
+    limits: TreeLimits,
+) -> Result<Replayed> {
+    if snapshot.identity.base != base.data.source
+        || snapshot.identity.generation != base.data.generation
+        || snapshot.identity.authority != base.data.source.genesis
+    {
+        return Err(Error::Invalid);
+    }
+    let index = Index::from_roots(
+        base.data.config.clone(),
+        base.data.source.clone(),
+        base.data.operations,
+        base.data.sequences,
+    )?;
+    let mut port = BudgetPort::new(nodes, limits)?;
+    let mut model = base.model;
+    let mut clock = ClockState {
+        enabled: base.data.config.clock.is_some(),
+        high: base.data.clock_high,
+    };
+    let mut outputs = BTreeMap::new();
+    let mut current = base.data.source;
+    let required = match base.tail {
+        TailRequirement::BaseVerified => None,
+        TailRequirement::AtLeast(cp) => Some(cp),
+    };
+    let mut minimum_proven = required.is_none();
+    for row in snapshot.rows {
+        let request: Request = decode(&row.body)?;
+        if row.sequence != current.sequence.checked_add(1).ok_or(Error::Budget)?
+            || row.operation != request.operation
+            || row.previous != current.hash
+            || event_hash(row.sequence, &row.previous, &request)? != row.hash
+            || outputs.contains_key(request.operation.as_str())
+        {
+            return Err(Error::Invalid);
+        }
+        if index
+            .inspect(&request.operation, &mut port, ReadLimits::default())?
+            .is_some()
+        {
+            return Err(Error::Journal(LedgerError::Conflict));
+        }
+        let selected = inputs(&request, &outputs, &index, &mut port)?;
+        let output = execute(&mut model, &selected, &request, &clock)?;
+        clock.advance(&output);
+        current.sequence = row.sequence;
+        current.hash = row.hash;
+        if required.as_ref() == Some(&current) {
+            minimum_proven = true;
+        }
+        outputs.insert(request.operation.as_str().into(), output);
+    }
+    if current != snapshot.head {
+        return Err(Error::Invalid);
+    }
+    if !minimum_proven {
+        return Err(Error::Journal(LedgerError::Rollback));
+    }
+    model.invalidate_observation();
+    Ok(Replayed {
+        model,
+        outputs,
+        checkpoint: current,
+        bytes: snapshot.bytes,
+        clock,
+        metrics: port.used(),
+    })
+}
+
+/// Read-only adapter: the control/archive/seal/admission gates are still absent.
+fn read_tail(
+    base: Base,
+    control: &ActiveControl,
+    conn: &mut Connection,
+    nodes: &mut impl NodeStore,
+    limits: TreeLimits,
+) -> Result<Replayed> {
+    control.validate()?;
+    if base.data.source != control.seal.intent.source
+        || base.data.generation != control.preparation.tail.generation
+        || Object::from_bytes(&base.data.to_json()?) != control.preparation.data
+        || base.data.predecessor != control.seal.intent.predecessor
+    {
+        return Err(Error::Invalid);
+    }
+    let snapshot = collect(conn, &control.preparation.tail)?;
+    let expected = (snapshot.head.clone(), snapshot.bytes);
+    let replayed = replay(base, snapshot, nodes, limits)?;
+    // No node-provider IO during either transaction. A changed peer is explicit
+    // conflict; a failed read consumes the staged model instead of adopting it.
+    let tx = conn.transaction()?;
+    schema(&tx)?;
+    if header(&tx)? != control.preparation.tail || head(&tx, &control.preparation.tail)? != expected
+    {
+        return Err(Error::Journal(LedgerError::Conflict));
+    }
+    tx.commit()?;
+    Ok(replayed)
+}
+
+#[cfg(test)]
+mod tests;

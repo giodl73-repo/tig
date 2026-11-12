@@ -347,3 +347,45 @@ transaction released before actual peer commit, changed-head refusal, read-only
 physical metadata reopen and independent prefix vectors. Both full segments and
 joined write/rotation/recovery/old-writer/source-provider-witness remain owed.
 Producer lenses pass_with_risk for this entry; all implementation/checks pending.
+
+## Existing-ledger method audit for joined integration
+
+Audited ledger.rs at401dcd6; private tail replay is not these method integrations.
+Do not route only new writes while leaving old-result status on the tail map.
+
+| Existing method family | Continued-mode obligation |
+| --- | --- |
+| create/create_clock/open | Preserve explicit legacy enrollment; continued admission needs its independent minimum and qualified metadata/control/source/tail checks. No automatic initialization, format migration or public partial activation. |
+| identity/checkpoint | Original genesis and cached checkpoint remain stable references, not proof of current control, authority or freshness. |
+| reserve/begin_allocation/complete_allocation/begin_probe/observe/finish/invalidate/retire_closed | Route every command through bounded tail synchronization, exact old own-operation retry or proven absence, bounded typed inputs and pure SQL CAS; preserve original response/hash and conflicting-request refusal. |
+| begin_publication/settle_footprint/begin_retention/settle_retention/begin_handoff/settle_handoff/begin_cleanup/complete_cleanup/observe_clock | Same command route; original typed allocation/binding/cleanup/clock checks apply even when their dependencies predate the current tail. |
+| publication_status/retention_status/handoff_status | Resolve original allocation kind/ticket/binding, then current core outcome or a selected paged retired outcome. Some(0), unknown in-flight and absent/missing proof remain distinct. |
+| publication_status/cleanup_status | Lookup original cancellation operation even when outside the tail; proven absent cleanup is different from missing/corrupt metadata. Preserve Cancelled and exact reviewed binding checks. |
+| allocation_reference/handoff_reference/publication_reference | Resolve original or tail operation and preserve each API's existing wrong-kind/absence errors; do not treat a failed point proof as None. |
+| retirable_reservations | Use bounded current closed tokens, verify selected original reservation identity/owner/generation, and return exact JournalRefs. Never scan the lifetime output index or rebuild a lifetime output map. |
+| allocation_state | Select exact retirement key and paged original outcome when retired; do not fully materialize old RetiredReservation histories. Validate the original allocation ticket before reporting any old zero. |
+| clock_enrollment/clock_high_water/observe_clock | Original Config/clock policy and monotonic high persist across generations; exact old replies do not create fresh native-time authority. Stage clock high together with model and output adoption. |
+| accounting/check_history/last_replay_count | Bounded unseen tail replay and exact current head; accounting samples remain invalid after reopen, replay count is local unseen work. No archive IO inside an SQL transaction. |
+| begin_fresh_probe | Clear existing handle freshness first; an exact old BeginProbe retry remains NeedsProbe. Do not convert historical ProbeEvidence to a live ticket. |
+
+The current read-only adapter invalidates observations after full reopen replay.
+An eventual already-open writer must synchronize only unseen tail work against its
+current staged model, retaining the existing invocation freshness semantics rather
+than resetting every command or renewing a peer's sample. Stage model/outputs/clock
+and checkpoint/bytes consistently; changed head/control or uncertain commit adopts
+none and poisons uncertain handles. The fixed SQL source guards must fence rotation
+after the caller's last filesystem/control guard. This audit is design evidence;
+every family still needs actual public-method cross-generation fixtures, including
+retired allocation status and provider/source/witness callers, before integration.
+
+Joined preparation budget gate ST-04: individually qualified components are not a
+qualified sum. Observed separate full-case replay147040227 read bytes plus index
+append446696246 exceed512MiB if naively combined; their workloads differ, so this
+is not an executed joined failure. Before controller implementation, run the exact
+same real tail through replay, archived-output capture, both index edits, ancestry
+and working-state/Data preparation with one remaining logical budget. Include
+SQL row/body and base-read work; abort on refusal rather than resetting counters.
+Do not enlarge ceilings or hide repeated reads in a new provider cache. A later
+design may avoid duplicate absence/type proofs using bound private staged results,
+but such results cannot expose a writable handle or provider permission before
+all source/head/index/state proofs succeed. Freeze that design before code.

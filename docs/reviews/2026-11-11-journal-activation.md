@@ -574,3 +574,70 @@ Runtime/reader0cd978e is committed/pushed on draft PR60, which now describes the
 checked-context/base-reader scope and unresolved joined gates. Exact43143282830
 queued; broad d29 detached44636 remains at standalone after default workspace and
 strict pass. Derive final documentation head/its hosted checks independently.
+
+Private SQL-tail entry, contractabdab3a/input401dcd6, same frozen controls/profiles:
+existing meta/events shape plus exact canonical TailIdentity header and three
+immutable header guards. This distinguishes even empty prepared generations.
+Collect bounded SQL rows, close the transaction, resolve original typed inputs
+using the shared index meter, replay with existing execute, check deferred minimum
+and revalidate exact SQL header/head/bytes. Only local-tail outputs remain in RAM;
+per-command dependency scratch is bounded. Historical probes have no conversion,
+and final replay invalidates old free-space samples/pending tickets. This remains
+cfg(test), read-only, without source seal/control freshness/physical admission.
+
+2804 TERMINAL0:17 short tests2.70s, actual original complete/finish requests produce
+identical continued SQL hashes and accounting; prior cleanup cancels settlement;
+old probe/type/operation reuse holds; deferred exact prefix and malformed/budget
+rows hold. A real peer commits on the first provider read and final revalidation
+conflicts, proving the original reader transaction was released before node IO.
+One unused test import is removed. Producer inspection then found/repaired missing
+exact Base/Data-object rebinding protection and character-count SQL field bounds;
+new fixtures use encoded byte lengths before Rust field copies. Clock continuity
+and those negatives are added; final short20 pass3.43s on that corrected source.
+
+Owned46516 pins all Rust/TOML/lock source and runs short/full actual SQL/index8/
+strict/fmt from external successor-sql-tail-da3822c7bfe44a9b81f296f5f5c208aa.
+Maximum/subsequent outcomes pending. The maximum must use a real full original16384
+journal plus a physically committed local SQL tail16384, not immutable records.
+It does not establish an actual public continued writer or either rotation/seal.
+Implementation candidate only; final verification/scoped validation/trace/producer
+closeout pending. Shared metadata admission JC-02, full controller/recovery/source/
+provider/witness/expiry and all full-product gates remain OPEN.
+
+46516 TERMINAL0/reaped: short20, full actual SQL maximum1 (359.16s), index8,
+strict29.98s and fmt all.exit0; source pins pass. Maximum reaches32768 global/
+16384 local with351309 metadata reads/147040227 bytes,0 writes,1021129 local body
+bytes. These are replay IO/body counts, not physical quota, admission or reclaim.
+
+Producer finding ST-03, major, owner Tig maintainers: WHERE name NOT LIKE sqlite_%
+uses wildcard underscore and hides a user sqlitex_intruder table. Independent
+in-memory SQLite counterexample returns old=[] versus literal GLOB=[intruder].
+Resolved before final qualification with NOT GLOB sqlite_* and actual Rust/SQLite
+extra-schema refusal. ST-01 Base/Data-object rebinding and ST-02 encoded byte
+bounds also have their focused negatives. No lint suppression or cap increase.
+
+Final42044 TERMINAL0/reaped: every complete/short/maximum/index/strict/fmt.exit0;
+all Rust/TOML/lock source paths/raw hashes checked before phases and completion.
+External successor-sql-tail-final-108d7039689444c4a49b076452d7379d. Short21 pass3.44s;
+maximum273.27s with identical read/body counts and explicit original reservation
+still active, old allocation Some(50) and original completion sequence1. Strict
+core/store all-target16.98s and fmt pass. Source has no Cargo dependency changes.
+
+Separate closure: implementation PASS for private immutable header/SQL snapshot/
+bounded typed replay; verification PASS for named vectors/negative/clock/cleanup/
+peer/full-cap cases; scoped synthetic physical SQL+metadata validation PASS; trace
+PASS in this record/spec/method audit. Six producer lenses PASS_WITH_RISK: exact
+original authority/header/Data identities; no placement grant; held state without
+custody/removal claim; released SQL transaction and changed-head conflict; bounded
+metadata-only IO/no provider paths; unchanged original command hashes/limits.
+These checklists are not independent/human approval. Full continued public methods,
+writer CAS/poisoning, activation/recovery/control/seal/admission and all product
+gates remain OPEN. Existing public-method audit names their required behaviors.
+
+ST-04, major/open, owner Tig maintainers: joined preparation must meter replay,
+archived output capture, both indexes, working state/SQL rows/ancestry together.
+Separate observed maxima147040227 replay bytes plus446696246 index-append bytes
+exceed512MiB if naively combined. Their workloads differ, so this comparison is
+a risk finding rather than an executed joined failure. Next exact same-workload
+fixture must enforce one remaining budget without repeated proofs/caches/cap
+waivers. JC-02 physical metadata admission remains separately open even if it fits.

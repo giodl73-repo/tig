@@ -58,6 +58,10 @@ two earlier full failures remain recorded. New-source broader qualification and
 actual successor SQL/control/ancestry/minimum/recovery remain required. Controller
 review also requires digest-addressed prior controls and genuine metadata capacity
 admission for full sources; index bounds alone do not grant that admission.
+The private read-only SQL-tail adapter now qualifies a real full original16384
+journal plus a physically committed16384-row tail, retaining old active state and
+completion outcomes. Shared preparation-budget composition, public-method routing,
+actual continued writes/rotations and genuine metadata admission remain required.
 
 Next continuation input: [original ledger history](specs/LEDGER-HISTORY.md) must
 preserve exact original requests/replies and typed dependencies in bounded immutable

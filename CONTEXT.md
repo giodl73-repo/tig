@@ -38,7 +38,12 @@ missing nodes, canonical vectors and shared budgets. Above-base minima remain
 explicit unverified tail requirements. Index8/history8/checkpoint3 regressions pass;
 strict flagged a redundant unit expression, fixed without a semantic change.
 Owned13720 is terminal0 for final pinned records/strict/fmt; see RESUME. The
-separate activation target is free. Broader qualification remains source-specific.
+private SQL-tail replay (precontractabdab3a) now passes final42044: short21, real
+full original16384 plus SQL tail16384, index8, strict/fmt and pinned source checks.
+The separate activation target is free. Full replay retains active state/old50-byte
+completion, with351309 metadata reads/147040227 bytes and0 writes. This is not
+an activated writer or full rotation. Joined budget composition and physical
+admission still need proof; do not add individually passing maxima as one pass.
 No public seal-only operation or cap waiver. Provider/source/witness continuation
 and separately authorized detail expiry remain required; replay fences must survive.
 

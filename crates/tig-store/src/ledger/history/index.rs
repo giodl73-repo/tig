@@ -9,7 +9,7 @@ fn sequence_path(sequence: u64) -> Result<LogicalPath> {
     LogicalPath::parse(&format!("seq/{sequence:020}")).map_err(|_| Error::Invalid)
 }
 
-fn build_limits() -> TreeLimits {
+pub(in crate::ledger) fn build_limits() -> TreeLimits {
     TreeLimits {
         max_entries: u32::MAX as usize,
         max_reads: 2_000_000,
@@ -20,7 +20,7 @@ fn build_limits() -> TreeLimits {
     }
 }
 
-struct BudgetPort<'a, S> {
+pub(in crate::ledger) struct BudgetPort<'a, S> {
     nodes: &'a mut S,
     limits: TreeLimits,
     used: Rc<Cell<tree::TreeMetrics>>,
@@ -29,7 +29,7 @@ struct BudgetPort<'a, S> {
 // This meter is per operation, not a cache or persistent authority. Pure proof
 // writes and overlay work invisible to the provider are charged after each phase.
 impl<'a, S> BudgetPort<'a, S> {
-    fn new(nodes: &'a mut S, limits: TreeLimits) -> Result<Self> {
+    pub(in crate::ledger) fn new(nodes: &'a mut S, limits: TreeLimits) -> Result<Self> {
         let max = build_limits();
         if limits.max_entries > max.max_entries
             || limits.max_reads > max.max_reads
@@ -53,7 +53,7 @@ impl<'a, S> BudgetPort<'a, S> {
             used: self.used.clone(),
         }
     }
-    fn used(&self) -> tree::TreeMetrics {
+    pub(in crate::ledger) fn used(&self) -> tree::TreeMetrics {
         let used = self.used.take();
         self.used.set(used.clone());
         used
@@ -257,7 +257,7 @@ impl Index {
             meter.metrics(),
         ))
     }
-    fn inspect(
+    pub(in crate::ledger) fn inspect(
         &self,
         operation: &Key,
         nodes: &mut impl NodeStore,
@@ -287,6 +287,36 @@ impl Index {
             request: encode(&item.request)?,
             output: item.output,
             metrics: meter.metrics(),
+        }))
+    }
+    /// Exact typed input for pure continued replay; never rehydrate a probe or
+    /// materialize a retired history. Their historical APIs remain separate.
+    pub(in crate::ledger) fn execution_input(
+        &self,
+        operation: &Key,
+        nodes: &mut impl NodeStore,
+        limits: Limits,
+    ) -> Result<Option<Output>> {
+        let Some(found) = self.inspect(operation, nodes, limits)? else {
+            return Ok(None);
+        };
+        Ok(Some(match found.output {
+            ArchivedOutput::Reservation { token } => Output::Reservation(token.token()?),
+            ArchivedOutput::Allocation { ticket } => Output::Allocation(ticket.ticket()?),
+            ArchivedOutput::Publication { ticket, binding } => Output::Publication {
+                ticket: ticket.ticket()?,
+                binding,
+            },
+            ArchivedOutput::Retention { ticket, binding } => Output::Retention {
+                ticket: ticket.ticket()?,
+                binding,
+            },
+            ArchivedOutput::Handoff { ticket, binding } => Output::Handoff {
+                ticket: ticket.ticket()?,
+                binding,
+            },
+            ArchivedOutput::Cleanup { reviewed } => Output::Cleanup { reviewed },
+            _ => return Err(Error::Journal(LedgerError::InvalidReference)),
         }))
     }
     fn retired_outcome(
